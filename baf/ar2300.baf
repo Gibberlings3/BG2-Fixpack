@@ -23,3 +23,11 @@ THEN
   RESPONSE #100
     ActionOverride("treasury",DestroyItem("miscbi"))
 END
+
+IF // close CoC exploit
+  Global("CDMoveSah","AR2300",0)
+THEN
+  RESPONSE #100
+    ActionOverride("sahchf02",MoveToPoint([3787.2500]))
+    SetGlobal("CDMoveSah","AR2300",1)
+END

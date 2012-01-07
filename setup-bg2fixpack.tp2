@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.01~
+VERSION ~v9.02~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -18128,35 +18128,35 @@ COPY_EXISTING ~beguile.spl~  ~override~ // beguiling gaze (demogorgon)
               ~demochm.spl~  ~override~ // demonic charm (demogorgon)
               ~spcl311.spl~  ~override~ // ranger charm animal
               ~spcl641.spl~  ~override~ // charm person or animal (unused?)
-              ~spcl751a.spl~ ~override~ // used as bard song for HELL_PRIDE_EVIL
+//            ~spcl751a.spl~ ~override~ // bard song (Jester kit)
               ~spin108.spl~  ~override~ // charm animal (elminster version)
               ~spin119.spl~  ~override~ // charm person (elminster version)
               ~spin553.spl~  ~override~ // nalmissra innate charm
               ~spin558.spl~  ~override~ // erinyes charm
-              ~spin775.spl~  ~override~ // psionic mind blast
-              ~spin802.spl~  ~override~ // mind cripple
+//            ~spin775.spl~  ~override~ // psionic mind blast
+//            ~spin802.spl~  ~override~ // mind cripple
               ~spin883.spl~  ~override~ // vampire domination
-              ~spin910.spl~  ~override~ // psionic domination
-              ~spin937.spl~  ~override~ // mephit color spray
-              ~spin940.spl~  ~override~ // mephit stinking cloud
+//            ~spin910.spl~  ~override~ // psionic domination
+//            ~spin937.spl~  ~override~ // mephit color spray
+//            ~spin940.spl~  ~override~ // mephit stinking cloud
               ~spin966.spl~  ~override~ // troll sleep
-              ~spin975.spl~  ~override~ // mind flayer domination
+//            ~spin975.spl~  ~override~ // mind flayer domination
               ~spin980.spl~  ~override~ // beholder charm person
               ~spin985.spl~  ~override~ // beholder domination
               ~sppr102.spl~  ~override~ // command
               ~sppr204.spl~  ~override~ // charm person or mammal
-              ~sppr405.spl~  ~override~ // mental domination
+//            ~sppr405.spl~  ~override~ // mental domination
               ~sppr512.spl~  ~override~ // greater command
               ~sppr982.spl~  ~override~ // dire charm (trap)
-              ~spwi004.spl~  ~override~ // stinking cloud (trap)
+//            ~spwi004.spl~  ~override~ // stinking cloud (trap)
               ~spwi104.spl~  ~override~ // charm person
-              ~spwi105.spl~  ~override~ // color spray
+//            ~spwi105.spl~  ~override~ // color spray
               ~spwi116.spl~  ~override~ // sleep
-              ~spwi213.spl~  ~override~ // stinking cloud
+//            ~spwi213.spl~  ~override~ // stinking cloud
               ~spwi316.spl~  ~override~ // dire charm
-              ~spwi411.spl~  ~override~ // emotion
+//            ~spwi411.spl~  ~override~ // emotion
               ~spwi506.spl~  ~override~ // domination
-              ~spwi711.spl~  ~override~ // sphere of chaos
+//            ~spwi711.spl~  ~override~ // sphere of chaos
               ~spwi929.spl~  ~override~ // succubus charm male
               ~spwi930.spl~  ~override~ // succubus charm female
               ~spwi943.spl~  ~override~ // sirine dire charm
@@ -18484,7 +18484,7 @@ COPY_EXISTING ~spcl132.spl~  ~override~ // 25%, spell failure icon
 
 COPY_EXISTING ~spcl212.spl~ ~override~ // detect evil (paladin innate)
               ~spin120.spl~ ~override~ // detect evil (bhaalspawn innate)
-              ~spin696.spl~ ~override~ // moon dog sight
+//            ~spin696.spl~ ~override~ // moon dog sight
               ~sppr104.spl~ ~override~ // detect evil (cleric spell)
               ~spwi202.spl~ ~override~ // detect evil (mage spell)
   READ_LONG   0x64 "abil_off"
@@ -18813,6 +18813,7 @@ COPY_EXISTING ~spcl521.spl~ ~override~
 COPY_EXISTING ~spcl521.spl~  ~override/spcl521d.spl~
               ~spcl741.spl~  ~override/spcl741d.spl~
   PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
+    SAY NAME1 #-1 SAY NAME2 #-1 // erase the name of the secondary spells to prevent feedback duplication
     WRITE_ASCIIT  0x10   ~~  // completion sound
     WRITE_SHORT   0x22  0x00 // casting graphics
     READ_LONG     0x64  "ho"
@@ -31018,6 +31019,60 @@ COPY_EXISTING sppr613.spl override
       END
     END
   END
+
+// Undead creatures are erroneously immune to Lightning Bolt instead of Hold Person (aVENGER)
+
+COPY_EXISTING ~ring95.itm~ ~override~ // undead immunity ring
+PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN // file size sanity check
+READ_LONG   0x6a "fx_off"
+READ_SHORT  0x70 "fx_num"
+  FOR (index = 0; index < fx_num; index = index + 1) BEGIN
+    READ_SHORT ("%fx_off%" +        ("%index%" * 0x30)) "opcode"
+    READ_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "resref"
+    PATCH_IF (("%opcode%" = 206) AND ("%resref%" STRING_EQUAL_CASE ~SPWI308~)) BEGIN // Lightning Bolt
+      WRITE_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "SPWI306" #8 // Hold Person
+    END
+  END
+END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Illusionary Werewolves should not damage characters who are unarmed or wielding ranged weapons (aVENGER)
+
+COPY_EXISTING ~illusion.itm~ ~override~                                               // Illusionary Werewolf weapon
+READ_LONG 0x64 abil_off
+READ_SHORT 0x68 abil_num
+READ_LONG 0x6a fx_off
+  FOR (i = 0; i < "%abil_num%"; i += 1) BEGIN                                         // parse each ability
+    READ_BYTE (%abil_off% + %i% * 0x38) abil_type                                     // read ability type
+    PATCH_IF (%abil_type% = 1) BEGIN                                                  // only patch the melee ability header
+      WRITE_SHORT ("%abil_off%" + 0x1c) 0                                             // damage type (None)
+      WRITE_SHORT ("%abil_off%" + 0x16) 0                                             // damage dice
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// All trolls should have their hit points set to 1 after getting knocked down (aVENGER)
+
+COPY_EXISTING ~dgtrol02.bcs~ ~override~ // Druid Grove trolls that are fighting some adventurers
+               ~troll03.bcs~ ~override~ // small trolls which emerge out of a bigger one on the first floor of de'Arnise Keep
+              ~firamb05.bcs~ ~override~ // the troll fighting the werewolf captain in Firkraag's lair
+DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~PlayDead(150)~ ~ApplySpell(Myself,TROLL_SETHP1) PlayDead(150)~
+  REPLACE_TEXTUALLY EXACT_MATCH ~PlayDead(300)~ ~ApplySpell(Myself,TROLL_SETHP1) PlayDead(300)~
+COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+
+
+// The Spellhold Asylum door should be unlocked and opened once (aVENGER)
+
+COPY_EXISTING ~ar1500.bcs~ ~override~
+DECOMPILE_BCS_TO_BAF
+  REPLACE_TEXTUALLY EXACT_MATCH ~GlobalGT("AsylumPlot","GLOBAL",55)~ ~GlobalGT("AsylumPlot","GLOBAL",55) Global("RR#Door1501","AR1500",0)~
+  REPLACE_TEXTUALLY EXACT_MATCH ~Unlock("Door1501")~ ~SetGlobal("RR#Door1501","AR1500",1) Unlock("Door1501")~
+COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
 
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
