@@ -1,0 +1,545 @@
+  @0 = ~BG2 Fixpack - Arreglos del nucleo~
+  @1 = ~BG2 Fixpack - Textos del juego actualizados~
+  @2 = ~Opcional, pero mola~
+  @3 = ~Pack de modders super divertido, afortunado y feliz~
+  @4 = ~Este proceso puede llevar algo de tiempo...~
+  @5 = ~Este componente no esta disponible en tu idioma.~
+  @6 = ~El grupo recibe experiencia al enviar a Keldorn a reconciliarse con Maria~
+  @7 = ~Animaciones de hechizos mejoradas~
+  @8 = ~El forjado de los objetos de Cromwell tarda un dia~
+  @9 = ~Arreglos en los diversos usos de las dagas~
+ @10 = ~Arreglos en el simbolo sagrado por Ghreyfain~
+ @11 = ~Este componente requiere la expansion Throne of Bhaal~
+ @12 = ~Las busquedas adicionales de los heroes en Caravasar aparecen cuando los nombran como tales~
+ @13 = ~Los gigantes reciben penalizadores al atacar a medianos, enanos y gnomos~
+ @14 = ~Eliminar las restricciones a clases duales de arqueros y acechadores~
+ @15 = ~Eliminar la bonificacion de atributo secundario para la senda malvada en la prueba de la Ira, en el Infierno~
+ @16 = ~Comportamiento de los demonios convocados corregido~
+ @17 = ~Arreglos adicionales de codigo~
+ @18 = ~Arreglos en la Cancion del bardo~
+ @19 = ~Los asesinos de magos causan fallo de conjuro en los ataques a distancia~
+ @20 = ~Arreglos del nucleo BETA. (Por favor, consulta el LEEME)~
+ @21 = ~Arreglos adicionales en los alineamientos~
+ @22 = ~Este componente esta desactualizado~
+ @23 = ~Modificar Libertad de movimiento para que proteja contra el atontamiento~
+ @24 = ~Las garras de los transfiguradores no pueden ser disipadas~
+ @25 = ~Modificar el efecto de los conjuros Simulacro, Proyectar imagen y Doble engañoso~
+
+@100 = ~Bueno, casi no estaba escuchando, así que de todas formas no os preocupéis. Concentrémonos en matar al próximo orco que veamos.~
+@101 = ~Lo haré, jaluk. Y cuando le aplaste el cráneo, ¿no os molestará que os imagine con esos rasgos porcinos, hm?~
+@102 = ~Cuando se le pregunta por su pasado, IMOEN os palmea juguetonamente la espalda y dice que vos mejor que nadie deberíais saberlo, teniendo en cuenta que habéis crecido juntos. De hecho, algunos de vuestros más gratos recuerdos son de los ratos pasados con esta alegre jovencita. Al parecer llegó a Candelero como vos, aunque diez años más tarde y ha pasado más tiempo con el gruñón de Winthrop que con Gorion. "Pedorretas" le solía llamar, para disgusto del viejo posadero.
+Parece la eterna niña y le divierte jugar a ser la hermana pequeña, aunque ambos tenéis prácticamente la misma edad. Por su cálida sonrisa podéis adivinar que siempre viajará con vos, sin que le importe el camino que toméis.~ ~Cuando se le pregunta por su pasado, IMOEN os palmea juguetonamente la espalda y dice que vos mejor que nadie deberíais saberlo, teniendo en cuenta que habéis crecido juntas. De hecho, algunos de vuestros más gratos recuerdos son de los ratos pasados con esta alegre jovencita. Al parecer llegó a Candelero como vos, aunque diez años más tarde y ha pasado más tiempo con el gruñón de Winthrop que con Gorion. "Pedorretas" le solía llamar, para disgusto del viejo posadero.
+Parece la eterna niña y le divierte jugar a ser la hermana pequeña, aunque ambas tenéis prácticamente la misma edad. Por su cálida sonrisa podéis adivinar que siempre viajará con vos, sin que le importe el camino que toméis.~
+@103 = ~¡Habéis cometido vuestro último error de juicio!~ [SILVER19]
+@104 = ~¡Llegó vuestra hora!~ [SILVER18]
+@105 = ~¡Saludos de nuevo! ¿Habéis venido aquí por negocios, o solo para palpar la fértil belleza de la naturaleza?~ [CERND79]
+@106 = ~Esta es la cruel arma utilizada por Neb. Está cubierta de sangre seca y embadurnada con un veneno extremadamente mortal que actúa con rapidez. Solo un ser realmente maligno se atrevería a utilizar este objeto. Una vez que el veneno se ha gastado, la Cortadora de Neb actúa como una daga encantada normal.
+
+CARACTERÍSTICAS:
+
+Daño: 1D4 +2
+THAC0: +2
+Tipo de daño: Perforante
+Peso: 1 lbs
+Factor de velocidad: 0
+Talento marcial: Daga
+Tipo: A una mano
+No permitido a:
+ Clérigo
+ Alineamientos no malvados~
+@107 = ~Tan solo aseguraos de que tenéis ácido o fuego a vuestra disposición. Los trolls no morirán con otra cosa. Que los dioses os bendigan.~
+@108 = ~Tomad estas flechas. Pueden seros de ayuda.~
+@109 = ~Habéis venido por algún motivo. Decídmelo.~ [SILVER14]
+@110 = ~No esperaba gente como vos.~ [SILVER12]
+@111 = ~Bienvenido ante mi presencia.~ [SILVER11] ~Bienvenida ante mi presencia.~ [SILVER11]
+@112 = ~Ya os veo.~ [SILVER13]
+@113 = ~No caeré aquí... ¡hoy no!~ [SILVER22]
+@114 = ~No podéis lanzar este hechizo hasta que no se haya agotado el conjuro actual.~
+@115 = ~Espada larga +1 flamígera~
+@116 = ~Maza +3~
+@117 = ~Mangual +3~
+@118 = ~Espada larga +3~
+@119 = ~Espada corta +3~
+@120 = ~Puño +1~
+@121 = ~Puño +2~
+@122 = ~Puño +3~
+@123 = ~Puño +4~
+@124 = ~Katana de Yoshimo +1~
+@125 = ~Mayal de las Edades +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~Por los dioses... Más encapuchados o sus sirvientes, sin duda. ¡Por todos los dioses, juro que no viviréis para llevarme a esa maldita esfera!~ [VALYGA01]
+@128 = ~Símbolo sagrado de Bervan~
+@129 = ~Solo los más fieles y devotos sirvientes de la Hoja Enmascarada pueden llevar estos poderosos símbolos.
+
+CARACTERÍSTICAS:
+
+   Proporciona un hechizo adicional de nivel 6 y 7
+   5% de resistencia a la magia
+   +1 a la Fuerza
+
+Permitido a:
+ Clérigos buenos~
+@130 = ~Símbolo Sagrado de Shar~
+@131 = ~Sólo los más fieles y devotos sirvientes de la Cantante Nocturna pueden llevar estos poderosos símbolos.
+
+CARACTERÍSTICAS:
+
+   Proporciona un hechizo adicional de nivel 6 y 7
+   5% de resistencia a la magia
+   +1 a la Fuerza
+
+Permitido a:
+ Clérigos malvados~
+@132 = ~(El hombre os mira con los ojos en blanco). Solo sirvo al amo Mekrath.~ [HAERDA95]
+@133 = ~¡Por las barbas de tía Petunia! ¿Un fantasma del pasado? ¿Queriendo comprar unos nabos, quizás?~ [JANJAN67]
+@134 = ~¡Deteneos! ¿Quién se acerca? Sois... sois el Hijo de Bhaal, ¿no es así? ¿Aquel de quien Joneleth... Jon... se jactaba de haber arrebatado el poder? ¡Él afirmó que había acabado con vos!~ [ELLESI02]
+~¡Deteneos! ¿Quién se acerca? Sois... sois la Hija de Bhaal, ¿no es así? ¿Aquél de quien Joneleth... Jon... se jactaba de haber arrebatado el poder? ¡Él afirmó que había acabado con vos!~ [ELLESI02]
+
+
+@135 = ~Esta daga arrojadiza está imbuida con fuego mágico, y supuestamente se talló a partir de un diente extraído a un dragón rojo. Los chismorreos de taberna sugieren que la bestia aún está viva y que su ira alimenta el encantamiento del arma. Aunque imaginativa, la historia es coherente, y se dice que la daga regresa al lanzador "como si tuviera alas".
+
+CARACTERÍSTICAS:
+
+Aptitudes de combate: La daga retorna al lanzador
+Daño: 1D4 +3, 1D2 de daño de fuego
+GAC0: +3
+Tipo de daño: Proyectil (perforante)
+Peso: 1 lbs
+Factor de velocidad: 1
+Talento marcial: Daga
+Tipo: A una mano
+Requiere: Fuerza 3
+No permitido a:
+ Clérigo~
+
+@136 = ~Destruyeconjuros (Abjuración, Alteración)
+Nivel: 9
+Alcance: rango visual del lanzador
+Duración: instantáneo
+Tiempo de lanzamiento: 5
+Área de efecto: criatura objetivo
+Tirada de salvación: Ninguna
+
+DESCRIPCIÓN:
+
+Al ser lanzado contra la criatura objetivo, este efecto disipará uno de los conjuros de protección que haya en torno a ella. Los sortilegios afectados son: Retorno menor de conjuros, Globo menor de invulnerabilidad, Inmunidad a conjuros, Globo de invulnerabilidad, Desvío menor de conjuros, Retorno de conjuros, Escudo contra conjuros, Desvío de conjuros y Trampa contra conjuros. La resistencia mágica del objetivo (en caso de existir) no funcionará en lo que se refiere a este conjuro.~
+@137 = ~BERSÉRKER: Este guerrero está en armonía con su lado animal y al combatir es capaz de alcanzar un estado mental de éxtasis que le permite luchar de forma más prolongada, dura y salvaje de lo que está permitido a los humanos normales.
+
+Los bersérkers suelen ser bárbaros por naturaleza, pero no siempre es así; a veces, un guerrero decide elegir esta opción durante su entrenamiento.
+
+Sea como fuere, sus oponentes en el campo de batalla se pondrán nerviosos al ver los elementos salvajes e inhumanos de la personalidad del bersérker.
+
+Este perfil es muy común entre los enanos, a los que suele conocerse como "guerreros rabiosos".
+
+Ventajas:
+- Puede utilizar la aptitud "Rabia" una vez al día por cada 4 niveles de experiencia. Dicha aptitud dura 60 segundos.
+- Mientras dure la rabia: +2 al ataque, +2 al daño, -2 a la CA.
+- Mientras dure la rabia: encantamiento, confusión, miedo, debilidad mental, parálisis, cautiverio, consunción de nivel, laberinto, atontamiento y sueño.
+- Mientras dure la rabia: obtiene 15 puntos de golpe. Estos PG son temporales, y desaparecen al finalizar el efecto (pudiendo matar al bersérker).
+
+Desventajas:
+- Se queda sin aliento tras el ataque de rabia; mientras se encuentre en este estado, sufrirá un penalizador de -2 al ataque, -2 al daño y +2 a la Clase de Armadura.
+- No puede especializarse en armas de ataque a distancia.~
+@138 = ~BÁRBARO: el bárbaro puede ser un guerrero excelente. Aunque no sea tan disciplinado ni hábil como un combatiente normal, puede dejarse llevar voluntariamente por la furia bersérker, convirtiéndose en un oponente más fuerte y duro.
+
+Ventajas:
+-  Su factor de velocidad es 2 puntos superior al de un personaje normal.
+-  Los bárbaros son inmunes al apuñalamiento por la espalda.
+-  Pueden enfurecerse una vez al día por cada 4 niveles de experiencia que posean (empezando con un uso diario en 1er nivel). La furia bárbara les concede un +4 a la Constitución y a la Fuerza durante 5 asaltos, pero también un +2 a la Clase de Armadura y un +2 a las tiradas de salvación contra la magia (durante el mismo tiempo). También les concede inmunidad a los conjuros de encantamiento, inmovilización, miedo, laberinto, atontamiento y los relacionados con la consunción de niveles.
+-  Al alcanzar el 11º nivel, el bárbaro adquiere un 10% de resistencia al daño cortante, perforante, contundente o provocado por proyectiles. Además, obtendrá un 5% adicional en los niveles 15º y 19º.
+-  El bárbaro lanza 1d12 para determinar sus puntos de golpe en lugar de 1d10 como los guerreros.
+
+Desventajas:
+-  El bárbaro no puede utilizar armadura completa ni de placas.
+-  Tampoco tiene derecho a la especialización extraordinaria permitida a los guerreros (es decir, que sólo pueden adquirir dos casillas en un talento marcial).~
+@139 = ~El mayal es un robusto mango de madera sujeto a una barra de metal, una vara de madera con púas o una bola de hierro con pinchos. Entre el mango y la cabeza suele haber un gozne o argolla. Originalmente, esta arma fue un utensilio con el que se golpeaba el centeno para desgranarlo. Este en particular ha sido encantado.
+
+CARACTERÍSTICAS:
+
+Daño: 1D6 +3
+THACO: +2
+Tipo de daño: Contundente
+Peso: 12 lbs
+Factor de velocidad: 5
+Tipo de Talento: Mayal/Mangual
+Tipo: A una mano
+Requiere: Fuerza 13
+No permitido a:
+ Druida
+ Mago
+ Ladrón~
+@140 = ~La maza es un descendiente directo de la clava básica, no siendo más que un mango de madera con una cabeza de hierro colocada en un extremo. En este caso, la cabeza es piramidal.
+
+CARACTERÍSTICAS:
+
+Daño: 1D6 +1
+Tipo de daño: Contundente
+Peso: 10 lbs
+Factor de velocidad: 7
+Talento marcial: Maza
+Tipo: A una mano
+Requiere: Fuerza 10
+No permitido a:
+ Druida
+ Mago
+ Ladrón~
+
+@141 = ~Símbolo del miedo (Conjuración, Convocación)
+Nivel: 7
+Esfera: Guardián
+Alcance: 27 metros
+Duración: especial
+Tiempo de lanzamiento: 1 asalto
+Área de efecto: especial
+Tirada de salvación: niega efecto
+
+DESCRIPCIÓN:
+
+Símbolo del miedo es un poderoso encantamiento que permite al sacerdote inscribir un símbolo en el suelo o sobre cualquier otra superficie. El símbolo se quedará en ese lugar hasta que alguien se acerque demasiado a él, momento en que explotará, obligando a todos los que estén en el área de efecto a salvarse contra conjuro con un penalizador -4, so pena de resultar afectados por el miedo durante 2 asaltos +2 asaltos por cada 3 niveles de experiencia poseídos por el lanzador.~
+@142 = ~Parece que esta celda es el lugar utilizado por las moles sombrías para entrar en el castillo. Pueden verse varias ollas en el túnel que hay tras ella, lugar que deben emplear para comer.~
+@143 = ~Hermana, tengo una extraña petición... Aquí tengo el corazón de un hombre que murió deshonrado.~
+
+
+
+@144 = ~ASESINO DE MAGOS: Estos guerreros han sido entrenados especialmente por su secta para destacar en la caza y aniquilación de todo tipo de lanzadores de conjuros.
+
+Ventajas:
+-  Con cada golpe que logre acertar, impondrá a su víctima unas posibilidades acumulativas de 10% de fallo de conjuro.
+-  2% de resistencia mágica por nivel de experiencia.
+
+Desventajas:
+-  Los únicos objetos mágicos que podrá utilizar serán las armas y armaduras.~
+@145 = ~ASESINO DE MAGOS: Estos guerreros han sido entrenados especialmente por su secta para destacar en la caza y aniquilación de todo tipo de lanzadores de conjuros.
+
+Ventajas:
+-  Con cada golpe que logre acertar, impondrá a su víctima unas posibilidades acumulativas de 10% de fallo de conjuro.
+-  1% de resistencia mágica por nivel de experiencia hasta el nivel 20, donde alternará entre 5% y 1% en los niveles siguientes.
+
+Desventajas:
+-  Los únicos objetos mágicos que podrá utilizar serán las armas y armaduras.~
+
+// fix speed factor, originally string #176
+@146 = ~El arco largo es parecido al corto, salvo en que la vara es de la misma altura que el arquero, de 180 a 200 centímetros. Disfruta de mayor alcance que el arco corto y, por lo tanto, de mucha más precisión. El suave brazo de este arco es cálido al tacto, insinuando la energía que surge de la madera.
+
+CARACTERÍSTICAS:
+
+GAC0: Bonificador +2
+Peso: 3 lbs
+Factor de velocidad: 5
+Talento marcial: Arco largo
+Tipo de arma: A dos manos
+Requisitos: Fuerza 6
+No permitido a:
+ Druida
+ Clérigo
+ Mago
+ Ladrón~
+
+// fix speed factor, originally string #199
+@147 = ~Los arcos cortos fueron los primeros en desarrollarse, aunque no recibían este nombre. Es un término que se aplica a todo lo que no sea un arco largo. Las varas de los arcos cortos miden unos 150 centímetros de media.
+
+Este arco corto rivaliza con cualquiera largo, y su magia inherente, ya sea de la propia madera o por el conjuro de un hechicero, hace que sea más preciso y cause más daño que uno normal.
+
+CARACTERÍSTICAS:
+
+GAC0: Bonificador +2
+Peso: 2 lbs
+Factor de velocidad: 4
+Talento marcial: Arco corto
+Tipo de arma: A dos manos
+Requisitos: Fuerza 3
+No permitido a:
+ Druida
+ Clérigo
+ Mago~
+
+// fix weight, originally string #1768
+@148 = ~La armadura completa de placas es la mejor armadura que puede comprar un guerrero, tanto en aspecto como en protección. Las chapas entrecruzadas, ajustadas perfectamente, están especialmente orientadas para desviar flechas y golpes, y todo el traje está cuidadosamente adornado con ricos detalles grabados y repujados.
+
+CARACTERÍSTICAS:
+
+Clase de Armadura: -1
+Peso: 40 lbs
+Requiere: Fuerza 15
+No permitido a:
+ Bardo
+ Druida
+ Mago
+ Ladrón~
+
+// fix speed factor, originally string #2494
+@149 = ~Esta lanza, tallada usando el corazón del cadáver de un ent, hiede a muerte. Cruje un poco cuando la sujetáis en vuestras manos, como si se negara a que una cosa viva la tocara. En combate, cada golpe de esta lanza desprende un fétido veneno en el interior de su objetivo.
+
+CARACTERÍSTICAS:
+
+Daño: 1D6 +4, +4 de daño por veneno
+GAC0: Bonificador +4
+Tipo de daño: Perforante
+Peso: 5 lbs
+Factor de velocidad: 2
+Talento marcial: Lanza
+Tipo de arma: A dos manos
+Requisitos: Fuerza 5
+No permitido a:
+ Clérigo
+ Mago
+ Ladrón~
+
+// adds proper sound file, originally string #4330
+@150 = ~¡Vamos, no me dejéis aquí sufriendo! ¡Los dos hemos pasado ya por eso!~ [IMOEN20]
+
+// fix speed factor, originally string #4421
+@151 = ~Esta espada arde con un fuego mágico, liberando un chorro del mismo cada vez que golpea.
+
+En su puño está grabado "Meta Infernum", aunque parece algo borroso y podría no ser original de la espada.
+
+CARACTERÍSTICAS:
+
+Daño: 1D8 +1, +1 de daño por fuego
+GAC0: Bonificador +1
+Tipo de daño: Cortante
+Peso: 4 lbs
+Factor de velocidad: 4
+Talento marcial: Espada larga
+Tipo de arma: A una mano
+Requisitos: Fuerza 6
+No permitido a:
+ Druida
+ Clérigo
+ Mago~
+ 
+// easiest translation evar
+@152 = ~~ [MUSTR08]
+
+// wrong listed save v. death penalización por claw of kazgaroth, originally string #11848
+@153 = ~No se sabe mucho acerca de este objeto, aparte de que se tomó del cadáver de la gran bestia Kazgaroth.
+
+Otorga múltiples encantamientos, que se activan cuando se utiliza la garra como si fuera un anillo.
+
+La imagen de quien la lleva se vuelve borrosa y más difícil de alcanzar con armas o conjuros.
+
+No obstante, tiene un inconveniente: parece obtener su energía de la sangre de su portador, por lo que este será más enfermizo y susceptible al efecto de los venenos.
+
+CARACTERÍSTICAS:
+
+Clase de armadura: Bonificador +1
+Clase de armadura contra proyectiles: Bonificador +4
+Salvación contra la muerte: Penalizador -3
+Salvación contra las varitas mágicas: Bonificador +3
+Salvación contra el polimorfismo: Bonificador +3
+Salvación contra el aliento: Bonificador +3
+Salvación contra los conjuros: Bonificador +3
+Modificador de constitución: Penalizador -2~
+
+// MGoI claims that dispel magic works against it, but does not, originally string #12146
+@154 = ~Esfera menor de invulnerabilidad (Abjuración)
+Nivel: 4
+Alcance: Lanzador
+Duración: 1 asalto/nivel
+Tiempo de lanzamiento: 4
+Área de efecto: Esfera 5 pies de radio
+Tirada de salvación: Ninguna
+
+DESCRIPCIÓN:
+
+Este conjuro crea una esfera mágica inmóvil ligeramente brillante alrededor del lanzador que no puede ser atravesada por hechizos de primer, segundo ni tercer nivel (es decir, el área alcanzada por estos conjuros no incluirá el área de la esfera menor de invulnerabilidad). Ninguna otra criatura puede entrar en su interior para salvaguardarse de los conjuros; esto incluye las capacidades innatas y los efectos de artefactos. Sin embargo, se puede lanzar desde la esfera cualquier tipo de conjuro. Los sortilegios de cuarto nivel o superiores no se ven afectados por ella. La esfera puede eliminarse con un conjuro de Destruyeconjuros o Perforar magia que surta efecto.~
+// GoI claims that dispel magic works against it, but does not, originally string #8064
+@155 = ~Esfera de invulnerabilidad (Abjuración)
+Nivel: 6
+Rango: 0
+Duración: 1 asalto/nivel
+Tiempo de lanzamiento: 6
+Área de efecto: Esfera 5 pies de radio
+Tirada de salvación: Ninguna
+
+Este conjuro crea en torno al lanzador una esfera mágica, inmóvil y ligeramente brillante, que no puede ser atravesada por ningún efecto generado por conjuros de niveles 1º, 2º, 3º y 4º, incluyendo las aptitudes innatas y los efectos generados por aparatos (es decir, el área de efecto de tales conjuros no incluirá al Globo de invulnerabilidad). Sin embargo, la esfera no impide el lanzamiento de conjuro alguno desde su interior, pasando éstos desde el lanzador hasta su objetivo sin afectar en absoluto al globo. Los conjuros de nivel 5º o superior no se ven afectados por la esfera, que puede eliminarse con un lanzamiento exitoso del conjuro Destruyeconjuros o Perforar magia.~
+
+// teleport field has no saving throw, originally string #25894
+@156 = ~Campo de teletransporte (Alteración)
+Nivel: 4
+Alcance: Rango visual del lanzador
+Duración: 1 turno
+Tiempo de lanzamiento: 4
+Área de efecto: Radio de 9 metros
+Tirada de salvación: Ninguna
+
+Con este conjuro, el mago crea un efecto de teletransporte que llegará hasta donde le alcance la vista. Todas las criaturas que se encuentren en la zona serán teleportadas al azar mientras dure el sortilegio. Este conjuro resulta más útil cuando se emplea contra varios enemigos, sirviendo para confundirlos mientras el mago se concentra en activar sus defensas.~
+
+@157 = ~Por eso, recibiréis el primer botín de guerra. Coged la llave del tesoro del cadáver de Ixilthetocal, utilizadla para abrir la cámara del tesoro de la ciudad y llevaos lo que quieras.~
+@158 = ~Hoy me siento generoso... Para entrar en la Infraoscuridad, necesitaréis la cuerda mágica del cadáver del rey. Utilizadla para bajar al pozo que hay detrás de mi antiguo trono.~
+@159 = ~Encontrar familiar (Conjuración/Convocación)
+Nivel: 1
+Alcance: Rango visual del lanzador
+Duración: Especial
+Tiempo de lanzamiento: 1 turno
+Área de efecto: Un familiar
+Tirada de salvación: Especial
+
+Este conjuro permite al lanzador intentar convocar a un familiar como un ayudante y compañero que, por lo general, suele tratarse de un pequeño animal. Una criatura que haga las veces de familiar puede beneficiar al mago, transmitiéndole sus poderes sensoriales, conversando con él y sirviéndole a la vez de guardián, explorador y espía. Un mago solo puede tener un familiar a la vez, y no podrá decidir el tipo de criatura que responderá a su llamada (si es que llega a acudir alguna).
+
+La criatura siempre será más inteligente que las demás de su especie (normalmente, por 2 ó 3 puntos de Inteligencia), y su vínculo con el mago le concederá una esperanza de vida excepcionalmente larga. 
+
+El mago tiene un enlace empático con el familiar y puede generar comandos mentales. 
+
+El lanzador recibe la mitad de los puntos de golpe del familiar como bonificación. Aunque deberá cuidar de él pues, si muere, perdería la bonificación y recibiría como daño la mitad de los puntos de golpe del familiar. Además, el lanzador también perdería 1 punto de Constitución PERMANENTEMENTE.
+
+A continuación, una lista de los familiares que el jugador convocará de acuerdo a su alineamiento:
+
+NEUTRAL VERDADERO, NEUTRAL BUENO: Pseudo dragón
+Clase de armadura: -2
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 2 ataques por asalto con GAC0: 13, 1D3 de puntos de daño, debiendo salvarse contra la muerte o quedar inconsciente durante 120 segundos. Puede lanzar Contorno borroso una vez al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.
+
+LEGAL NEUTRAL: Hurón
+Clase de armadura: 0
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 75% en Robar, 40% en Esconderse en las sombras y Moverse sigilosamente y 20% en Detectar trampas. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.
+
+LEGAL MALIGNO: Diablillo
+Clase de armadura: 2
+Puntos de golpe: 18
+Resistencia mágica: 25%
+Habilidades especiales: Inmune al fuego, frío y electricidad. Puede lanzar Polimorfarse una vez al día. Regenera 1 punto de golpe/asalto.
+
+NEUTRAL: Conejo
+Clase de armadura: 1
+Puntos de golpe: 24
+Resistencia mágica: 65%
+Habilidades especiales: 50% en Detectar trampas y 30% en Esconderse en las sombras y Moverse sigilosamente. Posee una resistencia de 75% contra el fuego, frío y electricidad. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.
+
+NEUTRAL MALIGNO: Méfit de polvo
+Clase de armadura: 6
+Puntos de golpe: 24
+Resistencia mágica: 10%
+Habilidades especiales: Inmune al fuego y posee una resistencia de 50% al daño cortante, perforante y de proyectil. Puede lanzar Espolvorear partículas rutilantes una vez al día y Polvo de cristal dos veces al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.
+
+CAÓTICO BUENO: Dragón feérico
+Clase de armadura: 4
+Puntos de golpe: 24
+Resistencia mágica: 32%
+Habilidades especiales: Puede lanzar Imagen espejada e Invisibilidad, radio de 4 m. una vez al día. Inmune a la consunción de niveles, sueño y petrificación.
+
+CAÓTICO NEUTRAL: Gato
+Clase de armadura: 0
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 30% en Robar y 99% en Esconderse en las sombras y Moverse sigilosamente. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.
+
+CAÓTICO MALVADO: Quásit
+Clase de armadura: 2
+Puntos de golpe: 24
+Resistencia mágica: 25%
+Habilidades especiales: Inmune al fuego, frío y electricidad. Puede lanzar Horror y Contorno borroso una vez al día. Regenera 1 punto de golpe/asalto.~
+@160 = ~Este es vuestro familiar, un pseudo dragón que ahora se encuentra a salvo en vuestra mochila. La criatura, parecida a un lagarto, es bastante inteligente; obviamente está bien acorazada y es rápida... No hace mucho daño en combate, pero sus garras mágicas son capaces de dejar a muchos enemigos inconscientes. También es bastante resistente a los conjuros mágicos.
+
+Clase de armadura: -2
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 2 ataques por asalto con GAC0: 13, 1D3 de puntos de daño, debiendo salvarse contra la muerte o quedar inconsciente durante 120 segundos. Puede lanzar Contorno borroso una vez al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@161 = ~Este es vuestro familiar, un pseudo dragón que ahora se encuentra a salvo en vuestra mochila. La criatura, parecida a un lagarto, es bastante inteligente; obviamente está bien acorazada y es rápida.
+
+Clase de armadura: -2
+Puntos de golpe: 48
+Resistencia mágica: 50%
+Habilidades especiales: 2 ataques por asalto con GAC0: 8, 1D6 de puntos de daño, debiendo salvarse contra la muerte o quedar inconsciente durante 120 segundos. Puede lanzar Contorno borroso y Armadura fantasma una vez al día, y Detectar ilusión dos veces al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@162 = ~Este es vuestro familiar, un hurón que ahora se encuentra a salvo en vuestra mochila. El hurón es un animal muy rápido y ágil, resistente al daño físico y a los hechizos. La asombrosa habilidad del hurón para entrar casi en cualquier lugar sin ser visto lo convierte en un ladronzuelo muy útil.
+
+Clase de armadura: 0
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 75% en Robar, 40% en Esconderse en las sombras y Moverse sigilosamente y 20% en Detectar trampas. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@163 = ~Este es vuestro familiar, un hurón que ahora se encuentra a salvo en vuestra mochila. El hurón es un animal muy rápido y ágil, resistente al daño físico y a los hechizos. La asombrosa habilidad del hurón para entrar casi en cualquier lugar sin ser visto lo convierte en un ladronzuelo muy útil.
+
+Clase de armadura: -4
+Puntos de golpe: 48
+Resistencia mágica: 65%
+Habilidades especiales: 95% en Robar, 60% en Esconderse en las sombras y Moverse sigilosamente y 60% en Detectar trampas. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@164 = ~Este es vuestro familiar, un diablillo de muy mal carácter que se encuentra a salvo en vuestra mochila. El diablillo es una criatura extraña, muy rápida y bastante resistente a los conjuros. Además, tiene la habilidad de lanzar sus propios hechizos para ayudar a su amo.
+
+Clase de armadura: 2
+Puntos de golpe: 18
+Resistencia mágica: 25%
+Habilidades especiales: Inmune al fuego, frío y electricidad. Puede lanzar Polimorfarse una vez al día. Regenera 1 punto de golpe/asalto.~
+
+@165 = ~Este es vuestro familiar, un diablillo de muy mal carácter que se encuentra a salvo en vuestra mochila. El diablillo es una criatura extraña, muy rápida y bastante resistente a los conjuros. Además, tiene la habilidad de lanzar sus propios hechizos para ayudar a su amo.
+
+Clase de armadura: -2
+Puntos de golpe: 48
+Resistencia mágica: 35%
+Habilidades especiales: Inmune al fuego, frío, electricidad y a las armas normales. Puede lanzar Polimorfarse una vez al día. Su ataque provoca 1D6 de puntos de daño con veneno (salvación contra la muerte so pena de morir). Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@166 = ~Este es vuestro familiar, un conejo que ahora se encuentra a salvo en vuestra mochila. El conejo puede no ser la primera elección de un familiar, pero esta criatura es extremadamente rápida y difícil de golpear en combate. Y ha sido mejorada mágicamente para resistir el daño físico y los hechizos. El conejo también es muy bueno encontrando trampas para su amo.
+
+Clase de armadura: 1
+Puntos de golpe: 24
+Resistencia mágica: 65%
+Habilidades especiales: 50% en Detectar trampas y 30% en Esconderse en las sombras y Moverse sigilosamente. Posee una resistencia de 75% contra el fuego, frío y electricidad. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@167 = ~Este es vuestro familiar, un conejo que ahora se encuentra a salvo en vuestra mochila. El conejo puede no ser la primera elección de un familiar, pero esta criatura es extremadamente rápida y difícil de golpear en combate. Además, es muy bueno encontrando trampas para su amo.
+
+Clase de armadura: 1
+Puntos de golpe: 48
+Resistencia mágica: 65%
+Habilidades especiales: 85% en Detectar trampas, 50% en Detectar ilusión y 60% en Esconderse en las sombras y Moverse sigilosamente. Posee una resistencia de 75% contra el fuego, frío y electricidad. Puede lanzar Contorno borroso una vez al día. El conejo se mueve como si estuviera bajo el hechizo Celeridad. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@168 = ~Este es vuestro familiar, un méfit de polvo que ahora se encuentra a salvo en vuestra mochila. El méfit de polvo no es muy fuerte en combate, pero es ligeramente resistente a los ataques mágicos y tiene la aptitud de lanzar conjuros para ayudar a su amo.
+
+Clase de armadura: 6
+Puntos de golpe: 24
+Resistencia mágica: 10%
+Habilidades especiales: Inmune al fuego y posee una resistencia de 50% al daño cortante, perforante y de proyectil. Puede lanzar Espolvorear partículas rutilantes una vez al día y Polvo de cristal dos veces al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@169 = ~es vuestro familiar, un méfit de polvo que ahora se encuentra a salvo en vuestra mochila. El méfit de polvo no es muy fuerte en combate, pero es ligeramente resistente a los ataques mágicos y tiene la aptitud de lanzar conjuros para ayudar a su amo.
+
+Clase de armadura: 3
+Puntos de golpe: 48
+Resistencia mágica: 25%
+Habilidades especiales: Inmune al fuego y posee una resistencia de 60% al daño cortante, perforante y de proyectil. Puede lanzar Espolvorear partículas rutilantes, Rociada prismática y Piel pétrea una vez al día y Polvo de cristal dos veces al día. Regenera 1 punto de golpe/segundo. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@170 = ~Este es vuestro familiar, un dragón feérico que ahora se encuentra a salvo en vuestra mochila. El travieso dragoncillo es bastante resistente a la magia y tiene la habilidad tanto de protegerse como de desaparecer gracias a sus propios conjuros.
+
+Clase de armadura: 4
+Puntos de golpe: 24
+Resistencia mágica: 32%
+Habilidades especiales: Puede lanzar Imagen espejada e Invisibilidad, radio de 4 m. una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@171 = ~Este es vuestro familiar, un dragón feérico que ahora se encuentra a salvo en vuestra mochila. El travieso dragoncillo es bastante resistente a la magia y tiene la habilidad tanto de protegerse como de desaparecer gracias a sus propios conjuros.
+
+Clase de armadura: 0
+Puntos de golpe: 48
+Resistencia mágica: 45%
+Habilidades especiales: Puede lanzar Imagen espejada, Invisibilidad, radio de 4 m. e Invisibilidad mejorada una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@172 = ~Este es vuestro familiar, un gato que ahora se encuentra a salvo en vuestra mochila. Este tipo de familiar es un maestro explorador, pues es capaz de moverse entre las sombras con el sigilo de un ladrón. También resulta difícil de golpear, y la magia del conjuro lo ha convertido en un animal resistente tanto al daño físico como al mágico.
+
+Clase de armadura: 0
+Puntos de golpe: 24
+Resistencia mágica: 50%
+Habilidades especiales: 30% en Robar y 99% en Esconderse en las sombras y Moverse sigilosamente. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@173 = ~Este es vuestro familiar, un gato que ahora se encuentra a salvo en vuestra mochila. Este tipo de familiar es un maestro explorador, pues es capaz de moverse entre las sombras con el sigilo de un ladrón. También resulta difícil de golpear, y la magia del conjuro lo ha convertido en un animal resistente tanto al daño físico como al mágico.
+
+Clase de armadura: -4
+Puntos de golpe: 48
+Resistencia mágica: 65%
+Habilidades especiales: 99% en Esconderse en las sombras y Moverse sigilosamente, 60% en Detectar trampas, Robar y Detectar ilusión. Puede lanzar Contorno borroso una vez al día. Inmune a la consunción de niveles, sueño y petrificación.~
+
+@174 = ~Este es vuestro familiar, un quásit de muy mal carácter que se encuentra a salvo en vuestra mochila. El quásit es una criatura infernal pequeña, bastante rápida y resistente a la magia. Tiene la habilidad de lanzar sus propios hechizos para ayudar a su amo.
+
+Clase de armadura: 2
+Puntos de golpe: 24
+Resistencia mágica: 25%
+Habilidades especiales: Inmune al fuego, frío y electricidad. Puede lanzar Horror y Contorno borroso una vez al día. Regenera 1 punto de golpe/asalto.~
+
+@175 = ~Este es vuestro familiar, un quásit de muy mal carácter que se encuentra a salvo en vuestra mochila. El quásit es una criatura infernal pequeña, bastante rápida y resistente a la magia. Tiene la habilidad de lanzar sus propios hechizos para ayudar a su amo.
+
+Clase de armadura: -2
+Puntos de golpe: 48
+Resistencia mágica: 35%
+Habilidades especiales: 3 ataques por asalto, 1D6 de puntos de daño, debiendo salvarse contra la muerte o perder un punto de Destreza durante 36 segundos. Inmune al fuego, frío, electricidad y a las armas normales. Puede lanzar Horror y Contorno borroso una vez al día. Regenera 1 punto de golpe/asalto. Inmune a la consunción de niveles, sueño y petrificación.~

@@ -1,0 +1,15 @@
+IF
+  !HasItem("key24",Myself)
+  Global("CDKeyGone","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDKeyGone","AR2300",1)
+END
+
+IF
+  !HasItem("miscbi",Myself)
+  Global("CDRopeGone","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDRopeGone","AR2300",1)
+END

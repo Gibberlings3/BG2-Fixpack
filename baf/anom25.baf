@@ -1,0 +1,27 @@
+IF
+  Global("AnomenSummoned","GLOBAL",1)
+  Global("AnomenIsKnight","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ApplySpell(Myself,ANOMEN_TITLE)
+    StartDialogueNoSet([PC])
+END
+
+IF
+  Global("AnomenSummoned","GLOBAL",1)
+  Global("AnomenIsNotKnight","GLOBAL",1)
+THEN
+  RESPONSE #100
+    ChangeAlignment(Myself,CHAOTIC_NEUTRAL)
+    StartDialogueNoSet([PC])
+END
+
+IF // removes evil-only spells (Unholy Blight, Unholy Word) from Anomen when changing alignment
+  Alignment(Myself,MASK_GOOD)
+  Global("CDSpellCheck","LOCALS",0)
+THEN
+  RESPONSE #100
+    ApplySpellRES("CDLV3NA",Myself)
+    ApplySpellRES("CDLV7NA",Myself)
+    SetGlobal("CDSpellCheck","LOCALS",1)
+END

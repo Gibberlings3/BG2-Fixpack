@@ -1,0 +1,7 @@
+IF
+  Dead("cefald01")
+  InMyArea("messen")
+THEN
+  RESPONSE #100
+    ActionOverride("messen",DestroySelf())
+END      

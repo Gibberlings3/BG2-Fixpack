@@ -1,0 +1,9 @@
+IF
+  Global("BardPlot1","GLOBAL",25)
+  !Global("PlayerAttackedActors","GLOBAL",1)
+  Global("HereComesMeck","AR0523",0)
+THEN
+  RESPONSE #100
+    SetGlobal("HereComesMeck","AR0523",1)
+    CreateCreature("bdgoph02",[288.1115],0) // Meck
+END

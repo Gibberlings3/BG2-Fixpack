@@ -1,0 +1,31 @@
+IF
+  OR(2)
+    Dead("lassal02")
+    HPLT("lassal02",2)
+THEN
+  RESPONSE #100
+    OpenDoor("DOOR05")
+    TriggerActivation("Coffin3",TRUE)
+END
+
+IF
+  OR(2)
+    Dead("bodvam01")
+    HPLT("bodvam01",2)
+THEN
+  RESPONSE #100
+    OpenDoor("DOOR04")
+    TriggerActivation("Coffin2",TRUE)
+END
+
+IF
+  OR(2)
+    Dead("bodvam02")
+    HPLT("bodvam02",2)
+THEN
+  RESPONSE #100
+    OpenDoor("DOOR05")
+    TriggerActivation("Coffin1",TRUE)
+END
+
+

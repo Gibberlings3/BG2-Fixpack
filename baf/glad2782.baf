@@ -1,0 +1,16 @@
+IF
+ Global("HendakReleased","AR0406",2)
+ !Dead("Hendak")
+THEN
+ RESPONSE #100
+   EscapeArea() // try doing it the nice way first
+END
+
+IF
+ GlobalGT("HendakReleased","AR0406",2)
+ Dead("Lehtinan")
+ !Dead("Hendak")
+THEN
+ RESPONSE #100
+   DestroySelf() // otherwise, just die already
+END

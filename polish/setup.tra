@@ -1,0 +1,571 @@
+  @0 = ~BG2 Fixpack - Podstawowe poprawki~
+  @1 = ~BG2 Fixpack - Poprawki tekstu~
+  @2 = ~Dodatkowe ulepszenia~
+  @3 = ~Ulatwienia i poprawki dla moderow~
+  @4 = ~To potrwa chwile ...~
+  @5 = ~Ten komponent jest tylko anglojezyczny.~
+  @6 = ~Druzyna otrzymuje PD za odeslanie Keldorna by sie pogodzil z Maria~
+  @7 = ~Ulepszone animacje zaklec~
+  @8 = ~Praca Cromwella zabiera dzien~
+  @9 = ~Poprawki sztyletow rzucanych/wrecz~
+ @10 = ~Poprawki swietych symboli Ghreyfaina~
+ @11 = ~Ten komponent wymaga Tronu Bhalla.~
+ @12 = ~Dodatkowy quest herosa Targowa czeka do uroczystosci~
+ @13 = ~Giganci otrzymuja kary gdy atakuja niziolki, krasnoludow i gnomow~
+ @14 = ~Usuniecie ograniczen dwuklasowana Lucznika i Tropiciela~
+ @15 = ~Usuniecie premi do drugiego atrybutu z Zlej Sciezki w piekle~
+ @16 = ~Poprawki dla przyzwanych demonow~
+ @17 = ~Dodatkowe poprawki skryptow~
+ @18 = ~Poprawiona Piesn Barda~ 
+ @19 = ~Zabojca magow zmniejsza szanse na rzucenie czaru takze przy ataku dystansowym~
+ @20 = ~Ogolne poprawki BETA (Uwaga! Sprawdz README)~
+ @21 = ~Dodatkowe poprawki charakterow~
+ @22 = ~Ten komponent zostal usuniety.~
+ @23 = ~Spraw by Swoboda dzialania chronila przed ogÅ‚uszeniem~
+ @24 = ~Usuniecie mozliwosci rozproszenia Å‚ap dla Zmiany ksztaÅ‚tu~
+ @25 = ~Zmiany zachowania Zwodniczego sobowtora, Projekci obrazu i Zmylenia~
+ 
+@100 = ~Ale¿ nie przejmuj siê, i tak s³ucha³em jednym uchem.~ []
+@101 = ~Muszê to zrobiæ, jaluku. I nie masz chyba nic przeciwko, jeœli roz³upawszy mu ³eb na dwoje, przypiszê tobie jego wo³owate cechy, co?~
+@102 = ~Gdy pytasz IMOEN o jej przesz³oœæ - chichocze, bo s¹dzi, ¿e chcesz powspominaæ stare, dobre czasy. Spe³nia twoj¹ zachciankê, i poprawia ci nastrój, gdy zaczniecie wspominaæ, jak spêdziliœcie razem wasz¹ m³odoœæ w Candlekeep. Przyby³a tam, podobnie jak ty, w towarzystwie twojego przybranego ojca, Goriona, ale wychowywa³a siê bardziej beztrosko ni¿ ty. W istocie jej niefrasobliwe spojrzenie na ¿ycie, przez d³ugi okres czasu czyni³o j¹ odporn¹ na trudy tego œwiata, choæ groza jej niedawnego miejsca pobytu, odcisnê³a krwawe piêtno na jej umyœle.~
+@103 = ~Pope³niliœcie fatalny b³¹d w ocenie!~ [SILVER19]
+@104 = ~Tak wygl¹da twój koniec!~ [SILVER18]
+@105 = ~Witaj ponownie! Sprowadzi³y ciê tu interesy, czy chcesz podziwiaæ piêkno przyrody?~ [CERND79]
+@106 = ~To jest niebezpieczna broñ u¿ywana przez Neba, pokryta star¹ krwi¹ i trucizn¹, która nie tylko b³yskawicznie dzia³a, ale jest równie¿ niezwykle œmiercionoœna. Tylko naprawdê z³a istota mo¿e u¿ywaæ tego przedmiotu. 
+Trucizna ju¿ siê zu¿y³a, i broñ ta zachowuje siê jak zwyczajny sztylet o umagicznieniu +2.
+
+PARAMETRY:
+
+Obra¿enia: 1K4 +2
+TraK0:+2
+Typ obra¿eñ: k³ute
+Waga: 1
+OpóŸnienie: 0
+Rodzaj bieg³oœci: sztylet
+Typ broni: 1-rêczna
+Nie mo¿e u¿ywaæ:
+ Kap³an
+ Postaæ o nie charakterze dobrym lub neutralnym~
+@107 = ~Pamiêtaj, by mieæ mo¿liwoœæ u¿ycia kwasu lub ognia. Trolli nie pokona siê niczym innym. Niech bogowie bêd¹ z tob¹. WeŸ te strza³y - przydadz¹ ci siê.~
+@108 = ~WeŸ te strza³y, przydadz¹ ci siê.~
+@109 = ~Przychodzisz tu nie bez powodu. No dalej - mów.~ [SILVER14]
+@110 = ~Nie oczekiwa³am kogoœ takiego jak ty.~ [SILVER12]
+@111 = ~Witam ciê przed sob¹.~ [SILVER11]
+@112 = ~Widzê, ¿e jesteœ.~ [SILVER13]
+@113 = ~Nie zginê tu dzisiaj.. nie!~ [SILVER22]
+@114 = ~Nie mo¿esz rzucaæ zaklêcia do czasu, gdy nie skoñczysz poprzedniego.~
+@115 = ~P³on¹cy d³ugi miecz +1~
+@116 = ~Wiekiera +3~
+@117 = ~Morgensztern +3~
+@118 = ~D³ugi miecz +3~
+@119 = ~Krótki miecz +3~
+@120 = ~Piêœæ +1~
+@121 = ~Piêœæ +2~
+@122 = ~Piêœæ +3~
+@123 = ~Piêœæ +4~
+@124 = ~Katana Yoshimo +1~
+@125 = ~Cep bojowy wieków +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~Hej, tam! Kolejni Zakapturzeni albo ich s³ugi, nie ma w¹tpliwoœci! Klnê siê na bogów, ¿e ¿ywi nie zaci¹gniecie mnie do tej przeklêtej kuli!~ [VALYGA01]
+@128 = ~Œwiêty Symbol Baervana~
+@129 = ~Te niezwykle potê¿ne œwiête symbole mog¹ otrzymaæ tylko najbardziej oddani s³udzy Zamaskowanego Liœcia.
+
+PARAMETRY:
+
+ Zapewnia dodatkowe zaklêcie 6. i 7. poziomu.
+ Kiedy siê go nosi, w³aœciciel otrzymuje dodatkowe 5% odpornoœci na magiê
+ Kiedy siê go nosi, w³aœciciel otrzymuje +1 do Si³y.
+
+Mo¿e u¿ywaæ:
+ Dobry kap³an~
+
+@130 = ~Œwiêty Symbol Shar~
+@131 = ~Te niezwykle potê¿ne œwiête symbole mog¹ otrzymaæ tylko najbardziej oddani s³udzy Pani Nocy i Zagubienia.
+
+PARAMETRY:
+
+ Zapewnia dodatkowe zaklêcie 6. i 7. poziomu.
+ Kiedy siê go nosi, w³aœciciel otrzymuje dodatkowe 5% odpornoœci na magiê
+ Kiedy siê go nosi, w³aœciciel otrzymuje +1 do Si³y.
+
+Mo¿e u¿ywaæ:
+ Z³y kap³an~
+@132 = ~(Mê¿czyzna patrzy na ciebie obojêtnie przez chwilê, po czym mówi)
+
+S³u¿ê tylko Mistrzowi Mekrathowi.~ [HAERDA95]
+@133 = ~Na brodê ciotki Petunii! Duch z mojej przesz³oœci? Mo¿e pragniesz kupiæ nieco rzepy?~ [JANJAN67]
+@134 = ~Stój! Kto idzie? Tyœ... tyœ jest Dzieciêciem Bhaala, czy¿ nie? Tym, któremu Joneleth... Jon... rzekomo ukrad³ moc? Twierdzi³, ¿e ciê zabi³!~ [ELLESI02]
+@135 = ~Ten sztylet jest obdarzony magicznym ogniem i prawdopodobnie zosta³ zrobiony z zêba czerwonego smoka. Opowieœci z tawern sugeruj¹, ¿e ta bestia wci¹¿ ¿yje, a jej gniew podsyca zaklêcie broni. Historia fantazyjna, ale logiczna. Powiadaj¹ tak¿e, ¿e sztylet powraca do rzucaj¹cego "jakby na skrzyd³ach".
+
+PARAMETRY:
+
+Obra¿enia: 1K4 +3, 1K2 od ognia
+TraK0: +3
+Typ obra¿eñ: pocisk (k³ute)
+Specjalne:
+ Wraca do rêki w³aœciciela.
+Waga: 1
+OpóŸnienie: 1
+Rodzaj bieg³oœci: sztylet
+Typ broni: 1-rêczna
+Wymagana si³a: 3
+Nie mo¿e u¿ywaæ:
+ Kap³an~ []
+@136 = ~Uderzenie czaru (Odrzucanie, Przemiany)
+Poziom: 9
+Zasiêg: pole widzenia
+Czas dzia³ania: natychmiastowy
+Czas rzucania: 5
+Obszar dzia³ania: 1 istota
+Rzut obronny: brak
+
+Po rzuceniu tego czaru na wybran¹ istotê, spowoduje on rozproszenie wszelkich magicznych os³on j¹ chroni¹cych, w³¹czaj¹c w to nastêpuj¹ce zaklêcia: ¿elazna skóra, Odpornoœæ na magiê, Tarcza Archonów, Mniejsze odbicie czaru, Klosz niewra¿liwoœci mniejszej, Niepodatnoœæ na czary, Klosz niewra¿liwoœci, Mniejsze odchylenie czaru, Odbicie czaru, Tarcza przeciw czarom, Odchylenie czaru, Niewra¿liwoœæ na czary, oraz Pu³apka na czary. Odpornoœæ celu na magiê nie mo¿e powstrzymaæ tego czaru.~
+@137 = ~BERSERKER: Tego wojownika mo¿e ogarn¹æ w trakcie walki ekstaza umys³owa, dziêki której walczy d³u¿ej, z wiêksz¹ zaciêtoœci¹ i dzikoœci¹ ni¿ jakikolwiek inny cz³owiek. Berserkerzy czêsto bywaj¹ Barbarzyñcami, ale nie jest to regu³¹. Czasami jest to œwiadomy wybór, dokonany w czasie szkolenia wojownika. Niezale¿nie od tego, widok szalej¹cego na polu walki berserkera czêsto dzia³a deprymuj¹co na wroga. Wœród krasnoludów, berserkerzy nazywani s¹ 'Sza³ojownikami'.
+
+Zalety:
+- Raz dziennie na 4 poziomy mo¿e u¿yæ zdolnoœci 'Rozwœcieczenie'. Po jej u¿yciu wojownik na czas 60 sekund otrzymuje premie +2 do trafienia, obra¿eñ, klasy pancerza, odpornoœæ na wysysanie poziomów, zaklêcia uroków, unieruchomienia, strachu, uwiêzienia, og³uszenia oraz snu. Ponadto otrzymuje on dodatkowe 15 punktów ¿ycia. Po zakoñczeniu 'Rozwœcieczenia', przez kolejne 60 sekund Berserker jest wyczerpany. W tym stanie otrzymuje kary -2 do trafienia, obra¿eñ oraz +2 do KP, wojownik traci dodatkowe punkty ¿ycia i na dodatek otrzymuje 1-15 punktów obra¿eñ. Mo¿e to spowodowaæ œmieræ os³abionego Berserkera.
+
+Wady:
+- Nie mo¿e specjalizowaæ siê w broniach dystansowych, z wyj¹tkiem tych, których mo¿na u¿ywaæ tak¿e w walce wrêcz (np. toporki).~ []
+@138 = ~BARBARZYÑCA: Barbarzyñca mo¿e byæ doskona³ym wojownikiem. Choæ brakuje mu dyscypliny i umiejêtnoœci zwyk³ego wojownika, to mo¿e wprowadzaæ siê w sza³ bitewny, przez co staje siê silniejszy i wytrzymalszy.
+
+Zalety:
+- Punkty ¯ycia Barbarzyñcy okreœla siê rzucaj¹c k12 zamiast k10.
+- Premia +2 do prêdkoœci ruchu
+- Odpornoœæ na sztyletowanie
+- Raz dziennie na 4 poziomy Barbarzyñca mo¿e u¿yæ zdolnoœci 'Sza³ barbarzyñcy.
+Po u¿yciu tej zdolnoœci Barbarzyñca na czas 5 rund uzyskuje premie +4 do Kondycji i Si³y, +2 do rzutów obronnych przeciwko magii, karê -2 do KP, odpornoœæ na strach, uroki, unieruchomienia, labirynty, zamêt i czary wysysaj¹ce poziomy. 
+- Na 11 poziomie barbarzyñca zyskuje 10% odpornoœci na bronie sieczne, k³uj¹ce, obuchowe i pociski. PóŸniej odpornoœæ ta zwiêksza siê o +5% co 4 poziomy.
+
+Wady:
+- Nie mo¿e u¿ywaæ zbroi p³ytowych.
+- Jest ograniczony do specjalizacji (2 punkty) w broni~ []
+@139 = ~Cep bojowy to toporna drewniana rêkojeœæ przymocowana do ¿elaznego prêta, drewnianego prêta z kolcami, albo kolczastej ¿elaznej kuli. Miêdzy rêkojeœci¹ a jej uzupe³nieniem znajduje siê ³¹czenie z ³añcucha b¹dŸ zawias. Ten cep zosta³ umagiczniony.
+
+PARAMETRY:
+
+Obra¿enia: 1K6 +3
+TraK0: +2
+Typ obra¿eñ: obuchowe
+Waga: 12
+OpóŸnienie: 5
+Rodzaj bieg³oœci: cep bojowy/morgensztern
+Typ broni: 1-rêczna
+Wymagana si³a: 13
+Nie mo¿e u¿ywaæ:
+ Druid
+ Mag
+ Z³odziej~
+@140 = ~Wekiera jest w prostej linii spadkobierczyni¹ zwyk³ej maczugi. Jest to po prostu drewniany trzonek, na którym zosta³a osadzona kamienna lub metalowa g³owica, uzbrojona w kolce, æwieki lub inne ostre zakoñczenia.
+
+PARAMETRY:
+
+Obra¿enia: 1K6 +1
+Typ obra¿eñ: obuchowe
+Waga: 10
+OpóŸnienie: 7
+Rodzaj bieg³oœci: wekiera
+Typ broni: 1-rêczna
+Wymagana si³a: 10
+Nie mo¿e u¿ywaæ:
+ Druid
+ Mag
+ Z³odziej~
+@141 = ~Symbol: strach (Sprowadzanie/Przywo³ywanie)
+Poziom: 7
+Sfera: Stra¿nicza
+Zasiêg: 30 metrów
+Czas dzia³ania: specjalny
+Czas rzucania: 1 runda
+Obszar dzia³ania: w promieniu 10 m
+Rzut obronny: neguje
+
+Jest to potê¿ne zaklêcie, które pozwala kap³anowi nakreœliæ specjalny symbol na ziemi lub innej powierzchni, gdzie pozostanie tak d³ugo, a¿ ktoœ siê do niego zbli¿y. Wtedy to eksploduje, a wszyscy w pobli¿u wykonaæ musz¹ rzut obronny przeciw czarom z modyfikatorem -4. Jeœli rzut siê nie powiedzie, symbol wywo³uje strach trwaj¹cy przez 2 rundy + 1 rundê na ka¿de 3 poziomy doœwiadczenia rzucaj¹cego.~
+@142 = ~Przez tê komnatê umbrowe kolosy wdar³y siê do zamku. W tunelu, po drugiej stronie, le¿y kilka garnków ze straw¹. Tam musia³y siê po¿ywiaæ.~
+@143 = ~Mam do ciebie dziwn¹ proœbê... siostro. Mam ze sob¹ serce cz³owieka, który zgin¹³ w hañbie.~
+@144 = ~ZABÓJCA MAGÓW: Ten wojownik przeszed³ specjalne szkolenie w swojej sekcie, aby byæ jak najlepiej przygotowanym do œcigania i walki ze wszelkiego rodzaju magami.
+
+Zalety:
+- Za ka¿de udane trafienie (wrêcz jak i dystansowe) przeciwnika otrzymuje on 10% szans na nieudane rzucenie czaru.
+- +2% odpornoœci na magiê na poziom
+
+Wady:
+- Nie mo¿e pos³ugiwaæ siê ¿adnymi przedmiotami magicznymi, z wyj¹tkiem mieczy i zbroi~ []
+@145 = ~ZABÓJCA MAGÓW: Ten wojownik przeszed³ specjalne szkolenie w swojej sekcie, aby byæ jak najlepiej przygotowanym do œcigania i walki ze wszelkiego rodzaju magami.
+
+Zalety:
+- Za ka¿de udane trafienie (wrêcz jak i dystansowe) przeciwnika otrzymuje on 10% szans na nieudane rzucenie czaru.
+- 1% odpornoœci na magiê na poziom, po 20 poziomie na zmianê 5% i 1% co poziom.
+
+Wady:
+- Nie mo¿e pos³ugiwaæ siê ¿adnymi przedmiotami magicznymi, z wyj¹tkiem mieczy, zbroi i mikstur leczniczych~ []
+
+// fix speed factor, originally string #176
+@146 = ~D³ugi ³uk jest podobny do krótkiego, choæ jego d³ugoœæ wynosi zwykle tyle, ile wzrost ³ucznika, i mierzy od 1,8 do znacznie powy¿ej 2 metrów. Ma wiêkszy zasiêg i lepsz¹ celnoœæ ni¿ ³uk krótki, choæ ten drugi pozwala na trochê szybsze oddawanie strza³ów. G³adka rêkojeœæ tego ³uku jest ciep³a w dotyku, co wskazuje na tkwi¹c¹ w drewnie energiê.
+
+PARAMETRY:
+
+TraK0: +2
+Waga: 3
+OpóŸnienie: 5
+Rodzaj bieg³oœci: d³ugi ³uk
+Typ broni: 2-rêczna
+Wymagana si³a: 6
+Nie mo¿e u¿ywaæ:
+ Druid
+ Kap³an
+ Mag
+ Z³odziej~ 
+
+// fix speed factor, originally string #199
+@147 = ~£uki krótkie zosta³y wprowadzone jako pierwsze, choæ na pocz¹tku nie by³y one znan¹ pod t¹ nazw¹. Kategoria ta obejmuje wszystkie rodzaje tej broni, które nie s¹ ³ukami d³ugimi. Ich drzewce maj¹ zazwyczaj oko³o 1,5 metra d³ugoœci. Ten krótki ³uk œmia³o mo¿e rywalizowaæ z dowolnym z wiêkszych ³uków. Zaklêta w nim magia, bez wzglêdu na to, czy pochodzi z drewna, z którego go wykonano, czy z zaklêcia rzuconego na tê broñ przez jakiegoœ maga, sprawia, ¿e ³uk ten jest celniejszy i zadaje wiêksze obra¿enia ni¿ zwyk³a broñ tego typu.
+
+PARAMETRY:
+
+TraK0: +2
+Waga: 2
+OpóŸnienie: 4
+Rodzaj bieg³oœci: krótki ³uk
+Typ broni: 2-rêczna
+Wymagana si³a: 3
+Nie mo¿e u¿ywaæ:
+ Druid
+ Kap³an
+ Mag~
+
+// fix weight, originally string #1768
+@148 = ~Najlepsza (i najciê¿sza) zbroja, jak¹ wojownik mo¿e zdobyæ - zarówno pod wzglêdem wygl¹du, jak i ochrony, któr¹ zapewnia. Jej znakomicie dopasowane, po³¹czone elementy z litego metalu s¹ specjalnie modelowane, by jak najlepiej odbija³y tak uderzenia broni ró¿nego typu, jak i strza³y. Zwykle zbroja tego rodzaju jest bogato zdobiona - artystycznie grawerowana i upiêkszana ró¿nymi dodatkami. Ta zbroja +2 zosta³a stworzona zaklêciem Ograniczone ¿yczenie.
+
+PARAMETRY:
+Klasa Pancerza: -1
+Waga: 40
+Wymagana si³a: 15
+Nie mo¿e u¿ywaæ:
+ Bard
+ Druid
+ Mag
+ Z³odziej~
+
+// fix speed factor, originally string #2494
+@149 = ~W³ócznia uwi¹du +4
+Ta wyciosana z serca zmursza³ego Treanta w³ócznia pachnie œmierci¹. Kiedy chwytasz j¹ w swoje d³onie, wydaje jêk, jak gdyby niechêtnie pozwala³a dotkn¹æ siê ¿ywej istocie. W czasie walki, przy ka¿dym udanym trafieniu, W³ócznia uwi¹du wstrzykuje w ofiarê œmiercionoœn¹ truciznê.
+
+PARAMETRY:
+
+Obra¿enia: 1K6 +4, +4 dodatkowe pkt. obra¿eñ od trucizny
+TraK0: +4
+Waga: 5
+OpóŸnienie: 2
+Rodzaj bieg³oœci: w³ócznia
+Typ broni: 2-rêczna
+Wymagana si³a: 5
+Nie mo¿e u¿ywaæ:
+ Kap³an
+ Mag
+ Z³odziej~
+
+// adds proper sound file, originally string #4330
+@150 = ~Ej, nie pozwól mi tu cierpieæ. Mam dosyæ.~ [IMOEN20]
+
+// fix speed factor, originally string #4421
+@151 = ~Ostrze to pali siê magicznym p³omieniem. Za ka¿dym razem, gdy dochodzi do trafienia, wypuszczona zostaje ognista smuga. Na rêkojeœci zosta³ wyryty napis "Meta Infernum", chocia¿ sprawia wra¿enie nieco wyblak³ego i mog³o go nie byæ pierwotnie na mieczu.
+
+PARAMETRY:
+
+Obra¿enia: 1K8 +1, +1 pkt. obra¿eñ od ognia
+TrAK0: +1
+Typ obra¿eñ: sieczne
+Waga: 4
+OpóŸnienie: 4
+Rodzaj bieg³oœci: d³ugi miecz
+Typ broni: 1-rêczna
+Wymagana si³a: 6
+Nie mo¿e u¿ywaæ:
+Druid
+Kap³an
+Mag~
+ 
+// easiest translation evar
+@152 = ~~ [MUSTR08]
+
+// wrong listed save v. death penalty for claw of kazgaroth, originally string #11848
+@153 = ~O przedmiocie tym wiadomo tylko tyle, ¿e sam pazur pochodzi z cia³a wielkiej bestii Kazgarotha. Zosta³ wielokrotnie nas¹czony magi¹, która uaktywnia siê, gdy pazur w³o¿y siê niczym pierœcieñ. Osoba nosz¹ca pierœcieñ ulegnie rozmyciu i trudniej j¹ bêdzie trafiæ zarówno broni¹, jak i czarami. Przedmiot ma jednak pewn¹ wadê - zdaje siê czerpaæ moc z krwi posiadacza. Dlatego te¿ w³aœciciel czêsto choruje i jest bardziej podatny na dzia³anie trucizn.
+
+PARAMETRY:
+
+Specjalne:
+ +1 do Klasy Pancerza
+ +4 do Klasy Pancerza przeciw pociskom
+ -3 do rzutów obronnych przeciw œmiertelnej magii
+ +3 do rzutów obronnych przeciw ró¿d¿kom
+ +3 do rzutów obronnych przeciw polimorfii
+ +3 do rzutów obronnych przeciw magii
+ -2 do Kondycji~
+
+// MGoI claims that dispel magic works against it, but does not, originally string #12164
+@154 = ~Klosz niewra¿liwoœci mniejszej (Odrzucanie)
+Poziom: 4
+Zasiêg: rzucaj¹cy czar
+Czas dzia³ania: 1 runda/poziom
+Czas rzucania: 4
+Obszar dzia³ania: rzucaj¹cy czar
+Rzut obronny: brak
+
+Czar ten tworzy wokó³ rzucaj¹cego nieruchom¹, lekko migocz¹c¹, magiczn¹ kulê, która chroni go przed czarami penetruj¹cymi pierwszego, drugiego i trzeciego poziomu (tzn. obszar dzia³ania tego typu czarów nie obejmuje obszaru dzia³ania klosza niewra¿liwoœci). Dotyczy to tak¿e zdolnoœci wrodzonych i efektów dzia³ania artefaktów. Bêd¹c pod wp³ywem dzia³ania klosza, mag mo¿e rzucaæ zaklêcia bez ¿adnych modyfikatorów ujemnych.~
+
+// GoI claims that dispel magic works against it, but does not, originally string #12164
+@155 = ~Klosz niewra¿liwoœci (Odrzucanie)
+Poziom: 6
+Zasiêg: 0
+Czas dzia³ania: 1 runda/poziom
+Czas rzucania: 6
+Obszar dzia³ania: sfera o promieniu 1,5 m
+Rzut obronny: brak
+
+Czar ten tworzy wokó³ rzucaj¹cego nieruchom¹, lekko migocz¹c¹, magiczn¹ kulê, która chroni go przed czarami penetruj¹cymi pierwszego, drugiego i trzeciego poziomu (tzn. obszar dzia³ania tego typu czarów nie obejmuje obszaru dzia³ania klosza niewra¿liwoœci). Dotyczy to tak¿e zdolnoœci wrodzonych i efektów dzia³ania artefaktów. Bêd¹c pod wp³ywem dzia³ania klosza, mag mo¿e rzucaæ zaklêcia bez ¿adnych modyfikatorów ujemnych.~
+
+// teleport field has no saving throw, originally string #25894
+@156 = ~Pole teleportacyjne (Przemiany)
+Poziom: 4
+Zasiêg: pole widzenia
+Czas dzia³ania: 1 tura
+Czas rzucania: 4
+Obszar dzia³ania: w promieniu 10 m
+Rzut obronny: brak
+
+Za pomoc¹ tego zaklêcia, czarodziej wywo³uje efekt teleportacji w swoim polu widzenia. W czasie trwania czaru wszystkie istoty na tym obszarze s¹ w losowy sposób teleportowane. Najlepiej wykorzystywaæ to zaklêcie przeciw wiêkszej iloœci wrogów, aby ich w ten sposób zdeprymowaæ, a samemu skoncentrowaæ siê na przygotowaniu obrony.~
+@157 = ~Za to, coœ uczyni³, jako pierwszy siêgniesz po wojenne ³upy. WeŸ klucz do skarbca z zw³ok Ixilothetocala... otwórz miejski skarbiec i bierz to co chcesz.~
+@158 = ~Dziœ jestem wyj¹tkowo chojny... by dostaæ siê do Podmroku potrzebujesz magiczn¹ linê która le¿y teraz przy œcierwie króla. U¿yj jej by zejœæ do dziury któr¹ znajdziesz za tronem mego poprzednika.~ 
+@159 = ~Przywo³anie chowañca (Sprowadzanie/Przywo³ywanie)
+Poziom: 1
+Zasiêg: specjalny
+Czas dzia³ania: specjalny
+Czas rzucania: 1 runda
+Obszar dzia³ania: 1 chowaniec
+Rzut obronny: brak
+
+Ten czar pozwala czarodziejowi znaleŸæ chowañca. Chowañce to zazwyczaj ma³e istoty. Chowaniec potrafi przynieœæ czarodziejowi wiele korzyœci, mo¿e dla niego coœ obserwowaæ, s³u¿yæ jako stra¿nik, zwiadowca lub szpieg, a i pogadaæ z nim mo¿na. Czarodziej mo¿e mieæ tylko jednego chowañca na raz i nie ma wp³ywu na to, jak¹ istotê uda mu siê wezwaæ (jeœli w ogóle).
+Wezwana istota zawsze jest inteligentniejsza od przeciêtnej dla swojej rasy (zazwyczaj o 2-3 punkty), a jej wiêŸ z czarodziejem daje jej d³ugowiecznoœæ. Czarodziej ma telepatyczn¹ ³¹cznoœæ z chowañcem i mo¿e mu wydawaæ polecenia.
+Czarodziej uzyskuje po³owê Punktów ¯ycia chowañca jako premiê do w³asnych Punktów, ale musi o niego dbaæ. Jeœli chowaniec zginie, czarodziej traci te dodatkowe punkty i otrzymuje tyle samo obra¿eñ. Ponadto traci NA STA£E 1 punkt Kondycji.
+
+Przyk³ad: Czarodziej ma 12 Punktów ¯ycia i przywo³uje chowañca. Wezwany chochlik ma 18 P¯, wiêc czarodziej uzyskuje dodatkowe 9. Teraz ma 21 P¯. Jeœli chowaniec umrze, czarodziej straci dodatkowe P¯ (wracaj¹c do 12), 1 punkt kondycji na sta³e (co mo¿e spowodowaæ dodatkow¹ utratê P¯) i otrzymuje 9 obra¿eñ.
+
+Poni¿ej znajduje siê lista chowañców jakie gracz uzyskuje zale¿nie od charakteru:
+
+PRAWORZ¥DNY DOBRY, NEUTRALNY DOBRY: Pseudo smok
+KP: -2
+P¯: 24
+Odpornoœæ na magiê: 50%
+Zdolnoœci specjalne: 2 ataki na rundê z Trak0: 13 za 1k3 pkt. obra¿eñ. Ofiara musi wykonaæ rzut obronny przeciwko œmierci albo pada nieprzytomna na 2 tury. Regeneruje 1p¿/runda. Mo¿e tak¿e rzucaæ raz dziennie Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
+
+PRAWORZ¥DNY NEUTRALNY: Fretka
+KP: 0
+P¯: 24
+Odpornoœæ na magiê: 50%
+Zdolnoœci specjalne: 75% kradzie¿ kieszonkowa, 40% ciche chodzenie/krycie siê i 20% wykrywanie pu³apek. Mo¿e tak¿e rzucaæ raz dziennie Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
+
+PRAWORZ¥DNY Z£Y: Chochlik
+KP: 2
+P¯: 18
+Odpornoœæ na magiê: 25%
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ czar Polimorfowanie siebie. Regeneruje 1p¿/runda.
+
+NEUTRALNY: Królik
+KP: 1
+P¯: 24
+Odpornoœæ na magiê: 65%
+Zdolnoœci specjalne: 50% Wykrywanie pu³apek i 30% Ciche chodzenie/Krycie siê. 75% odpornoœci na ogieñ, ch³ód i elektrycznoœæ. Mo¿e tak¿e rzucaæ raz dziennie Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
+
+NEUTRALNY Z£Y: Mefit Py³u
+KP: 6
+P¯: 24
+Odpornoœæ na magiê: 10%
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, 50% odpornoœci na obra¿enia ciête, k³ute i pociskowe. Mo¿e rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie. Regeneruje 1p¿/runda. Odporny na wysysanie poziomów, sen i petryfikacjê.
+
+CHAOTYCZNY DOBRY: Baœniowy smok
+KP: 4
+P¯: 24
+Odpornoœæ na magiê: 32%
+Zdolnoœci specjalne: Mo¿e raz dziennie rzucaæ czary Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m. Odporny na wysysanie poziomów, sen i petryfikacji.
+
+CHAOTYCZNY NEUTRALNY: Kot
+KP: 0
+P¯: 24
+Odpornoœæ na magiê: 50%
+Zdolnoœci specjalne: 99% Ciche chodzenie/Krycie siê i 30% kradzie¿ kieszonkowa. Mo¿e raz dziennie rzucaæ Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
+
+CHAOTYCZNY Z£Y: Quasit
+KP: 2
+P¯: 24
+Odpornoœæ na magiê: 25%
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ Horror i Rozmycie. Regeneruje 1p¿/runda.~
+@160 = ~To jest twój chowaniec, pseudo-smok, zwiniêty teraz w k³êbek w twoim plecaku. To jaszczuropodobne stworzenie jest doœæ inteligentne, szybkie i ca³kiem nieŸle uzbrojone. Choæ w walce wielkich obra¿eñ nie zadaje, jego magiczne szpony potrafi¹ pozbawiæ niektóre stworzenia przytomnoœci. Do tego jest doœæ odporny na magiê i potrafi rzucaæ Rozmycie.
+
+Klasa Pancerza: -2
+Punkty ¯ycia: 24
+Odpornoœæ na magiê: 50%
+Specjalne zdolnoœci:
+ 2 ataki na rundê przy TraK0: 13 za 1k3  obra¿eñ
+ Trafiony przeciwnik musi wykonaæ rzut obronny albo straci przytomnoœæ na 120 sekund.
+ Potrafi rzucaæ Rozmycie
+ Regeneruje 1p¿/runda
+ Odporny na wysysanie poziomów, sen i petryfikacjê~
+@161 = ~To jest twój chowaniec, pseudo-smok, zwiniêty teraz w k³êbek w twoim plecaku. To jaszczuropodobne stworzenie jest doœæ inteligentne, szybkie i ca³kiem nieŸle uzbrojone.
+
+Klasa Pancerza: -0
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 35%
+Specjalne zdolnoœci:
+ 2 ataki na rundê przy TraK0 8 za 1K6 obra¿eñ.
+ Trafiony przeciwnik musi wykonaæ rzut obronny przeciw œmierci albo straci przytomnoœæ na 120 sekund.
+ Potrafi rzucaæ Rozmycie i Duchowy pancerz raz na dzieñ oraz Wykrywaæ Iluzje dwa razy dziennie.~
+@162 = ~To jest twój chowaniec, fretka, obecnie zwiniêta w k³êbek w twoim plecaku. Fretka to niezwykle szybkie i zwinne stworzenie, trudne do trafienia i w magiczny sposób odporne zarówno na obra¿enia jak i na magiê. Osobliwa umiejêtnoœæ fretki dostawania siê prawie wszêdzie, gdzie wzrok nie siêga, czyni j¹ zrêcznym z³odziejaszkiem.
+
+Klasa pancerza: 0
+Punkty ¯ycia: 24
+Odpornoœæ na magiê: 50%
+Specjalne zdolnoœci:
+ 75% Kradzie¿ kieszonkowa
+ 40% Krycie siê
+ 20% Wykrywanie pu³apek
+ Potrafi rzucaæ Rozmycie
+ Regeneruje 1p¿/runda
+ Odporny na wysysanie poziomów, sen i petryfikacjê~
+@163 = ~To jest twój chowaniec, fretka, obecnie zwiniêta w k³êbek w twoim plecaku. Fretka to niezwykle szybkie i zwinne stworzenie, trudne do trafienia i w magiczny sposób odporne zarówno na obra¿enia jak i na magiê. Osobliwa umiejêtnoœæ fretki dostawania siê prawie wszêdzie, gdzie wzrok nie siêga, czyni j¹ zrêcznym z³odziejaszkiem.
+
+Klasa pancerza: -4
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 65%
+Specjalne zdolnoœci:
+ 95% Kradzie¿ kieszonkowa
+ 60% Krycie siê
+ 60% Wykrywanie pu³apek
+ Potrafi rzucaæ Rozmycie
+ Regeneruje 1p¿/runda
+ Odporny na wysysanie poziomów, sen i petryfikacjê~
+@164 = ~To jest twój chowaniec, chochlik, aktualnie zrzêdzi, mimo i¿ siedzi bezpiecznie w twoim plecaku. Chochlik to niezwyk³e stworzenie, które jest doœæ szybkie i czêœciowo odporne na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
+
+Klasa pancerza: 2
+Punkty ¯ycia: 18
+Odpornoœæ na magiê: 25%
+Odpornoœæ na ¿ywio³y: 100%
+Specjalne zdolnoœci:
+ Potrafi rzucaæ zaklêcie Polimorfowanie siebie
+ Regeneruje 1p¿/runda~
+@165 = ~To jest twój chowaniec, chochlik, aktualnie zrzêdzi, mimo i¿ siedzi bezpiecznie w twoim plecaku. Chochlik to niezwyk³e stworzenie, które jest doœæ szybkie i czêœciowo odporne na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
+
+Klasa pancerza: -2
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 35%
+Odpornoœæ na ¿ywio³y: 100%
+Specjalne zdolnoœci:
+ Atak wyrz¹dza 1K6 obra¿eñ od trucizny (je¿eli istota nie wykona rzutu obronnego przeciwko œmierci, umrze).
+ Potrafi rzucaæ zaklêcie Polimorfowanie siebie raz dziennie.
+ Odporny na niemagiczn¹ broñ.
+ Odporny na wysysanie poziomów, sen i petryfikacjê.
+ Regeneracja 1p¿/runda~
+@166 = ~To jest twój chowaniec, królik, zwiniêty w k³êbek i bezpieczny teraz w twoim plecaku. Królik mo¿e i nie jest chowañcem pierwszego wyboru, stworzenie to jednak jest niezwykle szybkie i trudne do trafienia w walce. Do tego zosta³o magicznie powiêkszone, w celu zwiêkszenia odpornoœci na obra¿enia fizyczne i czary. Królik posiada równie¿ przenikliwy zmys³ wêchu do wykrywania pu³apek w imieniu swojego pana.
+
+Klasa pancerza: 1
+Punkty ¿ycia: 24
+Odpornoœæ na magiê: 65%
+Odpornoœæ na ¿ywio³y: 75%
+Specjalne zdolnoœci:
+ 50% Wykrywanie pu³apek
+ 30% Krycie siê
+ Potrafi rzucaæ Rozmycie
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@167 = ~To jest twój chowaniec, królik, zwiniêty w k³êbek i bezpieczny teraz w twoim plecaku. Królik mo¿e i nie jest chowañcem pierwszego wyboru, stworzenie to jednak jest niezwykle szybkie i trudne do trafienia w walce. Królik posiada równie¿ przenikliwy zmys³ wêchu do wykrywania pu³apek w imieniu swojego pana.
+
+Klasa pancerza: 1
+Punkty ¿ycia: 48
+Odpornoœæ na magiê: 65%
+Odpornoœæ na ¿ywio³y: 75%
+Specjalne zdolnoœci:
+ 85% Wykrywanie pu³apek
+ 60% Krycie siê
+ 50% Wykrywanie umiejêtnoœci iluzji
+ Potrafi rzucaæ Rozmycie
+ Królik porusza siê jakby ca³y czas by³ pod wp³ywem czaru przyspieszaj¹cego ruchy.
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacje.~
+@168 = ~To jest twój chowaniec, mefit py³u, bezpieczny obecnie w twoim plecaku. Mefit py³u nie jest silny w walce, ale posiada pewn¹ odpornoœæ na ataki magiczne i umiejêtnoœæ rzucania czaru B³yszcz¹cy py³ dwa razy dziennie.
+
+Klasa pancerza: 6
+Punkty ¿ycia: 24
+Odpornoœæ na magiê: 10%
+Specjalne zdolnoœci:
+ Potrafi rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie.
+ Odporny na ogieñ.
+ 50% odpornoœci na obra¿enia sieczne, k³ute i pociskowe.
+ Regeneruje 1p¿/runda
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@169 = ~To jest twój chowaniec, mefit py³u, bezpieczny obecnie w twoim plecaku. Mefit py³u nie jest silny w walce, ale posiada pewn¹ odpornoœæ na ataki magiczne i jest w stanie asystowaæ swojemu panu w rzucaniu czarów.
+
+Klasa pancerza: 3
+Punkty ¿ycia: 48
+Odpornoœæ na magiê: 25%
+Specjalne zdolnoœci:
+ Potrafi rzucaæ B³yszcz¹cy py³, Kamienn¹ skórê i Têczowe kolory raz dziennie oraz Szklany py³ dwa razy dziennie.
+ Odporny na ogieñ.
+ 60% odpornoœci na obra¿enia sieczne, k³ute i pociskowe.
+ Regeneruje 1p¿/runda
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@170 = ~To jest twój chowaniec, baœniowy smok, zwiniêty obecnie w k³êbek w twoim plecaku. Ten psotnik jest doœæ odporny na magiê i posiada zarówno umiejêtnoœæ bronienia jak i zas³aniania siê swoj¹ w³asn¹ iluzoryczn¹ magi¹.
+
+Klasa pancerza: 4
+Punkty ¯ycia: 24
+Odpornoœæ na magiê: 32%
+Specjalne zdolnoœci:
+ Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m.
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@171 = ~To jest twój chowaniec, baœniowy smok, zwiniêty obecnie w k³êbek w twoim plecaku. Ten psotnik jest doœæ odporny na magiê i posiada zarówno umiejêtnoœæ bronienia jak i zas³aniania siê swoj¹ w³asn¹ iluzoryczn¹ magi¹.
+
+Klasa pancerza: 0
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 45%
+Specjalne zdolnoœci:
+ Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m i Ulepszon¹ niewidzialnoœæ.
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@172 = ~To jest twój kot-chowaniec, obecnie zwiniêty w k³êbek i bezpieczny w twoim plecaku. Jest on mistrzem zwiadu i potrafi poruszaæ siê w cieniu z wpraw¹ najlepszych z³odziei. Ciê¿ko jest go trafiæ w walce, a magia zaklêcia uczyni³a go odpornym na ataki zarówno fizyczne, jak i magiczne.
+
+Klasa Pancerza: 0
+Punkty ¯ycia: 24
+Odpornoœæ na magiê: 50%
+W³aœciwoœci specjalne:
+ 99% Ciche chodzenie
+ 99% Krycie siê w cieniu
+ 30% Kradzie¿ kieszonkowa
+ Potrafi rzucaæ Rozmycie
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@173 = ~To jest twój kot-chowaniec, obecnie zwiniêty w k³êbek i bezpieczny w twoim plecaku. Jest on mistrzem zwiadu i potrafi poruszaæ siê w cieniu z wpraw¹ najlepszych z³odziei. Ciê¿ko jest go trafiæ w walce, a magia zaklêcia uczyni³a go odpornym na ataki zarówno fizyczne, jak i magiczne.
+
+Klasa Pancerza: -4
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 65%
+W³aœciwoœci specjalne:
+ 99% Ciche chodzenie
+ 99% Krycie siê w cieniu
+ 60% Znajdywanie pu³apek
+ 60% Wykrywanie iluzji i niewidzialnoœci
+ Potrafi rzucaæ Rozmycie
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+@174 = ~To jest twój chowaniec, quasit, aktualni zrzêdzi, chocia¿ siedzi bezpiecznie w twoim plecaku. Quasit jest ma³ym, piekielnym stworzeniem, które nie doœæ, ¿e jest szybkie, to równie¿ czêœciowo niewra¿liwe na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
+
+Klasa Pancerza: 2
+Punkty ¯ycia: 24
+Odpornoœæ na magiê: 25%
+Odpornoœæ na ¿ywio³y: 100%
+Specjalne zdolnoœci:
+ Potrafi rzucaæ czar Groza i Rozmycie.
+ Regeneruje 1p¿/runda.~
+@175 = ~To jest twój chowaniec, quasit, aktualni zrzêdzi, chocia¿ siedzi bezpiecznie w twoim plecaku. Quasit jest ma³ym, piekielnym stworzeniem, które nie doœæ, ¿e jest szybkie, to równie¿ czêœciowo niewra¿liwe na magiê.
+
+Klasa Pancerza: -2
+Punkty ¯ycia: 48
+Odpornoœæ na magiê: 35%
+Odpornoœæ na ¿ywio³y: 100%
+Specjalne zdolnoœci:
+ Potrafi rzucaæ czar Groza i Rozmycie.
+ Mo¿e wykonaæ 3 ataki na rundê, ofiara doznaje 1K6 obra¿eñ plus musi wykonaæ rzut obronny przeciw œmierci, jeœli nie chce otrzymaæ modyfikatora -1 do Zrêcznoœci na 6 rund.
+ Regeneruje 1p¿/runda
+ Odpornoœæ na zwyk³e bronie.~

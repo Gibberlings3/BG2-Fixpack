@@ -1,0 +1,71 @@
+IF
+	Clicked([ANYONE])
+	InPartySlot(LastTrigger,0)
+	Range(LastTrigger,16)
+	PartyHasItem("miscb5") // Tears of Bhaal
+	Global("Player1Fear","GLOBAL",2)
+	Global("BhaalDoor","GLOBAL",1)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",1)
+		Continue()
+END
+
+IF
+	Clicked([ANYONE])
+	InPartySlot(LastTrigger,0)
+	Range(LastTrigger,16)
+	PartyHasItem("miscb6") // Tears of Bhaal
+	Global("Player1Selfish","GLOBAL",2)
+	Global("BhaalDoor","GLOBAL",1)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",1)
+		Continue()
+END
+
+IF
+	Clicked([ANYONE])
+	InPartySlot(LastTrigger,0)
+	Range(LastTrigger,16)
+	PartyHasItem("miscb7") // Tears of Bhaal
+	Global("Player1Greed","GLOBAL",2)
+	Global("BhaalDoor","GLOBAL",1)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",1)
+		Continue()
+END
+
+IF
+	Clicked([ANYONE])
+	InPartySlot(LastTrigger,0)
+	Range(LastTrigger,16)
+	PartyHasItem("miscb8") // Tears of Bhaal
+	Global("Player1Pride","GLOBAL",2)
+	Global("BhaalDoor","GLOBAL",1)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",1)
+		Continue()
+END
+
+IF
+	Clicked([ANYONE])
+	InPartySlot(LastTrigger,0)
+	Range(LastTrigger,16)
+	PartyHasItem("miscb9") // Tears of Bhaal
+	Global("Player1Wrath","GLOBAL",2)
+	Global("BhaalDoor","GLOBAL",1)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",1)
+		Continue()
+END
+
+

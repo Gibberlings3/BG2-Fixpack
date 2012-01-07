@@ -1,0 +1,531 @@
+  @0 = ~BG2 Fixpack - Correzioni principali~
+  @1 = ~BG2 Fixpack - Aggiornamento del testo di gioco~
+  @2 = ~Componenti opzionali ma fighe~
+  @3 = ~Pacchetto Super Divertimento per Modder~
+  @4 = ~Questa fase potrebbe richiedere alcuni momenti...~
+  @5 = ~Questa componente non e' disponibile nella tua lingua.~
+  @6 = ~Aggiungi una ricompensa in punti esperienza per aver fatto riconciliare Keldorn con Maria~
+  @7 = ~Correggi le animazioni di alcuni incantesimi~
+  @8 = ~Cromwell impiega effettivamente un giorno per forgiare gli oggetti magici~
+  @9 = ~Correzioni all'utilizzo dei pugnali/coltelli da lancio~
+ @10 = ~Correzioni ai simboli sacri (Ghreyfain)~
+ @11 = ~Questa componente richiede Throne of Bhaal.~
+ @12 = ~Gli abitanti di Trademeet aspettano che il PG sia effettivamente nominato "eroe della citta'" prima di proporgli la quest addizionale~
+ @13 = ~Applica una penalita' al tiro per colpire dei giganti contro gnomi, halfling e nani~
+ @14 = ~Rimuovi le limitazioni all'opzione classe duale di Arcieri e Predatori~
+ @15 = ~Rimuovi il secondo bonus ai punteggi caratteristica nella prova della furia dei Nove Inferni~
+ @16 = ~Correggi il comportamento dei demoni evocati in modo da renderlo coerente alla loro natura~
+ @17 = ~Correzioni addizionali agli script~
+ @18 = ~Correzioni alla canzone del bardo~
+ @19 = ~I Guerrieri Ammazzastregoni provocano il fallimento degli incantesimi anche con gli attacchi a distanza~
+ @20 = ~Correzioni principali in fase BETA (leggere il readme prima di installare questa componente!)~
+ @21 = ~Correzioni addizionali all'allineamento~
+ @22 = ~Questa componente e' stata deprecata.~
+ @23 = ~Modifica l'incantesimo Liberta' d'azione affinche' protegga anche dallo stordimento~
+ @24 = ~Gli artigli del Mutaforma non possono essere dissolti~
+ @25 = ~Modifica il funzionamento di Simulacro, Proiettare Immagine e Ingannare~
+
+@100 = ~Non preoccuparti, in realtà stavo a malapena ascoltando. Limitiamoci ad uccidere il prossimo orco che incrociamo, ok?~ []
+@101 = ~Lo farò, jaluk. E quando gli fracasserò il cranio, non prendertela se rivedrò te nei suoi tratti porcini, mh?~
+@102 = ~IMOEN abbozza un sorriso, quando le chiedi del suo passato, convinta che tu stia semplicemente cercando di riportare i suoi pensieri a tempi e luoghi più familiari e felici. Ti accontenta, rallegrandosi al racconto di come abbiate trascorso la vostra gioventù insieme a Candlekeep. Vi arrivaste allo stesso modo, in compagnia del vostro padre adottivo Gorion, ma a discapito delle affinità, lei crebbe molto più spensierata. Senza dubbio, questa sua spensieratezza l'ha a lungo preservata dalle avversità del mondo, per quanto gli orrori che ha dovuto sopportare successivamente l'abbiano decisamente segnata.~
+@103 = ~Avete commesso un fatale errore di giudizio!~ [SILVER19]
+@104 = ~Questa è la tua fine!~ [SILVER18]
+@105 = ~Di nuovo salve! Sei qui per affari o solo per gustare la bellezza rigogliosa della natura?~ [CERND79]
+@106 = ~Questa è la brutale lama di Neb, ricoperta dal sangue ormai coagulato delle sue ultime vittime. Solo una persona veramente malvagia impugnerebbe mai quest'arma spontaneamente. Il veleno è già stato utilizzato e il pugnale rimane una semplice arma incantanta.
+
+STATISTICHE:
+
+THAC0: +2
+Danno: 1d4+2
+Tipo di danno: perforante
+Peso: 1
+Fattore-velocità: 0
+Tipo di competenza: Pugnale
+Tipo: a una mano
+Non utilizzabile da:
+ Chierico
+ Allineamenti non malvagi~
+@107 = ~Premuratevi di avere del fuoco o dell'acido a disposizione. Non c'è altro modo per uccidere un troll. Possano gli dei guidare i vostri passi.~
+@108 = ~Prendete queste frecce, potrebbero tornarvi utili.~
+@109 = ~ Siete venuti per un motivo. Parlate.~ [SILVER14]
+@110 = ~ Non siete come mi aspettavo.~ [SILVER12]
+@111 = ~ Siate i benvenuti.~ [SILVER11]
+@112 = ~ Vedo che siete qui.~ [SILVER13]
+@113 = ~ Non morirò qui, oggi... NO!~ [SILVER22]
+@114 = ~Non puoi lanciare un nuovo incantesimo prima di aver ultimato il lancio di quello in corso.~
+@115 = ~Spada lunga fiammeggiante +1~
+@116 = ~Mazza +3~
+@117 = ~Morning star +3~
+@118 = ~Spada lunga +3~
+@119 = ~Spada corta +3~
+@120 = ~Pugno +1~
+@121 = ~Pugno +2~
+@122 = ~Pugno +3~
+@123 = ~Pugno +4~
+@124 = ~Katana di Yoshimo +1~
+@125 = ~Mazzafrusto delle Ere +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~Ehi, laggiù! Altri Incappucciati o i loro servitori, senza dubbio. Per gli dei, giuro che non vivrete abbastanza per portarmi in quella dannata sfera!~ [VALYGA01]
+@128 = ~Simbolo Sacro di Baervan~
+@129 = ~Solo ai più valenti e devoti servitori della Foglia Mascherata sono concessi questi potenti simboli sacri.
+
+STATISTICHE:
+
+   Garantisce un incantesimo addizionale del 6° e del 7° livello.
+   5% di Resistenza alla Magia quando viene indossato
+   +1 alla Forza quando viene indossato
+
+Utilizzabile da:
+ Chierici buoni~
+
+@130 = ~Simbolo Sacro di Shar~
+@131 = ~Solo ai più valenti e devoti servitori del Cantore della Notte sono concessi questi potenti simboli sacri.
+
+STATISTICHE: 
+
+   Garantisce un incantesimo addizionale del 6° e del 7° livello. 
+   5% di Resistenza alla Magia quando viene indossato 
+   +1 alla Forza quando viene indossato 
+
+Utilizzabile da: 
+ Chierici malvagi~
+@132 = ~(L'uomo ti fissa ieraticamente per qualche secondo prima di parlare)
+
+Servo solo il maestro Mekrath.~ [HAERDA95]
+@133 = ~Per la barba di zia Petunia! Un fantasma dal mio passato? Che stia forse cercando di comprare alcune rape?~ [JANJAN67]
+@134 = ~Fermo! Chi va là? Tu... tu sei il figlio di Bhaal, vero? Quello a cui Joneleth... Jon... si vantava di aver rubato il potere? Diceva di averti ucciso!~ [ELLESI02]
+@135 = ~Pugnale da lancio +3 Dente di Fuoco
+Questo coltello da lancio è impregnato di fuoco magico, e si suppone sia stato intagliato da un dente estratto ad un drago rosso. I racconti da taverna insinuano che l'animale sia ancora vivo, e che la sua collera alimenti l'incantesimo all'interno dell'arma . Nonostante sia fantasiosa, la storia è coerente, e si dice che il pugnale ritorni al lanciatore "come se avesse le ali".
+
+STATISTICHE:
+
+Abilità in combattimento: 
+Il pugnale ritorna al lanciatore.
+
+THAC0: +3
+Danno: 1d4+3, 1d2 danni da fuoco
+Tipo di danno: dardo (perforante)
+Peso: 1
+Fattore-velocità: 1
+Tipo di competenza: Pugnale
+Tipo: a una mano
+Richiede: 
+ Forza 3
+Non utilizzabile da:
+ Addestratore di animali
+ Chierico~ []
+@136 = ~Colpo Magico 
+(Scongiurazione, Alterazione)
+Livello: 9
+Raggio d'azione: Linea di vista
+Durata: Istantanea
+Tempo di lancio: 5
+Area d'effetto: 1 creatura
+Tiro-salvezza: Nessuno 
+
+Quando questo incantesimo viene lanciato su una creatura, dissolve tutte le protezioni magiche che la circondano. Questo include: Pelle di Pietra, Resistenza Magica, Scudo degli Arconti, Respingi Incantesimo Minore, Globo minore d'invulnerabilità, Immunità agli incantesimi, Globo d'Invulnerabilità, Defletti Incantesimo Minore, Respingi Incantesimo, Scudo Anti-incantesimi, Defletti Incantesimo e Trappola per Incantesimi. La resistenza alla magia della creatura bersaglio, se presente, non ha effetto su questo incantesimo.~
+@137 = ~BERSERKER: Questo guerriero è in contatto con il suo lato animalesco e, durante il combattimento, può raggiungere una condizione estatica che gli permette di combattere più a lungo, con più energia e più selvaggiamente di quanto sia permesso normalmente a un umano. I berserker tendono per loro natura ad essere simili ai barbari, ma non necessariamente. A volte è semplicemente una scelta consapevole compiuta dal guerriero in fase di addestramento. Ad ogni modo, gli avversari sul campo di battaglia restano sempre turbati nel vedere i tratti selvaggi e inumani della personalità del berserker. Questa classe è comune fra i nani, che li chiamano "furie da guerra".
+
+Vantaggi:
+- Può usare l'abilità "furia" una volta al giorno ogni quattro livelli. La furia dura 60 secondi.
+- Mentre è infuriato: +2 al tiro per colpire, +2 al danno, -2 alla Classe Armatura.
+- Mentre è infuriato: immunità agli effetti di Blocco, Charme, Confusione, Imprigionamento, Labirinto, Paura, Raggio di Indebolimento, Risucchio di Livelli, Sonno e Stordimento.
+- Mentre è infuriato: guadagna 15 punti-ferita. Questi punti ferita sono temporanei e vengono meno al termine della furia, potendo potenzialmente uccidere il berserker.
+
+Svantaggi:
+- Sfiancato al termine della furia. Mentre è sfiancato riceve -2 al tiro per colpire, -2 al danno, +2 alla Classe Armatura.
+- Non può specializzarsi nelle armi a distanza (archi, balestre, fionde o dardi).~ []
+@138 = ~BARBARO: Un barbaro può rivelarsi un eccellente guerriero. Pur non avendo l'addestramento o l'abilità di un normale guerriero, può volontariamente entrare in uno stato di furia berserker che lo rende un avversario più forte e pericoloso.
+
+Vantaggi:
+- Si muove a una velocità di 2 punti superiore a quella degli altri personaggi.
+- E' immune ai colpi alle spalle.
+- Può entrare nello stato di furia berserker una volta al giorno ogni quattro livelli (partendo dal 1° livello con una volta al giorno). La furia dura 5 round. 
+- Mentre è infuriato: +4 alla Forza, + 4 alla Costituzione, +2 ai tiri-salvezza contro incantesimi, +2 alla Classe Armatura (penalità). 
+- Mentre è infuriato: immunità agli effetti di Blocco, Charme, Confusione, Labirinto, Paura, Risucchio di Livelli, Sonno e Stordimento.
+- All'11° livello il barbaro ottiene una resistenza del 10% ai danni contundenti, perforanti, da taglio e da dardo. Ottiene un ulteriore 5% ai livelli 15° e 19°.
+- Il barbaro tira 1d12 per i suoi punti-ferita anziché 1d10 come il guerriero.
+
+Svantaggi:
+- Non può indossare armature complete o corazze di piastre.
+- Non può specializzarsi oltre i normali limiti di specializzazione.~ []
+@139 = ~Il mazzafrusto è composto da una solida impugnatura di legno collegata a una verga di ferro o di legno, oppure a una palla, provvista di spine. Tra l'impugnatura e il resto si trova un perno o un anello. Questo mazzafrusto in particolare è stato potenziato magicamente.
+
+STATISTICHE:
+
+THAC0: +2
+Danno: 1d6+3
+Tipo di danno: contundente
+Peso: 12
+Fattore-velocità: 5
+Tipo di competenza: Mazzafrusto/Morning Star
+Tipo: a una mano
+Requisiti: 
+ Forza 13
+Non utilizzabile da:
+ Druido
+ Mago 
+ Ladro~
+@140 = ~La mazza è un diretto discendente della clava, non essendo altro che una sbarra di legno sulla cui estremità è montata una punta di pietra o ferro. La forma della punta varia: alcune sono appuntite, altre stondate e altre ancora provviste di punte piramidale.
+
+STATISTICHE:
+
+Danno: 1d6+1
+Tipo di danno: contundente
+Peso: 10
+Fattore-velocità: 7
+Tipo di competenza: Mazza
+Tipo: a una mano
+Requisiti: 
+ Forza 10
+Non utilizzabile da:
+ Druido
+ Mago
+ Ladro~
+@141 = ~Simbolo di Paura
+(Evocazione/Attrazione) 
+Livello: 7
+Sfera: Guardia
+Raggio d'azione: 30 m
+Durata: Speciale
+Tempo di lancio: 1 round 
+Area d'effetto: raggio di 9 m
+Tiro-salvezza: Nega
+
+Un simbolo di paura è un potente incantesimo che permette al sacerdote di tracciare un simbolo sul terreno o su una qualsiasi altra superficie, dove rimarrà finché qualcuno non gli si avvicini troppo. Quando ciò accade, il simbolo si attiva; tutti quelli che si trovano nell'area d'effetto devono quindi effettuare un tiro-salvezza contro incantesimi con penalità di -4 od essere affetti da paura per 2 round + 1 round per ogni 3 livelli del sacerdote.~
+@142 = ~Questa sembra essere la cella da cui gli Umber Hulk sono usciti per entrare nel castello. Diverse pentole di stufato si trovano nel tunnel retrostante la cella, dove - a quanto pare - le creature si nutrono.~
+@143 = ~Avrei una richiesta particolare... sorella. Ho qui il cuore di un uomo morto in condizioni disonorevoli.~
+@144 = ~AMMAZZASTREGONI: Questo guerriero è stato appositamente addestrato dalla sua setta per eccellere nello scovare e uccidere incantatori di ogni genere.
+
+Vantaggi:
+- Ogni colpo a segno (a distanza o ravvicinato) applica una penalità cumulativa del 10% al fallimento di lancio di incantesimi arcani.
+- 1% di resistenza alla magia per livello fino al 20°. Ad ogni livello successivo si alterna tra 5% e 1%.
+
+Svantaggi:
+- Non può usare oggetti magici (pozioni ad eccezione di quelle curative, pergamene, anelli, amuleti, mantelli, ecc.) a parte armi e armatura.~ []
+@145 = ~AMMAZZASTREGONI: Questo guerriero è stato appositamente addestrato dalla sua setta per eccellere nello scovare e uccidere incantatori di ogni genere.
+
+Vantaggi:
+- Ogni colpo a segno (a distanza o ravvicinato) applica una penalità cumulativa del 10% al fallimento di lancio di incantesimi arcani.
+- 1% di resistenza alla magia per livello fino al 20°. Ad ogni livello successivo si alterna tra 5% e 1%.
+
+Svantaggi:
+- Non può usare oggetti magici (pozioni ad eccezione di quelle curative, pergamene, anelli, amuleti, mantelli, ecc.) a parte armi e armatura.~ []
+// fix speed factor, originally string #176
+@146 = ~L'arco lungo è simile all'arco corto, ma è alto più o meno come l'arciere, tra 1,8 e 2,0 metri. Anche se leggermente più lento dell'arco corto, ha una gittata più ampia ed è più accurato. La superficie liscia di questo arco è calda al tocco e trasmette un po' dell'energia che vibra nel legno.
+
+STATISTICHE:
+
+THAC0: +2
+Peso: 3
+Fattore-velocità: 5
+Tipo di competenza: Arco lungo
+Tipo: a due mani
+Non utilizzabile da:
+ Chierico
+ Druido
+ Mago
+ Ladro~ []
+
+// fix speed factor, originally string #199
+@147 = ~Gli archi corti sono stati i primi ad essere sviluppati, anche se con altro nome. Questo è più un termine generico per tutto quanto non sia un arco lungo. In genere, l'asta di un arco corto misura 1,5 metri circa. Questo arco corto è comunque un buon rivale per qualunque sua versione più grande. La magia al suo interno, connaturata al legno od opera di uno stregone che sia, lo rende più accurato e letale di un arco normale.
+
+STATISTICHE:
+
+THAC0: +2
+Peso: 2
+Fattore-velocità: 4
+Tipo di competenza: Arco corto
+Tipo: a due mani
+Richiede: 
+ Forza 3
+Non utilizzabile da:
+ Chierico
+ Druido
+ Mago~
+
+// fix weight, originally string #1768
+@148 = ~L'armatura completa è la migliore che un guerriero possa comprare, sia in aspetto che in termini di protezione. Le piastre si interconnettono perfettamente e sono angolate in modo da deviare frecce e colpi, e l'intera corazza è meticolosamente ornata con fregi e dettagli. Questa armatura +2 è stata creata con l'incantesimo Desiderio Limitato.
+
+STATISTICHE:
+
+Classe Armatura: -1
+Peso: 40
+Richiede: 
+ Forza 15
+Non utilizzabile da:
+ Bardo
+ Druido
+ Mago
+ Ladro~
+
+// fix speed factor, originally string #2494
+@149 = ~Lancia dell'Avvizzimento +4
+Intagliata dal cuore di un Treant marcito, questa lancia emana un odore di morte. Quando la impugni geme leggermente, come se non le piace essere toccata da un essere vivente. In battaglia la lancia dell'avvizzimento sputa un veleno addosso al suo bersaglio ogni volta che va a segno.
+
+STATISTICHE
+
+THAC0: +4
+Danno: 1d6+4, +4 danni da veleno
+Tipo di danno: perforante
+Peso: 5
+Fattore-velocità: 2
+Tipo di competenza: Lancia
+Tipo: a due mani
+Richiede: 
+ Forza 3
+Non utilizzabile da:
+ Chierico
+ Mago
+ Ladro~ []
+
+// adds proper sound file, originally string #4330
+@150 = ~Andiamo ora, non farmi soffrire in questo posto. Ne abbiamo avuto abbastanza, tutti e due.~ [IMOEN20]
+
+// fix speed factor, originally string #4421
+@151 = ~Questa lama arde di un fuoco magico ed emette una scarica ustionante ogni volta che va a segno. Su ogni lato della lama è scolpita la frase "Meta Infernum", anche se la scritta appare sbiadita e non sembra originale con la spada.
+
+STATISTICHE:
+
+THAC0: +1
+Danno: 1d8+1, +1 danno da fuoco
+Tipo di danno: da taglio
+Peso: 4
+Fattore-velocità: 4
+Tipo di competenza: Spada lunga
+Tipo: a una mano
+Non utilizzabile da:
+ Chierico
+ Druido
+ Mago~ []
+ 
+// easiest translation evar
+@152 = ~~ [MUSTR08]
+
+// wrong listed save v. death penalty for claw of kazgaroth, originally string #11848
+@153 = ~Si sa poco su questo artiglio, tranne che è stato preso dalla carcassa della grande bestia Kazgaroth. L'artiglio racchiude diversi incantesimi che diventano attivi quando viene portato come anello. L'immagine di colui che porta l'anello appare sfocata costituendo quindi un difficile bersaglio da colpire con armi o incantesimi. L'unico svantaggio dell'anello sembra essere quello di trarre i poteri dal sangue di colui che lo porta. Per questo motivo, la creatura in questione diventa sempre più debole e quindi più soggetta all'effetto dei veleni.
+
+STATISTICHE:
+
+Classe Armatura: +1
+Classe Armatura contro armi da lancio: +4
+Tiri-salvezza
+ contro morte: -3 
+ contro bacchette: +3
+ contro metamorfosi: +3
+ contro soffio: +3
+ contro incantesimi: +3
+Costituzione: -2~
+
+// MGoI claims that dispel magic works against it, but does not, originally string #12164
+@154 = ~Globo minore d'invulnerabilità
+(Scongiurazione)
+Livello: 4
+Raggio d'azione: 0
+Durata: 1 round per livello
+Tempo di lancio: 4
+Area d'effetto: Sfera con raggio di 1,5 m
+Tiro-salvezza: Nessuno
+
+Questo incantesimo crea una sfera magica leggermente luccicante intorno allo stregone che impedisce agli incantesimi di 1°, 2° o 3° livello di penetrare (per es.: l'area d'effetto di questi incantesimi non include l'area del globo minore d'invulnerabilità). Riguarda anche le caratteristiche innate e gli effetti prodotti da dispositivi. Qualsiasi tipo di incantesimo, però, può essere lanciato fuori dalla sfera magica e passare dallo stregone del globo al destinatario senza influenzare il globo minore. Gli incantesimi del quarto livello o superiori non vengono influenzati dal globo. Il globo può essere abbattuto da forme di attacco magico come Annienta Incantesimi e Perforare Magia.~
+
+// GoI claims that dispel magic works against it, but does not, originally string #12164
+@155 = ~Globo d'Invulnerabilità 
+(Scongiurazione) 
+Livello: 6
+Raggio d'azione: 0 
+Durata: 1 round per livello 
+Tempo di lancio: 6 
+Area d'effetto: Sfera di raggio 1,5 m 
+Tiro-salvezza: Nessuno 
+
+Questo incantesimo crea attorno allo stregone una sfera immobile, debolmente illuminata, che impedisce la penetrazione di qualsiasi incantesimo dei primi 4 livelli. La loro area d'effetto non comprende, quindi, il globo d'invulnerabilità. Lo stesso vale per abilità speciali e oggetti magici. E' possibile, invece, lanciare incantesimi dall'interno all'esterno senza rovinare la sfera. Gli incantesimi di 5° livello o più non tengono conto del globo. La sfera può essere annullata da forme di attacco magico come Annienta Incantesimi e Perforare Magia.~
+
+// teleport field has no saving throw, originally string #25894
+@156 = ~Campo di Teletrasporto 
+(Alterazione) 
+Livello: 4
+Raggio d'azione: linea di vista
+Durata: 1 turno
+Tempo di Lancio: 4
+Area d'effetto: Raggio di 9 m
+Tiro-salvezza: Nessuno
+
+Con questo incantesimo, il mago istiga un effetto di teletrasporto entro il suo raggio visivo. Tutte le creature nell'area sono teletrasportate a caso per la durata dell'incantesimo. Questo incantesimo è usato preferibilmente contro nemici multipli, poiché serve a confonderli e permette al mago di concentrarsi e attivare le sue difese.~ []
+@157 = ~Per questa ragione, ti faccio dono del primo bottino di guerra. Prendi la chiave del tesoro dal cadavere di Ixilthetocal... usala per entrare nella città del tesoro e prendi ciò che vuoi.~
+@158 = ~Oggi mi sento generoso... per entrare nel Sottosuolo, hai bisogno della corda magica della salma del Re. Usala per calarti giù nella fossa che sta sotto al trono che mi apparteneva.~ 
+@159 = ~Trovare Famiglio
+(Evocazione/Materializzazione)
+Livello: 1
+Raggio d'azione: 0
+Durata: Speciale
+Tempo di lancio: 1 round
+Area d'effetto: 1 famiglio
+Tiro-salvezza: Speciale
+
+Questo incantesimo permette allo stregone di materializzare un famiglio che gli faccia da aiuto e da compagno trasmettendogli ciò che percepisce, conversando con lui e servendo come guardia, spia o esploratore. Uno stregone può avere un solo famiglio alla volta e non ha controllo sul tipo di creatura che risponderà all'evocazione, sempre che ne venga una.
+(Nota: questo incantesimo può essere lanciato solo dal protagonista.)
+
+Lo stregone ha con il famiglio un legame empatico e può impartirgli comandi mentali. L'incantatore riceve metà dei punti ferita totali del famiglio come bonus ai propri. Tuttavia, dovrà avere cura del suo famiglio, poiché qualora morisse, l'incantatore perderebbe i punti ferita bonus e subirebbe metà dei punti ferita del famiglio come ulteriore danno. Inoltre, quando un famiglio muore, l'incantatore perde un punto di Costituzione PERMANENTEMENTE.
+
+Ecco una lista dei famigli che il giocatore riceve a seconda dell'allineamento:
+
+LEGALE BUONO, NEUTRALE BUONO: Pseudo-drago
+Classe Armatura: -2
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: 2 attacchi per round con THAC0 13, che infliggono da 1 a 3 danni; tiro salvezza contro morte o tramortito per due round. Può lanciare 'Sfocatura' una volta al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione.
+
+LEGALE NEUTRALE: Furetto
+Classe Armatura: 0
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: svuotare tasche 75%, nascondersi nelle ombre/muoversi silenziosamente 40%, individuare trappole 20%. Può lanciare "Sfocatura" una volta al giorno. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione.
+
+LEGALE MALVAGIO: Imp
+Classe Armatura: 2
+Punti Ferita: 18
+Resistenza alla magia: 25%
+Abilità speciali: resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare "Autometamorfosi" una volta al giorno. Rigenera 1 punto ferita per round.
+
+NEUTRALE: Coniglio
+Classe Armatura: 1
+Punti Ferita: 24
+Resistenza alla magia: 65%
+Abilità speciali: individuare trappole 50%, nascondersi nelle ombre/muoversi silenziosamente 30%. resistenza al fuoco, al freddo e all'eletriccità 75%. Può lanciare "Sfocatura" una volta al giorno. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione.
+
+NEUTRALE MALVAGIO: Mephit della Polvere
+Classe Armatura: 6
+Punti Ferita: 24
+Resistenza alla magia: 10%
+Abilità speciali: resistenza al fuoco 100%, resistenza ai danni perforanti, da taglio e da proiettile 50%. Può lanciare "Polvere Luccicante" una volta al giorno e "Polvere di Vetro" due volte al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione. 
+
+CAOTICO BUONO: Drago Fatato
+Classe Armatura: 4
+Punti Ferita: 24
+Resistenza alla magia: 32%
+Abilità speciali: Può lanciare "Immagini illusorie" e "Invisibilità nel raggio di 3 metri" una volta al giorno. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione.
+
+CAOTICO NEUTRALE: Gatto
+Classe Armatura: 0
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: nascondersi nelle ombre/muoversi silenziosamente 99%, svuotare tasche 30%. Può lanciare "Sfocatura" una volta al giorno. Immune al risucchio di livello, agli effetti di "Sonno" e alla pietrificazione.
+
+CAOTICO MALVAGIO: Quasit
+Classe Armatura: 2
+Punti Ferita: 24
+Resistenza alla magia: 25%
+Abilità speciali: resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare "Orrore" e "Sfocatura" una volta al giorno. Rigenera 1 punto ferita per round.~
+@160 = ~Questo è il tuo famiglio, uno pseudo-drago, raggomitolato al sicuro nel tuo zaino. Il rettile è piuttosto intelligente, ben corazzato e veloce... non è in grado di procurare molto danno in combattimento ma i suoi artigli magici possono tramortire gli avversari. E' anche piuttosto resistente alla magia.
+
+Abilità:
+Classe Armatura: -2
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: 2 attacchi per round con THAC0 13, che infliggono da 1 a 3 danni; tiro salvezza contro morte o tramortito per due round. Può lanciare 'Sfocatura' una volta al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@161 = ~Questo è il tuo famiglio, uno pseudo-drago, raggomitolato al sicuro nel tuo zaino. Il rettile è piuttosto intelligente, ben corazzato e veloce.
+
+Abilità:
+Classe Armatura: -2
+Punti Ferita: 48
+Resistenza alla magia: 50%
+Abilità speciali: 2 attacchi per round con THAC0 8, che infliggono da 1 a 6 danni; tiro salvezza contro morte o tramortito per due round. Può lanciare 'Sfocatura' e 'Armatura Fantasma' una volta al giorno e 'Scoprire Illusioni' due volte al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@162 = ~Questo è il tuo famiglio, un furetto, tenuto al sicuro nel tuo zaino. Il furetto è incredibilmente agile e veloce, duro da colpire e resistente magicamente sia ai danni che agli incantesimi. La strana abilità del furetto di intrufolarsi senza essere visto lo rende un ottimo borseggiatore.
+
+Abilità:
+Classe Armatura: 0
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: svuotare tasche 75%, nascondersi nelle ombre/muoversi silenziosamente 40%, individuare trappole 20%. Può lanciare 'Sfocatura' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@163 = ~Questo è il tuo famiglio, un furetto, tenuto al sicuro nel tuo zaino. Il furetto è incredibilmente agile e veloce, duro da colpire e resistente magicamente sia ai danni che agli incantesimi. La strana abilità del furetto di intrufolarsi senza essere visto lo rende un ottimo borseggiatore.
+
+Abilitià:
+Classe Armatura: -4
+Punti Ferita: 48
+Resistenza alla magia: 65%
+Abilità speciali: svuotare tasche 95%, nascondersi nelle ombre/muoversi silenziosamente 60%, individuare trappole 60%. Può lanciare 'Sfocatura' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@164 = ~Questo è il tuo famiglio, un imp, scontento, ma tenuto al sicuro nel tuo zaino. L'imp è una creatura inconsueta abbastanza veloce e piuttosto resistente agli incantesimi...e ha l'abilità di lanciare incantesimi propri in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: 2
+Punti Ferita: 18
+Resistenza alla magia: 25%
+Abilità speciali: resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare 'Autometamorfosi' una volta al giorno. Rigenera 1 punto ferita per round.~
+@165 = ~Questo è il tuo famiglio, un imp, scontento, ma tenuto al sicuro nel tuo zaino. L'imp è una creatura inconsueta abbastanza veloce e piuttosto resistente agli incantesimi...e ha l'abilità di lanciare incantesimi propri in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: -2
+Punti Ferita: 48
+Resistenza alla magia: 35%
+Abilità speciali:  resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare 'Autometamorfosi' una volta al giorno. L'attacco causa da 1 a 6 danni più veleno (il bersaglio deve effettuare un tiro salvezza contro morte o morire). Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione. Immune alle armi normali.~
+@166 = ~Questo è il tuo famiglio, un coniglio, raggomitolato e tenuto al sicuro nel tuo zaino. Il coniglio non è un famiglio di prima qualità, ma è incredibilmente veloce e difficile da colpire in combattimento... ed è stato rinforzato magicamente per diventare resistente ai danni fisici e agli incantesimi. Il coniglio ha anche un olfatto acuto per avvertire trappole in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: 1
+Punti Ferita: 24
+Resistenza alla magia: 65%
+Abilità speciali: individuare trappole 50%, nascondersi nelle ombre/muoversi silenziosamente 30%. Resistenza al fuoco, al freddo e all'elettricità 75%. Può lanciare 'Sfocatura' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@167 = ~Questo è il tuo famiglio, un coniglio, raggomitolato e tenuto al sicuro nel tuo zaino. Il coniglio non è un famiglio di prima qualità, ma è incredibilmente veloce e difficile da colpire in combattimento... Il coniglio ha anche un olfatto acuto per avvertire trappole in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: 1
+Punti Ferita:  48
+Resistenza alla magia: 65%
+Abilità speciali: individuare trappole 85%, nascondersi nelle ombre/muoversi silenziosamente 60%, scoprire illusioni 50%. Resistenza al fuoco, al freddo e all'elettricità 75%. Può lanciare 'Sfocatura' una volta al giorno. Si muove come se fosse sotto il costante effetto di un incantesimo 'Velocità'. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@168 = ~Questo è il tuo famiglio, un Mephit della Polvere tenuto al sicuro nel tuo zaino. Il Mephit della polvere non è forte in combattimento, ma è leggermente resistente agli attacchi magici e ha l'abilità di lanciare incantesimi in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: 6
+Punti Ferita: 24
+Resistenza alla magia: 10%
+Abilità speciali: resistenza al fuoco 100%, resistenza ai danni perforanti, da taglio e da proiettile 50%. Può lanciare 'Polvere Luccicante' una volta al giorno e 'Polvere di Vetro' due volte al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@169 = ~Questo è il tuo famiglio, un Mephit della Polvere tenuto al sicuro nel tuo zaino. Il Mephit della polvere non è forte in combattimento, ma è leggermente resistente agli attacchi magici e ha l'abilità di lanciare incantesimi in aiuto del suo padrone.
+
+Abilità:
+Classe Armatura: 3
+Punti Ferita: 48
+Resistenza alla magia: 25%
+Abilità speciali: resistenza al fuoco 100%, resistenza ai danni perforanti, da taglio e da proiettile 60%. Può lanciare 'Polvere Luccicante', 'Spruzzo Prismatico' e 'Pelle di pietra' una volta al giorno e 'Polvere di Vetro' due volte al giorno. Rigenera 1 punto ferita al secondo. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@170 = ~Questo è il tuo famiglio, un drago fatato tenuto al sicuro nel tuo zaino. Il vivace drago fatato è discretamente resistente alla magia... e ha l'abilità di proteggersi e oscurarsi usando sue speciali magie illusorie.
+
+Abilità:
+Classe Armatura: 4
+Punti Ferita: 24
+Resistenza alla magia: 32%
+Abilità speciali: Può lanciare 'Immagini illusorie' e 'Invisibilità nel raggio di 3 metri' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@171 = ~Questo è il tuo famiglio, un drago fatato tenuto al sicuro nel tuo zaino. Il vivace drago fatato è discretamente resistente alla magia... e ha l'abilità di proteggersi e oscurarsi usando sue speciali magie illusorie.
+
+Abilità:
+Classe Armatura: 0
+Punti Ferita: 48
+Resistenza alla magia: 45%
+Abilità speciali: Può lanciare 'Immagini Illusorie', 'Invisibilità nel raggio di 3 metri' e 'Invisibilità Migliorata' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@172 = ~Questo è il tuo famiglio, un gatto, al momento raggomitolato e al sicuro nel tuo zaino. Il gatto famiglio è un ottimo esploratore, in grado di muoversi nelle ombre con l'abilità di ladro provetto. E' anche difficile da colpire in combattimento, e la magia dell'incantesimo l'ha reso resistente agli attacchi fisici e magici.
+
+Abilità:
+Classe Armatura: 0
+Punti Ferita: 24
+Resistenza alla magia: 50%
+Abilità speciali: muoversi silenziosamente/nascondersi nelle ombre 99%, svuotare tasche 30%. Può lanciare 'Sfocatura' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@173 = ~Questo è il tuo famiglio, un gatto, al momento raggomitolato e al sicuro nel tuo zaino. Il gatto famiglio è un ottimo esploratore, in grado di muoversi nelle ombre con l'abilità di un ladro provetto. E' anche difficile da colpire in combattimento, e la magia dell'incantesimo l'ha reso resistente agli attacchi fisici e magici.
+
+Abilità:
+Classe Armatura: -4
+Punti Ferita: 48
+Resistenza alla magia: 65%
+Abilità speciali: individuare trappole 60%, nascondersi nelle ombre/muoversi silenziosamente 99%, svuotare tasche 60%, scoprire illusioni 60%. Può lanciare 'Sfocatura' una volta al giorno. Immune al risucchio di livello, agli effetti di 'Sonno' e alla pietrificazione.~
+@174 = ~Questo è il tuo famiglio, un quasit, imbronciato ma rinchiuso al sicuro nel tuo zaino. Il quasit è una piccola creatura infernale piuttosto veloce e assai resistente alla magia... e ha la capacità di lanciare alcuni incantesimi per il suo padrone.
+
+Abilità:
+Classe Armatura: 2
+Punti Ferita: 24
+Resistenza alla magia: 25%
+Abilità speciali: resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare 'Orrore' e 'Sfocatura' una volta al giorno. Rigenera 1 punto ferita per round.~
+@175 = ~Questo è il tuo famiglio, un quasit, imbronciato ma rinchiuso al sicuro nel tuo zaino. Il quasit è una piccola creatura infernale piuttosto veloce e assai resistente alla magia.... e ha la capacità di lanciare alcuni incantesimi per il suo padrone.
+
+Abilità:
+Classe Armatura: -2
+Punti Ferita: 48
+Resistenza alla magia: 35%
+Abilità speciali: 3 attacchi per round per round, che infliggono da 1 a 6 danni, il bersaglio colpito deve salvare contro morte o perdere un punto di destrezza per 36 secondi. Resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare 'Orrore' e 'Sfocatura' una volta al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno', alla pietrificazione e alle armi normali.~

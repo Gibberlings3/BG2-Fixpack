@@ -1,0 +1,28 @@
+IF
+	Delay(15)
+	AttackedBy([ANYONE],DEFAULT)
+	HPLT(Myself,2)
+THEN
+	RESPONSE #100
+		RunAwayFrom(LastAttackerOf(Myself),150)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+	Range(NearestEnemyOf(Myself),3)
+THEN
+	RESPONSE #30
+		SelectWeaponAbility(SLOT_WEAPON1,0)
+		Attack(NearestEnemyOf(Myself))
+	RESPONSE #70
+		RunAwayFrom(NearestEnemyOf(Myself),75)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+THEN
+	RESPONSE #100
+		SelectWeaponAbility(SLOT_AMMO,0)
+		Attack(NearestEnemyOf(Myself))
+END
+

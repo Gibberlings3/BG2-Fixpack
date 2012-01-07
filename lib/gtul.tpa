@@ -1,0 +1,1310 @@
+
+
+
+STRING_SET
+7 @1000007 //Haer'Dalis with capital D
+10 @1000010 //hopefull->hopeful
+41 @1000041 //Haer'dalis
+84 @1000084 //Haer' Dalis
+93 @1000093 //Haer' Dalis
+96 @1000096 //Haer' Dalis
+109 @1000109 //Haer' Dalis
+118 @1000118 //Haer'Dalis with capital D
+122 @1000122 //Haer' Dalis
+123 @1000123 //Haer' Dalis
+124 @1000124 //Haer' Dalis
+125 @1000125 //Haer' Dalis
+131 @1000131 //Haer'Dalis with capital D
+132 @1000132 //Haer'Dalis with capital D
+152 @1000152 //Haer'Dalis with capital D
+161 @1000161 //Haer' Dalis
+163 @1000163 //Haer'Dalis with capital D
+172 @1000172 //Haer' Dalis->Haer'Dalis
+225 @1000225 //Haer'Dalis with capital D
+226 @1000226 //Haer'Dalis with capital D
+257 @1000257 //Haer'Dalis with capital D
+264 @1000264 //Haer' Dalis
+282 @1000282 //Haer'Dalis with capital D
+283 @1000283 //Haer'Dalis with capital D
+287 @1000287 //Haer' Dalis
+288 @1000288 //Haer' Dalis
+337 @1000337 //"I have stated my wishes, not get lost!"->"I have stated my wishes, now get lost!"
+354 @1000354 //"peasant, Pity him."->"peasant. Pity him."
+375 @1000375 //sentence ended with a comma
+468 @1000468 //o merchandise->o' merchandise
+471 @1000471 //Bruiser Mate->Bruiser Mates
+472 @1000472 //business man->businessman
+725 @1000725 //"Rocksmash pack keep deal for stronger!"->"Rocksmash pack keep deal for Stronger!"
+729 @1000729 //"No Talk!"->"No talk!"
+770 @1000770 //Roenal
+847 @1000847 //Villynatny->Villynaty
+879 @1000879 //kuotoans->Kuo-toans
+988 @1000988 //Tis->'Tis
+1126 @1001126 //Haer'Dalis with capital D
+1129 @1001129 //Haer'Dalis with capital D
+1153 @1001153 //fools endeavor->fool's endeavor
+1156 @1001156 //"Lets leave"->"Let's leave", "heavy hitters"->"heavy-hitters"
+1202 @1001202 //push my nose into to other peoples'->push my nose into other peoples'
+1287 @1001287 //its not->it's not
+1300 @1001300 //that 200 paces from->than 200 paces from
+1392 @1001392 //Haer'Dalis with capital D
+1516 @1001516 //Excelent->Excellent
+1742 @1001742 //matching VO, I am->I'm
+1787 @1001787 //Lord Roenal->Lord Roenall
+1788 @1001788 //Lord Roenal->Lord Roenall
+1789 @1001789 //Lord Roenal->Lord Roenall
+1793 @1001793 //was wrest out->was wrested out
+1819 @1001819 //first time said no->first time I said no
+1822 @1001822 //Officer Roenal->Officer Roenall
+1828 @1001828 //De'Arnise->de'Arnise
+1831 @1001831 //Isaea Roenal->Isaea Roenall
+1834 @1001834 //For give->Forgive
+1874 @1001874 //Isaea Roenal->Isaea Roenall
+1966 @1001966 //Yes but he told me->Yes, but he told me
+2024 @1002024 //Tis->'Tis
+2032 @1002032 //Tis->'Tis
+2039 @1002039 //Athkata->Athkatla
+2096 @1002096 //matching VO, without you adding->without adding
+2141 @1002141 //Full Plate + 2 -> Full Plate +2, plat19
+2208 @1002208 //Thank Baervar!->Oh, thank you, Baervan!, matches VO
+2416 @1002416 //life.There->life. There
+2441 @1002441 //matching VO, Damn, you've all taken too long!->Damn, ye've all taken too long!
+2454 @1002454 //matching VO, ".. it's a joke!" appended
+2456 @1002456 //reknown->renown
+2470 @1002470 //Its nay brutal->It's nay brutal
+2475 @1002475 //"Yer indeed a dervish!"->"Ye're indeed a dervish!"
+2477 @1002477 //matching VO, yer->your
+2479 @1002479 //matching VO, whining->whinin', me->my
+2486 @1002486 //matching VO, "It is a simple relationship"->"Is very simple relationship"
+2487 @1002487 //"Yer at the beck and call of vermin?"->"Ye're at the beck and call of vermin?"
+2498 @1002498 //matching VO, 'ere->here
+2541 @1002541 //Korgan.Wait->Korgan. Wait
+2571 @1002571 //tossin->tossin'
+2580 @1002580 //Haer'dalis->Haer'Dalis
+2581 @1002581 //Haer'dalis->Haer'Dalis
+2638 @1002638 //matching VO, "the--the sun is"->"the sun is"
+2655 @1002655 //matching VO, "you failed your Test.  You...you are starting"->"you failed your Test, and... you... you're starting"
+2681 @1002681 //"and label do not open 'til mid-winter fest!"->"and label 'Do not open 'til mid-winter fest'!"
+2684 @1002684 //"scalds and bards"->"skalds and bards"
+2716 @1002716 //matching VO, "all of this madness"->"all this madness"
+2783 @1002783 //Barnard->Bernard
+2917 @1002917 //matching VO, ".. god knows!" appended
+2921 @1002921 //matching VO, "Looka the sky, missy."->"Ha ha! Looka' the sky, missy."
+2953 @1002953 //matching VO, "Stay away from me."->"Just--just stay away from me."
+2972 @1002972 //Imnevale->Imnesvale
+2973 @1002973 //resue->rescue
+2974 @1002974 //cam->came
+3024 @1003024 //uless->unless
+3031 @1003031 //Roenal->Roenall
+3058 @1003058 //matching VO, 3x"-ing"->"-in'"
+3059 @1003059 //Twas->'Twas
+3151 @1003151 //matching VO, not been->never been
+3171 @1003171 //matching VO, Boo->And Boo
+3179 @1003179 //matching VO, "This land->Ahh... this land", "look some funny"->"look some kind of funny", "I tell you."->"I tell you this... ha ha!"
+3212 @1003212 //matching VO, "Who wants some of Minsc"->"Who wants a piece of Minsc"
+3215 @1003215 //Captital D in Haer'Dalis
+3235 @1003235 //matching VO, "as I do"->"as Minsc does"
+3247 @1003247 //"Minsc breaths"->"Minsc breathes", "There you are"->"Oh... there you are", matches VO
+3250 @1003250 //Two Handed
+3298 @1003298 //matching VO, "I am...I don't"->"I am... I am... I'd... hmm... I don't"
+4413 @1004413 //overun->overrun
+4428 @1004428 //matching VO, That is->That's
+4602 @1004602 //adds STATISTICS section to Star Dart
+4866 @1004866 //"yer all such BIG men"->"ye're all such BIG men"
+5703 @1005703 //Tis->'Tis
+5716 @1005716 //Tis->'Tis
+5811 @1005811 //Roenal->Roenall
+5823 @1005823 //"I was the one her prophecy spoken of"->"I was the one spoken of in her prophecy"
+5831 @1005831 //Roenal->Roenall
+6070 @1006070 //"its best"->"it's best"
+6071 @1006071 //"its best"->"it's best"
+6074 @1006074 //tournequet->tourniquet
+6077 @1006077 //"yer right"->"ye're right", "Its nay matter"->"It's nae matter"
+6083 @1006083 //"badly- built"->"badly-built"
+6138 @1006138 //T'rahcie->T'rachie
+6135 @1006135 //Anomen: "strong sword"->"strong warrior"
+6152 @1006152 //hearby->hereby
+6157 @1006157 //"returns.Have"->"returns. Have"
+6169 @1006169 //"Anomen: warrior priest of Torm"->"Anomen: warrior-priest of Helm"
+6181 @1006181 //Anomen: "strong sword"->"strong warrior"
+6187 @1006187 //matching VO, "played upon us!"->"played upon this company!"
+6250 @1006250 //"Order of the Most Radiant Heart"->"Most Noble Order of the Radiant Heart"
+6260 @1006260 //end sentence with a period
+6284 @1006284 //end sentence with a period
+6292 @1006292 //end sentence with a period
+6310 @1006310 //stubborness
+6312 @1006312 //"Get another step and fetch it"->"Get another step-and-fetch-it."
+6322 @1006322 //curiousity->curiosity
+6432 @1006432 //"that that"->"than that"
+6449 @1006449 //Them Temple of Rillifane->The Temple of Rillifane
+6460 @1006460 //evillyl->evilly
+6486 @1006486 //thieves can normally use scimitars
+6516 @1006516 //end sentence with a period
+6519 @1006519 //"stump.(Head,"->"stump. (Head,"
+6538 @1006538 //Roenal->Roenall
+6653 @1006653 //fixed speed factor
+6699 @1006699 //"of the bottom"->"on the bottom", missle->missile
+6716 @1006716 //"18 inches long.'"->"18 inches long."
+6720 @1006720 //"Requires:3 Strength"
+6740 @1006740 //"Bastard Sword +1,+3 vs. Shapeshifters"->"Bastard Sword +1, +3 vs. Shapeshifters"
+6751 @1006751 //Two Handed
+6752 @1006752 //Two handed
+6753 @1006753 //Two Handed
+6935 @1006935 //matching VO, Hay->Hey
+7030 @1007030 //matching VO, you are his superior->you are far his superior
+7084 @1007084 //"but that attacked me"->"but then attacked me"
+7236 @1007236 //William Reirric->William Reirrac
+7248 @1007248 //"Damage type piercing"
+7376 @1007376 //Boots of Stealth are not usable by bards and paladins
+7394 @1007394 //single handedly
+7482 @1007482 //end sentence with a period
+7490 @1007490 //"most Noble Order of the Radiant Heart"->"Most Noble Order of the Radiant Heart"
+7496 @1007496 //end sentence with a period
+7532 @1007532 //"its member's conduct"->"its members' conduct"
+7549 @1007549 //matching VO, "Your words are strange."->"Your words are strange, wizard.", "Stand back."->"Er... stand back a step if you don't mind."
+7553 @1007553 //reknown->renown
+7555 @1007555 //matching VO, "The sewer-dwelling city weasel?"->"Perhaps, the sewer-dwelling city weasel?"
+7559 @1007559 //matching VO, "Boo is patient, but this grows tiring. Keep pressuring and he may not just go for the eyes!"->"Boo is sensitive, and may not just go for the eyes!"
+7602 @1007602 //"my fathers home"->"my father's home"
+7641 @1007641 //matching VO, "False friend!"->"You false friend!"
+7683 @1007683 //"Prelate Wesselan"->"Prelate Wessalen"
+7746 @1007746 //matching VO, "The prodigal son returns. Heir"->"Well... heh heh heh... The prodigal son returns, heir", "How far have you roamed, son"->"Well, lemme ask you: how far have you roamed, son"
+7837 @1007837 //"of of the town"->"of the town"
+8047 @1008047 //"Order of the Most Radiant Heart"
+8068 @1008068 //"Order of the Most Radiant Heart"
+8087 @1008087 //rallys->rallies
+8100 @1008100 //matching VO, "Since you seem intent on keeping me from my commitments, I will go alone."->"I shall set out on my own for the High Hall, since you seem intent on keeping me from my commitments!"
+8127 @1008127 //un-named->unnamed
+8171 @1008171 //unforgiveable->unforgivable
+8172 @1008172 //unforgiveable->unforgivable
+8211 @1008211 //penant->pennant
+8368 @1008368 //Prelates decision->Prelate's decision
+8373 @1008373 //Prelates decision->Prelate's decision
+8408 @1008408 //pereseverance->perseverance
+8462 @1008462 //to long->too long
+8467 @1008467 //Paralization->Paralyzation
+8493 @1008493 //Two Handed
+8499 @1008499 //matching VO, "You are a fine example of honor and chivalry."->"You are a fine example of honor and chivalry, and all in the Order look up to you."
+8513 @1008513 //"but Radiant Heart accepts"->"but the Radiant Heart accepts"
+8535 @1008535 //matching VO, "You are pathetic, Keldorn."->"Oh, you are pathetic, Keldorn.", " You are a hypocrite and a liar."->"You are a hypocrite and a liar. You care nothing for me, only for your honor."
+8610 @1008610 //matching VO, "Valygar, you realize"->"Valygar, do you realize", "Mmmm, how can I be discreet?"->"Ha! How can I be discreet?"
+8650 @1008650 //matching VO, "my erotic onslaught"->"his erotic onslaught"
+8656 @1008656 //matching VO, "Don't you Boo?"->"Don't you Boo? Don't you... yes!"
+8673 @1008673 //desireable->desirable
+8725 @1008725 //krags->crags
+8740 @1008740 //"floundering on the field of battle."->"flounderin' on the field o' battle.", "Yer vassal"->"Ye're vassal"
+8808 @1008808 //Tis->'Tis
+8822 @1008822 //contempletive->contemplative, Torm->Helm
+8943 @1008943 //acquaintence->acquaintance
+8952 @1008952 //want's to know->wants to know
+8964 @1008964 //"woman who's husband ran off"->"woman whose husband ran off"
+8974 @1008974 //develope->develop
+9024 @1009024 //Lot's of guests
+9113 @1009113 //matching VO, "adventure for weak-willed"->"adventure for the weak-willed"
+9186 @1009186 //Haer'Dalis with capital D
+9230 @1009230 //"mages fizzled scheme"->"mage's fizzled scheme"
+9249 @1009249 //"one on one battles"->"one-on-one battles"
+9266 @1009266 //matching VO, "Sir William shall be hung and my love imprisoned."->"Sir William shall be hung and the love of my entire life imprisoned."
+9362 @1009362 //Doppleganger->Doppelganger
+9363 @1009363 //Doppleganger->Doppelganger
+9381 @1009381 //Two Handed
+9616 @1009616 //matching VO, "Such bonding is frowned upon as it drains from the earth"->"Such bonding rituals are frowned upon as they draw energy from the earth itself"
+9703 @1009703 //Roenal->Roenall
+9710 @1009710 //"Some of us are reluctant accept affections."->"Some of us are reluctant to accept affections."
+9735 @1009735 //"Those rivvil who"->"Those rivvin who"
+9786 @1009786 //"it's song is a delight"->"its song is a delight"
+10042 @1010042 //missle->missile
+10185 @1010185 //Rasheman->Rashemen
+10704 @1010704 //matching VO, would see->should see, last sentence added
+10715 @1010715 //"but Radiant Heart accepts"->"but the Radiant Heart accepts"
+10716 @1010716 //than I->then I
+10727 @1010727 //matching VO, "agitation -- please"->"agitation and... please"
+10770 @1010770 //matching VO, Sir William->Sir William of Thorpe
+10854 @1010854 //privelege->privilege
+10928 @1010928 //end sentence with a period
+11003 @1011003 //privelege->privilege
+11054 @1011054 //thieves can use scimitars, single edged
+11060 @1011060 //"How you"->"How can you", matches VO
+11073 @1011073 //Haer'Dalis with capital D
+11204 @1011204 //matching VO, "The scourge has been purged. The deed is done,"->"The scourge has been purged? I can tell that the deed is done,"
+11305 @1011305 //indescretion->indiscretion
+11353 @1011353 //north east
+11536 @1011536 //"I had not though"->"I had not thought"
+11686 @1011686 //provication->provocation
+11880 @1011880 //Roenal->Roenall
+12651 @1012651 //Doppleganger->Doppelganger
+14234 @1014234 //"Order of the Most Radiant Heart"
+14386 @1014386 //"By Lothander!"->"By Lathander!"
+14492 @1014492 //"Yer bleedin' good"->"Ye're bleedin' good"
+14523 @1014523 //Roenal->Roenall
+14524 @1014524 //Roenal->Roenall
+14556 @1014556 //"Yer just a little scrapper"->"Ye're just a little scrapper"
+14831 @1014831 //"Hope yer not here to fight"->"Hope ye're not here to fight"
+14924 @1014924 //Roenal->Roenall
+15044 @1015044 //"ye 're"->"ye're"
+15063 @1015063 //coverse->converse
+15159 @1015159 //"yer a sight fer old eyes"->"ye're a sight fer old eyes"
+15253 @1015253 //"Yer a kind, kind shoul"->"Ye're a kind, kind shoul", "I shpose yer here"->"I shpose ye're here"
+15254 @1015264 //"yer a cheapshkate"->"ye're a cheapshkate"
+15401 @1015401 //Excelent->Excellent
+15463 @1015463 //"Are you hear to"->"Are you here to"
+15464 @1015464 //hear to->here to
+15546 @1015546 //I know little <LADYLORD>->I know little, <LADYLORD>
+15735 @1015735 //judgemental
+15739 @1015739 //judgemental
+15865 @1015865 //"wasting Arnolinus time!"->"wasting Arnolinus' time!"
+15943 @1015943 //"scimitars, swords  even iron weapons"->" scimitars, swords, even iron weapons"
+16020 @1016020 //missle->missile
+16028 @1016028 //Roenal->Roenall
+16108 @1016108 //"Yer a saint"->"Ye're a saint"
+16150 @1016150 //outisde->outside
+16357 @1016357 //"yer a bleedin' coward"->"ye're a bleedin' coward"
+16360 @1016360 //"Yer a goody-goody"->"Ye're a goody-goody"
+16383 @1016383 //"I bleedin' coward amongst us!"->"A bleedin' coward amongst us!"
+16415 @1016415 //"Yer th' best"->"Ye're th' best"
+16669 @1016669 //Shauagin->Sahuagin
+16841 @1016841 //"Some say its creatures made by magic"->"Some say it's creatures made by magic"
+17061 @1017061 //asnwer->answer
+17073 @1017073 //woudn't->wouldn't
+17287 @1017287 //rangers and paladins can not use wands of fear
+17458 @1017458 //"...as a druid sanction"->"...as a druid, sanction"
+17489 @1017489 //druids can use ankheg plate, succeptible
+17503 @1017503 //jem->gem
+17532 @1017532 //"rainbow coloured"->"rainbow-coloured", irridecent->iridescent
+17653 @1017653 //rangers and paladins can not use wands of paralysation
+17654 @1017654 //rangers and paladins can not use wands of fire
+17655 @1017655 //rangers and paladins can not use wands of ice, "White crystalline motes spray forth from the wand in a column towards the victim striking square in the chest with numbing force."->"White crystalline motes spray forth from the wand in a column towards the victim, striking square in the chest with numbing force."
+17656 @1017656 //rangers and paladins can not use wands of lightning
+17658 @1017658 //rangers and paladins can not use wands of polymorphing
+17709 @1017709 //rangers and paladins can not use wands of cloudkill, "This wand emits a vapor bubble that travels towards the target exploding into a deadly cloud of noxious gas that expands to fill an area roughly 20 feet in radius."->"This wand emits a vapor bubble that travels towards the target, exploding into a deadly cloud of noxious gas that expands to fill an area roughly 20 feet in radius.", "Instant death no save"->"Instant death, no save"
+17749 @1017749 //"You must get our acorns back form Ilyich"->"You must get our acorns back from Ilyich"
+17756 @1017756 //matching VO, "I be lookin' at ye, Anomen, and I be pleased that at least I be no hypocrite.  There nay a heart so holy the Devil nay make a nest of black twigs in it."->"At least I am no hypocrite, Anomen. There nay be a heart so holy that evil nay make a nest of black twigs in it."
+17759 @1017759 //north east
+17763 @1017763 //privledged->privileged
+17770 @1017770 //"You must get our acorns back form Ilyich"->"You must get our acorns back from Ilyich"
+17859 @1017859 //missle->missile
+17886 @1017886 //excersize->exercise
+18201 @1018201 //end sentence with a period
+18205 @1018205 //ryme-rhyme
+18405 @1018405 //matching VO, "Justice has been dispensed with your dispatchment of that wretched fool, Mae'Var!"->"Justice has been dispensed this day."
+18414 @1018414 //recknoning->reckoning
+18439 @1018439 //villified->vilified
+18536 @1018536 //"and <PRO_HISHER> has proven it"->"and <PRO_HESHE> has proven it"
+18560 @1018560 //"Like Drizzt and Wolfgar!"->" Like Drizzt and Wulfgar!"
+18593 @1018593 //Selfish->Selfishness, hellself.cre
+18610 @1018610 //Selfish->Selfishness, hellself.cre
+18779 @1018779 //"it was just a word mispoke."->"it was just a word misspoken.
+18805 @1018805 //asnwer->answer
+18831 @1018831 //end sentence with a period
+19034 @1019034 //rangers and paladins can not use wands of monster summoning
+19043 @1019043 //rangers and paladins can not use wands of the heavens
+19044 @1019044 //Two Handed
+19045 @1019045 //Two Handed
+19384 @1019384 //permissable->permissible
+19402 @1019402 //despied->despised
+19420 @1019420 //end sentence with a period
+19427 @1019427 //decleration->declaration
+19464 @1019464 //"I've come to see the circus not some half-dressed tart"->"I've come to see the circus, not some half-dressed tart"
+19469 @1019469 //"I've come to see the circus not some half-dressed tart"->"I've come to see the circus, not some half-dressed tart"
+19490 @1019490 //"Yer all piles"->"Ye're all piles"
+19522 @1019522 //matching VO, "Bloody forests.  Bloody"->"(mumble) Bloody forests. (mumble) Bloody"
+19526 @1019526 //matching VO, "An' they think"->"(mumble) An' they think"
+19538 @1019538 //"I've come to see the circus not some half-dressed tart"->"I've come to see the circus, not some half-dressed tart"
+19546 @1019546 //"I've come to see the circus not some half-dressed tart"->"I've come to see the circus, not some half-dressed tart"
+19608 @1019608 //"yer a kind one"->"ye're a kind one"
+19634 @1019634 //"yer the bloke"->"ye're the bloke", "whose gone and"->"who's gone and"
+19635 @1019635 //"yer the one whose gone an'"->"ye're the one who's gone an'"
+19655 @1019655 //"Yer plain gold"->"Ye're plain gold"
+19688 @1019688 //garrolous->garrulous
+19766 @1019766 //end sentence with a period
+19914 @1019914 //"yer in fer a world o' trouble"->"ye're in fer a world o' trouble"
+19927 @1019927 //"yer a kind soul"->"ye're a kind soul"
+19952 @1019952 //"yer a sodden piece o' ore"->"ye're a sodden piece o' ore"
+20070 @1020070 //adventursome->adventuresome
+20221 @1020221 //dischord
+20298 @1020298 //matching VO, "You're not what?"->"Hahaha... you're not what?"
+20336 @1020336 //here me->hear me
+20522 @1020522 //"Lets just get out of here."->"Let's just get out of here."
+20525 @1020525 //2x"yer"->"ye're"
+20533 @1020533 //Yes, lets do->Yes, let's do
+20549 @1020549 //yer->ye're, resonable->reasonable
+20669 @1020669 //Tis->'Tis
+20817 @1020817 //matching VO, amongst->among
+20833 @1020833 //matching VO, "What does that mean?  Shall we tear our own eyes out?"->"What... what does that mean? Shall we tear our own eyes out, then?"
+20838 @1020838 //matching VO, "Bah!  What has your god ever done for me?"->"Bah! What has your god ever done for me, eh? Eh!?"
+20863 @1020863 //matching VO, "They can also affect the rescue of your lass, or the capture of the mage, to boot."->"They can also affect the rescue of your lass, to boot."
+20876 @1020876 //matching VO, "Maybe ye wants to find 'im?"->"Maybe ye's have a question or two. Maybe ye wants to find 'im?"
+20943 @1020943 //order's headquarters->Order's headquarters
+21029 @1021029 //"I see yer almost there"->"I see ye're almost there"
+21491 @1021491 //"You find some happiness, perhaps, from the slaughter of a relative?"->"You find some happiness, perhaps, in the slaughter of a relative?", matches VO
+21789 @1021789 //acheive->achieve
+21820 @1021820 //destruction..
+21822 @1021822 //matching VO, " Will you join the fold of the Unseeing Eye?"->"Have you decided to enter the holy fold of the Unseeing Eye?"
+21868 @1021868 //matching VO, "It is a safe haven, as my friends below shall reiterate."->"It is a safe haven, and below there are friends of mine that will tend to your trading needs."
+21981 @1021981 //two handed
+22115 @1022115 //instuctions->instructions
+22379 @1022379 //Thayan->Thayvian
+22386 @1022386 //yer->ye're
+22663 @1022663 //"As pleasing as it is, even it would leave a welt"->"As pleasing as it is, it would leave a welt"
+22708 @1022708 //Lot's of dainty collectors->Lots of dainty collectors
+22712 @1022712 //thieves can use scimitars, "Where as the sabre was intented"->"Whereas the sabre was intended"
+22808 @1022808 //traiterous->traitorous
+22877 @1022877 //emnity->enmity
+22972 @1022972 //"Not get moving."->"Now get moving."
+23324 @1023324 //matching VO, "Boo will have your eyes when next we meet!"->"With our ties severed, I will be free to exact the proper justice! Boo will have your eyes when next we meet!"
+23378 @1023378 //thieves can use scimitars, "enhanced magically to compliment the skill of the wielder."->"enhanced magically to complement the skill of the wielder."
+23547 @1023547 //Roenal->Roenall
+23561 @1023561 //judgemental->judgmental
+24202 @1024202 //Haer'Dalis with capital D
+24204 @1024204 //Haer'Dalis with capital D
+24213 @1024213 //Haerdalis->Haer'Dalis
+24214 @1024214 //hear to do a job->here to do a job
+24286 @1024286 //"Enter north of the palisade, though a secret door"->"Enter north of the palisade, through a secret door"
+24347 @1024347 //you're buddy->your buddy
+24435 @1024435 //Haer'Dalis with capital D
+24447 @1024447 //Haer'Dalis with capital D
+24450 @1024450 //Haer'Dalis with capital D
+24468 @1024468 //Haer'Dalis with capital D
+24494 @1024494 //t'was->'twas
+24573 @1024573 //Haer'Dalis with capital D
+24576 @1024576 //dealing with his lessors->dealing with his lessers
+24583 @1024583 //matching VO, "Injustice and indifference have always been the banes of our society.  and pose more of a danger to us than any dragon ever could."->"Injustice and indifference have always been the banes of our society. I often suspect that these sins pose more of a danger to us than any dragon ever could."
+24612 @1024612 //end with period
+24621 @1024621 //Haer'Dalis with capital D
+24624 @1024624 //Haer'Dalis with capital D
+24648 @1024648 //matching VO, amazing->amusing
+24707 @1024707 //Roenal->Roenall
+24708 @1024708 //His is well.->He is well.
+24717 @1024717 //We serve stronger->We serve Stronger
+24718 @1024718 //stronger->Stronger
+24720 @1024720 //stronger->Stronger
+24724 @1024724 //matching VO, "When we stop to rest, would you please"->"Would you please"
+24910 @1024910 //compared sweet revenge->compared to sweet revenge
+24993 @1024993 //lets->let's
+25504 @1025504 //Who's estate->Whose estate
+25764 @1025764 //"and the effects are instantaneous and last for the duration of the spell"->"and the effects last for the duration of the spell"
+25783 @1025783 //"and the purpose magic users is good"->"and the purpose of many magic users is good"
+25876 @1025876 //Stoneskin does not protect the caster against physical magical attacks, not even "magic missle"
+25991 @1025991 //Lot's->Lots
+26021 @1026021 //Lot's->Lots
+26038 @1026038 //"Well, tannin alone would not have allowed me to act against a businessman"->"Well, that evidence alone would not have allowed me to act against a businessman" you can also arrive at this state by mentioning the elephant hide
+26066 @1026066 //"light fingered one"->"light-fingered one", l->I (or maybe it's a 1 (one))
+26123 @1026123 //Nothin.->Nothin'.
+26151 @1026151 //little currie chicken->little curried chicken
+26156 @1026156 //unequivocably->unequivocally
+26226 @1026226 //you paid for you time->you paid for your time
+26342 @1026342 //"two handed weapon"->"two-handed weapon", end sentence with a period
+26415 @1026415 //these man
+26540 @1026540 //matching VO, "Call me a fiend, will you?  I've never"->"Call me a fiend, will ya? Why, I've never"
+26648 @1026648 //decendants
+26793 @1026793 //stomache->stomach
+26806 @1026806 //seak->seek
+26815 @1026815 //dont'->don't
+26877 @1026877 //"lets just get moving"->"let's just get moving"
+26908 @1026908 //matching VO, "So... could I... have"->"So... could I... could I have"
+26958 @1026958 //matching VO, "Good morning, my child."->"Good morning, my lad."
+26968 @1026968 //"spare him"->"spare <PRO_HIMHER>"
+27121 @1027121 //"I accuse you a crimes against Amn."->"I accuse you of crimes against Amn."
+27170 @1027170 //"Back to you slime pit"->"Back to your slime pit"
+27406 @1027406 //matching VO, adds VO
+27836 @1027836 //"Order of the Most Radiant Heart"
+27841 @1027841 //"Order of the Most Radiant Heart"
+27958 @1027958 //rivvil by the dozens->rivvin by the dozens
+28036 @1028036 //"This prophet preyed on the people's need for security Can you not offer this?"->"This prophet preyed on the people's need for security. Can you not offer this?"
+28044 @1028044 //"Order of the Most Radiant Heart"
+28051 @1028051 //tresspass->trespass
+28073 @1028073 //"Order of the Most Radiant Heart"
+28081 @1028081 //Tis->'Tis
+28130 @1028130 //pleasureable->pleasurable
+28152 @1028152 //Morninglords'->Morninglord's
+28180 @1028180 //deeply that I have
+28200 @1028200 //trancends->transcends
+28221 @1028221 //jalukl->jaluk
+28290 @1028290 //I,,,I->I... I
+28302 @1028302 //end last sentence with a period
+28381 @1028381 //end sentence with a period
+28404 @1028404 //Start sentence with capital letter
+28434 @1028434 //"And what is it your wish of me?"->"And what is it you wish of me?"
+28606 @1028606 //to long ago->too long ago
+28692 @1028692 //"said so to you masters"->"said so to your masters"
+28766 @1028766 //harsher types then you
+28954 @1028954 //"Order of the Most Radiant Heart"
+29054 @1029054 //benificent->beneficent
+29243 @1029243 //"It demeans a god to walk with the flock, Just as if I supp'ed with insects."->"It demeans a god to walk with the flock, just as if I supped with insects."
+29270 @1029270 //maically->magically
+29324 @1029324 //greter->greater
+29425 @1029425 //matching VO, ye->you
+29431 @1029431 //matching VO, "And lo, the judgment of Beshaba has been called upon this most evil of drow! May the people see salvation in the Maid of Misrule! Pray she is merciful, foul one!"->"And lo, the judgment of Beshaba has been called upon this most evil of drow, and she has been found wanting! May the people see their salvation from your evil in the Maid of Misrule! Pray that she is merciful, foul one!"
+29433 @1029433 //matching VO, "Hurrah!  Hurrah!!"->"Huzzah! Huzzah!!"
+29466 @1029466 //The High Mornmaster of the Lathander
+29503 @1029503 //concened->concerned
+29527 @1029527 //incorrigable->incorrigible
+29561 @1029561 //"But ' get the last word."->"But I get the last word."
+29690 @1029690 //De'Arnise->de'Arnise
+29694 @1029694 //Sythsillian->Sythillisian
+29725 @1029725 //"A mind controlled creature"->"A mind-controlled creature"
+29727 @1029727 //end sentence with a period
+29783 @1029783 //matching VO, "but involve me in any filthy magic"->"but involve me with any filthy magic"
+29902 @1029902 //matching VO, "Hey! That's not"->"Say... that's not"
+29914 @1029914 //matching VO, "which that...er..."->"which that... uh... in a way..."
+29922 @1029922 //matching VO, "Boo!!  BOO!!"->"Boo!! BOO!! That's awful! Terrible!"
+30039 @1030039 //Sythsillian->Sythillisian
+30225 @1030225 //"Talos curse you for their shall be no services"->" Talos curse you for there shall be no services"
+30560 @1030560 //lamanting->lamenting
+30601 @1030601 //yout threat
+30618 @1030618 //end sentence with a period
+30628 @1030628 //"I will lead with gently certainty"->"I will lead with gentle certainty"
+30635 @1030635 // Lieutenants Aegisfield-> Lieutenant Aegisfield
+30677 @1030677 //simplist->simplest
+30709 @1030709 //matching VO, "I'm busy."->"I'm busy, okay? I'm busy!"
+30760 @1030760 //Lets get going->Let's get going
+30834 @1030834 //Riativin
+30835 @1030835 //Riativin->Riatavin
+30837 @1030837 //Riativin->Riatavin
+30839 @1030839 //Atkatla->Athkatla
+30947 @1030947 //Riativin->Riatavin
+30949 @1030949 //Haer'Dalis with capital D
+30962 @1030962 //start sentence with capital letter
+30969 @1030969 //Haer'Dalis with capital D
+30996 @1030996 //Haer'Dalis with capital D, Faenya-dail
+31007 @1031007 //Haer'Dalis with capital D
+31009 @1031009 //Haer'Dalis with capital D
+31014 @1031014 //Haer'Dalis with capital D
+31095 @1031095 //Riativin->Riatavin
+31100 @1031100 //Riativin->Riatavin
+31102 @1031102 //Riativin->Riatavin
+31108 @1031108 //Riativin->Riatavin
+31109 @1031109 //Riativin->Riatavin
+31142 @1031142 //Riativin->Riatavin
+31146 @1031146 //Tethtyr->Tethyr
+31147 @1031147 //Riativin->Riatavin
+31185 @1031185 //matching VO, "I...I have been thinking, and...y-you are right."->"I have been thinking, and you are right."
+31200 @1031200 //Haer'Dalis with capital D
+31204 @1031204 //Haer'Dalis with capital D
+31211 @1031211 //Haer'Dalis with capital D
+31220 @1031220 //brethern
+31222 @1031222 //Haer'Dalis with capital D
+31238 @1031238 //Haer'Dalis with capital D
+31241 @1031241 //Sythsillian->Sythillisian
+31245 @1031245 //Riativin->Riatavin
+31249 @1031249 //Haer'Dalis with capital D
+31251 @1031251 //Haer'Dalis with capital D
+31254 @1031254 //Haer'Dalis with capital D
+31261 @1031261 //Haer'Dalis with capital D
+31264 @1031264 //Haer'Dalis with capital D
+31280 @1031280 //Haer'Dalis with capital D
+31289 @1031289 //Haer'Dalis with capital D
+31291 @1031291 //Haer'Dalis with capital D
+31294 @1031294 //Haer'Dalis with capital D
+31295 @1031295 //Haer'Dalis with capital D
+31296 @1031296 //Haer'Dalis with capital D
+31302 @1031302 //Haer'Dalis with capital D
+31303 @1031303 //Haer'Dalis with capital D
+31308 @1031308 //Haer'Dalis with capital D
+31317 @1031317 //Haer'Dalis with capital D
+31322 @1031322 //Haer'Dalis with capital D
+31325 @1031325 //Haer'Dalis with capital D
+31329 @1031329 //Haer'Dalis with capital D
+31334 @1031334 //Haer'Dalis with capital D
+31345 @1031345 //Haer'Dalis with capital D
+31380 @1031380 //Haer'Dalis with capital D
+31400 @1031400 //Baldurs Gate->Baldur's Gate
+31408 @1031408 //Riativin->Riatavin
+31421 @1031421 //Riativin->Riatavin
+31422 @1031422 //Riativin->Riatavin
+31423 @1031423 //Riativin->Riatavin
+31427 @1031427 //Riativin->Riatavin
+31430 @1031430 //Riativin->Riatavin
+31431 @1031431 //Riativin->Riatavin
+31434 @1031434 //Riativin->Riatavin, arrrives->arrives
+31442 @1031442 //Riativin->Riatavin
+31447 @1031447 //Riativin->Riatavin
+31449 @1031449 //Riativin->Riatavin
+31462 @1031462 //Riativin->Riatavin
+31463 @1031463 //Riativin->Riatavin, Gateweay->Gateway
+31486 @1031486 //Sythsillian->Sythillisian
+31487 @1031487 //Sythsillian->Sythillisian
+31502 @1031502 //Sythsillian->Sythillisian
+31549 @1031549 //Esmeltran->Esmeltaran, Sythsiallians->Sythillisians
+31562 @1031562 //Esmeltran->Esmeltaran
+31588 @1031588 //Miativin->Riatavin
+31592 @1031592 //"form liberating"->"from liberating"
+31607 @1031607 //matching VO, "that you wish to rest.  I...wish"->"that you wish to rest, but I... I wish"
+31608 @1031608 //Riativin->Riatavin
+31630 @1031630 //Riativin->Riatavin
+31743 @1031743 //matching VO, "Aerie...this bard"->"Aerie, this... this bard"
+31745 @1031745 //Haer'Dalis with capital D
+31748 @1031748 //shadow thieves->Shadow Thieves
+31762 @1031762 //Haer'Dalis with capital D
+31766 @1031766 //Haer'Dalis with capital D
+31773 @1031773 //Haer'Dalis with capital D
+31780 @1031780 //Haer'Dalis with capital D
+31787 @1031787 //Haer'Dalis with capital D
+31794 @1031794 //Haer'Dalis with capital D
+31799 @1031799 //Haer'Dalis with capital D
+31865 @1031865 //Vapiricus
+31873 @1031873 //"I will have it seeded it with"->"I will have it seeded with"
+31887 @1031887 //Haer'Dalis with capital D
+31889 @1031889 //matching VO, "False friend! I shall go to my father without you! I am loath to think that I have leant my hand to your cause..."->"False friend! I am loath to think that I have lent my hand to your cause. I shall go to my father without you!"
+31893 @1031893 //Haer'Dalis with capital D
+31896 @1031896 //Haer'Dalis with capital D
+31901 @1031901 //matching VO, "No effect? I need a bigger sword!"->"No effect? I need bigger sword!"
+32186 @1032186 //Defender of Easthaven is +3 and not +2
+32187 @1032187 //commerate->commemorate, bonuses to hit and damage are wrong, Balhifet->Belhifet
+32194 @1032194 //Two Handed
+32336 @1032336 //burglaring->burgling
+32440 @1032440 //clientelle->clientele
+32457 @1032457 //wast->waste
+32482 @1032482 //pedestians->pedestrians
+32492 @1032492 //witnessess->witnesses
+32526 @1032526 //guidlines->guidelines
+32527 @1032527 //guidlines->guidelines
+32586 @1032586 //embarrasing->embarrassing
+32622 @1032622 //"that a five-hundred year-old witch is on the prowl."->"that a five-hundred-year-old witch is on the prowl."
+32673 @1032673 //"This will be a relatively difficult set of circumstance for her to overcome."->"This will be a relatively difficult set of circumstances for her to overcome."
+32674 @1032674 //same as 1032673
+32766 @1032766 //Then She will->Then she will
+32845 @1032845 //amout->amount
+32892 @1032892 //"So, you be men new boss then?"->"So, you be me new boss then?"
+32901 @1032901 //your's->yours
+32919 @1032919 //"There is not other guild that compares."->"There is no other guild that compares."
+32925 @1032925 //eanything->anything
+32947 @1032947 //know's->knows
+32953 @1032953 //"Things are a little slow tight now"->"Things are a little slow right now"
+32969 @1032969 //Palying->Playing
+33010 @1033010 //palasade->palisade
+33059 @1033059 //"These terrors I am loathe to discuss"->"These terrors I am loath to discuss"
+33064 @1033064 //halfing
+33112 @1033112 //Ill->I'll
+33114 @1033114 //"Maybe it'll be me whose eating you."->"Maybe it'll be me who's eating you."
+33115 @1033115 //"There is nowhere to run to now my prey."->"There is nowhere to run to now, my prey."
+33117 @1033117 //"Think again.  I'll have digested your heart by days end."->"Think again.  I'll have digested your heart by day's end."
+33269 @1033269 //start sentence with capital letter
+33281 @1033281 //Sythsillian->Sythillisian
+33572 @1033572 //"Be careful, its hot!"->"Be careful, it's hot!"
+33755 @1033755 //viscious->vicious
+33929 @1033929 //"Order of the Most Radiant Heart"
+33939 @1033939 //no -one->no-one
+33950 @1033950 //independant
+33959 @1033959 //Sythsillian->Sythillisian
+33971 @1033971 //Liliith Lurraxol->Lilith Lurraxol
+33976 @1033976 //Sythsillian->Sythillisian
+33977 @1033977 //braggards->braggarts
+34014 @1034014 //"Order of the Most Radiant Heart"
+34072 @1034072 //"I have friends among the order."->"I have friends among the Order."
+34090 @1034090 //Two Handed
+34117 @1034117 //asumptions->assumptions
+34171 @1034171 //you get the critical hit bonus with the first pip, "two handed"->"two-handed", "single handed"->"single-handed"
+34202 @1034202 //inexpereinced->inexperienced
+34338 @1034338 //north east
+34370 @1034370 //"Me bad."->"My bad."
+34533 @1034533 //matching VO, "this was home"->"this was my home"
+34662 @1034662 //"Order of the Most Radiant Heart"
+34664 @1034664 //"Order of the Most Radiant Heart"
+34665 @1034665 //"Order of the Most Radiant Heart"
+34714 @1034714 //missle->missile
+34806 @1034806 //obstinant->obstinate
+34872 @1034872 //setaling->stealing
+34874 @1034874 //"operations.He"->"operations. He"
+34902 @1034902 //"of miy like a pro"->"of my like a pro", maybe "of mine" instead?
+34919 @1034919 //chieftans->chieftains
+34941 @1034941 //probally->probably
+34955 @1034955 //priveledge->privilege
+35096 @1035096 //expell->expel
+35143 @1035143 //"than I shall"->"then I shall"
+35266 @1035266 //Most Radiant Heart
+35443 @1035443 //"I am not discussing Sarevok with you, Anomen...nor of my activities in the Sword Coast."->"I am not discussing Sarevok with you, Anomen... nor my activities in the Sword Coast."
+35449 @1035449 //bely->belie
+35469 @1035469 //hesistant
+35470 @1035470 //"I am almost loathe to ask."->"I am almost loath to ask."
+35537 @1035537 //pleasureable->pleasurable
+35594 @1035594 //supsceptible->susceptible
+35596 @1035596 //matching VO, Sir Ryan Trawl->Sir Cadril
+35675 @1035675 //"Nowhere does it mention Talos the 'They are Happy Now!!' No, I really do not think you understand the edicts of the Talos faith!"->"Nowhere did Talos mention this 'They are Happy Now!!' No, I really do not think you understand the edicts of the Talassan faith!"
+35714 @1035714 //matching VO, "I am still a little bitter"->"I am still a bit bitter"
+35725 @1035725 //"it wasn't self defence"->"it wasn't self-defense"
+35736 @1035736 //witnessess->witnesses
+35792 @1035792 //priveledged->privileged
+35843 @1035843 //"led you as a mantis her prey!"->"led you as a mantis does her prey!"
+35847 @1035847 //"vampires foul heart"->"vampire's foul heart"
+35994 @1035994 //"In who's estimation"->"In whose estimation"
+36012 @1036012 //adherance->adherence
+36168 @1036168 //taudry->tawdry
+36188 @1036188 //warrent->warrant
+36283 @1036283 //"She longs for our destruction as have give the order."->"She longs for our destruction, and she has given the order."
+36338 @1036338 //Two Handed
+36353 @1036353 //"Order of the Most Radiant Heart"
+36384 @1036384 //Tallasans
+36466 @1036466 //"Feel the wrath of the arachnids, of the divine eight legged!"->"Feel the wrath of the arachnids, of the divine eight-legged!"
+36550 @1036550 //"mistresses ear"->"mistress' ear"
+36646 @1036646 //alter->altar
+36665 @1036665 //alter->altar
+36676 @1036676 //alter->altar
+36759 @1036759 //"Order of the Most Radiant Heart"
+36770 @1036770 //achievments->achievements
+36778 @1036778 //"did not wish to join the order"->"did not wish to join the Order"
+36798 @1036798 //order->Order
+36810 @1036810 //order->Order
+36827 @1036827 //appology->apology
+36871 @1036871 //order->Order
+36879 @1036879 //order->Order
+36890 @1036890 //order->Order
+36894 @1036894 //order->Order
+36896 @1036896 //order->Order
+36948 @1036948 //ta'anari->tanar'ri
+36959 @1036959 //ta'anari->tanar'ri
+36977 @1036977 //order->Order
+36988 @1036988 //Imnesvail
+37085 @1037085 //"Order of the Most Radiant Heart"
+37089 @1037089 //sqautters->squatters
+37093 @1037093 //hesistant->hesitant
+37121 @1037121 //"Order of the Most Radiant Heart"
+37145 @1037145 //"Order of the Most Radiant Heart"
+37153 @1037153 //"you carefull place the arms and legs in your pack"->"you carefully place the arms and legs in your pack"
+37225 @1037225 //"Noble Order of the Most Radiant Heart"->"Most Noble Order of the Radiant Heart"
+37249 @1037249 //matching VO, "this is the planar sphere here."->"this is the planar sphere here in the slums."
+37290 @1037290 //matching VO, "I...I am most grateful.  If...if you could"->"I... am most grateful. If... you could"
+37372 @1037372 //orcrs->orcs
+37404 @1037404 //Haer'Dalis with capital D
+37416 @1037416 //sancticity->sanctity
+37447 @1037447 //"The mandate of your loyal order is deception and ruse, so misery is just another disguise for your gang of holy thugs agenda is my guess."->"The mandate of your loyal order is deception and ruse, so misery is just another disguise for your gang of holy thugs' agenda is my guess."
+37457 @1037457 //"a number of The Baron's guards"->"a number of the Baron's guards"
+37547 @1037547 //T'il->'Til
+37606 @1037606 //order->Order
+37610 @1037610 //order->Order
+37634 @1037634 //order->Order
+37643 @1037643 //"but I had  duty to fulfill"->"but I had a duty to fulfill"
+37649 @1037649 //Matrich
+37669 @1037669 //"Now just calm down and well straighten this all out."->"Now just calm down and we'll straighten this all out."
+37672 @1037672 //prefered
+37698 @1037698 //beligerant->belligerent
+37710 @1037710 //beligerant->belligerent
+37880 @1037880 //Order..->Order.
+38182 @1038182 //order->Order
+38194 @1038194 //order->Order
+38215 @1038215 //obstinant->obstinate
+38218 @1038218 //obstinant->obstinate
+38268 @1038268 //start sentence with capital letter
+38527 @1038527 //"Knights of the Most Radiant Heart"->"Knights of the Most Noble Order of the Radiant Heart"
+38727 @1038727 //Glaicas->Glaicus
+38728 @1038728 //Glaicas->Glaicus
+38751 @1038751 //brethern
+38882 @1038882 //accquired->acquired
+38919 @1038919 //"Only their self-determination will such rabble amount to anything"->"Only with self-determination will such rabble amount to anything"
+39004 @1039004 //t'was
+39083 @1039083 //T'would->'Twould
+39086 @1039086 //"My lungs burned as a fought to stay conscious"->"My lungs burned as I fought to stay conscious""
+39242 @1039242 //Everaska->Evereska
+39462 @1039462 //thieves can use long swords
+39469 @1039469 //thieves can use scimitars, "STATISTICS"->"STATISTICS:"
+39470 @1039470 //Two Handed, "STATISTICS"->"STATISTICS:"
+39471 @1039471 //Two Handed, "STATISTICS"->"STATISTICS:"
+39472 @1039472 //Two Handed, "STATISTICS"->"STATISTICS:"
+39473 @1039473 //Two Handed, "STATISTICS"->"STATISTICS:"
+39474 @1039474 //Two Handed
+39529 @1039529 //two handed
+39538 @1039538 //thieves can not use plate armour
+39626 @1039626 //bards can not use the staff of curing, "STATISTICS"->"STATISTICS:"
+39751 @1039751 //"north west"->northwest
+39763 @1039763 //matching VO, "If that is what you wish. I will wait outside by the palisade. It will be safer than waiting here."->"If that is what you wish... it will be safer than waiting here. I will wait outside by the palisade."
+39791 @1039791 //pallisade->palisade
+39822 @1039822 //pallisade->palisade
+39831 @1039831 //"reknown for their cruelty"->"renowned for their cruelty"
+39843 @1039843 //pallisade->palisade
+40034 @1040034 //Roenal->Roenall
+40087 @1040087 //end sentence with a period
+40104 @1040104 //"Order of the Most Radiant Heart"
+40187 @1040187 //matching VO, "This is far worse than if the Roenalls had taken over!"->"This is far worse than if the Roenalls had taken over the keep!"
+40188 @1040188 //matching VO, "You... you can't just kill someone!"->"You can't just kill someone!"
+40418 @1040418 //begiinning->beginning
+40441 @1040441 //preposturous->preposterous
+40531 @1040531 //preposturous->preposterous
+40545 @1040545 //"its the witch"->"it's the witch"
+40689 @1040689 //"The Amn Council has"->"The Amnish Council has"
+40906 @1040906 //cutsie->cutesy
+40962 @1040962 //waste my time of this idiotic plan
+41065 @1041065 //"join the the thieves"->"join the thieves"
+41190 @1041190 //"think its the curse"->"think it's the curse"
+41204 @1041204 //"And my style is my own, do not be so petty."->" And my style is my own; do not be so petty."
+41354 @1041354 //end sentence with a period
+41355 @1041355 //end sentence with a period
+41356 @1041356 //end sentence with a period
+41462 @1041462 //rivven->rivvin
+41611 @1041611 //"We open our play in the land of Turmish"->"We open our play in the Turmish land"
+41680 @1041680 //"We open our play in the land of Turmish"->"We open our play in the Turmish land"
+41733 @1041733 //assignent->assignment
+41740 @1041740 //"I saw we try our hand at"->"I say we try our hand at"
+41829 @1041829 //Ther's->There's
+42278 @1042278 //tuteledge->tutelage
+42284 @1042284 //Solamninc->Solamnic
+42327 @1042327 //carefull->careful
+42515 @1042515 //presumptious->presumptuous
+42763 @1042763 //matching VO, "You seek Imoen, your lost comrade, and Irenicus, the one who would give you power.  I am prepared to give you their location, and the means with which to reach them."->"You seek Imoen, your lost comrade. I am prepared to give you her location, and the means with which to reach her."
+42777 @1042777 //there were circumstance that you
+42779 @1042779 //reqested->requested
+42794 @1042794 //Sythsillian->Sythillisian
+42838 @1042838 //interrogat->interrogate
+42840 @1042840 //Sythsillian->Sythillisian
+42845 @1042845 //Sythsillian->Sythillisian
+42847 @1042847 //won't'->won't
+42854 @1042854 //"strong willed"->"strong-willed"
+42888 @1042888 //towns troubles
+42892 @1042892 //retrieveing->retrieving
+42941 @1042941 //"proved to unruly"->"proved too unruly"
+42991 @1042991 //"before I tire your toes in a knot"->"before I tie your toes in a knot"
+43058 @1043058 //retrieveing->retrieving
+43161 @1043161 //transgession->transgression
+43348 @1043348 //"Mayhap ye'll speak to Guildmistress Busya if he wants to do somethin' about that."->"Mayhap ye'll speak to Guildmistress Busya if ye wants to do somethin' about that."
+43480 @1043480 //matching VO, "What can the Dao"->"Tell me, what can the Dao"
+43606 @1043606 //"hording all the food"->"hoarding all the food"
+43623 @1043623 //horde our very food
+43657 @1043657 //subserviant->subservient
+43837 @1043837 //Skarbaen->Skarmaen
+43863 @1043863 //presense->presence
+43895 @1043895 //Ther->There
+44050 @1044050 //"pay for you help"->"pay for your help"
+44116 @1044116 //"Where is Imoen!"->"Where is Imoen?!"
+44206 @1044206 //co-ordinator->Coordinator
+44207 @1044207 //matching VO, "He rules all! He does! You! You are to be but the left bunion of his wondrous idol! You! Be grateful for the chance!"->"He rules all, he does! You?! You are but the left bunion of his wondrous idol! You be grateful for the chance!"
+44282 @1044282 //"me trade is a might constricted"->"me trade is a mite constricted"
+44394 @1044394 //Sythsillian->Sythillisian
+44406 @1044406 //Sythsillian->Sythillisian
+44594 @1044594 //"walled off section of town"->"walled-off section of town"
+44597 @1044597 //"walled off section of town"->"walled-off section of town"
+44615 @1044615 //"It's... it's body"->"Its... its body"
+44620 @1044620 //cooporation->co-operation
+44923 @1044923 //satifaction->satisfaction
+44943 @1044943 //Iron Skins does not protect the druid against "magic missle"
+45061 @1045061 //accomodate->accommodate
+45071 @1045071 //De'Arnise->de'Arnise
+45081 @1045081 //prefered->preferred
+45339 @1045339 //fightin->fightin'
+45664 @1045664 //"The sea gates are steadfast locked until it is blown"->"The sea gates are steadfastly locked until it is blown."
+45760 @1045760 //"They I wish"->"Then I wish"
+45763 @1045763 //"thieves war"->"thieves' war"
+45882 @1045882 //"it's location"->"its location"
+45898 @1045898 //matching VO, "Oh hell. I'll be below deck securing the... ah... something."->"Aw hell. Uh... I-I'll be below deck securing the... um... s-something, ah..."
+46016 @1046016 //adds VO
+46021 @1046021 //adds VO
+46107 @1046107 //"Well, sported, sir. I shall have the Desharik apprised of the results."->"Well sported, sir. I shall have Desharik apprised of the results."
+46163 @1046163 //"Arnise certain kept"->"Arnise certainly kept"
+46213 @1046213 //Roenal->Roenall
+46237 @1046237 //De'Arnise->de'Arnise
+46241 @1046241 //liason
+46261 @1046261 //Roenal->Roenall
+46262 @1046262 //Roenal->Roenall
+46272 @1046272 //Roenal->Roenall
+46295 @1046295 //Roenal->Roenall
+46299 @1046299 //"We are called the Sea Devils and the Anguiliians"->"We are called the Sea Devils and our eel-kin the Anguiliians"
+46383 @1046383 //"What does that scoundrel pay you to do!"->"What does that scoundrel pay you to do?!"
+46391 @1046391 //Releived->Relieved
+46399 @1046399 //scrumpcious->scrumptious
+46417 @1046417 //perserverence->perserverance
+46430 @1046430 //speciman->specimen
+46442 @1046442 //prophecized->prophesied
+46576 @1046576 //prophecized->prophesied
+46580 @1046580 //prophecized->prophesied
+46665 @1046665 //thieves can use scimitars, single edged
+46667 @1046667 //thieves can normally use scimitars, single edged, "STATISTICS"->"STATISTICS:"
+46706 @1046706 //thieves can use light crossbows
+46754 @1046754 //Sakolah->Sekolah
+46760 @1046760 //prophecized->prophesied
+46851 @1046851 //Master of Thralls dwarven slave
+46867 @1046867 //end sentence with period
+46889 @1046889 //thieves can use scimitars
+46912 @1046912 //Tis->'Tis
+46918 @1046918 //paraphenelia->paraphernalia
+46924 @1046924 //"alchemists poisons"->"alchemists' poisons"
+46945 @1046945 //"Trademeets mercantile enterprises"->"Trademeet's mercantile enterprises"
+47030 @1047030 //Sythsillian->Sythillisian
+47115 @1047115 //"reknown around Faerun"->"renowned around Faerun"
+47124 @1047124 //mischevious->mischievous
+47141 @1047141 //Winspear->Windspear
+47209 @1047209 //"tiny rivvin like yourself"->"tiny rivvil like yourself"
+47262 @1047262 //eviller->eviler
+47263 @1047263 //its horde was mine
+47361 @1047361 //independant->independent
+47382 @1047382 //"I would be careful with that sharp tone, rivvin, lest you lose the tongue that shapes it."->"I would be careful with that sharp tone, rivvil, lest you lose the tongue that shapes it."
+47482 @1047482 //"things to do that court your arrogant pride"->"things to do than court your arrogant pride"
+47493 @1047493 //failling->failing
+47496 @1047496 //wailling->wailing
+47545 @1047545 //"although I did it without the evidence that Renal needed and without his."->"although I did it without the evidence that Renal needed and without his approval."
+47578 @1047578 //inadvertantly->inadvertently
+47721 @1047721 //illilthium->illithium
+47760 @1047760 //presense->presence
+47911 @1047911 //wisdome->wisdom
+47919 @1047919 //desireable->desirable 
+47950 @1047950 //hazzard->hazard
+47987 @1047987 //garrolous->garrulous
+47991 @1047991 //garrolous->garrulous
+48095 @1048095 //Twas->'Twas
+48134 @1048134 //"pay for our fathers 'crime'."->"pay for our father's 'crime'."
+48163 @1048163 //"Ulgoth'd Beard"->"Ulgoth's Beard"
+48233 @1048233 //"There passage is assured"->"Their passage is assured"
+48265 @1048265 //matching VO, "Are we to separate on this note?"->"Well... are we to separate on this note?"
+48323 @1048323 //matching VO, "We must continue on our travels."->"We must continue our travels."
+48472 @1048472 //tyrrany->tyrany
+48633 @1048633 //desireable->desirable
+48635 @1048635 //"ill got in origin"->"ill-got in origin"
+48652 @1048652 //"than it should be. ."->"than it should be..."
+48658 @1048658 //Two Handed
+48690 @1048690 //"shade lord"->"Shade Lord"
+48786 @1048786 //reknown->renowned
+48791 @1048791 //halfing->halfling
+48838 @1048838 //reknown->renowned
+48852 @1048852 //intrument->instrument
+48860 @1048860 //Roenal->Roenall
+48867 @1048867 //Roenal->Roenall
+48871 @1048871 //Roenal->Roenall
+48884 @1048884 //"this 'gong"->"this gong"
+48916 @1048916 //"Chaos "->"Chaos"
+48973 @1048973 //"The singleminded nature of the Rashemen"->"The singleminded nature of the Rashemeni"
+48982 @1048982 //Aegiesfield->Aegisfield
+49050 @1049050 //"Child of Nature you are again needed."->"Child of Nature, you are again needed."
+49247 @1049247 //brethern->brethren
+49382 @1049382 //imcompetence->incompetence
+49543 @1049543 //t'would->'twould
+49588 @1049588 //"We# we"->"Well, we"
+49630 @1049630 //"Yer a conquerer"->"Ye're a conqueror"
+49711 @1049711 //it's->its
+49979 @1049979 //"lets get out of this place"->"let's get out of this place"
+49988 @1049988 //blashphemy->blasphemy
+49992 @1049992 //"Calm yourself, rivvin."->"Calm yourself, rivvil."
+50024 @1050024 //"I will be find"->"I will be fine"
+50031 @1050031 //moent->moment
+50096 @1050096 //"your voice, rivvin"->"your voice, rivvil"
+50172 @1050172 //rivven->rivvin
+50251 @1050251 //adminstering
+50269 @1050269 //"Here take the deed and prepare your self."->"Here, take the deed and prepare yourself."
+50418 @1050418 //warrented->warranted
+50423 @1050423 //indespensible->indispensable
+50427 @1050427 //impass->impasse
+50470 @1050470 //insistant->insistent
+50472 @1050472 //sufficiant->sufficient
+50524 @1050524 //"length of it's stay"->"length of its stay"
+50529 @1050529 //prehaps->perhaps
+50535 @1050535 //lilly-footing->lily-footing, "I wonder of the fool even wants to stop the mad druids!"->"I wonder if the fool even wants to stop the mad druids!"
+50583 @1050583 //"I have survived more self-righteous rivvil than you"->"I have survived more self-righteous rivvin than you"
+50586 @1050586 //rivven->rivvin
+50657 @1050657 //"a magic portal suddenly opens spawning a blood thirsty monster!"->"a magic portal suddenly opens, spawning a blood-thirsty monster!"
+50679 @1050679 //"an opponents force"->"an opponent's force"
+50694 @1050694 //lilly-livered->lily-livered
+50737 @1050737 //north east, Grove.The
+50781 @1050781 //D'Arnisse->de'Arnise
+50818 @1050818 //D'Arnisse
+51029 @1051029 //adminstering->administering
+51151 @1051151 //millenia->millennium
+51176 @1051176 //Ust Nathan->Ust Natha
+51195 @1051195 //"Peform and have nothing"->"Perform poorly and have nothing"
+51210 @1051210 //presense->presence
+51364 @1051364 //decended->descended
+51666 @1051666 //heirarchy->hierarchy
+51691 @1051691 //"statue,the"->"statue, the"
+51770 @1051770 //tockenage->tokenage
+51884 @1051884 //thieves can use scimitars
+51973 @1051973 //stubborness->stubbornness
+52127 @1052127 //IGNOMNITY->IGNOMINY
+52373 @1052373 //significan->significant
+52539 @1052539 //brethern->brethren
+52732 @1052732 //end sentence with a period
+52798 @1052798 //"House De Vir"->"House DeVir"
+52801 @1052801 //"House De Vir"->"House DeVir"
+52821 @1052821 //"House De Vir"->"House DeVir"
+52957 @1052957 //Wesselan->Wessalen
+53006 @1053006 //attemtping->attempting
+53023 @1053023 //priveledge->privilege
+53024 @1053024 //priveledge->privilege
+53060 @1053060 //Reirric->Reirrac
+53088 @1053088 //end sentence with a period
+53092 @1053092 //end sentence with a period
+53103 @1053103 //priveledge->privilege
+53104 @1053104 //priveledge->privilege
+53119 @1053119 //positition->position
+53296 @1053296 //Drizz't->Drizzt
+53320 @1053320 //contemptable->contemptible
+53403 @1053403 //"disgusting eight legged beast"->"disgusting eight-legged beast"
+53686 @1053686 //Roenal->Roenall
+53750 @1053750 //presense->presence
+53791 @1053791 //"south west"->southwest
+53826 @1053826 //"new found friendship"->"new-found friendship"
+53843 @1053843 //comapny->company
+53877 @1053877 //"It is to dangerous"->"It is too dangerous"
+53888 @1053888 //coudl->could
+53928 @1053928 //assitance->assistance
+53935 @1053935 //"th guild"->"the guild"
+54077 @1054077 //Nelanthir
+54087 @1054087 //Nelanthir
+54282 @1054282 //matching VO, "Perhaps you lose yourself in the end, but you will go to a greater reward than you can know."->"Perhaps you lose yourself in the end, but you will go to greater reward than you can know."
+54311 @1054311 //abrubt->abrupt
+54313 @1054313 //abrubt->abrupt
+54432 @1054432 //"I barely escapes"->"I barely escaped"
+54518 @1054518 //dispell->dispel
+54538 @1054538 //abrubt->abrupt
+54539 @1054539 //abrubt->abrupt
+54555 @1054555 //"Don't you think that your overreacting"->"Don't you think that you're overreacting"
+54671 @1054671 //"What... who... WHO DARES!"->"What... who... WHO DARES?!"
+54857 @1054857 //matching VO, "You comess to usss at lassst, Child of Bhaal.  You comess to claimsss your heritage"
+54896 @1054896 //matching VO,  "You have come very nearss to locating your quarry...yesssss, indeedss you have."
+55030 @1055030 //matching VO, "Yes, indeed you have."->"Oh yes, indeed you have."
+55049 @1055049 //matching VO, "even the powerful"->"even the most powerful", "claims of power were hollow"->"claims of power were ssso hollow", "You tore them from their"->"You tore them down from their"
+55052 @1055052 //matching VO, "And I am givingsss to you, now"->"And I am giving you, now"
+55053 @1055053 //matching VO, "sssword called 'Blackrazor'"->"sssword that iss named 'Blackrazor'", needss->need
+55054 @1055054 //matching VO, "how you usssse"->"how to usssse", leavesss->leave
+55117 @1055117 //matching VO, "will do nicely"->"will do very nicely"
+55124 @1055124 //matching VO, effect->effects
+55211 @1055211 //matching VO, "What is this place?!"->"What... wha-what is this place?!", "and I felt... a dragging"->"and I felt... I felt a dragging"
+55212 @1055212 //matching VO, "We died"->"I died", " this was not finished.  I came willingly... Mazzy Fentan"->"this was not finished, this battle. I felt your tugging and I came willingly... Mazzy Fentan"
+55214 @1055214 //matching VO, "I felt your infernal power"->"Yes, I felt your infernal power"
+55319 @1055319 //"told of of the theft"->"told of the theft"
+55372 @1055372 //interupted
+55551 @1055551 //Imnesvail->Imnesvale
+55571 @1055571 //indescretion->indiscretion
+55573 @1055573 //"duty is all important"->"duty is all-important"
+55577 @1055577 //"self sacrifice"->"self-sacrifice"
+55578 @1055578 //"self sacrificing"->"self-sacrificing"
+55603 @1055603 //"I was to lenient"->"I was too lenient"
+55629 @1055629 //"Were were attacked"->"We were attacked"
+55633 @1055633 //bu->but
+55666 @1055666 //start sentence with capital letter
+55668 @1055668 //bewteen->between
+55680 @1055680 //warrent->warrant
+55747 @1055747 //"I am loathe"->"I am loath"
+55749 @1055749 //obsenity->obscenity
+55882 @1055882 //"Don't worried"->"Don't be worried"
+55886 @1055886 //"unwelcome my old hom has become"->"unwelcome it has become" (as per VO)
+55889 @1055889 //manuever->maneuver
+55928 @1055928 //sickenly->sickeningly
+55950 @1055950 //"every rivvin who has wronged me"->"every rivvil who has wronged me"
+55966 @1055966 //"I will not assist you fight him."->"I will not assist you fighting him."
+55971 @1055971 //millenium
+55995 @1055995 //tresspassing->trespassing
+55996 @1055996 //tresspassing->trespassing
+56013 @1056013 //"to not not upset"->"to not upset"
+56151 @1056151 //monstous->monstrous
+56155 @1056155 //"an I right"->"am I right"
+56169 @1056169 //"These are Impressive risks"->"These are impressive risks"
+56172 @1056172 //glimps->glimpse
+56243 @1056243 //matching VO, "I... I was"->"I was"
+56255 @1056255 //matching VO, "I was j-just"->"I was just"
+56274 @1056274 //wimpering->whimpering
+56298 @1056298 //matching VO, "grate on the nerves"->"grate on my nerves", "as I recall... so pull yourself together"->"as I recall... pull yourself together"
+56345 @1056345 //matching VO, "bang a drum"->"bang on a drum"
+56407 @1056407 //Vapiricus->Vampiricus
+56551 @1056551 //"well being"->"well-being"
+56590 @1056590 //Ohgma->Oghma
+56593 @1056593 //Ohgma->Oghma
+56596 @1056596 //Lanthon->Lanthorn
+56658 @1056658 //"I new you"->"I knew you"
+56668 @1056668 //"I my body, that... that thing does not die"->"If my body, that... that thing does not die", blood->hand (Dace's)
+56671 @1056671 //shaman's->shaman, blood->hand
+56672 @1056672 //blood->hand
+56679 @1056679 //"that is was traumatic"->"that it was traumatic"
+56790 @1056790 //"Away with yo"->"Away with you"
+56809 @1056809 //Liason->Liaison
+56863 @1056863 //"2 feet by 4 feet size"->"2 feet by 4 feet in size", end last sentence with a period
+56882 @1056882 //"who's benefit"->"whose benefit"
+56895 @1056895 //bazarre->bazaar
+56953 @1056953 //T'would->'Twould
+57150 @1057150 //"a millenia"->"a millennium"
+57177 @1057177 //"Kill the lich loot his tower"->"Kill the lich and loot his tower"
+57216 @1057216 //Gladatorial->Gladiatorial
+57225 @1057225 //comdemned->condemned
+57313 @1057313 //resposibility->responsibility
+57322 @1057322 //obstinant->obstinate
+57388 @1057388 //irrelevent->irrelevant
+57412 @1057412 //"south eastern"->southeastern
+57417 @1057417 //"Lolth has spoken her divine will me"->"Lolth has spoken her divine will through me"
+57420 @1057420 //apopologies->apologies
+57426 @1057426 //revernce->reverence
+57456 @1057456 //permissable->permissible
+57462 @1057462 //inherant->inherent
+57478 @1057478 //"The Rope no longers seems to"->"The Rope no longer seems to"
+57564 @1057564 //Vapiricus->Vampiricus
+57565 @1057565 //Vapiricus->Vampiricus
+57583 @1057583 //sulphorous->sulphurous
+57593 @1057593 //"of the unconcious surface worlders"->"of the unconscious surface-worlders"
+57650 @1057650 //stomache->stomach
+57655 @1057655 //develope->develop
+57668 @1057668 //"had to breath through the spigot"->"had to breathe through the spigot"
+57701 @1057701 //"have ing"->"having"
+57766 @1057766 //Rillifiane->Rillifane
+57864 @1057864 //chastizing->chastising
+57881 @1057881 //south west
+57903 @1057903 //unstrustworthy->untrustworthy
+57926 @1057926 //"to guard duty over"->"to stand guard over"
+58085 @1058085 //"Athkatla; In the end"->"Athkatla; in the end"
+58139 @1058139 //achive->achieve
+58143 @1058143 //stading->standing
+58303 @1058303 //"it's multicolored eyes"->"its multicolored eyes"
+58325 @1058325 //contendedly->contentedly
+58408 @1058408 //warrent
+58575 @1058575 //end sentence with a period
+58580 @1058580 //end sentence with a period
+58607 @1058607 //ressurected->resurrected
+58608 @1058608 //"I will speak, but it shall be the last you here!"->"I will speak, but it shall be the last you hear!"
+58680 @1058680 //deterrance->deterrent
+58890 @1058890 //"Ye're kindred's spots betray ye"->"Yer kindred's spots betray ye"
+58891 @1058891 //"nay stop lookin' over ye're shoulders"->"nay stop lookin' over yer shoulders"
+58914 @1058914 //Iit->It
+58924 @1058924 //Exacly->Exactly
+59108 @1059108 //presense->presence
+59237 @1059237 //"loved on"->"loved one"
+59372 @1059372 //Vapiricus->Vampiricus
+59426 @1059426 //inportance->importance
+59481 @1059481 //matching VO, "So are we killing something now?" "So are we gonna... kill something now?"
+59483 @1059483 //matching VO, "So, we going to kill something soon?  How about now?  No?  How about... now?  No?  Ummm... now?"->"So, are we gonna kill something soon? How about now? No? How about, uh... now? No? Ummm... now? What about now?"
+59494 @1059494 //matching VO, "Advice, eh?  Well, besides working a little on your swordsmanship.  Besides that, I'd have to think."->"Advice, eh? Hmmm... well, besides working on your swordsmanship... you know, besides that... uh, I'd have to think..."
+59495 @1059495 //matching VO, come up with it, Wahoo
+59497 @1059497 //matching VO, Find someone->Then find someone
+59498 @1059498 //matching VO, "Hmmm... I think"->"I think", "ranger's head."->"ranger's head. Haha!"
+59500 @1059500 //matching VO, Woo-hoo->Hahahaa
+59501 @1059501 //matching VO, "C'mon, grab a rag already..."->"Grab a rag already!"
+59502 @1059502 //matching VO, "Err... find that wizard guy.  Yeah... find him and kill him.  Kill kill kill kill KILL!!    Whoo-hoo!!"->"Ahh... umm... uh, find the wizard guy. Yeah, sure... find 'im and kill 'im. Kill kill kill kill KILL!! Woo-hoo!!"
+59510 @1059510 //matching VO, "Right now.  Go find one and kill it.  That would be SO cool."->"Right now. No, don't look. Go kill one now. Go find one and kill it. That's right: kill... now. That would be SO cool!"
+59543 @1059543 //matching VO, "I agree with the Rashemaar.  Give me to him, willya?  What a pair!  Me the brains"->"Ooh... I agree with the Rashemaar! Give me to him, willya? C'mon! What a pair we'd make! Oh, me the brains"
+59758 @1059758 //Welll->Well
+59845 @1059845 //occaision->occasion
+59857 @1059857 //disapoint->disappoint
+60274 @1060274 //veangeance->vengeance
+60334 @1060334 //"This heres' the life"->"This here's the life"
+60420 @1060420 //interupted->interrupted
+60506 @1060506 //Sakolah->Sekolah
+60633 @1060633 //end sentence with a period
+60762 @1060762 //Lolths name->Lolth's name
+60950 @1060950 //leopards have spots, not stripes
+60998 @1060998 //"Rarely have a seen its like"->"Rarely have I seen its like"
+61095 @1061095 //Thayans->Thayvians
+61173 @1061173 //"who's estate"->"whose estate"
+61286 @1061286 //start sentence with capital letter
+61309 @1061309 //dispicable->despicable
+61351 @1061351 //Two Handed
+61449 @1061449 //"our swords and ours souls"->"our swords and our souls"
+62054 @1062054 //"third party communication"->"third-party communication"
+62135 @1062135 //order->Order
+62138 @1062138 //order->Order
+USING "bg2fixpack/%LANGUAGE%/gtul.tra"
+
+ACTION_IF FILE_EXISTS_IN_GAME mel01.cre BEGIN //ToB
+
+STRING_SET
+62622 @1062622 //millenium->millennium
+62972 @1062972 //reknown
+63028 @1063028 //horde of treasure
+63140 @1063140 //fleshing->fleshling
+63406 @1063406 //perserverance->perseverance
+63460 @1063460 //perserverance->perseverance
+63468 @1063468 //Staff of Radiance
+63470 @1063470 //Staff of Radiance
+63545 @1063545 //"swirl of centuries old dust"->"swirl of centuries-old dust"
+63570 @1063570 //missle
+63573 @1063573 //"blood soaked corpse"->"blood-soaked corpse"
+63586 @1063586 //"well furnished room"->"well-furnished room"
+63622 @1063622 //rushs->rushes
+63670 @1063670 //"reknowned match"->"renowned match"
+63700 @1063700 //"it's bony finger"->"its bony finger"
+63736 @1063736 //ta'anari->tanar'ri
+63807 @1063807 //"it's golden trail"->"its golden trail"
+63833 @1063833 //perserverance->perseverance
+64139 @1064139 //perserverance->perseverance
+64143 @1064143 //embarassments->embarrassments
+64235 @1064235 //Pyrgram->Pyrgam
+64246 @1064246 //"Yaga Shura"->"Yaga-Shura"
+64255 @1064255 //"coming to me personal like and sharing"->"coming to me, personal-like, and sharing"
+64265 @1064265 //"Yaga Shura"->"Yaga-Shura"
+64303 @1064303 //"Yaga Shura"->"Yaga-Shura", seige->siege
+64304 @1064304 //"Yaga Shura"->"Yaga-Shura"
+64305 @1064305 //"Yaga Shura"->"Yaga-Shura"
+64367 @1064367 //"Yaga Shura"->"Yaga-Shura"
+64376 @1064376 //"Yaga Shura"->"Yaga-Shura"
+64377 @1064377 //"Yaga Shura"->"Yaga-Shura"
+64379 @1064379 //Yaga Shura, Bhaal spawn
+64410 @1064410 //"Yaga Shura"->"Yaga-Shura"
+64481 @1064481 //"I am loathe"->"I am loath"
+64548 @1064548 //sugary sweet soul
+64634 @1064634 //"self serving weasel"->"self-serving weasel"
+64840 @1064840 //"A far fetched tale"->"A farfetched tale"
+64906 @1064906 //"he caught him red handed"->"he caught him red-handed"
+64972 @1064972 //Erarrd
+64998 @1064998 //"Yaga Shura"->"Yaga-Shura"
+65000 @1065000 //"Yaga Shura"->"Yaga-Shura"
+65094 @1065094 //"Yaga Shura"->"Yaga-Shura"
+65265 @1065265 //T'is->'Tis
+65267 @1065267 //t'is->'tis
+65272 @1065272 //T'is->'Tis
+65349 @1065349 //capital letter thing
+65395 @1065395 //"The fool was far too gone."->"The fool was too far gone."
+65579 @1065579 //"Yaga Shura"->"Yaga-Shura"
+65580 @1065580 //"Yaga Shura"->"Yaga-Shura"
+65594 @1065594 //"Yaga Shura"->"Yaga-Shura"
+65769 @1065769 //"Bhaal spawn"->"Bhaalspawn, Yaga Shura->Yaga-Shura
+65868 @1065868 //"Bhaal tainted blood"->"Bhaal-tainted blood"
+65879 @1065879 //"Yaga Shura"->"Yaga-Shura"
+65934 @1065934 //"Yaga Shura"->"Yaga-Shura"
+65947 @1065947 //"Yaga Shura"->"Yaga-Shura"
+65952 @1065952 //matching VO, "No, please, no!"->"No, please..."
+65961 @1065961 //"Yaga Shura"->"Yaga-Shura"
+65964 @1065964 //adds VO
+65966 @1065966 //"Yaga Shura"->"Yaga-Shura"
+65968 @1065968 //"Yaga Shura"->"Yaga-Shura"
+65971 @1065971 //impertinance->impertinence
+65972 @1065972 //"Yaga Shura"->"Yaga-Shura"
+65976 @1065976 //"Yaga Shura"->"Yaga-Shura"
+65979 @1065979 //"Yaga Shura"->"Yaga-Shura"
+65984 @1065984 //"Yaga Shura"->"Yaga-Shura"
+65988 @1065988 //"short sighted fools", Yaga Shura
+65989 @1065989 //"Yaga Shura"->"Yaga-Shura"
+65992 @1065992 //"Yaga Shura"->"Yaga-Shura"
+66008 @1066008 //adds VO
+66010 @1066010 //adds VO
+66011 @1066011 //adds VO
+66015 @1066015 //adds VO
+66017 @1066017 //adds VO
+66040 @1066040 //"Yaga Shura"->"Yaga-Shura"
+66041 @1066041 //"Yaga Shura"->"Yaga-Shura"
+66042 @1066042 //"Yaga Shura"->"Yaga-Shura"
+66123 @1066123 //T'is->'Tis
+66151 @1066151 //"slime loving excuse of a mage"
+66153 @1066153 //"cold hearted monster"
+66154 @1066154 //"red bodied beast"
+66163 @1066163 //"slow burning torches"
+66166 @1066166 //matching VO, "I...I am wounded!!"->"I am wounded?!?!"
+66258 @1066258 //single handed
+66281 @1066281 //reknown
+66292 @1066292 //Two Handed
+66294 @1066294 //Two Handed
+66301 @1066301 //Two Handed
+66388 @1066388 //reknowned
+66421 @1066421 //druids can apparently use dragon scale armour
+66448 @1066448 //reknowned
+66453 @1066453 //beseiged
+66551 @1066551 //matching VO, "Use my recipes for you will I, make the shiny ones."->"Use my recipes for you will, I... I make the shiny ones."
+66576 @1066576 //"double crossing rat"->"double-crossing rat"
+66632 @1066632 //life draining powers
+66691 @1066691 //"Would you llike?"->"Would you like?"
+66731 @1066731 //"slack jawed yokel"->"slack-jawed yokel"
+66808 @1066808 //"hard earned gold"->"hard-earned gold"
+66854 @1066854 //"fighting skills were getting a might rusty"->"fighting skills were getting a mite rusty"
+66924 @1066924 //end sentence with period
+67141 @1067141 //Athakatla->Athkatla, Sythsillians->Sythillisians
+67350 @1067350 //the the clearing, funny looking elves
+67352 @1067352 //south west
+67464 @1067464 //occurences->occurrences
+67477 @1067477 //"slaughter filled progress"->"slaughter-filled progress"
+67573 @1067573 //sufference->sufferance
+67578 @1067578 //T'was->'Twas
+67579 @1067579 //T'was->'Twas
+67654 @1067654 //adds VO
+67658 @1067658 //adds VO
+67662 @1067662 //adds VO
+67666 @1067666 //adds VO
+67669 @1067669 //adds VO
+67671 @1067671 //adds VO
+67675 @1067675 //adds VO
+67721 @1067721 //spurnned->spurned
+67754 @1067754 //coincedence->coincidence
+67767 @1067767 //do gooders->do-gooders
+67769 @1067769 //rivven->rivvin
+67781 @1067781 //alou fiends
+67907 @1067907 //T'is->'Tis
+67912 @1067912 //rememberance->remembrance
+68003 @1068003 //Rashemen warrior->Rashemeni warrior
+68039 @1068039 //"Ye look a might down today."->"Ye look a mite down today."
+68041 @1068041 //"I find that a might surprisin'."->"I find that a mite surprisin'."
+68054 @1068054 //disparge->disparage
+68060 @1068060 //matching VO, "Korgan, Boo"->"Korgaaan... Korgan, Korgan: Boo"
+68128 @1068128 //Rasheman->Rashemen
+68136 @1068136 //Rasheman->Rashemen
+68140 @1068140 //Rasheman->Rashemen
+68145 @1068145 //Rashemani witch->Rashemeni witch
+68171 @1068171 //Rashemani witch->Rashemeni witch
+68184 @1068184 //privelege->privilege
+68222 @1068222 //dischord->discord
+68259 @1068259 //"no matter how you guild your words"->"no matter how you gild your words"
+68289 @1068289 //twas->'twas
+68340 @1068340 //resurgance->resurgence
+68368 @1068368 //high handed condemnation, believeing
+68402 @1068402 //greater then
+68477 @1068477 //"You're not upset are you?"->"You're not upset, are you?"
+68507 @1068507 //fine looking, turnip farming
+68535 @1068535 //mischievious->mischievous
+68559 @1068559 //never ending
+68565 @1068565 //"I have given that considerable though"->"I have given that considerable thought"
+68609 @1068609 //T'is->'Tis, T'would->'Twould
+68613 @1068613 //T'is->'Tis
+68615 @1068615 //T'is->'Tis
+68621 @1068621 //t'is->'tis
+68623 @1068623 //t'is->'tis
+68629 @1068629 //T'is->'Tis
+68649 @1068649 //T'is->'Tis
+68651 @1068651 //T'was->'Twas
+68653 @1068653 //T'is->'Tis
+68658 @1068658 //T'is->'Tis
+68662 @1068662 //matching VO, "Well, no... I just..."->"Oh! Well, no... uh... I just thought..."
+68722 @1068722 //tyrin'->tryin'
+68749 @1068749 //Roenal->Roenall
+68750 @1068750 //Roenal->Roenall
+68755 @1068755 //resurection->resurrection
+68786 @1068786 //Yer->Ye're, wanna be
+68787 @1068787 //small minded->small-minded, small membered->small-membered
+68794 @1068794 //curiousity->curiosity
+68917 @1068917 //incorrigable->incorrigible
+69008 @1069008 //T'is->'Tis
+69021 @1069021 //matching VO, "I've got to admit, Mazzy, that being your squire has been far more pleasant that I thought it would be."->"I gotta admit, Mazzy, that being your squire has been far more pleasant than I thought it'd be."
+69084 @1069084 //T'was->'Twas
+69228 @1069228 //matching VO, "Boo and I always have time to speak with our friends, right Boo?"->"Boo and I always are having time to speak with our friends, yes no Boo?"
+69239 @1069239 //rivel->rivvil
+69340 @1069340 //irresistable->irresistible
+69518 @1069518 //end sentence with a period
+69667 @1069667 //reasurances->reassurances
+69751 @1069751 //"maybe its time to start"->"maybe it's time to start"
+69952 @1069952 //rivven->rivvin
+70473 @1070473 //There is not telling
+70543 @1070543 //t'is->'tis
+70549 @1070549 //t'is->'tis
+70912 @1070912 //rune covered, fist sized
+71003 @1071003 //"The problem is, everytime a globe is dispensed"->"The problem is, every time a globe is dispensed"
+71028 @1071028 //Two Handed
+71033 @1071033 //Two Handed
+71065 @1071065 //"Yaga Shura"->"Yaga-Shura"
+71070 @1071070 //"Yaga Shura"->"Yaga-Shura"
+71098 @1071098 //thieves can use scimitars, "enhanced magically to compliment the skill of the wielder."->"enhanced magically to complement the skill of the wielder."
+71421 @1071421 //Suldanesselar->Sulanessellar
+71783 @1071783 //accomodate->accommodate
+71789 @1071789 //"Yaga Shura"->"Yaga-Shura"
+71865 @1071865 //barrell->barrel
+71898 @1071898 //monastary->monastery
+71904 @1071904 //monastary->monastery
+71912 @1071912 //monastary->monastery
+71913 @1071913 //monastary->monastery
+71941 @1071941 //monastary->monastery
+71943 @1071943 //monastary->monastery
+71944 @1071944 //monastary->monastery
+71962 @1071962 //inherant->inherent
+71963 @1071963 //inherant->inherent
+71964 @1071964 //inherant->inherent
+72177 @1072177 //T'was->'Twas
+72294 @1072294 //end sentence with period
+72343 @1072343 //guath->gauth
+72407 @1072407 //missle
+72697 @1072697 //"Just don't get cacked is all I can say about it."->"Just don't get cracked is all I can say about it."
+72822 @1072822 //end sentence with period
+72837 @1072837 //"Yaga Shura"->"Yaga-Shura"
+73207 @1073207 //Abzigal->Abazigal
+73212 @1073212 //"These eggs are man made"->"These eggs are man-made"
+73256 @1073256 //Suldanessalar, carved faced
+73292 @1073292 //"Yaga Shura"->"Yaga-Shura"
+73383 @1073383 //"I urge you gods speed."->"I urge you godspeed."
+73384 @1073384 //Missle->Missile
+73405 @1073405 //"Yaga Shura"->"Yaga-Shura"
+73467 @1073467 //alway's->always
+73729 @1073729 //crytalline->crystalline
+73822 @1073822 //"Yaga Shura"->"Yaga-Shura"
+73851 @1073851 //"Yaga Shura"->"Yaga-Shura"
+73900 @1073900 //single handedly
+73911 @1073911 //Two Handed
+73918 @1073918 //Roenal->Roenall
+73921 @1073921 //Suldanessalar->Suldanessellar
+73946 @1073946 //Marileth
+USING "bg2fixpack/%LANGUAGE%/gtul.tra"
+
+END

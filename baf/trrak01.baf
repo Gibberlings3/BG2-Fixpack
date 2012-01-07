@@ -1,0 +1,8 @@
+IF
+  AttackedBy([GOODCUTOFF],DEFAULT)
+  Global("attacked","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("attacked","LOCALS",1)
+    StartDialogueNoSet([PC])
+END

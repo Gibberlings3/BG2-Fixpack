@@ -1,0 +1,144 @@
+IF
+  Alignment(Player1,MASK_EVIL)
+  HasItem("CDHLYSYM",Player1)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player1)
+  TakeItemReplace("BELT14","CDHLYSYM",Player1)
+END  
+IF 
+  Alignment(Player2,MASK_EVIL)
+  HasItem("CDHLYSYM",Player2)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player2)
+  TakeItemReplace("BELT14","CDHLYSYM",Player2)
+END
+IF 
+  Alignment(Player3,MASK_EVIL)
+  HasItem("CDHLYSYM",Player3)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player3)
+  TakeItemReplace("BELT14","CDHLYSYM",Player3)
+END
+IF 
+  Alignment(Player4,MASK_EVIL)
+  HasItem("CDHLYSYM",Player4)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player4)
+  TakeItemReplace("BELT14","CDHLYSYM",Player4)
+END
+IF 
+  Alignment(Player5,MASK_EVIL)
+  HasItem("CDHLYSYM",Player5)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player5)
+  TakeItemReplace("BELT14","CDHLYSYM",Player5)
+END
+IF 
+  Alignment(Player6,MASK_EVIL)
+  HasItem("CDHLYSYM",Player6)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player6)
+  TakeItemReplace("BELT14","CDHLYSYM",Player6)
+END
+IF
+  Alignment(Player1,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player1)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player1)
+  TakeItemReplace("BELT13","CDHLYSYM",Player1)
+END  
+IF 
+  Alignment(Player2,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player2)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player2)
+  TakeItemReplace("BELT13","CDHLYSYM",Player2)
+END
+IF 
+  Alignment(Player3,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player3)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player3)
+  TakeItemReplace("BELT13","CDHLYSYM",Player3)
+END
+IF 
+  Alignment(Player4,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player4)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player4)
+  TakeItemReplace("BELT13","CDHLYSYM",Player4)
+END
+IF 
+  Alignment(Player5,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player5)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player5)
+  TakeItemReplace("BELT13","CDHLYSYM",Player5)
+END
+IF 
+  Alignment(Player6,MASK_GENEUTRAL)
+  HasItem("CDHLYSYM",Player6)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player6)
+  TakeItemReplace("BELT13","CDHLYSYM",Player6)
+END
+IF
+  Alignment(Player1,MASK_GOOD)
+  HasItem("CDHLYSYM",Player1)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player1)
+  TakeItemReplace("BELT12","CDHLYSYM",Player1)
+END  
+IF 
+  Alignment(Player2,MASK_GOOD)
+  HasItem("CDHLYSYM",Player2)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player2)
+  TakeItemReplace("BELT12","CDHLYSYM",Player2)
+END
+IF 
+  Alignment(Player3,MASK_GOOD)
+  HasItem("CDHLYSYM",Player3)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player3)
+  TakeItemReplace("BELT12","CDHLYSYM",Player3)
+END
+IF 
+  Alignment(Player4,MASK_GOOD)
+  HasItem("CDHLYSYM",Player4)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player4)
+  TakeItemReplace("BELT12","CDHLYSYM",Player4)
+END
+IF 
+  Alignment(Player5,MASK_GOOD)
+  HasItem("CDHLYSYM",Player5)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player5)
+  TakeItemReplace("BELT12","CDHLYSYM",Player5)
+END
+IF
+  Alignment(Player6,MASK_GOOD)
+  HasItem("CDHLYSYM",Player6)
+THEN 
+RESPONSE #100
+  ApplySpellRES("CDHLYSY2",Player6)
+  TakeItemReplace("BELT12","CDHLYSYM",Player6)
+END

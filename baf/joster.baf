@@ -1,0 +1,8 @@
+IF
+  Global("CDJoster","AR0522",1)
+  See(Player1)
+THEN
+  RESPONSE #100
+    SetGlobal("CDJoster","AR0522",0)
+    StartDialogueNoSet(Player1)
+END

@@ -1,0 +1,8 @@
+IF
+  Die()
+THEN
+  RESPONSE #100
+    CreateVisualEffectObject("ICMAGICH",Myself)
+    CreateVisualEffectObject("SPFIREPI",Myself)
+    DestroySelf()
+END

@@ -1,0 +1,15 @@
+IF
+  !HasItem("ring33",Myself)
+  Global("CDRing33Gone","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDRing33Gone","GLOBAL",1)
+END
+
+IF
+  HasItem("ring33",Myself)
+  Global("CDRing33Gone","GLOBAL",1)
+THEN
+  RESPONSE #100
+    DestroyItem("ring33")
+END

@@ -1,0 +1,12 @@
+IF
+  GlobalTimerExpired("CDUnseeingEyeAppears","AR0205")
+  PartyHasItem("MISC5C") // Rift Device
+  Global("UnseeingEye","GLOBAL",0)
+  !Dead("UnseeingEye")
+  Global("CDSpawnTheEyeOnlyOnce","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("UnseeingEye","GLOBAL",1)
+    SetGlobal("CDSpawnTheEyeOnlyOnce","GLOBAL",1)
+    CreateCreature("BHEYE",[2528.1897],12) // Unseeing Eye
+END

@@ -1,0 +1,9 @@
+IF
+       Global("KeldornSummoned","GLOBAL",1)
+       Global("KeldornSpawnPlane","GLOBAL",1)
+       !Global("ActiveKeldorn","LOCALS",1)
+       AreaCheck("ar4500")
+THEN
+       RESPONSE #100
+               SetGlobal("ActiveKeldorn","LOCALS",1)
+END

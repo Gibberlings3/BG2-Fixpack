@@ -1,0 +1,7 @@
+IF 
+  !Global("JarlaxleHQ","GLOBAL",0)
+  !Allegiance("jarlich",ENEMY)
+THEN
+  RESPONSE #100
+    ActionOverride("jarlich",Enemy())
+END    

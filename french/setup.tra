@@ -1,0 +1,542 @@
+  @0 = ~BG2 Fixpack - Correctifs principaux~
+  @1 = ~BG2 Fixpack - Correction du texte~
+  @2 = ~Correctifs optionnels~
+  @3 = ~Pack du moddeur heureux~
+  @4 = ~Cette etape peut prendre quelques instants...~
+  @5 = ~Ce composant n'est pas disponible en Francais.~
+  @6 = ~Gain d'experience si on envoie Keldorn se reconcilier avec Maria~
+  @7 = ~Animations des sorts amelioree~
+  @8 = ~Forger un objet par Cromwell prend reellement un jour~
+  @9 = ~Correction des dagues a usage mixte~
+ @10 = ~Correction des symboles divin (par Ghreyfain)~
+ @11 = ~Throne of Bhaal est requis pour ce composant.~
+ @12 = ~Les quetes additionnelles du Heros de Franc-Marche attendent que le heros soit officiellement nomme~
+ @13 = ~Penalite d'attaque des Geants contre les Petites-personnes, les Nains et les Gnomes~
+ @14 = ~Retire la restriction de jumelage des Archers et des Traqueurs~
+ @15 = ~Retire le deuxieme attribut bonus pour le chemin Mauvais a l'epreuve de la Colere en Enfer~
+ @16 = ~Correction du comportement des demons convoques~
+ @17 = ~Correctifs additionnels pour les scripts~
+ @18 = ~Correction de la chanson du barde~
+ @19 = ~Les tueurs de magiciens provoquent un fourvoiement magique sur les attaques a distance~
+ @20 = ~Correctifs en version BETA (consultez le ReadMe !)~
+ @21 = ~Correctifs additionnels pour les alignements~
+ @22 = ~Ce composant est obsolete.~
+ @23 = ~"Action libre" protege aussi contre l'etourdissement~
+ @24 = ~Les pattes provenant d'une metamorphose ne peuvent pas etre dissipees~
+ @25 = ~Change le comportement de Simulacre, Image projetee et Detection faussee~
+
+@100 = ~Bon, je n'écoutais guère à vrai dire, donc ne t'inquiète pas à ce sujet. Concentrons-nous seulement à tuer le prochain orque que nous verrons.~ []
+@101 = ~Je vais le faire, jaluk. Et en défonçant son crâne... ça ne te gêne pas que je te décrive son aspect bovin, hum ?~
+@102 = ~IMOEN glousse lorsque vous l'interrogez sur son passé, assumant que vous tentez seulement de lui rappeler des temps et des lieux plus heureux. Elle reprend certainement du courage en parlant de votre jeunesse commune à Château-Suif. Elle est arrivée là-bas en même temps que vous, en compagnie de votre père adoptif Gorion, mais malgré vos ressemblances, elle a grandi de manière bien plus insouciante que vous. En effet, son innocence l'a longtemps préservée de la dureté de ce monde, bien que les horreurs qu'elle a endurée a irremédiablement pris une part de cette innocence.~
+@103 = ~Cette erreur de jugement vous sera fatale !~ [SILVER19]
+@104 = ~Vous allez périr !~ [SILVER18]
+@105 = ~Rebonjour ! Es-tu venu pour affaires ou simplement pour goûter aux délicieuses beautés de la nature ?~ [CERND79]
+@106 = ~C'est une arme de Neb, couverte de sang séché. Seuls des êtres réellement maléfiques useraient de cette arme en pleine connaissance de cause. Le poison s'est épuisé, et la dague est désormais une dague enchantée normale.
+
+PARAMETRES :
+
+TAC0 : +2 
+Dégâts : 1D4 + 2
+Type de dégâts : perforant
+Poids : 1
+Facteur de Vitesse : 0
+Type de compétence : Dague
+Type : arme à 1 main
+Inutilisable par :
+ Clerc
+ Non maléfiques~
+@107 = ~Assurez-vous seulement que vous avez de l'acide ou du feu à votre disposition. C'est votre seule manière de vaincre les trolls. Que les dieux soient avec vous.~
+@108 = ~Prenez ces flèches, elles peuvent vous aider.~
+@109 = ~Vous devez avoir une bonne raison pour venir jusqu'ici. Alors ? Parlez.~ [SILVER14]
+@110 = ~Je ne m'attendais pas à vous voir.~ [SILVER12]
+@111 = ~Vous pouvez paraître devant moi.~ [SILVER11]
+@112 = ~Je vous vois.~ [SILVER13]
+@113 = ~Je ne serai pas vaincu aujourd'hui... Non !~ [SILVER22]
+@114 = ~Vous ne pouvez pas lancer ce sort tant que le sort actuel ne s'est pas dissipé.~
+@115 = ~Epée de flammes +1~
+@116 = ~Masse +3~
+@117 = ~Etoile du matin +3~
+@118 = ~Epée longue +3~
+@119 = ~Epée courte +3~
+@120 = ~Poing +1~
+@121 = ~Poing +2~
+@122 = ~Poing +3~
+@123 = ~Poing +4~
+@124 = ~Katana +1 de Yoshimo~
+@125 = ~Fléau de l'Eternité +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~Qui va là ! Encore les Encagoulés et leurs serviteurs, j'en suis certain. Par les dieux, je jure que vous ne vivrez pas assez longtemps pour m'amener à cette sphère diabolique !~ [VALYGA01]
+@128 = ~Symbole sacré de Baervan~
+@129 = ~Seuls les plus nobles et les plus fidèles serviteurs de Baervan reçoivent ce type de récompense.
+
+PARAMETRES
+
+Capacités d'équipement :
+Mémorisation de 1 sort additionnel du 6ème et du 7ème niveau.
++5 % de Résistance magique.
+Force +1.
+
+Utilisable seulement par :
+Clercs bons.~
+@130 = ~Symbole sacré de Shar~
+@131 = ~Seuls les plus fidèles serviteurs de Shar peuvent espérer recevoir ces objets magiques.
+
+PARAMETRES
+
+Capacités d'équipement :
+Mémorisation de 1 sort additionnel du 6ème et du 7ème niveau.
++5 % de Résistance magique.
+Force +1.
+
+Utilisable seulement par :
+Clercs mauvais~
+@132 = ~(L'homme vous regarde sans expression pendant un moment, puis parle)
+
+Je ne sers que Maître Mekrath.~ [HAERDA95]
+@133 = ~Par la barbe de Tante Pétunia ! Un fantôme ! Un petit navet pour fêter ça, peut-être ?~ [JANJAN67]
+@134 = ~Attendez ! Qui va là ? Vous... Vous êtes l'Enfant de Bhaal, n'est-ce pas ? Celui dont Joneleth... Jon... se vantait d'avoir volé la puissance ? Il prétendait vous avoir occis !~ [ELLESI02]
+@135 = ~Dague de lancer Dent de feu +3
+Ce couteau de lancer est imprégné d'un feu magique, et on suppose qu'il a été taillé à partir de la dent d'un dragon rouge. Les légendes de taverne suggèrent que la créature est toujours vivante, et que c'est sa colère qui alimente l'arme en énergie. Quoique peu sérieuse, l'histoire se tient, et il paraît que lorsque la dague est lancée, elle revient à son porteur "comme si elle avait des ailes".
+
+PARAMETRES :
+
+Capacités de combat : la dague revient à son lanceur
+TAC0 : +3
+Dégâts : 1D4 +3, 1D2 dégâts de feu
+Type de dégâts : projectile (perforant)
+Poids : 1
+Facteur de vitesse : 1
+Type de compétence : dague
+Type : arme à 1 main
+Force nécessaire : 3
+Inutilisable par :
+ Clerc
+ Belluaire~ []
+@136 = ~Sort d'assaut (Abjuration, Altération)
+Niveau : 9
+Portée : Champ visuel du lanceur
+Durée : Instantanée
+Temps d'incantation : 5
+Zone d'effet : Cible
+Jet de Sauvegarde : Non
+
+Ce sort dissipe toutes les protections magiques de la cible. Les sorts affectés sont les suivants : Peaux de fer, Résistance Magique, Bouclier des Archontes, Renvoi des sorts mineurs, Globe mineur d'invulnérabilité, Immunité aux sorts, Globe d'invulnérabilité, Déflection de sorts mineurs, Renvoi de sorts, Bouclier de sorts, Déflection des sorts, Invulnérabilité aux sorts et Piège à sorts. La résistance magique de la cible est ignorée.~
+@137 = ~BERSERKER: Il s'agit d'un guerrier à l'écoute de sa partie animale et qui, durant le combat, peut atteindre un état d'esprit qui lui permet de se battre plus longtemps, plus durement, et plus sauvagement qu'un humain ne pourrait le faire normalement. Les berserkers ont tendance à être issus de cultures barbares, et il peut très bien s'agir d'un choix conscient du guerrier au cours de son apprentissage. Dans tous les cas, les opposants du berserker seront impressionnés par les aspects sauvages de la nature de celui-ci. Cette spécialité est assez courante chez les nains, alors appelés "Enragés".
+
+Avantages :
+- Peut utiliser la "Furie" une fois par jour par tranche de 4 niveaux ; cet état dure 60 secondes.
+- Sous Furie : +2 au toucher, +2 aux dégâts, -2 à la Classe d'armure.
+- Sous Furie : immunité Charmes, Confusion, Terreur, Débilité Mentale, Immobilisation, Emprisonnement, Absorption de niveaux, Labyrinthe, Etourdissement et Sommeil.
+- Sous Furie : gain de 15 points de vie temporaires, qui sont retirés à la fin de la Furie, pouvant entraîner la mort du personnage.
+
+Désavantages :
+- Essoufflement après la Furie : -2 au toucher, -2 aux dégâts et +2 à la Classe d'Armure.
+- Ne peut se spécialiser (deux points de compétences) dans les armes à distance (arcs, arbalètes, frondes ou fléchettes).~ []
+@138 = ~BARBARE: Les barbares peuvent être d'excellents guerriers. Bien que moins disciplinés ou entraînés que les guerriers normaux, les barbares peuvent entrer dans une rage meurtrière, devenant ainsi des adversaires plus coriaces et plus puissants.  
+
+Avantages :
+- Leur vitesse de déplacement est supérieure de 2 points à celle des personnages normaux.
+- Les barbares sont immunisés contre les attaques sournoises.
+- Ils peuvent devenir enragés une fois par jour par tranche de 4 niveaux (à partir du niveau 1), pendant 5 rounds. Leur rage leur confère +4 en Constitution et en Force, -2 en classe d'armure et +2 aux jets de sauvegarde contre la magie. La rage les immunise aussi contre les sorts de charme, d'immobilisation, d'effroi, de labyrinthe, de confusion, d'étourdissement, de sommeil et d'absorption de niveau.
+- Au niveau 11, les barbares gagnent 10% de résistance aux armes tranchantes, perçantes, contondantes, et aux projectiles. Ensuite, ils gagnent +5% aux niveaux 15 et 19.
+- Les dés de vie d'un barbare sont des d12, au lieu de d10 comme les guerriers.
+
+Désavantages :
+- Un barbare ne peut pas porter d'armures de plates ou d'armure de plates complètes.
+- Un barbare ne peut pas se spécialiser au-delà de sa spécialisation normale (deux points de compétence).~ []
+@139 = ~Le fléau est constitué d'un solide manche de bois attaché à une barre de fer, à une barre de bois garnie de piquants, ou à une boule de métal hérissée de pointes. Entre le manche et la partie blessante se trouve une simple charnière ou une chaîne. Ce fléau-ci a été amélioré par magie.
+
+PARAMETRES :
+
+TAC0 : +2
+Dégâts : 1D6 + 3
+Type de dégât : contondant
+Poids : 12
+Facteur de vitesse : 5
+Type de compétence : Fléau/Etoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+Inutilisable par :
+ Druide
+ Mage
+ Voleur~
+@140 = ~La masse descend directement du simple gourdin. C'est une simple hampe de bois avec une tête en pierre ou en fer fixée à son extrémité. La forme de la tête varie : certaines sont pointues, d'autres à rebord, et d'autres encore ont une tête pyramidale.
+
+PARAMETRES :
+
+Dégâts : 1D6 + 1
+Type de dégâts : contondant
+Poids : 10
+Facteur de vitesse : 7
+Type de compétence : Masse
+Type : arme à 1 main
+Force nécessaire : 10
+Non utilisable par :
+ Druide
+ Mage
+ Voleur~
+@141 = ~Symbole, Terreur
+(Conjuration, Convocation)
+Niveau : 7
+Sphère : Garde 
+Portée : 30 mètres
+Durée : spéciale 
+Temps d'incantation : 1 round
+Zone d'effet : spéciale
+Jet de sauvegarde : annule
+
+Le Symbole, Terreur est un puissant enchantement permettant au prêtre d'inscrire ce symbole sur le sol ou sur toute autre surface. Il restera là jusqu'à ce que quelqu'un s'en approche suffisamment puis explosera, affectant tous ceux qui sont situés dans sa zone d'effet n'ayant pas réussi un jet de sauvegarde contre les sorts à -4 par une peur de 2 rounds + un nombre de rounds égal au niveau du prêtre divisé par 3.~
+@142 = ~C'est apparemment par cette cellule que les ombres des roches sont entrées dans le château. Il y a plusieurs marmites dans le tunnel derrière la cellule, qui semble être l'endroit où elles viennent manger.~
+@143 = ~Ma requête te semblera bien étrange, ma soeur... j'ai avec moi le coeur d'un homme mort dans la disgrâce.~
+@144 = ~TUEUR DE MAGICIENS
+Ce guerrier a reçu un entraînement spécifique qui lui permet d'exceller dans la chasse et l'attaque des lanceurs de sorts.
+
+Avantages :
+- Le lanceur de sort touché (en mêlée ou à distance) par ce type de personnage se voit appliquer une probabilité de 10 % cumulative de rater ses incantations.
+- Gain de 2 % de Résistance magique par niveau
+
+Désavantages :
+- Ne peut pas utiliser d'objets magiques autres que des armures et des armes~
+@145 = ~TUEUR DE MAGICIENS
+Ce guerrier a reçu un entraînement spécifique qui lui permet d'exceller dans la chasse et l'attaque des lanceurs de sorts.
+
+Avantages :
+- Le lanceur de sort touché (en mêlée ou à distance) par ce type de personnage se voit appliquer une probabilité de 10 % cumulative de rater ses incantations.
+- Gain de 1 % de Résistance magique par niveau jusqu'au niveau 20, puis gain de 5 % et 1 % en alternance tous les niveaux suivants
+
+Désavantages :
+- Ne peut pas utiliser d'objets magiques autres que des armures et des armes~
+
+// fix speed factor, originally string #176
+@146 = ~L'arc long est très similaire à l'arc court, si ce n'est qu'il est beaucoup plus grand, à peu près de la taille de l'archer. Il est plus lent, mais dispose d'une plus grande portée et d'une précision accrue. Le bois de cet arc est chaud au toucher, preuve de l'existence de l'énergie qui le parcourt.
+
+PARAMETRES :
+
+TAC0 : +2
+Poids : 3
+Facteur de vitesse : 5
+Type de compétence : arc long
+Type : arme à 2 mains
+Force nécessaire : 6
+Inutilisable par :
+ Druide
+ Clerc
+ Mage
+ Voleur~ []
+
+// fix speed factor, originally string #199
+@147 = ~Les arcs courts sont les précurseurs de cette famille. Ils mesurent environ 1,5 mètre. Cet arc court est tout à fait comparable à n'importe quel arc long. La magie qui en émane lui accorde une précision et une puissance hors du commun.
+
+STATISTIQUES :
+
+TACO : +2
+Poids : 2
+Facteur de vitesse : 4
+Type de compétence : arc court
+Type : arme à 2 mains
+Force nécessaire : 3
+Inutilisable par :
+ Druide
+ Clerc
+ Mage~
+
+// fix weight, originally string #1768
+@148 = ~L'armure de plates complète est la meilleure que puisse acheter un guerrier, tant pour son prestige que pour sa protection. Elle est faite de plaques parfaitement ajustées, qui dévient les flèches comme les coups et elle est toute entière ornée de fines gravures en relief. Cette armure +2 a été créée à l'aide d'un sort de souhait limité.
+
+PARAMETRES :
+
+Classe d'Armure : -1
+Poids : 40
+Force nécessaire : 15
+Inutilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur~
+
+// fix speed factor, originally string #2494
+@149 = ~Lance de Flétrissement +4
+Faite du coeur décomposé d'un Sylvanien, cette lance sent la mort. Quand on la prend, elle grogne un peu, comme si elle répugnait à se laisser toucher par la vie. En combat, la Lance de Flétrissement crache un poison ignoble à sa cible à chaque coup porté.
+
+PARAMETRES :
+
+TAC0 : + 4 
+Dégâts :  1D6 + 4, + 4 dégâts du poison 
+Type de dégâts : perforant
+Poids: 5
+Facteur de Vitesse : 2
+Type de compétence : Lance 
+Type : arme à 2 mains
+Force nécessaire : 5
+Inutilisable par :
+ Clerc
+ Mage
+ Voleur~ []
+
+// adds proper sound file, originally string #4330
+@150 = ~Je vous en prie... ne m'abandonnez pas.~ [IMOEN20]
+
+// fix speed factor, originally string #4421
+@151 = ~Cette lame brûle d'un feu magique et fait jaillir une flamme à chaque fois qu'elle touche. On a gravé "Meta Infernum" sur le pommeau, bien que ce soit un peu effacé et que la gravure soit plus récente que l'épée.
+
+PARAMETRES :
+
+TAC0 : +1 
+Dégâts :  1D8 +1, +1 dégâts du feu
+Type de Dégâts :  tranchant
+Poids : 4
+Facteur de Vitesse : 4
+Type de compétence : Epée Longue
+Type : arme à 1 main
+Force nécessaire : 6
+Inutilisable par :
+ Druide
+ Clerc
+ Mage~ []
+ 
+// easiest translation evar
+@152 = ~~ [MUSTR08]
+
+// wrong listed save v. death penalty for claw of kazgaroth, originally string #11848
+@153 = ~On sait peu de choses sur cet objet, si ce n'est que la griffe elle-même a été prélevée sur le cadavre de Kazgaroth, la bête géante. Cet objet est doté de plusieurs enchantements qui s'activent dès que la griffe est portée en anneau. L'image du porteur se trouble alors et il devient plus difficile de l'atteindre à l'aide d'armes ou de sorts. Cet objet présente toutefois un inconvénient : il se nourrit apparemment du sang de son porteur. Aussi, le porteur de la griffe se sent-il souvent faible, ce qui le rend plus vulnérable aux effets des poisons.
+
+PARAMETRES :
+
+Classe d'Armure : bonus de +1 
+Bonus à la Classe d'Armure contre projectiles : bonus de +4 
+Jet de sauvegarde contre Mort : pénalité de -3
+Jet de sauvegarde contre Baguettes : bonus de +3 
+Jet de sauvegarde contre Métamorphose : bonus de +3
+Jet de sauvegarde contre Souffle : bonus de +3
+Jet de sauvegarde contre Sorts : bonus de +3
+Modificateur de constitution : pénalité de -2~
+
+// MGoI claims that dispel magic works against it, but does not, originally string #12164
+@154 = ~Globe mineur d'invulnérabilité (Abjuration) 
+Niveau : 4
+Portée : 0 
+Durée : 1 round/niveau 
+Temps d'incantation : 4 
+Zone d'effet : sphère de 1,5 m de rayon
+Jet de sauvegarde : aucun
+
+Ce sort crée autour du magicien une sphère magique immobile et faiblement phosphorescente qui empêche les sorts de 1er, 2ème ou 3ème niveau de pénétrer à l'intérieur (la zone d'effet de ces sorts n'inclut pas le volume du globe mineur d'invulnérabilité). Cela comprend les capacités innées et les effets magiques des dispositifs. Cependant, le magicien peut lancer des sorts à l'extérieur de la sphère magique sans endommager le globe. Les sorts de 4ème niveau et plus ne sont pas affectés par ce sort. Ce globe peut être détruit par des attaques magiques comme Perce-magie ou Anéantissement des défenses.~
+
+// GoI claims that dispel magic works against it, but does not, originally string #12164
+@155 = ~Globe d'invulnérabilité (Abjuration)
+Niveau : 6
+Portée : 0
+Durée : 1 round / niveau
+Temps d'incantation : 6
+Zone d'effet : Sphère de 1m50 de rayon
+Jet de sauvegarde : Aucun
+
+Ce sort crée une sphère magique immobile autour du lanceur qui le rend invulnérable à tous les sorts de premier, second, troisième et quatrième niveau (i.e. : les zones d'effet de ces sorts ne pénètrent pas dans celle du globe d'invulnérabilité). N'importe quel sort peut cependant être jeté depuis l'intérieur de la sphère sans pour autant affecter le Globe d'invulnérabilité. Les sorts de cinquième niveau et au-delà ne sont pas affectés par le globe. Ce globe peut être détruit par des attaques magiques comme Perce-magie ou Anéantissement des défenses.~
+
+// teleport field has no saving throw, originally string #25894
+@156 = ~Champ de téléportation (Altération)
+Niveau : 4
+Portée : Champ visuel du lanceur
+Durée : 1 tour
+Temps d'incantation : 4
+Zone d'effet : rayon de 10 m
+Jet de Sauvegarde : Aucun
+
+Ce sort crée une zone de téléportation dans le champ visuel du lanceur. Toutes les créatures de la zone sont téléportées aléatoirement. Ce sort est très efficace contre les groupes d'ennemis, ce qui permet de les disperser et de donner un répit au magicien.~ []
+
+@157 = ~Pour cela, je vous donne le premier bénéfice de cette guerre. Prenez la clé du trésor sur le cadavre de Ixilthetocal... utilisez-là pour entrer dans la trésorerie de la cité et prenez ce que vous voulez.~
+
+@158 = ~Je me sens d'humeur généreuse aujourd'hui... pour entrer dans l'Ombreterre, vous aurez besoin de la corde magique que vous trouverez sur le cadavre du Roi. Utilisez-là pour descendre par le trou derrière mon précédent thrône.~
+
+@159 = ~Familier 
+(Conjuration/Convocation)
+Niveau : 1
+Portée : n/d
+Durée : Spéciale
+Temps d'incantation : 1 round
+Zone d'effet : 1 familier
+Jet de sauvegarde : Spécial
+
+Ce sort permet au magicien de tenter la convocation d'un familier qui deviendra son aide et son compagnon. Les familiers sont de petites créatures. Une créature agissant en tant que familier peut aider un magicien en envoyant ses pouvoirs sensoriels vers son maître, en lui parlant ou en lui servant de garde, d'éclaireur ou d'espion. Un magicien ne peut avoir qu'un seul familier à la fois, et il ne contrôle pas le type de créature qui sera convoquée par le sort, s'il réussit. 
+
+Remarque : Ce sort ne peut être lancé que par le protagoniste.
+
+Le magicien reçoit un bonus valant la moitié des points de vie du familier. Mais il doit veiller à bien traiter son familier, car s'il meurt, il perd les points de bonus et subit des points de dégâts équivalents à la moitié des points de vie du familier. De plus, si un familier meurt, le magicien perd 1 point de constitution de manière PERMANENTE.
+
+Voici une liste des familiers qu'un joueur peut convoquer en fonction de son alignement :
+
+LOYAL BON, NEUTRE BON :  Pseudo-dragon
+Classe d'armure : -2
+Points de vie : 24
+Résistance magique : 50 %
+Capacités spécifiques : 2 attaques par round, TAC0 13, dégâts 1d3 avec jet de sauvegarde contre la mort sous peine d'inconscience pendant 120 secondes. Peut également incanter 'Flou' une fois par jour. Regénère d'un point de vie par round. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+LOYAL NEUTRE : Furet
+Classe d'armure : 0
+Points de vie : 24
+Résistance magique : 50 %
+Capacités spécifiques : 75 % vol à la tire, 40 % camouflage dans l'ombre & déplacement silencieux, et 20 % détection des pièges. Peut également incanter 'Flou' une fois par jour. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+LOYAL MAUVAIS : Diablotin
+Classe d'armure : 2
+Points de vie : 18
+Résistance magique : 25 %
+Capacités spécifiques : Bénéficie d'une résistance de 100% au feu, au froid et à l'électricité. Peut lancer le sort de Métamorphose une fois par jour. Regénère d'un point de vie par round.
+
+NEUTRE : Lapin
+Classe d'armure : 1
+Points de vie :  24
+Résistance magique : 65 %
+Capacités spécifiques : 50 % détection des pièges, 30 % camouflage dans l'ombre & déplacement silencieux. Bénéficie de 75 % de résistance au feu, au froid et à l'électricité. Peut également incanter 'Flou' une fois par jour. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+NEUTRE MAUVAIS :  Méphite poussiéreux
+Classe d'armure : 6
+Points de vie : 24
+Résistance magique : 10 %
+Capacités spécifiques : Bénéficie de 100% de résistance au feu et 50 % de résistance aux dégâts tranchants, perçants et provenant de missiles. Peut également incanter 'Poussière scintillante' une fois par jour et 'Poussière de verre' deux fois par jour. Regénère d'un point de vie par round. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+CHAOTIQUE BON : Dragon fée
+Classe d'armure : 4
+Points de vie : 24
+Résistance magique : 32 %
+Capacités spécifiques : Peut lancer les sorts 'Image Miroir' et 'Invisibilité sur 3 mètres' une fois par jour et est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+CHAOTIQUE NEUTRE : Chat
+Classe d'armure : 0
+Points de vie : 24
+Résistance magique : 50 %
+Capacités spécifiques : 99 % déplacements silencieux & camouflage dans l'ombre et 30 % de vol à la tire. Peut également incanter 'Flou' une fois par jour. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.
+
+CHAOTIQUE MAUVAIS :  Quasit
+Classe d'armure : 2
+Points de vie : 24
+Résistance magique : 25 %
+Capacités spéciales : Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer les sorts 'Horreur' et 'Flou' une fois par jour. Regénère d'un point de vie par round.~
+
+@160 = ~C'est votre familier, un pseudo-dragon, pour l'instant enroulé à l'abri dans votre sac à dos. Ces lézards sont très intelligents, bien protégés et rapides... ils ne font pas de gros dégâts en combat, mais leurs griffes magiques peuvent faire perdre conscience à certains adversaires. Ils résistent aussi très bien à la magie.
+
+Capacités:
+Classe d'Armure: -2
+Points de Vie: 24
+Résistance à la Magie: 50 %
+Capacités Spéciales: 2 attaques par round, TAC0 13, dégâts 1d3, jet de sauvegarde contre la mort pour la cible sous peine d'inconscience pendant pour 120 secondes. Peut également lancer le sort de 'Flou' une fois par jour. Regénère d'un point de vie par round. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.~
+
+@161 = ~C'est votre familier, un pseudo-dragon, pour l'instant enroulé à l'abri dans votre sac à dos. Ces lézards sont très intelligents, bien protégés et rapides.
+
+Capacités:
+Classe d'Armure: -2
+Points de Vie: 48
+Résistance à la Magie: 50 %
+Capacités Spéciales: 2 attaques par round, TAC0 8, dégâts 1d6, jet de sauvegarde contre la mort pour la cible sous peine d'inconscience pendant pour 120 secondes. Peut également lancer le sort de 'Flou' et 'Armure fantômatique' une fois par jour et 'Détection des illusions' deux fois par jour. Regénère d'un point de vie par round. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.~
+
+@162 = ~C'est votre familier, un furet, pour l'instant enroulé à l'abri dans votre sac à dos. Il est terriblement rapide et agile, difficile à toucher et résistant par magie aux coups et aux sorts. Son incroyable capacité à passer inaperçu partout en fait un excellent tire-laine.
+
+Capacités:
+Classe d'Armure: 0
+Points de Vie: 24
+Résistance à la Magie: 50 %
+Capacités Spéciales: 75 % en vol à la tire, 40 % en furtivité et déplacement silencieux, 20 % en détection des pièges. Peut également lancer 'Flou' une fois par jour. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.~
+
+@163 = ~C'est votre familier, un furet, pour l'instant enroulé à l'abri dans votre sac à dos. Il est terriblement rapide et agile, difficile à toucher et résistant par magie aux coups et aux sorts. Son incroyable capacité à passer inaperçu partout en fait un excellent tire-laine.
+
+Capacités:
+Classe d'Armure: -4
+Points de Vie: 48
+Résistance à la Magie: 65 %
+Capacités Spéciales: 95 % en vol à la tire, 60 % en furtivité et déplacement silencieux, 60 % en détection des pièges. Peut également lancer 'Flou' une fois par jour. Est immunisé contre l'absorption de niveau, le sommeil et la pétrification.~
+
+@164 = ~C'est votre familier, un diablotin, grommelant pour l'instant à l'abri dans votre sac à dos. C'est une créature peu courante, assez rapide et très résistante aux sorts... Il peut aussi lancer des sorts pour son maître.
+
+Capacités:
+Classe d'Armure: 2
+Points de Vie: 18
+Résistance à la Magie: 25 %
+Capacités Spéciales: Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer le sort Métamorphose une fois par jour et regénère d'un point de vie par round.~
+
+@165 = ~C'est votre familier, un diablotin, grommelant pour l'instant à l'abri dans votre sac à dos. C'est une créature peu courante, assez rapide et très résistante aux sorts... Il peut aussi lancer des sorts pour son maître.
+
+Capacités:
+Classe d'Armure: -2
+Points de Vie: 48
+Résistance à la Magie: 35 %
+Capacités Spéciales: Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer le sort Métamorphose une fois par jour, regénère d'un point de vie par round. Attaque empoisonnée : 1d6 avec Jet de sauvegarde contre la Mort réussi ou mort. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification. Est immunisé aux armes non magiques.~
+
+@166 = ~C'est votre familier, un lapin, pour l'instant recroquevillé à l'abri dans votre sac à dos. Le lapin n'est peut-être pas le familier qu'on choisirait au premier abord, mais il est terriblement rapide et difficile à toucher en combat... la magie le rend résistant aux coups et aux sorts. Le lapin a du flair pour trouver les pièges pour son maître.
+
+Capacités:
+Classe d'Armure: 1
+Points de Vie: 24
+Résistance à la Magie: 65 %
+Capacités Spéciales: 50 % Détection des Pièges. 30 % Furtivité et déplacement silencieux. Bénéficie de 75% de résistance au feu, au froid et à l'électricité. Peut également lancer 'Flou' une fois par jour. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@167 = ~C'est votre familier, un lapin, pour l'instant recroquevillé à l'abri dans votre sac à dos. Le lapin n'est peut-être pas le familier qu'on choisirait au premier abord, mais il est terriblement rapide et difficile à toucher en combat... la magie le rend résistant aux coups et aux sorts. Le lapin a du flair pour trouver les pièges pour son maître.
+
+Capacités:
+Classe d'Armure: 1
+Points de Vie: 48
+Résistance à la Magie: 65 %
+Capacités Spéciales: 85 % Détection des Pièges, 60 % Furtivité et déplacement silencieux et 50% de détection des illusions. Bénéficie de 75% de résistance au feu, au froid et à l'électricité. Peut également lancer 'Flou' une fois par jour. Le lapin se déplace comme s'il était sous l'effet permanent de 'Hâte'. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@168 = ~C'est votre familier, un méphite poussiéreux réfugié dans votre sac à dos. Il n'est pas très bon combattant, mais il résiste un peu à la magie et il peut lancer deux fois par jour le sort 'Poussière Scintillante' pour aider son maître.
+
+Capacités:
+Classe d'Armure: 6
+Points de Vie: 24
+Résistance à la Magie: 10 %
+Capacités Spéciales: Bénéficie de 100% de résistance au feu et 50% de résistance aux dégâts tranchants, perçants et aux missiles. Peut lancer 'Poussière scintillante' une fois par jour et 'Poussière de verre' deux fois par jour. Regénère d'un point de vie par round. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@169 = ~C'est votre familier, un méphite poussiéreux réfugié dans votre sac à dos. Il n'est pas très bon combattant, mais il résiste un peu à la magie et il peut lancer deux fois par jour le sort 'Poussière Scintillante' pour aider son maître.
+
+Capacités:
+Classe d'Armure: 3
+Points de Vie: 48
+Résistance à la Magie: 25 %
+Capacités Spéciales: Bénéficie de 100% de résistance au feu et 60% de résistance aux dégâts tranchants, perçants et aux missiles. Peut lancer 'Poussière scintillante', 'Rayon prismatique' et 'Peau de pierre' une fois par jour et 'Poussière de verre' deux fois par jour. Regénère d'un point de vie par round. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@170 = ~C'est votre familier, un dragon fée, pour l'instant enroulé à l'abri dans votre sac à dos. Ces dragonnets sont très taquins et résistent bien à la magie... ils peuvent se protéger et se cacher grâce à leurs propres illusions.
+
+Capacités:
+Classe d'Armure: 4
+Points de Vie: 24
+Résistance à la Magie: 32 %
+Capacités Spéciales: Peut lancer 'Image Miroir' et 'Invisibilité sur 3 mètres' une fois par jour. Est immunisé à l'abosrption de niveau, au sommeil et à la pétrification.~
+
+@171 = ~C'est votre familier, un dragon fée, pour l'instant enroulé à l'abri dans votre sac à dos. Ces dragonnets sont très taquins et résistent bien à la magie... ils peuvent se protéger et se cacher grâce à leurs propres illusions.
+
+Capacités:
+Classe d'Armure: 0
+Points de Vie: 48
+Résistance à la Magie: 45 %
+Capacités Spéciales: Peut lancer 'Image Miroir', 'Invisibilité sur 3 mètres' et 'Invisibilité améliorée' une fois par jour. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@172 = ~Votre familier, actuellement endormi en sécurité dans votre sac à dos. Ce chat est un éclaireur de premier ordre, capable de se déplacer dans les ombres comme un maître voleur. Difficile à toucher en combat, ce chat bénéficie également de protections contre les attaques physiques et magiques grâce à la puissance du sort.
+
+Capacités :
+Classe d'armure : 0
+Points de Vie : 24
+Résistance Magique : 50 %
+Capacités spéciales : 99 % en Déplacement silencieux et Se cacher dans les ombres, et 30 % en vol à la tire. Peut également lancer 'Flou' une fois par jour. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@173 = ~Votre familier, actuellement endormi en sécurité dans votre sac à dos. Ce chat est un éclaireur de premier ordre, capable de se déplacer dans les ombres comme un maître voleur. Difficile à toucher en combat, ce chat bénéficie également de protections contre les attaques physiques et magiques grâce à la puissance du sort.
+
+Capacités :
+Classe d'armure : -4
+Points de Vie : 48
+Résistance Magique : 65 %
+Capacités spéciales : 99 % en Déplacement silencieux et Se cacher dans les ombres, 60 % en vol à la tire, 60 % en détection des illusions et 60 % en détection des pièges. Peut également lancer 'Flou' une fois par jour. Est immunisé à l'absorption de niveau, au sommeil et à la pétrification.~
+
+@174 = ~C'est votre familier, un quasit, grommelant pour l'instant à l'abri dans votre sac à dos. C'est une petite créature venue des enfers, assez rapide et très résistante aux sorts... Il peut aussi lancer des sorts pour son maître.
+
+Capacités:
+Classe d'Armure: 2
+Points de Vie: 24
+Résistance à la Magie: 25 %
+Capacités Spéciales: Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer 'Horreur' et 'Flou' une fois par jour. Regénère d'un point de vie par round.~
+
+@175 = ~C'est votre familier, un quasit, grommelant pour l'instant à l'abri dans votre sac à dos. C'est une petite créature venue des enfers, assez rapide et très résistante aux sorts... Il peut aussi lancer des sorts pour son maître.
+
+Capacités:
+Classe d'Armure: -2
+Points de Vie: 48
+Résistance à la Magie: 35 %
+Capacités Spéciales: Trois attaques par round faisant 1d6 dégâts, sauvegarde contre la mort ou perte d'un point de dextérité pendant 36 secondes. Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer 'Horreur' et 'Flou' une fois par jour. Regénère d'un point de vie par round. Est immunisé à l'abosrption de niveau, au sommeil, à la pétrification, ainsi qu'aux armes non magiques.~

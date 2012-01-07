@@ -1,0 +1,1402 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+
+<title>The Baldur's Gate II Fixpack</title><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="backup/g3readme.css" type="text/css" />
+<link href="backup/g3.ico" rel="icon" type="image/bmp" /></head>
+<body> 
+<h1><acronym title="Baldur's Gate II">BG2</acronym> Fixpack</h1> 
+<div class="section"> 
+  <p><strong><a href="http://www.gibberlings3.net/">A Gibberlings Three Mod</a><br /> 
+    Authors: Multiple, see below <br /> 
+    Project Lead: <a href="mailto:webmaster@gibberlings3.net">CamDawg</a>, <acronym title="Also Known As">aka</acronym> 'Cam'
+    Camagna <br /> 
+    O</strong><strong>n the web: <a href="http://www.gibberlings3.net/bg2fixpack/">Home
+    page</a></strong> and <strong><a href="http://forums.gibberlings3.net/index.php?showforum=74">discussion
+    forum</a></strong></p> 
+  <p><strong> Version 9 - <a href="http://www.gibberlings3.net/downloads/#bg2fixpack">Check
+        for the most recent version</a></strong><br /> 
+    <strong> Languages:</strong> English, French, German, Italian, Korean, Polish,
+    and Spanish<br /> 
+    <strong>Platforms: </strong>Windows, Mac OS X, and Linux</p> 
+</div> 
+<h2>Overview</h2> 
+<div class="section"> 
+  <p>The <acronym title="Baldur's Gate II">BG2</acronym> Fixpack is a <acronym title="Weimer Dialogue Utility">WeiDU</acronym> compilation
+    of fixes for Baldur's Gate II. With the disappearance of Kevin Dorner and
+    the cessation of activity of the Baldurdash fixpack for <acronym title="Baldur's Gate II">BG2</acronym>,
+    several modders and myself began working on a new <acronym title="Weimer Dialogue Utility">WeiDU</acronym> fixpack
+    to address the numerous bugs that have been identified since Baldurdash.
+    This collaborative effort, including the work of modders from several different
+    modding communities and assistance from <acronym title="Baldur's Gate II">BG2</acronym> lead
+    writer David Gaider, has resulted in a fixpack that currently includes all
+    of the fixes addressed by Baldurdash (including the Game Text Update) and
+    several hundred new bugfixes. The project is ongoing, and we're working through
+    a substantial list of bugs culled from various sites, the old Baldurdash
+  forums, and our own research. </p> 
+  <p>Though the project has now left beta behind, there remains a need to introduce
+    and test new fixes. To facilitate these new fixes without compromising the
+    stability of the project, a component entitled <strong>BETA Core Fixes</strong> is
+    available. This component includes fixes intended for the Core Fixes component
+    and tested in a limited fashion, but have not yet been tested 'in the wild'
+    or with other mods. <strong>As such, this component is considered to be of
+    a BETA status.</strong> As fixes in this component get tested and validated
+    in the wild, they will move into the Core Fixes. These fixes are also documented
+    separately from the Core Fixes. </p> 
+  <p>Complete documentation of changes for every component is available on the <a href="http://www.gibberlings3.net/bg2fixpack/"><acronym title="Baldur's Gate II">BG2</acronym> Fixpack
+      project pages</a>. </p> 
+</div> 
+<h2>Compatibility</h2> 
+<div class="section"> 
+  <p>The Fixpack is designed to work with Baldur's Gate II with or without the
+    Throne of Bhaal expansion pack. <strong>In terms of installation order, the
+    Fixpack should be installed after the official patches, but before other
+    mods. Do not install the Fixpack alongside other fixpacks such as Baldurdash. </strong>There
+    is a <a href="http://forums.gibberlings3.net/index.php?showtopic=3693">compatibility
+    and redundancy thread</a> in the Fixpack forums for the most recent information;
+    these are the known incompatibilities and redundancies as of v5:</p> 
+  <p><strong>Baldurdash or any other previous fixpack</strong> <br /> 
+    We used the bug lists from previous efforts to fix bugs as a starting point.
+      If the bugs aren't already fixed by the Fixpack they will be in future
+      versions. Installing Baldurdash alongside Fixpack will result in a lot
+      of issues. </p> 
+  <p> <strong>D0Tweak</strong><br /> 
+    The 'Corrected Demon Animations' component is included in the core fixes.
+      'Corrected Summoned Demon Behavior' and 'Ghrey's Holy Symbol Fix' are included
+      as Optional But Cool components.</p> 
+  <p> <strong>Ease of Use</strong> <br /> 
+    Ease of Use is deprecated by the more modern (and actively supported) <a href="http://www.gibberlings3.net/bg2tweak/">BG2
+    Tweaks</a>. If you insist, however, note that the Edwina Portrait component
+    from Ease of Use will overwrite our Edwin/Edwina 'gliding animation' fixes.
+    This is not the case with the same component from BG2 Tweaks. </p> 
+  <p><strong>LuvNalia</strong> <br /> 
+    Sir Billy Bob's repackaged Nalia romance will report errors when trying to
+      patch ar2904.bcs. These are non-fatal errors.</p> 
+  <p><strong>Oversight</strong> <br /> 
+    The 'Alignment Corrections' component was used as a basis for the alignment
+      changes in BG2 Fixpack, making them semi-redundant. 'Improved Continuity'
+      is included except for the Saemon Havarian bits; it should be safe to install
+      if you want to get the extra Saemon material.</p> 
+  <p> <strong>Quest Pack</strong> <br /> 
+    The Revised Hell Trials component will generate warnings if the <acronym title="Optional But Cool">OBC</acronym> Additional
+    Script Fixes component from Fixpack is installed. A <a href="http://forums.gibberlings3.net/index.php?showtopic=8676">workaround</a> is
+    available.</p> 
+</div> 
+<h2>Installation</h2> 
+<div class="section"> 
+  <p><strong>Windows</strong><br /> 
+    The <acronym title="Baldur's Gate II">BG2</acronym> Fixpack is packaged and
+    installed with <acronym title="Weimer Dialogue Utility">WeiDU</acronym> and
+    is distributed as a self-extracting archive. To install, simply double-click
+    the archive and follow the instructions on screen.</p> 
+  <p>Alternatively the files can be extracted from the archive using <a href="http://www.rarlab.com/">WinRAR</a>.
+    If properly extracted, you should have a bg2fixpack folder and setup-bg2fixpack.exe
+    in your <acronym title="Baldur's Gate II">BG2</acronym> folder. To install,
+    simply double-click setup-bg2fixpack.exe and follow the instructions on screen.</p> 
+  <p>Please run setup-bg2fixpack.exe in your <acronym title="Baldur's Gate II">BG2</acronym> folder
+    to reinstall, uninstall or otherwise change components.</p> 
+  <p><strong>Mac OS X</strong><br /> 
+    <em>If the mod was previously installed, uninstall it before extracting the
+    new version.</em> The <acronym title="Baldur's Gate II">BG2 </acronym>Fixpack
+    is packaged and installed with <acronym title="Weimer Dialogue Utility">WeiDU</acronym>.
+    To install, simply extract the contents of the mod into your <acronym title="Baldur's Gate II">BG2</acronym> folder.
+    If properly extracted, you should have a bg2fixpack folder, setup-bg2fixpack,
+    and setup-bg2fixpack.command in your <acronym title="Baldur's Gate II">BG2</acronym> folder.
+    To install, simply double-click <strong>Setup-bg2fixpack.command</strong> and
+    follow the instructions on screen.</p> 
+  <p><strong>Linux</strong><br />	   
+    Download the latest version of <acronym title="Weimer Dialogue Utility">WeiDU</acronym> for
+      Linux from <a href="http://www.weidu.org/~thebigg">weidu.org</a> and extract
+      (at least) the <acronym title="Weimer Dialogue Utility">WeiDU</acronym>,
+      weinstall and tolower executables in a $PATH directory (E.G. /usr/bin). Following that, open a terminal, cd to your <acronym title="Baldur's Gate II">BG2</acronym> installation directory, run `tolower' and answer Y to both queries.<br />
+    You can avoid running the second option (linux.ini)
+        if you've already ran it once in the same directory. To save time, the
+        archive is already tolowered, so there's no need to run the first option
+        (lowercasing file names) either if you've extracted only this mod since
+        the last time you lower cased file name. If you're unsure, running tolower and choosing both
+        options is the safe bet.<br />
+    After that, run 'weinstall widescreen' from your game installation directory
+      to install or uninstall the mod. 
+  </p>
+</div> 
+<h2>Contents</h2> 
+<div class="section"> 
+  <p>The <acronym title="Baldur's Gate II">BG2</acronym> Fixpack is basically
+    five items: core fixes, a game text update, a modder pack, beta core fixes,
+    and several optional but cool fixes. Optional but cool is broken down further
+    into individual components. </p> 
+  <p><strong><acronym title="Baldur's Gate II">BG2</acronym> Fixpack (Core Fixes) </strong><br /> 
+    This component includes all fixes deemed to be core by the Fixpack team.
+      While some bugs are clearly bugs, the team also has a review process for
+      'gray area' bugs to insure that fixes do not contradict developer intent.
+      The result is a 'core fixes' component which aims to address true bugs
+      only and in a manner consistent with Bioware's original goals. When we
+      encounter something we happen to think is a bug (or just strange behavior)
+      but appears to be intentional, we generally fix those as an Optional But
+      Cool component. <a href="http://www.gibberlings3.net/bg2fixpack/docs_core.php">Complete
+      documentation</a> is available on the G3 web site. Additionally, the complete <a href="http://forums.gibberlings3.net/index.php?showforum=74">Fixpack
+      forums</a> are open, so if you want to see the reasoning behind a bugfix
+      (or tell us we've got it all wrong), please join us on the forums and provide
+      feedback. If you find a bug that is not fixed and is not in our <a href="http://forums.gibberlings3.net/index.php?showforum=92">Pending
+      Fixes</a> forum, please report it. </p> 
+  <p><strong>Game Text Update </strong><br /> 
+    <em>English Only </em><br />
+This component, based upon the Baldurdash Game Text Update, seeks to
+address miscellaneous errors in the text. Typos, grammatical errors,
+item description inconsistencies, etc. are addressed by this component.
+It should be noted that incorrect strings that are actually bugs are
+addressed by Core Fixes. The Game Text Update can&nbsp;be installed in
+two ways. The first (and recommended) option will install "GTU Light"
+(by Wisp), a fairly minimalistic dialogue update which contains only
+the most relevant typographical corrections. The second option will
+install "GTU Classic" (from Baldurdash, by Kevin Dorner), an in-depth
+dialogue revision, parts of which may be considered arbitrary by
+purists </p> 
+  <p><strong>Super Happy Fun Lucky Modder Pack</strong><br /> 
+    This component is designed to add changes to make life easier for modders.
+      Players should not see any differences in game, though some mods may begin
+      requiring this component in the future. IDS files are expanded to provide
+      additional symbolic lookups, areas without scripts get one assigned and
+      several <acronym title="Dragonlance Total Conversion Editor Pro">DLTCEP</acronym> and
+      Near Infinity error messages are cleaned up (many from leftover <acronym title="Baldur's Gate">BG</acronym> resources).
+      Once the new schema is finalized, this component will also include Detectable
+      Spells. </p> 
+  <p><strong>BETA Core Fixes</strong><br /> 
+    Though the Fixpack has now left beta, new fixes still need to be added. This
+      component includes fixes intended for the Core Fixes component and tested
+      in a limited fashion, but have not yet been tested 'in the wild' or with
+      other mods. <strong>As such, this component is considered to be of a BETA
+      status.</strong> As fixes in this component get tested and validated in
+      the wild, they will move into the Core Fixes. These fixes are also <a href="http://www.gibberlings3.net/bg2fixpack/docs_beta.php">documented
+      separately</a> from the Core Fixes. </p> 
+  <p><strong>Optional But Cool: Party Gets <acronym title="Experience Points">XP</acronym> for
+      Sending Keldorn to Reconcile With Maria</strong><br /> 
+    In Keldorn's personal quest, if you go with Keldorn when he reconciles with
+    Maria the party receives <acronym title="Experience Points">XP</acronym>.
+    However, if you send him alone to reconcile you do not--this component gives
+    you <acronym title="Experience Points">XP</acronym> for sending him alone
+    to reconcile. </p> 
+  <p><strong>Optional But Cool: Improved Spell Animations</strong><br /> 
+    This component alters the animations of several spells, including Maze, by
+      addressing subtle errors in their animation cycles. </p> 
+  <p><strong>Optional But Cool: Cromwell's Forging Actually Takes a Day</strong><br /> 
+    When Cromwell forges an item for the party, he says it will take a day but
+      no actual time passes. This component changes the upgrades to actually
+      take a day. </p> 
+  <p><strong>Optional But Cool: Mixed-Use Dagger Fixes</strong><br /> 
+    Daggers that can be used in melee and thrown are an irresolvable bug: when
+      thrown, daggers should get an extra attack per round, but there's no way
+      to apply this bonus without also granting it when he dagger is being used
+      in melee. This component grants the extra attack but at the expense of
+      removing melee abilities. </p> 
+  <p><strong>Optional But Cool: Ghreyfain's Holy Symbol Fixes</strong><br /> 
+    Basically, it makes the granting of Holy Symbols in the game a bit more logical.
+      Aerie gets the symbol of Baervan, Viconia gets the symbol of Shar, and
+      Anomen gains the symbol of Helm even when lawful good (he used to get Lathander's).</p> 
+  <p><strong>Optional But Cool: Additional Hero Quests in Trademeet Wait Until
+      Hero is Officially Named</strong><br /> 
+    In Trademeet Jenia would initiate her quest, referring to the <acronym title="Player Character">PC</acronym> as
+    the Hero of Trademeet, prior to the official ceremony that designates the <acronym title="Player Character">PC</acronym> as
+    such. This component changes Jenia to wait until the ceremony to initiate
+    her quest. </p> 
+  <p><strong>Optional But Cool: Giants Receive Penalties When Attacking Halflings,
+      Dwarves, and Gnomes</strong><br /> 
+    This component gives giants their <acronym title="Pen and Paper">P&amp;P</acronym> penalty
+    when trying to attack undersized (halflings, dwarves, gnomes) foes. </p> 
+  <p><strong>Optional But Cool: Remove Dual-Classing Restriction from Archers
+      and Stalkers</strong><br /> 
+    In Throne of Bhaal, archers and stalkers can not dual-class to clerics as
+    normal rangers and beastmasters can; for consistency Core Fixes adds this
+    restriction to <acronym title="Shadows of Amn">SoA</acronym>-only games as
+    well. This component will remove the restriction.</p> 
+  <p><strong>Optional But Cool: Remove Second Attribute Bonus for Evil Path in
+      Wrath Hell Trial</strong><br /> 
+    If the protagonist selects the 'evil' option when speaking to Sarevok in
+    the Hell Trials, the PC gets rewarded twice with attribute bonuses. There
+    are several factors that suggest one of the bonuses is leftover junk in the
+    script, but there's not enough evidence of developer intent to include it
+    in the Core Fixes. </p> 
+  <p><strong>Optional But Cool: Corrected Summoned Demon Behavior</strong><br /> 
+    This component alters the <acronym title="Artificial Intelligence">AI</acronym> of
+    summoned demons, causing them to behave less predictably, but at the same
+    time, more realistically (i.e. Baatezu will attack Tanar'ri). </p> 
+  <p><strong>Optional But Cool: Additional Script Fixes</strong><br /> 
+    There are several additional scripting errors which can not be fixed by the
+      core fixes. While clearly bugs, what was intended by the developers is
+      more towards speculation and, as such, these fixes have been moved into
+      their own component. Most of the bugs are missing checks in spellcaster
+      scripts for memorized spells (or casting spells). A more detailed account
+      of the changes can be found in the full <a href="http://www.gibberlings3.net/bg2fixpack/docs_core.php">Optional
+      But Cool documentation</a>. </p> 
+  <p><strong>Optional But Cool: Bard Song Fixes<br /> 
+    </strong>The manual describes bard's Battlesong as granting "morale and luck
+    improvement for the party." And then goes on to describe a luck <i>bonus</i> for
+    the party as though it were a luck <i>penalty</i> for opponents. And then
+    in-game battlesong grants only immunity to fear (without preventing the additional
+    effects that can accompany fear) with no morale or luck effects at all. Our
+    best educated guess at developer intent adds a +1 luck bonus to battlesong,
+    which improves to +2 at 15th level and improves again to +3 at 20th level.
+    Blade's version of battlesong in this component still does not improve with
+    levels (as the class disadvantage states) and Skald and Jester songs (which
+    already vaguely match their descriptions and work) are untouched.</p> 
+  <p><strong>Optional But Cool: Wizard Slayers Cause Miscast Magic on Ranged
+      Attacks<br /> 
+    </strong>The original kit description of the Wizard Slayer states as a kit
+    advantage: "For each successful hit on an opponent, 10% cumulative spell
+    failure penalty is applied". However, it was only applying this effect
+    on melee hits. The Core Fixes do not change this and the Game Text Update
+    clarifies the kit description to specify melee-only. This component allows
+    players to extend the ability to both melee and ranged attacks and updates
+    the kit description. </p> 
+  <p><strong>Optional But Cool: Additional Alignment Fixes <br /> 
+    </strong>As part of the Core Fixes, the Fixpack addresses many creatures
+    who either lack alignment, have conflicting alignments between their creature
+    files, or have an alignment completely at odds with their behavior. These
+    changes underwent a great deal of scrutiny in an organized review, and it
+    was decided that some of them should be moved into an optional component
+    as there was no general consensus for the new alignments of these specific
+    creatures. </p> 
+  <p><strong>Optional But Cool: Change Free Action to Protect Against Stun</strong> <br /> 
+    Bioware was very inconsistent about whether free action shold protect against
+      stun or not. The spell did not protect against it, but most items that
+      grant free action did. However, per David Gaider, free action is not supposed
+      to protect against stun. For players who think this overpowers stun (particularly
+      mind flayer psionics) this component will extend free action to protect
+      against stun. </p> 
+  <p class="deprecated"><strong>Optional But Cool: Paws from Shapeshifting Can
+      Not Be Dispelled</strong><br /> 
+    <!--
+	Dispel magic effects always dispel magically created weapons, such as energy
+      blades, black baldes of disaster, or the paws of shapeshifter druids. In
+      the last case the form is not dispellable, so it leaves the shapeshifter
+      in werewolf form but able to use normal weapons. This component makes these
+      items not subject to a dispel magic. This should be a core fix, but because
+      it causes the animation cycles to constantly reset which, though purely
+  cosmetic, can be distracting and unwanted. 
+  --> 
+    This component, though fine in testing, resulted in serious errors when released
+    into the wild. It's being reworked, but until the bugs have been fully fixed
+    it's been withdrawn. </p> 
+</div> 
+<h2>Contact Information</h2> 
+<div class="section"> 
+  <p>The Fixpack is the hard work of many authors. For issues, suggestions and
+    general feedback, the <a href="http://forums.gibberlings3.net/index.php?showforum=74">Fixpack
+    forums</a> are the best resource. <a href="mailto:webmaster@gibberlings3.net">CamDawg</a>,
+    as project lead, is also available for assistance. Visit the <a href="http://forums.gibberlings3.net/">Gibberlings
+    Three Forums</a> for information on this and any other Gibberlings Three
+    mods on which we may be working.</p> 
+</div> 
+<h2>Thanks and Acknowledgements</h2> 
+<div class="section"> 
+  <p>The Fixpack would not be possible without the hard work of many, many people.
+    There's no way to try and acknowledge this many people without missing someone,
+    so if you've been left off please let us know so you can be properly acknowledged. </p> 
+  <p>First, thanks to the entire Fixpack Team: Andyr, aVENGER, BigRob, Caedwyr, CamDawg,
+    cirerrek, devSin, drake127, Ghreyfain, Grim Squeaker, hlidskialf, icelus,
+    Idobek, igi, Kish, Loriel, Macready, NiGHTMARE, Nythrun, Rastor, SConrad,
+    SimDing0, the bigg, and yarpen. </p> 
+  <p>Thanks to our alpha testers as well: afireinside, Aragorn II, Da_venom,
+    Diana, DirtyAlex, discharger12, Drew, Evilyn, Falco, I. Rahn Maedin, Jyzabyl,
+    Kanain, Kazey, Nim, Rubel, Sir-Kill, TinyMage, and Wounded_Lion. </p> 
+  <p>Thanks to modders who had made previous forays into fixpacks, as well as
+    modders who were kind enough to provide bug lists and/or complete fixes:
+    aVENGER, CamDawg, Dyara, Extremist, FredSRichardson, Ghreyfain, Idobek, japheth,
+    jastey, jcompton, Kevin Dorner, King Diamond, Kish, Littiz, Miloch, plainab,
+    Roana, Sabre, Salk, SimDing0, the bigg, Wes Weimer, Wisp and WizWom. </p> 
+  <p>Finally, we'd like to thank even more folks, who may or may not fit well
+    into the categories above: ababab, Anomaly, AnonymousHero, Ardanis, Ascendancy-Down,
+    Azazello, Baronius, berelinde, Bex, blubid_boy, Blucher, Brett Frazier, cameltoe,
+    Capt Massacre, Chev, 
+
+
+ clarient, cmorgan, cvieor, 
+
+ 
+    Daulmakan, DavidW,
+    Domi, dragonian, erebusant, erik, ecoris, frabjous, G-Mon, Gorilym, Gort,
+    
+
+
+ Iroquois, Immortality, Jadefang, jester,
+    John, kix, Kulyok, Luiz, Margrave, Meddle, 
+
+ 
+    mossgerila, Naleem,
+    pro5, Qwinn, Rabain, Revy, Riveira, ronin69hof, 
+
+
+ russoc4, s w raly, 
+
+
+ s4r3v0k, seanas, shaitan, Sir Alexander, Six of Spades, Smoketest, steve, sturmvogel,
+    temujin, TimesofTrouble, Topaze, truper, tz2z, web2air, Weigo, and ZFR.</p> 
+  <p>In addition, there are a couple of folks we would like to single out for
+    acknowledgement:</p> 
+  <ul> 
+    <li><strong>David Gaider:</strong> Officially credited as a member of the
+      'core design team' for <acronym title="Baldur's Gate II">BG2</acronym>,
+      David's probably better described as the head writer. David was kind enough
+      to answer questions regarding developer intent with respect to several
+      fixes. </li> 
+    <li><strong>devSin:</strong> An excellent right-hand man, whose intimate
+      knowledge of arcane engine details helped us identify and solve a huge
+      number of bugs. </li> 
+    <li><strong>Nythrun:</strong> An angel who's come out of nowhere to help
+      with just about everything. </li> 
+    <li><strong>Wes Weimer and the bigg:</strong> Such an effort wouldn't even
+      be possible without a tool like <acronym title="Weimer Dialogue Utility">WeiDU</acronym>.
+      In particular, the new patching abilities of the last 20-30 versions have
+      made a huge number of really nifty things possible.</li> 
+    <li><strong>Kish and SimDing0:</strong> Often the two counterpoints to determining
+      what needed to be fixed and how, their input was invaluable. </li> 
+    <li><strong>Kevin Dorner:</strong> We tried to recruit Kevin for the project
+      but never got a response. Nonetheless, the bug list (both fixed and pending)
+      from Baldurdash was a huge aid when we developed our own fixes.</li> 
+    <li><strong>igi and the <acronym title="Infinity Engine Structures Description Project">IESDP</acronym> contributors:</strong> The <acronym title="Infinity Engine Structures Description Project">IESDP</acronym> was
+      invaluable for a project of this scope. igi, as the maintainer, and the
+      various <a href="http://iesdp.gibberlings3.net/credits.htm"><acronym title="Infinity Engine Structures Description Project">IESDP</acronym> contributors</a> also
+      deserve credit. </li> 
+  </ul> 
+  <p>Thanks as well to yarpen for the Polish translation, Leonardo Watson for
+    the German translation, Immortality and Clan DLAN (with revisions from Ghildrean)
+    for the Spanish translation, Anomaly for the French translation, web2air
+    for the Korean translation, and Andrea C. for the Italian translation. </p> 
+<p>Versions 7-8 of the Fixpack were coded by DavidW, in consultation
+with DevSin and using code and observations by Nythrun, aVENGER,
+Taimon, Wisp, ScuD, Icendoan and Mike1072. Version 9 was coded by
+aVENGER, in consultation with devSin, using code and observations by
+Nythrun,&nbsp;Wisp and Jason Compton.</p>
+  <p><strong>Tools Used in Creation</strong><br />
+    <a href="http://www.weidu.org/"><acronym title="Weimer Dialogue Utility">WeiDU</acronym></a> by
+    Wes Weimer and the bigg <br /> 
+    <a href="http://www.idi.ntnu.no/%7Ejoh/ni/">Near Infinity</a> by Jon Olav Hauglid<br /> 
+    <a href="http://www.gibberlings3.net/tools/dltcep.php"> <acronym title="Dragonlance Total Conversion Editor Pro">DLTCEP</acronym></a> by
+    Avenger<br /> 
+    <a href="http://iesdp.gibberlings3.net/"><acronym title="Infinity Engine Structures Description Project">IESDP</acronym></a> maintained
+    by igi<br /> 
+    <a href="http://teambg.eu/index.php?page=tools&amp;cat=32">BAM Workshop</a> by
+    Glenn Flansburg<br /> 
+    <a href="http://ire.mainecoon.net/IRE/features.html"><acronym title="Infinity Resource Editor">IRE</acronym></a> by
+    DevArrah <br />
+    <a href="http://www.context.cx/">ConTEXT Text Editor</a> by Eden Kirin<br />
+    <a href="http://www.gibberlings3.net/tools/weidu.php"><acronym title="Weimer Dialogue Utility">WeiDU</acronym> ConTEXT
+    Highlighters </a> by Idobek, updated by cmorgan  </p> 
+</div> 
+<h2>Distribution note</h2> 
+<div class="section">
+  <p> The modding community for the Infinity Engine has been going strong for
+    almost 10 years now, and is the culmination of thousands of unpaid modding
+    hours by fellow fans of the game. Modders produce their best work, and players
+    get the best, well-supported mods, when we all work together. </p>
+  <p> There are two big ways to upset this harmony. One is to claim someone else's
+    work as your own. The second is to host and redistribute a mod without permission
+    from the author(s). </p>
+  <p> Be kind to your fellow players and modders. Don't do either. </p>
+</div> 
+<h2>Version History</h2> 
+<div class="section"> 
+<p><strong>Version 9 - March 14, 2010</strong></p>
+<ul><li>Updated the German and Italian translations. Added the Russian and Japanese translations</li><li>The
+<span style="font-weight: bold;">Game Text Update</span> component can now be installed in two ways. The first (and
+recommended) option will install "GTU Light" (by Wisp), a fairly
+minimalistic dialogue update which contains only the most relevant
+typographical corrections. The second option will install "GTU Classic"
+(from Baldurdash, by Kevin Dorner), an in-depth dialogue revision,
+parts of which may be considered arbitrary by purists</li><li>The "<span style="font-weight: bold;">Giants Receive Penalties When Attacking Halflings, Dwarves, and Gnomes</span>" component no longer creates misindexed files</li><li>The following changes were made to the <span style="font-weight: bold;">Core Fixes</span> component:</li><ul><li>Corrected a typo in the rndtre05 duplicate entries fix</li><li>Corrected&nbsp;a typo in the Barkskin fix</li><li>Corrected a typo which erroneously granted Monks immunity to poison at level 5</li><li>The fix for the Assassin's Poison Weapon ability has been slightly revised</li><li>Anomen's proficiency fix has been slightly revised</li><li>The Mace of Disruption fixes have been recoded in a more robust manner</li><li>The fixes for knocked down Trolls have been recoded in a more robust manner</li><li>Deprecated the removal&nbsp;of the second point in Long Sword proficiency from Haer'Dalis at&nbsp;levels 15 and 19</li><li>Deprecated the "Monks can't use&nbsp;items restricted to Priests" change due to confirmed developer intent</li><li>Deprecated the
+restoration of the Guard Captain to the Barracks&nbsp;in the Docks District</li></ul><li>The following content was added to the <strong>BETA Core Fixes</strong> component:</li><ul><li>Corrected a minor issue with Mazzy's soundset </li><li>Ice Trolls no longer lose their coloring upon dying</li><li>The Twisted Rune entrance in the Bridge District now only consumes a single Rogue Stone when triggered</li><li>Maheer, the blacksmith in Waukeen's Promenade, now only takes a single diamond/beljuril for upgrading the Horn of Valhalla</li><li>The main door to Bodhi's lair now becomes unlocked if the player sides with her in Chapter 2</li><li>Evil hell rewards had some effects with non-zero power levels and bad targeting</li><li>Corrected&nbsp;mismatching names and tooltips for several creatures</li><li>Anomen no longer&nbsp;speaks ill of the Order during his&nbsp;banters with Imoen if he hasn't failed his test</li><li>Assembling the Flail of Ages piece by piece now properly grants an XP reward</li><li>Yoshimo no longer leaves behind two hearts when slain by a petrification effect</li><li>Hostile Planetars and Devas will no longer attempt to heal party members</li><li>Hostile and out of party Minsc and Valygar&nbsp;will no longer attempt to heal party members</li><li>Jan Jansen now properly receives his bonus spell per level for being a specialist mage</li><li>Thieves and Bards now properly receive a Dexterity bonus upon drawing the "STAR" card from the Deck of Many Things</li><li>The Shield spell and the Shield Amulet now properly protect the recipient against TRAP_MAGIC_MISSILE</li><li>Prismatic Spray was erroneously blinding targets up to level five, rather than seven</li><li>Pierce Shield now provides feedback when it lowers the target's magic resistance</li><li>Rectified a couple of instances where creatures had two-handed items equipped alongside shields</li><li>The merchant who gets assaulted by a thug at the City Gates no longer shares a store with the Brynnlaw storekeeper</li><li>A potential loop in the&nbsp;Waukeen's Promenade area script has been prevented</li><li>The Stiletto of Demarchess +2 and the Dart of Stunning now display the appropriate strings upon holding/stunning the target</li><li>An instance of Jaheira's&nbsp;dialogue will no longer loop endlessly if the player isn't a suitable romance partner for her</li><li>Killing
+a couple of unrelated Baatezu in the Marching Mountains will no longer
+turn Ka'rashur and his cohort in Watcher's Keep hostile</li><li>Mithral
+Field Plate Armor +2&nbsp;and Missile Attraction +2&nbsp;can no
+longer be worn together with&nbsp;rings and amulets of protection</li><li>The
+Death Spell cast by the Skull of Death no longer&nbsp;requires a
+saving throw nor does it allow two magic resistance and power level
+checks</li><li>Runehammer&nbsp;no longer allows two saving throws for its undead slaying effect</li><li>Enhanced Bard Song&nbsp;no longer reverts to the default version when a bard character leaves and re-joins the party</li><li>Non-magical
+innate abilities (Barbarian Rage, Berserker Enrage, Druidic
+Shapeshifting...) are no longer affected by Wild Magic and Dead Magic
+zones</li><li>The
+Mirror Image cast by Ilbratha +1 and the Improved Invisibility cast by
+the Ring of Air Control are now susceptible to spells which remove
+illusionary protections</li><li>Item abilities which mimic actual spells now use the&nbsp;school and secondary type values of those spells</li><li>The map note for the Western Tunnels in the Underdark area is no longer placed over inaccessible terrain</li><li>Wish: Breach on all enemies in the area no longer&nbsp;affects friendly summoned creatures and cannot turn them hostile</li><li>Greater
+Command now uses the same projectile at all levels. In term, this spell
+no longer affects the caster's allies at lower levels</li><li>The Reflection shield now properly works against Ice Arrows</li><li>The
+Physical Mirror spell now properly works against&nbsp;Bolts of
+Lightning (crossbow ammo type) and Arrows of Fire (bow ammo type)</li></ul><li>Added alex.cre (Sir Beverus) and drow07.cre (Drow Priestess) to the "<span style="font-weight: bold;">Additional Alignment Fixes</span>" component</li></ul><p><strong>Version 8 - February 20, 2009</strong></p>
+<ul>
+<li>French and Italian translations updated.</li>
+<li>Basically-harmless typo in the Barbarian Rage code fixed</li>
+<li>"Deutsche" should apparently be "Deutsch"</li>
+<li>Updated to WEIDU v210</li>
+</ul>
+<p><strong>Version 7 - December 29, 2008</strong></p>
+  <ul>
+<li>Corrected Minor Globe of Invulnerability description is no longer pasted onto Know Alignment.</li>
+<li>Shriekers, Blue Myconids, and Carrion Crawlers were missing the
+resorces giving them their proper sound sets; there were several errors
+with the chicken soundset also which are now correctly corrected. </li>
+<li>The game engine unfortunately will play at most two sound
+selections per category; our previous attempts to restore existing but
+unused sounds for a few monsters accomplished nothing and have been
+revoked. This is a Core Fix. </li>
+<li>An old bug in a WeiDU patch was causing corrections to the game's
+climactic battle music to go haywire. This bug has been corrected; the
+battle theme now loops properly. </li>
+<li>In the Copper Coronet, a pair of trash talking louts were supposed
+to flee if any real violence took place, but their scripting was
+corrupt. We now correct an additional way in which their script may be
+broken. </li>
+<li>An earlier attempt to fix the broken usage of the "Damage Versus
+Type" opcode was having unforseen consequences with other mods and was
+not being consistently applied; we now supply a new .eff file and apply
+it in every case. </li>
+<li>The casting time of innate Cure Light Wounds, Draw Upon Holy Might,
+and Horror were being altered to match the ordinary spells of the same
+names. In the absense of convincing developer intent, these fixes have
+been dropped. </li>
+<li>Aataqah's spelling error, Dermin's gender confusion, and Holy Word's incomplete description are corrected. </li>
+<li>Holy Smite wasn't correctly displaying the "Blinded" string (code by&nbsp;aVENGER)</li>
+<li>Small typo corrected in code for <em>chant doesn't provide the listed save bonuses nor the penalties to opponents. Also shouldn't stack.</em> (code by ScuD)</li>
+<li>The Mace of Disruption +2 is no longer being nerfed (code by aVENGER)
+</li><li>A typo in an earlier correction to Barbarian Rage meant that fix wasn't working correctly; this is fixed. (code by Wisp)</li>
+<li><em>Halberd Flagged as Stolen</em> really is compatible with <em>More Than One Copy of Unique Items Can Be Obtained</em> now. (code by Wisp)</li>
+<li>The "Harper's Call" spell now correctly reduces Jaheira's ability
+scores (previously, due to a v6 typo, it was making them negative).
+(spotted by Mike1072, code by DavidW)</li>
+<li>Since the Grandmaster Armor is specifically described as not usable by monks, we revert to not making it usable. (code by Wisp)</li>
+<li>The OBC component which gives Burning Hands an area effect was erroneously increasing its duration.</li>
+<li>Typo corrected in GTU string @1048658</li>
+<li>German and Spanish translations updated</li>
+<li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+	<ul>
+
+	<li>Tolgerias vanishes repeatedly (spotted by Jastey, code by DavidW)</li>
+	<li>Ployer can kill Jaheira (observed and originally coded by Icendoan, this code by DavidW)</li>
+	<li>Dirbert is too picky about his swords (code by Icendoan, slightly tweaked by DavidW)</li>
+	<li>Sword of Seeking does incorrect damage (code by Wisp)</li>
+	</ul>
+</li></ul>
+ 
+ <p><strong>Version 6 - January 31, 2008</strong></p> 
+  <ul> 
+    <li><em>Incapacitated Solaufein Breaks Ust Natha Quests</em> in <strong>BETA
+        Core Fixes</strong> had
+      a nasty bug that actually broke this segment, hence the early and rapid
+      appearance of v6 </li> 
+    <li>Rolled back<em> Horn of Kazgaroth Has Only One Charge
+        if Imported</em> as it was
+      unnecessary </li>
+    <li>Adjusted code for <em>Fixed Bug That Prevents Saving
+        Games (OS X Only)</em> fix
+      so that it works better</li>
+    <li>The left side of the bounding box for the fixed <em>Door
+      in de'Arnise Keep is Offset From Actual Door</em> was off slightly and has been fixed </li>
+    <li>Magical bullets were no longer being blocked by Protection from Normal
+      Missiles in the <em>Protection From Normal Missiles Protecting
+      Against Some Magical Missiles</em> fix, but they should still  be set to
+      a different projectile </li>
+    <li>Dropped two creatures from the <em>Gender Fixes</em></li>
+    <li><em>Elhan's Elves Turning Hostile (And Not) Inappropriately</em> was overriding
+      the wrong scripts </li>
+    <li><em>Weapon Proficiencies Maximum and Minimum Fixes</em> was throttling paladins
+      to two stars in dual-wielding</li>
+  </ul>	  
+  <p><strong>Version 5 - January 28, 2008</strong></p> 
+  <ul> 
+    <li>Recoded several dialogue fixes to be nicer with other mods. Specifically,
+      the <em>Slave Leader in Ust Natha 'No Valid Links' Dialogue Fix</em> and <em>Captain
+      Arat Gives Infinite Fire Arrows</em> should resolve current issues </li> 
+    <li>Fixed two bugs with <em>Elven War Sages Sporadically Helping Party with
+        Vampirism Cure</em> in <strong>BETA Core Fixes </strong></li> 
+    <li>Changed the handling of Telwyn in the <em>Pickpocket Exploits</em> fix</li> 
+    <li>Removed deva and planetar changes from the <em>Creature Gender Fixes</em> as
+      this was effectively removing the celestial summoning cap </li> 
+    <li>Dropped the <em>Offhand Weapons Could Provide Unintended Bonuses to Main
+        Hand Weapon and Vice-Versa</em> fix as it was not working as intended.
+        This remains an outstanding issue for now </li> 
+    <li>New research showed that an opcode that provided damage bonuses against
+      certain creature types was not fully working; this affects the Mace of
+      Disruption, Daystar, and the Dragonslayer +2. The <em>Improved Mace of
+      Disruption Fixes</em> was renamed to <em>Maces of Disruption Fixes</em> and
+      expanded to address these new bugs found in the engine. New fixes for Daystar
+      and Dragonslayer are introduced in the <strong>BETA Core Fixes</strong> </li> 
+    <li>Cleaned up code in <em>Casting Spells from Scroll Fixes</em> (though
+      this was not affecting anything) </li> 
+    <li>Fixed bug with <em>Immunities Don't Suppress All Effects</em> where it
+      was still allowing portrait icons to be placed on Imoen while wearing her über-belt
+      in the opening dungeon </li> 
+    <li>Fixed unintended consequence of <em>Immunities Don't Suppress All Effects</em>,
+      specifically with respect to poison. By making items and creatures fully
+      immune to poison, we also made them immune to disease (which does poison
+      damage). Only a handful of items were actually meant to convey immunity
+      to both poison and disease, so the items affected by the patch have been
+      scaled back. Also made sure that poison display strings were also suppressed. </li> 
+    <li>Fixed another unintended consequence of <em>Immunities Don't Suppress
+        All Effects</em>, specifically with respect to web. This was making the
+        Watcher's Keep statues immune to the effect that kept them frozen so,
+        while they were inactive, they would still animate and sway in place </li> 
+    <li>Expanded <strong>Optional But Cool: Improved Spell Animations</strong> to
+      include a nifty change for Burning Hands from Nythrun; the spell now is
+      area of effect per its description instead of only affecting one target </li> 
+    <li>Fixed bug with <strong>Optional But Cool: Giants Receive Penalties When
+        Attacking Halflings, Dwarves, and Gnomes</strong> where it was screwing
+        up item indexes, causing issues for OS X players </li> 
+    <li><em>Several Errors With Familiars</em> was essentially rebuilt from the
+      ground up </li> 
+    <li>Rolled back a few BG creature patches in <em>Creatures With Items Not
+        Equipped</em> as they were, at best, spurious and, at worst, interfering
+        with BGT games</li> 
+    <li>Expansion of the <em>Dispel/Remove Magic Generating Spurious Magic Resistance
+        Message</em> review turned up similar errors in the existing <em>Staff
+        of the Magi Errors</em> and <em>Carsomyr Issues</em> fixes </li> 
+    <li>Further tightened <em>Simulacrum Restoration Exploit</em></li> 
+    <li><em>Friends Fixes</em> was partially rolled back and <em>Comet Duration
+        Fixes</em> was fully rolled back as the engine has problems with sometimes
+        applying spell effects with staggered probabilities </li> 
+    <li>Touched up some <em>Immunities Don't Suppress All Effects</em> patches,
+      specifically Free Action, to remove more leftover stun protection opcodes </li> 
+    <li>Expanded <strong>Optional But Cool: Additional Script Fixes</strong> to
+      assign additional scripts to commoners so they would go hostile and run
+      away if attacked by the party</li> 
+    <li><strong>Optional But Cool: Change Free Action to Protect Against Stun</strong> expanded
+      to protect against additional complementary stun effects </li> 
+    <li>Renamed <em>Chosen of Cyric Weapon Not Displaying Portrait Icon or String</em> fix
+      to <em>Weapon of Cyric's Favored Not Displaying Portrait Icon or String</em>,
+      as they're really named Favored and not Chosen </li> 
+    <li>Reworked <em>Otiluke's Resilient Sphere Fixes</em>, as it was still far from complete</li> 
+    <li>Reworked <em>Option to Charm Glaicas Instead of Fight
+      Fix</em> and <em>Troll Fixes</em>      to remove incompatibilities with Unfinished Business </li> 
+    <li>Added <em>Spotty Golem Immunities</em> fix directly into <strong>Core
+        Fixes</strong>, as it's essentially an adaptation of existing (and working
+        code) </li> 
+    <li><em>Halberd Flagged as Stolen</em> was not accounting for the item change
+      from <em>More Than One Copy of Unique Items Can Be Obtained</em> and was
+      thus failing </li> 
+    <li>Miscellaneous changes and fixes to the <strong>Game Text Update</strong></li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Strings</li> 
+        <li>Draining Spells Healing Caster Even if Target Magic-Resistant </li> 
+        <li>Guards Summoned Well After Containers Are Burgled </li> 
+        <li>Creature Racial Fixes</li> 
+        <li>Creature Sex Fixes</li> 
+        <li>Creature Gender Fixes</li> 
+        <li>Dispel/Remove Magic Generating Spurious Magic Resistance Message </li> 
+        <li>Lavok Dies Too Quickly if Moved Outside </li> 
+        <li>Enchantment Level Errors</li> 
+        <li>Items Not Being Flagged as Magical </li> 
+        <li>Looping Music Fixes </li> 
+        <li>Anomen Banter Fixes</li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+      <ul> 
+        <li>Anomen's Quests Break for Non-Romanceable Female PCs</li> 
+        <li>Errors in Altercation Between Firkraag's Leiutenants</li> 
+        <li>Uder Mordin Could Assign Completed Imprisoned Mage (Vithal) Quest
+          in Underdark</li> 
+        <li>Yoshimo Would Insist on Meeting Renal, Even if Already Contacted</li> 
+        <li>Imoen-Anomen ToB Banter Would End Prematurely</li> 
+        <li>Celestial Weapons Lose Glowing Effects When Attacking</li> 
+        <li>Archers and Elementals Move Across Areas to Attack Party</li> 
+        <li>Drizzt Not Being Recognized by Chapter 6 Bodhi Allies</li> 
+        <li>You Can't Hope to Stop Habib, You Can Only Hope to Contain Him</li> 
+        <li>Yet More Troll Errors</li> 
+        <li>Incapacitated Solaufein Breaks Ust Natha Quests</li> 
+        <li>Lilarcor's Glowing Pool Is A Man, Baby</li> 
+        <li>Black Blade of Disaster Has Incorrect Duration and Effects in SoA</li> 
+        <li>Transformation Spells Not Cleaning Up Spells</li> 
+        <li>Mordenkainen's Swords Not Suppressing 'Intelligence Drained' Strings</li> 
+        <li>Daystar Damage Incorrect Against Evil Undead Opponents</li> 
+        <li>Dragonslayer Damage Incorrect Against Dragons</li> 
+        <li>Simulacrums and Projected Images Can Use Pocket Plane and Slayer
+          Change Abilities</li> 
+        <li>Dragon Silence Potentially Failing</li> 
+        <li>Chaotic Commands Not Fully Protecting Against Maze</li> 
+        <li>Spook's 'Panic' Message Was Bypassing Magic Resistance</li> 
+        <li>Luck Fixes</li> 
+        <li>Melf's Acid Arrow Fixes</li> 
+        <li>Incorrect Duration for Invisibility 10' Radius</li> 
+        <li>Blindness Not Always Causing 'Blinded' String or Portrait Icon</li> 
+        <li>Multiple Keys and Ropes Available in the City of Caverns</li> 
+        <li>ToB Worldmap Fixes</li> 
+        <li> Errors While Leaving Brynnlaw with Saemon Havarian </li> 
+        <li>Deirex Could Be Slain During Cutscene</li> 
+        <li>Summoned Nabassu, Pit Fiends, and Glabrezu Targeting</li> 
+        <li>Incorrect Sleeping and Invisible Tags</li> 
+        <li>Errors With Summoned Creatures </li> 
+        <li>Il-Khan Soldier Name Fixes</li> 
+        <li>Saradush Soundset Fixes</li> 
+        <li>Ranged Weapons Lacked Non-Proficiency Penalties</li> 
+        <li>Two Clubs Use Thrusting Animations</li> 
+        <li>Stunning Weapons Using Wrong Portrait Icons </li> 
+        <li>Book of Infinite Spells Has Finite Errors</li> 
+        <li>Rod of Lordly Might Transformation Problems </li> 
+        <li>Protection Scrolls Have Incorrect Range</li> 
+        <li>Wand of Cursing Not Causing Deafness </li> 
+        <li>Regeneration Spell Using Wrong Animation</li> 
+        <li>Protection From Normal Missiles Targeting Sound Effects Incorrectly </li> 
+        <li>Horror Duration Incorrect </li> 
+        <li>Hold Monster Bugs </li> 
+        <li>Wonky String for Protection From Normal Weapons </li> 
+        <li>Strings (BETA Version) </li> 
+        <li>Script Errors for Fight Between Fallen Paladins and Smugglers</li> 
+        <li>Remove Paralysis Not Removing Icons</li> 
+        <li>Great Druid Challenge Checking Wrong Level for Multi- and Dual-Class
+          Druids </li> 
+        <li>Lucette Should Always Kill Xzar</li> 
+        <li>Aerie and Viconia Romances Can be Falsely Flagged as Active </li> 
+        <li>Pierce Magic Via Wand of Spellstriking Not
+            Working </li> 
+        <li>Jermien Experience Exploit</li> 
+        <li>Immunities Don't Suppress All Effects (BETA Version) </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were moved from the <strong>BETA Core Fixes</strong> to
+      the <strong> Core Fixes</strong>:
+      <ul> 
+        <li>Spell Shield Uses Wrong Portrait Icon, Duration Incorrect </li> 
+        <li> Borok's Fist Hammer Not Using Unique Icon</li> 
+        <li> Blades Not Receiving Their One-Half Pickpocket Penalty</li> 
+        <li> NPC Talks Prior to Resting Prevent Actual Resting</li> 
+        <li> Missing Anomen Interjection in Bodhi's Abduction</li> 
+        <li> Viconia Could Repeat Banter</li> 
+        <li> Bad Viconia Interjection Ends Aerie Lovetalk Prematurely</li> 
+        <li> Sea's Bounty Wench Doesn't Recognize Female Edwin</li> 
+        <li> Dialogues Not Recognizing That You've Already Found Valygar</li> 
+        <li> Fanatics May Still Burn Viconia if Freed</li> 
+        <li> Limited Wish Quest Issues if Started Via Unusual Means</li> 
+        <li> Jaheira Does Not Recognize She's Been Freed</li> 
+        <li> Exploit of Invincible Imoen in the Opening Dungeon</li> 
+        <li> Mekrath Not Clearing Journal Entries</li> 
+        <li> Hostile Aledrian Doesn't Do Anything</li> 
+        <li> Game Broken if Saved During Bodhi's Spawn</li> 
+        <li> Multiple Captain Rerdes Bug</li> 
+        <li> Ust Natha Cutscene Could Occur Offscreen</li> 
+        <li> Ring of Djinni Summoning Not Always Disappearing on Death of Djinni</li> 
+        <li> Bug with Valygar in Party with a Hostile Hervo</li> 
+        <li> Devas Using Wrong Script, Spell Errors</li> 
+        <li> Killer Mimic Issues</li> 
+        <li> Hostile Planetars Using Wrong Script</li> 
+        <li> Items and Spells Not Interacting Properly with Spell Immunities
+          and Protections</li> 
+        <li> Item Weapon Speed Fixes</li> 
+        <li> Weapons Lacking Bonuses Due to Mistargeted Effects</li> 
+        <li> Item Weight Fixes</li> 
+        <li> Chosen of Cyric Weapon Not Displaying Portrait Icon or String</li> 
+        <li> Blackmist's Blindness Does Not Have the Correct Radius</li> 
+        <li> Items Which Cast Spells Can Cause Double Immunity Messages</li> 
+        <li> Full Plate +1 Not Disabling Thieving Skills, Wrong Strength Requirement</li> 
+        <li> Oil of Fiery Burning Says 'Gulp!' When Thrown</li> 
+        <li> Champion's Strength Being Capped at Level 18</li> 
+        <li> Remove Magic Not Dispelling Feeblemind</li> 
+        <li> Minor Spell Turning Behaves as Spell Turning</li> 
+        <li> Conjure Fire Elemental Was Not Restricted from Diviners</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version 4 - July 4, 2007</strong></p> 
+  <ul> 
+    <li><strong> Paws from Shapeshifting Can Not Be Dispelled</strong> was causing
+      crashes on some systems when encountering iron or adamantine golems; the
+      component has been withdrawn until a new fix is implemented</li> 
+    <li>Dropped the <em>Nishruus and Hakeashars Eating Non-Magical Items</em> fix.
+      In Throne of Bhaal, the opcodes responsible for this bug have been disabled
+      with the official patch. In Shadows of Amn, the bug is unfixable. The component
+      has been moved to the <strong>Super Happy Fun Lucky Modder Pack</strong> and
+      renamed <em>Clean Up Leftover Default(0) Headers</em> as it does clean
+      up a lot of extraneous junk from a number of item files. </li> 
+    <li>Dropped the <em>Yoshimo and Korgan Don't Recognize Gaelan's Changed Offer</em> fix
+      from <strong>BETA Core Fixes</strong>; after some discussion this was dropped
+      over concerns this was a slippery slope fix and would be a gateway to dubious
+      fixes </li> 
+    <li>Fixed bug in the core fixes that was preventing installation on <acronym title="Shadows of Amn">SoA</acronym>-only
+      games</li> 
+    <li>Fixed bug with <em>Miscellaneous Script Resource Reference Fixes</em>;
+      also updated documentation as some files were not listed as being modified </li> 
+    <li>Dropped the <em>Exploit to Keep Imported Items At Beginning of <acronym title="Shadows of Amn">SoA</acronym></em> fix,
+      as it was generally causing more trouble with other mods than it was worth </li> 
+    <li>Added extra safeguard to prevent Brus spawning for the <em>Creatures
+        Using Incorrect Script Names or Lacking Them Entirely</em> fix</li> 
+    <li><em>Joinable <acronym title="Non-Player Character">NPC</acronym> Spellbook
+        Fixes</em> moved from the <strong>BETA Core Fixes</strong> to the <strong>Core
+        Fixes</strong> and was grouped with the <em>Edwin and Nalia Spell Slot
+        Fixes</em>, <em>Joinable <acronym title="Non-Player Character">NPC</acronym> Spellbook
+        Fixes</em>, and <em>Joinable <acronym title="Non-Player Characters">NPCs</acronym> Have
+        Empty Spellbooks</em> fixes into <em>Joinable <acronym title="Non-Player Character">NPC</acronym> Spellbook
+        Errors</em> </li> 
+    <li><em>Improved Invisibility Fixes</em> was completely reworked as it was
+      preventing legitimate re-casting of the spell. The new fix remains non-perfect
+      but still a significant improvement over the patched game. </li> 
+    <li><em>Strength Spell Stacks Exceptional Strength</em> from <strong>BETA
+        Core Fixes</strong> dropped as it was causing the spell to not act per
+        its description; exploit is now fixed by adding Strength to the <em>Many
+        Spells Should Not Be Able To Stack With Themselves</em> fix in <strong>Core
+        Fixes</strong> </li> 
+    <li>The post-patch scripts in the <em>Player <acronym title="Artificial Intelligence">AI</acronym> Scripting
+        Errors</em> fix were tightened up</li> 
+    <li><em>Terrece Initiates Dialogue From Another Area</em> fix expanded and
+      renamed <em>Terrece Spawn Errors </em></li> 
+    <li>Fix for the good deva in the <em>Devas Using Wrong Script, Spell Errors</em> was
+      reworked; <acronym title="Weimer Dialogue Utility">WeiDU</acronym> itself
+      has a bug here that was worked around</li> 
+    <li> Part of the <em>Killer Mimic Issues</em> fix in <strong>BETA Core Fixes</strong> was
+      redundant and was dropped </li> 
+    <li><em>Kensais Not Receiving Their Weapon Speed Bonuses</em> in the <strong>BETA
+        Core Fixes</strong> expanded to include monks and renamed <em>Kensais
+        and Monks Not Receiving Their Weapon Speed Bonuses </em></li> 
+    <li>Fixed nasty bug with the <em>Items and Spells Not Interacting Properly
+        with Spell Immunities and Protections</em> fix (specifically spells)
+        that was patching the wrong fields</li> 
+    <li>New <em>Casting Time Fixes</em> and <em>Arcane Magic School Fixes</em> combine
+      and deprecate the following fixes: <em>Find Familiar Has Incorrect Casting
+      Time</em>; <em>Nahal's Reckless Dweomer Has Incorrect Casting Time, Magic
+      School</em>; <em>Protection From Acid Has Incorrect Casting Time</em>, <em>Shield
+      Has Incorrect Magic School</em>, <em>Spell Casting Speed Fixes, Arcane
+      Symbol Spells Have Incorrect Casting Speeds</em>, and<em>Arcane <acronym title="High Level Ability">HLA</acronym> Spells
+      Should Be Schoolless</em>. These two also partially deprecate other fixes: <em>Grease
+      Fixes</em>, <em>Armor Fixes</em>, <em>Hold Animal Errors</em>. Several
+      spells have been added to both fixes. </li> 
+    <li>Fixed bug with <em>Deathblows Allowing Save</em> fix </li> 
+    <li>Miscellaneous changes and fixes to the <strong>Game Text Update</strong></li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Corrections to Item Usabilities</li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+      <ul> 
+        <li> Stronghold Errors and Exploits </li> 
+        <li> Elven War Sages Sporadically Helping Party with Vampirism Cure </li> 
+        <li>Firkraag Journal Entry Not Being Set</li> 
+        <li> Townsfolk Flee From Wrong People</li> 
+        <li>Wing Buffet Should Not Be Prevented to Spell Protections</li> 
+        <li>Holy and Unholy Word Lack Deaf Icon</li> 
+        <li>Arcane Spell Casting Animations Incorrect</li> 
+        <li>Anomen in Wrong Group </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were moved from the <strong>BETA Core Fixes</strong> to
+      the <strong> Core Fixes</strong>:
+      <ul> 
+        <li><acronym title="Non-Player Characters">Cleric-Rangers Not Offered
+            Temple Stronghold</acronym></li> 
+        <li><acronym title="Non-Player Characters">NPCs</acronym> Joining High-Level
+          Parties in <acronym title="Shadows of Amn">SoA</acronym> Would Join
+          At Minimum Level</li> 
+        <li>Under- and Overcharged Items</li> 
+        <li>Anomen Banter Fixes</li> 
+        <li>Flydian Doesn't Disappear</li> 
+        <li>Saerk's Estate Accessible</li> 
+        <li>Belmin Gergas 'No Valid Links' Dialogue Fix </li> 
+        <li>Slave Leader in Ust Natha 'No Valid Links' Dialogue Fix</li> 
+        <li>Low-Reputation Parties Face <acronym title="Noble Order of the Radiant Heart">NORH</acronym> Paladins
+          Too Often</li> 
+        <li>Reedle Missing Variable Checks</li> 
+        <li> Arnolius Using Wrong Variable Scope</li> 
+        <li>Trademeet Militia Wizard 'No Valid Links' Dialogue Fix </li> 
+        <li>Viekang in Trademeet Initiates Dialogue Twice </li> 
+        <li>Invincible Bat in Bodhi's Lair</li> 
+        <li>Guards Summoned Well After Containers Are Burgled </li> 
+        <li>Extra Journal Entry for Illithid Doors</li> 
+        <li>Ice Mephit in Opening Dungeon Missing Script</li> 
+        <li>Madeen's Friend Has Wrong Script Assigned</li> 
+        <li>Door in de'Arnise Keep is Offset From Actual Door</li> 
+        <li>Imp Stuck In A Wall</li> 
+        <li>Regular Door in Saradush Flagged as Secret</li> 
+        <li>Expiring Items </li> 
+        <li>Anomen Save Fix</li> 
+        <li>Keldorn Save Fix</li> 
+        <li>Valygar One Level Too Advanced</li> 
+        <li>Yoshimo Has Too Many Thieving Points</li> 
+        <li>Wong Fei's Ioun Stone Using Wrong Icon</li> 
+        <li>Abazigal Hurts Himself With Dragon Transformation</li> 
+        <li>Spectator Beholder's Geas Spell Lacks Sound</li> 
+        <li>Fear Effect in Hell Trials Causes Spurious Magic Resistance Message</li> 
+        <li>Cutscene Spell Allows Save</li> 
+        <li>Stores With Duplicate Item Entries</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version 3 - April 19, 2007</strong></p> 
+  <ul> 
+    <li>Added Italian translation (thanks Andrea C.)</li> 
+    <li>About 16 different fixes were consolidated (either partially or completely)
+      into the new <em>Immunities Don't Suppress All Effects</em> fix, which
+      streamlines and expands the fixes significantly </li> 
+    <li>Added dummy files to various components to allow for easy detection by
+      other mods </li> 
+    <li>Added <em>Fixed Bug That Prevents Saving Games (OS X Only)</em> directly
+      into the <strong>Core Fixes</strong>; it's a major bug but a very simple
+      fix </li> 
+    <li><em>Creature Alignment Corrections</em> in the <strong>Core Fixes</strong> and
+      Optional But Cool <strong>Additional Alignment Fixes</strong> were adjusted
+      again, this time thanks to the help of David Gaider </li> 
+    <li>Fixed exploit with <em>Harper's Call Not Draining Stats</em> as it could
+      be used to kill enemies via stat drain </li> 
+    <li>Fixed issue with <em>Shadows of Amn Worldmap Fixes</em>; the <acronym title="Shadows of Amn">SoA</acronym> version
+      worked fine ingame but some index errors caused editors to report errors </li> 
+    <li> Fixed bug with <em>Nalia's Overly Effusive Gratitude</em> fix; it was
+      causing Nalia to always use the wrong dialogue when kicked out for other
+      reasons </li> 
+    <li><em>Cleric-Rangers Not Offered Temple Stronghold</em> in <strong>BETA
+        Core Fixes</strong> was expanded; it was working but was not covering
+        every aspect of the temple stronghold, namely, the Dawn Ring quest and
+        Sir Sarles quests were not being fully covered </li> 
+    <li>Changed behavior of <em>Many Scripts Not Checking the Correct Creatures/Objects</em> fix
+      with respect to Aran Linvail; the fix was working but it was causing compatibility
+      issues. The isue is now fixed without the compatibility issues </li> 
+    <li>Fixed bug with fixes to the <acronym title="Chaotic Evil">CE</acronym> quasit
+      familiar; bad indices could occasionally cause crashes </li> 
+    <li>After a review, it was deemed that the weapon speed change in the <em>Staff
+        of Curing Errors</em> was not a fix and was dropped </li> 
+    <li>Added two new Optional But Cool components: <strong>Change Free Action
+        to Protect Against Stun</strong> and <strong>Paws from Shapeshifting
+        Can Not Be Dispelled</strong></li> 
+    <li>Miscellaneous changes and fixes to the <strong>Game Text Update</strong></li> 
+    <li>Per David Gaider, the Optional But Cool component <em>Additional Hero
+        Quests in Trademeet Wait Until Hero is Officially Named</em> has been
+        moved into the <strong>Core Fixes</strong></li> 
+    <li>The following fixes were moved from the <strong>BETA Core Fixes</strong> to
+      the <strong> Core Fixes</strong>:
+      <ul> 
+        <li>Missing Reply Option in Svirfneblin Patrol Leader Dialogue</li> 
+        <li>Docks Commoner Has Malformed Trigger </li> 
+        <li>Elgea Has Malformed Trigger</li> 
+        <li>Waukeen's Promenade Temple of Ilmater Has Wrong Character </li> 
+        <li>Amalas' Buddies Not Leaving Together</li> 
+        <li>Ust Natha Tavern Combat Music Would Never End</li> 
+        <li>Valygar's Departure in the Slums Can Cause Cutscene Hang</li> 
+        <li>Area Animation Glitches </li> 
+        <li>Soldier Barracks in the Docks Has Reversed Entry and Exit Points</li> 
+        <li>Offhand Weapons Could Provide Unintended Bonuses to Main Hand Weapon
+          and Vice-Versa </li> 
+        <li>Unsellable Items </li> 
+        <li>Familiar Attacks Lack Icons </li> 
+        <li>Incorrect Damage for Oil of Fiery Burning</li> 
+        <li>Small Shields Erroneously Providing Protection Against Missiles </li> 
+        <li>Assassin and Skald <acronym title="To-Hot Armor Class 0">THAC0</acronym> Bonuses
+          Not Displaying in Character Record </li> 
+        <li>Dispel/Remove Magic Generating Spurious Magic Resistance Message </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Creature Class Fixes </li> 
+        <li>Creature Racial Fixes</li> 
+        <li>Pickpocket Exploits</li> 
+        <li>Characters Know Alignment- or Class-Restricted Divine Spells</li> 
+        <li>Corrections to Item Usabilities</li> 
+        <li>Carsomyr Issues </li> 
+        <li>Draining Spells Healing Caster Even if Target Magic-Resistant </li> 
+        <li>Chromatic Orb Fixes </li> 
+        <li>Armor Fixes </li> 
+        <li>Creatures Using Incorrect Script Names or Lacking Them Entirely </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+      <ul> 
+        <li>Spell Shield Uses Wrong Portrait Icon, Duration Incorrect </li> 
+        <li>Borok's Fist Hammer Not Using Unique Icon </li> 
+        <li>Blades Not Receiving Their One-Half Pickpocket Penalty</li> 
+        <li><acronym title="Non-Player Characters">NPC</acronym> Talks Prior
+          to Resting Prevent Actual Resting </li> 
+        <li>Missing Anomen Interjection in Bodhi's Abduction</li> 
+        <li>Viconia Could Repeat Banter </li> 
+        <li>Bad Viconia Interjection Ends Aerie Lovetalk Prematurely </li> 
+        <li>Yoshimo and Korgan Don't Recognize Gaelan's Changed Offer </li> 
+        <li>Jaheira Does Not Recognize She's Been Freed</li> 
+        <li>Exploit of Invincible Imoen in the Opening Dungeon </li> 
+        <li>Mekrath Not Clearing Journal Entries</li> 
+        <li>Sea's Bounty Wench Doesn't Recognize Female Edwin</li> 
+        <li>Dialogues Not Recognizing That You've Already Found Valygar </li> 
+        <li>Fanatics May Still Burn Viconia if Freed </li> 
+        <li>Limited Wish Quest Issues if Started Via Unusual Means </li> 
+        <li>Player AI Scripting Errors</li> 
+        <li>Hostile Aledrian Doesn't Do Anything</li> 
+        <li>Game Broken if Saved During Bodhi's Spawn</li> 
+        <li>Multiple Captain Rerdes Bug</li> 
+        <li>Ust Natha Cutscene Could Occur Offscreen</li> 
+        <li>Ring of Djinni Summoning Not Always Disappearing on Death of Djinni</li> 
+        <li>Bug with Valygar in Party with a Hostile Hervo </li> 
+        <li> Devas Using Wrong Script, Spell Errors </li> 
+        <li>Killer Mimic Issues </li> 
+        <li>Hostile Planetars Using Wrong Script </li> 
+        <li>Items and Spells Not Interacting Properly with Spell Immunities and
+          Protections</li> 
+        <li>Item Weapon Speed Fixes</li> 
+        <li>Weapons Lacking Bonuses Due to Mistargeted Effects </li> 
+        <li>Item Weight Fixes </li> 
+        <li>Chosen of Cyric Weapon Not Displaying Portrait Icon or String</li> 
+        <li>Blackmist's Blindness Does Not Have the Correct Radius</li> 
+        <li>Items Which Cast Spells Can Cause Double Immunity Messages </li> 
+        <li>Full Plate +1 Not Disabling Thieving Skills, Wrong Strength Requirement </li> 
+        <li>Oil of Fiery Burning Says 'Gulp!' When Thrown </li> 
+        <li>Kensais Not Receiving Their Weapon Speed Bonuses </li> 
+        <li>Spell Casting Speed Fixes </li> 
+        <li>Champion's Strength Being Capped at Level 18 </li> 
+        <li>Strength Spell Stacks Exceptional Strength </li> 
+        <li>Remove Magic Not Dispelling Feeblemind</li> 
+        <li>Minor Spell Turning Behaves as Spell Turning </li> 
+        <li>Conjure Fire Elemental Was Not Restricted from Diviners </li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version 2 - January 28, 2007</strong></p> 
+  <ul> 
+    <li>Added Korean translation (thanks web2air)</li> 
+    <li>The <em>Creature Alignment Corrections</em> fixes underwent extensive
+      review, and many changes were made. After review, some of these fixes were
+      moved into a new Optional But Cool component. </li> 
+    <li><em>Arbane's Sword Protecting From Extraneous Effects</em> was not removing
+      Arbane's protection from web </li> 
+    <li>Fixed bug with <em>Chant Not Affecting Enemies</em> fix </li> 
+    <li>Tightened up matching pattern in <em>Exploit to Keep Imported Items At
+        Beginning of <acronym title="Shadows of Amn">SoA</acronym></em> fix by
+        request </li> 
+    <li><em>Rangers and Paladins Not Falling When Taking Evil Path in Hell Trials</em> was
+      causing cleric-rangers to fall if the evil path was taken, but they do
+      not fall anywhere else in the game </li> 
+    <li><em>Lavok Dies Too Quickly if Moved Outside</em> was tightened up with
+      additional safeguards</li> 
+    <li>One (hopefully final) fix for the <em>Troll Fixes</em> that was causing
+      a troll to disappear at the de'Arnise Keep instead of falling down </li> 
+    <li>Fixed bug with the changes to Melf's Minute Meteors as part of the <em>Blade
+        Spin Fixes</em></li> 
+    <li>Corrected errors in <em>Friends Fixes</em> </li> 
+    <li>Error in the <em>Improved Alacrity via Wish</em> fixes was actually disabling
+      the Improved Alacrity effect outright </li> 
+    <li><em>Stores Have Infinite Magical Items</em> was rolled back from restricting
+      Ribald's Freedom scrolls--these are probably intentionally infinite as
+      an anti-Kangaxx measure </li> 
+    <li><em>Grae the Troll Can Be Accidentally Killed</em> fix renamed to <em>Limited
+        Wish Quest Fixes</em> and expanded with an additional fix to Vittorio's
+        dialogue </li> 
+    <li><em>Many Dialogues Not Checking the Correct Creatures/Objects</em> was
+      actually breaking the Saradush spellbook retrieval quest, as it was also
+      matching and altering variable names instead of just script names </li> 
+    <li><em>Romance Scripting Fixes</em> was importing some spurious changes
+      from the old Ease-of-Use mod which have been trimmed </li> 
+    <li><em>Bard Spell Memorization Table Fix</em> is an <acronym title="Shadows of Amn">SoA</acronym>-only
+      fix but was being applied to <acronym title="Throne of Bhaal">ToB</acronym> games</li> 
+    <li>Tightened up <em>Unseeing Eye <acronym title="Experience Points">XP</acronym> Exploit,
+        Quest Breakage</em> again as more stuff that shouldn't be possible was
+        happening </li> 
+    <li>Typos in new strings fixed</li> 
+    <li>Reworked <em>Stone Head in Shade Lord Dungeon Covers Container</em> into
+      a more sensible fix</li> 
+    <li>Tightened up the <em>Weakening Bodhi Does Not Stop Her Regeneration</em> fix</li> 
+    <li>A few of the Five Flagons areas were dropped from the <em>Areas Types
+        Flagged Incorrectly</em> fix as they apparently need to be flagged incorrectly
+        as City for certain scripts to work. A long-term solution is in the works. </li> 
+    <li>Reviewed and corrected a few minor errors in <em>Corrections to Item
+        Usabilities</em> </li> 
+    <li>Fixed bug with <em>Familiar Attacks Lack Icons</em> in the <strong>Beta
+        Fixes </strong></li> 
+    <li>Fixed bug with Viconia not receiving her Holy Symbol in <strong>Ghreyfain's
+        Holy Symbol Fixes</strong></li> 
+    <li>Fixed bug with the penalties in <strong>Giants Receive Penalties When
+        Attacking Halflings, Dwarves, and Gnomes</strong> applying to the wrong
+        creatures </li> 
+    <li>Miscellaneous Game Text Updates</li> 
+    <li>Improvements to the <strong>Super Happy Fun Lucky Modder Pack</strong> component:
+      <ul> 
+        <li>Added several common shoutids.ids entries</li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Creature Soundset Fixes</li> 
+        <li>Corrections to Item Usabilities</li> 
+        <li>Some Areas Should Not Be Passable by Non-Party <acronym title="Non-Player Characters">NPCs</acronym> </li> 
+        <li>Slings Applying Strength Damage</li> 
+        <li>Items Lacking Lore (Don't Need to be Identified)</li> 
+        <li> Creatures Using Incorrect Script Names or Lacking Them Entirely </li> 
+        <li>Some Areas Should Not Be Passable by Non-Party <acronym title="Non-Player Characters">NPCs</acronym> </li> 
+        <li>Areas Not Flagged Consistently as 'Party-Required' </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+      <ul> 
+        <li><acronym title="Non-Player Characters">NPCs</acronym> Joining High-Level
+          Parties in <acronym title="Shadows of Amn">SoA</acronym> Would Join
+          At Minimum Level</li> 
+        <li>Under- and Overcharged Items</li> 
+        <li>Anomen Banter Fixes</li> 
+        <li>Flydian Doesn't Disappear</li> 
+        <li>Saerk's Estate Accessible</li> 
+        <li>Belmin Gergas 'No Valid Links' Dialogue Fix </li> 
+        <li>Slave Leader in Ust Natha 'No Valid Links' Dialogue Fix</li> 
+        <li>Low-Reputation Parties Face <acronym title="Noble Order of the Radiant Heart">NORH</acronym> Paladins
+          Too Often</li> 
+        <li>Reedle Missing Variable Checks</li> 
+        <li> Arnolius Using Wrong Variable Scope</li> 
+        <li>Trademeet Militia Wizard 'No Valid Links' Dialogue Fix </li> 
+        <li>Viekang in Trademeet Initiates Dialogue Twice </li> 
+        <li>Invincible Bat in Bodhi's Lair</li> 
+        <li>Guards Summoned Well After Containers Are Burgled </li> 
+        <li>Extra Journal Entry for Illithid Doors</li> 
+        <li>Ice Mephit in Opening Dungeon Missing Script</li> 
+        <li>Madeen's Friend Has Wrong Script Assigned</li> 
+        <li>Door in de'Arnise Keep is Offset From Actual Door</li> 
+        <li>Imp Stuck In A Wall</li> 
+        <li>Regular Door in Saradush Flagged as Secret</li> 
+        <li>Expiring Items </li> 
+        <li>Joinable <acronym title="Non-Player Character">NPC</acronym> Spellbook
+          Fixes</li> 
+        <li>Anomen Save Fix</li> 
+        <li>Items Erroneously Flagged as Stolen </li> 
+        <li>Keldorn Save Fix</li> 
+        <li>Valygar One Level Too Advanced</li> 
+        <li>Yoshimo Has Too Many Thieving Points</li> 
+        <li>Wong Fei's Ioun Stone Using Wrong Icon</li> 
+        <li>Abazigal Hurts Himself With Dragon Transformation</li> 
+        <li>Spectator Beholder's Geas Spell Lacks Sound</li> 
+        <li>Fear Effect in Hell Trials Causes Spurious Magic Resistance Message</li> 
+        <li>Cutscene Spell Allows Save</li> 
+        <li>Stores With Duplicate Item Entries</li> 
+        <li>Poison Immunity Doesn't Suppress All Poison Effects</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version 1 - November 8, 2006</strong></p> 
+  <ul> 
+    <li>With the end of the beta series, a new component entitled <strong>BETA
+        Core Fixes</strong> has been added. This component consists of fixes
+        intended for Core Fixes, but have yet to be tested 'in the wild'. Fixes
+        will eventually pass from this component to the Core Fixes component
+        after they've been sufficiently tested</li> 
+    <li>Added new OBC component <strong>Wizard Slayers Cause Miscast Magic on
+        Ranged Attacks</strong></li> 
+    <li><em>Additional Entries for Spellcasting Scripts</em> fix has now been
+      rolled into the <em>Add Throne of Bhaal Scripting Abilities to Shadows
+      of Amn Games</em> </li> 
+    <li><em>Azuredge Axe Corrupted, Other Errors</em> fix has been redone to
+      bring the axe more in line with developer intent </li> 
+    <li><em>Shadows of Amn Worldmap Fixes</em> was causing the Drizzt 'random
+      encounter' to occur more than once when leaving the Underdark Exit area </li> 
+    <li><em>Delon Not Always Adding Umar Hills to the Map</em> fix expanded and
+      renamed <em>Delon Fixes</em></li> 
+    <li>Corrected errors in the <em>Incorrect Party Orientation When Entering
+        Areas</em> fix</li> 
+    <li>The <acronym title="Throne of Bhaal">ToB</acronym> rabbit familiar was
+      not getting its correct melee item in the <em>Several Errors With Familiars</em> fix </li> 
+    <li>Has no effect in game, but null string references are now referencing
+      0xffffffff by request</li> 
+    <li>The Potion of Freedom had many more errors than originally thought, so
+      the fix has been expanded to cover all of the new discoveries. The fix
+      is renamed from the <em>Potion of Free Action Errors</em> to <em>Potion
+      of Freedom Errors</em> to reflect the name in game. </li> 
+    <li>Updated <em>Staff of the Magi Errors</em> fix to address several effects
+      that were subject to dispel magic and shouldn't be </li> 
+    <li>Revamped the OBC Bard Song Fixes component</li> 
+    <li>When used with Melf's Minute Meteors, a blade's Offensive Spin could
+      cause the attacks per round to drop to 0.5 due to an overflow issue in
+      the engine. As a workaround, blades can no longer cast Offensive Spin when
+      wielding Minute Meteors. </li> 
+    <li><em>Unseeing Eye <acronym title="Experience Points">XP</acronym> Exploit,
+        Quest Breakage</em> now includes ar0701.bcs fixes. The issue addressed
+        shouldn't even be possible, but was definitely occurring </li> 
+    <li>The <em>Corrupted Scripts</em> fix was not quite uncorrupting the scripts </li> 
+    <li>The <em>Hell Trial Exploits</em> fix was being too enthusiastic; the
+      hold placed upon your party member in the Selfish trial couldn't even be
+      dispelled by the Selfish Demon</li> 
+    <li>Added an extra safeguard to the <em>Solamnic Knights Multiple <acronym title="Experience Points">XP</acronym> Reward
+        Exploit</em> fix as it was reported to be not working </li> 
+    <li>Due to typos, some of the interjections in the <em><acronym title="Non-Player Characters">NPCs</acronym> Do
+        Not Comment on Watcher's Keep Events in the Shadows of Amn Portion of
+        the Game</em> fix were referring to non-existent or mod-added string </li> 
+    <li>More spells were bypassing (Minor) Globes, so the <em>(Minor) Globe of
+        Invulnerability Not Protecting Against Skull Trap</em> fix was expanded
+        and renamed <em>(Minor) Globe of Invulnerability Fixes</em> </li> 
+    <li>Similar to issues with (Minor) Globe of Invulnerabilities, spell immunity
+      items also needed explicit protections against certain spells. The <em>Rakshasa
+      Not Immune to Area of Effect Spells</em> fix was rolled into this larger
+      and more extensive fix entitled <em>Creatures With Incomplete Spell Immunities</em>. </li> 
+    <li>Miscellaneous Game Text Updates</li> 
+    <li>Improvements to the <strong>Super Happy Fun Lucky Modder Pack</strong> component:
+      <ul> 
+        <li><acronym title="Baldur's Gate">BG</acronym> proficiencies are no
+          longer removed; the old long sword proficiency was providing a material
+          (though probably unintended) benefit to creatures using weapons with
+          a proficiency type of none (typically fists or innate attacks) </li> 
+        <li>Additional specifics.ids and shoutids.ids entries (also available
+          as libraries) </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Brannel Should Comment on Ama Events in Thief Stronghold Quests</li> 
+        <li>Improved Invisibility Fixes</li> 
+        <li>Containers With Incorrect Icons</li> 
+        <li>Creature Class Fixes </li> 
+        <li>Items With Incorrect Icons</li> 
+        <li>Cloak of Mirroring Not Protecting Against All Area of Effect Spells </li> 
+        <li>Carsomyr Issues</li> 
+        <li>Items Not Being Flagged as Magical </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added to <strong>BETA Core Fixes</strong>:
+      <ul> 
+        <li> Dispel/Remove Magic Generating Spurious Magic Resistance Message </li> 
+        <li>Cleric-Rangers Not Offered Temple Stronghold</li> 
+        <li>Waukeen's Promenade Temple of Ilmater Has Wrong Character </li> 
+        <li>Offhand Weapons Could Provide Unintended Bonuses to Main Hand Weapon
+          and Vice-Versa </li> 
+        <li>Ust Natha Tavern Combat Music Would Never End</li> 
+        <li>Area Animation Glitches </li> 
+        <li>Assassin and Skald THAC0 Bonuses Not Displaying in Character Record </li> 
+        <li>Amalas' Buddies Not Leaving Together</li> 
+        <li>Small Shields Erroneously Providing Protection Against Missiles </li> 
+        <li>Incorrect Damage for Oil of Fiery Burning</li> 
+        <li>Familiar Attacks Lack Icons </li> 
+        <li>Valygar's Departure in the Slums Can Cause Cutscene Hang</li> 
+        <li>Soldier Barracks in the Docks Has Reversed Entry and Exit Points</li> 
+        <li>Unsellable Items </li> 
+        <li>Missing Reply Option in Svirfneblin Patrol Leader Dialogue</li> 
+        <li>Docks Commoner Has Malformed Trigger </li> 
+        <li>Elgea Has Malformed Trigger</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version Beta 4 - October 15, 2006</strong></p> 
+  <ul> 
+    <li>Added French translation, courtesy of Anomaly </li> 
+    <li>Moved many functions that other modders may wish to utilize to library
+      files for easy inclusion into other mods</li> 
+    <li>Deprecated the <em>Incorrect Racial Maximums for Dwarves and Halflings</em> fix</li> 
+    <li>The new zero-lore clone of the Rod of Lordly Might created for the<em> Items
+        Lacking Lore (Don't Need to be Identified)</em> fix now has proper tool
+        tips </li> 
+    <li>Fixed bug with <em>Vampires Transforming to Gas Prevents Conclusion of
+        Quest for Aran Linvail</em> appending to the wrong area script </li> 
+    <li>Closed yet more exploits in the Selfish test in the <em>Hell Trial Exploits</em> fix </li> 
+    <li>Fixed a bug with<em> Troll Fixes</em> in that some soldiers at the de'Arnise
+      Keep would not initiate dialogue and leave after killing their trolls;
+      they would even stay in the area if the player obtained the Keep as a stronghold</li> 
+    <li>Fixed a bug with <em>Creatures Lacking Scripts</em>; it was assigning
+      a summoned demon script to one of the demons in Suldanessellar causing
+      it to attack everything </li> 
+    <li>Fixed an bug with the <em>Several Errors With Familiars</em> fixes; the
+      SoA quasit's memorized spells were being mis-indexed</li> 
+    <li> Touched up the code in a few of the creature patches as the listed offsets,
+      while not incorrect, were being put into a different order than normal</li> 
+    <li>Fixed bug with the <em>Neb's Dagger Fixes</em> where the replacement
+      dagger had mis-indexed effects </li> 
+    <li>The fixed Staff of the Magi was still not conferring Protection From
+      Evil due to mistargeted effects </li> 
+    <li>The fix to prevent Friends from stacking was not accounting for the (now
+      variable) duration</li> 
+    <li>Miscellaneous Game Text Updates</li> 
+    <li>Improvements to the Super Happy Fun Lucky Modder Pack component:
+      <ul> 
+        <li>Expanded gtimes.ids entries</li> 
+        <li>Several chunks of code farmed out to libraries to allow other modders
+          to easily utilize them</li> 
+        <li> Corrects the Map Notes offset in area files</li> 
+        <li>Corrects incorrect levels and types in memorized spell blocks for
+          creatures</li> 
+        <li>Baldur's Gate proficiencies removed from creatures </li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were expanded/updated to fix more bugs:
+      <ul> 
+        <li>Areas Not Assigned Their Area Scripts</li> 
+        <li>Creature Sex Fixes</li> 
+        <li>Creature Gender Fixes</li> 
+        <li>Anath and Other Lycanthropes Well-Nigh Invincible</li> 
+        <li>Hell Trial Exploits </li> 
+        <li>Optional But Cool: Additional Script Fixes</li> 
+      </ul> 
+    </li> 
+    <li>The following fixes were added:
+      <ul> 
+        <li> Traps Not Doing Anything if Sprung </li> 
+        <li>Characters Know Alignment- or Class-Restricted Divine Spells</li> 
+        <li>Creatures Have Illegal Attribute Scores </li> 
+        <li>Galvarey Stutters if Jaheira Returns to the Harper HQ While Invisible</li> 
+        <li>Fear Immunity Doesn't Suppress All Fear Effects</li> 
+        <li>Horror Has Spurious Save Bonus</li> 
+        <li>Chant Not Affecting Enemies</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version Beta 3 - September 18, 2006</strong></p> 
+  <ul> 
+    <li>Moved <strong>Corrected Summoned Demon Behavior</strong> into an Optional
+      But Cool component and fixed a missing IDS entry in the scripts</li> 
+    <li>The duplicate holy symbol fix was not being applied to trueclass clerics</li> 
+    <li>Reworked the <em>Unseeing Eye <acronym title="Experience Points">XP</acronym> Exploit,
+        Quest Breakage</em> fix slightly</li> 
+    <li>Fixed an error in the <em>Miscellaneous Slums Events Not Occurring</em> fix </li> 
+    <li>Updated errors in Spanish translation, from Immortality of Clan DLAN </li> 
+    <li>Two previous fixes for 'no valid links or replies' issues in Watcher's
+      Keep were rolled back; the <em><acronym title="Non-Player Characters">NPCs</acronym> Do
+      Not Comment on Watcher's Keep Events in the Shadows of Amn Portion of the
+      Game</em> fix already addresses them </li> 
+    <li>Old debug code was preventing the <em>Rogues Receiving Final <acronym title="To Hit Armor Class 0">THAC0</acronym> Bonus
+        One Level Late</em> fix from working </li> 
+    <li>The <em>Anomen Has Access to Evil-Alignment Cleric Spells After Changing
+        to Good Alignment</em> fix was not working due to missing files </li> 
+    <li>Trimmed some scripts from the mass script fix, as they were false positives
+      for bugs</li> 
+    <li>Old code was overwriting spin678.spl as part of the romance fixes</li> 
+    <li>Removed old code for ar0603.bcs and tele0700.bcs (bug was confirmed as
+      fixed by the official patch, but Fixpack code was never removed) </li> 
+    <li><em><acronym title="Player Character">PC</acronym> Unable to Re-Enter
+        Bodhi's Lair After First Task</em> fix was not working due to a missing
+        script append </li> 
+    <li>The <em>Lesser Clay Golems in Opening Dungeon Could be Killed Twice</em> fix
+      was only being applied to one of the two golems </li> 
+    <li>Keldorn's ToB script fixes were being applied to SoA games, resulting
+      in an unused keld25.bcs in the override folder of SoA-only installs </li> 
+    <li><em>Empathic Manifestation Can Be Defeated by Resting Outside</em> fix
+      was not working due to a missing script append </li> 
+    <li>Added the Underdark beholder lair to the <em>Incorrect Party Orientation
+        When Entering Areas</em> fix </li> 
+    <li><em>Doors Not Consuming Keys</em> fix no longer applies to the Symbol
+      of Amaunator and Sekolah's Tooth </li> 
+    <li>Fixpack was failing to change an otyugh's class to otyugh due to a typo</li> 
+    <li><em>Anath and Other Lycanthropes Well-Nigh Invincible</em> fix expanded
+      to include any lycanthrope using ringloup.itm instead of just Anath </li> 
+    <li>A few copies were being done via regular expression and pulling files
+      from biffs instead of the overrides </li> 
+    <li><em>Enchantment Level Errors</em> and <em>Magically Created Weapons Have
+        Zero Weight</em> fixes now only attempt to copy items that change instead
+        of all of them </li> 
+    <li>Poison-less dagger from <em>Neb's Dagger Fixes</em> no longer tries to
+      recharge </li> 
+    <li><em>Staff of the Magi Errors</em> fix was calling the wrong animation
+      resource </li> 
+    <li><em>Beast Master's Find Familiar Not Displaying Warning in Tutorial</em> fix
+      was actually making the problem worse by preventing the familiar entirely
+      due to a code typo </li> 
+    <li><em>Monster Summoning III Fixes</em> fix was still not correcting the
+      probability </li> 
+    <li>Redid the <em>Juggernaut Golem Lacks Weapon and Immunities</em> fix so
+      that it would not leave unnecessary cruft in the creature file </li> 
+    <li>A few trolls were being misclassed as Monster in their general field
+      instead of the proper value of Giant Humanoid </li> 
+    <li>Fixed errors in <em>Hold Immunity Doesn't Suppress All Hold Effects</em> and <em>Negative
+        Plane Protection Doesn't Suppress All Level Drain Effects</em> fixes;
+        they were mis-indexing effects on items with multiple abilities, which
+        can cause crashes on OS X </li> 
+    <li><em>Short Bow +1 Errors</em> was not correcting the weight of the item </li> 
+    <li><em>Items With Incorrect Icons</em> fix expanded to include several more
+      items </li> 
+    <li>Helm Temple Graphics Fix was redone, as it was causing sporadic crashes </li> 
+    <li><em>Errors in Spell Animations</em> was not fixing the Aura of Flaming
+      Death animation due to a typo in the code </li> 
+    <li>Super Happy Lucky Modder Pack now assigns area scripts to areas that
+      don't follow convention, i.e. ar0021.are is altered to use ar0021.bcs as
+      an area script instead of ar0004.bcs </li> 
+    <li>Added <strong>Additional Script Fixes</strong> as a new Optional But
+      Cool component </li> 
+    <li>Additional <strong>Game Text Update</strong> fixes</li> 
+    <li> Under-the-hood changes for the <em>Shadows of Amn Worldmap Fixes</em>;
+      area links were re-ordered so that the follow the same order directional
+      order for every entry</li> 
+    <li>Expanded the Missing Sound Files fix to include additional files from
+      BG </li> 
+    <li>Fixed bug where some spells were getting their effects mis-indexed as
+      part of fixes: <em>Cone of Cold Fixes</em>, <em>Conjure Earth/Air Elemental
+      Fixes</em>, <em>Summon Hakeashar Fixes</em> </li> 
+    <li>New fixes:
+      <ul> 
+        <li>Spellcasters Missing Triggers for Casting Dispel Magic </li> 
+        <li>Creatures Not Casting Spells Due to Null References </li> 
+        <li>Scripted Banters Could Prompt Wrong Banter </li> 
+        <li>Malformed Allegiance Checks </li> 
+        <li>Fleeing Githyanki Not Hasted </li> 
+        <li>Enemy Spell Triggers Not Working </li> 
+        <li>Mages Not Properly Responding to Cloak of Fear</li> 
+        <li>Opening Dungeon Shadow Thief Script Errors </li> 
+        <li>Mages Not Responding to Party Buff Spells </li> 
+        <li> Suldanessellar Rakshasas Have Many Spellcasting Errors</li> 
+        <li>Missing Teleports in Promenade Cutscene </li> 
+        <li>References to Non-Existent and Dropped Spells</li> 
+        <li>Undroppable Portal Key Could Trap Party in Opening Area</li> 
+        <li>Firetooth Missing Minimum Strength Requirements </li> 
+        <li>Armor of Faith Issues</li> 
+        <li>Spells Lacking Animations </li> 
+        <li>Using Ranger Tracking Will Permanently Increase the Number of Uses
+          Available </li> 
+        <li>Spells Not Setting Miscast Effects for Divine Magic</li> 
+        <li>Enemy Entangle Spells Not Causing Entangle Icons</li> 
+        <li>Protection From Evil Has Incorrect Duration</li> 
+        <li>Monster Summoning I and II Have Incorrect Duration</li> 
+        <li>Enemy Versions of Symbol Spells Lacked Casting Sounds</li> 
+        <li>Raissa Multiple XP Exploit </li> 
+        <li>Imprisoned Summons Counting Against Summoning Cap </li> 
+        <li>Shield Amulet Does Not Protect Against Magic Missile </li> 
+        <li>Items And Spells Lacking Miscast Magic and Spell Failure Icons</li> 
+        <li>Holy Power's Effects Not Scaling to Level 20 </li> 
+        <li>Areas Using Old Baldur's Gate Area Scripts</li> 
+        <li>Lavok Dies Too Quickly if Moved Outside </li> 
+        <li>Creatures Lacking Scripts</li> 
+      </ul> 
+    </li> 
+  </ul> 
+  <p><strong>Version Beta 2 - August 7, 2006</strong></p> 
+  <ul> 
+    <li>If imported, the Horn of Kazgaroth will now have the proper number of
+      charges and is properly a quickslot item </li> 
+    <li>The exploit of dropping all items at the beginning of the game is now
+      closed</li> 
+    <li>After opening the drawbridge in front of the de'Arnise Keep, the trolls
+      that spawned were invincible</li> 
+    <li>Ilyich now equips his armor</li> 
+    <li>The unique items Varscona and Suryris's Blade are now only available
+      once in the game</li> 
+    <li>In BGT, changes to Bjornin were causing CTDs</li> 
+    <li>A skeleton in the ranger stronghold mithril quest was not leaving the
+      area due to a missing death variable</li> 
+    <li>Various incarnations of Cernd had BG-style proficiencies assigned </li> 
+    <li>One of the trolls at the keep was lacking a script that made it not require
+      fire or acid to kill </li> 
+    <li>Valygar's armor now properly restricts arcane spellcasting</li> 
+    <li>Faldorn's Summon Dread Wolf spell fails because it calls a BG resource</li> 
+    <li>The Super Happy Fun Lucky Modder Pack no longer blanks BG dialogues to
+      ensure compatibility with Check the Bodies </li> 
+    <li>Added Spanish and German translations (thanks to Immortality and Clan
+      DLAN and Leonardo Watson) </li> 
+    <li>Fixed bug where Saemon Havarian would give the party two Silver Swords</li> 
+    <li>Additional strings fixed for Game Text Update </li> 
+    <li>Fixed bug with Find Familiar, spcl342.spl </li> 
+    <li>Added Optional But Cool: Remove Second Attribute Bonus for Evil Path
+      in Wrath Hell Trial component</li> 
+    <li>Crom Faeyr now kills ettins in a single blow per its description</li> 
+    <li>Fixed an issue where the Fixpack was trying to copy a resource that would
+      only be present in a full install, thus causing install failures on minimal
+      and recommended installs</li> 
+    <li>Fixed an issue with the SoA worldmap having redundant links</li> 
+    <li>Fixed errors with two of the player AI scripts</li> 
+    <li>Fixed error with Docks area script failing to enable/disable transition
+      points due to typos</li> 
+    <li>Mairyn the spirit was failing to leave the area after dialogue due to
+      a typo in the area script</li> 
+    <li>Additional shadow fiends were failing to spawn at the Temple Ruins due
+      to a script typo</li> 
+    <li>Removed call to non-existent trigger in the Mind Flayer area of Watcher's
+      Keep</li> 
+    <li>Fixed some invalid script changes in the Imprisoned One's area of Watcher's
+      Keep</li> 
+    <li>Weakening Bodhi was supposed to remove her regenerative capabilities </li> 
+    <li>Cadril (NORH paladin involved in the Garrick-Cyrando-Irlana scenes) had
+      various checks for Cyrando and Irlana that were failing due to DV typos</li> 
+    <li>The cutscene that kicks off the Five Flagons/bard stronghold finale was
+      trying to create a non-existent creature</li> 
+    <li>Mazzy's script had checks for gorf03, a non-existent DV</li> 
+    <li>Johanna and her husband aren't properly setting variables, preventing
+      them from moving back and forth</li> 
+    <li>Fixed trigger name in Saradush Prison</li> 
+    <li>The weapons of various polymorphed forms were not properly flagged as
+      magical</li> 
+    <li>Monk's fists were inconsistent with their description </li> 
+    <li>Fixed issue where old BG dialogues were getting corrupted by a patch </li> 
+  </ul> 
+  <p><strong>Version Beta 1 - July 9, 2006</strong></p> 
+  <ul> 
+    <li>Initial public release </li> 
+  </ul> 
+</div> 
+</body></html>
