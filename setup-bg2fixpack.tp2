@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.02~
+VERSION ~v9.03~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -31072,6 +31072,33 @@ DECOMPILE_BCS_TO_BAF
   REPLACE_TEXTUALLY EXACT_MATCH ~GlobalGT("AsylumPlot","GLOBAL",55)~ ~GlobalGT("AsylumPlot","GLOBAL",55) Global("RR#Door1501","AR1500",0)~
   REPLACE_TEXTUALLY EXACT_MATCH ~Unlock("Door1501")~ ~SetGlobal("RR#Door1501","AR1500",1) Unlock("Door1501")~
 COMPILE_BAF_TO_BCS
+BUT_ONLY_IF_IT_CHANGES
+
+
+// The beneficial effects of the Deck of Many Things should bypass the user's Magic Resistance and/or Globe of Invulnerability (aVENGER)
+
+COPY_EXISTING ~spin606.spl~ ~override~     // DECK_SUN (Party gains 300,000 Experience Points)
+              ~spin607.spl~ ~override~     // DECK_JESTER (The user gains 50,000 Experience Points)
+              ~spin609.spl~ ~override~     // DECK_GEM (The user gains several gems)
+              ~spin610.spl~ ~override~     // DECK_FATES (The user gains a +1 bonus to all stats for 1 day)
+              ~spin611.spl~ ~override~     // DECK_COMET (The user gains a permanent 5% increase to Fire Resistance)
+              ~spin618.spl~ ~override~     // DECK_MOON (The user gains a permanent increase of 10 Hit Points)
+              ~spin619.spl~ ~override~     // DECK_THRONE (Party gains 1,000,000 Experience Points)
+              ~spin621.spl~ ~override~     // DECK_KEY (The user gains a Ring of Protection +3)
+  READ_LONG  0x64 "abil_off"
+  READ_SHORT 0x68 "abil_num"
+  READ_LONG  0x6a "fx_off"
+  FOR (index = 0 ; index < abil_num ; index = index + 1 ) BEGIN // cycle through abilities
+    READ_SHORT  ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
+    READ_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
+    FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+      WRITE_BYTE ("%fx_off%" + 0x03 + ("%index2%" * 0x30)) "0" // power: 0
+      READ_BYTE  ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) "dispel"
+      PATCH_IF ("%dispel%" != 0) BEGIN
+        WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) "2" // resist/dispel: 2
+      END
+    END
+  END
 BUT_ONLY_IF_IT_CHANGES
 
 
