@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.03~
+VERSION ~v9.04~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -1268,6 +1268,10 @@ LANGUAGE ~Russian (by Fess)~                      ~russian~ ~bg2fixpack/english/
                                                             ~bg2fixpack/russian/setup.tra~
 LANGUAGE ~Japanese (by Taro)~                    ~japanese~ ~bg2fixpack/english/setup.tra~
                                                             ~bg2fixpack/japanese/setup.tra~
+LANGUAGE ~Traditional Chinese (by good0593)~     ~tchinese~ ~bg2fixpack/english/setup.tra~
+                                                            ~bg2fixpack/tchinese/setup.tra~
+LANGUAGE ~Simplified Chinese (by good0593)~      ~schinese~ ~bg2fixpack/english/setup.tra~
+                                                            ~bg2fixpack/schinese/setup.tra~
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
