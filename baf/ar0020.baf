@@ -1,7 +1,7 @@
 IF
   Dead("cefald01")
-  InMyArea("messen")
+  Exists("messen")
 THEN
   RESPONSE #100
     ActionOverride("messen",DestroySelf())
-END      
+END

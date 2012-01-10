@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.04~
+VERSION ~v9.05~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -921,6 +921,7 @@ ALLOW_MISSING
   ~blun31.itm~
   ~bolt09.itm~
   ~bonedag.itm~
+  ~boot12.itm~
   ~bow20.itm~
   ~bow21.itm~
   ~bow22.itm~
@@ -14424,9 +14425,10 @@ COPY_EXISTING ~ax1h07.itm~   ~override~ // 80% on hit, no icon
   END
   BUT_ONLY_IF_IT_CHANGES
   
-// Amkethran duplicate gem bag fix, part one of three (see amsmug02.sto, bago2j.sto)
+// Amkethran duplicate gem bag fix, part one of four (see amsmug01.sto amsmug02.sto, cdbag02.sto, cdbag03.sto)
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
-  COPY_EXISTING ~bag02i.itm~ ~override/bag02j.itm~
+  COPY_EXISTING ~bag02i.itm~ ~override/cdbag02.itm~
+  COPY_EXISTING ~bag02i.itm~ ~override/cdbag03.itm~
 END
 
 // black blade o' disaster using wrong power level for level drain
@@ -22218,21 +22220,35 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
     SAY 0x0c #73982 // Arcana Archives
     BUT_ONLY_IF_IT_CHANGES
 
-  // Amkethran duplicate gem bag fix, part two of three (see bago2j.itm, bago2j.sto)
+  // Amkethran duplicate gem bag fix, part two of four (see cdbag02.itm, cdbag03.itm, cdbag02.sto, cdbag03.sto)
+  COPY_EXISTING ~amsmug01.sto~ ~override~
+    READ_LONG 0x34 "4sale_off"
+    READ_LONG 0x38 "4sale_num"
+    WHILE ("%4sale_num%" > 0) BEGIN
+      SET "4sale_num" = ("%4sale_num%" - 1)
+      READ_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "item"
+      PATCH_IF ("%item%" STRING_COMPARE_CASE "bag02d" = 0) BEGIN
+        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag02"
+      END
+    END
+    BUT_ONLY_IF_IT_CHANGES
+
+  // Amkethran duplicate gem bag fix, part three of four (see cdbag02.itm, cdbag03.itm, cdbag02.sto, cdbag03.sto)
   COPY_EXISTING ~amsmug02.sto~ ~override~
     READ_LONG 0x34 "4sale_off"
     READ_LONG 0x38 "4sale_num"
     WHILE ("%4sale_num%" > 0) BEGIN
       SET "4sale_num" = ("%4sale_num%" - 1)
       READ_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "item"
-      PATCH_IF ("%item%" STRING_COMPARE_CASE "bag02i" = 0) BEGIN
-        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "bag02j"
+      PATCH_IF ("%item%" STRING_COMPARE_CASE "bag02d" = 0) BEGIN
+        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag03"
       END
     END
     BUT_ONLY_IF_IT_CHANGES
 
-  // Amkethran duplicate gem bag fix, part three of three (see amsmug02.sto, bago2j.itm)
-  COPY_EXISTING ~bag02i.sto~ ~override/bag02j.sto~
+  // Amkethran duplicate gem bag fix, part four of four (see amsmug01.sto, amsmug02.sto, cdbag02.itm, cdbag03.itm)
+  COPY_EXISTING ~bag02i.sto~ ~override/cdbag02.sto~
+  COPY_EXISTING ~bag02i.sto~ ~override/cdbag03.sto~
 
   // starting ToB bags of holding have uncharged items
   COPY_EXISTING ~bag20.sto~ ~override~
@@ -30342,6 +30358,7 @@ END                                                // ends ACTION_FOR_EACH block
 
 // Anomen should not speak ill of the Order during his banters with Imoen unless he had failed his test (Wisp)
 
+ACTION_IF GAME_IS tob BEGIN
 <<<<<<<<inlined/dialogues/are/gauche/anomenfix.d
 ALTER_TRANS bimoen25 BEGIN 14 16 END BEGIN 0 END BEGIN
 "TRIGGER" ~!Alignment("Anomen",CHAOTIC_NEUTRAL)~
@@ -30351,6 +30368,7 @@ ALTER_TRANS bimoen25 BEGIN 14 16 END BEGIN 1 END BEGIN
 END
 >>>>>>>>
 COMPILE "inlined/dialogues/are/gauche/anomenfix.d"
+END
 
 // Assembling the Flail of Ages piece by piece should grant an XP reward (Wisp)
 
@@ -30630,6 +30648,7 @@ COPY_EXISTING ~dagg17.itm~ ~override~ // Stiletto of Demarchess +2
 
 // Killing a couple of unrelated Baatezu in the Marching Mountains will no longer turn Ka'rashur and his cohort in Watcher's Keep hostile (Wisp)
 
+ACTION_IF GAME_IS tob BEGIN
 COPY_EXISTING yssumm2.bcs override
   DECOMPILE_BCS_TO_BAF
     REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~"gorbat2"~ ~"deriny01"~
@@ -30658,6 +30677,7 @@ COPY_EXISTING ar6012.are override
     END
   END
 BUT_ONLY
+END
 
 // Mithral Field Plate Armor +2 and Missile Attraction +2 armors can no longer be worn together with rings and amulets of protection (Wisp)
 
@@ -30942,6 +30962,7 @@ BUT_ONLY_IF_IT_CHANGES
 
 // Wish: Breach on all enemies in the area should not affect friendly summoned creatures and turn them hostile. Fixed by using a different targeting method and projectile
 
+ACTION_IF GAME_IS tob BEGIN
 COPY_EXISTING ~SPWISH38.SPL~  ~override~                                           // Wish: Breach on all enemies in the area
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
@@ -30955,6 +30976,7 @@ COPY_EXISTING ~SPWISH38.SPL~  ~override~                                        
   WRITE_SHORT  ("%abil_off%" + 0x26 + (0x28 * "%index%")) "254"                    // projectile: 254 (BIGNAREA)
   END
 BUT_ONLY_IF_IT_CHANGES
+END
 
 // Greater Command should use the same projectile at all levels. In term, the spell will no longer affect the caster's allies at lower levels
 
@@ -31081,6 +31103,7 @@ BUT_ONLY_IF_IT_CHANGES
 
 // The beneficial effects of the Deck of Many Things should bypass the user's Magic Resistance and/or Globe of Invulnerability (aVENGER)
 
+ACTION_IF GAME_IS tob BEGIN
 COPY_EXISTING ~spin606.spl~ ~override~     // DECK_SUN (Party gains 300,000 Experience Points)
               ~spin607.spl~ ~override~     // DECK_JESTER (The user gains 50,000 Experience Points)
               ~spin609.spl~ ~override~     // DECK_GEM (The user gains several gems)
@@ -31104,6 +31127,25 @@ COPY_EXISTING ~spin606.spl~ ~override~     // DECK_SUN (Party gains 300,000 Expe
     END
   END
 BUT_ONLY_IF_IT_CHANGES
+END
+
+
+//reddeath doesn't work because it uses the wrong action (Wisp)
+COPY_EXISTING reddeath.bcs override
+  DECOMPILE_BCS_TO_BAF
+	REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ReallyForceSpell ReallyForceSpellDead
+  COMPILE_BAF_TO_BCS
+UNLESS 240OB
+BUT_ONLY
+
+
+//Kruin can spawn again if you killed him before he could talk (Wisp)
+COPY_EXISTING githspwn.bcs override
+  DECOMPILE_BCS_TO_BAF
+	REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~!Exists("Kruin")~ ~!Exists("Kruin") !Dead("Kruin")~
+  COMPILE_BAF_TO_BCS
+UNLESS ~16465 0 1 0 0 "Kruin" "" OB~
+BUT_ONLY
 
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
