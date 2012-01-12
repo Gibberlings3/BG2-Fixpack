@@ -106,7 +106,7 @@ REPLACE_ACTION_TEXT_REGEXP ~ramazi~ ~CreateCreature(\("[a-zA-Z0-9]+"\),\(\[[0-9]
 REPLACE_ACTION_TEXT_REGEXP ~thalan~ ~CreateCreature(\("[a-zA-Z0-9]+"\),\(\[[0-9]+\.[0-9]+\]\))~ ~CreateCreature(\1,\2,0)~
 
 // death variable fixes
-REPLACE_TRIGGER_TEXT_REGEXP ~\(^barl$\)\|\(^temsup$\)\|\(^trgeni01$\)\|\(^trlgrd01$\)\|\(^trmer03$\)\|\(^trrak01$\)~ ~"Faldorn"~ ~"cefaldor"~
+REPLACE_TRIGGER_TEXT_REGEXP ~\(^barl$\)\|\(^temsup$\)\|\(^trgeni01$\)\|\(^trlgrd01$\)\|\(^trmer03$\)\|\(^trrak01$\)~ ~"Faldorn"~ ~"cefald01"~
 REPLACE_TRIGGER_TEXT_REGEXP ~^bnoble[12]$~ ~"bnoble1"~ ~"feveron"~
 REPLACE_TRIGGER_TEXT_REGEXP ~^bnoble[12]$~ ~"bnoble2"~ ~"diana"~
 REPLACE_TRIGGER_TEXT_REGEXP ~\(^c6fake$\)\|\(^keldor$\)\|\(^xc6elxxx$\)~ ~"[Bb][Hh][Ee][Yy][Ee]"~ ~"UnseeingEye"~
