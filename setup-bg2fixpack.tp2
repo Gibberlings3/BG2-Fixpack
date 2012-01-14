@@ -31233,20 +31233,18 @@ InParty("Edwin")~ ~InParty("Edwin")~
 BUT_ONLY_IF_IT_CHANGES
 
 
-// Jarlaxle should have enough gold to reward the party for their efforts (Ardanis and Jarno Mikkola)
+// Jarlaxle should have enough gold to reward the party for their efforts (Ardanis)
 
-COPY_EXISTING ~jarlaxle.cre~   ~override~
-PATCH_IF LONG_AT 0x001c < 2500 THEN BEGIN
-  READ_LONG 0x001c ~old~
-  WRITE_LONG  0x001c (2500 + "old")  // gold carried
-END
-BUT_ONLY_IF_IT_CHANGES
+<<<<<<<<bg2fixpack/inlined/jarlaxle.d
+REPLACE_ACTION_TEXT jarlaxle ~GivePartyGold(~ ~GiveGoldForce(~
+>>>>>>>>
+COMPILE "bg2fixpack/inlined/jarlaxle.d"
 
 
 // Fix for Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold (aVENGER)
 
 <<<<<<<<bg2fixpack/inlined/jaheirap.d
-REPLACE_STATE_TRIGGER ~jaheirap~ 21 ~Global("JaheiraHarperPlot","GLOBAL",3) !Dead("Galvarey") AreaCheck("AR0300")~
+REPLACE_TRIGGER_TEXT ~jaheirap~  ~GlobalGT("JaheiraHarperPlot","GLOBAL",3)~ ~Global("JaheiraHarperPlot","GLOBAL",3) AreaCheck("AR0300") !InParty(Myself)~
 ADD_STATE_TRIGGER ~jaheirap~ 32 ~!AreaCheck("AR0300")~
 >>>>>>>>
 COMPILE "bg2fixpack/inlined/jaheirap.d"
