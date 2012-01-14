@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.06~
+VERSION ~v9.07~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -1981,10 +1981,6 @@ COPY ~bg2fixpack/copy/amb_e09b.wav~ ~override~ // missing ambient sound files fr
      ~bg2fixpack/copy/misc_04a.wav~ ~override~ // missing sound files
      ~bg2fixpack/copy/misc_06b.wav~ ~override~ // missing sound files
      ~bg2fixpack/copy/pre_p06.wav~  ~override~ // missing sound files
-     ~bg2fixpack/copy/shael_07.wav~ ~override~ // missing sound files
-     ~bg2fixpack/copy/shael_08.wav~ ~override~ // missing sound files
-     ~bg2fixpack/copy/shael_09.wav~ ~override~ // missing sound files
-     ~bg2fixpack/copy/shael_10.wav~ ~override~ // missing sound files
      ~bg2fixpack/copy/sppr203d.spl~ ~override~ // shell spell for chant
      ~bg2fixpack/copy/sppr203e.spl~ ~override~ // shell spell for chant   
      ~bg2fixpack/copy/spwi413a.spl~ ~override~ // otiluke spell shell; see also spcl415.spl, spcl415a.spl, spwi413.spl
@@ -2003,6 +1999,13 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // additional copy & compil
           ~bg2fixpack/copy-tob/cdhlysym.itm~ ~override~ // dupe holy symbol fixes
           ~bg2fixpack/copy-tob/worldmap.wmp~ ~override~ // fixed soa worldmap; tob version is better due to cleaner drizzt fixes
 
+END
+
+ACTION_IF ("%LANGUAGE%" STRING_EQUAL_CASE "english") THEN BEGIN // these are English-only sounds (spoken lines)
+  COPY ~bg2fixpack/copy/shael_07.wav~ ~override~ // missing sound files
+       ~bg2fixpack/copy/shael_08.wav~ ~override~ // missing sound files
+       ~bg2fixpack/copy/shael_09.wav~ ~override~ // missing sound files
+       ~bg2fixpack/copy/shael_10.wav~ ~override~ // missing sound files
 END
 
 /////                                                  \\\\\
@@ -18115,7 +18118,6 @@ COPY_EXISTING ~sppr105.spl~ ~override~ // (entangle): one sound effect opcode is
 // spells using wrong power level
 COPY_EXISTING ~sppr303.spl~ ~override~ // (divine dispel magic) : all opcodes are power 0 except its visual effect and removing feeblemind, which are at 3. To work v. magic protections, all of these should be 0.
               ~spwi302.spl~ ~override~ // (remove magic): visual effect at power 3, all others at 0. Should add removal of feeblemind to this spell.
-              ~spwi321.spl~ ~override~ // (spell thrust): all effects at power 4. Testing needs to be done here--secondary type of magic attack causes target MR to be ignored, possibly also power levels? If yes, no changes needed. If not, needs to be raised to 5 so it can dispel minor spell turning, per its description.
               ~spwi326.spl~ ~override~ // (arcane dispel magic) : all opcodes are power 0 except its visual effect and removing feeblemind, which are at 3. To work v. magic protections, all of these should be 0.
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
@@ -31230,6 +31232,62 @@ InParty("Edwin")~ ~InParty("Edwin")~
   COMPILE_D_TO_DLG
 BUT_ONLY_IF_IT_CHANGES
 
+
+// Jarlaxle should have enough gold to reward the party for their efforts (Ardanis and Jarno Mikkola)
+
+COPY_EXISTING ~jarlaxle.cre~   ~override~
+PATCH_IF LONG_AT 0x001c < 2500 THEN BEGIN
+  READ_LONG 0x001c ~old~
+  WRITE_LONG  0x001c (2500 + "old")  // gold carried
+END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Fix for Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold (aVENGER)
+
+<<<<<<<<bg2fixpack/inlined/jaheirap.d
+REPLACE_STATE_TRIGGER ~jaheirap~ 21 ~Global("JaheiraHarperPlot","GLOBAL",3) !Dead("Galvarey") AreaCheck("AR0300")~
+ADD_STATE_TRIGGER ~jaheirap~ 32 ~!AreaCheck("AR0300")~
+>>>>>>>>
+COMPILE "bg2fixpack/inlined/jaheirap.d"
+
+
+// Secret Word should be able to dispel a Globe of Invulnerability (aVENGER)
+
+COPY_EXISTING ~spwi419.spl~ ~override~ // Secret Word
+  READ_LONG  0x64 "abil_off"
+  READ_SHORT 0x68 "abil_num"
+  READ_LONG  0x6a "fx_off"
+  FOR (index = 0 ; index < abil_num ; index = index + 1 ) BEGIN // cycle through abilities
+        READ_SHORT  ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
+        READ_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
+        FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+          WRITE_BYTE ("%fx_off%" + 0x03 + (0x30 * ("%index2%" + "%abil_fx_idx%"))) "5" // power
+        END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Fix the incorrect orientation when entering Cayia's house in Brynnlaw (CamDawg)
+
+COPY_EXISTING ~ar1606.are~ ~override~
+  READ_LONG 0x68 "enter_off"
+  READ_LONG 0x6c "enter_num"
+  FOR (index = 0 ; index < enter_num ; index = index + 1) BEGIN
+    READ_ASCII ("%enter_off%" +        ("%index%" * 0x68)) "name"
+    PATCH_IF ("%name%" STRING_EQUAL_CASE "exit1600") BEGIN
+      WRITE_SHORT ("%enter_off%" + 0x24 + ("%index%" * 0x68)) 6 // northwest
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// The Glabrezus in the Ranger stronghold quest and inside the Suldanessalar temple don't give any XP when killed (aVENGER)
+
+COPY_EXISTING ~demgla01.cre~   ~override~ // Ranger stronghold Glabrezu
+              ~demglab2.cre~   ~override~ // Suldanessalar temple Glabrezu
+WRITE_LONG 0x14 12500 // XP value
+BUT_ONLY_IF_IT_CHANGES
 
 
 
