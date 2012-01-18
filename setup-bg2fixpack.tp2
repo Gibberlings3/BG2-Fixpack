@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.07~
+VERSION ~v9.08~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -14428,10 +14428,10 @@ COPY_EXISTING ~ax1h07.itm~   ~override~ // 80% on hit, no icon
   END
   BUT_ONLY_IF_IT_CHANGES
   
-// Amkethran duplicate gem bag fix, part one of four (see amsmug01.sto amsmug02.sto, cdbag02.sto, cdbag03.sto)
+// Amkethran duplicate gem bag fix, part one of four (see amsmug01.sto amsmug02.sto, cdbag02i.sto, cdbag02j.sto)
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
-  COPY_EXISTING ~bag02i.itm~ ~override/cdbag02.itm~
-  COPY_EXISTING ~bag02i.itm~ ~override/cdbag03.itm~
+  COPY_EXISTING ~bag02i.itm~ ~override/cdbag02i.itm~
+  COPY_EXISTING ~bag02i.itm~ ~override/cdbag02j.itm~
 END
 
 // black blade o' disaster using wrong power level for level drain
@@ -22222,7 +22222,7 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
     SAY 0x0c #73982 // Arcana Archives
     BUT_ONLY_IF_IT_CHANGES
 
-  // Amkethran duplicate gem bag fix, part two of four (see cdbag02.itm, cdbag03.itm, cdbag02.sto, cdbag03.sto)
+  // Amkethran duplicate gem bag fix, part two of four (see cdbag02i.itm, cdbag02j.itm, cdbag02i.sto, cdbag02j.sto)
   COPY_EXISTING ~amsmug01.sto~ ~override~
     READ_LONG 0x34 "4sale_off"
     READ_LONG 0x38 "4sale_num"
@@ -22230,12 +22230,12 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
       SET "4sale_num" = ("%4sale_num%" - 1)
       READ_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "item"
       PATCH_IF ("%item%" STRING_COMPARE_CASE "bag02d" = 0) BEGIN
-        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag02"
+        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag02i"
       END
     END
     BUT_ONLY_IF_IT_CHANGES
 
-  // Amkethran duplicate gem bag fix, part three of four (see cdbag02.itm, cdbag03.itm, cdbag02.sto, cdbag03.sto)
+  // Amkethran duplicate gem bag fix, part three of four (see cdbag02i.itm, cdbag02j.itm, cdbag02i.sto, cdbag02j.sto)
   COPY_EXISTING ~amsmug02.sto~ ~override~
     READ_LONG 0x34 "4sale_off"
     READ_LONG 0x38 "4sale_num"
@@ -22243,14 +22243,14 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB-only stuff check
       SET "4sale_num" = ("%4sale_num%" - 1)
       READ_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "item"
       PATCH_IF ("%item%" STRING_COMPARE_CASE "bag02d" = 0) BEGIN
-        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag03"
+        WRITE_ASCII ("%4sale_off%" + ("%4sale_num%" * 0x1c)) "cdbag02j"
       END
     END
     BUT_ONLY_IF_IT_CHANGES
 
-  // Amkethran duplicate gem bag fix, part four of four (see amsmug01.sto, amsmug02.sto, cdbag02.itm, cdbag03.itm)
-  COPY_EXISTING ~bag02i.sto~ ~override/cdbag02.sto~
-  COPY_EXISTING ~bag02i.sto~ ~override/cdbag03.sto~
+  // Amkethran duplicate gem bag fix, part four of four (see amsmug01.sto, amsmug02.sto, cdbag02i.itm, cdbag02j.itm)
+  COPY_EXISTING ~bag02i.sto~ ~override/cdbag02i.sto~
+  COPY_EXISTING ~bag02i.sto~ ~override/cdbag02j.sto~
 
   // starting ToB bags of holding have uncharged items
   COPY_EXISTING ~bag20.sto~ ~override~
@@ -31288,6 +31288,93 @@ WRITE_LONG 0x14 12500 // XP value
 BUT_ONLY_IF_IT_CHANGES
 
 
+// Fix erroneously dispellable effects on Keldorn's armor (polytype)
+
+COPY_EXISTING ~npplat.itm~ ~override~  // Firecam Full-Plate Armor
+READ_LONG   0x64 "abil_off"
+READ_SHORT  0x68 "abil_num"
+READ_LONG   0x6a "fx_off"
+READ_SHORT  0x70 "fx_num"
+  FOR (index2 = 0 ; index2 < fx_num ; index2 = index2 + 1) BEGIN
+    WRITE_BYTE ("%fx_off%" + 0x03 + ("%index2%" * 0x30)) "0" // power: 0
+    WRITE_BYTE ("%fx_off%" + 0x0d + ("%index2%" * 0x30)) "0" // dispel/resist: 0 (non-magical)
+    WRITE_LONG ("%fx_off%" + 0x0e + ("%index2%" * 0x30)) "0" // duration: 0
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Fix Storm of Vengeance not displaying the relevant icon on poisoned targets (polytype)
+
+COPY_EXISTING ~sppr722.spl~ ~override~ // Storm of Vengeance
+  READ_LONG  0x64 "abil_off" ELSE 0
+  READ_SHORT 0x68 "abil_num" ELSE 0
+  READ_LONG  0x6a "fx_off"   ELSE 0
+  SET "delta" = 0
+  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
+    READ_SHORT ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
+    READ_SHORT ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
+    SET "abil_fx_idx" = ("%abil_fx_idx%" + "%delta%")
+    WRITE_SHORT ("%abil_off%" + 0x20 + (0x28 * "%index%")) "%abil_fx_idx%"
+    FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+     READ_SHORT ("%fx_off%" +        (0x30 * ("%abil_fx_idx%" + "%index2%"))) "opcode"
+      PATCH_IF ("%opcode%" = 25) BEGIN // clone Poison opcode
+        READ_ASCII ("%fx_off%" +        (("%abil_fx_idx%" + "%index2%") * 0x30)) "clone_fx" (0x30)
+        SET "index2"= "%abil_fx_num%" // kills loop
+        INSERT_BYTES            ("%fx_off%" +        ("%abil_fx_idx%" * 0x30)) 0x30          // new effect
+          WRITE_EVALUATED_ASCII ("%fx_off%" +        ("%abil_fx_idx%" * 0x30)) "%clone_fx%"  // cloned effect
+          WRITE_SHORT           ("%fx_off%" +        ("%abil_fx_idx%" * 0x30)) 142           // opcode: 142 (Display Special Effect Icon)
+          WRITE_LONG            ("%fx_off%" + 0x04 + ("%abil_fx_idx%" * 0x30)) 0             // param1: 0
+          WRITE_LONG            ("%fx_off%" + 0x08 + ("%abil_fx_idx%" * 0x30)) 6             // param2: 6 (Poisoned icon)
+        SET "delta" = "%delta%" + 1
+        WRITE_SHORT ("%abil_off%" + 0x1e + (0x28 * "%index%")) ("%abil_fx_num%" + 1)
+      END
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Fix the wrong enchantment level and missing poison icon on the Dagger of Venom (aVENGER)
+
+COPY_EXISTING ~misc75.itm~ ~override~ // Dagger of Venom
+WRITE_LONG 0x60 2   // set enchantment level to 2
+  READ_LONG  0x64 "abil_off" ELSE 0
+  READ_SHORT 0x68 "abil_num" ELSE 0
+  READ_LONG  0x6a "fx_off"   ELSE 0
+  SET "abil_length" = 0x38
+  SET "fx_delta" = 0
+  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN // start iterating through abilities
+    READ_SHORT  ("%abil_off%" + 0x1e + ("%abil_length%" * "%index%")) "abil_fx_num"
+    READ_SHORT  ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) "abil_fx_idx"
+    SET "abil_fx_idx" = ("%abil_fx_idx%" + "%fx_delta%")
+    WRITE_SHORT ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) ("%abil_fx_idx%")
+    FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+      READ_SHORT ("%fx_off%" +        (0x30 * ("%abil_fx_idx%" + "%index2%"))) "opcode"
+      PATCH_IF ("%opcode%" = 25) BEGIN // poison
+        READ_ASCII ("%fx_off%" +        (0x30 * ("%abil_fx_idx%" + "%index2%"))) "clone" (48) // clone poison opcode
+        INSERT_BYTES            ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) 0x30      // insert new effect
+          WRITE_EVALUATED_ASCII ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) "%clone%" // cloned opcode
+          WRITE_SHORT           ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) 142       // opcode: 142 (Display Special Effect Icon)
+          WRITE_LONG            ("%fx_off%" + 0x04 + (0x30 * "%abil_fx_idx%")) 0         // param1: 0
+          WRITE_LONG            ("%fx_off%" + 0x08 + (0x30 * "%abil_fx_idx%")) 6         // param2: 6 (Poisoned icon)
+        SET "fx_delta" = "%fx_delta%" + 1
+        SET "abil_fx_num" = "%abil_fx_num%" + 1
+        WRITE_SHORT  ("%abil_off%" + 0x1e + ("%abil_length%" * "%index%")) "%abil_fx_num%"
+        SET "index2" = "%abil_fx_num%" // kills loop
+      END
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
+
+// Fix Inquisitors not getting charm immunity at level 1 (Dakk)
+
+COPY_EXISTING ~clabpa03.2da~ ~override~ // Inquisitor ability table
+  SET_2DA_ENTRY  3 2 3 ~****~
+  SET_2DA_ENTRY 10 1 3 ~AP_SPCL233b~
+  PRETTY_PRINT_2DA
+BUT_ONLY_IF_IT_CHANGES
+
+
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -31476,6 +31563,13 @@ COPY_EXISTING ~scrl68.itm~ ~override~ // spook
     END
   END
   BUT_ONLY_IF_IT_CHANGES
+
+// Make Errard's Divination spell actually use the Divination casting graphics (aVENGER)
+
+COPY_EXISTING ~SPIN541.SPL~   ~override~ // Divination
+ WRITE_SHORT   0x22  16 // Casting graphics: 16 (Divination)
+BUT_ONLY_IF_IT_CHANGES
+
 
 /////                                                  \\\\\
 ///// Cromwell's forging actually takes a day          \\\\\
