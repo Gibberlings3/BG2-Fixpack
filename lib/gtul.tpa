@@ -681,7 +681,7 @@ STRING_SET
 25085 @1025085 // "tire or your musings." -> "tire of your musings."
 25207 @1025207 //practicioners
 25209 @1025209 //thaco
-25306 @1025306 //"who's head" "whose head"
+25306 @1025306 //"a devious controlling snake"->"a devious, controlling snake", "who's head"->"whose head"
 25355 @1025355 //perveyor
 25504 @1025504 //Who's estate->Whose estate
 25515 @1025515 // "prepare to dealt righteous vengeance!" -> "prepare to be dealt righteous vengeance!"

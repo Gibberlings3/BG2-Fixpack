@@ -347,7 +347,7 @@ NEW STRINGS:
 25085 // "tire or your musings." -> "tire of your musings."
 25207 //practicioners
 25209 //thaco
-25306 //"who's head" "whose head"
+25306 //"a devious controlling snake"->"a devious, controlling snake", "who's head"->"whose head"
 25355 //perveyor
 25515 // "prepare to dealt righteous vengeance!" -> "prepare to be dealt righteous vengeance!"
 25567 //Lanulin->Ianulin
