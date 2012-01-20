@@ -24546,6 +24546,7 @@ COPY_EXISTING ~ammgrd01.cre~ ~override~ // monk
       SET "new_fx_5" = 0
       SET "new_fx_6" = 0
       SET "new_fx_7" = 0
+      SET "new_fx_9" = 0
       PATCH_IF ("%index%" < 0) BEGIN // if loop through globals needed
         SET "abil_fx_idx" = 0
       END ELSE BEGIN // otherwise normal ability
@@ -24584,6 +24585,9 @@ COPY_EXISTING ~ammgrd01.cre~ ~override~ // monk
         END ELSE
         PATCH_IF (("%opcode%" = 142) AND ("%param2%" = 52)) BEGIN // display mind shield icon
           SET "new_fx_8" = 1
+        END ELSE
+        PATCH_IF (("%opcode%" = 267) AND ("%param1%" = 8364)) BEGIN // disable string "charmed"
+          SET "new_fx_9" = 1
         END
       END
       PATCH_IF ("%new_fx_1%" = 1) BEGIN
@@ -24640,6 +24644,14 @@ COPY_EXISTING ~ammgrd01.cre~ ~override~ // monk
             WRITE_ASCIIE ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
             WRITE_SHORT  ("%fx_off%"        + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 142          // display portrait icon
             WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 52           // mind shield
+          SET "new_fx" = ("%new_fx%" + 1)
+          SET "counter" = ("%counter%" + 1)
+        END
+        PATCH_IF ("%new_fx_9%" = 0) BEGIN
+          INSERT_BYTES   ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+            WRITE_ASCIIE ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+            WRITE_SHORT  ("%fx_off%"        + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 267          // disable string
+            WRITE_LONG   ("%fx_off%" + 0x04 + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 8364         // strref
           SET "new_fx" = ("%new_fx%" + 1)
           SET "counter" = ("%counter%" + 1)
         END
@@ -24790,7 +24802,7 @@ COPY_EXISTING ~ammgrd01.cre~ ~override~ // monk
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// disease (revised by Wisp)
+// disease (revised by Wisp; reduced damage from poison is now in its own batch, since it is both immunity to disease as well as poison)
 COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
               ~finmel01.itm~ ~override~ // <invalid strref -1>
               ~minhp1.itm~   ~override~ // <invalid strref -1>
@@ -24813,7 +24825,7 @@ COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
       SET "new_fx_1" = 0
       SET "new_fx_3" = 0
       SET "new_fx_4" = 0
-      SET "new_fx_5" = 0
+      //SET "new_fx_5" = 0
       PATCH_IF ("%index%" < 0) BEGIN // if loop through globals needed
         SET "abil_fx_idx" = 0
       END ELSE BEGIN // otherwise normal ability
@@ -24840,10 +24852,10 @@ COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
         END ELSE
         PATCH_IF (("%opcode%" = 267) AND ("%param1%" = 54337)) BEGIN // disable string "diseased"
           SET "new_fx_4" = 1
-        END ELSE
-        PATCH_IF (("%opcode%" = 173) AND ("%param1%" = 100)) BEGIN // reduced damage from poison - 100%
-          SET "new_fx_5" = 1
-        END
+        END //ELSE
+        //PATCH_IF (("%opcode%" = 173) AND ("%param1%" = 100)) BEGIN // reduced damage from poison - 100%
+        //  SET "new_fx_5" = 1
+        //END
       END
       PATCH_IF ("%new_fx_1%" = 1) BEGIN
         PATCH_IF ("%new_fx_2%" = 0) BEGIN
@@ -24870,20 +24882,74 @@ COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
           SET "new_fx" = ("%new_fx%" + 1)
           SET "counter" = ("%counter%" + 1)
         END
-        PATCH_IF ("%new_fx_5%" = 0 AND !("%SOURCE_RES%" STRING_EQUAL_CASE spcl814 OR "%SOURCE_RES%" STRING_EQUAL_CASE misc8j)) BEGIN
-          INSERT_BYTES   ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
-            WRITE_ASCIIE ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
-            WRITE_SHORT  ("%fx_off%"        + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 173          // reduced damage from poison
-            WRITE_LONG   ("%fx_off%" + 0x04 + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 100          // value
-          SET "new_fx" = ("%new_fx%" + 1)
-          SET "counter" = ("%counter%" + 1)
-        END
+        //PATCH_IF ("%new_fx_5%" = 0) BEGIN
+        //  INSERT_BYTES   ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+        //    WRITE_ASCIIE ("%fx_off%"                               + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+        //    WRITE_SHORT  ("%fx_off%"        + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 173          // reduced damage from poison
+        //    WRITE_LONG   ("%fx_off%" + 0x04 + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 100          // value
+        //  SET "new_fx" = ("%new_fx%" + 1)
+        //  SET "counter" = ("%counter%" + 1)
+        //END
       END
       WRITE_SHORT "%counter_offset%" "%counter%"
     END
     LAUNCH_PATCH_MACRO ~add_fx_batch_final~ // wrapup creature offset patching
   END
   BUT_ONLY_IF_IT_CHANGES
+
+// poison resistance (immunity to both disease damage and poison damage)
+COPY_EXISTING demogorg.itm override //<Invalid Strref -1>
+              finmel01.itm override //<Invalid Strref -1>
+              minhp1.itm   override //<Invalid Strref -1>
+              ravag03.itm  override //<Invalid Strref -1>
+              ring39.itm   override //Ring of Gaxx
+              sengua04.itm override //<Invalid Strref -1>
+              tstatue.itm  override //<Invalid Strref -1>
+  LAUNCH_PATCH_MACRO ~add_fx_batch_prep~ // defines vars for rest of patch
+  PATCH_IF (SOURCE_SIZE >= min_size) BEGIN
+    SET "new_fx" = 0
+    FOR (index = (0 - global_loop); index < abil_num; index = index + 1) BEGIN
+      SET "new_fx_1" = 0
+      SET "new_fx_2" = 0
+      SET "new_fx_3" = 0
+      PATCH_IF ("%index%" < 0) BEGIN // if loop through globals needed
+        SET "abil_fx_idx" = 0
+      END ELSE BEGIN // otherwise normal ability
+        SET "counter_offset" = ("%abil_off%" + 0x1e + ("%abil_length%" * "%index%"))
+        READ_SHORT  ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) "abil_fx_idx"
+        SET "abil_fx_idx" = ("%abil_fx_idx%" + "%new_fx%")
+        WRITE_SHORT ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) ("%abil_fx_idx%")
+      END
+      READ_SHORT "%counter_offset%" "counter" // fx_num on global loop, otherwise abil_fx_num
+      FOR (index2 = 0; index2 < counter; index2 = index2 + 1) BEGIN
+        READ_SHORT ("%fx_off%"        + (0x08 * "%fx_type%") + (("%abil_fx_idx%" + "%index2%") * (0x30 + (0xd8 * "%fx_type%")))) "opcode"
+        READ_LONG  ("%fx_off%" + 0x04 + (0x10 * "%fx_type%") + (("%abil_fx_idx%" + "%index2%") * (0x30 + (0xd8 * "%fx_type%")))) "param1"
+        READ_LONG  ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%abil_fx_idx%" + "%index2%") * (0x30 + (0xd8 * "%fx_type%")))) "param2"
+        READ_ASCII ("%fx_off%" + 0x14 + (0x14 * "%fx_type%") + (("%abil_fx_idx%" + "%index2%") * (0x30 + (0xd8 * "%fx_type%")))) "resref"
+        PATCH_IF (("%opcode%" = 101) AND ("%param2%" = 78)) BEGIN // disease immunity
+          SET "new_fx_1" = 1
+          READ_ASCII ("%fx_off%" + (("%abil_fx_idx%" + "%index2%") * (0x30 + (0xd8 * "%fx_type%")))) "template" ((0x30 + (0xd8 * "%fx_type%")))
+        END ELSE
+        PATCH_IF (("%opcode%" = 101) AND ("%param2%" = 25)) BEGIN // poison immunity
+          SET "new_fx_2" = 1
+        END
+        PATCH_IF (("%opcode%" = 173)) BEGIN // poison resistance
+          SET "new_fx_3" = 1
+        END
+      END
+      PATCH_IF ("%new_fx_1%" = 1 AND new_fx_2 = 1 AND new_fx_3 = 0) BEGIN
+        INSERT_BYTES   ("%fx_off%"                                 + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+        WRITE_ASCIIE ("%fx_off%"                                   + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+        WRITE_SHORT  ("%fx_off%"            + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 173          // reduced damage from poison
+        WRITE_LONG   ("%fx_off%" + 0x04     + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 100          // value
+        SET "new_fx" = ("%new_fx%" + 1)
+        SET "counter" = ("%counter%" + 1)
+      END
+      WRITE_SHORT "%counter_offset%" "%counter%"
+    END
+    LAUNCH_PATCH_MACRO ~add_fx_batch_final~ // wrapup creature offset patching
+  END
+BUT_ONLY_IF_IT_CHANGES  
 
 // poison
 COPY_EXISTING ~amcst02.cre~  ~override~ // mercenary
@@ -27319,6 +27385,24 @@ COPY_EXISTING ~yoshimo.bcs~ ~override~
     REPLACE_TEXTUALLY ~Global("YoshimoMentionsRenal","LOCALS",0)~ ~Global("YoshimoMentionsRenal","LOCALS",0) Global("TalkedToRenal","GLOBAL",0)~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
+
+// Hendak should not randomly end up in some other part of the Copper Coronet if he performs a jump to arrive at Lehtinan's spot  
+COPY_EXISTING hendak.bcs override
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY EXACT_MATCH "SetHomeLocation([32.120])" "SetHomeLocation([526.1193])"
+    REPLACE_TEXTUALLY EXACT_MATCH "JumpToPoint([526.1193])" "SetHomeLocation([526.1193]) JumpToPoint([526.1193])"
+  COMPILE_BAF_TO_BCS
+UNLESS // True unless there already is a SetHomeLocation before JumpToPoint.
+~AC
+261OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+0 526 1193 0 0"" "" AC
+AC
+48OB~ 
 
 /////                                                  \\\\\
 ///// area fixes                                       \\\\\
@@ -31018,24 +31102,32 @@ COPY_EXISTING shld24.itm override
     READ_LONG  0x6a fx_off
     READ_SHORT 0x70 num_fx
     FOR (i=0;i<num_fx;i+=1) BEGIN
-      READ_SHORT fx_off + 0x38*i fx_type
+      READ_SHORT fx_off + 0x30*i fx_type
       PATCH_IF fx_type = 197 BEGIN
-        READ_ASCII fx_off + 0x38*i copy (0x30)
-        i = num_fx
+        READ_LONG fx_off + 0x30*i + 0x8 pro
+        SET $fl#pro_shld24("%pro%") = 1
       END
     END
-    INSERT_BYTES fx_off + 0x30*num_fx       0x30
-    WRITE_ASCIIE fx_off + 0x30*num_fx       "%copy%"
-    WRITE_LONG   fx_off + 0x30*num_fx + 0x8 102
-    delta = 1
-    WRITE_SHORT 0x70 num_fx + delta
+    PATCH_FOR_EACH pro IN 1 3 4 6 9 11 13 14 15 16 19 26 29 31 34 102 BEGIN
+      PATCH_IF !VARIABLE_IS_SET $fl#pro_shld24("%pro%") BEGIN
+        INSERT_BYTES fx_off + 0x30*num_fx        0x30
+        WRITE_SHORT  fx_off + 0x30*num_fx        197
+        WRITE_BYTE   fx_off + 0x30*num_fx + 0x2  1
+        WRITE_LONG   fx_off + 0x30*num_fx + 0x8  pro
+        WRITE_BYTE   fx_off + 0x30*num_fx + 0xc  2
+        WRITE_BYTE   fx_off + 0x30*num_fx + 0x12 100
+        num_fx += 1
+      END
+    END
+    WRITE_SHORT 0x70 num_fx
     FOR (i=0;i<num_ab;i+=1) BEGIN
-      READ_SHORT  ab_off + 0x38*i + 0x20 fx_idx
-      WRITE_SHORT ab_off + 0x38*i + 0x20 fx_idx + delta
+      WRITE_SHORT ab_off + 0x38*i + 0x20 num_fx
+      num_fx += SHORT_AT ab_off + 0x38*i + 0x1e
     END
   END
+BUT_ONLY
 
-// The Physical Mirror spell should protect the recipient against Bolts of Lightning (crossbow ammo type) and Arrows of Fire (bow ammo type). (Wisp)
+// The Physical Mirror spell should protect the recipient against Bolts of Lightning (crossbow ammo type), Firetooth bolts (crossbow) and Arrows of Fire (bow ammo type). (Wisp)
 
 COPY_EXISTING sppr613.spl override
   PATCH_IF SOURCE_SIZE > 0x71 BEGIN
@@ -31051,19 +31143,25 @@ COPY_EXISTING sppr613.spl override
       FOR (j=0;j<num_fx;j+=1) BEGIN
         READ_SHORT fx_off + 0x30*(fx_idx + j) fx_type
         PATCH_IF fx_type = 197 BEGIN
-          READ_ASCII   fx_off + 0x30*(fx_idx + j)            copy (0x30)
-          PATCH_FOR_EACH pro IN 3 15 BEGIN
-            INSERT_BYTES fx_off + 0x30*(fx_idx + num_fx)       0x30
-            WRITE_ASCIIE fx_off + 0x30*(fx_idx + num_fx)       "%copy%"
-            WRITE_LONG   fx_off + 0x30*(fx_idx + num_fx) + 0x8 pro
-            num_fx += 1
-          END
-          j = num_fx
+          READ_LONG  fx_off + 0x30*(fx_idx + j) + 0x8 pro
+          SET $fl#pro_sppr613("%i%" "%pro%") = 1
         END
-        WRITE_SHORT ab_off + 0x28*i + 0x1e num_fx
       END
+      PATCH_FOR_EACH pro IN 1 3 4 6 9 11 13 14 15 16 19 26 29 31 34 102 BEGIN
+        PATCH_IF !VARIABLE_IS_SET $fl#pro_sppr613("%i%" "%pro%") BEGIN
+          INSERT_BYTES fx_off + 0x30*num_fx        0x30
+          WRITE_SHORT  fx_off + 0x30*num_fx        197
+          WRITE_BYTE   fx_off + 0x30*num_fx + 0x2  1
+          WRITE_LONG   fx_off + 0x30*num_fx + 0x8  pro
+          WRITE_BYTE   fx_off + 0x30*num_fx + 0xc  2
+          WRITE_BYTE   fx_off + 0x30*num_fx + 0x12 100
+          num_fx += 1
+        END
+      END
+      WRITE_SHORT ab_off + 0x28*i + 0x1e num_fx
     END
   END
+BUT_ONLY
 
 // Undead creatures are erroneously immune to Lightning Bolt instead of Hold Person (aVENGER)
 
