@@ -24657,7 +24657,7 @@ COPY_EXISTING ~ammgrd01.cre~ ~override~ // monk
         PATCH_IF (("%opcode%" = 142) AND ("%param2%" = 52)) BEGIN // display mind shield icon
           SET "new_fx_8" = 1
         END ELSE
-        PATCH_IF (("%opcode%" = 267) AND ("%param1%" = 8364)) BEGIN // disable string "charmed"
+        PATCH_IF (("%opcode%" = 267) AND ("%param1%" = 8364)) BEGIN // disable string "dominated"
           SET "new_fx_9" = 1
         END
       END
@@ -27457,12 +27457,13 @@ COPY_EXISTING ~yoshimo.bcs~ ~override~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
 
-// Hendak should not randomly end up in some other part of the Copper Coronet if he performs a jump to arrive at Lehtinan's spot  
+// Hendak should not randomly end up in some other part of the Copper Coronet if he performs a jump to arrive at Lehtinan's spot (Wisp)
 COPY_EXISTING hendak.bcs override
   DECOMPILE_BCS_TO_BAF
     REPLACE_TEXTUALLY EXACT_MATCH "SetHomeLocation([32.120])" "SetHomeLocation([526.1193])"
     REPLACE_TEXTUALLY EXACT_MATCH "JumpToPoint([526.1193])" "SetHomeLocation([526.1193]) JumpToPoint([526.1193])"
   COMPILE_BAF_TO_BCS
+BUT_ONLY
 UNLESS // True unless there already is a SetHomeLocation before JumpToPoint.
 ~AC
 261OB
@@ -27473,7 +27474,19 @@ OB
 0 0 0 0 0 0 0 0 0 0 0 0 ""OB
 0 526 1193 0 0"" "" AC
 AC
-48OB~ 
+48OB~
+
+// Temple of Talos script can loop interminably if <CHARNAME> murders too wantonly (Nythrun and Wisp)
+COPY_EXISTING ar0904.bcs override
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~^ *Dead("talmiss")~
+                                          ~  Dead("talmiss")  Exists("talmiss2")  !Dead("talmiss2")~
+    REPLACE_TEXTUALLY ~^ *Dead("talmiss2")~
+                                          ~  Dead("talmiss2")  Exists("talmiss")  !Dead("talmiss")~
+  COMPILE_BAF_TO_BCS
+BUT_ONLY
+UNLESS ~16465 0 1 0 0 "talmiss[2]?" "" OB~
+
 
 /////                                                  \\\\\
 ///// area fixes                                       \\\\\
@@ -27750,6 +27763,175 @@ COPY_EXISTING ~troll01.cre~ ~override/cdtroll1.cre~
               ~troll02.cre~ ~override/cdtroll2.cre~
   WRITE_BYTE   0x234 6
   WRITE_ASCIIE 0x248 ~%DEST_RES%~
+  
+// planar-prison guard can not make the actors hostile by shouting (Wisp)
+COPY_EXISTING pcapt03.cre override
+  FOR (i = 0x248; i < 0x270; i += 8) BEGIN
+    READ_ASCII i script
+    PATCH_IF "%script%" STRING_EQUAL_CASE shout BEGIN
+      WRITE_ASCII i gensht01 (8)
+    END
+  END
+BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp)
+// Males with female sounds
+COPY_EXISTING c6nerit.cre override
+  WRITE_LONG 0xa4 61724 //I welcome you with outstretched hand.
+  WRITE_LONG 0xb8 61732 //May the Gods protect me!
+  WRITE_LONG 0xc8 61729 //Justice shall be swift and final!
+  WRITE_LONG 0xec 61730
+  WRITE_LONG 0xf0 61731
+  WRITE_LONG 0x10c 61725 //I trust you are here in good faith.
+  WRITE_LONG 0x110 61726 //May the Gods look upon you kindly.
+  WRITE_LONG 0x114 61724 //I welcome you with outstretched hand.
+  WRITE_LONG 0x118 61727 //All of the faithful are welcome, here.
+BUT_ONLY
+
+COPY_EXISTING vvshad2.cre override
+  WRITE_LONG 0xa4 61885 //Explain your intent, and make it good!
+  WRITE_LONG 0xb8 61890 //Must... return to the shadows!
+  WRITE_LONG 0xc8 61886 //Beg for death and I'll make it quick!
+  WRITE_LONG 0xcc 61887 //No one crosses the Shadow Thieves... and lives!
+  WRITE_LONG 0xec 61888
+  WRITE_LONG 0xf0 61889
+  WRITE_LONG 0x10c 61882 //Good to see a like-minded friend-to-be.
+  WRITE_LONG 0x110 61883 //Speak if ye will.
+  WRITE_LONG 0x114 61884 //Is there something you seek?
+  WRITE_LONG 0x118 61885 //Explain your intent, and make it good!
+BUT_ONLY
+
+COPY_EXISTING suelfw6.cre override
+  WRITE_LONG 0xa4 61850 //Monsters!  There are monsters everywhere in Suldanessellar!
+  WRITE_LONG 0xec 61853
+  WRITE_LONG 0xf0 61852
+  WRITE_LONG 0x10c 61847 //Wh-what has happened to the queen?  She has been taken, hasn't she!
+  WRITE_LONG 0x110 61848 //It is... it is the Exile!  The Exile has returned!
+  WRITE_LONG 0x114 61851 //This cannot be happening!  It cannot!
+  WRITE_LONG 0x118 61850 //Monsters!  There are monsters everywhere in Suldanessellar!
+BUT_ONLY
+
+COPY_EXISTING cowenf1.cre override
+  WRITE_LONG 0xa4 61862 //Declare yourself!
+  WRITE_LONG 0xb8 61869 //Retreat!
+  WRITE_LONG 0xc8 61866 //I'll test your mettle with cold steel!
+  WRITE_LONG 0xec 61867
+  WRITE_LONG 0xf0 61868
+  WRITE_LONG 0x10c 61863 //Do not disturb my duties.
+  WRITE_LONG 0x110 61864 //At ease, citizen.
+  WRITE_LONG 0x114 61865 //I trust you have no hostile intentions.
+  WRITE_LONG 0x118 61862 //Declare yourself!
+BUT_ONLY
+
+COPY_EXISTING ttser2.cre override
+  WRITE_LONG 0xa4 61690 //Care to dance?
+  WRITE_LONG 0xb8 61687 //Another time, another place!
+  WRITE_LONG 0xc8 61779 //Plant a blade in your innards, I will!
+  WRITE_LONG 0xec 61780
+  WRITE_LONG 0xf0 61781
+  WRITE_LONG 0x10c 61774 //Prepare to be eviscerated, fool.
+  WRITE_LONG 0x110 61690 //Care to dance?
+  WRITE_LONG 0x114 61777 //This will be a slow and painful process.
+  WRITE_LONG 0x118 61778 //You will suffer... oh, yes.
+BUT_ONLY
+
+//Females with male sounds
+COPY_EXISTING daelf.cre override
+  WRITE_LONG 0xa4 11107 //Yeah?
+  WRITE_LONG 0xec 11167
+  WRITE_LONG 0xf0 11168
+  WRITE_LONG 0x10c 11119 //Hello there.
+  WRITE_LONG 0x110 11070 //Few of the fair folk concern themselves with the affairs of the state.
+  WRITE_LONG 0x114 "-1"
+BUT_ONLY
+
+COPY_EXISTING kproen05.cre override
+  WRITE_LONG 0xa4 61872 //I serve with my blade.
+  WRITE_LONG 0xb8 61877 //Back... I must fall back!
+  WRITE_LONG 0xc8 61874 //Cross blades with me and die!
+  WRITE_LONG 0xec 61875
+  WRITE_LONG 0xf0 61876
+  WRITE_LONG 0x10c 61870 //Speak quickly, citizen, I have little time for this.
+  WRITE_LONG 0x110 61871 //Good day to you.
+  WRITE_LONG 0x114 61872 //I serve with my blade.
+  WRITE_LONG 0x118 61873 //Do nothing stupid and there'll be no problems.
+BUT_ONLY
+
+COPY_EXISTING suelf8.cre override
+  WRITE_LONG 0xa4 61856 //The Tree of Life!  'Tis the Tree that must be saved, before any of us!
+  WRITE_LONG 0xec 61861
+  WRITE_LONG 0xf0 61860
+  WRITE_LONG 0x10c 61854 //This is the Exile's doing!
+  WRITE_LONG 0x110 61855 //So... so many have died!  So many!
+  WRITE_LONG 0x114 61856 //The Tree of Life!  'Tis the Tree that must be saved, before any of us!
+  WRITE_LONG 0x118 61857 //Rillifane!  Rillifane save us, I beg you!
+BUT_ONLY
+
+COPY_EXISTING udelf05.cre override
+  WRITE_LONG 0xa4 11063 //Greetings, adventurers.
+  WRITE_LONG 0xec 11075
+  WRITE_LONG 0xf0 11076
+  WRITE_LONG 0x10c 11070 //Few of the fair folk concern themselves with the affairs of the state.
+  WRITE_LONG 0x110 11065 //The Fair Folk will inherit the Earth.
+  WRITE_LONG 0x114 11063 //Greetings, adventurers.
+  WRITE_LONG 0x118 11070 //Few of the fair folk concern themselves with the affairs of the state.
+BUT_ONLY
+
+COPY_EXISTING ppmag01.cre override
+  WRITE_LONG 0xa4 47345 //A woman on the high seas has t' be tougher than any mate.
+  WRITE_LONG 0xec 51867
+  WRITE_LONG 0xf0 51868
+  WRITE_LONG 0x10c 47345 //A woman on the high seas has t' be tougher than any mate.
+  WRITE_LONG 0x110 47347 //Ahhhh, don't look at me like that, or I'll gut ye where ye stand.
+  WRITE_LONG 0x114 48338 //Grog.  Grog an' a bath.  Aye...
+  WRITE_LONG 0x118 51494 //So I smells like fish.  Begone with ye.
+  WRITE_LONG 0x1b8 47347 //Ahhhh, don't look at me like that, or I'll gut ye where ye stand.
+BUT_ONLY
+
+ACTION_IF GAME_IS tob BEGIN
+  COPY_EXISTING ammonk05.cre override
+        PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+          WRITE_LONG 0xa4 61994 //Do not anger me.
+          WRITE_LONG 0xb8 "-1"
+          WRITE_LONG 0xc8 61995 //You shall pay for this, and pay dearly.
+          WRITE_LONG 0xcc 61996 //Suffer!
+          WRITE_LONG 0xec 61997
+          WRITE_LONG 0xf0 61998
+          WRITE_LONG 0x10c 61993 //As always, the pleasure is mine.
+        END
+  BUT_ONLY
+  
+  COPY_EXISTING yssold16.cre override
+        PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+          WRITE_LONG 0xa4 61980 //You are welcome in my sight.
+          WRITE_LONG 0xc8 61981 //This is your end!
+          WRITE_LONG 0xcc 61982 //You've made a fatal error in judgement.
+          WRITE_LONG 0xec 61985
+          WRITE_LONG 0xf0 61986
+          WRITE_LONG 0x10c 61981 //This is your end!
+          WRITE_LONG 0x110 61982 //You've made a fatal error in judgement.
+        END
+  BUT_ONLY
+  
+  COPY_EXISTING sargrd06.cre override
+        PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+          WRITE_LONG 0xa4 4901 //Yer a handsome bunch, ain't ya?
+          WRITE_LONG 0xec 12568
+          WRITE_LONG 0xf0 12569
+          WRITE_LONG 0x10c 4901 //Yer a handsome bunch, ain't ya?
+        END
+  BUT_ONLY
+  
+  COPY_EXISTING yaga02.cre override
+        PATCH_IF SOURCE_SIZE > 0x2d3 BEGIN
+          WRITE_LONG 0xa4 61625 //We will be saved in the End.
+          WRITE_LONG 0xb8 61630 //Aiiiieee!!  I have failed him!!
+          WRITE_LONG 0xec 61628
+          WRITE_LONG 0xf0 61629
+          WRITE_LONG 0x10c 61625 //We will be saved in the End.
+        END
+  BUT_ONLY
+END
 
 /////                                                  \\\\\
 ///// item file fixes                                  \\\\\
@@ -28333,6 +28515,44 @@ COPY_EXISTING ~wand19.itm~ ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
+
+//Asp's Nest darts do 1 HP damage every second for 40 seconds but are stated to do 1 HP damage every 3 seconds for 120 seconds (Wisp)
+COPY_EXISTING dart05.itm override
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG  0x64 ao
+    READ_SHORT 0x68 na
+    READ_LONG  0x6a eo
+    FOR (i=0;i<na;i+=1) BEGIN
+      READ_SHORT ao + 0x38*i + 0x1e en ELSE 0
+      READ_SHORT ao + 0x38*i + 0x20 ei ELSE 0
+      FOR (j=0;j<en;j+=1) BEGIN
+        READ_SHORT eo + 0x30*(ei + j) type ELSE 999
+        PATCH_IF type = 25 BEGIN
+          WRITE_LONG  eo + 0x30*(ei + j) + 0x4  3
+          WRITE_LONG  eo + 0x30*(ei + j) + 0x8  3
+          WRITE_LONG  eo + 0x30*(ei + j) + 0xe  120
+        END ELSE BEGIN
+          WRITE_LONG eo + 0x30*(ei + j) + 0xe 120
+        END
+      END
+    END
+  END
+BUT_ONLY
+
+//Flasher Master Bruiser Mates lack their advertised +1 to hit and have an undocumented save penalty (Wisp)
+COPY_EXISTING bolt07.itm override
+  READ_LONG  0x64 ao
+  READ_SHORT 0x68 na
+  READ_LONG  0x6a eo
+  FOR (i = 0; i < na; ++i) BEGIN
+    WRITE_SHORT ao + 0x38*i + 0x14 1
+    READ_SHORT  ao + 0x38*i + 0x1e en
+    READ_SHORT  ao + 0x38*i + 0x20 ei
+    FOR (j = 0; j < en; ++j) BEGIN
+      WRITE_LONG eo + 0x30*(ei + j) + 0x28 0
+    END
+  END
+BUT_ONLY
 
 /////                                                  \\\\\
 ///// spell fixes                                      \\\\\
@@ -29157,6 +29377,52 @@ ACTION_IF NOT FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // SoA-only fix
     BUT_ONLY_IF_IT_CHANGES
 
 END
+
+//Creeping Doom's panic effect does not work; replace the repeating eff with delayed effects (Wisp)
+//see also flpr717a.spl
+COPY_EXISTING sppr717.spl override //Creeping Doom
+  PATCH_IF SOURCE_SIZE > 0x71 BEGIN
+    READ_LONG  0x64 ao
+    READ_SHORT 0x68 na
+    READ_LONG  0x6a eo
+    en = 0
+    ei = 0
+    FOR (i=0;i<na;i+=1) BEGIN
+      ei += en
+      WRITE_SHORT ao + 0x28*i + 0x20 ei
+      READ_SHORT  ao + 0x28*i + 0x1e en
+      FOR (j=0;j<en;j+=1) BEGIN
+        READ_SHORT eo + 0x30*(ei + j) type ELSE 999
+        READ_ASCII eo + 0x30*(ei + j) + 0x14 rr ELSE blank
+        PATCH_IF type = 272 AND "%rr%" STRING_EQUAL_CASE panic BEGIN
+          DELETE_BYTES eo + 0x30*(ei + j) 0x30
+          en -= 1
+          j -= 1
+          PATCH_FOR_EACH time IN 0 6 12 BEGIN
+            INSERT_BYTES eo + 0x30*(ei + j)        0x30
+            WRITE_SHORT  eo + 0x30*(ei + j)        146 //Cast spell (at creature)
+            WRITE_BYTE   eo + 0x30*(ei + j) + 0x2  2
+            WRITE_BYTE   eo + 0x30*(ei + j) + 0x3  7
+            WRITE_LONG   eo + 0x30*(ei + j) + 0x8  1
+            WRITE_BYTE   eo + 0x30*(ei + j) + 0xc  4
+            WRITE_BYTE   eo + 0x30*(ei + j) + 0xd  1
+            WRITE_LONG   eo + 0x30*(ei + j) + 0xe  time
+            WRITE_BYTE   eo + 0x30*(ei + j) + 0x12 100
+            WRITE_ASCII  eo + 0x30*(ei + j) + 0x14 flpr717a #8
+            en += 1
+            j += 1
+          END
+        END
+      END
+      WRITE_SHORT ao + 0x28*i + 0x1e en
+    END
+  END
+BUT_ONLY
+
+//Creeping Doom's panic effect does not work
+//see also sppr717.spl
+//panic for 1 round, portrait icon, display string; save vs. spell at -2; power 0
+COPY "bg2fixpack/copy/flpr717a.spl" override
 
 /////                                                  \\\\\
 ///// store fixes                                      \\\\\
@@ -31797,7 +32063,7 @@ GROUP @2
 COPY_EXISTING ~sw1h01.itm~ ~override/cdfp0103.g3~
 
 // removes melee abilities from Fire Tooth and Boomerang dagger; change APR to be consistent 
-// with other throwing daggers; alters base Fire Tooth damage to 1d4 (again for consistency)
+// with other throwing daggers; alters base Fire Tooth damage to 1d4 (again for consistency); damage change now rescinded (Wisp)
 COPY_EXISTING ~dagg11.itm~ ~override~
               ~dagg12.itm~ ~override~
   READ_LONG   0x64 "abil_off"
@@ -31827,10 +32093,11 @@ COPY_EXISTING ~dagg11.itm~ ~override~
     END ELSE BEGIN // if non-melee ability, need to adjust effect indices
       READ_SHORT  (0x20 + "%abil_off%" + ("%index%" * 0x38)) "abil_fx_idx"
       WRITE_SHORT (0x20 + "%abil_off%" + ("%index%" * 0x38)) ("%abil_fx_idx%" - "%fx_delta%")
-      PATCH_IF (("%type%" = 2) AND ("%SOURCE_RES%" STRING_COMPARE_CASE "dagg12" = 0)) BEGIN // ranged damage adjustment for Fire Tooth
-        WRITE_SHORT (0x18 + "%abil_off%" + ("%index%" * 0x38)) 1 // only 1d4, not 2d4
-        SAY 0x54 @135 // adjusts description
-      END
+      //The description says 2d4, it is conistent across both headers; changing the ranged damage to 1d4 is bunk, says I
+      //PATCH_IF (("%type%" = 2) AND ("%SOURCE_RES%" STRING_COMPARE_CASE "dagg12" = 0)) BEGIN // ranged damage adjustment for Fire Tooth
+      //  WRITE_SHORT (0x18 + "%abil_off%" + ("%index%" * 0x38)) 1 // only 1d4, not 2d4
+      //  SAY 0x54 @135 // adjusts description
+      //END
     END
   END
   WRITE_SHORT  0x68 "%abil_num%"
