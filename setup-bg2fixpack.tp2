@@ -1339,6 +1339,39 @@ ACTION_IF ("%LANGUAGE%" STRING_COMPARE_CASE "korean") THEN BEGIN // no korean tr
   STRING_SET 25894 @156 // teleport field has no saving throw
   STRING_SET 41385 @172 // soa cat familiar item description
   STRING_SET 45889 @159 // find familiar spell descript
+  
+  //Description fixes for item weight, speed factor and other things (Wisp)
+  //NB. This will need to be moved based on what translations we get (as will the corresponding ToB part)
+  STRING_SET  1764 @209   
+              8505 @191
+             19359 @177
+             21957 @210
+             32186 @211
+             32187 @212
+             34732 @190
+             39461 @213
+             39511 @179
+             39531 @189
+             39579 @183
+             39626 @196
+             39627 @197
+             39629 @198
+             39631 @199
+             39632 @200
+             39633 @201
+             39634 @202
+             41389 @185
+             41620 @186
+             41621 @187
+             47131 @182
+             48658 @206
+             51884 @204
+             51947 @192
+             51949 @193
+             54340 @180
+             57897 @181
+             61580 @184
+             61593 @208
 
 END
 
@@ -1352,7 +1385,17 @@ ACTION_IF (FILE_EXISTS_IN_GAME ~mel01.cre~) AND ("%LANGUAGE%" STRING_COMPARE_CAS
   STRING_SET 72765 @161 // tob pseudo-dragon familiar item description
   STRING_SET 72766 @175 // tob quasit familiar item description
   STRING_SET 72767 @167 // tob rabbit familiar item description
-
+  
+  //Description fixes for item weight and speed factor (Wisp)
+  STRING_SET 66203 @205
+             66369 @203
+             66372 @194
+             66474 @195
+             70785 @207
+             71058 @188
+             71131 @176
+             73912 @178
+  
 END
 
 /////                                                  \\\\\
@@ -14196,20 +14239,6 @@ COPY_EXISTING ~boot01.itm~ ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// weapon speed fixes
-COPY_EXISTING ~aegis.itm~   ~override~ // aegis fang (undroppable)
-              ~aegis2.itm~  ~override~ // aegis fang
-              ~staf05.itm~  ~override~ // staff of striking
-  READ_LONG  0x64 "abil_off"
-  READ_SHORT 0x68 "abil_num"
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT ("%abil_off%" +        (0x38 * "%index%")) "type"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2) OR ("%type%" = 4)) BEGIN // melee, ranged, launcher
-      WRITE_SHORT ("%abil_off%" + 0x12 + (0x38 * "%index%")) 1
-    END
-  END
-  BUT_ONLY_IF_IT_CHANGES
-
 // amulet of shield not protecting against MM
 COPY_EXISTING ~amul15.itm~   ~override~
   READ_LONG  0x64 "abil_off" ELSE 0
@@ -14827,25 +14856,6 @@ COPY_EXISTING ~bow10.itm~ ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// weapon speed fixes
-COPY_EXISTING ~bow25.itm~  ~override~ // long bow +3
-              ~staf04.itm~ ~override~ // generic staff
-              ~sw1h53.itm~ ~override~ // sword of flame
-  READ_LONG  0x64 "abil_off" ELSE 0
-  READ_SHORT 0x68 "abil_num" ELSE 0
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT ("%abil_off%" +        (0x38 * "%index%")) "type"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2) OR ("%type%" = 4)) BEGIN // melee, ranged, launcher
-      WRITE_SHORT ("%abil_off%" + 0x12 + (0x38 * "%index%")) 4
-    END
-  END
-  BUT_ONLY_IF_IT_CHANGES
-  
-// weight fixes
-COPY_EXISTING ~brac15.itm~ ~override~
-  WRITE_LONG 0x4c 2
-  BUT_ONLY_IF_IT_CHANGES
-
 // fix power levels
 COPY_EXISTING ~brac20.itm~ ~override~ // gloves of curing
   READ_LONG   0x64 "abil_off"
@@ -15085,22 +15095,6 @@ COPY_EXISTING ~dagg19.itm~ ~override~
   READ_BYTE  0x18 "flags"
   WRITE_BYTE 0x18 ("%flags%" BOR 0b01000000) // add magical flag
   WRITE_LONG 0x60 1 // enchantment
-  BUT_ONLY_IF_IT_CHANGES
-
-// weapon speed fixes
-COPY_EXISTING ~dart01.itm~ ~override~ // generic dart
-              ~misc4u.itm~ ~override~ // embarl's dagger
-              ~staf11.itm~ ~override~ // staff of the magi
-              ~staf13.itm~ ~override~ // staff of thunder n' lightning
-              ~sw1h26.itm~ ~override~ // ilbratha
-  READ_LONG  0x64 "abil_off"
-  READ_SHORT 0x68 "abil_num"
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT ("%abil_off%" +        (0x38 * "%index%")) "type"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2) OR ("%type%" = 4)) BEGIN // melee, ranged, launcher
-      WRITE_SHORT ("%abil_off%" + 0x12 + (0x38 * "%index%")) 2
-    END
-  END
   BUT_ONLY_IF_IT_CHANGES
 
 // adds proper number of attacks for dart01, disallows str bonus
@@ -15986,18 +15980,6 @@ COPY_EXISTING ~misc84.itm~ ~override~
     WRITE_BYTE  ("%abil_off%" + 0x02) 3          // item slots
     WRITE_ASCII ("%abil_off%" + 0x04) ~imisc84~  // boo icon
     WRITE_SHORT ("%abil_off%" + 0x20) "%fx_num%" // fx index
-  BUT_ONLY_IF_IT_CHANGES
-
-// weapon speed fixes
-COPY_EXISTING ~misc9q.itm~ ~override~ // #^%$&$ habib's scimitar
-  READ_LONG  0x64 "abil_off"
-  READ_SHORT 0x68 "abil_num"
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT ("%abil_off%" +        (0x38 * "%index%")) "type"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2) OR ("%type%" = 4)) BEGIN // melee, ranged, launcher
-      WRITE_SHORT ("%abil_off%" + 0x12 + (0x38 * "%index%")) 5
-    END
-  END
   BUT_ONLY_IF_IT_CHANGES
 
 // duration for illithid control circlet charm effect
@@ -17126,28 +17108,6 @@ COPY_EXISTING ~sper02.itm~   ~override~ // spear +1
     END
   END
   BUT_ONLY_IF_IT_CHANGES
-  
-// weight fixes
-COPY_EXISTING ~sper06.itm~ ~override~
-  WRITE_LONG 0x4c 3
-  BUT_ONLY_IF_IT_CHANGES
-  
-// weapon speed fixes
-COPY_EXISTING ~sper12.itm~ ~override~ // ixil's nail +6
-  READ_LONG  0x64 "abil_off" ELSE 0
-  READ_SHORT 0x68 "abil_num" ELSE 0
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT ("%abil_off%" +        (0x38 * "%index%")) "type"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2) OR ("%type%" = 4)) BEGIN // melee, ranged, launcher
-      WRITE_SHORT ("%abil_off%" + 0x12 + (0x38 * "%index%")) 0
-    END
-  END
-  BUT_ONLY_IF_IT_CHANGES
-  
-// weight fixes
-COPY_EXISTING ~staf04.itm~ ~override~
-  WRITE_LONG 0x4c 4
-  BUT_ONLY_IF_IT_CHANGES
 
 // item requires lore
 COPY_EXISTING ~staf06.itm~ ~override~ // staff-mace
@@ -17516,8 +17476,9 @@ COPY_EXISTING ~sw1h32.itm~ ~override~
     WRITE_BYTE  ("%fx_off%" + 0x0d) 2    // not dispel/not bypass
     WRITE_BYTE  ("%fx_off%" + 0x12) 100  // probability
 
-// adjatha's healing does not bypass MR
+// adjatha's healing does not bypass MR and the sword has an incorrect strength requirement
 COPY_EXISTING ~sw1h35.itm~ ~override~
+  WRITE_BYTE 0x26 6
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
   READ_LONG  0x6a "fx_off"
@@ -17976,6 +17937,75 @@ COPY_EXISTING ~xbow15.itm~ ~override~
     WRITE_BYTE 0x26 8
   END
   BUT_ONLY_IF_IT_CHANGES
+
+//Comprehensive batch of weapon-speed fixes (Wisp)
+ACTION_CLEAR_ARRAY fl#speed_item
+ACTION_DEFINE_ASSOCIATIVE_ARRAY fl#speed_item BEGIN
+  AEGIS    => 1  //Aegis Fang
+  AEGIS2   => 1  //Aegis Fang
+  AX1H07   => 7  //Bala's Axe
+  BOW25    => 4  //Long Bow +3
+  DART01   => 2  //Dart
+  MISC4U   => 2  //Embarl's Dagger
+  MISC9Q   => 5  //Scimitar
+  SPER03   => 6  //Spear +3, Backbiter
+  SPER12   => 1  //Ixil's Spike +6
+  STAF04   => 4  //Quarterstaff
+  STAF05   => 1  //Staff of Striking
+  STAF11   => 3  //Staff of the Magi
+  STAF13   => 2  //Staff of Thunder and Lightning
+  SW1H26   => 2  //Ilbratha +1
+  SW1H53   => 4  //Sword of Flame +1
+  SW1H69   => 1  //Spectral Brand +5
+  SW2H03   => 10 //Cursed Berserking Sword +3
+END
+
+ACTION_PHP_EACH fl#speed_item AS item => speed BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME "%item%.itm" BEGIN
+    COPY_EXISTING "%item%.itm" override
+      READ_LONG 0x64 ao
+      FOR (i=0;i<SHORT_AT 0x68;++i) BEGIN
+        READ_BYTE ao + 0x38*i type
+        PATCH_IF type = 1 OR type = 2 OR type = 4 BEGIN
+          WRITE_SHORT ao + 0x38*i + 0x12 speed
+        END
+      END
+    BUT_ONLY
+  END
+END
+
+//Comprehensive (except for bow06) batch of item-weight fixes (Wisp)
+ACTION_CLEAR_ARRAY fl#weight_item
+ACTION_DEFINE_ASSOCIATIVE_ARRAY fl#weight_item BEGIN
+  BRAC15   => 2  //Bracers of Defense AC 3
+  CLCK13   => 4  //Traveller's Robe
+  DAGG05   => 1  //Throwing Dagger
+  DWCHAN02 => 12 //Drow Adamantine Chain +5
+  DWSHLD01 => 7  //Drow Shield +3
+  SHLD23   => 3  //Fortress Shield +3
+  SPER06   => 3  //Spear +3
+  STAF04   => 4  //Quarterstaff
+  STAF08   => 4  //Martial Staff +3
+  STAF10   => 4  //Staff of Curing
+  STAF11   => 4  //Staff of the Magi
+  STAF13   => 4  //Staff of Thunder and Lightning
+  STAF20   => 3  //Staff of Rynn +4
+  SW1H15   => 4  //Scimitar +3, Frostbrand
+  SW1H16   => 4  //Scimitar +5, Defender
+  SW1H23   => 4  //Scimitar +2, Rashad's Talon
+  SW1H32   => 3  //Dragonslayer
+  SW2H03   => 15 //Cursed Berserking Sword +3
+  SW2H12   => 10 //Flame Of The North
+  SW2H15   => 15 //Silver Sword
+END
+
+ACTION_PHP_EACH fl#weight_item AS item => weight BEGIN
+  ACTION_IF FILE_EXISTS_IN_GAME "%item%.itm" BEGIN
+    COPY_EXISTING "%item%.itm" override
+      WRITE_LONG 0x4c weight
+    BUT_ONLY
+  END
+END
 
 /////                                                  \\\\\
 ///// spell fixes                                      \\\\\

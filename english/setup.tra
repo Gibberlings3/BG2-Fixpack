@@ -456,7 +456,7 @@ Armor Class: -2
 Hit Points: 48
 Magic Resistance: 35%
 Special abilities:  Has 100% resistance to fire, cold, and electricity. It can also cast 'Polymorph Self' once per day, attack does 1d6 damage with poison (save vs. death or die). Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
-@166 = ~This is your familiar, a rabbit, currently curled up and safe within your backpack. The rabbit might not be one's first choice for a familiar, but this creature is incredibly quick and difficult to hit in combat... and has been augumented by magic to become quite resistant to physical harm as well as spells. The rabbit also has a keen nose for sniffing out traps on behalf of its master.
+@166 = ~This is your familiar, a rabbit, currently curled up and safe within your backpack. The rabbit might not be one's first choice for a familiar, but this creature is incredibly quick and difficult to hit in combat... and has been augmented by magic to become quite resistant to physical harm as well as spells. The rabbit also has a keen nose for sniffing out traps on behalf of its master.
 
 Abilities:
 Armor Class: 1
@@ -526,6 +526,732 @@ Armor Class: -2
 Hit Points: 48
 Magic Resistance: 35%
 Special abilities: 3 attacks per round 1d6 damage, save vs. death or lose one point of dexterity for 36 seconds. Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
+
+//Description fixes for item weight and speed factor
+//Originally string #71131
+@176 = ~Typically carried by travelling healers, this leather case folds open and allows the user to strap delicate potion bottles to its cushioned side with numerous leather thongs for safe storage during travel.
+
+STATISTICS:
+
+Weight: 2~
+
+//Originally string #19359
+@177 = ~The flail is a sturdy wooden handle attached to an iron rod, a wooden rod with spikes, or a spiked iron ball. Between the handle and its implement is either a hinge or chain link.  The weapon has been enhanced magically, effectively forming a bond between the weapon and its wielder.
+
+STATISTICS:
+
+Damage:  1D6 + 2
+THACO:  +1
+Damage type:  crushing
+Weight: 13
+Speed Factor: 6
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #73912
+@178 = ~The head of this morning star appears to be forged from unbreakable ice-blue crystal.  The handle is chill to the touch, and the wielder is surrounded by a soothing nimbus of cool air which protects against even magical fire.
+
+
+STATISTICS:
+
++20% Fire Resistance
+
+THACO:  +4
+Damage:  2D4 +4 +1-4 extra cold damage
+Damage type:  crushing
+Weight: 8
+Speed Factor: 3
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #39511
+@179 = ~Strong Arm +2
+This massive bow was the property of the ranger Bearpaw, who reportedly received it from a strangely benevolent ogre.  The reason for the gift was never discussed, but he earned the respect of everyone he met, and likely befriended the creature while patrolling the Cloakwood Forest.  Bearpaw could draw back the bow without the slightest effort, but when he died it was bequeathed to his wife and sons, and not a one could draw the string even halfway.  They eventually sold it to a merchant heading South.
+
+STATISTICS:
+
+THACO:  +3 bonus
+Damage:  +3 bonus
+Weight: 8
+Speed Factor: 5
+Proficiency Type: Longbow
+Type:  2-handed
+Requires: 19 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief
+ Bard~
+
+//Originally string #54340
+@180 = ~This mace has been crafted finely by the drow, and specially treated to survive the glare of the sun.  It is made for surface raids by the subterranean race... and its black metal glistens with a dark poison that seems to be generated from within and causes incredible damage upon a successful impact.
+The mace seems almost alive and warm to the touch, and slithers away from those whom it does not like... namely drow or those who are similar enough to not make a difference.  In the hands of anyone else, the mace becomes mere dead weight.
+
+STATISTICS:
+
+Combat Ability: A creature hit by this mace must make a saving throw vs. poison or suffer 2 points of damage each round for 10 rounds.
+THAC0: +2 bonus
+Damage:  1D6 + 3
+Damage type:  crushing
+Weight: 7
+Speed Factor: 6
+Proficiency Type: Mace
+Type:  1-handed
+Not Usable By:
+ Any who are not either Elf or Half-Elf Evil Clerics~
+
+//Originally string #57897
+@181 = ~Kuo-Toa Bolt
+
+This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists.  A target hit by this bolt must making a saving throw vs. spells or be stunned for four rounds.
+
+STATISTICS:
+
+Combat Ability: target must save vs. spells or be stunned for four rounds
+Damage:  2D6 
+Damage type:  missile (piercing)
+Weight:  0
+Launcher:  Crossbow~
+
+//Originally string #47131
+@182 = ~This is a Staff of Goodberries that belonged to the Kobold Shaman in the sewers below the slums. 
+
+STATISTICS
+
+Abilities
+ Create Goodberries once per day
+Damage:  1D6
+Damage type:  crushing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Quarterstaff
+Type:  2-handed~
+
+//Originally string #39579
+@183 = ~Once a very powerful shield used by the clerics of Bane, most of the enchantments fled with their god's demise.  The basic magical protection of still remains, making it useful for any adventurer.
+
+STATISTICS:
+
+Armor Class Bonus: 4
+Weight: 4
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief~
+
+//Originally string #61580
+@184 = ~Shield of Balduran +3
+This shield was worn by the hero Balduran.   It is part of a set of weapons and armor that was stolen from the museum in the city of Baldur's Gate.
+
+STATISTICS:
+
+Equipped Abilities:
+ Reflects beholder rays
+ -1 Penalty to Strength
+Armor Class Bonus: 4
+Weight: 4
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief~
+
+//Originally string #41389
+@185 = ~This two-headed flail causes fire and cold damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Fire Damage, +1 Cold Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief
+~
+
+//Originally string #41620
+@186 = ~This two-headed flail causes acid and cold damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Acid Damage, +1 Cold Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #41621
+@187 = ~This two-headed flail causes fire and acid damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Fire Damage, +1 Acid Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #71058
+@188 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the longbow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+
+STATISTICS:
+
+THACO: +3 bonus
+Weight: 2
+Speed Factor: 4
+Proficiency Type: Long Bow
+Type:  2-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #39531
+@189 = ~Halberd +3: Dragon's Bane
+This was the weapon of Thorvin Dukal, one of seven self-proclaimed Dragonslayers who spent years railing against what they called "an insidious dragon infestation that threatened Faerun."  Thorvin had this weapon enchanted at great expense and used it on many occasions, though of dragons only a single white has fallen to it.  The Dragonslayers met their match in a cantankerous ancient red who slew the entire group in an epic battle.  This weapon did not end up in the beast's hoard however, as the creature returned to its lair to recuperate and when it emerged the field of combat was well scavenged.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Damage:  1D10 +3, +6 vs. dragons
+Damage type:  piercing
+Weight: 12
+Speed Factor: 6
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #34732
+@190 = ~Embarl's Dagger will prove to Mae'Var that Embarl has been 'dealt with.'
+
+STATISTICS:
+
+Damage:  1D6 
+Damage type:  Piercing
+Weight: 2
+Speed Factor: 2
+Proficiency Type: Dagger
+Type:  1-handed
+Not Usable By:
+ Cleric~
+
+//Originally string #8505
+@191 = ~Staff of the High Forest
+
+This staff was the culmination of a cycle of seasons in which Cernd meditated on his role within nature.  His perch for this personal journey was next to a sapling, a young oak that was a particular interest of study; it seemed odd, and yet somehow wonderfully ordered.  At the coming of spring Cernd examined it one last time, and it came loose in his hands, a living staff, granted as boon from nature herself.  It has grown to fit his grip, and few others may wield it.   
+
+STATISTICS:
+
+Equipped Abilities: Regenerate 1 hit point every 12 seconds
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Type:  2-handed
+
+Usable By:
+ Cernd~
+
+//Originally string #51947
+@192 = ~Entropy
+This +2 abyssal greensteel blade is one of Haer'Dalis' favorite weapons.  This shortsword is capable of inflicting an additional three points of poison damage if the target fails a saving throw.  This blade may only be used by tieflings.
+
+STATISTICS:
+
+Special Abilities: 3 points of poison damage if target fails save
+THACO:  +2 bonus
+Damage:  1D6 +2
+Damage type:  piercing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By:
+  Tieflings~
+
+//Originally string #51949
+@193 = ~Chaos Blade
+Chaos is a +2 short-sword usable only by tieflings.  Every time it strikes an opponent, he or she loses 2 points of dexterity (for 30 seconds).  Haer'Dalis prefers using Chaos with its partner -- Entropy.  When dual wielding these two blades, Haer'Dalis is a dangerous opponent.
+
+STATISTICS:
+
+Special Abilities: Target loses 2 points of dexterity each hit (duration: 30 seconds)
+THACO:  +2 bonus
+Damage:  1D6 +2
+Damage type:  piercing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By:
+  Tieflings~
+
+//Originally string #66372
+@194 = ~For many generations this magical shaft has been separated from Ixil's Spike, the enchanted head of the legendary spear.  However, even incomplete, this artifact is still a weapon of great power.  
+
+STATISTICS:
+
+THAC0: + 4 bonus
+Damage:  1D6 + 4
+Damage type:  piercing
+Weight: 5
+Speed Factor: 2
+Proficiency Type: Spear 
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #66474
+@195 = ~With shaft and tip reunited, Ixil's Spike is a fearsome weapon.  During the battle the head can detach to pin opponents to the ground even as a new head magically reforms on the end of the spear.
+
+STATISTICS:
+
+Equipped Abilities: Permanent Free Action
+
+Combat Abilities:  With each successful hit, the opponent must save or be pinned for 3 rounds, taking an additional 1D6+5 damage each round.
+
+THAC0: + 6 bonus
+Damage:  1D6 + 6
+Damage type:  piercing
+Weight: 5
+Speed Factor: 1 
+Proficiency Type: Spear 
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #39626
+@196 = ~Staff of Curing
+Torm is said to manifest these items during times of great trouble, granting them to priests who care for the wounded, diseased, and poisoned.  It is not to be taken for granted however, as the enchantment, though useful, is fleeting.  It must be used with all due care.
+
+STATISTICS
+
+Abilities (one charge): 
+ Cure: 3 - 18 +3 hit points, Disease and Poison
+
+AC: +2 bonus
+THAC0: +1 bonus
+Damage:  1D6 +1
+Damage type:  crushing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Bard
+ Thief
+ Fighter
+ Mage~
+
+//Originally string #39627
+@197 = ~Staff of the Magi
+This type of staff is thoroughly linked of the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
+
+STATISTICS
+Armor Class: +2 bonus
+Saving Throws: +2 bonus
+Equipped Abilities:
+ Invisibility
+ Immunity to Charm
+ Protection From Evil
+
+  Fireball-Lightning
+   Damage: combined lightning and fireball damage
+   Range: 150 feet
+   Use: Three times a day
+
+Abilities: Trap Spell
+   Duration: 8 hours or until 30 spell levels have been trapped
+   Use: Once a day
+
+Combat Ability (each hit): Dispel Magic  
+THAC0: +1 bonus  (strikes as a +5 weapon)
+Damage:  1D6 +1
+Damage type:  crushing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength
+Usable By
+ Mages~
+
+//Originally string #39629
+@198 = ~Staff of Thunder and Lightning +2
+There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can summon a lighting storm to blast enemies to dust.  Some abilities are limited by charges.
+
+STATISTICS
+
+Abilities (one charge):
+Lightning Bolt
+ Damage: 10d6
+ Range: 140 yards
+ Saving throw: Spells for half damage
+
+Call Lightning
+ Lightning strike hits the target
+ Damage: 3d8 per strike
+
+Melee :
+Thunderclap (10% chance on a successful strike)
+ Range: Melee 
+ Saving Throw: Save vs. spells or be stunned for two rounds
+
+THACO: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 4
+Speed Factor: 2
+Proficiency Type: Staff
+Type:  2-handed
+Requires: 5 Strength
+Usable By:
+ Clerics
+ Druids~
+
+//Originally string #39631
+@199 = ~Staff of Air
+This staff seems to draw from eleven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
+
+STATISTICS
+
+Combat Abilities: If an air elemental is hit it must save vs. spells or be destroyed
+Abilities: (cost 1 charge)
+Summon an 8hd Air Elemental
+ Duration: 1 hour
+
+Sleep Cloud
+ Range: 40 feet
+ Duration: 3 rounds
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39632
+@200 = ~Staff of Earth
+Linked to the Plane of Earth, this staff may have been fashioned by an ancient druidic sect.  It can summon an Earth Elemental, though it also has the potential to slay such creatures in a single blow, possibly hinting at how difficult it is to control them.  It can also free a person from the earth by casting Stone to Flesh.  Some abilities are limited by charges.
+
+STATISTICS
+
+Combat Abilities: If an earth elemental is hit it must save vs. spells or be destroyed
+Abilities: (one charge)
+ Summon an 8 hit dice Earth Elemental
+  Duration: 1 hour
+Stone to Flesh
+  Revert effects of a petrification attack
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39633
+@201 = ~Staff of Fire
+This staff bears an ancient rune that may link it to the wizards of faraway Halruaa, but it is impossible to be certain.  Drawing from the Plane of Fire it can erupt in a Fire Shield that damages attackers, it can summon a Fire Elemental under the control of the wielder, and it can potentially draw all the energy from any fire elemental that it hits, destroying them instantly.  Some abilities are limited with charges however.
+
+STATISTICS
+
+Combat Abilities: If a fire elemental is hit it must save vs. spells or be destroyed
+Abilities: (one charge)
+Summon an 8 hit dice Fire Elemental
+ Duration: 1 hour
+Fire Shield (Red)
+ A protective shield that surrounds the wielder of the staff as per the 4th level wizard spell Fire Shield (Red).
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39634
+@202 = ~Quarter Staff +2
+The simplest of staff weapons is the quarterstaff, a length of wood six to nine feet in length.  High quality quarterstaves are made of stout oak and are shod with metal at both ends.  Powerful enchantments during the making of this staff have improved its accuracy and the damage it can cause, but they bear no signature.
+
+STATISTICS:
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #66369
+@203 = ~Adorned with serpentine designs, this powerful quarter staff has a chance to release a lethal toxin against its opponents with every blow.  
+
+STATISTICS:
+
+Combat Abilities:
+  50% chance of poisoning opponents with every successful attack.  The poison lasts for 1 round, and does 2 hp of damage/second unless the target makes a save vs death.
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #51884
+@204 = ~Scimitar +3: 'Water's Edge'
+The blade of this weapon seems to shimmer, revealing a fluid, razor edge. Truly there was great skill involved in its construction, as well as a blessing or two from some well-meaning eye above, even though the hilt is comparatively almost clumsily adorned. 
+
+STATISTICS:
+
+Damage:  1D8 +3
+THAC0: +3
+Damage type: slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Scimitar/Wakizashi/Ninja-To
+Type:  1-handed
+Requires: 8 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #66203
+@205 = ~Also known as the Stream of Anguish, this is the legendary burning blade of Frithiof.     
+
+STATISTICS:
+Special Abilities:
+Once per day increase user's strength to 22 for 60 seconds.
+
+THAC0: +4 bonus
+Damage:  1D8 +4, +1 fire damage
+Damage type:  slashing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+
+//Originally string #48658
+@206 = ~Silver Sword
+This Vorpal Silver Sword radiates a dark aura when you examine it, and the blade is so finely sharpened it could likely sever a head in a single blow.
+
+STATISTICS:
+
+Combat Abilities:
+ 25% chance each hit that target must make a saving throw vs death (-2 penalty) or die.
+
+THAC0: +3 bonus
+Damage:  1D10 +3
+Damage type:  slashing
+Weight: 15
+Speed Factor: 7
+Proficiency Type: Two Handed sword
+Type:  2-handed
+Requires: 14 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~
+
+//Originally string #70785
+@207 = ~Long Sword +3
+
+This exquisitely-crafted sword has been enchanted with a powerful dweomer to enhance the user's skill and the damage caused...but is otherwise unremarkable.  
+
+STATISTICS:
+
+Damage:  1D8 +3
+THACO:  +3 bonus
+Damage type:  slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+~
+
+//Originally string #61593
+@208 = ~Harmonium Halberd +3
+This weapon is a powerful weapon usually given out to the most important of Harmonium captains.  The Harmonium is an faction based out of the planar city known as 'Sigil'.
+
+STATISTICS:
+
+Equipped Abilities:
+ +1 strength
+ -1 Intelligence
+ -1 Wisdom
+THAC0: +3 bonus
+Damage:  1D10 +3
+Damage type:  piercing
+Weight: 12
+Speed Factor: 6
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #1764
+@209 = ~Battle Axe +3
+
+This is the axe of Bruenor Battlehammer, and a fine weapon it is. It has a formidable single-edged blade, and handles with the efficiency of a hand axe despite its size.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Damage:  3D8 + 3
+Damage type:  slashing
+Weight: 6
+Speed Factor: 4
+Proficiency Type: Axe
+Type:  1-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~
+                          
+//Originally string #21957                          
+@210 = ~Bala's Axe - Wizard Slayer:
+Bala was a foul-tempered prince of a gully dwarf clan, which was enslaved by a cruel elven mage in Thesk. Though Bala managed to escape the more cowardly traits of his race he was even more filthy and obnoxious than the average gully dwarf. Sickened of his enslavement, Bala crept into the mage's lair and cracked the elf's skull open. Although rumor has it that it was the dwarf's stench that overcame the mage, it was, in fact, his enchanted axe that dispelled the elf's magical defenses. It is obvious from the poor workmanship that Bala himself crafted the axe. The mystery lies in where its power originates. After a lengthy career of mage-slaying, Bala died, never having revealed his secret to those who were willing to risk a lice infestation by approaching him. Some say that the axe was powered by Bala's intense hatred of wizards. The axe gives the owner the ability to dispel magic once a day.
+
+STATISTICS:
+
+Damage:  1D8
+Damage type:  slashing
+
+Special:  Miscast Magic affects victim on each successful hit
+Miscast Magic:  Any spellcasting creature that is affected by this spell has its casting ability severely disabled.  When the creature attempts to cast a spell it has an 80% chance of failure.  Creatures can save vs spells to avoid the affect, but do so at -2. 
+
+Weight: 6
+Speed Factor: 7
+Proficiency Type: Axe
+Type:  1-handed
+Requires: 10 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~ 
+ 
+//Originally string #32186
+@211 = ~Defender of Easthaven +3~ 
+
+//Originally string #32187
+@212 = ~Defender of Easthaven +3
+This flail was created a century ago to commemorate the defeat of the demon Belhifet.  It was meant to always remain within the town of Easthaven to remind the people of the great evil that had been barely defeated.   
+
+STATISTICS:
+
+Equipped Abilities:
+ +1 AC bonus
+ +20% resistance to slashing, piercing, and blunt damage
+THACO:  +3 bonus
+Damage:  1D6 + 4
+Damage type:  crushing
+Weight: 12
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+ 
+//Originally string #39461
+@213 = ~Blade of Roses, Long Sword +3
+This blade possesses an unearthly splendor, and it is likely that Sune, the goddess of beauty and passion, had a hand in its creation.  The effect it has on the wielder is immediate, and more than once in its history has this sword been the secret behind a lackluster soldier's sudden elevation at court.
+
+STATISTICS:
+
+Equipped Abilities: 
+ Charisma: +2 bonus
+THACO:  +3 bonus
+Damage:  1D8 + 3
+Damage type:  slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Long sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+
 
 @1000 = ~GTU Light (by Wisp)~
 @1001 = ~GTU Classic (from Baldurdash, by Kevin Dorner)~

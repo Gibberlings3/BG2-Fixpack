@@ -2323,7 +2323,7 @@ STATISTICS:
 Damage:  1D6 + 2
 THAC0:  +1
 Damage type:  crushing
-Weight: 12
+Weight: 13
 Speed Factor: 6
 Proficiency Type: Flail/Morningstar
 Type:  1-handed
@@ -8442,10 +8442,3 @@ Saving Throw: None
 
 This spell is similar to the 6th level wizard spell, Summon Nishruu.  The Hakeashar is a more powerful version of the Nishruu, having more hit points, better attacks, and immunity to normal weapons.
 By casting the summon hakeashar spell the wizard calls into being a magical being of considerable power: the Hakeashar.  At first glance this appears to be some sort of mist but upon closer examination this boiling, churning grey mass of vapors and shapes moves with a life of its own.  Drawn towards magic like a moth to the flame, this creature feeds on the energies surrounding and used by wizards (and other spellcasters).  Luckily, there is no question as to the loyalty of the creature and it will not attack its summoner even though it would like nothing better.  The hakeashar has no physical attacks at all.  However, it can be hurt by physical attacks.  Each time the creature touches a target wizard and wraps its tendrils around him the wizard loses one memorized spell.  This is chosen at random. However, it will consume the highest level possible.  The hakeashar  is completely immune to magic, and not only that, but magic will actually heal this creature.  The creature will remain under the wizards control until reduced to 0 hit points, or the spell duration expires.~
-
-
-
-
-
-
-
