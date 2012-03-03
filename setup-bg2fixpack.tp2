@@ -1441,8 +1441,8 @@ COPY_EXISTING ~kit.ids~ ~override~
   REPLACE_TEXTUALLY ~.*\bTOTEMIC\b~                ~0x4010 TOTEMIC~
   REPLACE_TEXTUALLY ~.*\bSHAPESHIFTER\b~           ~0x4011 SHAPESHIFTER~
   REPLACE_TEXTUALLY ~.*\bBEASTFRIEND\b~            ~0x4012 BEASTFRIEND~
-  REPLACE_TEXTUALLY ~.*\bBARBARIAN\b~              ~0x0000 BARBARIAN~
-  REPLACE_TEXTUALLY ~.*\bWILDMAGE\b~               ~0x0000 WILDMAGE~
+  //REPLACE_TEXTUALLY ~.*\bBARBARIAN\b~              ~0x0000 BARBARIAN~ //Avoid changing the values, what with ToBEx and all (Wisp)
+  //REPLACE_TEXTUALLY ~.*\bWILDMAGE\b~               ~0x0000 WILDMAGE~
   BUT_ONLY_IF_IT_CHANGES
 
 APPEND ~kit.ids~ ~0x4000 TRUECLASS~
@@ -27963,6 +27963,18 @@ ACTION_IF GAME_IS tob BEGIN
   BUT_ONLY
 END
 
+//Dawnmaster Kreel's amazing wardrobe change (Wisp)
+COPY_EXISTING dawnmas.cre override
+  o = 0x2c
+  PATCH_FOR_EACH colour IN 226 238 237 201 228 226 200 BEGIN //Values courtesy of cscleric.cre
+    WRITE_BYTE o colour
+    ++o
+  END
+  REMOVE_CRE_ITEMS
+  ADD_CRE_ITEM staf01 #0 #0 #0 none weapon1 EQUIP TWOHANDED
+  ADD_CRE_ITEM chan01 #0 #0 #0 none armor
+  ADD_CRE_ITEM rndtre02 #0 #0 #0 none inv7
+
 /////                                                  \\\\\
 ///// item file fixes                                  \\\\\
 /////                                                  \\\\\
@@ -28580,6 +28592,38 @@ COPY_EXISTING bolt07.itm override
     READ_SHORT  ao + 0x38*i + 0x20 ei
     FOR (j = 0; j < en; ++j) BEGIN
       WRITE_LONG eo + 0x30*(ei + j) + 0x28 0
+    END
+  END
+BUT_ONLY
+
+//Give Root of the Problem a price (Wisp)
+COPY_EXISTING blun10.itm override
+  WRITE_LONG 0x34 2750
+BUT_ONLY
+
+//Staff of Curing does not cure portrait icons (Wisp)
+COPY_EXISTING staf10.itm override
+  PATCH_FOR_EACH parameter2 IN 5 6 7 BEGIN //Intoxication, poison, disease
+    LPF ADD_ITEM_EFFECT
+      INT_VAR
+        opcode = 240
+        target = 2
+        power = 2
+        parameter2
+        timing = 1
+        resist_dispel = 3
+    END
+  END
+BUT_ONLY
+
+//Belt of Inertial Barrier displays MR icon instead of Resistance to Magic Energy (Wisp)
+COPY_EXISTING belt10.itm override
+  READ_LONG  0x6a eo
+  FOR (i = 0; i < SHORT_AT 0x70; ++i) BEGIN
+    READ_SHORT eo + 0x30 * i type
+    READ_LONG  eo + 0x30 * i + 0x8 p2
+    PATCH_IF type = 142 AND p2 = 63 BEGIN //Display icon; magic resistance
+      WRITE_LONG eo + 0x30 * i + 0x8 73 //Protection from Magical Energy
     END
   END
 BUT_ONLY

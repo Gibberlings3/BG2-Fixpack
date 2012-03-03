@@ -208,3 +208,7 @@ END
 
 // prevent Yoshimo telling you to see Renal when you already have
 ADD_STATE_TRIGGER YOSHJ 129 ~Global("TalkedToRenal","GLOBAL",0)~
+
+// No valid replies or links for Cernd
+ALTER_TRANS cernd BEGIN 6 END BEGIN 0 END BEGIN TRIGGER
+~!Class(Player1,DRUID_ALL) !Class(Player1,RANGER_ALL) !InParty("Jaheira") !InParty("Minsc")~ END
