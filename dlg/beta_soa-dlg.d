@@ -212,3 +212,8 @@ ADD_STATE_TRIGGER YOSHJ 129 ~Global("TalkedToRenal","GLOBAL",0)~
 // No valid replies or links for Cernd
 ALTER_TRANS cernd BEGIN 6 END BEGIN 0 END BEGIN TRIGGER
 ~!Class(Player1,DRUID_ALL) !Class(Player1,RANGER_ALL) !InParty("Jaheira") !InParty("Minsc")~ END
+
+// Romance interests can comment on PhaereInnuendo in chapter 6 if they were not in the party during chapter 5 (the bigg)
+ADD_STATE_TRIGGER ~AERIEJ~ 119 ~Global("Chapter","GLOBAL",5)~ 124 126
+ADD_STATE_TRIGGER ~JAHEIRAJ~ 437 ~Global("Chapter","GLOBAL",5)~ 441 447
+ADD_STATE_TRIGGER ~VICONIJ~ 97 ~Global("Chapter","GLOBAL",5)~ 106 108

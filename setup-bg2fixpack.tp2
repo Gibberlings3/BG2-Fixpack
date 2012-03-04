@@ -27183,6 +27183,8 @@ SET_WEIGHT imoenp 3 #-1
 >>>>>>>>
 
 COMPILE ~inlined/dialogues/are/gauche/imoenfixtake2.d~
+  
+COPY ~bg2fixpack/wed/ar1900n.wed~ override
 
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // tob only
 
@@ -27517,10 +27519,25 @@ COPY_EXISTING ar0904.bcs override
 BUT_ONLY
 UNLESS ~16465 0 1 0 0 "talmiss[2]?" "" OB~
 
+// Drow etc. guarding the way out of the Underdark start to stutter if they are charmed after you have made an enemy of the Ust Natha (Wisp)
+COPY_EXISTING dwgates1.bcs override
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!Allegiance(Myself,ENEMY)~ ~!Allegiance(Myself,ENEMY) !StateCheck(Myself,STATE_CHARMED)~
+  END
+BUT_ONLY
+UNLESS ~16439 8192 1 0 0 "" "" OB~
 
 /////                                                  \\\\\
 ///// area fixes                                       \\\\\
 /////                                                  \\\\\
+
+//Unreferenced night tilesets (Nythrun)
+//see also ar1900n.wed
+COPY_EXISTING ar1900.are override
+              ar2807.are override
+  READ_SHORT   0x48 location_flags
+  WRITE_SHORT  0x48 location_flags | 0x40
+BUT_ONLY
 
 /////                                                  \\\\\
 ///// creature file fixes                              \\\\\
@@ -27974,6 +27991,31 @@ COPY_EXISTING dawnmas.cre override
   ADD_CRE_ITEM staf01 #0 #0 #0 none weapon1 EQUIP TWOHANDED
   ADD_CRE_ITEM chan01 #0 #0 #0 none armor
   ADD_CRE_ITEM rndtre02 #0 #0 #0 none inv7
+  
+//Tabitha should be immune to charm (Wisp)
+COPY_EXISTING coplion.cre override
+  LPF ADD_CRE_EFFECT
+    INT_VAR
+      opcode = 101 //immunity to opcode
+      parameter2 = 5
+      timing = 9
+  END
+  LPF ADD_CRE_EFFECT
+    INT_VAR
+      opcode = 296 //immunity to animation
+      timing = 9
+    STR_VAR
+      resource = spnwchrm
+  END
+  PATCH_FOR_EACH parameter1 IN 14672 14780 8364 BEGIN
+    LPF ADD_CRE_EFFECT
+      INT_VAR
+        opcode = 267 //protection from display string
+        parameter1
+        timing = 9
+    END
+  END
+BUT_ONLY
 
 /////                                                  \\\\\
 ///// item file fixes                                  \\\\\
