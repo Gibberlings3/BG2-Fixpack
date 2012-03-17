@@ -27525,7 +27525,17 @@ COPY_EXISTING dwgates1.bcs override
     REPLACE_TEXTUALLY ~!Allegiance(Myself,ENEMY)~ ~!Allegiance(Myself,ENEMY) !StateCheck(Myself,STATE_CHARMED)~
   END
 BUT_ONLY
-UNLESS ~16439 8192 1 0 0 "" "" OB~
+UNLESS ~16439 8192 1 0 0 "" "" OB~ //UNLESS !StateCheck(Myself,STATE_CHARMED)
+
+//Surface elves by the Underdark exit can bail out prematurely (Wisp)
+COPY_EXISTING udelf1.bcs override
+              udelf2.bcs override
+              udelf3.bcs override
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY "\(See(\[PC\])[%LNL%%TAB% ]*CombatCounter(0)\)" "\1 !Detect([ENEMY])"
+  END
+BUT_ONLY
+UNLESS ~16500 0 1 0 0 "" "" OB%LNL%255 0 0 0 0 0 0 0 0 0 0 0 ""OB~ //UNLESS !Detect([ENEMY])
 
 /////                                                  \\\\\
 ///// area fixes                                       \\\\\
@@ -29540,6 +29550,86 @@ BUT_ONLY
 //panic for 1 round, portrait icon, display string; save vs. spell at -2; power 0
 COPY "bg2fixpack/copy/flpr717a.spl" override
 
+//Set power of summoning spells to 0, otherwise they can get blocked if the caster is under (M)GoI (code by Wisp; general idea by lotsa people)
+COPY_EXISTING
+  melis03.spl override //Taint of the Slayer
+  senspisu.spl override //Summon Spider
+  spcl621.spl override //Summon Spirit Animal
+  spcl923.spl override //Summon Deva
+  //spin534.spl override //Call Dark Horde, unused
+  //spin548.spl override //Gate, power is 0, unused
+  //spin549.spl override //Summon the Infernal Host, power is 0
+  //spin569.spl override //Summon Ice Salamander, power is 0
+  //spin570.spl override //Summon Fire Elemental, power is 0, unused
+  spin615.spl override //Knight
+  spin616.spl override //Flames
+  spin622.spl override //Skull
+  //spin631.spl override //Construct, unused
+  //spin637.spl override //Guile, unused
+  //spin638.spl override //Triumph, unused
+  //spin677.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin730.spl override //Summon Fungus, power is 0
+  //spin735.spl override //Wish, power is 0
+  //spin841.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin842.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin843.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin844.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin845.spl override //<Invalid Strref -1>, power is 0, unused
+  //spin855.spl override //<Invalid Strref -1>, power is 0
+  //spin856.spl override //<Invalid Strref -1>, power is 0
+  //spin857.spl override //<Invalid Strref -1>, power is 0
+  //spin870.spl override //<Invalid Strref -1>, power is 0
+  //spin880.spl override //<Invalid Strref -1>, power is 0
+  sppr301.spl override //Animate Dead
+  sppr402.spl override //Animal summoning I
+  sppr410.spl override //Call Woodland Beings
+  sppr501.spl override //Animal summoning II
+  sppr601.spl override //Aerial Servant
+  sppr602.spl override //Animal summoning III
+  sppr604.spl override //Conjure Animals
+  sppr605.spl override //Conjure Fire Elemental
+  sppr702.spl override //Conjure Earth Elemental
+  sppr703.spl override //Gate
+  sppr723.spl override //Elemental Summoning
+  sppr724.spl override //Greater Elemental Summoning
+  sppr726.spl override //Summon Deva
+  sppr727.spl override //Summon Fallen Deva
+  //spra304.spl override //Animal summoning I, power is 0
+  spra305.spl override //Animal summoning II
+  spra306.spl override //Animal summoning III
+  spwi309.spl override //Monster summoning I
+  spwi407.spl override //Monster summoning II
+  spwi423.spl override //Spider Spawn
+  spwi501.spl override //Animate Dead
+  spwi504.spl override //Monster summoning III
+  spwi516.spl override //Conjure Lesser Fire Elemental
+  spwi520.spl override //Conjure Lesser Air Elemental
+  spwi521.spl override //Conjure Lesser Earth Elemental
+  spwi601.spl override //Invisible Stalker
+  spwi619.spl override //Wyvern Call
+  spwi620.spl override //Conjure Fire Elemental
+  spwi621.spl override //Conjure Air Elemental
+  spwi622.spl override //Conjure Earth Elemental
+  spwi623.spl override //Carrion Summons
+  spwi624.spl override //Summon Nishruu
+  spwi707.spl override //Cacofiend
+  spwi716.spl override //Mordenkainen's Sword
+  spwi717.spl override //Summon Efreeti
+  spwi718.spl override //Summon Djinni
+  spwi719.spl override //Summon Hakeashar
+  //spwi722.spl override //Limited Wish, power is 0
+  spwi807.spl override //Summon Fiend
+  spwi905.spl override //Gate
+  spwi923.spl override //Summon Planetar
+  spwi924.spl override //Summon Dark Planetar
+  spwish18.spl override //Summon Dark Planetar
+  spwm154.spl override //Cacofiend
+  sumslay.spl override //Summon Slayer Shadow
+  FOR (READ_LONG 0x6a fx_off ELSE 0;fx_off<SOURCE_SIZE;fx_off+=0x30) BEGIN
+    WRITE_BYTE fx_off + 3 0
+  END
+BUT_ONLY
+  
 /////                                                  \\\\\
 ///// store fixes                                      \\\\\
 /////                                                  \\\\\
