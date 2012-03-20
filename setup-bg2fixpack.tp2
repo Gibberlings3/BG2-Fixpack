@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.12~
+VERSION ~v9.13~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
