@@ -14543,61 +14543,40 @@ COPY_EXISTING ~ax1h10.itm~ ~override~
   CLEAR_ARRAY ab_array
   GET_OFFSET_ARRAY ab_array 0x64 4 0x68 2 0 0 0x38
   PHP_EACH ab_array AS int => goa_abil_off BEGIN
-	CLEAR_ARRAY fx_array
-	GET_OFFSET_ARRAY2 fx_array goa_abil_off 0x6a 4 0x1e 2 0x20 2 0x30
-	PHP_EACH fx_array AS int => goa_fx_off BEGIN
-	  t_fx_num += 1
-	END
-  END
-PATCH_IF 0x72 + abil_num*0x38 + 0x30*t_fx_num < BUFFER_LENGTH BEGIN
-  DELETE_BYTES 0x72 + abil_num*0x38 + 0x30*t_fx_num BUFFER_LENGTH - (0x72 + abil_num*0x38 + 0x30*t_fx_num)
-END
-LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EQEFFECT~ INT_VAR "opcode_to_delete" = "177" END              // delete the old, incorrect bonus damage effect
-LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR "opcode_to_delete" = "177" header = "-1" END  // delete the Baldurdash undead slaying effect
-LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR opcode_to_delete = "55" header = "-1" END     // delete the old, incorrect undead slaying effect
-FOR (index4 = 0; index4 < "%abil_num%"; index4 += 1) BEGIN
-  READ_BYTE   ("%abil_off%" +        ("%index4%" * 0x38)) "abil_type"
-// note: the extra damage and the "Undead Destroyed" string need to go before the death effect, otherwise they won't display in the combat log
-  PATCH_IF (%abil_type% = 1) BEGIN                                              // melee ability header
-  READ_SHORT  ("%abil_off%" + 0x1e + ("%index4%" * 0x38)) "abil_fx_num"
-  READ_SHORT  ("%abil_off%" + 0x20 + ("%index4%" * 0x38)) "abil_fx_idx"
-    PATCH_FOR_EACH ~resref~ IN ~die~ ~mesdie~ ~ax1h10a~ BEGIN 
-     INSERT_BYTES ("%fx_off%" +        ("%abil_fx_idx%" * 0x30))      0x30      // new effect
-     WRITE_SHORT  ("%fx_off%" +        ("%abil_fx_idx%" * 0x30))       177      // use eff
-     WRITE_BYTE   ("%fx_off%" + 0x02 + ("%abil_fx_idx%" * 0x30))         2      // target: preset target
-     WRITE_LONG   ("%fx_off%" + 0x04 + ("%abil_fx_idx%" * 0x30))         4      // param1
-     WRITE_LONG   ("%fx_off%" + 0x08 + ("%abil_fx_idx%" * 0x30))         3      // param2
-     WRITE_BYTE   ("%fx_off%" + 0x0c + ("%abil_fx_idx%" * 0x30))         1      // timing
-     WRITE_BYTE   ("%fx_off%" + 0x12 + ("%abil_fx_idx%" * 0x30))       100      // probability
-     WRITE_ASCIIE ("%fx_off%" + 0x14 + ("%abil_fx_idx%" * 0x30)) ~%resref%~ #8  // resref
-     SET %abil_fx_num% += 1                                                     // number of ability effects
+    CLEAR_ARRAY fx_array
+    GET_OFFSET_ARRAY2 fx_array goa_abil_off 0x6a 4 0x1e 2 0x20 2 0x30
+    PHP_EACH fx_array AS int => goa_fx_off BEGIN
+      t_fx_num += 1
     END
-  WRITE_SHORT (%abil_off% + %index4% * 0x38 + 0x1e) %abil_fx_num%               // update the number of ability effects
   END
-END
-FOR (index5 = 0; index5 < "%abil_num%"; index5 += 1) BEGIN
-  READ_BYTE   ("%abil_off%" +        ("%index5%" * 0x38)) "abil_type"
-  PATCH_IF (%abil_type% = 2) BEGIN                                              // ranged ability header
-  READ_SHORT  ("%abil_off%" + 0x1e + ("%index5%" * 0x38)) "abil_fx_num"
-  READ_SHORT  ("%abil_off%" + 0x20 + ("%index5%" * 0x38)) "abil_fx_idx"
-    WRITE_SHORT ("%abil_off%" + 0x18) 1                                         // adjust dice rolls (1d6)
-    WRITE_BYTE  ("%abil_off%" + 0x26) 1                                         // allow strength bonus
-    PATCH_FOR_EACH ~resref~ IN ~die~ ~mesdie~ ~ax1h10b~ BEGIN 
-     INSERT_BYTES ("%fx_off%" +        ("%abil_fx_idx%" * 0x30))      0x30      // new effect
-     WRITE_SHORT  ("%fx_off%" +        ("%abil_fx_idx%" * 0x30))       177      // use eff
-     WRITE_BYTE   ("%fx_off%" + 0x02 + ("%abil_fx_idx%" * 0x30))         2      // target: preset target
-     WRITE_LONG   ("%fx_off%" + 0x04 + ("%abil_fx_idx%" * 0x30))         4      // param1
-     WRITE_LONG   ("%fx_off%" + 0x08 + ("%abil_fx_idx%" * 0x30))         3      // param2
-     WRITE_BYTE   ("%fx_off%" + 0x0c + ("%abil_fx_idx%" * 0x30))         1      // timing
-     WRITE_BYTE   ("%fx_off%" + 0x12 + ("%abil_fx_idx%" * 0x30))       100      // probability
-     WRITE_ASCIIE ("%fx_off%" + 0x14 + ("%abil_fx_idx%" * 0x30)) ~%resref%~ #8  // resref
-     SET %abil_fx_num% += 1                                                     // number of ability effects
+  PATCH_IF 0x72 + abil_num*0x38 + 0x30*t_fx_num < BUFFER_LENGTH BEGIN
+    DELETE_BYTES 0x72 + abil_num*0x38 + 0x30*t_fx_num BUFFER_LENGTH - (0x72 + abil_num*0x38 + 0x30*t_fx_num)
+  END
+  LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EQEFFECT~ INT_VAR "opcode_to_delete" = "177" END              // delete the old, incorrect bonus damage effect
+  LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR "opcode_to_delete" = "177" header = "-1" END  // delete the Baldurdash undead slaying effect
+  LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR opcode_to_delete = "55" header = "-1" END     // delete the old, incorrect undead slaying effect
+  // note: the extra damage and the "Undead Destroyed" string need to go before the death effect, otherwise they won't display in the combat log
+  PATCH_FOR_EACH resref IN mesdie ax1h10a die BEGIN
+    LPF ADD_ITEM_EFFECT
+      INT_VAR
+        type = 99      //all types
+        opcode = 177   //use eff  
+        target = 2
+        parameter1 = 4 //undead
+        parameter2 = 3 //general.ids
+        timing = 1
+      STR_VAR
+        resource = EVAL "%resref%"
     END
-  WRITE_SHORT (%abil_off% + %index5% * 0x38 + 0x1e) %abil_fx_num%               // update the number of ability effects
   END
-END
-BUT_ONLY_IF_IT_CHANGES
-
+  FOR (i =  0; i < abil_num; ++i) BEGIN
+    READ_BYTE abil_off + i * 0x38 abil_type
+    PATCH_IF abil_type = 2 BEGIN                //ranged
+      WRITE_SHORT abil_off + 0x18 1             //number of dice of damage (1d6)
+      WRITE_BYTE  abil_off + 0x26 THIS BOR BIT0 //allow strength bonus
+    END
+  END
+BUT_ONLY
 
 // name fix for FoA +2
 COPY_EXISTING ~blun14d.itm~ ~override~
@@ -18793,7 +18772,8 @@ COPY_EXISTING ~spcl415.spl~ ~override~ // otiluke's sphere (special snare)
   FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
     READ_SHORT  ("%abil_off%" + 0x10 + (0x28 * "%index%")) "level"
     READ_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
-    WRITE_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) ("%abil_fx_idx%" + "%fx_delta%")
+    abil_fx_idx += fx_delta
+    WRITE_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) abil_fx_idx
     PATCH_IF ((("%level%" = 16) AND ("%SOURCE_RES%" STRING_COMPARE_CASE "spcl415" = 0)) OR // otilukes from snare
                ("%SOURCE_RES%" STRING_COMPARE_CASE "spwi413" = 0)) BEGIN                   // otilukes from arcana
       READ_SHORT  ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
@@ -21039,51 +21019,70 @@ COPY_EXISTING ~spwi313.spl~ ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// protection from fire and protection from cold missing lev 19, 20 abilities
+// protection from fire and protection from cold missing lev 19, 20 abilities (revised by Wisp)
 COPY_EXISTING ~spwi319.spl~ ~override~
               ~spwi320.spl~ ~override~
-  READ_LONG  0x64 "abil_off"
-  READ_SHORT 0x68 "abil_num"
-  READ_LONG  0x6a "fx_off"
-  SET "delta" = 0
-  SET "loops" = 0
-  PATCH_IF ("%abil_num%" > 0) BEGIN // grabs last ability (lev 18)
-    READ_SHORT (("%fx_off%" - 0x28) + 0x10) "min_lev"
-  END
-  PATCH_IF ("%min_lev%" < 19) BEGIN
-    INSERT_BYTES "%fx_off%" 0x50
-    SET "delta" = 2
-    READ_ASCII (("%fx_off%" - 0x28)       ) "abil_clone" (0x28)
-    READ_SHORT (("%fx_off%" - 0x28) + 0x1e) "abil_fx_num"
-    READ_SHORT (("%fx_off%" - 0x28) + 0x20) "abil_fx_idx"
-  END
-  WHILE ("%delta%" > "%loops%") BEGIN // this clones the lev 18 abilities to the two new lev 19, 20 ones
-    WRITE_EVALUATED_ASCII (("%fx_off%" + (0x28 * "%loops%"))       ) "%abil_clone%"
-    WRITE_SHORT (("%fx_off%" + (0x28 * "%loops%")) + 0x10) ("%min_lev%" + 1 + "%loops%")
-    WRITE_SHORT (("%fx_off%" + (0x28 * "%loops%")) + 0x1e) "%abil_fx_num%"
-    WRITE_SHORT (("%fx_off%" + (0x28 * "%loops%")) + 0x20) ("%abil_fx_idx%" + (("%loops%" + 1) * "%abil_fx_num%"))
-    SET "loops" = ("%loops%" + 1)
-  END
-  WRITE_SHORT 0x68 ("%abil_num%" + "%delta%")
-  SET "fx_off" = ("%fx_off%" + (0x28 * "%delta%"))
-  WRITE_LONG  0x6a "%fx_off%"
-  INSERT_BYTES ("%fx_off%" + (0x30 * ("%abil_fx_num%" + "%abil_fx_idx%"))) (0x30 * (2 * "%abil_fx_num%"))
-  WHILE ("%delta%" > 0) BEGIN
-    SET "loops" = "%abil_fx_num%"
-    WHILE ("%loops%" > 0) BEGIN
-      SET "loops" = ("%loops%" - 1)
-      READ_ASCII  ("%fx_off%" + 0x00 + (0x30 * ("%loops%" + "%abil_fx_idx%"))) "clone" (0x30)
-      WRITE_EVALUATED_ASCII ("%fx_off%" + 0x00 + (0x30 * ("%loops%" + "%abil_fx_idx%")) + ("%delta%" * (0x30 * "%abil_fx_num%"))) "%clone%"
-      READ_LONG  ("%fx_off%" + 0x0e + (0x30 * ("%loops%" + "%abil_fx_idx%"))) "duration"
-      PATCH_IF ("%duration%" > 5) BEGIN
-        WRITE_LONG ("%fx_off%" + 0x0e + (0x30 * ("%loops%" + "%abil_fx_idx%")) + ("%delta%" * (0x30 * "%abil_fx_num%"))) ("%duration%" + ("%delta%" * 60))
-      END ELSE BEGIN
-        WRITE_LONG ("%fx_off%" + 0x0e + (0x30 * ("%loops%" + "%abil_fx_idx%")) + ("%delta%" * (0x30 * "%abil_fx_num%"))) "%duration%"
+  READ_LONG  0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  READ_LONG  0x6a fx_off
+  19p = 0
+  20p = 0
+  FOR (i = 0; i < abil_num; ++i) BEGIN                  //Find the insertion points
+    READ_SHORT abil_off + 0x28 * i + 0x10 min_level
+    PATCH_IF min_level = 18 BEGIN
+      READ_ASCII abil_off + 0x28 * i        abil_clone (0x28)
+      READ_SHORT abil_off + 0x28 * i + 0x1e num_fx
+      READ_SHORT abil_off + 0x28 * i + 0x20 fx_idx
+      READ_ASCII fx_off + 0x30 * fx_idx fx_block_clone (0x30 * num_fx)
+      header_point = abil_off + 0x28 * (i + 1)          //+1, to get ahead of the level 18 header 
+      fx_point = fx_off + 0x30 * (fx_idx + num_fx)
+      FOR (j = abil_num - 1; j > 0; --j) BEGIN          //Verify that levels 19 and 20 are indeed missing; in this context j must always be positive, 
+                                                        //since we know we have at least one header for level 18
+        READ_SHORT abil_off + 0x28 * j + 0x10 check
+        PATCH_IF check = 18 BEGIN                       //No point in going further; it ain't here
+          j = 0
+        END
+        PATCH_IF check = 19 BEGIN
+          19p = 1
+          READ_SHORT abil_off + 0x28 * j + 0x1e 19num_fx
+          READ_SHORT abil_off + 0x28 * j + 0x20 19fx_idx
+          header_point = abil_off + 0x28 * (j + 1)      //If we have a level 19 header we need to update these
+          fx_point = fx_off + 0x30 * (19num_fx + 19fx_idx)
+        END
+        PATCH_IF check = 20 BEGIN
+          20p = 1
+        END
       END
     END
-    SET "delta" = ("%delta%" - 1)
   END
-  BUT_ONLY_IF_IT_CHANGES
+  PATCH_IF VARIABLE_IS_SET header_point BEGIN           //Insert new headers and effects, assuming nothing has gone wrong
+    PATCH_FOR_EACH level IN 20 19 BEGIN                 //Reversed to minimise the bookkeeping
+      PATCH_IF !EVAL "%level%p" BEGIN
+        INSERT_BYTES header_point         0x28
+        WRITE_ASCIIE header_point         "%abil_clone%"
+        WRITE_SHORT  header_point + 0x10  level
+        fx_idx += (num_fx * (level - 18))
+        WRITE_SHORT  header_point + 0x20  fx_idx
+        fx_off += 0x28
+        fx_point += 0x28
+        ++abil_num
+        INSERT_BYTES fx_point             0x30 * num_fx
+        WRITE_ASCIIE fx_point             "%fx_block_clone%"
+        FOR (i = 0; i < num_fx; ++i) BEGIN              //Adjust the duration for the new effects, 1 turn/level, but not for the instant or
+                                                        //near-instant effects
+          WRITE_LONG fx_point + 0x30 * i + 0xe THIS < 5 ? THIS : 60 * level
+        END
+      END
+    END
+  END
+  WRITE_SHORT 0x68 abil_num
+  WRITE_LONG  0x6a fx_off
+  READ_SHORT  0x70 fx_idx                               //aka number of global effects
+  FOR (i = 0; i < abil_num; ++i) BEGIN                  //Update fx_idx, in case there are headers for levels > 20
+    WRITE_SHORT abil_off + 0x28 * i + 0x20 fx_idx
+    fx_idx += SHORT_AT (abil_off + 0x28 * i + 0x1e)     //number of effects
+  END
+BUT_ONLY
 
 // confusion (mage) missing -2 save penalty
 COPY_EXISTING ~spwi401.spl~ ~override~
@@ -28027,6 +28026,13 @@ COPY_EXISTING coplion.cre override
   END
 BUT_ONLY
 
+//Sahuagin with a gnoll soundset; strip him of all sounds, as that is how other Sahuagin roll (Wisp)
+COPY_EXISTING chevil04.cre override
+  PATCH_FOR_EACH offset IN 0xc8 0xcc 0xec 0xf0 0x10c 0x110 BEGIN
+    WRITE_LONG offset "-1"
+  END
+BUT_ONLY
+
 /////                                                  \\\\\
 ///// item file fixes                                  \\\\\
 /////                                                  \\\\\
@@ -28197,30 +28203,28 @@ COPY_EXISTING ~dart03.itm~   ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// int drain immunity should also suppress strings, icon
+// int drain immunity should also suppress strings, icon (revised by Wisp)
 COPY_EXISTING ~ipsion.itm~ ~override~
-  READ_LONG   0x64 "abil_off"
-  READ_SHORT  0x68 "abil_num"
-  READ_LONG   0x6a "fx_off"
-  READ_SHORT  0x70 "fx_num"
-  WRITE_SHORT 0x70 ("%fx_num%" + 3)
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    READ_SHORT  ("%abil_off%" + 0x20 + ("%abil_num%" * 0x38)) "abil_fx_idx"
-    WRITE_SHORT ("%abil_off%" + 0x20 + ("%abil_num%" * 0x38)) ("%abil_fx_idx%" + 3)
+  LPF ADD_ITEM_EQEFFECT
+    INT_VAR
+      opcode = 169             //prevent portrait icon
+      target = 1
+      parameter2 = 86          //icon: int drain
+      timing = 2
   END
-  FOR (index2 = 0 ; index2 < 3 ; index2 = index2 + 1) BEGIN
-    INSERT_BYTES  ("%fx_off%"       ) 0x30
-      WRITE_SHORT ("%fx_off%"       ) 267  // disable display string
-      WRITE_BYTE  ("%fx_off%" + 0x02) 1    // target self
-      WRITE_BYTE  ("%fx_off%" + 0x0c) 2    // instant/while equipped
-      WRITE_BYTE  ("%fx_off%" + 0x0d) 1    // dispel/bypass
-      WRITE_BYTE  ("%fx_off%" + 0x12) 100  // probability 1
+  PATCH_FOR_EACH parameter1 IN
+                 14021         // string: int modification
+                 32089         // string: devour brain
+  BEGIN
+    LPF ADD_ITEM_EQEFFECT
+      INT_VAR
+        opcode = 267           //protection from display string 
+        target = 1
+        parameter1
+        timing = 2
+    END
   END
-  WRITE_SHORT ("%fx_off%"       ) 169   // prevent portrait icon
-  WRITE_SHORT ("%fx_off%" + 0x08) 86    // icon: int drain
-  WRITE_SHORT ("%fx_off%" + 0x34) 14021 // string: int modification
-  WRITE_SHORT ("%fx_off%" + 0x64) 32089 // string: devour brain
-  BUT_ONLY_IF_IT_CHANGES
+BUT_ONLY
 
 // book of infinite spells; see all misc3a*.itm
 COPY_EXISTING ~misc3a.itm~ ~override/misc3aa.itm~ // zero lore copy
