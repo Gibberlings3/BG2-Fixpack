@@ -20068,11 +20068,9 @@ COPY_EXISTING ~sppr203.spl~  ~override~
         WRITE_BYTE  ("%eo%"+(0x30*("%ei%"+"%i2%"))+0x12) 0x64 // min prob 100%
       END                                                     // FOR i2 effect fleshing
       WRITE_SHORT   ("%ho%"+(0x28*"%i1%")+0x1e) 0x02          // effects for header i+1
-      FOR ("i3"="%i1%"; "%i3%"<"%hc%"; "i3"+=1)               BEGIN
+      FOR ("i3"="%i1%" + 1; "%i3%"<"%hc%"; "i3"+=1)           BEGIN //i1 + 1, because we only want to update the later headers
         READ_SHORT  ("%ho%"+(0x28*"%i3%")+0x20) "ix"          // search later header indices
-        PATCH_IF ("%ix%">0)                              THEN BEGIN
-          WRITE_SHORT ("%ho%"+(0x28*"%i3%")+0x20) (("%ix%"-"%ec%")+0x02)
-        END                                                   // PATCH_IF
+        WRITE_SHORT ("%ho%"+(0x28*"%i3%")+0x20) (("%ix%"-"%ec%")+0x02)
       END                                                     // FOR i3; rewriting ability effect indices
     END                                                       // FOR i1
   END                                                         // PATCH_IF filesize check
@@ -20710,11 +20708,11 @@ COPY_EXISTING ~spwi101.spl~ ~override~
   READ_LONG   0x6a "fx_off"
   READ_SHORT  0x70 "fx_num"
   FOR ("index" = 0; "%index%" < "%abil_num%"; "index" = ("%index%" + 1)) BEGIN // first fix existing effects
-    WRITE_SHORT ("%abil_off%" + 0x0e + ("%index%" * 0x28)) 30 // corrects range
-    WRITE_SHORT ("%abil_off%" + 0x12 + ("%index%" * 0x28)) 1  // casting time
-    READ_SHORT  ("%abil_off%" + 0x10) "min_lev"
-    READ_SHORT  ("%abil_off%" + 0x1e) "abil_fx_num"
-    READ_SHORT  ("%abil_off%" + 0x20) "abil_fx_idx"
+    WRITE_SHORT ("%abil_off%" + index * 0x28 + 0x0e + ("%index%" * 0x28)) 30 // corrects range
+    WRITE_SHORT ("%abil_off%" + index * 0x28 + 0x12 + ("%index%" * 0x28)) 1  // casting time
+    READ_SHORT  ("%abil_off%" + index * 0x28 + 0x10) "min_lev"
+    READ_SHORT  ("%abil_off%" + index * 0x28 + 0x1e) "abil_fx_num"
+    READ_SHORT  ("%abil_off%" + index * 0x28 + 0x20) "abil_fx_idx"
     FOR ("index2" = 0; "%index2%" < "%abil_fx_num%"; "index2" = ("%index2%" + 1)) BEGIN
       READ_LONG ("%fx_off%" + 0x0e + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "duration"
       PATCH_IF ("%duration%" > 5) BEGIN // longer than one round
