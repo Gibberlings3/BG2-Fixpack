@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~webmaster@gibberlings3.net~ // email address displayed if install fails
 
-VERSION ~v9.13~
+VERSION ~v9.14~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -3501,12 +3501,14 @@ COPY_EXISTING ~udeggs.BCS~ ~override~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
 
-// Killing war elves while escaping Underdark let's you kill the surface elves
-COPY_EXISTING ~udelf1.bcs~ ~override~
-              ~udelf2.bcs~ ~override~
-              ~udelf3.bcs~ ~override~
+// Killing war elves while escaping Underdark lets you kill the surface elves
+COPY_EXISTING  ~c6elf.bcs~ ~override~
+			 ~c6elhan.bcs~ ~override~
+			 ~c6extra.bcs~ ~override~
+			 ~c6gener.bcs~ ~override~
+			 ~warsage.bcs~ ~override~
   DECOMPILE_BCS_TO_BAF
-  REPLACE_TEXTUALLY ~SetGlobal("GoodElfKill","GLOBAL",1)~ ~SetGlobal("GoodElfKill","GLOBAL",2)~
+  REPLACE_TEXTUALLY ~Global("GoodElfKill","GLOBAL",0)~ ~GlobalLT("GoodElfKill","GLOBAL",2)~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
 
@@ -13366,7 +13368,7 @@ COPY_EXISTING ~amul16.itm~   ~override~ // metaspell influence amulet
 //              ~scrl5d.itm~   ~override~ // protection from evil 10'
 //              ~scrl5e.itm~   ~override~ // champion's strength
 //              ~scrl5f.itm~   ~override~ // chaotic commands
-//              ~scrl5g.itm~   ~override~ // remove curse
+                ~scrl5g.itm~   ~override~ // remove curse (wizard version)
 //              ~scrl61.itm~   ~override~ // cure critical wounds
 //              ~scrl62.itm~   ~override~ // flame strike
 //              ~scrl63.itm~   ~override~ // raise dead
@@ -33349,30 +33351,15 @@ COPY_EXISTING_REGEXP GLOB ~^cdelfcm[0-6]\.eff$~ ~override~
   BUT_ONLY_IF_IT_CHANGES
 */
 
-// lets monks use all those cleric goodies again
+// undo monk item usability fixes
 /*
 COPY_EXISTING ~amul21.itm~   ~override~ // Amulet of power
               ~brac21.itm~   ~override~ // gauntlets of ex specialization
               ~ring22.itm~   ~override~ // ring o' holiness
               ~ring35.itm~   ~override~ // ring of lock picking
               ~ring40.itm~   ~override~ // ring of acuity
-              ~scrl56.itm~   ~override~ // cure serious wounds
-              ~scrl58.itm~   ~override~ // free action
-              ~scrl59.itm~   ~override~ // neutralize poison
-              ~scrl5a.itm~   ~override~ // mental domination
-              ~scrl5b.itm~   ~override~ // defensive harmony
-              ~scrl5c.itm~   ~override~ // protection from lightning
-              ~scrl5d.itm~   ~override~ // protection from evil 10'
-              ~scrl5e.itm~   ~override~ // champion's strength
-              ~scrl5f.itm~   ~override~ // chaotic commands
-              ~scrl5g.itm~   ~override~ // remove curse
-              ~scrl61.itm~   ~override~ // cure critical wounds
-              ~scrl62.itm~   ~override~ // flame strike
-              ~scrl63.itm~   ~override~ // raise dead
               ~scrl8c.itm~   ~override~ // stone to flesh
-              ~wa2amu.itm~   ~override~ // sensate amulet
               ~wa2ring.itm~  ~override~ // mercykiller ring
-              ~wand11.itm~   ~override~ // wand of the heavens
   PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
     READ_BYTE  0x21 "mu"
     WRITE_BYTE 0x21 ("mu" & (` 0xdf)) // removes monk unusability flag
