@@ -14556,17 +14556,22 @@ COPY_EXISTING ~ax1h10.itm~ ~override~
   LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR "opcode_to_delete" = "177" header = "-1" END  // delete the Baldurdash undead slaying effect
   LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR opcode_to_delete = "55" header = "-1" END     // delete the old, incorrect undead slaying effect
   // note: the extra damage and the "Undead Destroyed" string need to go before the death effect, otherwise they won't display in the combat log
-  PATCH_FOR_EACH resref IN mesdie ax1h10a die BEGIN
-    LPF ADD_ITEM_EFFECT
-      INT_VAR
-        type = 99      //all types
-        opcode = 177   //use eff  
-        target = 2
-        parameter1 = 4 //undead
-        parameter2 = 3 //general.ids
-        timing = 1
-      STR_VAR
-        resource = EVAL "%resref%"
+  PATCH_FOR_EACH type IN 2 1 BEGIN
+    PATCH_IF type = 1 BEGIN
+      SPRINT damage ax1h10a        //Slashing damage for melee header
+    END ELSE SPRINT damage ax1h10b //Missile damage for ranged header
+    PATCH_FOR_EACH resref IN mesdie "%damage%" die BEGIN
+      LPF ADD_ITEM_EFFECT
+        INT_VAR
+          type
+          opcode = 177   //use eff  
+          target = 2
+          parameter1 = 4 //undead
+          parameter2 = 3 //general.ids
+          timing = 1
+        STR_VAR
+          resource = EVAL "%resref%"
+      END
     END
   END
   FOR (i =  0; i < abil_num; ++i) BEGIN
