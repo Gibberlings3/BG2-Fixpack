@@ -17933,7 +17933,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY fl#speed_item BEGIN
   SPER12   => 1  //Ixil's Spike +6
   STAF04   => 4  //Quarterstaff
   STAF05   => 1  //Staff of Striking
-  STAF11   => 3  //Staff of the Magi
+  //STAF11   => 1  //Staff of the Magi
   STAF13   => 2  //Staff of Thunder and Lightning
   SW1H26   => 2  //Ilbratha +1
   SW1H53   => 4  //Sword of Flame +1
@@ -17987,6 +17987,15 @@ ACTION_PHP_EACH fl#weight_item AS item => weight BEGIN
     BUT_ONLY
   END
 END
+
+//Correcting the damage of Bruenor's axe to be in line with the description (Wisp)
+COPY_EXISTING bruenaxe.itm override
+  READ_LONG 0x64 ao
+  FOR (i = 0; i < SHORT_AT 0x68; ++i) BEGIN
+    WRITE_BYTE ao + 0x38 * i + 0x18 1 //1dN
+  END
+BUT_ONLY
+    
 
 /////                                                  \\\\\
 ///// spell fixes                                      \\\\\
@@ -27169,6 +27178,37 @@ BUT_ONLY_IF_IT_CHANGES
 
 APPEND ~tooltip.2da~ // adds dupe book of infinite spells
   ~MISC3AA           6618         4731        -1~
+
+//The progression of the Kensai abilities SPCL141 and SPCL143 are both irregular; the table is also one cell short in the first row
+//The levels for SPCL143 for level < 9 are the same as vanilla
+COPY_EXISTING clabfi04.2da override
+  REPLACE_TEXTUALLY ~AP_SPCL141[ %TAB%]+\*\*\*\*[ %TAB%]+AP_SPCL141~
+                    ~AP_SPCL141  **** ****  AP_SPCL141~            //Fix the broken progression for SPCL141 by adding the missing cell
+  REPLACE_TEXTUALLY AP_SPCL143 "****"                              //Remove all instances of SPCL143 and start from scratch
+  COUNT_2DA_COLS cols
+  READ_2DA_ENTRIES_NOW "#rclabfi04" cols
+  PATCH_FOR_EACH j IN 1 4 BEGIN                                    //Write the entries for levels < 8
+    FOR (i = 0; i < "#rclabfi04"; ++i) BEGIN
+      READ_2DA_ENTRY_FORMER "#rclabfi04" i j entry
+      PATCH_IF "%entry%" STRING_EQUAL "****" BEGIN
+        SET_2DA_ENTRY_LATER "#sclabfi04" i j AP_SPCL143
+        i = "#rclabfi04"
+      END
+    END
+  END
+  FOR (i = 8; i < cols; i += 4) BEGIN                              //Add abilities every 4 levels starting at level 8
+    FOR (j = 0; j < "#rclabfi04"; ++j) BEGIN
+      READ_2DA_ENTRY_FORMER "#rclabfi04" j i entry
+      PATCH_IF "%entry%" STRING_EQUAL "****" BEGIN
+        SET_2DA_ENTRY_LATER "#sclabfi04" j i AP_SPCL143
+        j = "#rclabfi04"
+      END
+    END
+  END
+  SET_2DA_ENTRIES_NOW "#sclabfi04" cols
+  PRETTY_PRINT_2DA
+BUT_ONLY
+
 
 /////                                                  \\\\\
 ///// mass compile/copy actions actions                \\\\\

@@ -5346,7 +5346,7 @@ THAC0: +1 bonus  (strikes as a +5 weapon)
 Damage:  1D6 +1
 Damage type:  crushing
 Weight: 4
-Speed Factor: 3
+Speed Factor: 1
 Proficiency Type: Quarterstaff
 Type:  2-handed
 Requires: 5 Strength
