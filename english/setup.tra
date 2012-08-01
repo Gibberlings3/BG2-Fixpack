@@ -1162,26 +1162,6 @@ Not Usable By:
  Cleric
  Mage
  Thief~
-
-//Originally string #1764
-@209 = ~Battle Axe +3
-
-This is the axe of Bruenor Battlehammer, and a fine weapon it is. It has a formidable single-edged blade, and handles with the efficiency of a hand axe despite its size.
-
-STATISTICS:
-
-THAC0: +3 bonus
-Damage:  3D8 + 3
-Damage type:  slashing
-Weight: 6
-Speed Factor: 4
-Proficiency Type: Axe
-Type:  1-handed
-Not Usable By:
- Druid
- Cleric
- Mage 
- Thief~
                           
 //Originally string #21957                          
 @210 = ~Bala's Axe - Wizard Slayer:

@@ -1342,8 +1342,7 @@ ACTION_IF ("%LANGUAGE%" STRING_COMPARE_CASE "korean") THEN BEGIN // no korean tr
   
   //Description fixes for item weight, speed factor and other things (Wisp)
   //NB. This will need to be moved based on what translations we get (as will the corresponding ToB part)
-  STRING_SET  1764 @209   
-              8505 @191
+  STRING_SET  8505 @191
              19359 @177
              21957 @210
              32186 @211
