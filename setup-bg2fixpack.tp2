@@ -5056,6 +5056,7 @@ COPY_EXISTING ~AR2400.ARE~ ~override~
   BUT_ONLY_IF_IT_CHANGES
   
 // war elves in ar2401 go hostile with drow shouts
+//no longer seems to make a difference (no shout scripts on the war elves), but left intact anyway (Wisp)
 COPY_EXISTING ~ar2401.are~ ~override~
   READ_LONG  0x54 "actor_off"
   READ_SHORT 0x58 "actor_num"
@@ -16232,9 +16233,12 @@ COPY_EXISTING ~potn07.itm~ ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// thrown oil of fiery burning shouldn't say 'gulp!', fix power levels
+// thrown oil of fiery burning shouldn't say 'gulp!', fix power levels (CamDawg)
 // oil of fiery burning damage incorrect
 COPY_EXISTING ~potn13.itm~ ~override~
+  LAUNCH_PATCH_FUNCTION ~DELETE_ITEM_EFFECT~ INT_VAR
+    opcode_to_delete = "139" // kills 'gulp' effect
+  END
   READ_LONG   0x64 "abil_off"
   READ_SHORT  0x68 "abil_num"
   READ_LONG   0x6a "fx_off"
@@ -16242,17 +16246,14 @@ COPY_EXISTING ~potn13.itm~ ~override~
     READ_SHORT  (0x1e + "%abil_off%" + ("%index%" * 0x38)) "abil_fx_num"
     READ_SHORT  (0x20 + "%abil_off%" + ("%index%" * 0x38)) "abil_fx_idx"
     FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
-      READ_BYTE  ("%fx_off%" +        (("%abil_fx_idx%" + "%index2%") * 0x30)) "opcode"
+      READ_SHORT ("%fx_off%" +          (("%abil_fx_idx%" + "%index2%") * 0x30)) "opcode"
       WRITE_BYTE ("%fx_off%" + 0x03 + (("%abil_fx_idx%" + "%index2%") * 0x30)) 0 // should bypass spell protections
-      PATCH_IF ("%opcode%" = 139) BEGIN  // display string
-        WRITE_BYTE ("%fx_off%" + 0x12 + (("%abil_fx_idx%" + "%index2%") * 0x30)) 0 // probability 0
-      END
       PATCH_IF ("%opcode%" = 12) BEGIN // as long as we're here, fix duration
-        WRITE_BYTE ("%fx_off%" + 0x0e + (("%abil_fx_idx%" + "%index%") * 0x30)) 0 // instant/perm effects should have 0 duration
-        READ_BYTE  ("%fx_off%" + 0x24 + (("%abil_fx_idx%" + "%index%") * 0x30)) "save"
+        READ_LONG  ("%fx_off%" + 0x24 + (("%abil_fx_idx%" + "%index2%") * 0x30)) "save"
+        WRITE_BYTE ("%fx_off%" + 0x0e + (("%abil_fx_idx%" + "%index2%") * 0x30)) 0 // instant/perm effects should have 0 duration
         PATCH_IF ("%save%" = 0) BEGIN // if not subject to save
-          WRITE_LONG  ("%fx_off%" + 0x1c + (("%abil_fx_idx%" + "%index%") * 0x30)) 2 // two rolls...
-          WRITE_LONG  ("%fx_off%" + 0x20 + (("%abil_fx_idx%" + "%index%") * 0x30)) 6 // of 6-sided die
+          WRITE_LONG  ("%fx_off%" + 0x1c + (("%abil_fx_idx%" + "%index2%") * 0x30)) 2 // two rolls...
+          WRITE_LONG  ("%fx_off%" + 0x20 + (("%abil_fx_idx%" + "%index2%") * 0x30)) 6 // of 6-sided die
         END
       END
     END
@@ -22511,10 +22512,10 @@ COPY_EXISTING ~amsmug01.sto~ ~override~ // Amkethran Smugglers (Carras)
 ///// pro fixes                                        \\\\\
 /////                                                  \\\\\
 
-// color spray arc fix
+// color spray distance fix (Avenger)
 COPY_EXISTING ~cspray.pro~ ~override~
-  WRITE_SHORT 0x206 256
-  BUT_ONLY_IF_IT_CHANGES
+  WRITE_SHORT 0x206 426
+BUT_ONLY_IF_IT_CHANGES
 
 // power word blind should also affect party/allies
 COPY_EXISTING ~holdsumm.pro~ ~override~
