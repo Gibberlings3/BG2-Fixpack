@@ -29466,7 +29466,7 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
               ~sword01.cre~  ~override~ // magical sword
               ~telslav2.itm~ ~override~ // <invalid strref -1>
               ~torgal.cre~   ~override~ // torgal
-               torgal3.cer    override  // torgal
+               torgal3.cre    override  // torgal
               ~trollall.itm~ ~override~ // attack
               ~trollimm.itm~ ~override~ // ring
               ~tstatue.itm~  ~override~ // <invalid strref -1>
