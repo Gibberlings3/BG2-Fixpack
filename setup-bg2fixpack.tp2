@@ -14576,11 +14576,11 @@ COPY_EXISTING ~ax1h10.itm~ ~override~
       END
     END
   END
-  FOR (i =  0; i < abil_num; ++i) BEGIN
-    READ_BYTE abil_off + i * 0x38 abil_type
-    PATCH_IF abil_type = 2 BEGIN                //ranged
-      WRITE_SHORT abil_off + 0x18 1             //number of dice of damage (1d6)
-      WRITE_BYTE  abil_off + 0x26 THIS BOR BIT0 //allow strength bonus
+  GET_OFFSET_ARRAY ab_array ITM_V10_HEADERS
+  PHP_EACH ab_array AS i => o BEGIN
+    PATCH_IF BYTE_AT o = 2 BEGIN       //ranged
+      WRITE_SHORT o + 0x18 1           //number of dice of damage (1d6)
+      WRITE_BYTE  o + 0x26 THIS | BIT0 //allow strength bonus
     END
   END
 BUT_ONLY
@@ -16505,72 +16505,17 @@ COPY_EXISTING ~rods06.itm~ ~override~ // rod of reversal
   END
   BUT_ONLY_IF_IT_CHANGES
 
-// spell failure effects not accompanied by spell failure icon
-COPY_EXISTING ~scrl11.itm~   ~override~ // 100%, cursed scroll
-  SET "abil_length" = 0x38
-  READ_LONG  0x64 "abil_off" ELSE 0
-  READ_SHORT 0x68 "abil_num" ELSE 0
-  READ_LONG  0x6a "fx_off"   ELSE 0
-  READ_SHORT 0x70 "fx_num"   ELSE 0
-  SET "fx_type" = 0
-  SET "new_fx_1" = 0
-  SET "new_fx_2" = 0
-  SET "delta" = 0
-  FOR (index3 = 0 ; index3 < fx_num ; index3 = index3 + 1) BEGIN
-    READ_SHORT ("%fx_off%" + ("%fx_type%" * 0x08) +        (0x30 * "%index3%")) "opcode"
-    READ_LONG  ("%fx_off%" + ("%fx_type%" * 0x10) + 0x08 + (0x30 * "%index3%")) "icon"
-    PATCH_IF ("%opcode%" = 60) BEGIN // entangle overlay
-      READ_ASCII ("%fx_off%" + ("%fx_type%" * 0x08) +        (0x30 * "%index3%")) "clone" (48 + (216 * "%fx_type%"))
-      SET "new_fx_1" = 1
-    END ELSE
-    PATCH_IF (("%opcode%" = 142) AND ("%icon%" = 83)) BEGIN // display spell failure icon
-      SET "new_fx_2" = 1
-    END ELSE
-    PATCH_IF (("%opcode%" = 142) AND ("%icon%" = 105)) BEGIN // display miscast icon
-      WRITE_BYTE ("%fx_off%" + ("%fx_type%" * 0x08) + 0x12 + (0x30 * "%index3%")) 0 // 0% probability
-    END
+// add miscast icons
+COPY_EXISTING ~scrl11.itm~ ~override~ // cursed scroll of clumsiness
+  LAUNCH_PATCH_FUNCTION ~ADD_ITEM_EFFECT~ INT_VAR
+    opcode        = 142 // display portrait icon
+    target        = 1   // target self
+    resist_dispel = 1   // dispel/bypass MR
+    duration      = 600 // duration
+    parameter2    = 105 // miscast magic
+    power         = 4   // power
   END
-  PATCH_IF (("%new_fx_1%" = 1) AND ("%new_fx_2%" = 0)) BEGIN // if spell failure effect but no icon
-    INSERT_BYTES            ("%fx_off%") (0x30 + ("%fx_type%" * 0xa8))         // new effect
-      WRITE_EVALUATED_ASCII ("%fx_off%") "%clone%" // clones miscast effect
-      WRITE_SHORT           ("%fx_off%" + ("%fx_type%" * 0x08)       ) 142       // display portrait icon:
-      WRITE_LONG            ("%fx_off%" + ("%fx_type%" * 0x10) + 0x08) 83        // spell failure
-    SET "delta" = "%delta%" + 1
-    SET "fx_num" = "%fx_num%" + 1
-  END
-  WRITE_SHORT 0x70 "%fx_num%"
-  FOR (index = 0; index < abil_num; index = index + 1) BEGIN
-    SET "new_fx_1" = 0 // reset for each loop through abilities
-    SET "new_fx_2" = 0 // reset for each loop through abilities
-    READ_SHORT ("%abil_off%" + 0x1e + ("%abil_length%" * "%index%")) "abil_fx_num"
-    READ_SHORT ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) "abil_fx_idx"
-    SET "abil_fx_idx" = ("%delta%" + "%abil_fx_idx%")
-    WRITE_SHORT ("%abil_off%" + 0x20 + ("%abil_length%" * "%index%")) "%abil_fx_idx%"
-    FOR (index2 = 0; index2 < abil_fx_num; index2 = index2 + 1) BEGIN
-      READ_SHORT ("%fx_off%" +        (0x30 * ("%abil_fx_idx%" + "%index2%"))) "opcode"
-      READ_LONG  ("%fx_off%" + 0x08 + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "icon"
-      PATCH_IF ("%opcode%" = 60) BEGIN // miscast effects
-        READ_ASCII ("%fx_off%" +        (0x30 * ("%abil_fx_idx%" + "%index2%"))) "clone" (48)
-        SET "new_fx_1" = 1
-      END ELSE
-      PATCH_IF (("%opcode%" = 142) AND ("%icon%" = 83)) BEGIN // display spell failure icon
-        SET "new_fx_2" = 1
-      END ELSE
-      PATCH_IF (("%opcode%" = 142) AND ("%icon%" = 105)) BEGIN // display miscast icon
-        WRITE_BYTE ("%fx_off%" + 0x12 + (0x30 * ("%abil_fx_idx%" + "%index2%"))) 0 // 0% probability
-      END
-    END
-    PATCH_IF (("%new_fx_1%" = 1) AND ("%new_fx_2%" = 0)) BEGIN // if miscast effect but no icon
-      INSERT_BYTES            ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) 0x30          // new effect
-        WRITE_EVALUATED_ASCII ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) "%clone%" #48 // clones miscast effect
-        WRITE_SHORT           ("%fx_off%" +        (0x30 * "%abil_fx_idx%")) 142           // display portrait icon:
-        WRITE_LONG            ("%fx_off%" + 0x08 + (0x30 * "%abil_fx_idx%")) 83            // spell failure
-      SET "delta" = "%delta%" + 1
-      SET "abil_fx_num" = "%abil_fx_num%" + 1
-    END
-    WRITE_SHORT ("%abil_off%" + 0x1e + ("%abil_length%" * "%index%")) "%abil_fx_num%"
-  END
-  BUT_ONLY_IF_IT_CHANGES
+  BUT_ONLY
 
 /////                                                  \\\\\
 ///// big batch o' scroll fixes (thanks devSin)        \\\\\
@@ -18665,21 +18610,19 @@ COPY_EXISTING ~spcl152.spl~ ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
- 
+
 // cavalier resist fear
 COPY_EXISTING ~spcl222.spl~ ~override~
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
   READ_LONG  0x6a "fx_off"
-  WHILE ("%abil_num%" > 0) BEGIN
-    SET "abil_num" = ("%abil_num%" - 1)
-    READ_BYTE ("%abil_off%" + (0x28 * "%abil_num%")) "type"
+  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
+    READ_SHORT ("%abil_off%" + (0x28 * "%index%")) "type"
     PATCH_IF ("%type%" = 1) BEGIN // melee
-      READ_SHORT ("%abil_off%" + 0x1e + (0x28 * "%abil_num%")) "abil_fx_num"
-      READ_SHORT ("%abil_off%" + 0x20 + (0x28 * "%abil_num%")) "abil_fx_idx"
-      WHILE ("%abil_fx_num%" > 0) BEGIN
-        SET "abil_fx_num" = ("%abil_fx_num%" - 1)
-        WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%abil_fx_idx%" + "%abil_fx_num%"))) 3 // dispel/bypass MR
+      READ_SHORT ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
+      READ_SHORT ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
+      FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+        WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%abil_fx_idx%" + "%index2%"))) 3 // dispel/bypass MR
       END
     END
   END
@@ -22648,8 +22591,9 @@ COPY_EXISTING ~QUIVVIS.EFF~ ~override/SPCL903A.EFF~
 COPY_EXISTING ~SPCL906B.EFF~ ~override~
               ~SPIN935D.EFF~ ~override~
               ~STUNSTRG.EFF~ ~override~
-  PATCH_IF (SOURCE_SIZE > 0x2d3) BEGIN
+  PATCH_IF (SOURCE_SIZE >= 0x110) BEGIN
     WRITE_LONG 0x24 0x1 // Instant/Permanent
+    WRITE_LONG 0x28 0x0 // duration
   END
   BUT_ONLY_IF_IT_CHANGES
 
@@ -27511,6 +27455,56 @@ COPY_EXISTING belt10.itm override
   END
 BUT_ONLY
 
+// add arcane spell failure (CamDawg)
+COPY_EXISTING ~scrl12.itm~ ~override~ //cursed scroll of foolishness
+  LAUNCH_PATCH_FUNCTION ~ADD_ITEM_EFFECT~ INT_VAR
+    opcode        = 60  // spell failure
+    target        = 1   // target self
+    duration      = 600 // duration
+    resist_dispel = 1   // dispel/bypass MR
+    parameter1    = 50  // 50% spell failure
+    power         = 4   // power
+  END
+  BUT_ONLY
+
+// add feeblemind icon (CamDawg)
+COPY_EXISTING ~scrl18.itm~ ~override~ // cursed scroll of stupidity
+  LAUNCH_PATCH_FUNCTION ~ADD_ITEM_EFFECT~ INT_VAR
+    opcode        = 142 // display portrait icon
+    target        = 1   // target self
+    resist_dispel = 1   // dispel/bypass MR
+    duration      = 45  // duration
+    parameter2    = 48  // feeblemind
+    power         = 4   // power
+  END
+  BUT_ONLY
+
+//items with dispellable on-equip effects (Wisp)
+COPY_EXISTING AURSTAF.ITM  override //Dispellable protection from projectile: BULLET
+              DRAGRING.ITM override //Dispellable protection from projectile: ARROWHVY, AXE, BOLT, BULLET, DAGGER, DART
+              ELEMCHAN.ITM override //Dispellable opcode 232, renewing globe of blades ability
+              ELEMYANC.ITM override //Ditto
+              IMPINVIS.ITM override //Dispellable invisibility (creatures should not be visible, ever)
+              //IPSION.ITM   override //Dispellable virtually-everything; fixed elsewhere
+              JONHP1.ITM   override //Dispellable protection from fiends
+              KUORING.ITM  override //Dispellable immunity to slow
+              LICH.ITM     override //Dispellable protection from fiends
+              //MAGE01.ITM   override //Invisibility. Should probably be dispellable
+              MAGE05.ITM   override //Free Action. Dispellable everything
+              MAGE06.ITM   override //Dispellable Haste
+              //NPPLAT.ITM   override //Partly dispellable Free Action; fixed elsewhere
+              NPSW03.ITM   override //Dispellable opcode 232, for the 'retribution' type effect on the sword
+              SLAYERWP.ITM override //Dispellable protection from projectile: ARROWHVY, AXE, BOLT, BULLET, DAGGER, DART
+              SW1HSEEK.ITM override //Dispellable APR bonus
+  READ_LONG 0x6a eo
+  FOR (i = 0; i < SHORT_AT 0x70; ++i) BEGIN
+    READ_BYTE eo + 0x30 * i + 0xd rd
+    PATCH_IF rd = 1 OR rd = 3 BEGIN
+      WRITE_BYTE eo + 0x30 * i + 0xd 2
+    END
+  END
+BUT_ONLY
+
 /////                                                  \\\\\
 ///// spell fixes                                      \\\\\
 /////                                                  \\\\\
@@ -28460,6 +28454,74 @@ COPY_EXISTING
     WRITE_BYTE fx_off + 3 0
   END
 BUT_ONLY
+
+// Chromatic Orb is supposed to cause blindness at level one but instead causes -4 penalties to AC, THAC0, and saves. (CamDawg)
+COPY_EXISTING ~spwi118.spl~ ~override~
+              ~spdr101.spl~ ~override~
+  PATCH_FOR_EACH "deleteme" IN 34 35 36 37 BEGIN
+    LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = %deleteme% END
+  END
+  READ_LONG  0x64 "abil_off" ELSE 0
+  READ_LONG  0x6a "fx_off"   ELSE 0
+  READ_SHORT  ("%abil_off%" + 0x20) "abil_fx_idx" // lev 1
+  READ_SHORT  ("%abil_off%" + 0x1e) "abil_fx_num" // lev 1
+  FOR (index = 0 ; index < abil_fx_num ; index = index + 1) BEGIN
+    READ_SHORT ("%fx_off%" +                (0x30 * ("%abil_fx_idx%" + "%index%"))) "opcode"
+    PATCH_IF ("%opcode%" = 0) BEGIN // change ac bonus to blindness
+      WRITE_SHORT ("%fx_off%" +             (0x30 * ("%abil_fx_idx%" + "%index%"))) 74 // blindness
+    END
+    PATCH_IF ("%opcode%" = 54) BEGIN // change thac0 bonus to blind icon
+      WRITE_SHORT ("%fx_off%" +             (0x30 * ("%abil_fx_idx%" + "%index%"))) 142 // display portrait icon
+      WRITE_LONG  ("%fx_off%" + 0x08 + (0x30 * ("%abil_fx_idx%" + "%index%")))   8 // blindness
+    END
+    PATCH_IF ("%opcode%" = 33) BEGIN // change one of the saves to blinded string
+      WRITE_SHORT ("%fx_off%" +             (0x30 * ("%abil_fx_idx%" + "%index%")))   139 // display string
+      WRITE_LONG  ("%fx_off%" + 0x04 + (0x30 * ("%abil_fx_idx%" + "%index%"))) 14674 // 'blinded'
+      WRITE_BYTE  ("%fx_off%" + 0x0c + (0x30 * ("%abil_fx_idx%" + "%index%")))       1 // instant/perm
+      WRITE_LONG  ("%fx_off%" + 0x0e + (0x30 * ("%abil_fx_idx%" + "%index%")))       0 // duration
+    END
+  END
+  BUT_ONLY_IF_IT_CHANGES
+
+// holy smite/unholy blight damage fixes, part 3 (CamDawg)
+// see also sp313l02.eff through sp313l10.eff
+COPY_EXISTING ~sppr313.spl~ ~override~ // holy smite
+              ~sppr314.spl~ ~override~ // unholy blight
+  READ_LONG  0x64 "abil_off"
+  READ_SHORT 0x68 "abil_num"
+  READ_LONG  0x6a "fx_off"
+  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
+    READ_SHORT ("%abil_off%" + 0x10 + (0x28 * "%index%")) "level"
+    READ_SHORT ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
+    READ_SHORT ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
+    PATCH_IF ("%level%" = 1) BEGIN SET "level" = 5 END
+    FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
+      READ_ASCII ("%fx_off%" + 0x14 + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "eff_file"
+      PATCH_IF ("%eff_file%" STRING_COMPARE_REGEXP "SP313L[012][0-9]" = 0) BEGIN // if damage eff
+        READ_LONG ("%fx_off%" + 0x24 + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "save"
+        SET "efflev" = (("%level%" + "%save%") / 2)
+        PATCH_IF ("%efflev%" = 10) BEGIN
+          WRITE_ASCIIE ("%fx_off%" + 0x1a + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "%efflev%"
+        END ELSE BEGIN
+          WRITE_ASCIIE ("%fx_off%" + 0x1a + (0x30 * ("%abil_fx_idx%" + "%index2%"))) "0%efflev%"
+        END
+      END
+    END
+  END
+  BUT_ONLY
+
+// armor glow missing at level one (CamDawg)
+COPY_EXISTING ~spwi113.spl~ ~override~
+  LPF ADD_SPELL_EFFECT INT_VAR    
+    opcode        = 9          // color glow
+    target        = 2          // preset target
+    power         = 1          // power
+    parameter1    = 0x5d6f0000 // pulse, RGB
+    parameter2    = 0x00140005 // armor, cycle speed
+    duration      = 12         // duration
+    resist_dispel = 3          // dispel/bypass MR
+    header        = 1          // add to first header
+  END
   
 /////                                                  \\\\\
 ///// store fixes                                      \\\\\
@@ -28500,6 +28562,26 @@ COPY_EXISTING ~daystar1.eff~ ~override~
 // new eff for (un)holy word to display deaf icon; see sppr710.spl, sppr715.spl
 COPY_EXISTING ~iconslow.eff~ ~override/icondeaf.eff~
   WRITE_LONG 0x20 112 // deafened
+
+// holy smite/unholy blight damage fixes, part 1 (CamDawg)
+// see also sppr313.spl, sppr314.spl
+COPY_EXISTING ~sp313l05.eff~ ~override~
+                          ~sp313l06.eff~ ~override~
+                          ~sp313l07.eff~ ~override~
+                          ~sp313l08.eff~ ~override~
+                          ~sp313l09.eff~ ~override~
+                          ~sp313l10.eff~ ~override~
+  WRITE_LONG 0x3c 4 // dice size 2 > 4
+  BUT_ONLY
+
+// holy smite/unholy blight damage fixes, part 2 (CamDawg)
+// see also sppr313.spl, sppr314.spl
+OUTER_SET "dicethrown" = 2
+COPY_EXISTING ~sp313l05.eff~ ~override/sp313l02.eff~
+              ~sp313l06.eff~ ~override/sp313l03.eff~
+              ~sp313l07.eff~ ~override/sp313l04.eff~
+  WRITE_LONG 0x38 "%dicethrown%" // # dice
+  SET "dicethrown" = ("%dicethrown%" + 1)
 
 /////                                                  \\\\\
 ///// music fixes                                      \\\\\
@@ -29384,6 +29466,7 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
               ~sword01.cre~  ~override~ // magical sword
               ~telslav2.itm~ ~override~ // <invalid strref -1>
               ~torgal.cre~   ~override~ // torgal
+               torgal3.cer    override  // torgal
               ~trollall.itm~ ~override~ // attack
               ~trollimm.itm~ ~override~ // ring
               ~tstatue.itm~  ~override~ // <invalid strref -1>
@@ -29552,6 +29635,7 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
               ~sw2h06.itm~   ~override~ // spider's bane
               ~sword01.cre~  ~override~ // magical sword
               ~torgal.cre~   ~override~ // torgal
+               torgal3.cre    override  // torgal
               ~trollall.itm~ ~override~ // attack
               ~tstatue.itm~  ~override~ // <invalid strref -1>
               ~uddrow50.cre~ ~override~ // drow wizard
