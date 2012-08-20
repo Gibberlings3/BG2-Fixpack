@@ -16774,7 +16774,7 @@ COPY_EXISTING ~scrl2f.itm~ ~override~ // cone of cold
   BUT_ONLY_IF_IT_CHANGES
 
 // scroll fixes: range
-COPY_EXISTING ~scrl70.itm~ ~override~ // color spray
+COPY_EXISTING //~scrl70.itm~ ~override~ // color spray; spell adjusted to proper 30'
               ~scrl8p.itm~ ~override~ // prismatic spray
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
@@ -29204,13 +29204,7 @@ COPY_EXISTING ~spwi125.spl~ ~override~
     READ_SHORT  ("%abil_off%" + 0x1e + (0x28 * "%index%")) "abil_fx_num"
     READ_SHORT  ("%abil_off%" + 0x20 + (0x28 * "%index%")) "abil_fx_idx"
     FOR (index2 = 0 ; index2 < abil_fx_num ; index2 = index2 + 1) BEGIN
-      READ_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) "dispel"
-      PATCH_IF ("%dispel%" = 3) BEGIN // if dispel, bypass MR...
-        WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) 1 // change to dispel, no bypass MR
-      END ELSE
-      PATCH_IF ("%dispel%" = 0) BEGIN // if no dispel, bypass MR...
-        WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) 2 // change to no dispel, no bypass MR
-      END
+          WRITE_BYTE ("%fx_off%" + 0x0d + (0x30 * ("%index2%" + "%abil_fx_idx%"))) 1 // change to dispel, no bypass MR
     END
   END
   BUT_ONLY_IF_IT_CHANGES
@@ -32053,7 +32047,98 @@ COPY_EXISTING ~SKILLRNG.2DA~ ~override~
   SET_2DA_ENTRY 2 1 2 ~21~
 BUT_ONLY_IF_IT_CHANGES
 
+// defensive spin uses 'unblockable' movement code to set movement to zero
+COPY_EXISTING ~spcl522.spl~ ~override~
+  LPF ADD_SPELL_EFFECT INT_VAR
+    opcode = 176
+    target = 1
+    parameter2 = 1
+    resist_dispel = 2
+    duration = 24
+    insert_point = 0
+  END
 
+// power/school/secondary for resist fear on magic flute
+COPY_EXISTING ~brdflute.itm~ ~override~
+  READ_LONG   0x64 "abil_off" ELSE 0
+  READ_SHORT  0x68 "abil_num" ELSE 0
+  READ_LONG   0x6a "fx_off" ELSE 0
+  FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+    READ_ASCII  ("%abil_off%" + 0x04 + ("%index%" * 0x38)) "icon"
+    READ_SHORT  ("%abil_off%" + 0x20 + ("%index%" * 0x38)) "abil_fx_idx"
+    READ_SHORT  ("%abil_off%" + 0x1e + ("%index%" * 0x38)) "abil_fx_num"
+    PATCH_IF ("%icon%" STRING_COMPARE_CASE "spwi201b" = 0) BEGIN // resist fear
+      WRITE_BYTE ("%abil_off%" + 0x17 + ("%index%" * 0x38)) 1 // school: abjuration
+      WRITE_BYTE ("%abil_off%" + 0x19 + ("%index%" * 0x38)) 2 // secondary: specific protections
+      FOR (index2 = 0 ; index2 < abil_fx_num ; ++index2) BEGIN
+        WRITE_BYTE ("%fx_off%" + 0x03 + (("%abil_fx_idx%" + "%index2%") * 0x30)) 2 // power level
+      END
+    END
+  END
+  BUT_ONLY
+
+// match secondary to underlying spell
+COPY_EXISTING ~misc7n.itm~ ~override~ // wand of lightning (unused?)
+  READ_LONG  0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+    WRITE_BYTE (abil_off + 0x19 + (index * 0x38)) 10 // secondary: offensive damage
+  END
+  BUT_ONLY
+
+// match secondary to underlying spell
+COPY_EXISTING ~wand02.itm~ ~override~ // wand of fear
+              ~wand04.itm~ ~override~ // wand of paralyzation
+              ~wand08.itm~ ~override~ // wand of sleep
+  READ_LONG  0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+    WRITE_BYTE (abil_off + 0x19 + (index * 0x38)) 11 // secondary: disabling
+  END
+  BUT_ONLY
+
+// match secondary to underlying spell
+COPY_EXISTING ~wand10.itm~ ~override~ // wand of monster summoning
+  READ_LONG  0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+    WRITE_BYTE (abil_off + 0x19 + (index * 0x38)) 6 // secondary: conjuration
+  END
+  BUT_ONLY
+
+// ground traps won't trigger due to container scripts
+COPY_EXISTING ar1202.are override~
+              ar0502.are override
+              ar5201.are override
+  READ_SHORT 0x5a "info_num"
+  READ_LONG  0x5c "info_off"
+  FOR (index = 0; index < info_num ; index = index + 1) BEGIN
+    READ_ASCII ("%info_off%" + 0x7c + (0xc4 * "%index%" )) "script" (2)
+    PATCH_IF ("%script%" STRING_COMPARE_CASE "ct" = 0) BEGIN
+      WRITE_ASCII ("%info_off%" + 0x7c + (0xc4 * "%index%" )) ~gt~ #2
+    END
+  END
+  BUT_ONLY_IF_IT_CHANGES
+
+// container traps won't trigger due to ground scripts
+COPY_EXISTING ar0503.are override
+              ar5204.are override
+  READ_LONG 0x70 co
+  FOR (i = 0; i < SHORT_AT 0x5a; ++i) BEGIN
+    READ_ASCII co + 0xc0 * i + 0x48 s (2)
+    PATCH_IF "%s%" STRING_EQUAL_CASE gt BEGIN
+      WRITE_ASCII co + 0xc0 * i + 0x48 CT #2
+    END
+  END
+  BUT_ONLY
+  
+// script assigned to both container and area-trigger traps, but only working for area triggers
+COPY_EXISTING gtspike.bcs override
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(IsOverMe(\[GOODCUTOFF\])\)~ ~OR(2) \1 Opened([GOODCUTOFF])~
+  END
+  BUT_ONLY
+  UNLESS ~16521 [0-9]+ 0 0 0 "" "" OB~
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -32227,7 +32312,7 @@ COPY_EXISTING ~scrl68.itm~ ~override~ // burning hands
   BUT_ONLY_IF_IT_CHANGES
 
 // scroll fixes: range
-COPY_EXISTING ~scrl68.itm~ ~override~ // spook
+COPY_EXISTING ~scrl68.itm~ ~override~ // burning hands
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
   READ_LONG  0x6a "fx_off"
