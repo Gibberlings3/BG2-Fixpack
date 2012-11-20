@@ -4,7 +4,5 @@ IF
   Global("Kidnap","GLOBAL",3)
 THEN
   RESPONSE #100
-        SetGlobal("DomainPaladinBattle","GLOBAL",6)
-        MoveToPointNoInterrupt([829.3184])
-        DestroySelf()
+    EscapeArea()
 END

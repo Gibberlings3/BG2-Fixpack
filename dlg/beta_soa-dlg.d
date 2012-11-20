@@ -223,3 +223,10 @@ ADD_TRANS_TRIGGER roger 0 ~Global("flRogerGong","LOCALS",0)~ 1 DO 3
 ADD_TRANS_TRIGGER roger 4 ~Global("flRogerGong","LOCALS",0)~ 7 24 27 DO 2
 ADD_TRANS_TRIGGER roger 8 ~Global("flRogerGong","LOCALS",0)~ 9 DO 1
 ADD_TRANS_ACTION roger BEGIN 12 END BEGIN 0 END ~SetGlobal("flRogerGong","LOCALS",1)~
+
+// Jarlaxle should have enough gold to reward the party for their efforts (Ardanis)
+REPLACE_ACTION_TEXT jarlaxle ~GivePartyGold(~ ~GiveGoldForce(~
+
+// Fix for Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold (aVENGER)
+REPLACE_TRIGGER_TEXT ~jaheirap~  ~GlobalGT("JaheiraHarperPlot","GLOBAL",3)~ ~Global("JaheiraHarperPlot","GLOBAL",3) AreaCheck("AR0300") !InParty(Myself)~
+ADD_STATE_TRIGGER ~jaheirap~ 32 ~!AreaCheck("AR0300")~

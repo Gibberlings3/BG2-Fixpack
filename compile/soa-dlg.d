@@ -1441,3 +1441,28 @@ REPLACE_ACTION_TEXT ~wish~ ~GivePartyGold(2000)~ ~GiveGoldForce(2000)~
 
 // if wish cast by non-party member (i.e. simulcrum or projected image), scroll to start quest would be lost
 REPLACE_ACTION_TEXT WISH ~GiveItemCreate("wishscrl",LastTalkedToBy,0,0,0)~ ~GiveItemCreate("wishscrl",Player1,0,0,0)~
+
+REPLACE_STATE_TRIGGER imoenp 3 ~Global("ImoenRunning","LOCALS",1)~
+SET_WEIGHT imoenp 3 #-1
+
+// The merchant who gets assaulted by a thug at the City Gates no longer shares a store with the Brynnlaw storekeeper (see also cdaemerc.sto) (Nythrun and devSin)
+REPLACE_TRANS_ACTION aemerch BEGIN 8 END BEGIN 0 END
+  ~StartStore("ppstor01",LastTalkedToBy())~   
+  ~StartStore("cdaemerc",LastTalkedToBy(Myself))~
+
+// An instance of Jaheira's dialogue will no longer loop endlessly if the player isn't a suitable romance partner for her (Jason Compton and Wisp)
+
+ALTER_TRANS bjaheir BEGIN 68 END BEGIN 0 1 2 END BEGIN
+"ACTION" ~IncrementGlobal("LoveTalk","LOCALS",1)~
+END
+
+
+ADD_TRANS_ACTION GARREN BEGIN 45 END BEGIN 1 END ~ActionOverride("firban01",DestroySelf())
+ActionOverride("firban02",DestroySelf())
+ActionOverride("firban03",DestroySelf())
+ActionOverride("firban04",DestroySelf())
+ActionOverride("firban05",DestroySelf())
+ActionOverride("garjum",DestroySelf())
+SetGlobal("DomainPaladinBattle","GLOBAL",5)~
+
+ADD_TRANS_ACTION FIRKRA02 BEGIN 34 END BEGIN END ~AddXPObject(Player1,40500)~

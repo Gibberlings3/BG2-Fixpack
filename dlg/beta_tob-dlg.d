@@ -9,13 +9,3 @@ ALTER_TRANS BKELDO25 BEGIN 33 END BEGIN 0 END // filename, state, trans
 BEGIN // list of changes, see below for flags
   EPILOGUE ~EXTERN BANOME25 52~
 END
-
-// yet more garren windspear
-ADD_TRANS_ACTION FIRKRA02 BEGIN 34 END BEGIN END ~AddXPObject(Player1,40500)~
-ADD_TRANS_ACTION GARREN BEGIN 45 END BEGIN 1 END ~ActionOverride("firban01",DestroySelf())
-ActionOverride("firban02",DestroySelf())
-ActionOverride("firban03",DestroySelf())
-ActionOverride("firban04",DestroySelf())
-ActionOverride("firban05",DestroySelf())
-ActionOverride("garjum",DestroySelf())
-SetGlobal("DomainPaladinBattle","GLOBAL",5)~
