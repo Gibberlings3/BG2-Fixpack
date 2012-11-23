@@ -28,6 +28,10 @@
  @23 = ~Change Free Action to Protect Against Stun~
  @24 = ~Paws from Shapeshifting Can Not Be Dispelled~
  @25 = ~Change Behavior of Simulacrum, Projected Image, and Mislead~
+ @26 = ~Previous fixpack installation detected.~
+ @27 = ~The Fixpack is not needed for this game.~
+ @28 = ~Remove Thieving Start Bonuses from Bard and Ranger Skills~
+ @29 = ~This component requires TobEx~
 
 @100 = ~Well, I was barely listening, anyway, so don't worry about it. Let's just concentrate on killing the next orc we see.~ []
 @101 = ~I shall do that, jaluk. And when I bash its skull in, you do not mind if I picture you in its porcine features, hm?~

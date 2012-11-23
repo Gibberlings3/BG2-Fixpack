@@ -163,6 +163,9 @@ Jaheira has been cursed by a man named Baron Ployer...a slaver whom she ruined i
 @1002073 = ~Gain the services of Sir Sarles for the temple.
 
 Guardian Telwyn of the temple of Helm asked me to commission the master sculptor Sir Sarles to make a piece of artistry while he is in Athkatla.  I will need to procure illithium for the artist and convince him to lower his outlandish fee. The other temples in the city will also be vying for his favor.  Sir Sarles is staying in the Jysstev estate in the southeast corner of the Government District.~
+@1002088 = ~Gain the services of Sir Sarles for the temple.
+
+Unger Hilldark told me that his latest shipment of illithium was stolen by a gnome named Neb. Unger cannot get the illithium back himself because the word of a Duergar is not trusted in Amn. If I am to get real illithium, I will have to exact justice on this bandit myself. Unger tells me that Neb bought a house in the Bridge District, marked as 'derelict house' on the map. The name 'Neb' sounds oddly familiar.~
 @1002096 = ~Cut your wit, bard. The day has been long already, without adding hours to it.~ [JAHEIR59]
 @1002141 = ~Full Plate +2~
 @1002208 = ~My hands... my skin, it's real again! Oh, thank you, Baervan! Oh, we must find Quayle... and stop Kalah before he does any more harm!~ [AERIEC8]
@@ -5075,6 +5078,16 @@ Weight: 8
 Requires: 6 Strength
 Not Usable By:
 Mage~
+@1039562 = ~This light but strong mail is of Sylvan elf construction, and therefore its elegance is only exceeded by its rarity.  Normally granted only to especially brave elves, seldom is this armor found outside of a wood elf tribe, and rarer still on someone not of elven lineage.
+
+STATISTICS:
+
+Armor Class: 3
+Weight: 10
+Requires: 5 Strength
+Not Usable By:
+ Druid 
+ Mage ~
 @1039566 = ~This was the armor of Seffer Ekr, and a sign of the goddess Mielikii's favor.  She had rewarded the ranger's loyalty with the promise that he would never die in battle, and he defied death for many years, holding orcish hordes back from his home forest.  A heart attack claimed him when his time was done, not an enemy's blade.
 
 STATISTICS:
@@ -5664,7 +5677,7 @@ Special Abilities:  Dispel Fear
 Usable By:
  Bards~
 @1039672 = ~Methild's Harp
-In a valley far from most civilized lands there once was a tiny kingdom called Chilldion.  One winter evening a trio of evil witches overtook the valley and imprisoned the royal family by casting spells of holding upon them.  The witches planned to eat the family one by one.  Later that evening, the witches were exhausted after a hard day of slaying innocents and desecrating the palace, so they called for the court bard to play them a song.  Methild the bard was loyal to his king and the king's family and so he used the special powers of his magic harp.  
+In a valley far from most civilized lands there once was a tiny kingdom called Chilldion.  One winter evening a trio of evil witches overtook the valley and imprisoned the royal family by casting spells of holding upon them.  The witches planned to eat the family one by one.  Later that evening, the witches were exhausted after a hard day of slaying innocents and desecrating the palace, so they called for the court bard to play them a song.  Methild the bard was loyal to his king and the king's family and so he used the special powers of his magic harp.
 As he played he focussed his attention first on the king.  As the song played on, the spell of holding upon the king dissipated, and the noble liege slowly crept away.  One by one Methild freed his patrons, being careful to keep the witches attention drawn his way.  Finally, once all the family was free, the bard could play no longer and the witches saw his treachery.  Poor Methild, unlike his lieges, did not escape and was served on the supper table in their place. 
 
 STATISTICS:
@@ -6147,7 +6160,7 @@ I have killed Mae'Var, although I did it without the evidence that Renal needed 
 While I was not able to catch Rejiek Hidesman, I have at least stopped his reign of terror in Athkatla and sent him fleeing. The matter of Lieutenant Aegisfield, the guard who I inadvertently sent to his death, has also been dealt with. I wonder if this ends, now, or if I will meet this disgusting murderer once again.~
 @1047721 = ~Gain the services of Sir Sarles for the temple.
 
-I managed to secure the services of the artist, Sir Sarles, for the church... although it was certainly not easy. He had demanded to use pure illithium, which I had to obtain from a murderous dwarf named Neb. Still, the task is done.~
+I managed to secure the services of the artist, Sir Sarles, for the church... although it was certainly not easy. He had demanded to use pure illithium, which I had to obtain from a murderous gnome named Neb. Still, the task is done.~
 @1047760 = ~I make you weak at the worst of all times, but in the end I keep you safe. You'll sweat in my presence even as you grow cold. I dwell with the weak, rarely the brave, but without me, who could tell the difference?~
 @1047762 = ~The machine has 6 levers arrayed on a console. They are Ruby, Jade, Mithral, Onyx, Emerald, and Sandalwood. The machine can only be activated by pulling all six levers in the proper ranking.~
 @1047766 = ~Pull the Mithral Lever.~
@@ -6233,6 +6246,7 @@ Not Usable By:
 @1048952 = ~<CHARNAME>! Oh! Couldn't you spare just *one* coin? Hrmph!~
 @1048973 = ~Madness! The singleminded nature of the Rashemeni but with even less sense!~
 @1048982 = ~I have little doubt, <CHARNAME>, that we will also find Lieutenant Aegisfield somewhere herein... hopefully the man is still alive.~
+@1049000 = ~This is the head of Neb the Gnome. Rarely has a more despicable being roamed the land.~
 @1049029 = ~I am honored to be chosen, Spirit. I shall bring about Nilthiri's death and balance will be restored.~
 @1049050 = ~Child of Nature, you are again needed. Balance is threatened and Chaos is at the periphery. Will you serve the Grove?~
 @1049107 = ~Now, as Marek knew would someday happen, his descendants have returned and old enemies marshal their forces. A child called Loren has recently arrived in Trademeet.~
@@ -6247,6 +6261,9 @@ Not Usable By:
 @1049630 = ~Har har!! That Thayvian blood of yours runs as hot as I've heard, wizard! Ye're a conqueror of the lasses, ye are! Har har har!!~
 @1049711 = ~I give to you this pipe of root and magic... its power is strong, I will not lie. Bequeath it to a man, instead, one older even than I.~
 @1049925 = ~My dear, are you all right? I will soothe you as best I can if need be.~
+@1049931 = ~I have the head of the child-killing gnome Neb.  I expect a bounty for the service of killing him.~ []
+@1049943 = ~I have the head of the child-killing gnome Neb.  I expect a bounty for killing him.~ []
+@1049950 = ~I have the head of a criminal here, a gnome by the name of Neb. Is it you that I should be talking to?~ []
 @1049979 = ~<CHARNAME>, I want to think this won't happen again. I *have* to think it won't. Please, let's get out of this place.~
 @1049988 = ~You are ignorant, even for a human. Fortunately for you, Arvoreen calls for patience for such as you, or I would strike you down where you stand for such blasphemy.~
 @1049992 = ~Calm yourself, rivvil. Or slice your own throat upon your knife, I truly do not care. The amount of hysteria your kind experiences by my mere presence is laughable.~
@@ -6254,6 +6271,7 @@ Not Usable By:
 @1050031 = ~It felt like I wasn't in total control of myself for a moment. It has passed.~
 @1050038 = ~Excellent!  An adventure worthy of the name!~
 @1050096 = ~Your weakness is betrayed by the quiver in your voice, rivvil! Your precious eye tyrant is so much dust and you shall join him before the hour is through!~
+@1050122 = ~Boo remembers!  Baldur's Gate!  Neb the child murderer!  You die, gnome, you die!!  RAAAAAGGGGGHHHH!!~ []
 @1050172 = ~I paid my dues when rivvin attempted to burn me at the stake, elg'caress. Ask me again to pay for the 'privilege' of visiting your city and you will forfeit your tongue.~
 @1050251 = ~Mmm-hmm. Very convincing, Vicky. Next thing you know, she'll be administering to the sick and setting up a program for disenchanted prostitutes. "Oh, dear," we'll moan, "whatever happened to our wicked little Vicky?" ... ehhh... or maybe not.~
 @1050267 = ~Nevertheless, I insist that I receive the deed before you open the portal.~
