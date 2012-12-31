@@ -257,8 +257,10 @@
     to protect against stun. For players who think this overpowers stun (particularly
     mind flayer psionics) this component will extend free action to protect
     against stun. </p>
-  <p class="deprecated"><strong>Optional But Cool: Paws from Shapeshifting Can
+  <p><strong>Optional But Cool: Paws from Shapeshifting Can
     Not Be Dispelled</strong><br />
+
+    <em>Windows-only, requires TobEx</em><br />
     <!--
 	Dispel magic effects always dispel magically created weapons, such as energy
       blades, black baldes of disaster, or the paws of shapeshifter druids. In
@@ -268,9 +270,9 @@
       it causes the animation cycles to constantly reset which, though purely
   cosmetic, can be distracting and unwanted. 
   --> 
-    This component, though fine in testing, resulted in serious errors when released
-    into the wild. It's being reworked, but until the bugs have been fully fixed
-    it's been withdrawn. </p>
+    Dispel magic will no longer remove the paws of shapeshifted creatures.</p>
+  <p><strong>Optional But Cool: Remove Thieving Start Bonuses from Bard and Ranger Skills</strong> <br />
+    All thieving skills use one lookup table to determine their racial bonuses for their abilities. However, the table is actually a combination of racial bonuses and initial thieving abilities. This component seeks to remove the initial thief bonuses from non-thief classes. Specifically, bards will no longer receive a 15% bonus to their pickpocket skills, and rangers will not receive the 7% bonus to stealth.</p>
 </div>
 <h2>Contact Information</h2>
 <div class="section">
@@ -463,6 +465,14 @@
     </ul>
   </ul>
   -->
+  <p>v9.22, &quot;a series of fluid-filled bladders&quot; (CamDawg)</p>
+  <ul>
+    <li>Effing effs is back</li>
+    <li>Review of bow damage and thac0</li>
+    <li>Organized beta core fixes into a semblance of order</li>
+    <li>Fixed bug with OBC: <strong>Remove Thieving Start Bonuses from Bard and Ranger Skills</strong> that was preventing install</li>
+    <li>Added a bunch of REQUIRE_PREDICATEs for BGEE compatibility</li>
+  </ul>
   <p>v9.21, &quot;not a big fan of velour&quot; (CamDawg)</p>
   <ul>
     <li>Enemy-only summons now keep their XP values</li>

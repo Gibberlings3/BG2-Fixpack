@@ -20,7 +20,7 @@
 
 STATISTICS:
 
-THAC0: +2 bonus
+THAC0: +3 bonus
 Weight: 3
 Speed Factor: 5
 Proficiency Type: Long Bow
@@ -14983,7 +14983,7 @@ Kestsa was given this longbow many years ago by the Cowled Wizards, as reward fo
 STATISTICS:
 
 Equipped Abilities: +20% resistance to magical damage
-THAC0: +4 bonus
+THAC0: +5 bonus
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Long Bow
@@ -19162,7 +19162,7 @@ STATISTICS:
 
 THAC0: +2 bonus
 Weight: 2
-Speed Factor: 6
+Speed Factor: 4
 Proficiency Type: Short Bow
 Type: 2-handed
 Not Usable By:
@@ -22836,7 +22836,7 @@ STATISTICS:
 
 Equipped Ability: Increase movement rate by 2
 
-THAC0: +4 bonus
+THAC0: +5 bonus
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Long Bow
@@ -22856,7 +22856,7 @@ STATISTICS:
 
 Equipped Ability: Increase movement rate by 2
 
-THAC0: +5 bonus
+THAC0: +6 bonus
 Weight: 1
 Speed Factor: 2
 Proficiency Type: Long Bow
@@ -24540,7 +24540,7 @@ Not Usable By:
 
 STATISTICS:
 
-THAC0: +3 bonus
+THAC0: +4 bonus
 Weight: 2
 Speed Factor: 4
 Proficiency Type: Long Bow

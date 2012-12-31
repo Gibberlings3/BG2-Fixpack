@@ -21,7 +21,7 @@
 
 STATISTICS:
 
-THAC0: +2 bonus
+THAC0: +3 bonus
 Weight: 3
 Speed Factor: 6
 Proficiency Type: Long Bow
@@ -4760,7 +4760,7 @@ Kestsa was given this longbow many years ago by the Cowled Wizards, as reward fo
 STATISTICS:
 
 Equipped Abilities: +20% to resist magical damage
-THAC0: +4
+THAC0: +5
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Longbow
@@ -6300,6 +6300,21 @@ Not Usable By:
 @1050818 = ~de'Arnise Signet Ring
 
 This ring was given to Nalia by her father upon her ascension to adulthood.  Bonded to her blood as it is, the ring may not be removed from Nalia, nor its powers used by anyone else.  The ring grants a +2 bonus to all saving throws, +2 armor class bonus, and 50% resistance to fire.~
+@1050827 = ~Bow of Arvoreen
+
+This enchanted bow has been in Mazzy Fentan's possession for several years, given to her by her god Arvoreen.  It is usable only by halflings, granting a +2 bonus to hit rolls.
+
+STATISTICS:
+
+THAC0: +2 bonus
+Weight: 2
+Speed Factor: 4
+Proficiency Type: Short Bow
+Type:  2-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
 @1051029 = ~Although I... appreciate... the thought behind your words. Handmaiden Imrae enjoyed administering her punishment excessively. It was... difficult.~
 @1051151 = ~Leave me be, female. Your kind has given me more than enough grief to last me a millennium. Is it not bad enough that I was dragged here against my will?~ [UDSOLA13]
 @1051176 = ~I do not know why you taunt me, though. You are no surfacers, you are Drow of Ust Natha. He said surfacers rescued him.~
@@ -7400,7 +7415,7 @@ Requires: 10 Strength
 Not Usable By:
  Druid
  Cleric
- Mage 
+ Mage
  Thief~
 @1066361 = ~Enhanced by the magic of the Balor's Claw, the Axe of the Unyielding is now the most fearsome of weapons - a vorpal-edged axe capable of severing an opponents head with a single blow.
 
@@ -7471,7 +7486,7 @@ Requires: 5 Strength~
 
 STATISTICS:
 
-Combat Abilities:  
+Combat Abilities:
     15% Chance opponent is knocked back and stunned.
 
 Large creatures such as a dragons or giants will not be knocked back or stunned.
@@ -7578,7 +7593,7 @@ Not Usable By:
 
 STATISTICS:
 
-Equipped Abilities: Negative Plane Protection   
+Equipped Abilities: Negative Plane Protection
 
 Combat Abilities:4-16 +8 damage to Undead, plus they must make a saving throw vs. death (-4 penalty) or be utterly destroyed
 
@@ -7615,7 +7630,7 @@ Type:  1-handed
 Requires: 16 Strength
 Not Usable By:
  Druid
- Mage 
+ Mage
  Thief~
 @1066385 = ~Through arcane sorcery, the contradictory elements of fire and ice have been combined within this magnificent short bow.
 
@@ -7659,7 +7674,7 @@ STATISTICS:
 
 Equipped Abilities: Increase Movement Rate by 2
 
-THAC0: +4
+THAC0: +5
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Longbow
@@ -7676,7 +7691,7 @@ STATISTICS:
 
 Equipped Abilities: Increase Movement Rate by 2
 
-THAC0: +5
+THAC0: +6
 Weight: 1
 Speed Factor: 2
 Proficiency Type: Longbow
@@ -8188,7 +8203,7 @@ Not Usable By:
 
 STATISTICS:
 
-THAC0: +3 bonus
+THAC0: +4 bonus
 Weight: 2
 Speed Factor: 4
 Proficiency Type: Long Bow

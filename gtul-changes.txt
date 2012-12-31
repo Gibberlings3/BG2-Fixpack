@@ -3,8 +3,9 @@ Strings 84, 109, 9381 and 68136 are no longer stripped of their sounds.
 @Wisp
 Strings 2088, 47721, 49000, 49931, 49943, 49950, 50122 changed for Neb's gnomishness
 String 39562 is a typo fix
+bow thac0 corrections: 176, 39513, 66388, 66389, 71058
+bow speed: 50827
 -Cam
-
 
 CHANGED STRINGS:
 
