@@ -1,3 +1,16 @@
+/*
+v1: for iwd fixpack v2
+v2: for iwd fixpack v3, bgee fixpack development
+  fixed bug with unterminated WRITE_ASCII for item icons
+v3: for bgee fixpack development
+  consolidated cd_area_alter_container_trap, cd_container_icons into new cd_area_alter_container
+  trapped and detected were writing to the wrong offsets in cd_area_alter_triggers
+v4: for bgee fixpack development
+  fixed bug with patching duration_high on item headers in cd_item_alter_effect
+v5: for bgee fixpack development
+  added support for primary, secondary schools for cd_item_alter_header
+*/
+
 /////                                                  \\\\\
 ///// item/spell functions                             \\\\\
 /////                                                  \\\\\
@@ -83,8 +96,8 @@ BEGIN
       PATCH_IF ("%cursor%" >= 0)      BEGIN WRITE_LONG  (trig_off + 0x34 + (index * 0xc4)) "%cursor%"      END
       PATCH_IF ("%trap_detect%" >= 0) BEGIN WRITE_SHORT (trig_off + 0x68 + (index * 0xc4)) "%trap_detect%" END
       PATCH_IF ("%trap_remove%" >= 0) BEGIN WRITE_SHORT (trig_off + 0x6a + (index * 0xc4)) "%trap_remove%" END
-      PATCH_IF ("%trapped%" >= 0)     BEGIN WRITE_SHORT (trig_off + 0x6a + (index * 0xc4)) "%trapped%"     END
-      PATCH_IF ("%detected%" >= 0)    BEGIN WRITE_SHORT (trig_off + 0x6c + (index * 0xc4)) "%detected%"    END
+      PATCH_IF ("%trapped%" >= 0)     BEGIN WRITE_SHORT (trig_off + 0x6c + (index * 0xc4)) "%trapped%"     END
+      PATCH_IF ("%detected%" >= 0)    BEGIN WRITE_SHORT (trig_off + 0x6e + (index * 0xc4)) "%detected%"    END
       PATCH_IF ("%flag_locked%" = 0)           BEGIN WRITE_BYTE (trig_off + 0x60 + (index * 0xc4)) (THIS BAND 0b11111110) END
       PATCH_IF ("%flag_resets%" = 0)           BEGIN WRITE_BYTE (trig_off + 0x60 + (index * 0xc4)) (THIS BAND 0b11111101) END
       PATCH_IF ("%flag_party_required%" = 0)   BEGIN WRITE_BYTE (trig_off + 0x60 + (index * 0xc4)) (THIS BAND 0b11111011) END
@@ -180,11 +193,21 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_area_alter_container_trap
-  INT_VAR trapped  = "-1"
-          detected = "-1"
-  STR_VAR trap_script = "same"
-          cont_name   = ""
+DEFINE_PATCH_FUNCTION cd_area_alter_container
+  INT_VAR cont_icon     = "-1"
+          lock_diff     = "-1"
+          flag_locked   = "-1"
+          flag_mlocked  = "-1"
+          flag_resets   = "-1"
+          flag_disabled = "-1"
+          trap_det_diff = "-1"
+          trap_rem_diff = "-1"
+          trapped       = "-1"
+          detected      = "-1"
+          string        = "-1"
+  STR_VAR cont_name   = ""
+          cont_script = "same"
+          cont_key    = "same"
 BEGIN
 
   READ_LONG  0x70 cont_off
@@ -192,27 +215,31 @@ BEGIN
   FOR (index = 0 ; index < cont_num ; ++index) BEGIN
     READ_ASCII (cont_off +        (index * 0xc0)) cont_name_file (32) NULL
     PATCH_IF ("%cont_name%" STRING_COMPARE_CASE "%cont_name_file%" = 0) BEGIN
-      PATCH_IF ("%trapped%" >= 0) BEGIN WRITE_SHORT (cont_off + 0x30 + (index * 0xc0)) "%trapped%" END // value from int_var
-      PATCH_IF ("%detected%" >= 0) BEGIN WRITE_SHORT (cont_off + 0x32 + (index * 0xc0)) "%detected%" END // value from int_var
-      PATCH_IF ("%trap_script%" STRING_COMPARE_CASE "same") BEGIN // if script not set to same
-        WRITE_ASCIIE (cont_off + 0x48 + (index * 0xc0)) "%trap_script%" #8 // value from str_var
+      PATCH_IF (cont_icon     >= 0) BEGIN WRITE_SHORT (cont_off + 0x24 + (index * 0xc0)) cont_icon     END // value from int_var
+      PATCH_IF (lock_diff     >= 0) BEGIN WRITE_SHORT (cont_off + 0x26 + (index * 0xc0)) lock_diff     END // value from int_var
+      PATCH_IF (trap_det_diff >= 0) BEGIN WRITE_SHORT (cont_off + 0x2c + (index * 0xc0)) trap_det_diff END // value from int_var
+      PATCH_IF (trap_rem_diff >= 0) BEGIN WRITE_SHORT (cont_off + 0x2e + (index * 0xc0)) trap_rem_diff END // value from int_var
+      PATCH_IF (trapped       >= 0) BEGIN WRITE_SHORT (cont_off + 0x30 + (index * 0xc0)) trapped       END // value from int_var
+      PATCH_IF (detected      >= 0) BEGIN WRITE_SHORT (cont_off + 0x32 + (index * 0xc0)) detected      END // value from int_var
+      PATCH_IF (string        >= 0) BEGIN WRITE_LONG  (cont_off + 0x84 + (index * 0xc0)) string        END // value from int_var
+
+      PATCH_IF (flag_locked   = 0) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS & `BIT0 END
+      PATCH_IF (flag_mlocked  = 0) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS & `BIT2 END
+      PATCH_IF (flag_resets   = 0) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS & `BIT3 END
+      PATCH_IF (flag_disabled = 0) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS & `BIT5 END
+      PATCH_IF (flag_locked   = 1) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS | BIT0  END
+      PATCH_IF (flag_mlocked  = 1) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS | BIT2  END
+      PATCH_IF (flag_resets   = 1) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS | BIT3  END
+      PATCH_IF (flag_disabled = 1) BEGIN WRITE_BYTE  (cont_off + 0x28 + (index * 0xc0)) THIS | BIT5  END
+
+       // update script if matched
+      PATCH_IF ("%cont_script%" STRING_COMPARE_CASE "same") BEGIN // if script not set to same
+        WRITE_ASCIIE (cont_off + 0x48 + (index * 0xc0)) "%cont_script%" #8 // value from str_var
       END
-    END
-  END
-
-END
-
-DEFINE_PATCH_FUNCTION cd_container_icons
-  INT_VAR cont_icon = 7
-  STR_VAR cont_name = ""
-BEGIN
-
-  READ_LONG  0x70 cont_off
-  READ_SHORT 0x74 cont_num
-  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
-    READ_ASCII (cont_off +        (index * 0xc0)) cont_name_file (32) NULL
-    PATCH_IF ("%cont_name%" STRING_COMPARE_CASE "%cont_name_file%" = 0) BEGIN
-      WRITE_SHORT (cont_off + 0x24 + (index * 0xc0)) "%cont_icon%" // update icon if matched
+       // update script if matched
+      PATCH_IF ("%cont_key%" STRING_COMPARE_CASE "same") BEGIN // if script not set to same
+        WRITE_ASCIIE (cont_off + 0x78 + (index * 0xc0)) "%cont_key%" #8 // value from str_var
+      END
     END
   END
 
@@ -304,7 +331,7 @@ BEGIN
         PATCH_IF (savebonus >= "-10") BEGIN WRITE_LONG  (fx_off + 0x28 + (index * 0x30)) savebonus     END
         PATCH_IF (duration_high >= 0) BEGIN
           READ_LONG (fx_off + 0x0e + (index * 0x30)) duration_file
-          PATCH_IF (duration_file > 6) BEGIN
+          PATCH_IF (duration_file > 5) BEGIN
             WRITE_LONG (fx_off + 0x0e + (index * 0x30)) duration_high
           END
         END
@@ -340,9 +367,9 @@ BEGIN
             PATCH_IF (savingthrow >= 0)   BEGIN WRITE_LONG  (fx_off + 0x24 + ((index + abil_fx_idx) * 0x30)) savingthrow   END
             PATCH_IF (savebonus >= "-10") BEGIN WRITE_LONG  (fx_off + 0x28 + ((index + abil_fx_idx) * 0x30)) savebonus     END
             PATCH_IF (duration_high >= 0) BEGIN
-              READ_LONG (fx_off + 0x0e + (index * 0x30)) duration_file
-              PATCH_IF (duration_file > 6) BEGIN
-                WRITE_LONG (fx_off + 0x0e + (index * 0x30)) duration_high
+              READ_LONG (fx_off + 0x0e + ((index + abil_fx_idx) * 0x30)) duration_file
+              PATCH_IF (duration_file > 5) BEGIN
+                WRITE_LONG (fx_off + 0x0e + ((index + abil_fx_idx) * 0x30)) duration_high
               END
             END
             PATCH_IF ("%resource%" STRING_COMPARE_CASE "same") BEGIN
@@ -368,7 +395,9 @@ DEFINE_PATCH_FUNCTION cd_item_alter_header
           speed         = "-1"
           thac0_bonus   = "-1"
           dicesize      = "-1"
+          primary       = "-1"
           dicenum       = "-1"
+          secondary     = "-1"
           damage_bonus  = "-1"
           damage_type   = "-1"
           effects_num   = "-1"
@@ -407,8 +436,10 @@ BEGIN
       PATCH_IF (launcher >= 0)      BEGIN WRITE_SHORT (abil_off + 0x10 + (index * 0x38)) launcher      END
       PATCH_IF (speed >= 0)         BEGIN WRITE_SHORT (abil_off + 0x12 + (index * 0x38)) speed         END
       PATCH_IF (thac0_bonus >= 0)   BEGIN WRITE_SHORT (abil_off + 0x14 + (index * 0x38)) thac0_bonus   END
-      PATCH_IF (dicesize >= 0)      BEGIN WRITE_SHORT (abil_off + 0x16 + (index * 0x38)) dicesize      END
-      PATCH_IF (dicenum >= 0)       BEGIN WRITE_SHORT (abil_off + 0x18 + (index * 0x38)) dicenum       END
+      PATCH_IF (dicesize >= 0)      BEGIN WRITE_BYTE  (abil_off + 0x16 + (index * 0x38)) dicesize      END
+      PATCH_IF (primary >= 0)       BEGIN WRITE_BYTE  (abil_off + 0x17 + (index * 0x38)) primary       END
+      PATCH_IF (dicenum >= 0)       BEGIN WRITE_BYTE  (abil_off + 0x18 + (index * 0x38)) dicenum       END
+      PATCH_IF (secondary >= 0)     BEGIN WRITE_BYTE  (abil_off + 0x19 + (index * 0x38)) secondary     END
       PATCH_IF (damage_bonus >= 0)  BEGIN WRITE_SHORT (abil_off + 0x1a + (index * 0x38)) damage_bonus  END
       PATCH_IF (damage_type >= 0)   BEGIN WRITE_SHORT (abil_off + 0x1c + (index * 0x38)) damage_type   END
       PATCH_IF (effects_num >= 0)   BEGIN WRITE_SHORT (abil_off + 0x1e + (index * 0x38)) effects_num   END
@@ -528,7 +559,7 @@ BEGIN
           PATCH_IF (savebonus >= "-10") BEGIN WRITE_LONG  (fx_off + 0x28 + ((index + abil_fx_idx) * 0x30)) savebonus     END
           PATCH_IF (duration_high >= 0) BEGIN
             READ_LONG (fx_off + 0x0e + (index * 0x30)) duration_file
-            PATCH_IF (duration_file > 6) BEGIN
+            PATCH_IF (duration_file > 5) BEGIN
               WRITE_LONG (fx_off + 0x0e + (index * 0x30)) duration_high
             END
           END
@@ -625,4 +656,78 @@ DEFINE_PATCH_FUNCTION cd_spell_delete_header
     WRITE_SHORT  0x68 abil_num
     WRITE_LONG   0x6a fx_off
     
+END
+
+/////                                                  \\\\\
+///// immunity effects batches                         \\\\\
+/////                                                  \\\\\
+
+// fixed stuff at the top of the effects batches
+DEFINE_PATCH_MACRO ~cd_fx_batch_prep~ BEGIN
+
+  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.spl" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x28
+    SET global_loop    = 0
+    SET fx_type        = 0
+    SET min_size       = 0x72
+    SET cosmetic       = 1
+  END ELSE
+  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.itm" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x38
+    SET global_loop    = 1
+    SET fx_type        = 0
+    SET min_size       = 0x72
+    READ_BYTE 0x18 flags ELSE 0
+    PATCH_IF ((flags BAND BIT2) = BIT2) BEGIN // if droppable, add portrait icons and whatnot
+      SET cosmetic = 1
+    END ELSE BEGIN
+      SET cosmetic = 0
+    END
+  END ELSE
+  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.cre" = 0) BEGIN
+    SET abil_off = 0
+    SET abil_num = 0
+    READ_LONG 0x2c4 fx_off ELSE 0
+    READ_BYTE 0x33 fx_type ELSE 2
+    SET counter_offset = 0x2c8
+    SET abil_length    = 0
+    SET global_loop    = 1
+    SET min_size       = 0x2d4
+    SET cosmetic       = 0
+  END
+  SET debug  = 0
+  SET new_fx = 0
+
+END
+
+// fixed stuff at the bottom of the effects batches
+DEFINE_PATCH_MACRO ~cd_fx_batch_final~ BEGIN
+
+  PATCH_IF (("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.cre" = 0) AND (new_fx > 0)) BEGIN // fix offsets for cre files if fx inserted
+    SET inserted = ((0x30 + (0xd8 * fx_type)) * new_fx)
+    PATCH_FOR_EACH coffset IN 0x2a0 0x2a8 0x2b0 0x2b8 0x2bc BEGIN
+      READ_LONG coffset offset
+      PATCH_IF (fx_off < offset) BEGIN
+        WRITE_LONG coffset (offset + inserted)
+      END
+    END
+  END
+  PATCH_IF ((new_fx > 0) AND (debug = 1)) BEGIN
+    READ_LONG 0x0c name
+    PATCH_IF (name > 0) AND (name < `0) BEGIN
+      READ_STRREF 0x0c name
+    END ELSE BEGIN
+      READ_STRREF 0x08 name
+    END
+    PATCH_PRINT "              ~%SOURCE_FILE%~   ~override~ // %name%"
+  END
+
 END

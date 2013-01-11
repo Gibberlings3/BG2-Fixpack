@@ -1046,8 +1046,8 @@ There was a time before Neverwinter was warm and before the great Anauroch was d
 STATISTICS:
 
 Always considered to be of +4 enchantment when determining what it can hit.
-THAC0: +1 bonus
-Damage: 1D8 + 2, +2 vs. regenerating creatures, +3 vs. cold/fire creatures, +4 vs. undead
+THAC0: +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage: 1D8 + 2, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
 Damage type: slashing
 Weight: 4
 Speed Factor: 3
@@ -1993,7 +1993,7 @@ At first glance, this sword appears much like any other. In the presence of any 
 STATISTICS:
 
 Always considered to be of +3 enchantment when determining what it can hit.
-THAC0: +1 bonus
+THAC0: +1, +3 vs. Shapeshifters
 Damage: 2D4 + 1, +3 vs. Shapeshifters
 Damage type: slashing
 Weight: 8
@@ -7035,7 +7035,8 @@ Not Usable By:
 
 STATISTICS:
 
-Damage: 2D4 
+THAC0: +4 vs. lycanthropes
+Damage: 2D4, +4 vs. lycanthropes
 Damage type: slashing
 Weight: 12
 Speed Factor: 7
@@ -7049,7 +7050,7 @@ Not Usable By:
  Thief
  Monk
  Beast Master~ []
-@1020885 = ~Silver Dagger: 'Werebane' 
+@1020885 = ~Silver Dagger: 'Werebane'
 This dagger acts as a +4 dagger vs. lycanthropes. Dynala Goldenhand, an elven ranger who wished to rid her homeland of its were-jackal problem, forged the dagger. She was killed by a tribe of orcs in the Greypeak Mountains as she tracked the were-jackal leader.
 
 STATISTICS:
@@ -11177,8 +11178,8 @@ This was the favored weapon of the priest of Tempus named Jerrod. Jerrod sacrifi
 STATISTICS:
 
 Always considered to be of +2 enchantment when determining what it can hit.
-THAC0: +2 bonus, +5 vs. demons
-Damage: 1D6 + 3, +5 vs. demons
+THAC0: +2 bonus, +5 extra vs. demons
+Damage: 1D6 + 3, +5 extra vs. demons
 Damage type: crushing
 Weight: 7
 Speed Factor: 5
@@ -14011,7 +14012,7 @@ STATISTICS:
 
 Combat Abilities: Returns to thrower
 THAC0: +3 bonus
-Damage: 2D4 + 3, +8 damage to giants and ogres
+Damage: 2D4 + 3, +8 extra damage to giants and ogres
 Damage type: crushing
 Weight: 4
 Speed Factor: 1
@@ -20144,8 +20145,9 @@ This dark, two-handed sword radiates evil from a distance and is only usable by 
 
 STATISTICS:
 
+Equipped Abilities: Wielder immune to charm and domination spells
 THAC0: +5 bonus
-Damage: 1D10 + 5
+Damage: 1D10 + 5, +5 extra damage vs. good-aligned creatures
 Damage type: slashing
 Weight: 15
 Speed Factor: 5
@@ -22117,7 +22119,7 @@ Not Usable By:
 STATISTICS:
 
 THAC0: +3 bonus
-Damage: 2D4 + 3, +6 damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
+Damage: 2D4 + 3, +6 extra damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
 Damage type: slashing
 Weight: 7
 Speed Factor: 5
@@ -22138,7 +22140,7 @@ Special Abilities: +1 bonus to all saving throws when equipped
 Combat Abilities: Each successful hit casts Larloch's Minor Drain on the target (no save)
 
 THAC0: +5 bonus
-Damage: 2D4 + 5, +6 damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
+Damage: 2D4 + 5, +6 damage extra vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
 Damage type: slashing
 Weight: 5
 Speed Factor: 3

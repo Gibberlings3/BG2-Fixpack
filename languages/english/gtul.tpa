@@ -199,6 +199,7 @@ STRING_SET
 6486 @1006486 //thieves can normally use scimitars
 6516 @1006516 //end sentence with a period
 6519 @1006519 //"stump.(Head,"->"stump. (Head,"
+6526 @1006526 //missing thac0 bonuses, +3 bonuses are against cold-using not cold/fire
 6534 @1006534 //diappearance
 6538 @1006538 //Roenal->Roenall
 6618 @1006618 //FireBall->Fireball
@@ -223,7 +224,7 @@ STRING_SET
 7255 @1007255 //succesfully
 7341 @1007341 //thaco
 7344 @1007344 //thaco
-7345 @1007345 //thaco
+7345 @1007345 //thaco, didn't mention extra thac0 vs shapeshifters
 7346 @1007346 //thaco
 7347 @1007347 //"on the hills"->"in the hills", thaco, "Galloma died before Dramnek's tutorage could be completed however and the youth"->"Galloma died before Dramnek's tutorage could be completed, however, and the youth"
 7348 @1007348 //"damage type piercing", thaco
@@ -947,7 +948,7 @@ STRING_SET
 32136 @1032136 //STATISTICS
 32138 @1032138 //STATISTICS
 32143 @1032143 //thaco
-32145 @1032145 //Balhifet, thaco
+32145 @1032145 //Balhifet, thaco, thac0 and damage are noted as additional
 32182 @1032182 //Balhifet, thaco
 32186 @1032186 //Defender of Easthaven is +3 and not +2
 32187 @1032187 //commerate->commemorate, bonuses to hit and damage are wrong, Balhifet->Belhifet, thaco
@@ -2049,7 +2050,7 @@ STRING_SET
 66201 @1066201 //thaco, "Damage type piercing"
 66224 @1066224 //Frithior->Frithiof
 66225 @1066225 //Baalor->Balor
-66248 @1066248 //thaco
+66248 @1066248 //thaco, extra damage clarification
 66254 @1066254 //thaco
 66258 @1066258 //STATISTICS, single handed, thaco
 66259 @1066259 //STATISTICS, thaco

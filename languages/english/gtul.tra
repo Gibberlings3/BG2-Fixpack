@@ -447,6 +447,24 @@ Not Usable By:
  Mage~
 @1006516 = ~We must return to our delving in the graveyard... the Nether scroll... think of it. (Yes, just think of it.) The written word of the creator races... (it should be mine.)~ [EDWIN82]
 @1006519 = ~Touch the scroll, pull back a stump. (Head,  limb, leg... your choice.) I will use this for the benefit of the group, I assure you. (Yes, I assure you of that.) But no one reads it but me.~
+@1006526 = ~Flame Tongue +1
+
+There was a time before Neverwinter was warm and before the great Anauroch was dry...or so it is said.  Few relics remain to prove such an age existed, and fewer still have an identifiable purpose.  "The Burning Earth" seems straightforward enough -it burns a victim with magical fire, and a cryptic rune seems to suggest that the power comes from the ground itself- but whomever constructed it remains a mystery.  It looks a perfectly serviceable weapon, but something in the balance or grip is...wrong.  It strains the forearm a touch, and does not fit the hand just right.  It doesn't seem to hurt a warrior's performance, aside from the nagging doubt that the blade was not made for him...or any other humanoid.
+
+STATISTICS:
+
+THAC0:  +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage:  1D8 +1, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage type:  slashing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
 @1006534 = ~The hunt for Valygar Corthala.
 
 A servant, Hervo, has given me leave to look around the home of his master, as he is quite worried about his disappearance.~
@@ -623,7 +641,7 @@ At first glance, this sword appears much like any other.  In the presence of any
 
 STATISTICS:
 
-THAC0:  +1 bonus
+THAC0:  +1 bonus, +3 vs. Shapeshifters
 Damage:  2D4 +1, +3 vs. Shapeshifters
 Damage type:  slashing
 Weight: 8
@@ -3386,8 +3404,8 @@ This was the favored weapon of the priest of Tempus named Jerrod.  Jerrod sacrif
 
 STATISTICS:
 
-THAC0:  +2 bonus, +5 vs. demons
-Damage:  1D6 + 3, +5 vs. demons
+THAC0:  +2 bonus, +5 extra vs. demons
+Damage:  1D6 + 3, +5 extra vs. demons
 Damage type:  crushing
 Weight: 7
 Speed Factor: 5
@@ -7135,7 +7153,7 @@ Not Usable By:
 STATISTICS:
 
 THAC0:  +3 bonus
-Damage:  2D4 + 3, +6 damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
+Damage:  2D4 + 3, +6 extra damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
 Damage type:  slashing
 Weight:  7
 Speed Factor: 5
@@ -7154,7 +7172,7 @@ Special Abilities: +1 bonus to all saving throws when equipped
 Combat Abilities: Each successful hit casts Larloch's Minor Drain on the target (no save)
 
 THAC0:  +5 bonus
-Damage:  2D4 + 5, +6 damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
+Damage:  2D4 + 5, +6 extra damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
 Damage type:  slashing
 Weight:  5
 Speed Factor: 3
