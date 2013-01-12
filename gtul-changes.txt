@@ -5,6 +5,10 @@ Strings 2088, 47721, 49000, 49931, 49943, 49950, 50122 changed for Neb's gnomish
 String 39562 is a typo fix
 bow thac0 corrections: 176, 39513, 66388, 66389, 71058
 bow speed: 50827
+Kondar not mentioning its extra thac0 vs shapeshifters, 7345
+Burning Earth descript, 6526 - missing thac0 bonuses, +3 bonuses are against cold-using not cold/fire
+66248, 66254 - Foebane bonus damage clarification
+32145 - damage and thac0 bonuses are noted as extra
 -Cam
 
 CHANGED STRINGS:

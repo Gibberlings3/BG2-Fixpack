@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v9.22~
+VERSION ~v10 RC 1~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -570,7 +570,7 @@ COPY_EXISTING mmyc.2da ~override/mmy2.2da~
 COPY_EXISTING mor2.2da override
   REPLACE_TEXTUALLY "orcbw07" "orcbw07a"
   REPLACE_TEXTUALLY "orcbw08" "orcbw07b"
-BUT_ONLY
+  BUT_ONLY
 
 COPY_EXISTING mor2.2da ~override/mor4.2da~
   REPLACE_TEXTUALLY ~MOR2 /orc w bow/~  ~%DEST_RES% /orc ranged 4/~
@@ -587,7 +587,7 @@ COPY_EXISTING msps.2da override
   REPLACE_TEXTUALLY ~\bsmspid03 +smspid04~ ~smspid01 smspid02~
   REPLACE_TEXTUALLY ~\bsmspid08~ ~smspid06~
   REPLACE_TEXTUALLY ~\bsmspid09~ ~smspid07~
-BUT_ONLY
+  BUT_ONLY
 
 /* does nothing :(
 COPY_EXISTING mtro.2da override
@@ -600,15 +600,15 @@ BUT_ONLY
 // small troll sounds
 COPY_EXISTING mtrs.2da override
   REPLACE_TEXTUALLY ~ICETR~ ~troll~
-BUT_ONLY
+  BUT_ONLY
 
 COPY_EXISTING mwfm.2da override
   REPLACE_TEXTUALLY ~pseudo0~ ~pseud0~
-BUT_ONLY
+  BUT_ONLY
 
 COPY_EXISTING myu2.2da override
   REPLACE_TEXTUALLY ~yanel\(7\|8\)~ ~yanel0\1~
-BUT_ONLY
+  BUT_ONLY
 
 // gives bards a fourth level 6 spell at high levels, SoA-only
 ACTION_IF NOT FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN
@@ -13534,7 +13534,7 @@ COPY_EXISTING ~brac19.itm~   ~override~ // Gauntlets of Crushing
 
 COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
               ~hlolth.itm~ ~override~ // handmaiden's mace
-              ~npchan.itm~  ~override~ // corthala family armor
+              ~npchan.itm~ ~override~ // corthala family armor
               ~npsw04.itm~ ~override~ // Corthala Family Blade
               ~potn56.itm~ ~override~ // rogue potion of power
               ~scrl1w.itm~ ~override~ // fireshield (blue)
@@ -16017,88 +16017,44 @@ COPY_EXISTING ~potn45.itm~ ~override~
 COPY_EXISTING ~ring27.itm~ ~override~
               ~ring28.itm~ ~override~
               ~ring29.itm~ ~override~
-  READ_LONG   0x64 "abil_off"
-  READ_SHORT  0x68 "abil_num"
-  READ_LONG   0x6a "fx_off"
-  WHILE ("%abil_num%" > 0) BEGIN // looks for melee ability header
-    SET "abil_num" = ("%abil_num%" - 1)
-    READ_BYTE  ("%abil_off%" +        ("%abil_num%" * 0x38)) "type"
-    READ_ASCII ("%abil_off%" + 0x04 + ("%abil_num%" * 0x38)) "icon"
-    PATCH_IF (("%type%" = 3) AND 
-             (("%icon%" STRING_COMPARE_CASE "spwi104b" = 0) OR      // fire control charm
-              ("%icon%" STRING_COMPARE_CASE "sppr204b" = 0))) BEGIN // air control charm
-      WRITE_SHORT ("%abil_off%" + 0x0e + ("%abil_num%" * 0x38)) 2 // range
-      WRITE_BYTE  ("%abil_off%" + 0x27 + ("%abil_num%" * 0x38)) 8 // recharges after rest
-      READ_SHORT  ("%abil_off%" + 0x1e + ("%abil_num%" * 0x38)) "abil_fx_num"
-      READ_SHORT  ("%abil_off%" + 0x20 + ("%abil_num%" * 0x38)) "abil_fx_idx"
-      WHILE ("%abil_fx_num%" > 0) BEGIN // searches through fx for slow effect
-        SET "abil_fx_num" = ("%abil_fx_num%" - 1)
-        READ_SHORT ("%fx_off%" +        (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) "fx_type"
-        PATCH_IF ("%fx_type%" = 5) BEGIN // charm > use eff
-          WRITE_SHORT ("%fx_off%" +        (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 177 // use eff
-          PATCH_IF ("ring27" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN // fire control ring
-            WRITE_LONG  ("%fx_off%" + 0x04 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 187 // fire elemental
-          END ELSE
-          PATCH_IF ("ring28" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN // air control
-            WRITE_LONG  ("%fx_off%" + 0x04 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 186 // air elemental
-          END ELSE
-          PATCH_IF ("ring29" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN // earth control
-            WRITE_LONG  ("%fx_off%" + 0x04 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 188 // earth elemental
-          END
-          WRITE_SHORT ("%fx_off%" + 0x08 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 5   // class
-          WRITE_ASCII ("%fx_off%" + 0x14 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) ~cdcmelem~ // new eff
-          WRITE_LONG  ("%fx_off%" + 0x24 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 1   // save v spells
-          WRITE_LONG  ("%fx_off%" + 0x28 + (("%abil_fx_idx%" + "%abil_fx_num%") * 0x30)) 2   // save bonus
-        END
-      END
-    END
-  END
-  BUT_ONLY_IF_IT_CHANGES
-  
-// air control ring, adding new effects
-COPY_EXISTING ~ring28.itm~ ~override~
-  READ_LONG   0x64 "abil_off"
-  READ_SHORT  0x68 "abil_num"
-  READ_LONG   0x6a "fx_off"
-  SET "loops" = 0
-  SET "fx_new" = 0
-  WHILE ("%abil_num%" > "%loops%") BEGIN // finds insert point and adjusts indices
-    READ_SHORT  ("%abil_off%" + 0x20 + ("%loops%" * 0x38)) "abil_fx_idx"
-    WRITE_SHORT ("%abil_off%" + 0x20 + ("%loops%" * 0x38)) ("%abil_fx_idx%" + "%fx_new%")
-    READ_ASCII  ("%abil_off%" + 0x04 + ("%loops%" * 0x38)) "icon"
-    PATCH_IF ("%icon%" STRING_COMPARE_CASE "spwi405b" = 0) BEGIN // invisibiity ability
-      SET "fx_new" = 5
-      SET "fx_insert" = ("%fx_off%" + ("%abil_fx_idx%" * 0x30))
-      READ_SHORT  ("%abil_off%" + 0x1e + ("%loops%" * 0x38)) "abil_fx_num"
-      WRITE_SHORT ("%abil_off%" + 0x1e + ("%loops%" * 0x38)) ("%abil_fx_num%" + "%fx_new%")
-    END
-    SET "loops" = ("%loops%" + 1)
-  END
-  WHILE ("%fx_new%" > 0) BEGIN
-    SET "fx_new" = ("%fx_new%" - 1)
-    INSERT_BYTES  ("%fx_insert%"       ) 0x30       // new effect
-      WRITE_SHORT ("%fx_insert%"       ) ("%fx_new%" + 33) // save bonuses
-      WRITE_BYTE  ("%fx_insert%" + 0x02) 1     // target:self
-      WRITE_BYTE  ("%fx_insert%" + 0x03) 0     // power
-      WRITE_LONG  ("%fx_insert%" + 0x04) 4     // value
-      WRITE_BYTE  ("%fx_insert%" + 0x0d) 2     // dispel/not bypass
-      WRITE_LONG  ("%fx_insert%" + 0x0e) 60    // duration
-      WRITE_BYTE  ("%fx_insert%" + 0x12) 100   // probability
-  END
-  BUT_ONLY_IF_IT_CHANGES
+  PATCH_IF ("ring27" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 187 END
+  PATCH_IF ("ring28" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 186 END
+  PATCH_IF ("ring29" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 188 END
+  LPF cd_item_alter_effect INT_VAR headers = 1 opcode = 5 opcode_new = 177 parameter1 = class parameter2 = 5
+    savingthrow = BIT0 savebonus = 2 STR_VAR resource = cdcmelem END // route charm through new EFF file
+  LPF cd_item_alter_header INT_VAR header = 1 range = 2 flag_recharge = 1 END // fix range, charges for charm
+  BUT_ONLY
 
-// disables erroneous save effects from earth control ring
-COPY_EXISTING ~ring29.itm~ ~override~
-  READ_LONG   0x6a "fx_off"
-  READ_SHORT  0x70 "fx_num"
-  WHILE ("%fx_num%" > 0) BEGIN
-    SET "fx_num" = ("%fx_num%" - 1)
-    READ_BYTE ("%fx_off%" +        ("%fx_num%" * 0x30)) "type"
-    PATCH_IF (("%type%" > 32) AND ("%type%" < 38)) BEGIN // save bonuses
-      WRITE_BYTE ("%fx_off%" + 0x12 + ("%fx_num%" * 0x30)) 0 // probability: 0
-    END
+// delete effects simulating burning hands, flame strike for direct casting of spells
+COPY_EXISTING ~ring27.itm~ ~override~
+  PATCH_FOR_EACH op IN 12 174 215 165 BEGIN // delete existing effects for burning hands, flame strike and just cast the spells instead
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
   END
-  BUT_ONLY_IF_IT_CHANGES
+  LPF cd_item_alter_header INT_VAR header = 3 range = 5 projectile = 1 END // range, projectile of burning hands ability
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 6 parameter2 = 1 timing = 1 STR_VAR resource = sppr503 END
+  LPF ADD_ITEM_EFFECT INT_VAR header = 3 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi103 END
+  BUT_ONLY
+
+// delete effects simulating improved invisibility for direct casting of spell
+COPY_EXISTING ~ring28.itm~ ~override~
+  PATCH_FOR_EACH op IN 20 139 141 BEGIN // delete existing effects for imp invis
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
+  END
+  LPF cd_item_alter_header INT_VAR header = 2 target = 1 range = 1 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 7 parameter2 = 1 timing = 1 STR_VAR resource = spwi405 END
+  BUT_ONLY
+
+// delete save bonuses, effects simulating stone to flesh for direct casting of spell
+COPY_EXISTING ~ring29.itm~ ~override~
+  FOR (op = 33 ; op < 38 ; ++op) BEGIN // delete save bonuses
+    LPF DELETE_ITEM_EQEFFECT INT_VAR opcode_to_delete = op END
+  END
+  PATCH_FOR_EACH op IN 43 141 174 215 BEGIN // delete existing effects for stone to flesh
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
+  END
+  LPF cd_item_alter_header INT_VAR header = 2 range = 50 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi625 END
+  BUT_ONLY
 
 // ring of gaxx displays wrong icon
 COPY_EXISTING ~ring39.itm~ ~override~
@@ -18310,7 +18266,7 @@ END                                                                             
 END                                                                                             // ends ACTION_FOR_EACH block
 
 // Standardize the school and secondary type of items which cast illusionary spells (aVENGER)
-COPY_EXISTING ~ring28.itm~ ~override~                                // Ring of Air Control
+COPY_EXISTING //~ring28.itm~ ~override~                                // Ring of Air Control; now casts spell directly
               ~sw1h26.itm~ ~override~                                // Ilbratha +1
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
@@ -24158,6 +24114,9 @@ COPY_EXISTING ~daystar1.eff~ ~override~
   WRITE_LONG  0x1c          3 // against mask_evil...
   WRITE_LONG  0x20          8 // ...from align.ids
   WRITE_ASCII 0x30 ~daystar2~ // then actually go to another +2 damage
+  WRITE_LONG  0x38          0 // blank leftover dice num
+  WRITE_LONG  0x3c          0 // blank leftover dice size
+  WRITE_LONG  0x60          0 // blank leftover param3
 
 // new eff for (un)holy word to display deaf icon; see sppr710.spl, sppr715.spl
 COPY_EXISTING ~iconslow.eff~ ~override/icondeaf.eff~
@@ -29316,6 +29275,13 @@ COPY_EXISTING ~scrl18.itm~ ~override~ // cursed scroll of stupidity
   END
   BUT_ONLY
 
+// a pair of scrolls should have min int, not min wis
+COPY_EXISTING ~scrl5e.itm~ ~override~ // champion's strength
+              ~scrl5f.itm~ ~override~ // chaotic commands
+  WRITE_BYTE 0x2a 9 // min int
+  WRITE_BYTE 0x2e 0 // min wis  
+  BUT_ONLY
+
 // The Reflection shield should protect the wielder against Ice Arrows (Wisp)
 COPY_EXISTING shld24.itm override
   PATCH_IF SOURCE_SIZE > 0x71 BEGIN
@@ -30025,13 +29991,21 @@ BUT_ONLY
 ///// effing effs                                      \\\\\
 /////                                                  \\\\\
 
-/* So, items with damage bonuses via opcode 278 have a couple of issues and are addressed in this section.
-Opcode 278 doesn't stack so it interferes with kit bonuses vs. creature type. If applied as a global effect
-it also bleeds over into the second weapon if used on a dual-wilder. Opcode 277 has he same dual-wield
+/* So, items with damage bonuses via opcode 178 have a couple of issues and are addressed in this section.
+Opcode 179 doesn't stack so it interferes with kit bonuses vs. creature type. If applied as a global effect
+it also bleeds over into the second weapon if used on a dual-wilder. Opcode 178 has the same dual-wield
 exploit but there's no way to fix it.*/
 
-// lycandam shared by wolfsbane amulet, so create unique one for kondar
+// shared effs
+COPY_EXISTING ~dragdam3.eff~ ~override/cdhalb04.eff~
 COPY_EXISTING ~lycandam.eff~ ~override/cdsw1h03.eff~
+
+// wrong target, ids for burning earth's troll damage/thac0
+COPY_EXISTING ~trolld1.eff~  ~override~
+              ~trollh1.eff~  ~override~
+  WRITE_LONG 0x14 2 // preset target
+  WRITE_LONG 0x20 4 // race.ids
+  BUT_ONLY
 
 // first, move effs from global effects to melee/ranged headers
 COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
@@ -30079,11 +30053,13 @@ COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
                ("%eff_file%" STRING_COMPARE_CASE "SKULLCR" = 0) OR
                ("%eff_file%" STRING_COMPARE_CASE "SW2H19A" = 0) OR
                ("%eff_file%" STRING_COMPARE_CASE "UNDDAM1" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "TROLLD1" = 0) OR
                ("%eff_file%" STRING_COMPARE_REGEXP "EQUAL0[1-8]" = 0) OR
                ("%eff_file%" STRING_COMPARE_REGEXP "FT[1-3]DAM" = 0) OR
                ("%eff_file%" STRING_COMPARE_REGEXP "SW1H6[45]A" = 0) OR
                ("%eff_file%" STRING_COMPARE_REGEXP "SW1H62[BCDEF]" = 0))) BEGIN
       PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "lycandam" = 0) BEGIN SPRINT eff_file "cdsw1h03" END
+      PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "dragdam3" = 0) BEGIN SPRINT eff_file "cdhalb04" END
       READ_ASCII   ("%fx_off%" +        ("%index%" * 0x30)) "clone" (48)
       DELETE_BYTES ("%fx_off%" +        ("%index%" * 0x30)) 0x30
       SET fx_num = (fx_num - 1)
@@ -30108,6 +30084,7 @@ COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
           WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx))   2     // preset target
           WRITE_ASCIIE (fx_off + 0x04 + (0x30 * abil_fx_idx)) "%ids%" // ids target from eff
           WRITE_BYTE   (fx_off + 0x0c + (0x30 * abil_fx_idx))   1     // instant/perm
+          WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) "%eff_file%" #8 // for the items with changing effs
           READ_SHORT  ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) "abil_fx_num"
           WRITE_SHORT ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) ("%abil_fx_num%" + 1)
           SET delta = (delta + 1)
@@ -30122,7 +30099,8 @@ COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
 COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
   LPF DELETE_ITEM_EQEFFECT INT_VAR opcode_to_delete = 177 END
   PATCH_FOR_EACH race IN 142 113 BEGIN // giants and ogres
-    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 99 STR_VAR resource = "hamm06" END
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 1 STR_VAR resource = "hamm06" END
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 2 STR_VAR resource = "cdhamm06" END
   END
 
 // deva needs to have mesdie fire before die
@@ -30168,12 +30146,17 @@ COPY_EXISTING ~cddisr.eff~ ~override/hamm10.eff~
 COPY_EXISTING ~hamm10.eff~ ~override/hamm11.eff~
   WRITE_LONG 0x1c 5 // +5
 
+// wrong target
+COPY_EXISTING ~damaceb.eff~  ~override~
+  WRITE_LONG 0x14 2 // preset target
+  BUT_ONLY
+
 // now patch effs from above to do damage directly instead of damage vs. type (damage matches weapon)
 ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_effing_effs BEGIN
+  cdhalb04 =>  16 // Dragon's Bane +3
   cdsw1h03 => 256 // new eff for bastard sword +1, +3 vs. shapeshifters
   damacea  =>   0 // jerrod's mace
   doppdam  => 256 // bastard sword +1, +3 vs. shapeshifters
-  dragdam3 =>  16 // Dragon's Bane +3
   equal01  => 256 // equalizer
   equal02  => 256 // equalizer
   equal03  => 256 // equalizer
@@ -30191,6 +30174,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_effing_effs BEGIN
   hamm06   =>   0 // dwarven thrower
   holyaven => 256 // carsomyr +5
   lycndam3 =>  16 // silver dagger
+  lycndam4 => 256 // sword o' balduran
   phanblad => 256 // phantom blade
   skullcr  =>   0 // skullcrusher's eff
   sw1h62b  => 256 // foebane(s)
@@ -30201,6 +30185,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_effing_effs BEGIN
   sw1h64a  => 256 // purifier +4
   sw1h65a  => 256 // purifier +5
   sw2h19a  => 256 // carsomyr +6
+  trolld1  => 256 // flame tongue
   unddam1  =>   0 // bone club eff
 END
 
@@ -30210,8 +30195,10 @@ ACTION_PHP_EACH cd_effing_effs AS eff => damtype BEGIN
 
     COPY_EXISTING "%eff%.eff" override
       WRITE_LONG  0x10 12           // change to damage
-      WRITE_SHORT 0x20  0           // normal
+      WRITE_LONG  0x14 2            // preset target
+      WRITE_SHORT 0x20 0            // normal
       WRITE_SHORT 0x22  "%damtype%" // damage type
+      WRITE_LONG  0x24 1            // timing: instant/permanent
       READ_LONG   0x60 "dam"        // read and move
       WRITE_LONG  0x60 0            // from here
       WRITE_LONG  0x1c "%dam%"      // to there
@@ -30219,6 +30206,29 @@ ACTION_PHP_EACH cd_effing_effs AS eff => damtype BEGIN
   END
 
 END
+
+// create hamm06 copy for missile damage
+COPY_EXISTING ~hamm06.eff~ ~override/cdhamm06.eff~
+  WRITE_SHORT 0x22 128 // missile damage type
+
+// effs for root of the problem
+COPY_EXISTING ~giandam.eff~  ~override~
+              ~monstdam.eff~ ~override~
+              ~undeddam.eff~ ~override~
+  WRITE_LONG 0x1c 2 // should be doing two extra damage, not three
+  WRITE_LONG 0x60 0 // param3 should be 0
+  BUT_ONLY
+
+// effs for dragon slayer
+COPY_EXISTING ~sw1h32c.eff~ ~override~
+  WRITE_LONG 0x60 0 // param3 should be 0
+  BUT_ONLY
+
+// wrong target for bone club's +1 thac0 vs undead
+COPY_EXISTING ~undhit1.eff~  ~override~
+  WRITE_LONG 0x1c 4 // undead from
+  WRITE_LONG 0x20 3 // general.ids
+  BUT_ONLY
 
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -31768,7 +31778,8 @@ Variable GLOBALDROWTIMESOL is referenced only 1 times.
 
 BEGIN ~cam testing~
 
-
+// patch functions
+INCLUDE ~bg2fixpack/lib/functions.tpa~
 
 /*
 COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
@@ -31798,7 +31809,6 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
     END
   END
   BUT_ONLY
-*/
 
 COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
   READ_SHORT 0x1c type
@@ -31819,3 +31829,4 @@ COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
     END
   END
   BUT_ONLY
+*/
