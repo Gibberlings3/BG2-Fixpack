@@ -28,6 +28,10 @@
  @23 = ~Change Free Action to Protect Against Stun~
  @24 = ~Paws from Shapeshifting Can Not Be Dispelled~
  @25 = ~Change Behavior of Simulacrum, Projected Image, and Mislead~
+ @26 = ~Previous fixpack installation detected.~
+ @27 = ~The Fixpack is not needed for this game.~
+ @28 = ~Remove Thieving Start Bonuses from Bard and Ranger Skills~
+ @29 = ~This component requires TobEx~
 
 @100 = ~Well, I was barely listening, anyway, so don't worry about it. Let's just concentrate on killing the next orc we see.~ []
 @101 = ~I shall do that, jaluk. And when I bash its skull in, you do not mind if I picture you in its porcine features, hm?~
@@ -212,7 +216,7 @@ Disadvantages:
 
 STATISTICS:
 
-THAC0: +2 bonus
+THAC0: +3 bonus
 Weight: 3
 Speed Factor: 5
 Proficiency Type: Long Bow
@@ -916,7 +920,7 @@ THAC0: +1 bonus  (strikes as a +5 weapon)
 Damage:  1D6 +1
 Damage type:  crushing
 Weight: 4
-Speed Factor: 1
+Speed Factor: 3
 Proficiency Type: Quarterstaff
 Type:  2-handed
 Requires: 5 Strength
@@ -1161,6 +1165,26 @@ Not Usable By:
  Druid
  Cleric
  Mage
+ Thief~
+
+//Originally string #1764
+@209 = ~Battle Axe +3
+
+This is the axe of Bruenor Battlehammer, and a fine weapon it is. It has a formidable single-edged blade, and handles with the efficiency of a hand axe despite its size.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Damage:  1D8 + 3
+Damage type:  slashing
+Weight: 6
+Speed Factor: 4
+Proficiency Type: Axe
+Type:  1-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
  Thief~
                           
 //Originally string #21957                          

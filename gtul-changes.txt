@@ -1,8 +1,15 @@
 Strings 84, 109, 9381 and 68136 are no longer stripped of their sounds.
 
+@Wisp
+Strings 2088, 47721, 49000, 49931, 49943, 49950, 50122 changed for Neb's gnomishness
+String 39562 is a typo fix
+bow thac0 corrections: 176, 39513, 66388, 66389, 71058
+bow speed: 50827
+-Cam
 
 CHANGED STRINGS:
 
+2088 //Neb's a gnome
 2208 //Thank Baervar!->Oh, thank you, Baervan!, matches VO, "My... My hands..." -> "My hands..." (old comment was: //Thank Baervar!->Oh, thank you, Baervan!, matches VO)
 6653 //thaco (old comment was: //fixed speed factor)
 8493 //Two Handed, thaco (old comment was: //Two Handed)
@@ -23,12 +30,19 @@ CHANGED STRINGS:
 37649 //Matrich, agenst (old comment was: //Matrich)
 39462 //thieves can use long swords, thaco (old comment was: //thieves can use long swords)
 39529 //two handed, thaco (old comment was: //two handed)
+39562 //"seldom is this armor be found" -> "seldom is this armor found"
 39626 //bards can not use the staff of curing, "STATISTICS"->"STATISTICS:", speed is wrong (old comment was: //bards can not use the staff of curing, "STATISTICS"->"STATISTICS:")
 41204 //"And my style is my own, do not be so petty."->" And my style is my own, do not be so petty." (old comment was: //"And my style is my own, do not be so petty."->" And my style is my own; do not be so petty.")
 44943 //Iron Skins does not protect the druid against "magic missle", "from the ground completely covering her"->"from the ground, completely covering her", "10th level druid"->"10th-level druid", "10th level druid"->"10th-level druid" (old comment was: //Iron Skins does not protect the druid against "magic missle")
 46667 //thieves can use scimitars, single edged, "STATISTICS"->"STATISTICS:" (old comment was: //thieves can normally use scimitars, single edged, "STATISTICS"->"STATISTICS:")
 46706 //thieves can use light crossbows, thaco (old comment was: //thieves can use light crossbows)
+47721 //illilthium->illithium, neb's a gnome
 48658 //Two Handed, speed is wrong (old comment was: //Two Handed)
+49000 //Neb's a gnome
+49931 // Neb's a gnome
+49943 // Neb's a gnome
+49950 // Neb's a gnome
+50122 // Neb's a gnome
 51770 //tockenage->tokenage, mithril->mithral (old comment was: //tockenage->tokenage)
 51884 //thieves can use scimitars, speed is wrong (old comment was: //thieves can use scimitars)
 58085 //"Athkatla, In the end"->"Athkatla, in the end" (old comment was: //"Athkatla; In the end"->"Athkatla; in the end")

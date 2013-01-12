@@ -135,3 +135,18 @@ ADD_TRANS_ACTION BVICON25
 BEGIN 81 82 127 END
 BEGIN END
 ~RestParty()~
+
+// Thieves and Bards now properly receive a Dexterity bonus upon drawing the "STAR" card from the Deck of Many Things (Nythrun)
+ALTER_TRANS domt BEGIN 19 END BEGIN 3 END BEGIN
+    ~TRIGGER~ ~OR(2)
+Class(LastTalkedToBy,BARD_ALL)
+Class(LastTalkedToBy,THIEF_ALL)~
+END
+  
+// Anomen should not speak ill of the Order during his banters with Imoen unless he had failed his test (Wisp)
+ALTER_TRANS bimoen25 BEGIN 14 16 END BEGIN 0 END BEGIN
+"TRIGGER" ~!Alignment("Anomen",CHAOTIC_NEUTRAL)~
+END
+ALTER_TRANS bimoen25 BEGIN 14 16 END BEGIN 1 END BEGIN
+"TRIGGER" ~Alignment("Anomen",CHAOTIC_NEUTRAL)~
+END

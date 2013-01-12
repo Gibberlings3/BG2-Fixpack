@@ -20,7 +20,7 @@
 
 STATISTICS:
 
-THAC0: +2 bonus
+THAC0: +3 bonus
 Weight: 3
 Speed Factor: 5
 Proficiency Type: Long Bow
@@ -405,6 +405,10 @@ I have met with the artist, Sir Sarles... but the only way he will perform the w
 @1002083 = ~Gain the services of Sir Sarles for the temple.
 
 Jerlia has fashioned the illithium alloy for me... now all I need to do is give the metal to Sarles and hope that he does not distinguish between it and the real thing.~ []
+@1002088 = ~Gain the services of Sir Sarles for the temple.
+
+Unger Hilldark told me that his latest shipment of illithium was stolen by a gnome named Neb. Unger cannot get the illithium back himself because the word of a Duergar is not trusted in Amn. If I am to get real illithium, I will have to exact justice on this bandit myself. Unger tells me that Neb bought a house in the Bridge District, marked as 'derelict house' on the map. The name 'Neb' sounds oddly familiar.~
+
 @1002092 = ~A question, my hound and hamster... why is it that you come into such rage when we fight? 'Tis as if all the furies of the planes were all at once let loose within your veins!~ [HAERDA52]
 @1002096 = ~Cut your wit, bard. The day has been long already, without adding hours to it.~ [JAHEIR59]
 @1002118 = ~Madulf wants to make a deal with the village.
@@ -14979,7 +14983,7 @@ Kestsa was given this longbow many years ago by the Cowled Wizards, as reward fo
 STATISTICS:
 
 Equipped Abilities: +20% resistance to magical damage
-THAC0: +4 bonus
+THAC0: +5 bonus
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Long Bow
@@ -18634,7 +18638,7 @@ I managed to bring together two people who I met in the Graveyard District... a 
 @1047720 = ~It is better than the best of things and worse than the worst of things. You love it more than life. You fear it more than death. The rich have need of it, and the poor have it in endless supply.~ []
 @1047721 = ~Gain the services of Sir Sarles for the temple.
 
-I managed to secure the services of the artist, Sir Sarles, for the church... although it was certainly not easy. He had demanded to use pure illithium, which I had to obtain from a murderous dwarf named Neb. Still, the task is done.~ []
+I managed to secure the services of the artist, Sir Sarles, for the church... although it was certainly not easy. He had demanded to use pure illithium, which I had to obtain from a murderous gnome named Neb. Still, the task is done.~ []
 @1047735 = ~Another mission for the temple.
 
 I have retrieved the Dawn Ring from Borinall and brought it to its rightful place in the Temple of Talos... my superiors were very pleased with my actions.~ []
@@ -18908,6 +18912,7 @@ Not Usable By:
 @1048973 = ~Madness! The singleminded nature of the Rashemeni but with even less sense!~ []
 @1048975 = ~<CHARNAME>, please avoid tempting the gods of darkness. I search for favor, but not at such a cost to my soul.~ []
 @1048982 = ~I have little doubt, <CHARNAME>, that we will also find Lieutenant Aegisfield somewhere herein... hopefully the man is still alive.~ []
+@1049000 = ~This is the head of Neb the Gnome. Rarely has a more despicable being roamed the land.~
 @1049001 = ~Ahah! I knew there had to be reinforcements down here. Couldn't be that powerful by himself, I said!~ [GENMG06]
 @1049009 = ~You can talk all you wish, but it will do you no good. Everyone in this place has either attacked or tried to lie their way into my confidence.~ []
 @1049023 = ~I understand none of this, but if the one who killed Dynaheir is beyond, Boo and Minsc will make short work of you!~ []
@@ -19004,10 +19009,13 @@ I have made a deal with Firkraag the dragon. If I retrieve the Deed to the Winds
 @1049913 = ~You have your ransom, <CHARNAME>, but you could have avoided the inevitable reputation of a kidnapper. Sometimes I think you act without due consideration.~ []
 @1049914 = ~Your distress wakes your companions, but they can only watch as your pain grows more intense.~ []
 @1049925 = ~My dear, are you all right? I will soothe you as best I can if need be.~ []
+@1049931 = ~I have the head of the child-killing gnome Neb.  I expect a bounty for the service of killing him.~ []
 @1049937 = ~Mind your business, drow, if you value your life!~ []
 @1049938 = ~Your lips move as a jester's, with no sound for me to hear. Do you mock me, <CHARNAME>? <CHARNAME>, do you hear me... no!~ []
 @1049941 = ~You are shivering, my dear. I will stoke the fire, though I fear your chill is not a fault of the air.~ []
-@1049948 = ~I have the head of a criminal here, a dwarf by the name of Neb. Is it you that I should be talking to?~ []
+@1049943 = ~I have the head of the child-killing gnome Neb.  I expect a bounty for killing him.~ []
+@1049948 = ~I have the head of a criminal here, a gnome by the name of Neb. Is it you that I should be talking to?~ []
+@1049950 = ~I have the head of a criminal here, a gnome by the name of Neb. Is it you that I should be talking to?~ []
 @1049979 = ~<CHARNAME>, I want to think this won't happen again. I *have* to think it won't. Please, let's get out of this place.~ []
 @1049983 = ~We must put a stop to this. Speak no more of it until we can face those responsible.~ []
 @1049984 = ~The pain comes in an instant, forcing you to double over. A quick check reveals no obvious injury or attacker, and with dread you realize the cause is within.~ []
@@ -19025,6 +19033,7 @@ I have made a deal with Firkraag the dragon. If I retrieve the Deed to the Winds
 @1050031 = ~It felt like I wasn't in total control of myself for a moment. It has passed.~ []
 @1050038 = ~Excellent! An adventure worthy of the name!~ []
 @1050096 = ~Your weakness is betrayed by the quiver in your voice, rivvil! Your precious eye tyrant is so much dust and you shall join him before the hour is through!~ []
+@1050122 = ~Boo remembers!  Baldur's Gate!  Neb the child murderer!  You die, gnome, you die!!  RAAAAAGGGGGHHHH!!~ []
 @1050136 = ~Speak common, you deep-living freaks. I have no time for your nonsense!~ []
 @1050137 = ~Gordul! Ta jarge.~ []
 @1050138 = ~Ahh haha. (ahem) You must excuse my fellows. It is not often we encounter surfacers down here.~ []
@@ -19153,7 +19162,7 @@ STATISTICS:
 
 THAC0: +2 bonus
 Weight: 2
-Speed Factor: 6
+Speed Factor: 4
 Proficiency Type: Short Bow
 Type: 2-handed
 Not Usable By:
@@ -22827,7 +22836,7 @@ STATISTICS:
 
 Equipped Ability: Increase movement rate by 2
 
-THAC0: +4 bonus
+THAC0: +5 bonus
 Weight: 2
 Speed Factor: 3
 Proficiency Type: Long Bow
@@ -22847,7 +22856,7 @@ STATISTICS:
 
 Equipped Ability: Increase movement rate by 2
 
-THAC0: +5 bonus
+THAC0: +6 bonus
 Weight: 1
 Speed Factor: 2
 Proficiency Type: Long Bow
@@ -24531,7 +24540,7 @@ Not Usable By:
 
 STATISTICS:
 
-THAC0: +3 bonus
+THAC0: +4 bonus
 Weight: 2
 Speed Factor: 4
 Proficiency Type: Long Bow

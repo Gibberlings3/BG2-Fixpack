@@ -1,6 +1,4 @@
 
-
-
 STRING_SET
 7 @1000007 //Haer'Dalis with capital D
 10 @1000010 //hopefull->hopeful
@@ -20,7 +18,7 @@ STRING_SET
 161 @1000161 //Haer' Dalis
 163 @1000163 //Haer'Dalis with capital D
 172 @1000172 //Haer' Dalis->Haer'Dalis
-176 @1000176 //THACO
+176 @1000176 //THACO, thac0 should also be +3, not +2
 199 @1000199 //THACO
 225 @1000225 //Haer'Dalis with capital D
 226 @1000226 //Haer'Dalis with capital D
@@ -88,6 +86,7 @@ STRING_SET
 2032 @1002032 //Tis->'Tis
 2039 @1002039 //Athkata->Athkatla
 2073 @1002073 //illuthium
+2088 @1002088 //Neb's a gnome
 2096 @1002096 //matching VO, without you adding->without adding
 2141 @1002141 //Full Plate + 2 -> Full Plate +2, plat19
 2208 @1002208 //Thank Baervar!->Oh, thank you, Baervan!, matches VO, "My... My hands..." -> "My hands..."
@@ -1270,7 +1269,7 @@ STRING_SET
 39510 @1039510 //thaco
 39511 @1039511 //thaco, speed and weight are wrong
 39512 @1039512 //thaco
-39513 @1039513 //thaco
+39513 @1039513 //thaco, thac0 correction
 39515 @1039515 //thaco
 39516 @1039516 //thaco
 39517 @1039517 //thaco, "long dead faith"->"long-dead faith"
@@ -1289,6 +1288,7 @@ STRING_SET
 39533 @1039533 //thaco
 39538 @1039538 //thieves can not use plate armour
 39549 @1039549 // griffin -> griffon
+39562 @1039562 //"seldom is this armor be found" -> "seldom is this armor found"
 39566 @1039566 //STATISTICS
 39570 @1039570 //STATISTICS
 39571 @1039571 //STATISTICS
@@ -1553,7 +1553,7 @@ STRING_SET
 47512 @1047512 //STATISTICS
 47545 @1047545 //"although I did it without the evidence that Renal needed and without his."->"although I did it without the evidence that Renal needed and without his approval."
 47578 @1047578 //inadvertantly->inadvertently
-47721 @1047721 //illilthium->illithium
+47721 @1047721 //illilthium->illithium, neb's a gnome
 47760 @1047760 //presense->presence
 47762 @1047762 //mithril->mithral
 47766 @1047766 //mithril->mithral
@@ -1607,6 +1607,7 @@ STRING_SET
 48952 @1048952 // "Couldn't spare just *one* coin?" -> "Couldn't you spare just *one* coin?"
 48973 @1048973 //"The singleminded nature of the Rashemen"->"The singleminded nature of the Rashemeni"
 48982 @1048982 //Aegiesfield->Aegisfield
+49000 @1049000 //Neb's a gnome
 49029 @1049029 //Sprit->Spirit
 49050 @1049050 //"Child of Nature you are again needed."->"Child of Nature, you are again needed."
 49107 @1049107 //"old enemies marshall their forces"->"old enemies marshal their forces"
@@ -1621,6 +1622,9 @@ STRING_SET
 49630 @1049630 //"Yer a conquerer"->"Ye're a conqueror"
 49711 @1049711 //it's->its
 49925 @1049925 // sooth -> soothe
+49931 @1049931 // Neb's a gnome
+49943 @1049943 // Neb's a gnome
+49950 @1049950 // Neb's a gnome
 49979 @1049979 //"lets get out of this place"->"let's get out of this place"
 49988 @1049988 //blashphemy->blasphemy
 49992 @1049992 //"Calm yourself, rivvin."->"Calm yourself, rivvil."
@@ -1628,6 +1632,7 @@ STRING_SET
 50031 @1050031 //moent->moment
 50038 @1050038 // worhty -> worthy
 50096 @1050096 //"your voice, rivvin"->"your voice, rivvil"
+50122 @1050122 // Neb's a gnome
 50172 @1050172 //rivven->rivvin
 50251 @1050251 //adminstering
 50267 @1050267 //inisist
@@ -1654,6 +1659,7 @@ STRING_SET
 50781 @1050781 //D'Arnisse->de'Arnise
 50790 @1050790 //dakness
 50818 @1050818 //D'Arnisse
+50827 @1050827 //speed correction
 51029 @1051029 //adminstering->administering
 51151 @1051151 //millenia->millennium
 51176 @1051176 //Ust Nathan->Ust Natha
@@ -2071,8 +2077,8 @@ STRING_SET
 66384 @1066384 //Thac0
 66385 @1066385 //thaco
 66387 @1066387 //thaco
-66388 @1066388 //reknowned, thaco
-66389 @1066389 //thaco
+66388 @1066388 //reknowned, thaco, thac0 correction
+66389 @1066389 //thaco, thac0 correction
 66393 @1066393 //thaco
 66394 @1066394 //thaco
 66402 @1066402 //thaco
@@ -2245,7 +2251,7 @@ STRING_SET
 71052 @1071052 //thaco
 71054 @1071054 //thaco
 71056 @1071056 //thaco
-71058 @1071058 //thaco, speed is wrong, "the staff is as high as the archer is"->"the staff is as long as the archer is tall"
+71058 @1071058 //thaco, speed is wrong, "the staff is as high as the archer is"->"the staff is as long as the archer is tall", thac0 correction
 71060 @1071060 //thaco
 71062 @1071062 //thaco
 71065 @1071065 //"Yaga Shura"->"Yaga-Shura"
