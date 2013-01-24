@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v10 RC 1~
+VERSION ~v10 RC 2~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -229,6 +229,13 @@ STRING_SET 45869 @138 // Barbarian rage missing protection list
 STRING_SET 58250 @134 // [ELLESI02] sound restoration
 STRING_SET 60724 @112 // adalon soundset restoration
 STRING_SET 60741 @113 // adalon soundset restoration
+
+ACTION_IF ("%LANGUAGE%" STRING_COMPARE_CASE "english" = 0) THEN BEGIN // english only for now
+
+  STRING_SET  6526 @215 // flame tongue: descript missing thac0 bonuses, +3 bonuses are against cold-using not cold/fire
+  STRING_SET  7345 @214 // kondar: descript not mentioning extra thac0 vs. shapeshifters
+
+END
 
 ACTION_IF ("%LANGUAGE%" STRING_COMPARE_CASE "korean") THEN BEGIN // no korean translation for these strings
 
@@ -2965,6 +2972,7 @@ COPY_EXISTING ~ar0041.are~ ~override~
 COPY_EXISTING ~ar0321.are~ ~override~
               ~ar0322.are~ ~override~
               ~ar0323.are~ ~override~
+              ~ar0600.are~ ~override~
   READ_BYTE  0x48 "flags"
   WRITE_BYTE 0x48 ("%flags%" BAND 0b11111110)
   BUT_ONLY_IF_IT_CHANGES
@@ -3016,6 +3024,7 @@ COPY_EXISTING ~ar0310.are~ ~override~
               ~ar0418.are~ ~override~
               ~ar0521.are~ ~override~
               ~ar0526.are~ ~override~
+              ~ar0600.are~ ~override~
               ~ar0601.are~ ~override~
               ~ar0606.are~ ~override~
               ~ar0804.are~ ~override~
@@ -13550,6 +13559,8 @@ COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
 COPY_EXISTING ~brac19.itm~   ~override~ // Gauntlets of Crushing
               ~dwclck01.itm~ ~override~ // Drow Piwafwi Cloak
               ~misc5x.itm~   ~override~ // harper pin
+              ~misc72.itm~   ~override~ // claw of kazgaroth
+              ~misc73.itm~   ~override~ // horn of kazgaroth
               ~misc9w.itm~   ~override~ // Drow Piwafwi Cloak
               ~regisamu.itm~ ~override~ // Ruby Pendant of Beguiling
   PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
@@ -13908,6 +13919,7 @@ COPY_EXISTING ~aeriebab.itm~ ~override~
               ~kuosper.itm~  ~override~
               ~lionspir.itm~ ~override~
               ~misc4g.itm~   ~override~
+              ~misc73.itm~   ~override~ // horn of kazgaroth
               ~misc84.itm~   ~override~
               ~plat98.itm~   ~override~
               ~plybass.itm~  ~override~
@@ -14059,6 +14071,7 @@ COPY_EXISTING ~aegis.itm~  ~override~
 // adds +1 enchantment to acid arrows and Flasher Master Bruiser Mates (BD)
 COPY_EXISTING ~arow04.itm~ ~override~
               ~bolt07.itm~ ~override~
+              ~bull04.itm~ ~override~
               ~dart05.itm~ ~override~
   WRITE_LONG 0x60 1
   BUT_ONLY_IF_IT_CHANGES
@@ -16020,9 +16033,9 @@ COPY_EXISTING ~ring27.itm~ ~override~
   PATCH_IF ("ring27" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 187 END
   PATCH_IF ("ring28" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 186 END
   PATCH_IF ("ring29" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN SET class = 188 END
-  LPF cd_item_alter_effect INT_VAR headers = 1 opcode = 5 opcode_new = 177 parameter1 = class parameter2 = 5
+  LPF ITEM_ALTER_EFFECT INT_VAR headers = 1 opcode = 5 opcode_new = 177 parameter1 = class parameter2 = 5
     savingthrow = BIT0 savebonus = 2 STR_VAR resource = cdcmelem END // route charm through new EFF file
-  LPF cd_item_alter_header INT_VAR header = 1 range = 2 flag_recharge = 1 END // fix range, charges for charm
+  LPF ITEM_ALTER_HEADER INT_VAR header = 1 range = 2 flag_recharge = 1 END // fix range, charges for charm
   BUT_ONLY
 
 // delete effects simulating burning hands, flame strike for direct casting of spells
@@ -16030,7 +16043,7 @@ COPY_EXISTING ~ring27.itm~ ~override~
   PATCH_FOR_EACH op IN 12 174 215 165 BEGIN // delete existing effects for burning hands, flame strike and just cast the spells instead
     LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
   END
-  LPF cd_item_alter_header INT_VAR header = 3 range = 5 projectile = 1 END // range, projectile of burning hands ability
+  LPF ITEM_ALTER_HEADER INT_VAR header = 3 range = 5 projectile = 1 END // range, projectile of burning hands ability
   LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 6 parameter2 = 1 timing = 1 STR_VAR resource = sppr503 END
   LPF ADD_ITEM_EFFECT INT_VAR header = 3 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi103 END
   BUT_ONLY
@@ -16040,7 +16053,7 @@ COPY_EXISTING ~ring28.itm~ ~override~
   PATCH_FOR_EACH op IN 20 139 141 BEGIN // delete existing effects for imp invis
     LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
   END
-  LPF cd_item_alter_header INT_VAR header = 2 target = 1 range = 1 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ITEM_ALTER_HEADER INT_VAR header = 2 target = 1 range = 1 primary = 0 secondary = 0 END // use schools from spell itself
   LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 7 parameter2 = 1 timing = 1 STR_VAR resource = spwi405 END
   BUT_ONLY
 
@@ -16052,7 +16065,7 @@ COPY_EXISTING ~ring29.itm~ ~override~
   PATCH_FOR_EACH op IN 43 141 174 215 BEGIN // delete existing effects for stone to flesh
     LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
   END
-  LPF cd_item_alter_header INT_VAR header = 2 range = 50 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ITEM_ALTER_HEADER INT_VAR header = 2 range = 50 primary = 0 secondary = 0 END // use schools from spell itself
   LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi625 END
   BUT_ONLY
 
@@ -17127,7 +17140,7 @@ COPY_EXISTING ~sw1h51.itm~ ~override~ // celestial fury
 
 COPY_EXISTING ~sw1h55.itm~ ~override~
   WRITE_ASCII 0x3a ~isw1h55~ #8 // inventory icon
-  LPF cd_item_alter_header STR_VAR icon = isw1h55 END // melee icon
+  LPF ITEM_ALTER_HEADER STR_VAR icon = isw1h55 END // melee icon
   BUT_ONLY_IF_IT_CHANGES
 
 // Habib's mighty scimitar
@@ -20462,6 +20475,28 @@ COPY_EXISTING ~sppr105.spl~ ~override~
   END
   BUT_ONLY_IF_IT_CHANGES
 
+// casting speed fixes
+COPY_EXISTING ~sppr113.spl~ ~override~ // doooooooooooooom
+              ~sppr301.spl~ ~override~ // animate dead - divine
+              ~sppr302.spl~ ~override~ // call lightning
+              ~sppr506.spl~ ~override~ // iron skins
+              ~sppr608.spl~ ~override~ // harm
+              ~sppr720.spl~ ~override~ // earthquake
+              ~sppr723.spl~ ~override~ // elemental summoning
+              ~sppr724.spl~ ~override~ // greater elemental summoning
+              ~spwi208.spl~ ~override~ // know alignment
+              ~spwi214.spl~ ~override~ // strength
+              ~spwi420.spl~ ~override~ // minor sequencer
+              ~spwi501.spl~ ~override~ // animate dead - arcane
+              ~spwi617.spl~ ~override~ // contingency
+              ~spwi710.spl~ ~override~ // spell sequencer
+  READ_LONG  0x64 "abil_off" ELSE 0
+  READ_SHORT 0x68 "abil_num" ELSE 0
+  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
+    WRITE_SHORT ("%abil_off%" + 0x12 + (0x28 * "%index%")) 9
+  END
+  BUT_ONLY_IF_IT_CHANGES
+
 // barkskin AC bonus incorrect at higher levels
 COPY_EXISTING ~sppr202.spl~ ~override~
   READ_LONG  0x64 "abil_off"
@@ -20530,27 +20565,6 @@ COPY_EXISTING ~sppr210.spl~ ~override~
         WRITE_LONG ("%fx_off%" + 0x0e + (0x30 * ("%abil_fx_idx%" + "%abil_fx_num%"))) 120 // corrects duration
       END
     END
-  END
-  BUT_ONLY_IF_IT_CHANGES
-
-// casting speed fixes
-COPY_EXISTING ~sppr301.spl~ ~override~ // animate dead - divine
-              ~spwi501.spl~ ~override~ // animate dead - arcane
-              ~sppr302.spl~ ~override~ // call lightning
-              ~sppr506.spl~ ~override~ // iron skins
-              ~sppr608.spl~ ~override~ // harm
-              ~sppr720.spl~ ~override~ // earthquake
-              ~sppr723.spl~ ~override~ // elemental summoning
-              ~sppr724.spl~ ~override~ // greater elemental summoning
-              ~spwi208.spl~ ~override~ // know alignment
-              ~spwi214.spl~ ~override~ // strength
-              ~spwi420.spl~ ~override~ // minor sequencer
-              ~spwi617.spl~ ~override~ // contingency
-              ~spwi710.spl~ ~override~ // spell sequencer
-  READ_LONG  0x64 "abil_off" ELSE 0
-  READ_SHORT 0x68 "abil_num" ELSE 0
-  FOR (index = 0 ; index < abil_num ; index = index + 1) BEGIN
-    WRITE_SHORT ("%abil_off%" + 0x12 + (0x28 * "%index%")) 9
   END
   BUT_ONLY_IF_IT_CHANGES
 
@@ -24111,8 +24125,10 @@ COPY_EXISTING ~blind.eff~    ~override/cdblind1.eff~
 // daystar damage vs. evil undead fixes, pt. 2 (see sw1h31.itm, daystar2.eff)
 COPY_EXISTING ~daystar1.eff~ ~override~
   WRITE_LONG  0x10        177 // use eff file
+  WRITE_LONG  0x14          2 // preset target
   WRITE_LONG  0x1c          3 // against mask_evil...
   WRITE_LONG  0x20          8 // ...from align.ids
+  WRITE_LONG  0x24          1 // timing: permanent
   WRITE_ASCII 0x30 ~daystar2~ // then actually go to another +2 damage
   WRITE_LONG  0x38          0 // blank leftover dice num
   WRITE_LONG  0x3c          0 // blank leftover dice size
@@ -28545,6 +28561,13 @@ COPY_EXISTING ar0904.bcs override
 BUT_ONLY
 UNLESS ~16465 0 1 0 0 "talmiss[2]?" "" OB~
 
+// fixes Glacias charm issue
+COPY_EXISTING ~ar1303.bcs~ ~override~
+  DECOMPILE_BCS_TO_BAF
+    REPLACE_TEXTUALLY ~StateCheck("kpglai01",STATE_CHARMED)~ ~!Allegiance("kpglai01",ENEMY)~
+  COMPILE_BAF_TO_BCS
+  BUT_ONLY
+
 // The Spellhold Asylum door should be unlocked and opened once (aVENGER)
 COPY_EXISTING ~ar1500.bcs~ ~override~
 DECOMPILE_BCS_TO_BAF
@@ -28561,6 +28584,14 @@ COPY_EXISTING ~ar1600.bcs~ ~override~
     REPLACE_TEXTUALLY ~Dead("ppright")~  ~GlobalLT("AsylumPlot","GLOBAL",78) Dead("ppright")~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
+
+// militia wizard breaking up fight
+COPY_EXISTING ~ar2010.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(CreateCreature("trfued11",\[252\.725\],12)\)~ ~\1 SetGlobalTimer("CDtrfued11","AR2010",6)~
+    APPEND_FILE ~bg2fixpack/baf/ar2010.baf~
+  END
+  BUT_ONLY
 
 // saemon brynnlaw -> sahuagin city sequence errors (8 changes)
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
@@ -28592,6 +28623,14 @@ COPY_EXISTING ~cut41zg.bcs~ ~override~
     REPLACE_TEXTUALLY ~SetGlobalTimer("GithTimer1","GLOBAL",5)~ ~SetGlobalTimer("GithTimer1","GLOBAL",10)~
   COMPILE_BAF_TO_BCS
   BUT_ONLY_IF_IT_CHANGES
+
+// druids fighting unspawned trolls
+COPY_EXISTING ~dgdru01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Detect(\[PC\])~ ~Range([PC],25)~
+    REPLACE_TEXTUALLY ~See(\[PC\])\([ %TAB%%LNL%%MNL%%WNL%]+Global("SpawnDGTrolls","AR1900",0)\)~ ~Range([PC],25) \1~
+  END
+  BUT_ONLY
 
 // All trolls should have their hit points set to 1 after getting knocked down (aVENGER)
 COPY_EXISTING ~dgtrol02.bcs~ ~override~ // Druid Grove trolls that are fighting some adventurers
@@ -28685,6 +28724,11 @@ BUT_ONLY
 ///// area fixes                                       \\\\\
 /////                                                  \\\\\
 
+// add map note for crooked crane at city gates
+COPY_EXISTING ~ar0020.are~ ~override~
+  ADD_MAP_NOTE #231 #517 ~gray~ #46216
+  BUT_ONLY
+
 // container traps won't trigger due to ground scripts
 COPY_EXISTING ar0503.are override
               ar5204.are override
@@ -28697,17 +28741,42 @@ COPY_EXISTING ar0503.are override
   END
   BUT_ONLY
 
-// Fix the incorrect orientation when entering Cayia's house in Brynnlaw (CamDawg)
-COPY_EXISTING ~ar1606.are~ ~override~
-  READ_LONG 0x68 "enter_off"
-  READ_LONG 0x6c "enter_num"
-  FOR (index = 0 ; index < enter_num ; index = index + 1) BEGIN
-    READ_ASCII ("%enter_off%" +        ("%index%" * 0x68)) "name"
-    PATCH_IF ("%name%" STRING_EQUAL_CASE "exit1600") BEGIN
-      WRITE_SHORT ("%enter_off%" + 0x24 + ("%index%" * 0x68)) 6 // northwest
+// shift guarded compund entrance in temple district
+COPY_EXISTING ~ar0900.are~ ~override~
+  SET delta_x = "-98"
+  SET delta_y = 40
+  READ_SHORT 0x5a trig_num
+  READ_LONG  0x5c trig_off
+  READ_LONG  0x68 ent_off
+  READ_LONG  0x6c ent_num
+  READ_LONG  0x7c vert_off
+  FOR (index = 0 ; index < ent_num ; ++index) BEGIN
+    READ_ASCII (ent_off +        (index * 0x68)) name
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Exit0906" = 0) BEGIN
+      WRITE_SHORT (ent_off + 0x20 + (index * 0x68)) (THIS + delta_x) // exit coordinates
+      WRITE_SHORT (ent_off + 0x22 + (index * 0x68)) (THIS + delta_y)
+      SET index = ent_num // kill loop
     END
   END
-BUT_ONLY_IF_IT_CHANGES
+  FOR (index = 0 ; index < trig_num ; ++index) BEGIN
+    READ_ASCII (trig_off +        (index * 0xc4)) name
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Tran0906" = 0) BEGIN
+      WRITE_SHORT (trig_off + 0x22 + (index * 0xc4)) (THIS + delta_x) // bounding box
+      WRITE_SHORT (trig_off + 0x24 + (index * 0xc4)) (THIS + delta_y)
+      WRITE_SHORT (trig_off + 0x26 + (index * 0xc4)) (THIS + delta_x)
+      WRITE_SHORT (trig_off + 0x28 + (index * 0xc4)) (THIS + delta_y)
+      READ_SHORT  (trig_off + 0x2a + (index * 0xc4)) vert_num
+      READ_LONG   (trig_off + 0x2c + (index * 0xc4)) vert_idx
+      WRITE_SHORT (trig_off + 0x70 + (index * 0xc4)) (THIS + delta_x)
+      WRITE_SHORT (trig_off + 0x72 + (index * 0xc4)) (THIS + delta_y)
+      SET index = trig_num // kill loop
+    END
+  END
+  FOR (index = vert_idx ; index < (vert_idx + vert_num) ; ++index) BEGIN
+    WRITE_SHORT (vert_off +        (index * 0x04))  (THIS + delta_x)
+    WRITE_SHORT (vert_off + 0x02 + (index * 0x04))  (THIS + delta_y)
+  END
+  BUT_ONLY
 
 // ground traps won't trigger due to container scripts
 COPY_EXISTING ar1202.are override
@@ -28723,6 +28792,18 @@ COPY_EXISTING ar1202.are override
   END
   BUT_ONLY_IF_IT_CHANGES
 
+// Fix the incorrect orientation when entering Cayia's house in Brynnlaw (CamDawg)
+COPY_EXISTING ~ar1606.are~ ~override~
+  READ_LONG 0x68 "enter_off"
+  READ_LONG 0x6c "enter_num"
+  FOR (index = 0 ; index < enter_num ; index = index + 1) BEGIN
+    READ_ASCII ("%enter_off%" +        ("%index%" * 0x68)) "name"
+    PATCH_IF ("%name%" STRING_EQUAL_CASE "exit1600") BEGIN
+      WRITE_SHORT ("%enter_off%" + 0x24 + ("%index%" * 0x68)) 6 // northwest
+    END
+  END
+BUT_ONLY_IF_IT_CHANGES
+
 //Unreferenced night tilesets (Nythrun)
 //see also ar1900n.wed
 COPY_EXISTING ar1900.are override
@@ -28730,6 +28811,11 @@ COPY_EXISTING ar1900.are override
   READ_SHORT   0x48 location_flags
   WRITE_SHORT  0x48 location_flags | 0x40
 BUT_ONLY
+
+// no battle music for adratha's cabin
+COPY_EXISTING ~ar1902.are~ ~override~
+  READ_LONG 0xbc song_off
+  WRITE_LONG (song_off + 0x0c) 54 // battle music
 
 /////                                                  \\\\\
 ///// creature file fixes                              \\\\\
@@ -28943,6 +29029,12 @@ COPY_EXISTING ~demgla01.cre~   ~override~ // Ranger stronghold Glabrezu
               ~demglab2.cre~   ~override~ // Suldanessalar temple Glabrezu
 WRITE_LONG 0x14 12500 // XP value
 BUT_ONLY_IF_IT_CHANGES
+
+// new method for glacias charm issue; see ar1303.bcs and kpglai01.dlg
+COPY_EXISTING ~kpglai01.cre~ ~override~
+  WRITE_BYTE 0x270 128
+  LPF ADD_CRE_EFFECT INT_VAR opcode = 72 target = 1 parameter1 = 255 parameter2 = 0 timing = 0 duration = 360000
+    resist_dispel = 1 casterlvl = 1 power = 1 school = 4 sectype = 11 END
   
 // planar-prison guard can not make the actors hostile by shouting (Wisp)
 COPY_EXISTING pcapt03.cre override
@@ -29031,7 +29123,7 @@ ACTION_PHP_EACH cd_bow_thac0 AS item => thac0 BEGIN
   ACTION_IF FILE_EXISTS_IN_GAME "%item%.itm" BEGIN
 
     COPY_EXISTING ~%item%.itm~ ~override~
-      LPF cd_item_alter_header INT_VAR type = 4 thac0_bonus = thac0 END
+      LPF ITEM_ALTER_HEADER INT_VAR type = 4 thac0_bonus = thac0 END
       BUT_ONLY
 
   END
@@ -29059,7 +29151,7 @@ COPY_EXISTING ~brdflute.itm~ ~override~
 
 // remove damage bonus to bring inline with tansheron
 COPY_EXISTING ~cattibow.itm~ ~override~
-  LPF cd_item_alter_header INT_VAR damage_bonus = 0 END
+  LPF ITEM_ALTER_HEADER INT_VAR damage_bonus = 0 END
   BUT_ONLY
 
 // allow arbitrary return-to-human form from clock of the wuff
@@ -29118,11 +29210,11 @@ BUT_ONLY
 COPY_EXISTING ~demmau01.itm~ ~override~
   LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 109 target = 2 param2 = 2 resist_dispel = 1 duration = 30 probability1 = 15 savingthrow = BIT2 END
-  LPF cd_item_alter_effect INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
+  LPF ITEM_ALTER_EFFECT INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
 
 // unparalyze sould plays too late
 COPY_EXISTING ~ghoul1.itm~ ~override~
-  LPF cd_item_alter_effect INT_VAR opcode = 174 duration_high = 30 END
+  LPF ITEM_ALTER_EFFECT INT_VAR opcode = 174 duration_high = 30 END
 
 // paralyze not universal
 COPY_EXISTING ~ghoullor.itm~ ~override~
@@ -29131,7 +29223,7 @@ COPY_EXISTING ~ghoullor.itm~ ~override~
               ~lich02.itm~   ~override~
   LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 109 target = 2 param2 = 2 resist_dispel = 1 duration = 30 savingthrow = BIT2 END
-  LPF cd_item_alter_effect INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
+  LPF ITEM_ALTER_EFFECT INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
 
 // ghoul lors nauseated icon lasts too long
 COPY_EXISTING ~ghoullor.itm~ ~override~
@@ -29220,7 +29312,7 @@ COPY_EXISTING ~misc7n.itm~ ~override~ // wand of lightning (unused?)
 
 // fix speed
 COPY_EXISTING ~npbow.itm~ ~override~
-  LPF cd_item_alter_header INT_VAR speed = 4 END
+  LPF ITEM_ALTER_HEADER INT_VAR speed = 4 END
   BUT_ONLY
 
 // Fix erroneously dispellable effects on Keldorn's armor (polytype)
@@ -29465,7 +29557,7 @@ BUT_ONLY
 
 // handle separately since it's on its own specific header (paralyze targeting)
 COPY_EXISTING ~spcl415.spl~ ~override~ // target 2, power 3, 3/1, dur 30, spell -1 (min lev 11)
-  LPF cd_spell_alter_effect INT_VAR header = 2 opcode = 142 opcode_new = 999 END
+  LPF SPELL_ALTER_EFFECT INT_VAR header = 2 opcode = 142 opcode_new = 999 END
   LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 215 END // delete existing visual
   LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 999 END // delete existing portrait icon, spcl415
   LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1
@@ -29605,17 +29697,17 @@ COPY_EXISTING ~spin648.spl~ ~override~ // target 2, power 1, 3/1, dur 60, no sav
 
 // associated hold effects playing on non-affected creatures, touchup: fix power, saves
 COPY_EXISTING ~spin648.spl~ ~override~
-  LPF cd_spell_alter_effect INT_VAR opcode = 177 power = 1 savingthrow = 0 savebonus = 0 END
+  LPF SPELL_ALTER_EFFECT INT_VAR opcode = 177 power = 1 savingthrow = 0 savebonus = 0 END
 
 // associated hold effects playing on non-affected creatures, touchup: fix power, saves
 COPY_EXISTING ~sppr208.spl~ ~override~
               ~spwm122.spl~ ~override~
-  LPF cd_spell_alter_effect INT_VAR opcode = 177 power = 2 savebonus = 0 END
+  LPF SPELL_ALTER_EFFECT INT_VAR opcode = 177 power = 2 savebonus = 0 END
 
 // associated hold effects playing on non-affected creatures, touchup: handle separately due to durations
 COPY_EXISTING ~sppr305.spl~ ~override~
   // first, get abil 1 effects correct before extending headers
-  LPF cd_spell_alter_effect INT_VAR opcode = 215 opcode_new = 177 parameter1 = 2 parameter2 = 3 timing = 1 duration = 0 STR_VAR resource = cdheld END
+  LPF SPELL_ALTER_EFFECT INT_VAR opcode = 215 opcode_new = 177 parameter1 = 2 parameter2 = 3 timing = 1 duration = 0 STR_VAR resource = cdheld END
   LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3  parameter1 = 2 parameter2 = 3 resist_dispel = 1
     duration = 60 savingthrow = BIT0 STR_VAR resource = cdhda60 END
   LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 2 parameter2 = 3 resist_dispel = 1
@@ -29991,14 +30083,10 @@ BUT_ONLY
 ///// effing effs                                      \\\\\
 /////                                                  \\\\\
 
-/* So, items with damage bonuses via opcode 178 have a couple of issues and are addressed in this section.
+/* So, items with damage bonuses via opcode 179 have a couple of issues and are addressed in this section.
 Opcode 179 doesn't stack so it interferes with kit bonuses vs. creature type. If applied as a global effect
-it also bleeds over into the second weapon if used on a dual-wilder. Opcode 178 has the same dual-wield
-exploit but there's no way to fix it.*/
-
-// shared effs
-COPY_EXISTING ~dragdam3.eff~ ~override/cdhalb04.eff~
-COPY_EXISTING ~lycandam.eff~ ~override/cdsw1h03.eff~
+it also bleeds over into the second weapon if used on a dual-wilder. Opcode 178 (thac0 bonuses vs type)
+has the same dual-wield exploit but there's no way to fix it.*/
 
 // wrong target, ids for burning earth's troll damage/thac0
 COPY_EXISTING ~trolld1.eff~  ~override~
@@ -30006,6 +30094,27 @@ COPY_EXISTING ~trolld1.eff~  ~override~
   WRITE_LONG 0x14 2 // preset target
   WRITE_LONG 0x20 4 // race.ids
   BUT_ONLY
+
+// thac0 bonuses (global effects): wrong targets and/or odd timings
+COPY_EXISTING ~damaceb.eff~  ~override~ // invalid target (-1)
+              ~equal09.eff~  ~override~ // timing = limited
+              ~equal10.eff~  ~override~ // timing = limited
+              ~equal11.eff~  ~override~ // timing = limited
+              ~equal12.eff~  ~override~ // timing = limited
+              ~equal13.eff~  ~override~ // timing = limited
+              ~equal14.eff~  ~override~ // timing = limited
+              ~equal15.eff~  ~override~ // timing = limited
+              ~equal16.eff~  ~override~ // timing = limited
+              ~evilhit2.eff~ ~override~
+              ~trollh1.eff~  ~override~ // invalid target (-1)
+              ~undhit1.eff~  ~override~
+  WRITE_LONG 0x14 0 // target: none
+  WRITE_LONG 0x24 2 // timing: instant/while equipped
+  BUT_ONLY
+
+// shared effs
+COPY_EXISTING ~dragdam3.eff~ ~override/cdhalb04.eff~
+COPY_EXISTING ~lycandam.eff~ ~override/cdsw1h03.eff~
 
 // first, move effs from global effects to melee/ranged headers
 COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
@@ -30099,8 +30208,8 @@ COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
 COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
   LPF DELETE_ITEM_EQEFFECT INT_VAR opcode_to_delete = 177 END
   PATCH_FOR_EACH race IN 142 113 BEGIN // giants and ogres
-    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 1 STR_VAR resource = "hamm06" END
     LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 2 STR_VAR resource = "cdhamm06" END
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 1 STR_VAR resource = "hamm06" END
   END
 
 // deva needs to have mesdie fire before die
@@ -30226,6 +30335,7 @@ COPY_EXISTING ~sw1h32c.eff~ ~override~
 
 // wrong target for bone club's +1 thac0 vs undead
 COPY_EXISTING ~undhit1.eff~  ~override~
+  WRITE_LONG 0x14 2 // preset target
   WRITE_LONG 0x1c 4 // undead from
   WRITE_LONG 0x20 3 // general.ids
   BUT_ONLY
@@ -31397,436 +31507,4 @@ COPY_EXISTING spin103.spl override // duhm innate
     WRITE_SHORT ("%abil_off%" + 0x12 + (0x28 * "%index%")) 2
   END
 BUT_ONLY
-*/
-/*
-Variable LOCALSSPELLARMORON is referenced only 1 times.
-Variable LOCALSSENDAIDEATHSPELL is referenced only 1 times.
-Variable LOCALSISSANMALISON is referenced only 1 times.
-Variable LOCALSPERHOLD is referenced only 1 times.
-Variable LOCALSSOURCEREACTIVATE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCATURAK is referenced only 1 times.
-Variable LOCALSYELLED is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUDDOOR05 is referenced only 1 times.
-Variable GLOBALTAEROM2 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUDDOOR06 is referenced only 1 times.
-Variable LOCALSHI is referenced only 1 times.
-Variable GLOBALPCKILLEDMALLA is referenced only 1 times.
-Variable LOCALSSAERKFIGHTS is referenced only 1 times.
-Variable GLOBALIMTOOSEXYFORTHISBRUS is referenced only 1 times.
-Variable GLOBALDENNISHASGONG is referenced only 1 times.
-Variable LOCALSFEARON is referenced only 1 times.
-Variable GLOBALFINDSHAGBAG is referenced only 1 times.
-Variable LOCALSZYCOMMENTSREP is referenced only 1 times.
-Variable GLOBALAERIEPREGNANTTIMER is referenced only 1 times.
-Variable LOCALSVICONIAINUNDERDARK is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSHADOW01 is referenced only 1 times.
-Variable LOCALSISSANALUCRITY is referenced only 1 times.
-Variable LOCALSNEXTDUEL is referenced only 1 times.
-Variable LOCALSBLUEDRAGONBREATH is referenced only 1 times.
-Variable GLOBALATTACKEDGITH is referenced only 1 times.
-Variable GLOBALHELPLAUREL is referenced only 1 times.
-Variable LOCALSINVISIBILITY is referenced only 1 times.
-Variable LOCALSMELISSANALUCRITY is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADFIRORC01 is referenced only 1 times.
-Variable GLOBALBRUSSHOW2 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADC6DEL is referenced only 1 times.
-Variable LOCALSIMPSATTACKED is referenced only 1 times.
-Variable GLOBALBANDITSSACRIFICE is referenced only 1 times.
-Variable LOCALSIS is referenced only 1 times.
-Variable GLOBALDANNOBEGINSPALAPLOT is referenced only 1 times.
-Variable LOCALSHANLEAVING is referenced only 1 times.
-Variable GLOBALMALLAGONE is referenced only 1 times.
-Variable GLOBALKORGANWHINEABOUTPIM is referenced only 1 times.
-Variable LOCALSSOM is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDADUER2 is referenced only 1 times.
-Variable GLOBALJAHEIRAPOKESEDWINA is referenced only 1 times.
-Variable GLOBALHELLFEARTIMER is referenced only 1 times.
-Variable GLOBALMAREKMOVE is referenced only 1 times.
-Variable GLOBALTALKEDTOTHIEF is referenced only 1 times.
-Variable GLOBALKELDORNOUTRAGE is referenced only 1 times.
-Variable GLOBALCRAGMOONATTACK is referenced only 1 times.
-Variable GLOBALCERNDIGAROLSPAWN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRYLOCK is referenced only 1 times.
-Variable LOCALSTERPAID is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTORLOBO is referenced only 1 times.
-Variable LOCALSTCHAOSAGAIN is referenced only 1 times.
-Variable LOCALSISSANDEATHSPELL is referenced only 1 times.
-Variable LOCALSDORNMETPLAYER is referenced only 1 times.
-Variable LOCALSISON2 is referenced only 1 times.
-Variable LOCALSREINF is referenced only 1 times.
-Variable LOCALSISON3 is referenced only 1 times.
-Variable LOCALSBNALIA4 is referenced only 1 times.
-Variable GLOBALMASTEREDTHESLAYER is referenced only 1 times.
-Variable LOCALSBNALIA6 is referenced only 1 times.
-Variable LOCALSBNALIA7 is referenced only 1 times.
-Variable GLOBALDRATALK is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUHFEM01 is referenced only 1 times.
-Variable LOCALSHMANTLE is referenced only 1 times.
-Variable GLOBALSTOPJARTIMER is referenced only 1 times.
-Variable LOCALSBJAHEIRA12 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADBREGG is referenced only 1 times.
-Variable GLOBALANOMENATTACKSAERIE is referenced only 1 times.
-Variable LOCALSKE is referenced only 1 times.
-Variable LOCALSCRITICALWOUNDS is referenced only 1 times.
-Variable GLOBALRANSOM is referenced only 1 times.
-Variable LOCALSMELISSANSIGHT is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDEMOSUM1 is referenced only 1 times.
-Variable GLOBALMINSCWITCHTIMER is referenced only 1 times.
-Variable GLOBALTAEROM is referenced only 1 times.
-Variable LOCALSEVOKRUN is referenced only 1 times.
-Variable GLOBALPAUDENARRIVE is referenced only 1 times.
-Variable LOCALSDRAGONWELL is referenced only 1 times.
-Variable GLOBALJOSTERPAID is referenced only 1 times.
-Variable LOCALSCHAINCONTINGENCY1 is referenced only 1 times.
-Variable LOCALSGUARDDOESWARN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPPSANIK is referenced only 1 times.
-Variable GLOBALJANMOVE is referenced only 1 times.
-Variable LOCALSFIRESTORM is referenced only 1 times.
-Variable GLOBALMETGITH is referenced only 1 times.
-Variable GLOBALTESTLOCALS is referenced only 1 times.
-Variable LOCALSEDRAGONBREATH is referenced only 1 times.
-Variable GLOBALTALKEDTOCERNDNANNY is referenced only 1 times.
-Variable GLOBALKPTAXES is referenced only 1 times.
-Variable LOCALSBLADEBARRIERON is referenced only 1 times.
-Variable GLOBALSAEMINIT1607 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPPRIGHT is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADVARA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADAATAQAHGIBBER is referenced only 1 times.
-Variable LOCALSMOVEMAGE4 is referenced only 1 times.
-Variable LOCALSHGNYA01REAPPEARS is referenced only 1 times.
-Variable GLOBALBANDITSSTOLE is referenced only 1 times.
-Variable GLOBALANOMENSAERKTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDIANA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCROTHF01 is referenced only 1 times.
-Variable LOCALSAINMAGIC is referenced only 1 times.
-Variable GLOBALTRANION is referenced only 1 times.
-Variable LOCALSVICONIACHARITY is referenced only 1 times.
-Variable LOCALSTHIGGIN2A is referenced only 1 times.
-Variable GLOBALTALKEDTOZGARDEMO is referenced only 1 times.
-Variable GLOBALAERIEREMINDSQUAYLE is referenced only 1 times.
-Variable LOCALSWNDANNOTIMER is referenced only 1 times.
-Variable GLOBALTYRIANNA is referenced only 1 times.
-Variable GLOBALKORGANBOOK is referenced only 1 times.
-Variable LOCALSOVETHEGOLEM is referenced only 1 times.
-Variable GLOBALMINDSLAVEFREED is referenced only 1 times.
-Variable LOCALSCALLEDSHOT is referenced only 1 times.
-Variable LOCALSSLUMSMUGGING is referenced only 1 times.
-Variable LOCALSBCERND1 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADGORCAMB6 is referenced only 1 times.
-Variable LOCALSRDALISNOGEM is referenced only 1 times.
-Variable LOCALSWNPAACTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADGORCAMB7 is referenced only 1 times.
-Variable GLOBALCERNDTEACHER is referenced only 1 times.
-Variable LOCALSCTRIFIEDFLOORTIMER is referenced only 1 times.
-Variable LOCALSHEALEDMAGE is referenced only 1 times.
-Variable GLOBALGOLEM is referenced only 1 times.
-Variable LOCALSBCERND6 is referenced only 1 times.
-Variable GLOBALERRARDJOB is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDADROW4 is referenced only 1 times.
-Variable GLOBALTALKEDTODALESON is referenced only 1 times.
-Variable LOCALSRLESTONPAY is referenced only 1 times.
-Variable LOCALSLARARETURN is referenced only 1 times.
-Variable GLOBALDERILHALFHEALTH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADBODVAM01 is referenced only 1 times.
-Variable LOCALSPCYOSH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADBODVAM02 is referenced only 1 times.
-Variable GLOBALKORSHAGBAG is referenced only 1 times.
-Variable LOCALSRUDISPEL is referenced only 1 times.
-Variable GLOBALYSGPEND is referenced only 1 times.
-Variable LOCALSTHIGGIN3A is referenced only 1 times.
-Variable LOCALSSPAWNMERCH is referenced only 1 times.
-Variable LOCALSNCEATTACK is referenced only 1 times.
-Variable GLOBALDERILLICHTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADFIRMAG01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADWILF is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJADE1 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJADE2 is referenced only 1 times.
-Variable LOCALSCHANTSHOUT is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJADE3 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJADE4 is referenced only 1 times.
-Variable LOCALSDAIMANTLE is referenced only 1 times.
-Variable GLOBALMAZZYTOLD is referenced only 1 times.
-Variable LOCALSDEBARRIERON is referenced only 1 times.
-Variable GLOBALEDWINCOMPLAINABOUTSCROLL is referenced only 1 times.
-Variable GLOBALMUDDYFOOTPRINTS is referenced only 1 times.
-Variable LOCALSEIRAPOKESEDWINA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSENGUA01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADC6HAREI is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSENGUA03 is referenced only 1 times.
-Variable LOCALSHIMOTALKSPC is referenced only 1 times.
-Variable LOCALSORSEQUENCER1 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDDGUARD7 is referenced only 1 times.
-Variable LOCALSYGARVICONIAINIT is referenced only 1 times.
-Variable GLOBALKELDORNANOMENKNIGHT is referenced only 1 times.
-Variable LOCALSMINSELAPPEAR is referenced only 1 times.
-Variable GLOBALMAIRYNAPPEAR is referenced only 1 times.
-Variable LOCALSHIMOMAKESFUN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPPWORKER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADHPRELATE is referenced only 1 times.
-Variable GLOBALELGEAGONE is referenced only 1 times.
-Variable GLOBALBODHIDEAD is referenced only 1 times.
-Variable LOCALSDRAGONBREATH is referenced only 1 times.
-Variable LOCALSTHIGGIN4A is referenced only 1 times.
-Variable LOCALSTINGENCY1 is referenced only 1 times.
-Variable LOCALSNDNANNYTIMER is referenced only 1 times.
-Variable LOCALSDAIDEATHSPELL is referenced only 1 times.
-Variable LOCALSEAARRESTTIMER is referenced only 1 times.
-Variable LOCALSMELISSANDEATHSPELL2 is referenced only 1 times.
-Variable LOCALSMELISSANDEATHSPELL3 is referenced only 1 times.
-Variable LOCALSREINFORCETIMER is referenced only 1 times.
-Variable LOCALSIDQUEST2BEGIN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTRGENI01 is referenced only 1 times.
-Variable LOCALSBYOSHIMO14 is referenced only 1 times.
-Variable GLOBALFIGHTINGTHETROUPE is referenced only 1 times.
-Variable GLOBALTALKEDTOCRAGMOON is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADLASSAL02 is referenced only 1 times.
-Variable GLOBALDREAMSOLARTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADHOBGOBLINLEADER is referenced only 1 times.
-Variable LOCALSBROWNDRAGONBREATH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSAHPR2 is referenced only 1 times.
-Variable LOCALSIDNAPTIMER is referenced only 1 times.
-Variable LOCALSBERT is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRIFTCR01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRIFTCR02 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRIFTCR03 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRIFTCR04 is referenced only 1 times.
-Variable LOCALSGMOONATTACK is referenced only 1 times.
-Variable GLOBALCOWLEDHQ is referenced only 1 times.
-Variable GLOBALMELISSANJAIL is referenced only 1 times.
-Variable LOCALSDISABLEDEATHTRAP is referenced only 1 times.
-Variable LOCALSMBYRRETURN is referenced only 1 times.
-Variable GLOBALDEGARDANSPAWN is referenced only 1 times.
-Variable LOCALSTHIGGIN5A is referenced only 1 times.
-Variable GLOBALFOLLOWANOMEN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDANNO is referenced only 1 times.
-Variable LOCALSLICHSTONESKIN is referenced only 1 times.
-Variable LOCALSSENDAISIGHT is referenced only 1 times.
-Variable GLOBALTALKEDTOTENYA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADNOBL4 is referenced only 1 times.
-Variable LOCALSCOFFIN3 is referenced only 1 times.
-Variable LOCALSLTIMER is referenced only 1 times.
-Variable LOCALSTHIGGIN1 is referenced only 1 times.
-Variable LOCALSTHIGGIN2 is referenced only 1 times.
-Variable LOCALSCEFALD04SPAWN is referenced only 1 times.
-Variable LOCALSTHIGGIN3 is referenced only 1 times.
-Variable LOCALSOPENPIT is referenced only 1 times.
-Variable LOCALSTHIGGIN4 is referenced only 1 times.
-Variable LOCALSTHIGGIN5 is referenced only 1 times.
-Variable LOCALSTHIGGIN6 is referenced only 1 times.
-Variable LOCALSLICHSHADOWDOOR is referenced only 1 times.
-Variable GLOBALVALYGARVICONIAINIT is referenced only 1 times.
-Variable GLOBALENTEREDAREA5203 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADBOOTER is referenced only 1 times.
-Variable GLOBALELTANPOISON is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKPGLAI01 is referenced only 1 times.
-Variable LOCALSBVALYGAR6 is referenced only 1 times.
-Variable GLOBALNALIAMESSENGER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCLGLIN01 is referenced only 1 times.
-Variable GLOBALHENDRICKHOSTILE is referenced only 1 times.
-Variable GLOBALAMGUARDLEAVE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUDELDA is referenced only 1 times.
-Variable LOCALSHSIGHT is referenced only 1 times.
-Variable LOCALSWNDRAGONBREATH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUDELDE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUDELDF is referenced only 1 times.
-Variable GLOBALENDGAME is referenced only 1 times.
-Variable LOCALSLICHDEATHSPELL is referenced only 1 times.
-Variable LOCALSLICHFIGHTSTART is referenced only 1 times.
-Variable GLOBALZGORCAMBATTACKED is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADLIIA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTHIEF5 is referenced only 1 times.
-Variable LOCALSAERIEINUNDERDARK is referenced only 1 times.
-Variable LOCALSRMDEMON is referenced only 1 times.
-Variable LOCALSSOLARDEATHSPELL is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADGORGUA01 is referenced only 1 times.
-Variable LOCALSPARE2 is referenced only 1 times.
-Variable LOCALSEVASION is referenced only 1 times.
-Variable GLOBALDOORSWITCH5014 is referenced only 1 times.
-Variable LOCALSDAIHASTE is referenced only 1 times.
-Variable GLOBALTALKEDTOMADULF is referenced only 1 times.
-Variable GLOBALSPAWNDANNO is referenced only 1 times.
-Variable LOCALSSTOLEAMULET is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJERMIEN is referenced only 1 times.
-Variable LOCALSONHANDS is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADC6DROWGO is referenced only 1 times.
-Variable LOCALSRIER2 is referenced only 1 times.
-Variable LOCALSRIER3 is referenced only 1 times.
-Variable LOCALSMINSCKELDORN2 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADC6TANOV is referenced only 1 times.
-Variable LOCALSLMESSENGER is referenced only 1 times.
-Variable LOCALSMINSCKELDORN3 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADHELLSARE is referenced only 1 times.
-Variable LOCALSBODHIWEAKENED is referenced only 1 times.
-Variable LOCALSONASSAULT is referenced only 1 times.
-Variable GLOBALTALKEDIGAROLTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADWURN is referenced only 1 times.
-Variable LOCALSBARRIER2 is referenced only 1 times.
-Variable LOCALSBARRIER3 is referenced only 1 times.
-Variable LOCALSWNDEMOGORGONTIMER is referenced only 1 times.
-Variable LOCALSAMSOLARTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRNGSHA02 is referenced only 1 times.
-Variable LOCALSTLOCALS is referenced only 1 times.
-Variable GLOBALDRUIDQUEST2BEGIN is referenced only 1 times.
-Variable LOCALSPENARSTUFF is referenced only 1 times.
-Variable GLOBALRAISSATIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPIRMUR07 is referenced only 1 times.
-Variable GLOBALCERNDBABYDONE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADFFBART is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSHADFI01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTEMSUP is referenced only 1 times.
-Variable GLOBALFORGESTUFF is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADARLIN is referenced only 1 times.
-Variable GLOBALQUAYLEMESSENGERCOMES is referenced only 1 times.
-Variable GLOBALTALKEDTOHERVO is referenced only 1 times.
-Variable LOCALSFERRUDISPELTIMER is referenced only 1 times.
-Variable LOCALSAVOIDDEATH is referenced only 1 times.
-Variable LOCALSDEMIGORGONDEATH is referenced only 1 times.
-Variable GLOBALTRISLEAVE is referenced only 1 times.
-Variable LOCALSOGORSTONE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRAGEFAST is referenced only 1 times.
-Variable LOCALSHERPRICE is referenced only 1 times.
-Variable LOCALSAZITH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADBREG01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTRSKIN03 is referenced only 1 times.
-Variable GLOBALTALKEDTOVITHAL is referenced only 1 times.
-Variable GLOBALDOOMSAYER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTRSKIN06 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADDRIZZT is referenced only 1 times.
-Variable LOCALSCDUNSEEINGEYEAPPEARS is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADJARLAXLE is referenced only 1 times.
-Variable LOCALSILICHHOWL is referenced only 1 times.
-Variable LOCALSIMOENRUNNING is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPPPARIS is referenced only 1 times.
-Variable LOCALSINVIS is referenced only 1 times.
-Variable LOCALSSCWITCHTIMER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKPDOG01 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKPDOG02 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKPDOG03 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKPDOG04 is referenced only 1 times.
-Variable GLOBALVICONIAOUTOFPARTY is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADMARLOWE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKORGAN is referenced only 1 times.
-Variable GLOBALKORGANREMINDSVALYGAR is referenced only 1 times.
-Variable LOCALSOPENSECRETDOOR is referenced only 1 times.
-Variable GLOBALTALKEDTOSETHLE is referenced only 1 times.
-Variable GLOBALHERVOANGRY is referenced only 1 times.
-Variable GLOBALSAREVOKRUN is referenced only 1 times.
-Variable GLOBALUDMOVEPHA is referenced only 1 times.
-Variable LOCALSCASTCHAOSAGAIN is referenced only 1 times.
-Variable GLOBALANATHTEMPLE is referenced only 1 times.
-Variable LOCALSASSINATE is referenced only 1 times.
-Variable LOCALSLKER is referenced only 1 times.
-Variable GLOBALCAMRETIRUN is referenced only 1 times.
-Variable LOCALSKILLDROW is referenced only 1 times.
-Variable GLOBALCERNDTALKSUNDERDARK is referenced only 1 times.
-Variable LOCALSIAMESSENGER is referenced only 1 times.
-Variable LOCALSRTTRIGGER is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCLDAD is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADFEVERON is referenced only 1 times.
-Variable GLOBALTALKEDTOCORNEIL is referenced only 1 times.
-Variable GLOBALELVENSPIRITS is referenced only 1 times.
-Variable LOCALSDRUIDFIGHT is referenced only 1 times.
-Variable LOCALSKNOWCELLKEY is referenced only 1 times.
-Variable LOCALSLSLAP is referenced only 1 times.
-Variable GLOBALKELDORNGUILDWILLIAM is referenced only 1 times.
-Variable LOCALSREDDRAGONBREATH is referenced only 1 times.
-Variable GLOBALHELPGINIA is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADUHRANG01 is referenced only 1 times.
-Variable LOCALSESCAPEELF2 is referenced only 1 times.
-Variable LOCALSESCAPEELF3 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTURG is referenced only 1 times.
-Variable LOCALSDORNRETURN is referenced only 1 times.
-Variable LOCALSWNMERCH is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADSLYTHE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCOHRVALE is referenced only 1 times.
-Variable LOCALSIARETURNSFROMFUNERAL is referenced only 1 times.
-Variable LOCALSDOESKILL is referenced only 1 times.
-Variable GLOBALNARLENSTEAL is referenced only 1 times.
-Variable GLOBALNOBLEDOPPLE is referenced only 1 times.
-Variable LOCALSSCDELON is referenced only 1 times.
-Variable LOCALSTICALWOUNDS is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADCIRCUSGUARD is referenced only 1 times.
-Variable LOCALSREGAINMAGIC is referenced only 1 times.
-Variable GLOBALSTOPATTAKING is referenced only 1 times.
-Variable GLOBALPALADEAD is referenced only 1 times.
-Variable LOCALSRASSAULT is referenced only 1 times.
-Variable LOCALSDESTROYALLCUTCREATURES is referenced only 1 times.
-Variable LOCALSISSPIN is referenced only 1 times.
-Variable LOCALSBADMONKGONE is referenced only 1 times.
-Variable LOCALSDAIMALISON is referenced only 1 times.
-Variable GLOBALAERIEUPSET is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADKRUIN is referenced only 1 times.
-Variable LOCALSBMAZZY1 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADPPDEL is referenced only 1 times.
-Variable LOCALSBMAZZY3 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADRASHAD is referenced only 1 times.
-Variable LOCALSBMAZZY6 is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADC6VALEN is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADARNFGT06 is referenced only 1 times.
-Variable LOCALSMERCHANTDIE is referenced only 1 times.
-Variable LOCALSDIALOGUENOWAIT is referenced only 1 times.
-Variable LOCALSPORTALTOJARLAXLE is referenced only 1 times.
-Variable LOCALSMONHASARRIVED is referenced only 1 times.
-Variable GLOBALMAZZYCOMMENTSREP is referenced only 1 times.
-Variable GLOBALNOPAYMENT is referenced only 1 times.
-Variable LOCALSRUNINVISIBLE is referenced only 1 times.
-Variable GLOBALSPRITE_IS_DEADTENYA is referenced only 1 times.
-Variable GLOBALDROWTIMESOL is referenced only 1 times.
-*/
-
-
-
-BEGIN ~cam testing~
-
-// patch functions
-INCLUDE ~bg2fixpack/lib/functions.tpa~
-
-/*
-COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
-  READ_LONG   0x64 "abil_off"
-  READ_SHORT  0x68 "abil_num"
-  READ_LONG   0x6a "fx_off"
-  READ_SHORT  0x70 "fx_num"
-  FOR (index = 0 ; index < fx_num ; index = index + 1) BEGIN
-    READ_SHORT ("%fx_off%" +        ("%index%" * 0x30)) "type"
-    PATCH_IF ("%type%" = 177) BEGIN
-      READ_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "eff_file"
-      PATCH_PRINT "%SOURCE_FILE% is using %eff_file% as a global effect"
-    END
-  END
-  FOR (index2 = 0 ; index2 < abil_num ; index2 = index2 + 1) BEGIN
-    READ_BYTE   ("%abil_off%" +        ("%index2%" * 0x38)) "type"
-    READ_SHORT  ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "abil_fx_idx"
-    READ_SHORT  ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) "abil_fx_num"
-    PATCH_IF (("%type%" = 1) OR ("%type%" = 2)) BEGIN // melee ability check
-      FOR (index3 = 0 ; index3 < abil_fx_num ; index3 = index3 + 1) BEGIN
-        READ_SHORT ("%fx_off%" +        (("%abil_fx_idx%" + "%index3%") * 0x30)) "opcode"
-        PATCH_IF ("%opcode%" = 177) BEGIN
-          READ_ASCII ("%fx_off%" + 0x14 + (("%abil_fx_idx%" + "%index3%") * 0x30)) "eff_file"
-          PATCH_PRINT "%SOURCE_FILE% is using %eff_file% as an attack effect, type %type%"
-        END
-      END
-    END
-  END
-  BUT_ONLY
-
-COPY_EXISTING_REGEXP GLOB ~^.+\.itm$~ ~override~
-  READ_SHORT 0x1c type
-  PATCH_IF (type = 15) BEGIN
-    READ_LONG  0x0c string
-    GET_STRREF string name
-    READ_LONG  0x64 abil_off
-    READ_SHORT 0x68 abil_num
-    FOR (index = 0 ; index < abil_num ; ++index) BEGIN
-      READ_BYTE  (abil_off +        (index * 0x38)) abil_type
-      PATCH_IF ((abil_type = 2) OR (abil_type = 4)) BEGIN
-        READ_LONG 0x60 enchant
-        READ_SHORT (abil_off + 0x12 + (index * 0x38)) speed
-        READ_SHORT (abil_off + 0x14 + (index * 0x38)) thac0_bonus
-        READ_SHORT (abil_off + 0x1a + (index * 0x38)) damage_bonus
-        PATCH_PRINT "%SOURCE_FILE%, %name%, %enchant%, %speed%, %thac0_bonus%, %damage_bonus%"
-      END
-    END
-  END
-  BUT_ONLY
 */

@@ -1255,7 +1255,41 @@ Not Usable By:
  Druid
  Cleric
  Mage~
+@214 = ~Bastard sword +1, +3 vs. Shapeshifters:  'Kondar'
+At first glance, this sword appears much like any other.  In the presence of any shapeshifting creature however, the blade becomes warm as its power stirs.  Its namesake was the original owner of the weapon, and his tale, though mostly long forgotten, was wrought with treachery and deceit.  Rumors persist that he paid a fearsome price for this blade, but with it he revealed the true identities of those that sought to betray him.  Their names and crimes however, are long since lost to history.
 
+STATISTICS:
 
+THAC0:  +1 bonus, +3 vs. Shapeshifters
+Damage:  2D4 +1, +3 vs. Shapeshifters
+Damage type:  slashing
+Weight: 8
+Speed Factor: 7
+Proficiency Type: Bastard Sword
+Type:  1-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@215 = ~Flame Tongue +1
+
+There was a time before Neverwinter was warm and before the great Anauroch was dry...or so it is said.  Few relics remain to prove such an age existed, and fewer still have an identifiable purpose.  "The Burning Earth" seems straightforward enough -it burns a victim with magical fire, and a cryptic rune seems to suggest that the power comes from the ground itself- but whomever constructed it remains a mystery.  It looks a perfectly serviceable weapon, but something in the balance or grip is...wrong.  It strains the forearm a touch, and does not fit the hand just right.  It doesn't seem to hurt a warrior's performance, aside from the nagging doubt that the blade was not made for him...or any other humanoid.
+
+STATISTICS:
+
+THAC0:  +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage:  1D8 +1, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage type:  slashing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
 @1000 = ~GTU Light (by Wisp)~
 @1001 = ~GTU Classic (from Baldurdash, by Kevin Dorner)~

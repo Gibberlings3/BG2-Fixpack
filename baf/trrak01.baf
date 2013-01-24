@@ -1,6 +1,7 @@
 IF
   AttackedBy([GOODCUTOFF],DEFAULT)
   Global("attacked","LOCALS",0)
+  !Allegiance([ENEMY])
 THEN
   RESPONSE #100
     SetGlobal("attacked","LOCALS",1)

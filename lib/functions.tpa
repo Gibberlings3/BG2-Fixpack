@@ -3,19 +3,27 @@ v1: for iwd fixpack v2
 v2: for iwd fixpack v3, bgee fixpack development
   fixed bug with unterminated WRITE_ASCII for item icons
 v3: for bgee fixpack development
-  consolidated cd_area_alter_container_trap, cd_container_icons into new cd_area_alter_container
-  trapped and detected were writing to the wrong offsets in cd_area_alter_triggers
+  consolidated AREA_ALTER_CONTAINER_trap, cd_container_icons into new AREA_ALTER_CONTAINER
+  trapped and detected were writing to the wrong offsets in AREA_ALTER_REGION
 v4: for bgee fixpack development
-  fixed bug with patching duration_high on item headers in cd_item_alter_effect
+  fixed bug with patching duration_high on item headers in ITEM_ALTER_EFFECT
 v5: for bgee fixpack development
-  added support for primary, secondary schools for cd_item_alter_header
+  added support for primary, secondary schools for ITEM_ALTER_HEADER
+v6: final touchups for WeiDU inclusion
+  renamed macros to be more in line with IESDP/WeiDU conventions
+  CONVERT_BG_IWD_DURATION now converts both directions
+  AREA_ALTER_ENTRANCE, AREA_ALTER_REGION now compare the target with _CASE rather than _REGEXP
+  the immunity fx batch stuff shouldn't have been included
+  flag_backstab and flag_noinvis support added for ITEM_ALTER_HEADER
 */
 
 /////                                                  \\\\\
 ///// item/spell functions                             \\\\\
 /////                                                  \\\\\
 
-DEFINE_PATCH_FUNCTION cd_convert_bg_iwd_durations BEGIN
+DEFINE_PATCH_FUNCTION CONVERT_BG_IWD_DURATION
+  STR_VAR changeto = "iwd" // iwd changes effects to use round = 7; otherwise use round = 6
+  BEGIN
 
   READ_LONG  0x6a fx_off
   READ_LONG  0x64 abil_off
@@ -31,7 +39,11 @@ DEFINE_PATCH_FUNCTION cd_convert_bg_iwd_durations BEGIN
   FOR (index = 0 ; index < fx_num ; ++index) BEGIN
     READ_LONG (fx_off + 0x0e + (index * 0x30)) duration
     PATCH_IF (duration > 5) BEGIN // skip 0 duration or short lived cosmetic/auditory
-      WRITE_LONG (fx_off + 0x0e + (index * 0x30)) ((duration * 7) / 6)
+      PATCH_IF ("iwd" STRING_COMPARE_CASE "%changeto%" = 0) BEGIN
+        WRITE_LONG (fx_off + 0x0e + (index * 0x30)) ((duration * 7) / 6)
+      END ELSE BEGIN
+        WRITE_LONG (fx_off + 0x0e + (index * 0x30)) ((duration * 6) / 7)
+      END
     END
   END
 
@@ -41,18 +53,18 @@ END
 ///// area functions                                   \\\\\
 /////                                                  \\\\\
 
-DEFINE_PATCH_FUNCTION cd_area_alter_entrance
-  INT_VAR x_coord = "-1" // negative values not written
-          y_coord = "-1" // negative values not written
-          orient  = "-1" // negative values not written
-  STR_VAR entry_name = ""
+DEFINE_PATCH_FUNCTION AREA_ALTER_ENTRANCE
+  INT_VAR x_coord = "-1"  // new x coordinate at 0x20; negative values mean no change
+          y_coord = "-1"  // new y coordinate at 0x22; negative values mean no change
+          orient  = "-1"  // new orientation at 0x24; negative values mean no change
+  STR_VAR entry_name = "" // required, needs to match ascii name at 0x00
 BEGIN
 
   READ_LONG  0x68 ent_off
   READ_LONG  0x6c ent_num
   FOR (index = 0 ; index < ent_num ; ++index) BEGIN
     READ_ASCII (ent_off +        (index * 0x68)) "ent_name" (32) NULL
-    PATCH_IF ("%ent_name%" STRING_COMPARE_REGEXP  "%entry_name%" = 0) BEGIN
+    PATCH_IF ("%ent_name%" STRING_COMPARE_CASE  "%entry_name%" = 0) BEGIN
       PATCH_IF ("%x_coord%" >= 0) BEGIN WRITE_SHORT (ent_off + 0x20 + (index * 0x68)) "%x_coord%" END
       PATCH_IF ("%y_coord%" >= 0) BEGIN WRITE_SHORT (ent_off + 0x22 + (index * 0x68)) "%y_coord%" END
       PATCH_IF ("%orient%" >= 0)  BEGIN WRITE_LONG  (ent_off + 0x24 + (index * 0x68)) "%orient%" END
@@ -61,37 +73,38 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_area_alter_triggers
-  INT_VAR type        = "-1"
-          cursor      = "-1"
-          trap_detect = "-1"
-          trap_remove = "-1"
-          trapped     = "-1"
-          detected    = "-1"
-          flag_locked           = "-1"
-          flag_resets           = "-1"
-          flag_party_required   = "-1"
-          flag_trap_detectable  = "-1"
-          flag_trap_enemies     = "-1"
-          flag_tutorial         = "-1"
-          flag_trap_npcs        = "-1"
-          flag_silent           = "-1"
-          flag_deactivated      = "-1"
-          flag_impassable_npc   = "-1"
-          flag_activation_point = "-1"
-          flag_connect_to_door  = "-1"
-  STR_VAR trig_name   = ""
-          dest_area   = "same"
-          ent_name    = "same"
-          door_key    = "same"
-          door_script = "same"
+DEFINE_PATCH_FUNCTION AREA_ALTER_REGION
+  INT_VAR type        = "-1" // region type at 0x20; negative values mean no change
+          cursor      = "-1" // cursor type at 0x34; negative values mean no change
+          trap_detect = "-1" // difficulty of trap detection at 0x68; negative values mean no change
+          trap_remove = "-1" // difficulty of trap removal at 0x6a; negative values mean no change
+          trapped     = "-1" // is trapped? at 0x6c; negative values mean no change
+          detected    = "-1" // is detected? at 0x6e; negative values mean no change
+          // flag_ vars affect flags starting at 0x60; 0 means remove flag, 1 means add flag, -1 no change
+          flag_locked           = "-1" // locked, bit0
+          flag_resets           = "-1" // trap resets, bit1
+          flag_party_required   = "-1" // party required, bit2
+          flag_trap_detectable  = "-1" // trap can be detected, bit3
+          flag_trap_enemies     = "-1" // trap can be set off by enemies, bit4
+          flag_tutorial         = "-1" // tutorial trigger, bit5
+          flag_trap_npcs        = "-1" // trap can be set off by npcs, bit6
+          flag_silent           = "-1" // silent trigger, bit7
+          flag_deactivated      = "-1" // deactivated, bit8
+          flag_impassable_npc   = "-1" // can not be passed by npcs, bit9
+          flag_activation_point = "-1" // use activation point, bit10
+          flag_connect_to_door  = "-1" // connected to door, bit11
+  STR_VAR trig_name   = ""     // required, at 0x00, used to match region
+          dest_area   = "same" // changes destination area at 0x38; "same" means no change
+          ent_name    = "same" // changes entrance name at 0x40; "same" means no change
+          door_key    = "same" // resref of key to unlock at 0x74; "same" means no change
+          door_script = "same" // resref of region script at 0x7c; "same" means no change
 BEGIN
 
   READ_SHORT 0x5a trig_num
   READ_LONG  0x5c trig_off
   FOR (index = 0 ; index < trig_num ; ++index) BEGIN
     READ_ASCII (trig_off +        (index * 0xc4)) "trig_name_file" (32) NULL
-    PATCH_IF ("%trig_name%" STRING_COMPARE_REGEXP  "%trig_name_file%" = 0) BEGIN
+    PATCH_IF ("%trig_name%" STRING_COMPARE_CASE  "%trig_name_file%" = 0) BEGIN
       PATCH_IF ("%type%" >= 0)        BEGIN WRITE_SHORT (trig_off + 0x20 + (index * 0xc4)) "%type%"        END
       PATCH_IF ("%cursor%" >= 0)      BEGIN WRITE_LONG  (trig_off + 0x34 + (index * 0xc4)) "%cursor%"      END
       PATCH_IF ("%trap_detect%" >= 0) BEGIN WRITE_SHORT (trig_off + 0x68 + (index * 0xc4)) "%trap_detect%" END
@@ -139,26 +152,26 @@ BEGIN
 
 END
   
-DEFINE_PATCH_FUNCTION cd_area_alter_cre
-  INT_VAR x_coord = "-1"
-          y_coord = "-1"
-          orient  = "-1"
-  STR_VAR cre_name         = ""
-          dlg_file         = "same"
-          script_override  = "same"
-          script_general   = "same"
-          script_class     = "same"
-          script_race      = "same"
-          script_default   = "same"
-          script_specifics = "same"
-          cre_file         = "same"
+DEFINE_PATCH_FUNCTION AREA_ALTER_ACTOR
+  INT_VAR x_coord = "-1" // new x coordinate at 0x20 and 0x24; negative values mean no change
+          y_coord = "-1" // new y coordinate at 0x22 and 0x26; negative values mean no change
+          orient  = "-1" // facing direction for actor at 0x34; negative values mean no change
+  STR_VAR actor_name         = "" // required, at 0x00, used to match actor
+          dlg_file         = "same" // changes dialog file at 0x48; "same" means no change
+          script_override  = "same" // changes override script at 0x50; "same" means no change
+          script_general   = "same" // changes general script at 0x58; "same" means no change
+          script_class     = "same" // changes class script at 0x60; "same" means no change
+          script_race      = "same" // changes race script at 0x68; "same" means no change
+          script_default   = "same" // changes default script at 0x70; "same" means no change
+          script_specifics = "same" // changes specifics script at 0x78; "same" means no change
+          cre_file         = "same" // changes creature file at 0x80; "same" means no change
 BEGIN
 
   READ_LONG  0x54 cre_off
   READ_SHORT 0x58 cre_num
   FOR (index = 0 ; index < cre_num ; ++index) BEGIN
-    READ_ASCII (cre_off +        (index * 0x110)) cre_name_file (32) NULL
-    PATCH_IF ("%cre_name%" STRING_COMPARE_CASE "%cre_name_file%" = 0) BEGIN
+    READ_ASCII (cre_off +        (index * 0x110)) actor_name_file (32) NULL
+    PATCH_IF ("%actor_name%" STRING_COMPARE_CASE "%actor_name_file%" = 0) BEGIN
       PATCH_IF ("%x_coord%" >= 0) BEGIN WRITE_SHORT (cre_off + 0x20 + (index * 0x110)) "%x_coord%"
                                         WRITE_SHORT (cre_off + 0x24 + (index * 0x110)) "%x_coord%" END
       PATCH_IF ("%y_coord%" >= 0) BEGIN WRITE_SHORT (cre_off + 0x22 + (index * 0x110)) "%y_coord%"
@@ -193,21 +206,22 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_area_alter_container
-  INT_VAR cont_icon     = "-1"
-          lock_diff     = "-1"
-          flag_locked   = "-1"
-          flag_mlocked  = "-1"
-          flag_resets   = "-1"
-          flag_disabled = "-1"
-          trap_det_diff = "-1"
-          trap_rem_diff = "-1"
-          trapped       = "-1"
-          detected      = "-1"
-          string        = "-1"
-  STR_VAR cont_name   = ""
-          cont_script = "same"
-          cont_key    = "same"
+DEFINE_PATCH_FUNCTION AREA_ALTER_CONTAINER
+  INT_VAR cont_icon     = "-1" // icon displayed when opened at 0x24; negative values mean no change
+          trapped       = "-1" // is trapped? at 0x30; negative values mean no change
+          detected      = "-1" // is detected? at 0x32; negative values mean no change
+          string        = "-1" // lockpick string at 0x84; negative values mean no change
+          lock_diff     = "-1" // difficulty to pick lock at 0x26; negative values mean no change
+          trap_det_diff = "-1" // difficulty to detect trap at 0x2c; negative values mean no change
+          trap_rem_diff = "-1" // difficulty to remove tap at 0x2e; negative values mean no change
+          // flag_ vars affect flags starting at 0x28; 0 means remove flag, 1 means add flag, -1 no change
+          flag_locked   = "-1" // locked, bit0
+          flag_mlocked  = "-1" // magical lock, bit2
+          flag_resets   = "-1" // trap resets, bit3
+          flag_disabled = "-1" // disabled, bit5
+  STR_VAR cont_name   = ""     // required, at 0x00, used to match container
+          cont_script = "same" // changes container script at 0x48; "same" means no change
+          cont_key    = "same" // changes container key 0x78; "same" means no change
 BEGIN
 
   READ_LONG  0x70 cont_off
@@ -245,17 +259,17 @@ BEGIN
 
 END
   
-DEFINE_PATCH_FUNCTION cd_area_alter_doors
-  INT_VAR door_icon   = "-1"
-          trap_detect = "-1"
-          trap_remove = "-1"
-          trapped     = "-1"
-          detected    = "-1"
-          door_detect = "-1"
-          lock_diff   = "-1"
-  STR_VAR door_name   = ""
-          door_key    = "same"
-          door_script = "same"
+DEFINE_PATCH_FUNCTION AREA_ALTER_DOOR
+  INT_VAR door_icon   = "-1" // changes cursor at 0x68; negative values mean no change
+          trap_detect = "-1" // difficulty of trap detection at 0x6c; negative values mean no change
+          trap_remove = "-1" // difficulty of trap removal at 0x6e; negative values mean no change
+          trapped     = "-1" // is trapped? at 0x70; negative values mean no change
+          detected    = "-1" // is detected? at 0x72; negative values mean no change
+          door_detect = "-1" // difficulty of detection at 0x88; negative values mean no change
+          lock_diff   = "-1" // difficulty of lock at 0x8c; negative values mean no change
+  STR_VAR door_name   = ""     // required, at 0x00, used to match door
+          door_key    = "same" // changes door key at 0x78; "same" means no change
+          door_script = "same" // changes door script at 0x80; "same" means no change; "same" means no change
 BEGIN
 
   READ_LONG 0xa4 door_num
@@ -285,28 +299,27 @@ END
 ///// item functions                                   \\\\\
 /////                                                  \\\\\
 
-DEFINE_PATCH_FUNCTION cd_item_alter_effect
-  INT_VAR equipped      = 0  // check global fx: 0 for no, 1 for yes
-          headers       = 0  // check ability fx; 0 for no, 1 for yes
-          type          = "-1" // -1 is all headers, otherwise of type specified
-          opcode        = "-1" // opcode to match, -1 for all
-          opcode_new    = "-1" // change to this opcode
-          target        = "-1" // for rest, -1 means no change
-          timing        = "-1"
-          power         = "-1"
-          parameter1    = "-1"
-          parameter2    = "-1"
-          power         = "-1"
-          resist_dispel = "-1"
-          duration      = "-1"
-          duration_high = "-1" // special, only replaces if existing duration is > one round
-          probability1  = "-1"
-          probability2  = "-1"
-          dicenumber    = "-1"
-          dicesize      = "-1"
-          savingthrow   = "-1"
-          savebonus     = "-11"
-  STR_VAR resource     = "same" // same means no change, otherwise use this value
+DEFINE_PATCH_FUNCTION ITEM_ALTER_EFFECT
+  INT_VAR equipped      = 0  // check global effects: 0 for no, 1 for yes
+          headers       = 0  // check effects on headers; 0 for no, 1 for yes
+          type          = "-1" // -1 to check all headers, otherwise use type specified
+          opcode        = "-1" // opcode at 0x00 to match, use -1 for all
+          opcode_new    = "-1" // if opcode matches, change to this value
+          target        = "-1" // change target at 0x02; negative values mean no change
+          timing        = "-1" // change timing at 0x0c; negative values mean no change
+          power         = "-1" // change power level at 0x03; negative values mean no change
+          parameter1    = "-1" // change parameter at 0x04; negative values mean no change
+          parameter2    = "-1" // change parameter at 0x08; negative values mean no change
+          resist_dispel = "-1" // change resist/dispel at 0x0d; negative values mean no change
+          duration      = "-1" // change duration at 0x0e; negative values mean no change
+          duration_high = "-1" // same as duration, but only if existing duration > 5
+          probability1  = "-1" // change high probability at 0x12; negative values mean no change
+          probability2  = "-1" // change low probability at 0x13; negative values mean no change
+          dicenumber    = "-1" // change number of dice at 0x1c; negative values mean no change
+          dicesize      = "-1" // change size of dice at 0x20; negative values mean no change
+          savingthrow   = "-1" // changing type of saving throw at 0x24; negative values mean no change
+          savebonus     = "-11" // change save bonus/penalty; values -11 or lower are ignored
+  STR_VAR resource     = "same" // resref at 0x14; same means no change, otherwise use this value
 BEGIN
 
   READ_LONG 0x6a fx_off
@@ -383,41 +396,44 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_item_alter_header
+DEFINE_PATCH_FUNCTION ITEM_ALTER_HEADER
   INT_VAR type          = "-1" // -1 is all headers, >4 forces icon match, otherwise use value here
           header        = 0    // 0 matches all headers, otherwise just modify specified header - use with type = -1
-          type_new      = "-1" // for rest, -1 means no change
-          identify      = "-1"
-          location      = "-1"
-          target        = "-1"
-          range         = "-1"
-          launcher      = "-1"
-          speed         = "-1"
-          thac0_bonus   = "-1"
-          dicesize      = "-1"
-          primary       = "-1"
-          dicenum       = "-1"
-          secondary     = "-1"
-          damage_bonus  = "-1"
-          damage_type   = "-1"
-          effects_num   = "-1"
-          effects_index = "-1"
-          charges       = "-1"
-          drained       = "-1"
-          flag_strength = "-1"
-          flag_break    = "-1"
-          flag_hostile  = "-1"
-          flag_recharge = "-1"
-          flag_bypass   = "-1"
-          flag_keenedge = "-1"
-          projectile    = "-1"
-          anim_overhead = "-1"
-          anim_backhand = "-1"
-          anim_thrust   = "-1"
-          arrow         = "-1"
-          bolt          = "-1"
-          bullet        = "-1"
-  STR_VAR icon          = "same" // same means no change, otherwise use this value; may just be used as match if type is > 4
+          type_new      = "-1" // change the type at 0x00 to this value; negative values mean no change
+          identify      = "-1" // identify to use? at 0x01; negative values mean no change
+          location      = "-1" // ability location at 0x02; negative values mean no change
+          target        = "-1" // target at 0x0c; negative values mean no change
+          range         = "-1" // range at 0x0e; negative values mean no change
+          launcher      = "-1" // launcher required at 0x10; negative values mean no change
+          speed         = "-1" // speed at 0x12; negative values mean no change
+          thac0_bonus   = "-1" // to-hit bonus at 0x14; negative values mean no change
+          dicesize      = "-1" // dice size at 0x16; negative values mean no change
+          primary       = "-1" // primary school at 0x17; negative values mean no change
+          dicenum       = "-1" // number of dice at 0x18; negative values mean no change
+          secondary     = "-1" // seoncdary type at 0x19; negative values mean no change
+          damage_bonus  = "-1" // +damage bonus at 0x1a; negative values mean no change
+          damage_type   = "-1" // damage type at 0x1c; negative values mean no change
+          effects_num   = "-1" // number of effects at 0x1e; negative values mean no change
+          effects_index = "-1" // effects index at 0x20; negative values mean no change
+          charges       = "-1" // number of charges at 0x22; negative values mean no change
+          drained       = "-1" // when drained? at 0x24; negative values mean no change
+          projectile    = "-1" // projectile at 0x2a; negative values mean no change
+          anim_overhead = "-1" // % of overhead attacks at 0x2c; negative values mean no change
+          anim_backhand = "-1" // % of bakhand attacks at 0x2e; negative values mean no change
+          anim_thrust   = "-1" // % of thirsuting attacks at 0x30; negative values mean no change
+          arrow         = "-1" // is arrow? at 0x32; negative values mean no change
+          bolt          = "-1" // is bolt? at 0x34; negative values mean no change
+          bullet        = "-1" // is bullet? at 0x36; negative values mean no change
+          // flag_ vars affect flags starting at 0x26; 0 means remove flag, 1 means add flag, -1 no change
+          flag_strength = "-1" // add strength bonus, bit0
+          flag_break    = "-1" // breakable, bit1
+          flag_hostile  = "-1" // hostile, bit10
+          flag_recharge = "-1" // recharge after resting, bit11
+          flag_bypass   = "-1" // bypass armor, bit16
+          flag_keenedge = "-1" // keen edge, bit17
+          flag_backstab = "-1" // tobex only, can backstab, bit25
+          flag_noinvis  = "-1" // tobex only, cannot target invisible, bit26
+  STR_VAR icon          = "same" // ability icon at 0x04; used to match if type > 4; same means no change otherwise use this value
 BEGIN
 
   READ_LONG   0x64 "abil_off"
@@ -459,12 +475,16 @@ BEGIN
       PATCH_IF (flag_recharge = 0)  BEGIN WRITE_BYTE  (abil_off + 0x27 + (index * 0x38)) THIS & `BIT3  END
       PATCH_IF (flag_bypass = 0)    BEGIN WRITE_BYTE  (abil_off + 0x28 + (index * 0x38)) THIS & `BIT0  END
       PATCH_IF (flag_keenedge = 0)  BEGIN WRITE_BYTE  (abil_off + 0x28 + (index * 0x38)) THIS & `BIT1  END
+      PATCH_IF (flag_backstab = 0)  BEGIN WRITE_BYTE  (abil_off + 0x29 + (index * 0x38)) THIS & `BIT1  END
+      PATCH_IF (flag_noinvis = 0)   BEGIN WRITE_BYTE  (abil_off + 0x29 + (index * 0x38)) THIS & `BIT2  END
       PATCH_IF (flag_strength = 1)  BEGIN WRITE_BYTE  (abil_off + 0x26 + (index * 0x38)) THIS | BIT0   END
       PATCH_IF (flag_break = 1)     BEGIN WRITE_BYTE  (abil_off + 0x26 + (index * 0x38)) THIS | BIT1   END
       PATCH_IF (flag_hostile = 1)   BEGIN WRITE_BYTE  (abil_off + 0x27 + (index * 0x38)) THIS | BIT2   END
       PATCH_IF (flag_recharge = 1)  BEGIN WRITE_BYTE  (abil_off + 0x27 + (index * 0x38)) THIS | BIT3   END
       PATCH_IF (flag_bypass = 1)    BEGIN WRITE_BYTE  (abil_off + 0x28 + (index * 0x38)) THIS | BIT0   END
       PATCH_IF (flag_keenedge = 1)  BEGIN WRITE_BYTE  (abil_off + 0x28 + (index * 0x38)) THIS | BIT1   END
+      PATCH_IF (flag_backstab = 1)  BEGIN WRITE_BYTE  (abil_off + 0x29 + (index * 0x38)) THIS | BIT1   END
+      PATCH_IF (flag_noinvis = 1)   BEGIN WRITE_BYTE  (abil_off + 0x29 + (index * 0x38)) THIS | BIT2   END
       PATCH_IF ("%icon%" STRING_COMPARE_CASE "same") BEGIN
         WRITE_ASCIIE (abil_off + 0x04 + (index * 0x38)) "%icon%" #8
       END
@@ -473,7 +493,7 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_item_delete_header
+DEFINE_PATCH_FUNCTION ITEM_DELETE_HEADER
   INT_VAR type = 0 // -1 for all headers, otherwise match type
   BEGIN
 
@@ -507,27 +527,26 @@ END
 ///// spell functions                                  \\\\\
 /////                                                  \\\\\
 
-DEFINE_PATCH_FUNCTION cd_spell_alter_effect
+DEFINE_PATCH_FUNCTION SPELL_ALTER_EFFECT
   INT_VAR header        = 0  // 0 for all, otherwise use number
-          type          = "-1" // -1 is all headers, otherwise of type specified
-          opcode        = "-1" // opcode to match, -1 for all
-          opcode_new    = "-1" // change to this opcode
-          target        = "-1" // for rest, -1 means no change
-          timing        = "-1"
-          power         = "-1"
-          parameter1    = "-1"
-          parameter2    = "-1"
-          power         = "-1"
-          resist_dispel = "-1"
-          duration      = "-1"
-          duration_high = "-1" // special, only replaces if existing duration is > one round
-          probability1  = "-1"
-          probability2  = "-1"
-          dicenumber    = "-1"
-          dicesize      = "-1"
-          savingthrow   = "-1"
-          savebonus     = "-11"
-  STR_VAR resource     = "same" // same means no change, otherwise use this value
+          type          = "-1" // -1 to check all headers, otherwise use type specified
+          opcode        = "-1" // opcode at 0x00 to match, use -1 for all
+          opcode_new    = "-1" // if opcode matches, change to this value
+          target        = "-1" // change target at 0x02; negative values mean no change
+          timing        = "-1" // change timing at 0x0c; negative values mean no change
+          power         = "-1" // change power level at 0x03; negative values mean no change
+          parameter1    = "-1" // change parameter at 0x04; negative values mean no change
+          parameter2    = "-1" // change parameter at 0x08; negative values mean no change
+          resist_dispel = "-1" // change resist/dispel at 0x0d; negative values mean no change
+          duration      = "-1" // change duration at 0x0e; negative values mean no change
+          duration_high = "-1" // same as duration, but only if existing duration > 5
+          probability1  = "-1" // change high probability at 0x12; negative values mean no change
+          probability2  = "-1" // change low probability at 0x13; negative values mean no change
+          dicenumber    = "-1" // change number of dice at 0x1c; negative values mean no change
+          dicesize      = "-1" // change size of dice at 0x20; negative values mean no change
+          savingthrow   = "-1" // changing type of saving throw at 0x24; negative values mean no change
+          savebonus     = "-11" // change save bonus/penalty; values -11 or lower are ignored
+  STR_VAR resource     = "same" // resref at 0x14; same means no change, otherwise use this value
 BEGIN
 
   READ_LONG  0x6a fx_off
@@ -573,25 +592,25 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_spell_alter_header
+DEFINE_PATCH_FUNCTION SPELL_ALTER_HEADER
   INT_VAR type          = "-1" // -1 is all headers, >4 forces icon match, otherwise use value here
           header        = 0    // 0 matches all headers, otherwise just modify specified header - use with type = -1
-          type_new      = "-1" // for rest, -1 means no change
-          location      = "-1"
-          target        = "-1"
-          range         = "-1"
-          min_level     = "-1"
-          speed         = "-1"
-          thac0_bonus   = "-1"
-          dicesize      = "-1"
-          dicenum       = "-1"
-          damage_bonus  = "-1"
-          damage_type   = "-1"
-          effects_num   = "-1"
-          effects_index = "-1"
-          charges       = "-1"
-          projectile    = "-1"
-  STR_VAR icon          = "same" // same means no change, otherwise use this value; may just be used as match if type is > 4
+          type_new      = "-1" // change the type at 0x00 to this value; negative values mean no change
+          location      = "-1" // ability location at 0x02; negative values mean no change
+          target        = "-1" // target at 0x0c; negative values mean no change
+          range         = "-1" // range at 0x0e; negative values mean no change
+          min_level     = "-1" // minimum level at 0x10; negative values mean no change
+          speed         = "-1" // speed at 0x12; negative values mean no change
+          thac0_bonus   = "-1" // to-hit bonus at 0x14; negative values mean no change
+          dicesize      = "-1" // dice size at 0x16; negative values mean no change
+          dicenum       = "-1" // number of dice at 0x18; negative values mean no change
+          damage_bonus  = "-1" // +damage bonus at 0x1a; negative values mean no change
+          damage_type   = "-1" // damage type at 0x1c; negative values mean no change
+          effects_num   = "-1" // number of effects at 0x1e; negative values mean no change
+          effects_index = "-1" // effects index at 0x20; negative values mean no change
+          charges       = "-1" // number of charges at 0x22; negative values mean no change
+          projectile    = "-1" // projectile at 0x26; negative values mean no change
+  STR_VAR icon          = "same" // ability icon at 0x04; used to match if type > 4; same means no change otherwise use this value
 BEGIN
 
   READ_LONG   0x64 "abil_off"
@@ -625,7 +644,7 @@ BEGIN
 
 END
 
-DEFINE_PATCH_FUNCTION cd_spell_delete_header
+DEFINE_PATCH_FUNCTION SPELL_DELETE_HEADER
   INT_VAR type      = 0    // -1 for all headers, otherwise match type
           min_level = "-1" // -1 for all headers, otherwise match
   BEGIN
@@ -656,78 +675,4 @@ DEFINE_PATCH_FUNCTION cd_spell_delete_header
     WRITE_SHORT  0x68 abil_num
     WRITE_LONG   0x6a fx_off
     
-END
-
-/////                                                  \\\\\
-///// immunity effects batches                         \\\\\
-/////                                                  \\\\\
-
-// fixed stuff at the top of the effects batches
-DEFINE_PATCH_MACRO ~cd_fx_batch_prep~ BEGIN
-
-  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.spl" = 0) BEGIN
-    READ_LONG  0x64 abil_off ELSE 0
-    READ_SHORT 0x68 abil_num ELSE 0
-    READ_LONG  0x6a fx_off   ELSE 0
-    SET counter_offset = 0x70
-    SET abil_length    = 0x28
-    SET global_loop    = 0
-    SET fx_type        = 0
-    SET min_size       = 0x72
-    SET cosmetic       = 1
-  END ELSE
-  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.itm" = 0) BEGIN
-    READ_LONG  0x64 abil_off ELSE 0
-    READ_SHORT 0x68 abil_num ELSE 0
-    READ_LONG  0x6a fx_off   ELSE 0
-    SET counter_offset = 0x70
-    SET abil_length    = 0x38
-    SET global_loop    = 1
-    SET fx_type        = 0
-    SET min_size       = 0x72
-    READ_BYTE 0x18 flags ELSE 0
-    PATCH_IF ((flags BAND BIT2) = BIT2) BEGIN // if droppable, add portrait icons and whatnot
-      SET cosmetic = 1
-    END ELSE BEGIN
-      SET cosmetic = 0
-    END
-  END ELSE
-  PATCH_IF ("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.cre" = 0) BEGIN
-    SET abil_off = 0
-    SET abil_num = 0
-    READ_LONG 0x2c4 fx_off ELSE 0
-    READ_BYTE 0x33 fx_type ELSE 2
-    SET counter_offset = 0x2c8
-    SET abil_length    = 0
-    SET global_loop    = 1
-    SET min_size       = 0x2d4
-    SET cosmetic       = 0
-  END
-  SET debug  = 0
-  SET new_fx = 0
-
-END
-
-// fixed stuff at the bottom of the effects batches
-DEFINE_PATCH_MACRO ~cd_fx_batch_final~ BEGIN
-
-  PATCH_IF (("%SOURCE_FILE%" STRING_COMPARE_REGEXP "^.+\.cre" = 0) AND (new_fx > 0)) BEGIN // fix offsets for cre files if fx inserted
-    SET inserted = ((0x30 + (0xd8 * fx_type)) * new_fx)
-    PATCH_FOR_EACH coffset IN 0x2a0 0x2a8 0x2b0 0x2b8 0x2bc BEGIN
-      READ_LONG coffset offset
-      PATCH_IF (fx_off < offset) BEGIN
-        WRITE_LONG coffset (offset + inserted)
-      END
-    END
-  END
-  PATCH_IF ((new_fx > 0) AND (debug = 1)) BEGIN
-    READ_LONG 0x0c name
-    PATCH_IF (name > 0) AND (name < `0) BEGIN
-      READ_STRREF 0x0c name
-    END ELSE BEGIN
-      READ_STRREF 0x08 name
-    END
-    PATCH_PRINT "              ~%SOURCE_FILE%~   ~override~ // %name%"
-  END
-
 END

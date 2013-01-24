@@ -1736,6 +1736,7 @@ STRING_SET
 54857 @1054857 //matching VO, "You comess to usss at lassst, Child of Bhaal.  You comess to claimsss your heritage"
 54892 @1054892 //everytime
 54896 @1054896 //matching VO,  "You have come very nearss to locating your quarry...yesssss, indeedss you have."
+54924 @1054924 // flydian at copper coronet -> flydian at the city gates
 54926 @1054926 //Unecessary
 55030 @1055030 //matching VO, "Yes, indeed you have."->"Oh yes, indeed you have."
 55049 @1055049 //matching VO, "even the powerful"->"even the most powerful", "claims of power were hollow"->"claims of power were ssso hollow", "You tore them from their"->"You tore them down from their"
