@@ -70,6 +70,8 @@ STRING_SET
 1392 @1001392 //Haer'Dalis with capital D
 1516 @1001516 //Excelent->Excellent
 1610 @1001610 //"He hiding out somewere?"->"He's hiding out somewhere?"
+1669 @1001669 //"You are obviously out of place, here, so"->"You are obviously out of place here, so"
+1700 @1001700 //"I have a message for you, Miss Nalia from"->"I have a message for you, Miss Nalia, from"
 1742 @1001742 //matching VO, I am->I'm
 1787 @1001787 //Lord Roenal->Lord Roenall
 1788 @1001788 //Lord Roenal->Lord Roenall
@@ -175,6 +177,7 @@ STRING_SET
 6077 @1006077 //"yer right"->"ye're right", "Its nay matter"->"It's nae matter"
 6083 @1006083 //"badly- built"->"badly-built"
 6088 @1006088 //"The priests strength"->"The priest's strength", thaco
+6128 @1006128 //"tell me, then <GABBER>"->"tell me then, <GABBER>"
 6135 @1006135 //Anomen: "strong sword"->"strong warrior"
 6138 @1006138 //T'rahcie->T'rachie
 6152 @1006152 //hearby->hereby
@@ -190,6 +193,7 @@ STRING_SET
 6310 @1006310 //stubborness
 6312 @1006312 //"Get another step and fetch it"->"Get another step-and-fetch-it."
 6322 @1006322 //curiousity->curiosity
+6430 @1006430 //"distance South of here"->"distance south of here"
 6432 @1006432 //"that that"->"than that"
 6445 @1006445 //"your are"->"you are"
 6449 @1006449 //Them Temple of Rillifane->The Temple of Rillifane
@@ -285,6 +289,7 @@ STRING_SET
 7972 @1007972 // Matching VO. "situation." -> "regrettable situation."
 7985 @1007985 //"Gloves of Pick Pocketing"->"Gloves of Pickpocketing"
 8005 @1008005 // Matching VO. "I've been" -> "I have been"
+8013 @1008013 //"The proof lies in that fact"->"The proof lies in the fact"
 8047 @1008047 //"Order of the Most Radiant Heart"
 8062 @1008062 //"8 hit dice monster"->"8-hit-dice monster", "casters control"->"caster's control"
 8064 @1008064 //"Fifth and higher level spells"->"Fifth-and-higher-level spells"
@@ -293,6 +298,7 @@ STRING_SET
 8087 @1008087 //rallys->rallies
 8100 @1008100 //matching VO, "Since you seem intent on keeping me from my commitments, I will go alone."->"I shall set out on my own for the High Hall, since you seem intent on keeping me from my commitments!"
 8127 @1008127 //un-named->unnamed
+8134 @1008134 //"you who intrude"->"you who are intruding"
 8171 @1008171 //unforgiveable->unforgivable
 8172 @1008172 //unforgiveable->unforgivable
 8211 @1008211 //penant->pennant
@@ -455,7 +461,7 @@ STRING_SET
 15943 @1015943 //"scimitars, swords  even iron weapons"->" scimitars, swords, even iron weapons"
 15959 @1015959 // dejemma -> dajemma
 16020 @1016020 //missle->missile
-16028 @1016028 //Roenal->Roenall
+16028 @1016028 //Roenal->Roenall, "meet the eye"->"meets the eye"
 16108 @1016108 //"Yer a saint"->"Ye're a saint"
 16150 @1016150 //outisde->outside
 16288 @1016288 //thaco
@@ -590,7 +596,7 @@ STRING_SET
 20521 @1020521 //"Shall we be off."->"Shall we be off?"
 20522 @1020522 //"Lets just get out of here."->"Let's just get out of here.", endevor -> endeavor
 20525 @1020525 //2x"yer"->"ye're"
-20533 @1020533 //Yes, lets do->Yes, let's do
+20533 @1020533 //Yes, lets do->Yes, let's do, valluables, have spaces before and after hyphen-stand-in-for-dash
 20549 @1020549 //yer->ye're, resonable->reasonable
 20669 @1020669 //Tis->'Tis
 20817 @1020817 //matching VO, amongst->among
@@ -623,6 +629,7 @@ STRING_SET
 22379 @1022379 //Thayan->Thayvian
 22386 @1022386 //yer->ye're
 22515 @1022515 //"yer a no-good thief"->"ye're a no-good thief"
+22516 @1022516 //replace inter-sentence quad-space with double-space
 22609 @1022609 // "targets body" -> "target's body", "dexterity bonus'" -> "dexterity bonuses", "save vs. magical attacks"->"save vs. spell", "3rd level spell"->"3rd-level spell"
 22611 @1022611 //"4th level spell"->"4th-level spell"
 22615 @1022615 //"4th level priest spell"->"4th-level priest spell"
@@ -653,6 +660,7 @@ STRING_SET
 24435 @1024435 //Haer'Dalis with capital D
 24447 @1024447 //Haer'Dalis with capital D
 24450 @1024450 //Haer'Dalis with capital D
+24462 @1024462 //"Do your return bearing?"->"Do you return bearing?"
 24468 @1024468 //Haer'Dalis with capital D
 24494 @1024494 //t'was->'twas
 24573 @1024573 //Haer'Dalis with capital D
@@ -675,10 +683,11 @@ STRING_SET
 24838 @1024838 //"12 hit dice elemental"->"12-hit-dice elemental", ditto for 16 hit dice and 24 hit dice
 24840 @1024840 //"12 hit dice elemental"->"12-hit-dice elemental", ditto for 16 hit dice and 24 hit dice
 24842 @1024842 //"12 hit dice elemental"->"12-hit-dice elemental", ditto for 16 hit dice and 24 hit dice
+24864 @1024864 //"homestead , away"->"homestead, away"
 24872 @1024872 //"yer pretty bright"->"ye're pretty bright"
 24910 @1024910 //compared sweet revenge->compared to sweet revenge
 24993 @1024993 //lets->let's
-25085 @1025085 // "tire or your musings." -> "tire of your musings."
+25085 @1025085 // "tire or your musings." -> "tire of your musings.", add comma in front of "then"
 25207 @1025207 //practicioners
 25209 @1025209 //thaco
 25306 @1025306 //"a devious controlling snake"->"a devious, controlling snake", "who's head"->"whose head"
@@ -690,6 +699,7 @@ STRING_SET
 25616 @1025616 //"casters control"->"caster's control"
 25623 @1025623 //"around the caster will be effected"->"around the caster will be affected"
 25687 @1025687 //"who yer looking at"->"who ye're looking at"
+25731 @1025731 //"go the tavern"->"go to the tavern"
 25732 @1025732 //"yer a stranger"->"ye're a stranger"
 25751 @1025751 //"swarms over a large area spreading"->"swarms over a large area, spreading", "fifth level counterpart"->"fifth-level counterpart"
 25764 @1025764 //"between his god and the prime material plane causing"->"between his god and the prime material plane, causing"
@@ -745,6 +755,7 @@ STRING_SET
 26958 @1026958 //matching VO, "Good morning, my child."->"Good morning, my lad."
 26968 @1026968 //"spare him"->"spare <PRO_HIMHER>"
 26975 @1026975 //deciedely
+26993 @1026993 //"I tire of you ridiculous games"->"I tire of your ridiculous games"
 27121 @1027121 //"I accuse you a crimes against Amn."->"I accuse you of crimes against Amn."
 27170 @1027170 //"Back to you slime pit"->"Back to your slime pit"
 27217 @1027217 // "I though you would" -> "I thought you would", "be mad I followed"->"be mad if I followed"
@@ -761,6 +772,7 @@ STRING_SET
 27606 @1027606 // unresposive -> unresponsive
 27669 @1027669 //"yer pushin' about"->"ye're pushin' about"
 27704 @1027704 // Aerie knows not whom she worships. "Baravar Cloakshadow" -> "Baervan Wildwanderer"
+27709 @1027709 //replace inter-sentence quad-space with double-space
 27721 @1027721 // Matching VO. "a long journey" -> "so long a journey"
 27836 @1027836 //"Order of the Most Radiant Heart"
 27841 @1027841 //"Order of the Most Radiant Heart"
@@ -786,8 +798,11 @@ STRING_SET
 28634 @1028634 //Ilmatar->Ilmater
 28692 @1028692 //"said so to you masters"->"said so to your masters"
 28766 @1028766 //harsher types then you
+28797 @1028797 //fix inconsistent quotation marks
 28840 @1028840 //mithril->mithral
 28954 @1028954 //"Order of the Most Radiant Heart"
+28958 @1028958 //"Why must this Inn"->"Why must this inn"
+28989 @1028989 //"the man is swine"->"the man is a swine"
 29054 @1029054 //benificent->beneficent
 29133 @1029133 //receeding
 29208 @1029208 //conjurs
@@ -999,6 +1014,7 @@ STRING_SET
 33281 @1033281 // Sythsillian->Sythillisian, "How do expect" -> "How do you expect"
 33315 @1033315 // "So you're band is no better off then" -> "So your band is no better off than"
 33365 @1033365 // "None is worthy" -> "None are worthy"
+33372 @1033372 //"will go, now, to rejoin"->" will go now, to rejoin"
 33375 @1033375 //mithril->mithral
 33377 @1033377 //mithril->mithral
 33378 @1033378 //mithril->mithral
@@ -1009,6 +1025,7 @@ STRING_SET
 33834 @1033834 // "yer a peach" -> "ye're a peach"
 33850 @1033850 //t'were->'twere
 33893 @1033893 //thaco
+33925 @1033925 //"are disappearing ...only to be reappear" -> "are disappearing ...only to reappear"
 33929 @1033929 //"Order of the Most Radiant Heart"
 33939 @1033939 //no -one->no-one
 33950 @1033950 //independant
@@ -1022,6 +1039,7 @@ STRING_SET
 34080 @1034080 //genuinly
 34085 @1034085 //Jeirdan->Jierdan
 34090 @1034090 //Two Handed
+34096 @1034096 //"distance South of here"->"distance south of here"
 34117 @1034117 //asumptions->assumptions
 34146 @1034146 //two handed sword
 34149 @1034149 //varities
@@ -1199,6 +1217,7 @@ STRING_SET
 38420 @1038420 //mithril->mithral
 38422 @1038422 //mithril->mithral
 38428 @1038428 //mithril->mithral
+38430 @1038430 //replace inter-sentence quad-space with double-space
 38464 @1038464 //mithril->mithral
 38466 @1038466 //mithril->mithral
 38527 @1038527 //"Knights of the Most Radiant Heart"->"Knights of the Most Noble Order of the Radiant Heart"
@@ -1233,6 +1252,7 @@ STRING_SET
 39311 @1039311 //"attempt to Pick Pocket a gem"->"attempt to Pickpocket a gem"
 39312 @1039312 //"Left-Click on the person you want to Pick Pocket."->"Left-Click on the person you want to Pickpocket."
 39436 @1039436 //nasea
+39443 @1039443 //"elven made"->"elven-made", clarify the fact the hammer does a total of 11 additional damage to giantkin
 39444 @1039444 //Thac0->THAC0
 39449 @1039449 //thaco, "Short Sword + 1"->"Short Sword +1"
 39450 @1039450 //thaco
@@ -1357,6 +1377,7 @@ STRING_SET
 39831 @1039831 //"reknown for their cruelty"->"renowned for their cruelty"
 39843 @1039843 //pallisade->palisade
 39955 @1039955 //STATISTICS
+39959 @1039959 //replace inter-word multi-space with single-space
 40034 @1040034 //Roenal->Roenall
 40056 @1040056 //moraly
 40087 @1040087 //end sentence with a period
@@ -1385,6 +1406,7 @@ STRING_SET
 41145 @1041145 //heresay
 41190 @1041190 //"think its the curse"->"think it's the curse"
 41204 @1041204 //"And my style is my own, do not be so petty."->" And my style is my own, do not be so petty."
+41333 @1041333 //"something a simple"->"something as simple"
 41354 @1041354 //end sentence with a period
 41355 @1041355 //end sentence with a period
 41356 @1041356 //end sentence with a period
@@ -1435,6 +1457,7 @@ STRING_SET
 43345 @1043345 //"Yer in league"->"Ye're in league", "Yer what's sicced 'em beasties"->"Ye're what's sicced 'em beasties"
 43348 @1043348 //"Mayhap ye'll speak to Guildmistress Busya if he wants to do somethin' about that."->"Mayhap ye'll speak to Guildmistress Busya if ye wants to do somethin' about that."
 43412 @1043412 // "being doing here" -> "be doing here"
+43418 @1043418 //"being doing here" -> "be doing here"
 43480 @1043480 //matching VO, "What can the Dao"->"Tell me, what can the Dao"
 43592 @1043592 //rukh->ruhk
 43606 @1043606 //"hording all the food"->"hoarding all the food"
@@ -1478,6 +1501,7 @@ STRING_SET
 45203 @1045203 //Shaundakar->Shaundakul
 45333 @1045333 //"Got's me an appointment"->"Gots me an appointment"
 45339 @1045339 //fightin->fightin'
+45443 @1045443 //"If you ever seem them again"->"If you ever see them again"
 45449 @1045449 //did't->didn't
 45565 @1045565 //"tough question, yer askin'"->"tough question ye're askin'"
 45664 @1045664 //"The sea gates are steadfast locked until it is blown"->"The sea gates are steadfastly locked until it is blown."
@@ -1487,13 +1511,16 @@ STRING_SET
 45840 @1045840 // "Who's blasted job" -> "Whose blasted job"
 45882 @1045882 //"it's location"->"its location"
 45898 @1045898 //matching VO, "Oh hell. I'll be below deck securing the... ah... something."->"Aw hell. Uh... I-I'll be below deck securing the... um... s-something, ah..."
+45970 @1045970 //replace inter-sentence quad-space with double-space
 46016 @1046016 //adds VO
+46020 @1046020 //"What it is worth?"->"What is it worth?"
 46021 @1046021 //adds VO
 46031 @1046031 //anyting
 46107 @1046107 //"Well, sported, sir. I shall have the Desharik apprised of the results."->"Well sported, sir. I shall have Desharik apprised of the results."
 46120 @1046120 //Lanulin->Ianulin
 46163 @1046163 //"Arnise certain kept"->"Arnise certainly kept"
 46213 @1046213 //Roenal->Roenall
+46225 @1046225 //"on the group in future"->"on the group in the future"
 46237 @1046237 //De'Arnise->de'Arnise
 46241 @1046241 //liason
 46261 @1046261 //Roenal->Roenall
@@ -1548,6 +1575,7 @@ STRING_SET
 47434 @1047434 //threathening
 47451 @1047451 //"Yer a traitorous"->"Ye're a traitorous"
 47482 @1047482 //"things to do that court your arrogant pride"->"things to do than court your arrogant pride"
+47485 @1047485 //Alateto->Alatelo
 47493 @1047493 //failling->failing
 47496 @1047496 //wailling->wailing
 47497 @1047497 //ryhme
@@ -1567,7 +1595,7 @@ STRING_SET
 47987 @1047987 //garrolous->garrulous
 47988 @1047988 //leant->lent
 47991 @1047991 //garrolous->garrulous
-48013 @1048013 //adultress
+48013 @1048013 //adultress, replace inter-sentence quint-space with double-space
 48095 @1048095 //Twas->'Twas
 48100 @1048100 //"I hate fish. I fishing"->"I hate fish. I hate fishing"
 48134 @1048134 //"pay for our fathers 'crime'."->"pay for our father's 'crime'."
@@ -1614,6 +1642,7 @@ STRING_SET
 49107 @1049107 //"old enemies marshall their forces"->"old enemies marshal their forces"
 49130 @1049130 //"yor body"->"your body"
 49247 @1049247 //brethern->brethren
+49323 @1049323 //replace inter-sentence quad-space with double-space
 49338 @1049338 //Winspear
 49382 @1049382 //imcompetence->incompetence
 49445 @1049445 //ursurped
@@ -1736,6 +1765,7 @@ STRING_SET
 54857 @1054857 //matching VO, "You comess to usss at lassst, Child of Bhaal.  You comess to claimsss your heritage"
 54892 @1054892 //everytime
 54896 @1054896 //matching VO,  "You have come very nearss to locating your quarry...yesssss, indeedss you have."
+54925 @1054925 //The militia captain is a woman, not a man
 54926 @1054926 //Unecessary
 55030 @1055030 //matching VO, "Yes, indeed you have."->"Oh yes, indeed you have."
 55049 @1055049 //matching VO, "even the powerful"->"even the most powerful", "claims of power were hollow"->"claims of power were ssso hollow", "You tore them from their"->"You tore them down from their"
@@ -1892,6 +1922,7 @@ STRING_SET
 59221 @1059221 //"half vampire body"->"half-vampire body"
 59237 @1059237 //"loved on"->"loved one"
 59372 @1059372 //Vapiricus->Vampiricus
+59385 @1059385 //"have been quite a few old books turn up"->"have been quite a few old books turning up"
 59395 @1059395 //"No you cannot"->"No, you cannot."
 59426 @1059426 //inportance->importance
 59481 @1059481 //matching VO, "So are we killing something now?" "So are we gonna... kill something now?"
@@ -1922,6 +1953,7 @@ STRING_SET
 60950 @1060950 //leopards have spots, not stripes
 60958 @1060958 //"Yer a cleric"->"Ye're a cleric"
 60959 @1060959 //occuring
+60967 @1060967 //yer->ye're, "to found out"->"to find out"
 60971 @1060971 //"Yer some noble type"->"Ye're some noble type"
 60998 @1060998 //"Rarely have a seen its like"->"Rarely have I seen its like"
 61059 @1061059 //T'were->'Twere
@@ -1998,6 +2030,7 @@ STRING_SET
 64410 @1064410 //"Yaga Shura"->"Yaga-Shura"
 64481 @1064481 //"I am loathe"->"I am loath"
 64548 @1064548 //sugary sweet soul
+64559 @1064559 //replace inter-space quad-space with double-space
 64634 @1064634 //"self serving weasel"->"self-serving weasel"
 64661 @1064661 //exectuion
 64840 @1064840 //"A far fetched tale"->"A farfetched tale"
@@ -2284,6 +2317,7 @@ STRING_SET
 71977 @1071977 //Rafeya->Rahefa
 72177 @1072177 //T'was->'Twas
 72294 @1072294 //end sentence with period
+72330 @1072330 //replace inter-sentence quad-space with double-space
 72343 @1072343 //guath->gauth
 72407 @1072407 //missle
 72576 @1072576 // hadly -> hardly
