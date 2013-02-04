@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v10 RC 2~
+VERSION ~v10 RC 3~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -13205,6 +13205,7 @@ COPY_EXISTING ~brac21.itm~ ~override~ // gauntlet of ex specialization
   BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~misc5x.itm~ ~override~ // harper pin
+              ~plat06.itm~ ~override~ // ankheg plate
   PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
     READ_BYTE  0x29 "use"
     WRITE_BYTE 0x29 ("%use%" BOR  0b00100000) // add avenger flag
@@ -17565,6 +17566,34 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY fl#speed_item BEGIN
   SW1H53   => 4  //Sword of Flame +1
   SW1H69   => 1  //Spectral Brand +5
   SW2H03   => 10 //Cursed Berserking Sword +3
+/* extras from Ardanis, pending a little more discussion
+  blun22   => 1 // blackblood +3
+  blun23   => 2 // bone club +2, +3 vs. undead
+  blun24   => 2 // gnasher +2
+  blun25   => 5 // IMoD
+  blun26   => 1 // club of detonation +3
+  blun27   => 0 // club of detonation +5
+  dagg11   => 0 // boomerang dagger
+  dagg12   => 0 // fire tooth +3
+  dwxbow01 => 2 // drow crossbow of speed
+  hamm04   => 3 // hammer +1, +4 vs. giantkin
+  hamm09   => 0 // crom faeyr
+  slng08   => 2 // erinne sling +4
+  slng09   => 1 // erinne sling +5
+  staf09   => 2 // staff of command
+  staf12   => 2 // staff of power
+  stardart => 0 // dart +5
+  sw1h24   => 4 // flame tongue
+  sw1h28   => 0 // cutthroat +4
+  sw1h54   => 2 // equalizer
+  sw2h14   => 7 // lilarcor
+  waflail  => 4 // defender of easthaven
+  wasling  => 1 // sling of everard
+  wastaff  => 1 // staff of arundel
+  xbow03   => 5 // heavy crossbow of accuracy
+  xbow06   => 4 // light crossbow of speed
+  xbow13   => 1 // crossbow of afflication
+*/
 END
 
 ACTION_PHP_EACH fl#speed_item AS item => speed BEGIN
@@ -29449,7 +29478,7 @@ BUT_ONLY
 
 // add portrait icon for fire resistance
 COPY_EXISTING ~sw1h15.itm~ ~override~
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 =  25 timing = 2 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 =  16 timing = 2 END
 
 // match secondary to underlying spell
 COPY_EXISTING ~wand02.itm~ ~override~ // wand of fear
@@ -29555,6 +29584,13 @@ COPY_EXISTING
   END
 BUT_ONLY
 
+// mislead clones can attack with an offhand weapon that adds to ApR, i.e. Belm
+COPY_EXISTING ~mislead.spl~ ~override~
+//  LPF ADD_SPELL_EFFECT INT_VAR type = 1 target = 1 duration = 120 opcode = 1 parameter1 = 0 parameter2 = 1 END // set 0
+  LPF ADD_SPELL_EFFECT INT_VAR type = 1 target = 1 duration = 120 opcode = 1 parameter1 = 0 parameter2 = 2 END // set % to 0
+  LPF ADD_SPELL_EFFECT INT_VAR type = 1 target = 1 duration = 120 opcode = 1 parameter1 = "-10" parameter2 = 0 END // increment -10
+
+// 109 targeting issue
 // handle separately since it's on its own specific header (paralyze targeting)
 COPY_EXISTING ~spcl415.spl~ ~override~ // target 2, power 3, 3/1, dur 30, spell -1 (min lev 11)
   LPF SPELL_ALTER_EFFECT INT_VAR header = 2 opcode = 142 opcode_new = 999 END
@@ -30091,7 +30127,7 @@ has the same dual-wield exploit but there's no way to fix it.*/
 // wrong target, ids for burning earth's troll damage/thac0
 COPY_EXISTING ~trolld1.eff~  ~override~
               ~trollh1.eff~  ~override~
-  WRITE_LONG 0x14 2 // preset target
+//  WRITE_LONG 0x14 2 // preset target
   WRITE_LONG 0x20 4 // race.ids
   BUT_ONLY
 
@@ -30255,11 +30291,6 @@ COPY_EXISTING ~cddisr.eff~ ~override/hamm10.eff~
 COPY_EXISTING ~hamm10.eff~ ~override/hamm11.eff~
   WRITE_LONG 0x1c 5 // +5
 
-// wrong target
-COPY_EXISTING ~damaceb.eff~  ~override~
-  WRITE_LONG 0x14 2 // preset target
-  BUT_ONLY
-
 // now patch effs from above to do damage directly instead of damage vs. type (damage matches weapon)
 ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_effing_effs BEGIN
   cdhalb04 =>  16 // Dragon's Bane +3
@@ -30324,6 +30355,7 @@ COPY_EXISTING ~hamm06.eff~ ~override/cdhamm06.eff~
 COPY_EXISTING ~giandam.eff~  ~override~
               ~monstdam.eff~ ~override~
               ~undeddam.eff~ ~override~
+  WRITE_LONG 0x14 2 // preset target
   WRITE_LONG 0x1c 2 // should be doing two extra damage, not three
   WRITE_LONG 0x60 0 // param3 should be 0
   BUT_ONLY
@@ -30335,7 +30367,7 @@ COPY_EXISTING ~sw1h32c.eff~ ~override~
 
 // wrong target for bone club's +1 thac0 vs undead
 COPY_EXISTING ~undhit1.eff~  ~override~
-  WRITE_LONG 0x14 2 // preset target
+//  WRITE_LONG 0x14 2 // preset target
   WRITE_LONG 0x1c 4 // undead from
   WRITE_LONG 0x20 3 // general.ids
   BUT_ONLY

@@ -1047,7 +1047,7 @@ STATISTICS:
 
 Always considered to be of +4 enchantment when determining what it can hit.
 THAC0: +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
-Damage: 1D8 + 2, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage: 1D8 + 1, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
 Damage type: slashing
 Weight: 4
 Speed Factor: 3

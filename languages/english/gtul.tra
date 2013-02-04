@@ -145,6 +145,8 @@ Jaheira has been cursed by a man named Baron Ployer...a slaver whom she ruined i
 @1001392 = ~Please, Jan, my name is Haer'Dalis.~ [HAERDA60]
 @1001516 = ~(YAWN)... I'm... I live to see the earth mother's dawn once more? Then... then you have succeeded. Excellent. And Ployer? What of him?~
 @1001610 = ~He's hiding out somewhere? Any way I can get a message to him?~
+@1001669 = ~What is it you wish?  You are obviously out of place here, so unless you have pressing business I am very busy and do not wish to be bothered by such as you.~
+@1001700 = ~I have a message for you, Miss Nalia, from the residents of the Family Arnise estate. I must get an imprint of your signet ring to prove I found you.~
 @1001742 = ~I must insist that we go to Athkatla this instant. I'm sorry, but you did say we would go. I will leave on my own if I have to.~ [NALIA75]
 @1001787 = ~Thank you, Lord Roenall. He would be pleased to hear such praise.~
 @1001788 = ~Stop this 'Lord Roenall' business. I'll not have such formalities. 'Farthington' is my name among friends, 'Farthy' if out of sight of the missus. Hrmph heh?~
@@ -409,6 +411,7 @@ Area of Effect: Caster
 Saving Throw: None
 
 Through this spell, the caster imbues himself with the strength and skill of a fighter of the same level.  The priest's strength is set to 18/00, even if it is normally higher, his THAC0 becomes that of a fighter of the same level, and he gains 1 temporary hit point for every level he has attained.  This will last for the duration of the spell or until successfully dispelled.~
+@1006128 = ~I trust that your accounting is true. Tell me then, <GABBER>, be you a force for evil or good?~
 @1006135 = ~Perchance I have found worthy companions. I seek to be knighted in the Most Noble Order of the Radiant Heart and I must prove my worth, first. Have you need of a strong warrior, my <LADYLORD>?~
 @1006138 = ~T'rachie's Plate +5~
 @1006152 = ~I hereby renounce my path of evil and pledge to follow the path of righteousness for as long as I shall live.~
@@ -424,6 +427,7 @@ Through this spell, the caster imbues himself with the strength and skill of a f
 @1006310 = ~Your stubbornness is tiring. Know that to refuse is to show yourself as an outsider. You are being evaluated even as I speak.~
 @1006312 = ~Whatever, Edwin. Forget it. Get another step-and-fetch-it.~
 @1006322 = ~Now my curiosity is piqued. I'm at your service. Show me the way.~
+@1006430 = ~Follow behind me. My cabin is but a short distance south of here. I will meet you there.~
 @1006432 = ~This is not an offer to be ignored. We shall find no better sanctuary than that of this man, Garren. Let us base our investigation from his cabin.~
 @1006445 = ~Perhaps you are correct. We shall go with Garren.~
 @1006449 = ~The door is sealed and nothing short of the power of a god can open it now. The Temple of Rillifane may hold the key.~
@@ -999,6 +1003,7 @@ When the spell is cast it confers 100% invulnerability to all magic-based attack
 @1007972 = ~Your investigations have been fruitful? Let us examine them for possible solutions to this regrettable situation. Speak what you have learned of the local druids. How are they tainted?~ [CERND64]
 @1007985 = ~Gloves of Pickpocketing~
 @1008005 = ~I have been cowering at your feet for all my life. Goodbye, father. Perhaps I shall see you again before you drink yourself to death.~ [ANOMENB8]
+@1008013 = ~The proof lies in the fact that he has taken everything else from me! Killing Moira would complete my defeat.~
 @1008047 = ~I am Sir Ryan Trawl, a Paladin of the Most Noble Order of the Radiant Heart. In Torm's name I greet thee.~
 @1008062 = ~Invisible Stalker
 (Conjuration/Summoning) 
@@ -1034,6 +1039,7 @@ This spell turns flesh of any sort to stone.  All possessions on the person of t
 @1008127 = ~The hunt for Valygar Corthala.
 
 It appears that Tolgerias, a Cowled Wizard, has taken my promise to perform an unnamed service for him seriously. He had asked me to track down a man by the name of Valygar Corthala and bring him back dead or alive. I refused... and may face retaliation from the Cowled Wizards as a result.~
+@1008134 = ~I would, my friend, but this IS my home and it is YOU who are intruding.  Well, it was my home but the winds of nature did take my sails and I had to follow the...~
 @1008171 = ~You have slain a man in revenge. By killing Saerk you have committed an unforgivable sin. Consider yourself lucky to be able to leave with your life.~
 @1008172 = ~A man called Garren lost a child to kidnappers. You and your party did nothing to save this child. This is an unforgivable sin. Leave now and never return.~
 @1008211 = ~I've always dreamed of being a knight from the first time I saw an armored column from my mother's arm. Someday I will thunder by beneath the Radiant Heart pennant.~
@@ -1744,7 +1750,7 @@ I went to the place Tiris described, but met only a man named Darsidian Moor who
 @1016020 = ~I am renowned for my quality fletching, and as a fair bowyer as well. Dost thou care to peruse my inventory of fine missile weapons?~
 @1016028 = ~Nalia's Father's Funeral
 
-At the funeral, Nalia ran into the son of Lord Roenall, Isaea, who seems determined that Nalia live up to the betrothal that her father made for her... and quite angry at her continued refusal. There is more to his demands than meet the eye. No doubt this is not the last we've seen of him.~
+At the funeral, Nalia ran into the son of Lord Roenall, Isaea, who seems determined that Nalia live up to the betrothal that her father made for her... and quite angry at her continued refusal. There is more to his demands than meets the eye. No doubt this is not the last we've seen of him.~
 @1016108 = ~Ye're a saint, fer sure, me mate.  Me wife will sing yer praises, as will I.~
 @1016150 = ~No one is disputing that, but I do have obligations outside the group. I will return when I am able.~
 @1016288 = ~Composite bows are long bows or short bows whose staves are made from more than one type of material.  This gives greater flexibility, and thus better range.  These were developed after the normal long bow.  This magical bow requires a strength of 18 to wield.
@@ -2445,7 +2451,7 @@ Not usable by:~
 @1020521 = ~Well...um...shall we be off? It is already late in the day. Plenty to do.~
 @1020522 = ~This is quite cruel of you. So be it, I will not endeavor to speak to you of such things again. It is a waste of...of...Let's just get out of here.~
 @1020525 = ~RISE AND SHINE! Oh, I hope I didn't disturb ye. My, but ye're a bunch of sound sleepers. Did'nay hear the approach of us wee little bandits and now look at the mess ye're in.~
-@1020533 = ~Yes, let's do just that. I'll start. Ye'll be handing over what valluables ye have -and we've heard ye have a lot- and then we'll be going on our way.~
+@1020533 = ~Yes, let's do just that. I'll start. Ye'll be handing over what valuables ye have - and we've heard ye have a lot - and then we'll be going on our way.~
 @1020549 = ~Well, ye're certainly being reasonable about all of this. Mind you, I'll just keep a grip on the lassie here until my boys have finished their work. Stand still, will you?~
 @1020669 = ~'Tis but a flesh wound, Mistress Mazzy.~ [VALYGA60]
 @1020817 = ~Hold! You speak of blasphemy! The Morninglord Lathander has always shown His benevolence and power. His presence among us is unquestionable!~ [CSCLER01]
@@ -2551,6 +2557,7 @@ Not Usable By:
 @1022379 = ~You're speaking of me, you insolent woman! Watch your tongue, or I'll scorch it off for you! (Miserable peasants... the common Thayvian wouldn't speak like this!)~
 @1022386 = ~By Helm...I mean no offense, miss, but might I say that ye're the prettiest sight I've seen in a long time.~
 @1022515 = ~There be only two reasons to come to the Docks.  One, ye has a ship to catch or fish from.  Two, ye're a no-good thief.~
+@1022516 = ~Well, if that don't take all.  The thieves have finally stolen me fishing boat.  What in blazes am I supposed to do now?~
 @1022609 = ~Spirit Armor (Necromancy)
 Level: 4
 Range:  Touch
@@ -2673,6 +2680,7 @@ Valygar's quest is finally done. Lavok was not what he expected, and has caused 
 @1024435 = ~We need comrades, not servants, Haer'Dalis. What skills do you bring with you?~
 @1024447 = ~It'll do... Welcome to the group, Haer'Dalis.~
 @1024450 = ~More than enough, Haer'Dalis, more than enough. My apologies for doubting you.~
+@1024462 = ~Welcome home, daughter. Do you return bearing good tidings?~
 @1024468 = ~Very well, Haer'Dalis. Friendship... Welcome aboard.~
 @1024494 = ~You wound me... 'twas a simple verse. You think, mayhap, that my brain has been addled too long by arcane spells? Oh, what tragedy!~
 @1024573 = ~Haer'Dalis, there is always room for one such as you within my company.~
@@ -2749,10 +2757,11 @@ Area of Effect: Special
 Saving Throw: None 
 
 Upon casting a conjure earth elemental spell, the caster opens a special gate to the elemental plane of Earth, and an earth elemental is summoned to the vicinity of the spellcaster.  It is 60% likely that a 12-hit-dice elemental appears, 35% likely that a 16-hit-dice elemental appears, and 5% likely that a 24-hit-dice elemental appears.  Once the elemental appears the caster must concentrate on the creature for 3 rounds in order to assure that the elemental will not turn on him (15% chance that the elemental will turn on the caster).  However, after this period has passed the elemental will do the bidding of the caster until it is slain, or the duration of the spell runs out.  All of the commands given to the elemental are done so telepathically, so there is no time lost due to miscommunication, and it is not necessary to know the language of the summoned creature.~
+@1024864 = ~I remained hooded at all times, and it was only a matter of time and materials before I would own my own homestead, away from prying eyes.~
 @1024872 = ~Thank you!  For a fella who looks like a ruffian, ye're pretty bright, I'd say!~
 @1024910 = ~Besides, your coins are nothing compared to sweet revenge! Your deaths will complete my victory! Meet my assassins! They will make short work of the lot of you!~
 @1024993 = ~Everyone must endure hardships Viconia. Come... let's continue our journey.~
-@1025085 = ~Bury it all as treasure then. I tire of your musings.~
+@1025085 = ~Bury it all as treasure, then. I tire of your musings.~
 @1025207 = ~INQUISITOR: The Inquisitor has dedicated his life to finding and eliminating practitioners of evil magic and defeating the forces of darkness, and his god has provided him with special abilities towards that end.
 
 Advantages:
@@ -2814,6 +2823,7 @@ Saving Throw: None
 
 When this spell is cast, an area roughly 70 feet in radius around the caster will be affected.  Instantly and once each round for 1 turn after this spell is cast, all hostile illusion/phantasm spells in the area of effect will be dispelled.  The spells that are affected by this are: Reflected Image, Invisibility, Mirror Image, Non-detection, Improved Invisibility, Shadow Door, Mislead, Project Image, and Simulacrum.  The area of effect is roughly a 70' radius around the caster.  The target's magic resistance, if any, does not come into effect with this spell.  This spell only affects enemies, thus it is unable to dispel the invisibility from a party member.~
 @1025687 = ~You just watch who ye're looking at, human lady!  I could poke yer belly faster than you could yell!~
+@1025731 = ~Me wife keeps naggin' me to go to the promenade and do some shoppin' for her.  Ach, but 'tis such a far walk...maybe I'll go to the tavern and just say I was robbed, aye?~
 @1025732 = ~There's a murderer on the loose, there is...ye're a stranger, mayhap it's you!~
 @1025751 = ~Creeping Doom
 (Conjuration/Summoning)
@@ -3051,6 +3061,7 @@ Upon casting this spell, the recipient receives a resistance to all magic.  The 
 @1026958 = ~Good morning, my lad. How are ye this morn? I did not wish to startle ye, but I was walking by and could not help but notice this note blowing in the wind.~ [TERMIN02]
 @1026968 = ~This is an internal matter of justice, and does not involve this <CHARNAME>. You can spare <PRO_HIMHER> the attacks if you submit.~
 @1026975 = ~Well, that was decidedly unpleasant, and more than I wish to worry about.~
+@1026993 = ~Oh, get away from me, already.  I tire of your ridiculous games.~
 @1027121 = ~Ho, citizen! On orders of the Council, I accuse you of crimes against Amn.~
 @1027170 = ~I am not in a mood to converse with madmen of the sewers. Back to your slime pit, old fool!~
 @1027217 = ~I thought you would be mad if I followed. I thought you wanted this.~
@@ -3067,6 +3078,7 @@ Upon casting this spell, the recipient receives a resistance to all magic.  The 
 @1027606 = ~Should I tailor my mood to yours? You have proven unresponsive in the past.~
 @1027669 = ~Who d'you think ye're pushin' about, 'ey?~
 @1027704 = ~I do not know what you mean...I have no plans to leave my gnomish lord Baervan Wildwanderer...I owe Him too much, sir.~
+@1027709 = ~Indeed!  In her time, Waukeen was known and welcomed fondly by all in the great City of Coin!  The Promenade was built to honor her and trade prospered throughout!~
 @1027721 = ~We have to be nearing our goal. It has been so long a journey and we have been through so much. I hope this does not end up all being for naught.~ [JAHEIRB7]
 @1027836 = ~I am Sir Cadril, Knight of the Most Noble Order of the Radiant Heart. Pleased to make your acquaintance, my <LADYLORD>.~
 @1027841 = ~Greetings to you, my <LADYLORD>. I be Lady Irlana, Knight of the Most Noble Order of the Radiant Heart. At your service.~
@@ -3092,8 +3104,11 @@ Upon casting this spell, the recipient receives a resistance to all magic.  The 
 @1028634 = ~Priestess of Ilmater~
 @1028692 = ~No, what I need has not changed, and I have said so to your masters. The gold offered is sufficient, and I am just fine without the flattery.~
 @1028766 = ~Ach, calm down, mate.  You don't frighten me...I've dealt with harsher types than you.  And besides...harming me won't find you out where the gong lies, now, will it?~
+@1028797 = ~So I said to the Baron, 'Honestly, sir! You must learn to control yourself!'~
 @1028840 = ~Was kicked out of this place once or twice as a youth, 'fore I found a vein of mithral.~
 @1028954 = ~It is called the Most Noble Order of the Radiant Heart, fool. And we do more to battle evil than you could comprehend. Look to your own actions, first, before you look to others'.~
+@1028958 = ~Why must this inn always be crowded with brainless debutantes? Have you seen Alicia?~
+@1028989 = ~The man is a swine! Leave me now. I need to arrange to have his wine mixed with the slop water.~
 @1029054 = ~Praise Oghma, the beneficent master of knowledge, invention and inspiration. Come, seeker, and be welcome within his temple. What can I provide for you?~
 @1029133 = ~I don't see why. This new piece is a welcome understatement. Looks as though it represents the shadows receding from the dawn. Fine work.~
 @1029208 = ~Spider Spawn (Conjuration/Summoning)
@@ -3548,6 +3563,7 @@ The control undead spell allows the caster to take control of 1-4 undead creatur
 @1033281 = ~You're deserters from the Sythillisian Empire? How do you expect to live up here?~
 @1033315 = ~I see.  So your band is no better off than the village.  I'll be going, then.~
 @1033365 = ~This bust is a depiction of the sun god, Amaunator. The caption on the pedestal reads as: 'Let not Holy Ritual be derided. None are worthy of His Grace without first paying homage in the manner that He Himself has prescribed. Learn the Ritual or face His Punishment."~
+@1033372 = ~I... will go now, to rejoin my Keeper of the Eternal Sun.  I owe my freedom to you, and will always be thankful.  Live, my friends... live long and live well.  May the Light be forever victorious.~
 @1033375 = ~This is half of a page of parchment, yellowed with age.  Its ink is faded but still legible, and reads:
 
 "This land near the Umar Hills is rich with mithral deposits, and I notice many other prospectors have joined me here to plunder its riches.  So, too, have scoundrels and bandits been attracted to the area, and they prey mercilessly upon us.  I have found an excellent hiding place for my mithral cache, one which even those thieves will never be able to locate.  It is far to the northwest of the Imnesvale village, in a forest --"
@@ -3574,6 +3590,7 @@ THAC0:  +1
 Damage type:  missile (piercing)
 Weight: 0
 Launcher:  sling~
+@1033925 = ~Clerics throughout the city are disappearing ...only to reappear with their eyes plucked out, claiming to have joined a new religion devoted to 'the Unseeing Eye'.~
 @1033929 = ~The Most Noble Order of the Radiant Heart is an order of lawful warriors that serves all of Amn. They can be called to duty anywhere evil threatens.~
 @1033939 = ~Athkatla is ruled by the Council of Six... their identities are secret so no-one knows who to bribe. The Council is currently not in session, so the Vice-Consul rules.~
 @1033950 = ~The Shadow Thieves' victory over its rival guild is rumored to be due to the aid of several independent master thieves in the city... something the Shadow Thieves hotly deny.~
@@ -3610,6 +3627,7 @@ Not Usable By:
  Cleric
  Mage 
  Thief~
+@1034096 = ~Follow behind me. My cabin is but a short distance south of here. I will meet you there.~
 @1034117 = ~You know nothing of me. You base your assumptions on storybooks and legend.~
 @1034146 = ~BASTARD SWORD:  The bastard sword is a double-edged sword and can be wielded with one or two hands.  It does more damage than a long sword but less than a two-handed sword.
 
@@ -3981,6 +3999,7 @@ Not Usable By:
 @1038420 = ~I recently came across part of a journal belonging to an ancestor of mine, Idras Tombelthen.  It was his fool notion to buy this land, back when there was mithral, here.~
 @1038422 = ~He mentions that he hid a cache of mithral here, away from the eyes of bandits.  This was before he died, I assume, which is why he never brought it out again.~
 @1038428 = ~You're a Tombelthen?  Well, perhaps this medallion belongs to you, then.  I found it with a note penned by an Idras Tombelthen not far from here.  Apparently, this was all the mithral he could find, here.~
+@1038430 = ~...I see.  So this medallion is the sum of all he found?  The fool!  Ahhh, then this whole expedition has been a waste.  It cannot be that valuable that all this effort has been worth it.~
 @1038464 = ~Well, how is it with you, then, ranger?  Have you found Idras' store of mithral?~
 @1038466 = ~I found this medallion, along with a note from Idras.  Apparently, he didn't have much luck...he used all his mithral to make this.~
 @1038527 = ~We had to call the Knights of the Most Noble Order of the Radiant Heart to help... but they arrived too late to save many. You could have done much to prevent it.~
@@ -4081,6 +4100,25 @@ Area of Effect: 30-foot radius
 Saving Throw: Special 
 
 When a stinking cloud is cast, the wizard creates a billowing mass of nauseous vapors up to 30 yards away from his position. Any creature caught within the cloud must roll a successful saving throw vs. poison or be reeling and fall down for 1-2 rounds.  Those who make successful saving throws can leave the cloud without suffering any ill effects, although those remaining in the cloud must continue to save each round.  A dispel magic will remove the nausea on a particular character, but if they remain in the cloud then they are still subject to its effects.~
+@1039443 = ~Dwarven Thrower, War Hammer +3,
+This hammer -- not to be confused with the elven-made Dwarf Thrower -- is only usable by dwarves.  In the capable hands of a dwarven warrior the hammer may be thrown at an opponent.  The magic in the hammer draws it back to the hand of its wielder.  If it hits an opponent it does double the normal damage that a hammer would normally do.  Against giants and ogres the hammer does an additional +8 damage, due to the special hatred that dwarves hold against these races.
+
+STATISTICS:
+
+Combat Abilities: Returns to thrower
+THAC0: +3 bonus
+Damage:  2D4 + 3, + 8 additional damage to giants and ogres
+Damage type:  crushing
+Weight: 4
+Speed Factor: 1
+Proficiency Type: War Hammer
+Type:  1-handed
+Requires: 9 Strength
+Not Usable By:
+Non-dwarves
+ Druid
+ Mage 
+ Thief~
 @1039444 = ~Hammer of Thunderbolts
 
 A dwarven smith, Silverblade, forged this hammer and two other items; a girdle of giant strength and a pair of gauntlets of ogre power.  His intention was to gift them to his son, who was then a high officer in the dwarven armies, fighting the giant and ogre tribes of the area.  Unfortunately Silverblade's son died just after the completion of the three items and before they could be gifted to him.  In grief Silverblade himself donned the girdle and the gauntlets.  Taking up the Hammer of Thunderbolts he went to battle against the giant folk.  He died valiantly.
@@ -5377,7 +5415,7 @@ THAC0: +1 bonus  (strikes as a +5 weapon)
 Damage:  1D6 +1
 Damage type:  crushing
 Weight: 4
-Speed Factor: 3
+Speed Factor: 1
 Proficiency Type: Quarterstaff
 Type:  2-handed
 Requires: 5 Strength
@@ -5760,6 +5798,7 @@ A gift to Derek Poodon, apprentice warrior, this ring was his salvation when he 
 STATISTICS:
 
 Special Abilities: Cast minor spell turning once per day~
+@1039959 = ~If you enter the castle, there is one way that my men and I can assist you.  If you lower the drawbridge from inside, we can draw out the enemy and engage them...~
 @1040034 = ~I am betrothed, you see. Yes, some powerful associates of my Father roped me into that tired custom. I am to wed a brat of a man named Isaea Roenall.~
 @1040056 = ~No, no, I don't think he is villainous enough for that. No, he is merely morally repugnant, not criminal. At least to my knowledge.~
 @1040087 = ~Have you given any more thought to my offer? Time is short and... I do not know how long I can stall the Roenalls.~ [NALIA67]
@@ -5811,6 +5850,7 @@ The tome continues for a few more pages although the writing makes less and less
 @1041145 = ~Rumors and hearsay. I am here before you as the proverbial horse's mouth. You may take what I say at my word, or you will end like all the others will.~
 @1041190 = ~A problem has arisen, I fear. Strange noises and things going missing, <CHARNAME>. The actors are spooked... they think it's the curse.~ [BDHIGG10]
 @1041204 = ~A coincidence. And my style is my own; do not be so petty. Perhaps if you were a better actress you would not worry so.~
+@1041333 = ~I see you lurking about over there! I think it would be best if you moved on. No need in you losing your life over something as simple as this.~
 @1041354 = ~Yes, I currently work for the Shadow Thieves.~
 @1041355 = ~Yes, I currently work for the Shadow Thieves.~
 @1041356 = ~Yes, I currently work for the Shadow Thieves.~
@@ -5874,6 +5914,7 @@ Not Usable By:
 @1043345 = ~Bah!  I care not that ye killed them bloody djinn!  Ye're in league with th' druids, I say!  Ye're what's sicced 'em beasties on us, I say!  Away from my cart, you scoundrel!~
 @1043348 = ~Either you pay their prices or ye has nothin', that's the way it be. Mayhap ye'll speak to Guildmistress Busya if ye wants to do somethin' about that.~
 @1043412 = ~What would Calimshite genies be doing here in Trademeet?~
+@1043418 = ~What would Calimshite genies be doing here in Trademeet?~
 @1043480 = ~Ah, it is one of our wayfarers once again! Tell me, what can the Dao do for you this time, my friend?~ [TRGENI07]
 @1043592 = ~So if you know where the ruhk lies, excellent!  I suggest you go forth and retrieve her head for us, yes?  We shall await your return!~
 @1043606 = ~The genies are hoarding all the food! I... I went to them yesterday and they were charging four coppers for a loaf of bread! I'm soooo hungry...~
@@ -5964,6 +6005,7 @@ When a druid casts this powerful spell upon herself, an outer skin of iron will 
 @1045203 = ~Some have, indeed, abandoned the Waukeenar faith for Lliira, Shaundakul and Tymora, thinking she will never return.  But this town was founded by Waukeen... we cannot abandon her.~
 @1045333 = ~You just go do that. Gots me an appointment to... uh... somethin'.~
 @1045339 = ~They were fightin', and we hoped they would split and go the straight an... uh... narrow. No luck though.~
+@1045443 = ~They're lost causes now. Wild as animals. If you ever see them again, do yourself a favor and kill them. A bad seed in two parts, I tell you!~
 @1045449 = ~I didn't realize the evil you would cause. I have no choice but to end this now.~
 @1045565 = ~Hm.  'Tis a tough question ye're askin'.  The wizards keep such a thing close to their breasts, they do.  Can ye imagine if everyone knew where sorcerous criminals be kept, aye?~
 @1045664 = ~What are you doing here without the horn? The sea gates are steadfastly locked until it is blown.~
@@ -5973,13 +6015,16 @@ When a druid casts this powerful spell upon herself, an outer skin of iron will 
 @1045840 = ~What the what? Strangers walking in our midst! Whose blasted job was it to keep watch? Spoiled our hidin' for sure!~
 @1045882 = ~The Cowled Wizards keep their own counsel on that matter, I'm afraid. They keep their own prison, I imagine, but its location is kept a secret.~
 @1045898 = ~Aw hell. Uh... I-I'll be below deck securing the... um... s-something, ah...~ [PPSAEM25]
+@1045970 = ~It has been our experience that magic corrupts.  Did you see the result of your friend's battle in the Promenade?  An entire section collapsed!~
 @1046016 = ~Do not look so surprised. You must have expected to find me near your Imoen.~ [IRENIC36]
+@1046020 = ~What is it worth? I need to save up enough coin to rescue a friend being held by the Cowled Wizards.~
 @1046021 = ~Oh, but I'm not incarcerated here. No, I am the new coordinator, and you are in my care... once again.~ [IRENIC37]
 @1046031 = ~You are intent on revenge or justice or whatever, but I don't really care.  You can't do anything I don't wish you to. ~
 @1046107 = ~Well sported, sir. I shall have Desharik apprised of the results.~
 @1046120 = ~But I can't help you or your friend.  Nobody knows where the wizards keep their prison, either.  All I can say is speak to the Magistrate, Bylanna Ianulin.~
 @1046163 = ~Lord Arnise certainly kept varied company. I recognize very few people, least of all yourself. If you would excuse me...~
 @1046213 = ~You believe the lies this ditch rat is spewing? Need I remind you how respected I am? I am Isaea Roenall.~
+@1046225 = ~I will try to be less of a burden on the group in the future. I... I trust you still want my company in the party? ~
 @1046237 = ~Then I have little choice but to forcefully show you the error of your ways. Nalia de'Arnise, I place you under arrest by order of the Amnish army.~
 @1046241 = ~I have every right. I am an officer in the army and a liaison to the nobility. It is my function to see that everyone is well in their proper station.~
 @1046261 = ~Lord Farthington Roenall~
@@ -6155,6 +6200,7 @@ Type:  2-handed~
 @1047434 = ~Papa!  Papa!  Smelly is threatening me again, he is!  Threatening!~
 @1047451 = ~Of all the bloody insults hurled at me, this be the blackest!  Ye're a traitorous, backstabbing liar, Korgan... after a double-cross like yours, I be surprised ye've nay fled for the hills!~
 @1047482 = ~That's it. I'm not dying for your simple stupidity, Mencar. Brennan Risling has better things to do than court your arrogant pride...~
+@1047485 = ~Hello, hello! Welcome to... ah... what time is it?  It's <DAYNIGHTALL>?  Then welcome to the <DAYNIGHTALL> showing of the talents of Alatelo De Bonito!~
 @1047493 = ~"Raised of spells and casting well, but always wanting better,
 To sing of knights and days of yore, to leave the robes that... that fetter!
 A wizard prone to song and prose, though oft accused of failing,
@@ -6203,7 +6249,7 @@ The jailkeep who lent me the 200 gp toward Jan's fine has been paid back.~
 I managed to get a garrulous con-artist gnome out of a jam with the local authorities, and he has offered to join my party in the future should I wish to track him down at his home in the slums. Selling turnips, he said... but somehow I doubt that.~
 @1048013 = ~Keldorn dies defending Sir William.
 
-Keldorn's odd sense of justice and honor forced him to defend Sir William, the very man whom his own wife has been betraying him with.     Now, the Lady Maria is not only an adulteress, but a widow as well.~
+Keldorn's odd sense of justice and honor forced him to defend Sir William, the very man whom his own wife has been betraying him with.  Now, the Lady Maria is not only an adulteress, but a widow as well.~
 @1048095 = ~'Twas a nice town before the filthy pirates moved in. Scoundrels! A man's children aren't safe around that sea filth.~
 @1048100 = ~I hate fish. I hate fishing. I hate pirates. I hate this climate!~
 @1048134 = ~Desharik said that we would have to pay for our father's 'crime'. He gave us to Chremy, his lieutenant, as a reward for service.~
@@ -6270,6 +6316,7 @@ Not Usable By:
 @1049107 = ~Now, as Marek knew would someday happen, his descendants have returned and old enemies marshal their forces. A child called Loren has recently arrived in Trademeet.~
 @1049130 = ~Marek is the strength within you, boy. You must fight against the voices. You must cast them out from your body and I shall do battle with them. ~
 @1049247 = ~<CHARNAME> is taking a chance by <PRO_HISHER> action... but compassion must be granted to even the least of our brethren. Would you not have the Order take a chance on you, hm?~
+@1049323 = ~I am not here to address you, heartless Harper wench.  I am here to appeal to your erstwhile companion, <CHARNAME>.~
 @1049338 = ~Very well. Go to Garren Windspear and find the Deed to the Windspear Hills. I care not whether he lives or dies. Conster! Go and take care of the child. They are no longer needed. <CHARNAME>, return when you have the deed.~
 @1049382 = ~Fools! The Master will brook no incompetence! You are to clean his favorite golems and you do work too poorly! The Master is furious! He values his golems more than a hundred of you!!~
 @1049445 = ~No, you have been usurped from within. Not all in my care were there completely against their will. Yoshimo has certainly proven his worth, with some encouragement.~
@@ -6498,6 +6545,9 @@ A Wild Mage is a wizard that specializes in the study of wild magic and has acce
 @1054924 = ~Animal Trouble in Trademeet: Not interested.
 
 Flydian at the City Gates was soliciting help for Trademeet. It's under an animal-based siege where Druids are suspected. I told him I wasn't interested at this time~
+@1054925 = ~Animal Trouble in Trademeet: Met with militia.
+
+The Trademeet Militia Captain was relieved that I wished to help stop the attacks the town has suffered. She directed me to High Merchant Lord Logan Coprith. She warned that the scared townsfolk are suspicious of outsiders, especially Druids.~
 @1054926 = ~Animal Trouble in Trademeet: Unnecessary violence.
 
 I have fought the Militia Captain in Trademeet. I don't know the nature of the animal attacks they have been suffering, or if their suspicions against druids are justified, but this battle will certainly not help the situation.~
@@ -6695,6 +6745,7 @@ I could trust the Githyanki, but only to a point. Simyaz and his group are leavi
 @1059221 = ~Elhan!  I've the half-vampire body of Anomen here because of you!  You'll tell me now!~
 @1059237 = ~I seek a means of curing a loved one I lost in a battle with his sister, Bodhi.~
 @1059372 = ~I don't know what else to say. I would suggest that you read the Vampiricus Omnibus itself for the information you seek, but I do not have access to it myself.~
+@1059385 = ~Aye, that it has, though there have been quite a few old books turning up around here to make it worthwhile.  Nothing startling, but I get by. ~
 @1059395 = ~No, you cannot.  My guild fulfills the services it promises, and theft protection is our speciality.  You will find no opportunity here.~
 @1059426 = ~Imoen is of paramount importance.~
 @1059481 = ~The sword flashes for a moment, then sighs since you are not impressed with its magnificence.  "So are we gonna... kill something now?"~ [SSWORD50]
@@ -6807,6 +6858,7 @@ Not Usable By:
 @1060950 = ~This is not a matter of character. Some things are deeper, and though you can take the leopard far from the jungles, he still has his spots.~
 @1060958 = ~Ye're a cleric of some kind, ain't ye?  Well, they says there's troubles with some cult in the Temple District.  Maybe that's the sorta thing ye'd be interested in.  I can takes ye to the edge o' the slums, if ye likes.~
 @1060959 = ~Certainly.  Let me see what is occurring in the Temple District.~
+@1060967 = ~I hears there's this kid wanderin' in the Government District... he's talkin' about some village in the hills bein' killed off by monsters or somethin'.  Anyways... ye're a ranger and ye can go wanderin' in the forest to find out about it, no doubt.  Want me to takes ye to the edge of the slums?~
 @1060971 = ~Ye're some noble type, right?  Hmmm... I hears there's this rich feller lookin' to hire a hero like you to clear the monsters offa his land.  He's in the Copper Coronet... some Lord Jierdan or other.  I could takes ye there, if ye likes.~
 @1060998 = ~Ah, yes... the old magic of my family shall turn your fine horn into the great Iron Horn. Rarely have I seen its like, casadhi... here you go. Use it well.~
 @1061059 = ~You!  'Twere it not enough that my sister dryads should suffer at the hands of the wizard who cages them... but you would end their lives, as well!~
@@ -7009,6 +7061,7 @@ Regrettably, the old priest could not remember the Holy Passage to be read durin
 @1064410 = ~Why is Yaga-Shura killing all the other Bhaalspawn?~
 @1064481 = ~I am loath to re-open the entrance, lest the evil escape into the city. But if you think you can reason with Gromnir or aid the city somehow, perhaps it is worth the risk.~
 @1064548 = ~Figured that out all on your own, did you?  While the thought of harboring a spark of your sugary-sweet soul for eternity does not exactly fill me with joy...yes, it would provide just as well.~
+@1064559 = ~I have little to reward you with, but perhaps... perhaps you could go to Kiser's home and speak with him.  Maybe somehow you can convince him to release my son.~
 @1064634 = ~When we began our investigations, I strongly suspected Kiser. He's a greedy, self-serving weasel who would sell his own mother if the price was right.~
 @1064661 = ~Mind if I come to watch the traitor's execution?~
 @1064840 = ~A farfetched tale. How do I know you are telling the truth?~
@@ -8331,6 +8384,7 @@ Requires: 5 Strength~
 @1071977 = ~Zakee Rafeha told me, actually.~
 @1072177 = ~I was formed in Candlekeep in your youth, unaware of your heritage... unaware of the base evil that lurked in your soul. 'Twas I that kept you safe, that knew your limitations, that advised you caution.~
 @1072294 = ~Hah! Observers! Teach this monkey a lesson! (Hmm... perhaps there's a better word than monkey... no matter.)~
+@1072330 = ~Poor Mateo.  He is alone in the world, as Minsc was before Boo found him.  Yes, Boo - you are right!  As heroes we must befriend the friendless.  We must help the helpless.  We must deaccuse the accused.  Er... well, you get the idea.~
 @1072343 = ~Iycanth's Eyestalk
 
 I've been sent to fetch and retrieve a gauth beholder's eyestalk for the mad wizard, Iycanth. Apparently, the gauth has disappeared into one of the pools to the east of Iycanth's lab.
