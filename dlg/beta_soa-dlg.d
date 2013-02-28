@@ -230,3 +230,9 @@ REPLACE_ACTION_TEXT jarlaxle ~GivePartyGold(~ ~GiveGoldForce(~
 // Fix for Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold (aVENGER)
 REPLACE_TRIGGER_TEXT ~jaheirap~  ~GlobalGT("JaheiraHarperPlot","GLOBAL",3)~ ~Global("JaheiraHarperPlot","GLOBAL",3) AreaCheck("AR0300") !InParty(Myself)~
 ADD_STATE_TRIGGER ~jaheirap~ 32 ~!AreaCheck("AR0300")~
+
+// duplicate journal entries for torgal death
+ADD_TRANS_ACTION NALIAJ BEGIN 225 END BEGIN END ~EraseJournalEntry(11648)~
+
+// glacias charm/dispel fix, new method
+ALTER_TRANS KPGLAI01 BEGIN 0 END BEGIN END BEGIN "ACTION" ~~ END

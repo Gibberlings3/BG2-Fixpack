@@ -1047,7 +1047,7 @@ STATISTICS:
 
 Always considered to be of +4 enchantment when determining what it can hit.
 THAC0: +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
-Damage: 1D8 + 2, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage: 1D8 + 1, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
 Damage type: slashing
 Weight: 4
 Speed Factor: 3
@@ -7557,8 +7557,8 @@ The spell allows the caster to adversely affect the saving throws of enemies. Th
 
 STATISTICS:
 
-THAC0: +1 bonus vs. Lycanthropes
-Armor Class: +1 bonus vs. Lycanthropes
+THAC0: +2 bonus vs. Lycanthropes
+Damage: +2 bonus vs. Lycanthropes
 Weight: 3
 Not Usable by:
  Wizard Slayer
@@ -19646,6 +19646,9 @@ A Wild Mage is a wizard that specializes in the study of wild magic and has acce
 @1054896 = ~Ah. Ssssso the Child of Bhaal comesss to me, finally, for the lassst of the Tearsssss of Bhaal. You have come very nearss to locating your quarry... yesssss, indeedss you have.~ [HELGRE07]
 @1054914 = ~Ahhh... so you have come to us at last, Child of Bhaal. You have come to claim your heritage, perhaps? And in pieces, no less. Tsk tsk tsk... how terrible it must be to die in such a state.~ [HELPRI06]
 @1054916 = ~Your heritage, Child. This is Bhaal's realm. You have not faded to join the former Lord of Murder's essence, have you? No... so your blood holds sway here.~ []
+@1054924 = ~Animal Trouble in Trademeet: Not interested.
+
+Flydian at the City Gates was soliciting help for Trademeet. It's under an animal-based siege where Druids are suspected. I told him I wasn't interested at this time~
 @1054925 = ~Animal Trouble in Trademeet: Met with militia.
 
 The Trademeet Militia Captain was relieved that I wished to help stop the attacks the town has suffered. She directed me to High Merchant Lord Logan Coprith. She warned that the scared townsfolk are suspicious of outsiders, especially Druids.~ []
@@ -20304,7 +20307,7 @@ The Rhynn Lanthorn will now guide us into Suldanessellar. The majority of Elhan'
 @1057978 = ~Your wounds are many, elf. Give me the blade and I shall allow you to live.~ []
 @1057981 = ~Never! I shall gladly die to save the blade!~ []
 @1057982 = ~Rillifane! Grant me death and victory!~ []
-@1057985 = ~The lid holds five pressure plates, each adorned with symbols common to Suldanessellar: Rillifane, the Tree of Life, a rune of Suldanessellar, Corellan Lotharian (the father of the Elven Pantheon), and the elven Symbol of Water.
+@1057985 = ~The lid holds five pressure plates, each adorned with symbols common to Suldanessellar: Rillifane, the Tree of Life, a rune of Suldanessellar, Corellan Larethian (the father of the Elven Pantheon), and the elven Symbol of Water.
 ~ []
 @1058085 = ~Viconia, the brooding dark elf cleric of Shar who has remained since her rescue from the fanatics in Athkatla; in the end, however, you are sure she serves herself.~ []
 @1058087 = ~Viconia, we're heading for a fight, and there's no need to endanger yourself.~ []
@@ -22140,7 +22143,7 @@ Special Abilities: +1 bonus to all saving throws when equipped
 Combat Abilities: Each successful hit casts Larloch's Minor Drain on the target (no save)
 
 THAC0: +5 bonus
-Damage: 2D4 + 5, +6 damage extra vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
+Damage: 2D4 + 5, +6 extra damage vs. undead, shapeshifters, and all extra-planar beings (demons, planetars, etc.)
 Damage type: slashing
 Weight: 5
 Speed Factor: 3
