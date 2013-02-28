@@ -17,7 +17,7 @@
 @1000161 = ~We could have used your bravery... escort yourself out.  We shall not begin until you are gone. Haer'Dalis, prepare your blades... for you are all we have.~
 @1000163 = ~You are more than kind.  Haer'Dalis's blades are something to behold.  Would you have him join you for this fight?~
 @1000172 = ~Neither did we... he wore a mask and met with us in the alleyways. It doesn't matter... Come, my bards. It appears 'tis time to make our reckoning. Haer'Dalis?~
-@1000176 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the longbow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+@1000176 = ~The long bow is similar to the short bow, except that the staff is about as long as the archer is tall, usually 6 to 6.5 feet.  Even though the longbow is slightly slower than the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
 
 STATISTICS:
 
@@ -6123,7 +6123,7 @@ Damage type:  missile (piercing)
 Weight:  0
 Launcher:  Crossbow~
 @1046720 = ~Drow Bolt of Sleep
-This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must making a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
+This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must make a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
 
 STATISTICS:
 
@@ -6134,7 +6134,7 @@ Damage type:  missile (piercing)
 Weight:  0
 Launcher:  Crossbow~
 @1046722 = ~Drow Bolt of Stunning
-This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must making a saving throw vs. death or be stunned for four rounds.
+This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must make a saving throw vs. death or be stunned for four rounds.
 
 STATISTICS:
 

@@ -18,7 +18,7 @@ STRING_SET
 161 @1000161 //Haer' Dalis
 163 @1000163 //Haer'Dalis with capital D
 172 @1000172 //Haer' Dalis->Haer'Dalis
-176 @1000176 //THACO, thac0 should also be +3, not +2
+176 @1000176 //THACO, thac0 should also be +3, not +2, archers are not high, then->than
 199 @1000199 //THACO
 225 @1000225 //Haer'Dalis with capital D
 226 @1000226 //Haer'Dalis with capital D
@@ -1545,8 +1545,8 @@ STRING_SET
 46710 @1046710 //Piwafwi->Piwawfi
 46712 @1046712 //STATISTICS
 46718 @1046718 //thaco
-46720 @1046720 //thaco
-46722 @1046722 //thaco
+46720 @1046720 //thaco, must making
+46722 @1046722 //thaco, must making
 46754 @1046754 //Sakolah->Sekolah
 46760 @1046760 //prophecized->prophesied
 46851 @1046851 //Master of Thralls dwarven slave
