@@ -26463,6 +26463,7 @@ COPY_EXISTING demogorg.itm override //<Invalid Strref -1>
         WRITE_ASCIIE ("%fx_off%"                                   + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
         WRITE_SHORT  ("%fx_off%"            + (0x08 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 173          // reduced damage from poison
         WRITE_LONG   ("%fx_off%" + 0x04     + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 100          // value
+        WRITE_LONG   ("%fx_off%" + 0x08     + (0x10 * "%fx_type%") + ("%abil_fx_idx%" * (0x30 + (0xd8 * "%fx_type%")))) 0            // clear p2, for compatibility with ToBEx's modified poison resistance
         SET "new_fx" = ("%new_fx%" + 1)
         SET "counter" = ("%counter%" + 1)
       END
