@@ -315,7 +315,7 @@ Save vs Breath: +3 bonus
 Save vs Spells: +3 bonus
 Constitution modifier: -2 penalty~
 
-// MGoI claims that dispel magic works against it, but does not, originally string #12146
+// MGoI claims that dispel magic works against it, but does not, originally string #12164
 @154 = ~Minor Globe of Invulnerability (Abjuration)
 Level: 4
 Range: 0
@@ -326,7 +326,7 @@ Saving Throw: None
 
 This spell creates a faintly shimmering magical sphere around the caster that prevents any 1st-, 2nd-, or 3rd-level spell effects from penetrating (i.e., the area of effect of any such spells does not include the area of the minor globe of invulnerability). This includes innate abilities and effects from devices. However, any type of spell can be cast out of the magical sphere, and these pass from the caster of the globe to their subject without affecting the minor globe. Fourth and higher level spells are not affected by the globe. The globe can be brought down by forms of magical attack such as Spellstrike and Pierce Magic.~
 
-// GoI claims that dispel magic works against it, but does not, originally string #8064
+// GoI claims that dispel magic works against it, but does not, originally string #12164
 @155 = ~Globe of Invulnerability (Abjuration)
 Level: 6
 Range: 0
@@ -405,7 +405,7 @@ CHAOTIC GOOD: Fairy Dragon
 Armor Class: 4
 Hit Points: 24
 Magic Resistance: 32%
-Special abilities: Can cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.
+Special abilities: Can cast cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.
 
 CHAOTIC NEUTRAL: Cat
 Armor Class: 0
@@ -417,7 +417,7 @@ CHAOTIC EVIL: Quasit
 Armor Class: 2
 Hit Points: 24
 Magic Resistance: 25%
-Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
+Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
 @160 = ~This is your familiar, a pseudo-dragon, currently curled up and safe within your backpack. The lizard-like creature is quite intelligent and fairly well-armored and quick... it does not do much damage in combat, but its magical claws are able to render some enemies unconscious. It is also quite resistant to magical spells.
 
 Abilities:
@@ -473,7 +473,7 @@ Abilities:
 Armor Class: 1
 Hit Points:  48
 Magic Resistance: 65%
-Special abilities: Has 85% Detect Traps ability, 60% Hide in Shadows/Move Silently, and 50% Detect Illusions. Has 75% resistance to fire, cold, and electricity. It can also cast 'Blur' once per day. The rabbit moves as if under a constant 'Haste' spell. Immune to level drain, sleep, and petrification.~
+Special abilities: Has 85% Detect Traps ability, 60% Hide in Shadows/Move Silently, and 50% Detect Illusions. Has 75% resistance to fire, cold, and electricity. It can also cast 'Blur' once per day. The rabbit moves as if under a constant 'Haste' spell. Immune to level drain, sleep, and petrification. spell.~
 @168 = ~This is your familiar, a dust mephit currently safe within your backpack. The dust mephit is not strong in combat, but it is slightly resistant to magical attack and has the ability to cast spells to assist its master.
 
 Abilities:
@@ -494,14 +494,14 @@ Abilities:
 Armor Class: 4
 Hit Points: 24
 Magic Resistance: 32%
-Special abilities: Can cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.~
+Special abilities: Can cast cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.~
 @171 = ~This is your familiar, a fairy dragon, currently curled up and safe within your backpack. The mischievous fairy dragon is fairly resistant to magic... and has the ability to both protect and obscure itself with illusionary magic of its own.
 
 Abilities:
 Armor Class: 0
 Hit Points: 48
 Magic Resistance: 45%
-Special abilities: Can cast 'Mirror Image', 'Invisibility 10' Radius', and 'Improved Invisibility' once per day. Immune to level drain, sleep, and petrification.~
+Special abilities: Can cast cast 'Mirror Image', 'Invisibility 10' Radius', and 'Improved Invisibility' once per day. Immune to level drain, sleep, and petrification.~
 @172 = ~This is your cat familiar, currently curled up and safe within your backpack. The cat familiar is a master scout, able to move in the shadows with the ability of a master thief. It is also difficult to hit in combat, and the magic of the spell has made this cat resistant to both physical and magical attacks.
 
 Abilities:
@@ -522,14 +522,14 @@ Abilities:
 Armor Class: 2
 Hit Points: 24
 Magic Resistance: 25%
-Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
+Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
 @175 = ~This is your familiar, a quasit, currently grumpy yet safe within your backpack. The quasit is a small, infernal creature that is fairly quick and quite resistant to magical spells... and has the ability to cast its own spells on behalf of its master.
 
 Abilities:
 Armor Class: -2
 Hit Points: 48
 Magic Resistance: 35%
-Special abilities: 3 attacks per round 1d6 damage, save vs. death or lose one point of dexterity for 36 seconds. Has 100% resistance to fire, cold, and electricity. Can cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
+Special abilities: 3 attacks per round 1d6 damage, save vs. death or lose one point of dexterity for 36 seconds. Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
 
 //Description fixes for item weight and speed factor
 //Originally string #71131
@@ -545,7 +545,7 @@ Weight: 2~
 STATISTICS:
 
 Damage:  1D6 + 2
-THAC0:  +1
+THACO:  +1
 Damage type:  crushing
 Weight: 13
 Speed Factor: 6
@@ -565,7 +565,7 @@ STATISTICS:
 
 +20% Fire Resistance
 
-THAC0:  +4
+THACO:  +4
 Damage:  2D4 +4 +1-4 extra cold damage
 Damage type:  crushing
 Weight: 8
@@ -584,7 +584,7 @@ This massive bow was the property of the ranger Bearpaw, who reportedly received
 
 STATISTICS:
 
-THAC0:  +3 bonus
+THACO:  +3 bonus
 Damage:  +3 bonus
 Weight: 8
 Speed Factor: 5
@@ -618,7 +618,7 @@ Not Usable By:
 //Originally string #57897
 @181 = ~Kuo-Toa Bolt
 
-This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists.  A target hit by this bolt must make a saving throw vs. spells or be stunned for four rounds.
+This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists.  A target hit by this bolt must making a saving throw vs. spells or be stunned for four rounds.
 
 STATISTICS:
 
@@ -643,7 +643,7 @@ Proficiency Type: Quarterstaff
 Type:  2-handed~
 
 //Originally string #39579
-@183 = ~Once a very powerful shield used by the clerics of Bane, most of the enchantments fled with their god's demise.  The basic magical protection still remains, making it useful for any adventurer.
+@183 = ~Once a very powerful shield used by the clerics of Bane, most of the enchantments fled with their god's demise.  The basic magical protection of still remains, making it useful for any adventurer.
 
 STATISTICS:
 
@@ -727,11 +727,11 @@ Not Usable By:
  Thief~
 
 //Originally string #71058
-@188 = ~The long bow is similar to the short bow, except that the staff is about as long as the archer is tall, usually 6 to 6.5 feet.  Even though the longbow is slightly slower than the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+@188 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the longbow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
 
 STATISTICS:
 
-THAC0: +4 bonus
+THACO: +3 bonus
 Weight: 2
 Speed Factor: 4
 Proficiency Type: Long Bow
@@ -786,7 +786,7 @@ STATISTICS:
 
 Equipped Abilities: Regenerate 1 hit point every 12 seconds
 
-THAC0:  +2 bonus
+THACO:  +2 bonus
 Damage:  1D6 + 2
 Damage type:  crushing
 Weight: 3
@@ -803,7 +803,7 @@ This +2 abyssal greensteel blade is one of Haer'Dalis' favorite weapons.  This s
 STATISTICS:
 
 Special Abilities: 3 points of poison damage if target fails save
-THAC0:  +2 bonus
+THACO:  +2 bonus
 Damage:  1D6 +2
 Damage type:  piercing
 Weight: 2
@@ -820,7 +820,7 @@ Chaos is a +2 short-sword usable only by tieflings.  Every time it strikes an op
 STATISTICS:
 
 Special Abilities: Target loses 2 points of dexterity each hit (duration: 30 seconds)
-THAC0:  +2 bonus
+THACO:  +2 bonus
 Damage:  1D6 +2
 Damage type:  piercing
 Weight: 2
@@ -896,7 +896,7 @@ Not Usable By:
 
 //Originally string #39627
 @197 = ~Staff of the Magi
-This type of staff is thoroughly linked to the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
+This type of staff is thoroughly linked of the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
 
 STATISTICS
 Armor Class: +2 bonus
@@ -920,7 +920,7 @@ THAC0: +1 bonus  (strikes as a +5 weapon)
 Damage:  1D6 +1
 Damage type:  crushing
 Weight: 4
-Speed Factor: 1
+Speed Factor: 3
 Proficiency Type: Quarterstaff
 Type:  2-handed
 Requires: 5 Strength
@@ -929,7 +929,7 @@ Usable By
 
 //Originally string #39629
 @198 = ~Staff of Thunder and Lightning +2
-There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can summon a lightning storm to blast enemies to dust.  Some abilities are limited by charges.
+There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can summon a lighting storm to blast enemies to dust.  Some abilities are limited by charges.
 
 STATISTICS
 
@@ -948,7 +948,7 @@ Thunderclap (10% chance on a successful strike)
  Range: Melee 
  Saving Throw: Save vs. spells or be stunned for two rounds
 
-THAC0: +2 bonus
+THACO: +2 bonus
 Damage:  1D6 +2
 Damage type:  crushing
 Weight: 4
@@ -962,7 +962,7 @@ Usable By:
 
 //Originally string #39631
 @199 = ~Staff of Air
-This staff seems to draw from elven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
+This staff seems to draw from eleven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
 
 STATISTICS
 
@@ -1034,7 +1034,7 @@ The simplest of staff weapons is the quarterstaff, a length of wood six to nine 
 
 STATISTICS:
 
-THAC0:  +2 bonus
+THACO:  +2 bonus
 Damage:  1D6 + 2
 Damage type:  crushing
 Weight: 3
@@ -1051,7 +1051,7 @@ STATISTICS:
 Combat Abilities:
   50% chance of poisoning opponents with every successful attack.  The poison lasts for 1 round, and does 2 hp of damage/second unless the target makes a save vs death.
 
-THAC0:  +2 bonus
+THACO:  +2 bonus
 Damage:  1D6 + 2
 Damage type:  crushing
 Weight: 3
@@ -1076,7 +1076,8 @@ Type:  1-handed
 Requires: 8 Strength
 Not Usable By:
  Cleric
- Mage~
+ Mage
+ Thief~
 
 //Originally string #66203
 @205 = ~Also known as the Stream of Anguish, this is the legendary burning blade of Frithiof.     
@@ -1129,7 +1130,7 @@ This exquisitely-crafted sword has been enchanted with a powerful dweomer to enh
 STATISTICS:
 
 Damage:  1D8 +3
-THAC0:  +3 bonus
+THACO:  +3 bonus
 Damage type:  slashing
 Weight: 3
 Speed Factor: 2
@@ -1144,7 +1145,7 @@ Not Usable By:
 
 //Originally string #61593
 @208 = ~Harmonium Halberd +3
-This weapon is a powerful weapon usually given out to the most important of Harmonium captains.  The Harmonium is a faction based out of the planar city known as 'Sigil'.
+This weapon is a powerful weapon usually given out to the most important of Harmonium captains.  The Harmonium is an faction based out of the planar city known as 'Sigil'.
 
 STATISTICS:
 
@@ -1221,7 +1222,7 @@ STATISTICS:
 Equipped Abilities:
  +1 AC bonus
  +20% resistance to slashing, piercing, and blunt damage
-THAC0:  +3 bonus
+THACO:  +3 bonus
 Damage:  1D6 + 4
 Damage type:  crushing
 Weight: 12

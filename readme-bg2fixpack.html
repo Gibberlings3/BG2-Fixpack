@@ -16,7 +16,7 @@
     O</strong><strong>n the web: <a href="http://www.gibberlings3.net/bg2fixpack/">Home
     page</a></strong> and <strong><a href="http://forums.gibberlings3.net/index.php?showforum=74">discussion
     forum</a></strong></p>
-  <p><strong> Version 10, Release Candidate I - <a href="http://www.gibberlings3.net/downloads/#bg2fixpack">Check
+  <p><strong> Version 10 - <a href="http://forums.gibberlings3.net/index.php?app=downloads&amp;showcat=36">Check
     for the most recent version</a></strong><br />
     <strong> Languages:</strong> Chinese (simplified and traditional), English, French, German, Italian, Korean, Polish,
     and Spanish<br />
@@ -390,9 +390,9 @@
 </div>
 <h2>Version History</h2>
 <div class="section">
-  <p><strong>Version 10 Release Notes (WIP, summarizes v9.02 and on, which will be deleted for the actual release notes)</strong></p>
+  <p><strong>Version 10 - April 14, 2013</strong></p>
   <ul>
-    <li>Version 10 was put together with the hard work of aVENGER and Wisp</li>
+    <li>Version 10 was put together with the hard work of aVENGER and Wisp and is a major update</li>
     <li>Added Chinese (traditional and simplified) translation, thanks good0593!</li>
     <li><strong>Game Text Update: <acronym title="Game Text Update">GTU</acronym> Light</strong> has been updated with the latest from Wisp</li>
     <li>The <strong>Super Happy Fun Lucky Modder Pack</strong> was deprecated due to a lack of interest. Modders who are interested in using anything from it can find the contents in the library modder.tpa in the lib folder.</li>
@@ -462,6 +462,7 @@
         <li>After some review, it was determined that Neb is actually a gnome, not a dwarf, so this fix was reverted</li>
         <li>Rather han dumping spares into the override, we now remove corrupted items directly from the key</li>
         <li>Spellcasting via Rings of Air/Earth/Fire Control lacked the fixes applied to the underlying spells</li>
+        <li>Adratha will no longer act surprised when you attack her when she's already hostile</li>
       </ul>
     </li>
     <li>The following changes were made to the <span style="font-weight: bold;">BETA Core Fixes</span> component:
@@ -524,225 +525,9 @@
         <li>Fixed some bad cycles and other issues with tanar'ri and wyvern animations</li>
         <li>Hold Animal should last two rounds/levelinstead of a flat ten rounds</li>
         <li>Several bows had incorrect damage, speed, and to-hit bonuses</li>
+        <li>Mislead clones equipped with items that boost attacks per round will no longer be able to attack</li>
       </ul>
     </li>
-  </ul>
-  <p>v10 RC III (CamDawg)</p>
-  <ul>
-    <li>Compile warning for trrak01.bcs fixed</li>
-    <li>GTU Light updates from Wisp</li>
-    <li>Ankheg plate no longer usable by avengers</li>
-    <li>Was adding the wrong portrait icon for Frostbrand</li>
-    <li>Mislead clones with Belm could attack</li>
-    <li>Eff effing effs</li>
-  </ul>
-  <p>v10 RC II (CamDawg)</p>
-  <ul>
-    <li>Description updates for Kondar and Flame Tongue have been moved into the main component</li>
-    <li>The first area of the Circus Tent is no longer flagged as outdoor and is now flagged dungeon</li>
-    <li>Mod has been swapped over to new names for functions.tpa</li>
-    <li>More effing eff fixes</li>
-    <li>A new method to cure Glacias has been introduced in beta core; you can now use dispel magic for a non-combat resolution</li>
-    <li>Militia Wizard in Trademeet tavern should be a little more relevant when breaking up the fueding families</li>
-    <li>The shadow druids in the grove should now spawn trolls before attacking them</li>
-    <li>Map note added for the Crooked Crane at the City Gates</li>
-    <li>The entrance to the Guarded Compound from the Temple District has been shifted to better match the actual door</li>
-    <li>Adratha's Cabin now has combat music    </li>
-  </ul>
-  <p>v10 RC I (CamDawg)</p>
-  <ul>
-    <li>Rings of Aire/Earth/Fire Control cast spells as part of their abilities, but they were not getting the updates made to the spells in other parts of the Fixpack. They now cast the underlying spells directly.</li>
-    <li>Scrolls for Chaotic Commands and Champion's Strength were requireing 9 wisdom to use instead of 9 intelligence</li>
-    <li>A lot of fixes for Effing Effs, thanks to Hurricane:
-      <ul>
-        <li>Dragon's Bane shared an eff with the Cavalier kit, so it now gets its own eff</li>
-        <li>Burning Earth's troll thac0/damage bonuses were targeted incorrectly</li>
-        <li>The items that get new effs (Kondar, Dragon's Bane) were still referencing their old effs</li>
-        <li>The Dwarven Thrower was adding crushing damage to its missile thrown damage; this is now missile</li>
-        <li>Root of the Problem was doing an extra three points of damage instead of two</li>
-        <li>Bone Club's extra thac0 vs. undead didn't work due to bad targeting</li>
-      </ul>
-    </li>
-  </ul>
-  <p>v9.22, &quot;a series of fluid-filled bladders&quot; (CamDawg)</p>
-  <ul>
-    <li>Effing effs is back</li>
-    <li>Review of bow damage and thac0</li>
-    <li>Organized beta core fixes into a semblance of order</li>
-    <li>Fixed bug with OBC: <strong>Remove Thieving Start Bonuses from Bard and Ranger Skills</strong> that was preventing install</li>
-    <li>Added a bunch of REQUIRE_PREDICATEs for BGEE compatibility</li>
-    <li>Rather than making dupes of the iplot items, they're now removed from the key along with xr2400.are and xr2600.are.</li>
-  </ul>
-  <p>v9.21, &quot;not a big fan of velour&quot; (CamDawg)</p>
-  <ul>
-    <li>Enemy-only summons now keep their XP values</li>
-    <li>Valygar no longer drops his body if imprisoned</li>
-    <li>Weapons with damage vs. X bonuses have beenr evamped to avoid a bug with kit abilities and dual-wield expoits</li>
-    <li>Dwarven Thrower +3 was applying its damage bonus to all sorts of creatures instead of just giants and ogres</li>
-    <li>Deva weapons had the same issue as the Mace of Disruption, name that the 'undead destroyed' message never played due to effect misordering</li>
-    <li>Runehammer's undead damage was incorrect</li>
-    <li>The blindness effect of Sol's Searing Orb on undead had an incorrect duration</li>
-    <li>Reorganized language setup and GTU handling</li>
-    <li>Tightened up usability for the Corthala Family Armor</li>
-    <li>The fixes for the cut-off scroll BAMs now use more &quot;official&quot; versions from TotSC</li>
-    <li>Paralyze effects were often causing spurious messages, animations, and prtrait icons</li>
-    <li>The touch attacks of some undead were using the old BG-style system, meaning that creatures like liches and ghoul lords not only had less powerful attacks than reular ghouls, but half-orcs escaped entirely</li>
-    <li>The spinny-head animation from the Horror spell will no longer be blocked by immunity to hold</li>
-    <li>Touched up usabilities for dragon-based armor and ankheg plate; specifically their usability by avengers and archers</li>
-    <li>Cloak of the Wolf fix now works</li>
-    <li>Neb's a gnome</li>
-    <li>Included Miloch's fixes for the wyvern and ta'anari animations, which had some bad frame references</li>
-    <li>Hold animal lasted 10 rounds instead of its listed two rounds/level</li>
-    <li>The nauseated icon from the attack of a ghoul lord lasted long after the effects expired</li>
-  </ul>
-  <p>v9.20, &quot;just a simple hyperchicken&quot; (CamDawg)</p>
-  <ul>
-    <li>No new fixes, just an effort from Cam to try and integrate disparate branches of builds into a pseudo-coherent mess, namely Wisp's beta promotion and Cam's branch of countdown-to-v10 fixes. Stuff that's happened between 9.14 and here:
-      <ul>
-        <li> More Garren Windspear fixes </li>
-        <li> Traps not working </li>
-        <li> Color Spray now reaches 30 feet, and the  Color Spray scroll range change has been dropped as a result</li>
-        <li> Spook string MR fix not working; also added save for sound effect</li>
-        <li> Add opcode 176 to defensive spin to prevent movement vs. free action </li>
-        <li> Resist fear via magic flute needed same fixes as spell</li>
-        <li> Added spell school/secondaries on a few more items </li>
-        <li>Potion of Fiery Burning patch wasn't working</li>
-        <li>Better-centered BAMs for the spell scrolls which had been cut off</li>
-        <li>Cavalier resist fear fix wasn't working</li>
-        <li>Chromatic Orb was supposed to cause blindness at level one, but was instead doing something random</li>
-        <li>Torgal's revived troll form needs to be cycled through the same immunity batches as her original form</li>
-        <li>Patch for three EFFs were not working due to bad file size minimum check</li>
-        <li>Holy Smite/Unholy Blight were actually doing 2d2 damage per level instead of 1d4</li>
-        <li>Armor glow fix for Protection from Evil</li>
-        <li>Cursed Scroll of Clumsiness patch was wrong in that it added the wrong icon</li>
-        <li>Added portrait icons for Cursed Scroll of Stupidity</li>
-        <li>Cursed Scroll of Foolishness was not affecting arcane spellcasting, only divine</li>
-        <li>A whole mess of items have dispellable equipped effects</li>
-        <li>Cloak of the Wolf fix is half-assed included, will revise and tighten for next version</li>
-      </ul>
-    </li>
-  </ul>
-  <p>v9.14 - integrated the following fixes:</p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=200931&amp;#entry200931" title="">The &quot;War Elves fix&quot; has been revised and now more closely matches unmodded game behaviour.</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=199666&amp;#entry199666" title="">The Monk item usability fix is once again correctly applied to the wizard version of the Remove Curse scroll.</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=201340&amp;#entry201340" title="">Fixed   latent bugs in &quot;Chant Not Affecting Enemies&quot; and &quot;Grease Fixes&quot; that   would misindex the spells if they had more than a single ability header.</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=201340&amp;#entry201340" title="">Fixed a bug in the &quot;Otiluke's Resilient Sphere Fixes&quot; that could result in out-of-bounds errors and other bugs.</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=201340&amp;#entry201340" title="">Fixed   a bug in the &quot;Protection From Fire, Protection From Cold Fixes&quot; that   would result in corrupt files if the spells had an unexpected number of   headers.</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=201340&amp;#entry201340" title="">Fixed a bug in &quot;Mordenkainen's Swords Not Suppressing 'Intelligence Drained' Strings&quot; that would result in a misindexed file.</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=60&amp;p=201340&amp;#entry201340" title="">Stripped a sahuagin at the retribution pocket plane challenge of its gnoll soundset.</a> (Beta Core fixes)</li>
-  </ul>
-  <p> v9.13 - integrated the following fixes (from Wisp): </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21936" title="">Female romance interests no longer comment on Phaere coming onto you in chapter 6 if they were not in the party in chapter 5</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">Tabitha the feline is now immune to charm to prevent her script from malfunctioning</a> (Beta Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">The creatures guarding the way out of the Underdark will no longer stutter if they are charmed</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=13527&amp;view=findpost&amp;p=120257" title="">Unreferenced night tilesets are now referenced</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=2493&amp;view=findpost&amp;p=158791" title="">Corrected a mixup among the bard songs</a> (Bard Song fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19853" title="">You can not ask Roger about the gong over and over</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=16487" title="">(Minor) Globe of Invulnerability does not interfere with casting summoning spells</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">The surfacer elves by the Underdark exit will not leave while there are still enemies present</a> (Beta Core fixes)</li>
-  </ul>
-  <p> v9.12 - integrated the following fixes (from Wisp): </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21518" title="">Belt of Inertial Barrier displays the right icon</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21620" title="">Fix NVROL in cernd.dlg</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21640" title="">Staff of Curing now cures the icons as well</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21662" title="">Root of the Problem is now worth something</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21699" title="">Do not alter kit.ids values for barbarian and wild mage to avoid conflicting with ToBEx</a> (Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22609" title="">Both Kreels now look the same</a> (Beta Core fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21913" title="">Updated the fixes to item weight, speed factor etc. to be more comprehensive</a> (Core Fixes)</li>
-  </ul>
-  <p> v9.11 - integrated the following fixes (from Wisp): </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=14146" title="">Fixed loop bug in the area script for the temple of Talos.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">Fixed a bug with one of the planar-prison guards possibly making the actors hostile.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19916" title="">Fixed a bunch of instances of creatures having gender-incorrect sound sets.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19010" title="">Fixed Asp's Nest darts doing incorrect poison damage.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">Fixed non-functional fear effects on Creeping Doom.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19010" title="">Fixed incorrect to-hit bonus and save penalty on Flasher Master Bruiser Mates.</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22445" title="">Rescinded the spurious change to the Firetooth dagger's thrown damage.</a> (OBC: Mixed-Use Dagger Fixes)</li>
-  </ul>
-  <p> v9.10 - integrated the following fixes (from Wisp): </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">The description of Teleport Field now really makes no mention of a saving throw.</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">The charm-immunity-effect batch patch now adds protection against string #8364 (&quot;Dominated&quot;).</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19018&amp;view=findpost&amp;p=161607" title="">Revised the fix for disease immunity granting immunity to poison damage.</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19018&amp;view=findpost&amp;p=161607" title="">The   projectile-immunity fixes for the Shield of Reflection and Physical   Mirror spell are now more comprehensive (notably, Physical Mirror now   protects against Firetooth bolts).</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=16570" title="">Fixed an issue with Hendak occasionally disappearing or moving to another part of the Copper Coronet.</a> (BETA Core Fixes)</li>
-  </ul>
-  <p> v9.09 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22594" title="">Revised   the Azuredge fix. The spurious bonuses to hit and damage have been   removed. The extra damage vs. undead creatures is now 1d6+4</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23863&amp;pid=195867&amp;st=0&amp;#entry195867" title="">Revised the Luck spell fix to include the missing thieving skill bonuses and made it non-cumulative</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23851&amp;view=findpost&amp;p=195900" title="">Fixed the incorrect thieving skill racial bonuses for elves, half-elves and halflings</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23851&amp;st=0&amp;p=195776&amp;#entry195776" title="">Fixed the incorrect lore bonus for 15 INT/WIS</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23851&amp;st=0&amp;p=195776&amp;#entry195776" title="">Fixed the incorrect Move Silently entry for Ranger level 2</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19371" title="">Added the latest GTU Light from Wisp</a> (Optional But Cool)</li>
-  </ul>
-  <p> v9.08 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195752" title="">Fixed erroneously dispellable effects on Keldorn's armor</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195752" title="">Fixed Storm of Vengeance not displaying the relevant icon on poisoned targets</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;st=30&amp;p=195753&amp;#entry195753" title="">Fixed the wrong enchantment level and missing poison icon on the Dagger of Venom</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23817" title="">Fixed Inquisitors getting charm immunity at level 2 instead of level 1</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195631" title="">Errad's Divination spell now actually uses the Divination casting graphics</a> (Improved Spell Animations)</li>
-  </ul>
-  <p> v9.07 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22732" title="">Fixed an issue where English sounds were erroneously installed on non-english games</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22882&amp;view=findpost&amp;p=195606" title="">Rolled back the power level change of Spell Thrust as it was unnecessary</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=20081" title="">Fixed Jarlaxle not having enough gold to reward the party for their efforts</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22857&amp;view=findpost&amp;p=195599" title="">Fixed Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22882&amp;view=findpost&amp;p=195606" title="">The power level of Secret Word has been increased to 5 so that it can now dispel a Globe of Invulnerability</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21559&amp;view=findpost&amp;p=195613" title="">Fixed the incorrect orientation when exiting Cayia's house in Brynnlaw</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=15963&amp;view=findpost&amp;p=195614" title="">Fixed the Glabrezus in the Ranger stronghold quest and inside the Suldanessalar temple not giving any XP when killed</a> (BETA Core Fixes)</li>
-  </ul>
-  <p> v9.06 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=16556" title="">Reworked Brynnlaw vampire fix not to disrupt Saemon's dialogue</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871" title="">Revised Faldorn death variable fix</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?s&amp;showtopic=21901" title="">The Staff of the Magi fix was erroneously removing the Protection from Evil icon</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=2493&amp;view=findpost&amp;p=165799" title="">Azuredge wasn't dealing the advertised +4 extra damage vs. undead creatures</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195437" title="">Deprecated   the edited version of IHAMM05.BAM. The inventory icon for Warhammer +2:   Borok's Fist is now restored using the unmodified version of this file</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195444" title="">Deprecated the race change for the Emphatic Manifestation</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195415" title="">Fixed Keldorn re-joining variable typo</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195495" title="">Fixed   an issue with a duplicated PartyRested() trigger which was preventing   one of Aerie's banters with a female protagonist from occurring</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195510" title="">Fixed an issue with a duplicated PartyRested() trigger which was preventing one of Haer'Dalis' banters with Edwin from occurring</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=14358" title="">Fixed the BashDoor() typo in ACTION.IDS</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22892" title="">Fixed the LeaveAreaLUAPanicEntry() typo in ACTSLEEP.IDS </a>(BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195444" title="">Fixed the Fireball, Lightning Bolt and Magic Missile traps which were erroneously ignoring the target's magic resistance </a>(BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195444" title="">Fixed the immunity to mind-affecting spells on the Mordenkeinen's Sword which was erroneously dispellable</a> (BETA Core Fixes)</li>
-  </ul>
-  <p> v9.05 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21871&amp;view=findpost&amp;p=195403" title="">The Slayer change dialogue fix no longer breaks the Ascension mod if it was installed before the fixpack</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=14180" title="">Deprecated Gaal taking the rift device change</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=14731&amp;view=findpost&amp;p=195404" title="">Revised the duplicate gem bag fix</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=20273&amp;view=findpost&amp;p=195401" title="">The Flydian fix no longer crashes SoA-only games</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=20273" title="">The BETA Core Fixes component once again installs on SoA-only games</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=20273" title="">Fixed the reddeath.bcs script which didn't work because it was using the wrong action</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=20273" title="">Fixed an issue which allowed Kruin to spawn again if you killed him before he could talk</a> (BETA Core Fixes)</li>
-  </ul>
-  <p> v9.04 - added the following translations: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22486" title="">Traditional Chinese and Simplified Chinese</a> (by good0593)</li>
-  </ul>
-  <p> v9.03 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23783" title="">Fixed beneficial effects from the Deck of Many Things failing due to Magic Resistance and/or Globe of Invulnerability</a> (BETA Core Fixes)</li>
-  </ul>
-  <p> v9.02 - integrated the following fixes: </p>
-  <ul>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=19582" title="">Fixed an issue which caused Moon Dog Sight to affect the party instead of targeting only enemies</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23450" title="">The Elven charm/sleep immunity fix was erroneously affecting several non-charm/sleep spells</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23606" title="">Fixed Offensive Spin / Boon of Lathander feedback string duplication</a> (Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=21558" title="">Fixed a dialogue </a><a href="http://forums.gibberlings3.net/index.php?showtopic=21558" title="">exploit in the </a><a href="http://forums.gibberlings3.net/index.php?showtopic=21558" title="">City of Caverns </a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22418" title="">Fixed a typo which erroneously made undead creatures are immune to Lightning Bolt instead of Hold Person</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=22613" title="">Fixed an issue which was causing Illusory Werewolves to deal real damage to unarmed/ranged characters</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23739" title="">Fixed some trolls not dying properly after being knocked down</a> (BETA Core Fixes) </li>
-    <li><a href="http://forums.gibberlings3.net/index.php?showtopic=23776" title="">Fixed a </a><a href="http://forums.gibberlings3.net/index.php?showtopic=23776" title="">script loop in </a><a href="http://forums.gibberlings3.net/index.php?showtopic=23776" title="">AR1500 </a> (BETA Core Fixes) </li>
-    <li><a href="http://www.shsforums.net/topic/44623-extreme-bloat-in-cromwells-dialogue/" title="External link" rel="nofollow external">Fixed a minor bug in the &quot;Cromwell's forging actually takes a day&quot; component</a> (Optional But Cool)</li>
   </ul>
   <p><strong>Version 9 - March 14, 2010</strong></p>
   <ul>

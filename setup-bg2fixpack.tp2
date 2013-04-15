@@ -1,7 +1,7 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v10 RC 3~
+VERSION ~v10~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -155,7 +155,10 @@ ALLOW_MISSING
   ysgp02.cre ysgp03.bcs ysgp03.cre ysgp04.bcs ysgp04.cre ysgp05.cre ysgrunt.bcs ysgrunt.cre ysguar01.cre
   ysguar02.cre ysguar03.cre ysguar04.cre ysguar05.cre ysguar06.cre ysmage01.cre ysmage02.cre yssold01.cre
   yssold02.cre yssold03.cre yssold04.cre yssold10.cre yssold12.cre yssold13.cre yssold14.cre yssold15.cre
-  yssold16.cre zilarc01.cre zilfgt01.cre zilfgt02.cre zilmag01.bcs zilmag01.cre
+  yssold16.cre zilarc01.cre zilfgt01.cre zilfgt02.cre zilmag01.bcs zilmag01.cre 
+
+  chevil10.itm demmau01.itm melis03.spl spin622.spl sppr726.spl sppr727.spl spwi923.spl 
+  spwi924.spl spwish18.spl sumslay.spl
 
 
 LANGUAGE ~English~                                ~english~ ~bg2fixpack/languages/english/setup.tra~
@@ -6672,7 +6675,7 @@ COPY_EXISTING ~pirexe01.cre~ ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // resref typo
 COPY_EXISTING ~senani03.cre~ ~override~
               ~sendro03.cre~ ~override~
@@ -11072,7 +11075,7 @@ COPY_EXISTING ~nalia8.cre~  ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // more heinous spell slot fixes; nalia8 and nalia9 have one extra fifth
 // level spell, nalia13 one extra 6th level spell and 0 arrows
 COPY_EXISTING ~nalia8.cre~  ~override~
@@ -12822,7 +12825,7 @@ COPY_EXISTING firarc01.cre override
 COPY_EXISTING rielev.cre override
   REMOVE_CRE_ITEM mage01
 
-// Red Willy 
+// Red Willy
 COPY_EXISTING trple01.cre override
   REMOVE_CRE_ITEM xbow01 bolt01
 
@@ -13383,8 +13386,10 @@ COPY_EXISTING ~chan20.itm~   ~override~ // white dragon scale
               ~plat06.itm~   ~override~ // ankheg plate
               ~plat18.itm~   ~override~ // red dragon scale
               ~plat20.itm~   ~override~ // blue dragon plate
-  READ_BYTE  0x2b "use"
-  WRITE_BYTE 0x2b ("%use%" BOR 0b00000001) // adds stalker flag
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+    READ_BYTE  0x2b "use"
+    WRITE_BYTE 0x2b ("%use%" BOR 0b00000001) // adds stalker flag
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~hlolth.itm~   ~override~ // handmaiden's mace
@@ -28762,11 +28767,13 @@ COPY_EXISTING ~ar0020.are~ ~override~
 // container traps won't trigger due to ground scripts
 COPY_EXISTING ar0503.are override
               ar5204.are override
-  READ_LONG 0x70 co
-  FOR (i = 0; i < SHORT_AT 0x5a; ++i) BEGIN
-    READ_ASCII co + 0xc0 * i + 0x48 s (2)
-    PATCH_IF "%s%" STRING_EQUAL_CASE gt BEGIN
-      WRITE_ASCII co + 0xc0 * i + 0x48 CT #2
+  PATCH_IF (SOURCE_SIZE > 0x11b) THEN BEGIN // protects against invalid files
+    READ_LONG 0x70 co
+    FOR (i = 0; i < SHORT_AT 0x5a; ++i) BEGIN
+      READ_ASCII co + 0xc0 * i + 0x48 s (2)
+      PATCH_IF "%s%" STRING_EQUAL_CASE gt BEGIN
+        WRITE_ASCII co + 0xc0 * i + 0x48 CT #2
+      END
     END
   END
   BUT_ONLY
@@ -28812,8 +28819,8 @@ COPY_EXISTING ~ar0900.are~ ~override~
 COPY_EXISTING ar1202.are override
               ar0502.are override
               ar5201.are override
-  READ_SHORT 0x5a "info_num"
-  READ_LONG  0x5c "info_off"
+  READ_SHORT 0x5a "info_num" ELSE 0
+  READ_LONG  0x5c "info_off" ELSE 0
   FOR (index = 0; index < info_num ; index = index + 1) BEGIN
     READ_ASCII ("%info_off%" + 0x7c + (0xc4 * "%index%" )) "script" (2)
     PATCH_IF ("%script%" STRING_COMPARE_CASE "ct" = 0) BEGIN
@@ -29037,10 +29044,12 @@ BUT_ONLY
 
 //Sahuagin with a gnoll soundset; strip him of all sounds, as that is how other Sahuagin roll (Wisp)
 COPY_EXISTING chevil04.cre override
-  PATCH_FOR_EACH offset IN 0xc8 0xcc 0xec 0xf0 0x10c 0x110 BEGIN
-    WRITE_LONG offset "-1"
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    PATCH_FOR_EACH offset IN 0xc8 0xcc 0xec 0xf0 0x10c 0x110 BEGIN
+      WRITE_LONG offset "-1"
+    END
   END
-BUT_ONLY
+  BUT_ONLY
 
 //Dawnmaster Kreel's amazing wardrobe change (Wisp)
 COPY_EXISTING dawnmas.cre override
@@ -29097,14 +29106,16 @@ COPY_EXISTING AURSTAF.ITM  override //Dispellable protection from projectile: BU
               NPSW03.ITM   override //Dispellable opcode 232, for the 'retribution' type effect on the sword
               SLAYERWP.ITM override //Dispellable protection from projectile: ARROWHVY, AXE, BOLT, BULLET, DAGGER, DART
               SW1HSEEK.ITM override //Dispellable APR bonus
-  READ_LONG 0x6a eo
-  FOR (i = 0; i < SHORT_AT 0x70; ++i) BEGIN
-    READ_BYTE eo + 0x30 * i + 0xd rd
-    PATCH_IF rd = 1 OR rd = 3 BEGIN
-      WRITE_BYTE eo + 0x30 * i + 0xd 2
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+    READ_LONG 0x6a eo
+    FOR (i = 0; i < SHORT_AT 0x70; ++i) BEGIN
+      READ_BYTE eo + 0x30 * i + 0xd rd
+      PATCH_IF rd = 1 OR rd = 3 BEGIN
+        WRITE_BYTE eo + 0x30 * i + 0xd 2
+      END
     END
   END
-BUT_ONLY
+  BUT_ONLY
 
 //Belt of Inertial Barrier displays MR icon instead of Resistance to Magic Energy (Wisp)
 COPY_EXISTING belt10.itm override
@@ -29238,9 +29249,11 @@ BUT_ONLY
 
 // paralyze not universal
 COPY_EXISTING ~demmau01.itm~ ~override~
-  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
-  LPF ADD_ITEM_EFFECT INT_VAR opcode = 109 target = 2 param2 = 2 resist_dispel = 1 duration = 30 probability1 = 15 savingthrow = BIT2 END
-  LPF ITEM_ALTER_EFFECT INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 109 target = 2 param2 = 2 resist_dispel = 1 duration = 30 probability1 = 15 savingthrow = BIT2 END
+    LPF ITEM_ALTER_EFFECT INT_VAR opcode = 174 duration_high = 30 END // unparalyze sound
+  END
 
 // unparalyze sould plays too late
 COPY_EXISTING ~ghoul1.itm~ ~override~
@@ -29580,10 +29593,12 @@ COPY_EXISTING
   spwish18.spl override //Summon Dark Planetar
   spwm154.spl override //Cacofiend
   sumslay.spl override //Summon Slayer Shadow
-  FOR (READ_LONG 0x6a fx_off ELSE 0;fx_off<SOURCE_SIZE;fx_off+=0x30) BEGIN
-    WRITE_BYTE fx_off + 3 0
+  PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
+    FOR (READ_LONG 0x6a fx_off ELSE 0;fx_off<SOURCE_SIZE;fx_off+=0x30) BEGIN
+      WRITE_BYTE fx_off + 3 0
+    END
   END
-BUT_ONLY
+  BUT_ONLY
 
 // mislead clones can attack with an offhand weapon that adds to ApR, i.e. Belm
 COPY_EXISTING ~mislead.spl~ ~override~
@@ -29721,20 +29736,24 @@ COPY_EXISTING ~spin648.spl~ ~override~ // target 2, power 1, 3/1, dur 60, no sav
               ~sppr989.spl~ ~override~ // target 2, power 3, 3/1, dur 60, spell -1
               ~spwi306.spl~ ~override~ // target 2, power 3, 3/1, dur 60, spell -1
               ~spwm122.spl~ ~override~ // target 2, power 2, 3/1, dur 60, spell 0
-  LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 142 END // delete existing portrait icon
-  LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 215 END // delete existing visual
-  LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 139 END // delete existing string
-  // add new icon and animation via eff, adjust as needed below
-  LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1
-    timing = 1 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdheld END
-  LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1 
-    duration = 60 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdhda60 END
-  LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1
-    duration = 60 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdhdb60 END
+  PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
+    LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 142 END // delete existing portrait icon
+    LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 215 END // delete existing visual
+    LPF DELETE_SPELL_EFFECT INT_VAR opcode_to_delete = 139 END // delete existing string
+    // add new icon and animation via eff, adjust as needed below
+    LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1
+      timing = 1 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdheld END
+    LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1 
+      duration = 60 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdhda60 END
+    LPF ADD_SPELL_EFFECT INT_VAR opcode = 177 target = 2 power = 3 parameter1 = 1 parameter2 = 3 resist_dispel = 1
+      duration = 60 savingthrow = BIT0 savebonus = "-1" STR_VAR resource = cdhdb60 END
+  END
 
 // associated hold effects playing on non-affected creatures, touchup: fix power, saves
 COPY_EXISTING ~spin648.spl~ ~override~
-  LPF SPELL_ALTER_EFFECT INT_VAR opcode = 177 power = 1 savingthrow = 0 savebonus = 0 END
+  PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
+    LPF SPELL_ALTER_EFFECT INT_VAR opcode = 177 power = 1 savingthrow = 0 savebonus = 0 END
+  END
 
 // associated hold effects playing on non-affected creatures, touchup: fix power, saves
 COPY_EXISTING ~sppr208.spl~ ~override~
@@ -30176,69 +30195,71 @@ COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher
               ~sw2h12.itm~   ~override~ // Flame Of The North, damage applied globally (2h)
               ~sw2h19.itm~   ~override~ // Carsomyr +6, damage applied globally (2h)
               ~wamace.itm~   ~override~ // foebane +5
-  READ_LONG   0x64 "abil_off"
-  READ_SHORT  0x68 "abil_num"
-  READ_LONG   0x6a "fx_off"
-  READ_SHORT  0x70 "fx_num"
-  SET delta = 0
-  FOR (index = 0 ; index < fx_num ; ++index) BEGIN
-    READ_SHORT ("%fx_off%" +        ("%index%" * 0x30)) "type"
-    READ_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "eff_file"
-    PATCH_IF (("%type%" = 177) AND
-              (("%eff_file%" STRING_COMPARE_CASE "DAMACEA" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "DOPPDAM" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "DRAGDAM3" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "EVILDAM2" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "FLAMENOR" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "GIANTDAM" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "HOLYAVEN" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "LYCANDAM" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM3" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM4" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "PHANBLAD" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "SKULLCR" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "SW2H19A" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "UNDDAM1" = 0) OR
-               ("%eff_file%" STRING_COMPARE_CASE "TROLLD1" = 0) OR
-               ("%eff_file%" STRING_COMPARE_REGEXP "EQUAL0[1-8]" = 0) OR
-               ("%eff_file%" STRING_COMPARE_REGEXP "FT[1-3]DAM" = 0) OR
-               ("%eff_file%" STRING_COMPARE_REGEXP "SW1H6[45]A" = 0) OR
-               ("%eff_file%" STRING_COMPARE_REGEXP "SW1H62[BCDEF]" = 0))) BEGIN
-      PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "lycandam" = 0) BEGIN SPRINT eff_file "cdsw1h03" END
-      PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "dragdam3" = 0) BEGIN SPRINT eff_file "cdhalb04" END
-      READ_ASCII   ("%fx_off%" +        ("%index%" * 0x30)) "clone" (48)
-      DELETE_BYTES ("%fx_off%" +        ("%index%" * 0x30)) 0x30
-      SET fx_num = (fx_num - 1)
-      SET delta  = (delta - 1)
-      SET index  = (index - 1)
-      INNER_ACTION BEGIN // lazy, just grab ids targeting from eff
-
-        COPY_EXISTING ~%eff_file%.eff~ ~override~
-          READ_ASCII 0x1c "ids" (8)
-          BUT_ONLY
-
-      END
-      FOR (index2 = 0 ; index2 < abil_num ; index2 = index2 + 1) BEGIN
-        READ_BYTE   ("%abil_off%" +        ("%index2%" * 0x38)) "type"
-        READ_SHORT  ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "abil_fx_idx"
-        SET "abil_fx_idx" = "%abil_fx_idx%" + "%delta%"
-        WRITE_SHORT ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "%abil_fx_idx%"
-        PATCH_IF (("%type%" = 1) OR ("%type%" = 2)) BEGIN
-          INSERT_BYTES (fx_off +        (0x30 * abil_fx_idx)) 0x30
-          WRITE_ASCIIE (fx_off +        (0x30 * abil_fx_idx)) "%clone%"
-          WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177     // use eff
-          WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx))   2     // preset target
-          WRITE_ASCIIE (fx_off + 0x04 + (0x30 * abil_fx_idx)) "%ids%" // ids target from eff
-          WRITE_BYTE   (fx_off + 0x0c + (0x30 * abil_fx_idx))   1     // instant/perm
-          WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) "%eff_file%" #8 // for the items with changing effs
-          READ_SHORT  ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) "abil_fx_num"
-          WRITE_SHORT ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) ("%abil_fx_num%" + 1)
-          SET delta = (delta + 1)
+  PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
+    READ_LONG   0x64 "abil_off"
+    READ_SHORT  0x68 "abil_num"
+    READ_LONG   0x6a "fx_off"
+    READ_SHORT  0x70 "fx_num"
+    SET delta = 0
+    FOR (index = 0 ; index < fx_num ; ++index) BEGIN
+      READ_SHORT ("%fx_off%" +        ("%index%" * 0x30)) "type"
+      READ_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "eff_file"
+      PATCH_IF (("%type%" = 177) AND
+                (("%eff_file%" STRING_COMPARE_CASE "DAMACEA" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "DOPPDAM" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "DRAGDAM3" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "EVILDAM2" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "FLAMENOR" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "GIANTDAM" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "HOLYAVEN" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "LYCANDAM" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM3" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM4" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "PHANBLAD" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "SKULLCR" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "SW2H19A" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "UNDDAM1" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_CASE "TROLLD1" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_REGEXP "EQUAL0[1-8]" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_REGEXP "FT[1-3]DAM" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_REGEXP "SW1H6[45]A" = 0) OR
+                 ("%eff_file%" STRING_COMPARE_REGEXP "SW1H62[BCDEF]" = 0))) BEGIN
+        PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "lycandam" = 0) BEGIN SPRINT eff_file "cdsw1h03" END
+        PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "dragdam3" = 0) BEGIN SPRINT eff_file "cdhalb04" END
+        READ_ASCII   ("%fx_off%" +        ("%index%" * 0x30)) "clone" (48)
+        DELETE_BYTES ("%fx_off%" +        ("%index%" * 0x30)) 0x30
+        SET fx_num = (fx_num - 1)
+        SET delta  = (delta - 1)
+        SET index  = (index - 1)
+        INNER_ACTION BEGIN // lazy, just grab ids targeting from eff
+  
+          COPY_EXISTING ~%eff_file%.eff~ ~override~
+            READ_ASCII 0x1c "ids" (8)
+            BUT_ONLY
+  
+        END
+        FOR (index2 = 0 ; index2 < abil_num ; index2 = index2 + 1) BEGIN
+          READ_BYTE   ("%abil_off%" +        ("%index2%" * 0x38)) "type"
+          READ_SHORT  ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "abil_fx_idx"
+          SET "abil_fx_idx" = "%abil_fx_idx%" + "%delta%"
+          WRITE_SHORT ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "%abil_fx_idx%"
+          PATCH_IF (("%type%" = 1) OR ("%type%" = 2)) BEGIN
+            INSERT_BYTES (fx_off +        (0x30 * abil_fx_idx)) 0x30
+            WRITE_ASCIIE (fx_off +        (0x30 * abil_fx_idx)) "%clone%"
+            WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177     // use eff
+            WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx))   2     // preset target
+            WRITE_ASCIIE (fx_off + 0x04 + (0x30 * abil_fx_idx)) "%ids%" // ids target from eff
+            WRITE_BYTE   (fx_off + 0x0c + (0x30 * abil_fx_idx))   1     // instant/perm
+            WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) "%eff_file%" #8 // for the items with changing effs
+            READ_SHORT  ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) "abil_fx_num"
+            WRITE_SHORT ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) ("%abil_fx_num%" + 1)
+            SET delta = (delta + 1)
+          END
         END
       END
     END
+    WRITE_SHORT  0x70 "%fx_num%"
   END
-  WRITE_SHORT  0x70 "%fx_num%"
   BUT_ONLY
 
 // since targeting is changing, patch separately
@@ -30565,16 +30586,18 @@ COPY_EXISTING ~scrl68.itm~ ~override~ // burning hands
   BUT_ONLY_IF_IT_CHANGES
 
 // Make Errard's Divination spell actually use the Divination casting graphics (aVENGER)
+ACTION_IF FILE_EXISTS_IN_GAME spin541.spl BEGIN
 
-COPY_EXISTING ~SPIN541.SPL~   ~override~ // Divination
- WRITE_SHORT   0x22  16 // Casting graphics: 16 (Divination)
-BUT_ONLY_IF_IT_CHANGES
+  COPY_EXISTING ~SPIN541.SPL~   ~override~ // Divination
+    WRITE_SHORT   0x22  16 // Casting graphics: 16 (Divination)
+    BUT_ONLY_IF_IT_CHANGES
 
+END
 
 /////                                                  \\\\\
 ///// Cromwell's forging actually takes a day          \\\\\
 /////                                                  \\\\\
-                
+
 BEGIN @8 DESIGNATED 102
 GROUP @2
 REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~oh3500.are~  @27 // not needed for BGEE
@@ -31124,7 +31147,7 @@ COPY_EXISTING ~uddeath.bcs~  ~override~
 /////                                                  \\\\\
 ///// bard song fixes                                  \\\\\
 /////                                                  \\\\\
-                
+
 BEGIN @18 DESIGNATED 111
 GROUP @2
 

@@ -1,4 +1,4 @@
-4
+
 @1000007 = ~Perhaps another time, Haer'Dalis.  Your world seems rather strange to me... I'll have to think it over.~
 @1000010 = ~So hopeful that we shall meet again before too many days have passed.  But enough talk -- it is time this raven flies.~
 @1000041 = ~Alright, Haer'Dalis. Join me in whichever fashion you see fit but, slave or free, we travel together nonetheless.~
@@ -6123,7 +6123,7 @@ Damage type:  missile (piercing)
 Weight:  0
 Launcher:  Crossbow~
 @1046720 = ~Drow Bolt of Sleep
-This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must make a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
+This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must making a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
 
 STATISTICS:
 
@@ -6542,6 +6542,9 @@ Pick Pockets: +20%~
 
 A Wild Mage is a wizard that specializes in the study of wild magic and has access to spells to protect him/herself from Wild Magic since, every time the mage casts a spell, there's a 5% chance of a random wild magic effect happening.  Wild magic is extremely unpredictable and should be used with caution.~
 @1054896 = ~Ah.  Ssssso the Child of Bhaal comesss to me, finally, for the lassst of the Tearsssss of Bhaal.  You have come very near to locating your quarry...yesssss, yessss, indeed you have.~ [HELGRE07]
+@1054924 = ~Animal Trouble in Trademeet: Not interested.
+
+Flydian at the City Gates was soliciting help for Trademeet. It's under an animal-based siege where Druids are suspected. I told him I wasn't interested at this time~
 @1054925 = ~Animal Trouble in Trademeet: Met with militia.
 
 The Trademeet Militia Captain was relieved that I wished to help stop the attacks the town has suffered. She directed me to High Merchant Lord Logan Coprith. She warned that the scared townsfolk are suspicious of outsiders, especially Druids.~
