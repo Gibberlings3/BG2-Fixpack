@@ -370,6 +370,9 @@ Rettungswurf: Nein
 Mit Hilfe dieses Zaubers erzeugt der Anwender ein Teleportationsfeld irgendwo in Sichtweite. Alle Wesen im Wirkungsbereich des Zaubers werden während der Wirkungsdauer wahllos durch die Gegend teleportiert. Der Zauber ist vor allem sehr nützlich, um große Gruppen von Feinden durcheinanderzubringen, so dass der Anwender genug Zeit hat, seine Verteidigung oder seinen Angriff vorzubereiten.~
 @157 = ~Deswegen sollt Ihr als Erster von den Früchten des Sieges profitieren. Nehmt den Schlüssel zur Schatzkammer von Ixilthetocals Leichnam... Geht damit in die Schatzkammer der Stadt und nehmt, was Euch beliebt.~
 @158 = ~Ich bin heute in großzügiger Stimmung... Um in das Unterreich zu gelangen, benötigt Ihr das magische Seil von der Leiche des Königs. Verwendet es, um in die Grube hinabzuklettern, die hinter meinem ehemaligen Thron liegt.~
+
+// German: also correct the mistranslation in the original BG2 text
+// warning: the current length of @159 does not allow adding any more characters! else the spell selection screen will crash
 @159 = ~Vertrauten finden
 
 Grad: 1
@@ -380,9 +383,9 @@ Zeitaufwand: 9
 Bereich: 1 Vertrauter
 Rettungswurf: Nein
 
-Der Anwender versucht einen Vertrauten zu finden, der ihm in Zukunft als Gefährte und Verbündeter beisteht. Dabei handelt es sich um ein kleines Wesen, das dem Anwender auf vielfältige Weise nutzen kann. Der Anwender kann an den Sinneswahrnehmungen seines Vertrauten teilhaben, ihm Gesellschaft leisten und ihn als Wächter, Aufklärer und Spion einsetzen. Er kann immer nur einen Vertrauten haben und nicht darüber entscheiden, welche Kreatur seinem Ruf folgt. Es ist auch nicht sicher, ob der Zauber überhaupt erfolgreich ist. Der Zauber kann nur vom Hauptcharakter eingesetzt werden.
-Das Wesen ist intelligenter als andere Wesen seiner Art (normalerweise um 2 bis 3 Punkte) und seine enge Verbindung mit dem Anwender beschert ihm ein längeres Leben, als es für ein derartiges Tier typisch wäre. Der Anwender und der Vertraute stehen durch ein emphatisches Band miteinander in Verbindung. Auf diesem Weg kann der Anwender seinem Vertrauten auch Befehle erteilen.
-Der Anwender erhält die Hälfte der Trefferpunkte seines Vertrauten als zusätzliche Trefferpunkte. Er sollte jedoch stets um das Wohlergehen seines Vertrauten besorgt sein. Stirbt dieser, verliert er die zusätzlichen Trefferpunkte, erleidet zusätzlich halb so viel Schaden, wie der Vertraute Trefferpunkte hatte, und verliert PERMANENT einen Konstitutionspunkt.
+Der Anwender versucht einen Vertrauten zu finden, der ihm in Zukunft als Gefährte und Verbündeter beisteht. Dabei handelt es sich um ein kleines Wesen, das dem Anwender auf vielfältige Weise dient. Es kann seine Sinneskräfte auf den Anwender übertragen, ihm Gesellschaft leisten und als Wächter, Aufklärer und Spion fungieren. Der Anwender kann immer nur einen Vertrauten haben und nicht darüber entscheiden, welche Kreatur seinem Ruf folgt - falls überhaupt ein Wesen antwortet. Der Zauber kann nur vom Hauptcharakter eingesetzt werden.
+Das Wesen ist intelligenter als andere seiner Art (normalerweise um 2 bis 3 Punkte) und seine enge Verbindung mit dem Anwender beschert ihm ein längeres Leben, als es für ein derartiges Tier typisch wäre. Der Anwender und der Vertraute stehen durch ein emphatisches Band miteinander in Verbindung. Auf diesem Weg kann der Anwender seinem Vertrauten auch Befehle erteilen.
+Der Anwender erhält die Hälfte der Trefferpunkte seines Vertrauten als zusätzliche Trefferpunkte. Er sollte jedoch stets um das Wohlergehen seines Vertrauten besorgt sein. Stirbt dieser, verliert er die zusätzlichen Trefferpunkte, erleidet halb so viel Schaden, wie der Vertraute Trefferpunkte hatte, und verliert PERMANENT einen Konstitutionspunkt.
 Ein Beispiel: Ein Magier mit 12 Trefferpunkten wirkt diesen Zauber. Er erhält ein Teufelchen mit 18 Trefferpunkten als Vertrauten. Dadurch erhöhen sich die Trefferpunkte des Magiers auf 21. Stirbt das Teufelchen, reduzieren sich die Trefferpunkte des Magiers wieder auf 12, er verliert einen Konstitutionspunkt (und dadurch eventuell weitere Trefferpunkte) und erleidet dann noch 9 Schadenspunkte.
 
 Die Art des Vertrauten wird durch die Gesinnung des Anwenders bestimmt:

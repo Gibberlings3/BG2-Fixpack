@@ -48,6 +48,7 @@ REPLACE_ACTION_TEXT_REGEXP ~^obshal0[13]$~ ~ChangeEnemyAlly("obshal0\([13]\)",\[
 REPLACE_ACTION_TEXT_REGEXP ~^pheirk\(as\)?$~ ~True()~ ~~
 REPLACE_ACTION_TEXT_REGEXP ~\(^messed$\)\|\(^rashad$\)~ ~Die()~ ~Kill(Myself)~
 REPLACE_ACTION_TEXT_REGEXP ~\(^udphae01$\)\|\(^delthy$\)~ ~"GL[ABO][ABO][ABO]L"~ ~"GLOBAL"~
+REPLACE_ACTION_TEXT_REGEXP ~^famil[1-3]$~ ~\(GiveItemCreate("FAM[A-Z]+",Player1,0,0,0)\)~ ~GivePartyAllEquipment() \1~
 REPLACE_ACTION_TEXT ~arnman11~ ~ActionOverride("arnman10",MoveToObject("arnman11")+~ ~ActionOverride("arnman10",MoveToObject("arnman11"))~
 REPLACE_ACTION_TEXT ~baerie~   ~MoveGlobal("AR0607","Aerie",\[1034\.1034\],0)~ ~MoveGlobal("AR0607","Aerie",[1034.1034])~
 REPLACE_ACTION_TEXT ~bdact05~  ~ActionOverride("bdact06",MoveToPoint(\[?1384\.420\])+~ ~ActionOverride("bdact06",MoveToPoint([1384.420]))~
@@ -1466,3 +1467,15 @@ ActionOverride("garjum",DestroySelf())
 SetGlobal("DomainPaladinBattle","GLOBAL",5)~
 
 ADD_TRANS_ACTION FIRKRA02 BEGIN 34 END BEGIN END ~AddXPObject(Player1,40500)~
+
+// Nalia dialog fix (Taimon)
+REPLACE_TRIGGER_TEXT ~naliap~ ~Global("EnteredAR1300","LOCALS",1)~ ~OR(2)
+  Global("EnteredAR1300","GLOBAL",1)
+  Global("EnteredAR1300","GLOBAL",2)~
+
+// Maheer the blacksmith in Waukeen's Promenade should only take a single diamond/beljuril for upgrading the Horn of Valhalla (aVENGER)
+REPLACE_ACTION_TEXT ~shop03~ ~TakePartyItem("misc42")~ ~TakePartyItemNum("misc42",1)~ // Diamond
+REPLACE_ACTION_TEXT ~shop03~ ~TakePartyItem("misc6z")~ ~TakePartyItemNum("misc6z",1)~ // Beljuril
+
+/// Dirbert won't take swords from party if they don't have exactly 3 (concept by Icendoan, but recoded by DavidW)
+REPLACE_TRIGGER_TEXT ~uhkid01~ ~NumItemsParty("SW1H01",3)~ ~NumItemsPartyGT("SW1H01",2)~

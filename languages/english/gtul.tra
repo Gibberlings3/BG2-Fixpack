@@ -23,7 +23,7 @@ STATISTICS:
 
 THAC0: +3 bonus
 Weight: 3
-Speed Factor: 6
+Speed Factor: 5
 Proficiency Type: Long Bow
 Type:  2-handed
 Requires: 6 Strength
@@ -5389,7 +5389,7 @@ Not Usable By:
  Fighter
  Mage~
 @1039627 = ~Staff of the Magi
-This type of staff is thoroughly linked of the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
+This type of staff is thoroughly linked to the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
 
 STATISTICS:
 
@@ -5453,7 +5453,7 @@ Requires: 5 Strength
 Usable By
  Mages~
 @1039629 = ~Staff of Thunder and Lightning +2
-There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can summon a lighting storm to blast enemies to dust.  Some abilities are limited by charges.
+There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can Call Lightning to blast enemies to dust.  Some abilities are limited by charges.
 
 STATISTICS:
 
@@ -5508,7 +5508,7 @@ Requires: 5 Strength
 Usable By
  Druids~
 @1039631 = ~Staff of Air
-This staff seems to draw from eleven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
+This staff seems to draw from elven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
 
 STATISTICS:
 
@@ -6123,7 +6123,7 @@ Damage type:  missile (piercing)
 Weight:  0
 Launcher:  Crossbow~
 @1046720 = ~Drow Bolt of Sleep
-This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must making a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
+This item, like most drow equipment, is created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark.  A target hit by this bolt must make a saving throw vs. poison or fall asleep for four rounds.  The drow often use these bolts when capturing slaves.
 
 STATISTICS:
 
@@ -8273,7 +8273,7 @@ Not Usable By:
  Mage 
  Thief
  Bard~
-@1071058 = ~The long bow is similar to the short bow, except that the staff is about as long as the archer is tall, usually 6 to 6.5 feet.  Even though the longbow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+@1071058 = ~The long bow is similar to the short bow, except that the staff is about as long as the archer is tall, usually 6 to 6.5 feet.  Even though the longbow is slightly slower than the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
 
 STATISTICS:
 

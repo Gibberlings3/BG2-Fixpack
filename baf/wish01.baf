@@ -1,0 +1,28 @@
+IF
+  Global("A6SetupWish","LOCALS",0)
+  CheckStatGT(LastSummonerOf(Myself),17,WIS)
+THEN
+  RESPONSE #100
+    SetupWish(4,1)
+    SetGlobal("A6SetupWish","LOCALS",1)
+END
+
+IF
+  Global("A6SetupWish","LOCALS",0)
+  CheckStatGT(LastSummonerOf(Myself),14,WIS)
+  CheckStatLT(LastSummonerOf(Myself),18,WIS)
+THEN
+  RESPONSE #100
+    SetupWish(3,1)
+    SetGlobal("A6SetupWish","LOCALS",1)
+END
+
+IF
+  Global("A6SetupWish","LOCALS",0)
+  CheckStatGT(LastSummonerOf(Myself),9,WIS)
+  CheckStatLT(LastSummonerOf(Myself),15,WIS)
+THEN
+  RESPONSE #100
+    SetupWish(2,1)
+    SetGlobal("A6SetupWish","LOCALS",1)
+END
