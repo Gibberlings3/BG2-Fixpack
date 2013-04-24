@@ -16,7 +16,7 @@
     O</strong><strong>n the web: <a href="http://www.gibberlings3.net/bg2fixpack/">Home
     page</a></strong> and <strong><a href="http://forums.gibberlings3.net/index.php?showforum=74">discussion
     forum</a></strong></p>
-  <p><strong> Version 10 - <a href="http://forums.gibberlings3.net/index.php?app=downloads&amp;showcat=36">Check
+  <p><strong> Version 10.01 (alpha) - <a href="http://forums.gibberlings3.net/index.php?app=downloads&amp;showcat=36">Check
     for the most recent version</a></strong><br />
     <strong> Languages:</strong> Chinese (simplified and traditional), English, French, German, Italian, Korean, Polish,
     and Spanish<br />
@@ -390,6 +390,52 @@
 </div>
 <h2>Version History</h2>
 <div class="section">
+  <p><strong>Version 11 - work in progress builds</strong></p>
+  <ul>
+    <li>v10.01 - &quot;You win again, gravity&quot;
+      <ul>
+        <li>Mass replace of DECOMPILE_BCS_TO_BAF for DECOMPILE_AND_PATCH</li>
+        <li>Moved all dlg decompiles to d code</li>
+        <li>Updated German translation to address crashes during character creation; additional strings now get set</li>
+        <li>Many fixes to the English tra file; namely typos and errors</li>
+        <li>Asc64's wish fixes</li>
+        <li>Argent77 dream player control issue</li>
+        <li>Infinite Hannah XP exploit</li>
+        <li>Closed familiar expolit</li>
+        <li>Taimon's Nalia fix wasn't working since it was trying to match LOCALS instead of GLOBAL</li>
+        <li>Lavok not giving out XP in all dialogue paths</li>
+        <li>Wrong variable check for mgappr03</li>
+        <li>Missing journal entries for imoenj, jaheiraj, mgteos01, nalia, obssol02, obssol03, ribald</li>
+        <li>Missing var check for jaheiraj branch in state 65</li>
+        <li>Missing uhinn01/02 interjection</li>
+        <li>Keep Majordomo had dialogue for Nalia, but trigger was wrong</li>
+        <li>Can no longer ask where money is on first Majordomo chat</li>
+        <li>One of the early branches with Gaelan was actually checking for 50k gold instead of 20k</li>
+        <li>The tree that gives acorns in Suldenessalar  would get disabled after the gut check dialogues. If the party hadn't gotten the nuts yet, there would be no way to finish the game.</li>
+        <li>Chain mail +1 gets its proper string set, but the weight should be 20 lbs, not 10 (as chainmail +2)</li>
+        <li>Borok's Fist also has a unique name string</li>
+        <li>impclaw now gets its spurious poison effect removed as the imp and impqua items</li>
+        <li>Various notes (such as Dradeel's recipes) get their min 9 int removed--you can already read them, so adding the 9 int just makes them red for no reason</li>
+        <li>Vampires were missing their disease immunity</li>
+        <li>The fixes to Otiluke's sphere were not inducing a save on the victim</li>
+        <li>Contagion (scroll and spell) should have a range of 30' per its descript</li>
+        <li>Fear immunity effects batch now inserts three effects next-to-last instead of last so that they don't fall behind ay self-cast 206 protections (i.e. enrage)</li>
+        <li>Dead and revived versions of Torgal weren't being cycled through the sleep and stun immunity batches</li>
+        <li>Torgal herself was listed as a 6 HD creature, making her subject to cloudkill. She gets bumped to 16 HD.</li>
+        <li>When the player takes over Mae'Var's guild the old map note will be removed instead of simple covered up</li>
+        <li>Aerie's banter about being scared to be in the Underdark includes a line about a missing soul in the person she's talking to. This banter will now target Player1 instead of just any party member, as it doesn't make sense otherwise.</li>
+        <li>The guardian in Strohm's tomb was flaky in its check for who had the mask equipped, and could return false negatives</li>
+        <li>The mage in Ilyich's party could behave really stupidly due to bad targeting blocks for his Aganazzar's Scorcher casting</li>
+        <li>The generic gphealer script could often wast casting of bless; it now waits for an enemy to be present to cast</li>
+        <li>The infinite stream of mind flayers in their Underdark enclave could be interrupted due to a flake Die() trigger</li>
+        <li>The container trap fixes in ar0503 and ar5204 were fixing their containers, and then breaking others</li>
+        <li>Unused bow08 has its extraneous ApR bonus on the ranged header removed. </li>
+        <li>Two cloaks were using robe ground icons. An unused potion also had its ground icon corrected</li>
+        <li>Ruby Pendant had no quickbar icon for its Dire Charm ability. The Rod of Terror was using a generic staff.</li>
+        <li>The Avenger version of Animal Summoning II had the wrong duration</li>
+      </ul>
+    </li>
+  </ul>  
   <p><strong>Version 10 - April 14, 2013</strong></p>
   <ul>
     <li>Version 10 was put together with the hard work of aVENGER and Wisp and is a major update</li>

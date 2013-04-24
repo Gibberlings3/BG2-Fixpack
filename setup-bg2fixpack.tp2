@@ -1,7 +1,9 @@
+//2484, 3485, 2156
+
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v10~
+VERSION ~v11 Alpha 1~
 
 README ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -233,7 +235,8 @@ STRING_SET 58250 @134 // [ELLESI02] sound restoration
 STRING_SET 60724 @112 // adalon soundset restoration
 STRING_SET 60741 @113 // adalon soundset restoration
 
-ACTION_IF ("%LANGUAGE%" STRING_COMPARE_CASE "english" = 0) THEN BEGIN // english only for now
+ACTION_IF (("%LANGUAGE%" STRING_COMPARE_CASE "english" = 0) OR
+           ("%LANGUAGE%" STRING_COMPARE_CASE "german" = 0)) THEN BEGIN // english, german only for now
 
   STRING_SET  6526 @215 // flame tongue: descript missing thac0 bonuses, +3 bonuses are against cold-using not cold/fire
   STRING_SET  7345 @214 // kondar: descript not mentioning extra thac0 vs. shapeshifters
@@ -1061,28 +1064,6 @@ COPY_EXISTING ~kpsold01.dlg~ ~override~
   WRITE_LONG 0x30 0
   BUT_ONLY_IF_IT_CHANGES
 
-// Nalia dialog fix (Taimon)
-COPY_EXISTING ~naliap.dlg~ ~override~
-  DECOMPILE_DLG_TO_D
-    REPLACE_TEXTUALLY CASE_INSENSITIVE ~Global("EnteredAR1300","LOCALS",1)~ ~OR(2)Global("EnteredAR1300","GLOBAL",1)Global("EnteredAR1300","GLOBAL",2)~
-  COMPILE_D_TO_DLG
-  BUT_ONLY_IF_IT_CHANGES
-
-// Maheer the blacksmith in Waukeen's Promenade should only take a single diamond/beljuril for upgrading the Horn of Valhalla (aVENGER)
-COPY_EXISTING ~shop03.dlg~ ~override~
-  DECOMPILE_DLG_TO_D
-    REPLACE_TEXTUALLY CASE_INSENSITIVE ~TakePartyItem("misc42")~ ~TakePartyItemNum("misc42",1)~ // Diamond
-    REPLACE_TEXTUALLY CASE_INSENSITIVE ~TakePartyItem("misc6z")~ ~TakePartyItemNum("misc6z",1)~ // Beljuril
-  COMPILE_D_TO_DLG
-  BUT_ONLY_IF_IT_CHANGES
-
-/// Dirbert won't take swords from party if they don't have exactly 3 (concept by Icendoan, but recoded by DavidW)
-COPY_EXISTING ~uhkid01.dlg~ ~override~
-  DECOMPILE_DLG_TO_D
-    REPLACE_TEXTUALLY CASE_INSENSITIVE ~NumItemsParty("SW1H01",3)~ ~NumItemsPartyGT("SW1H01",2)~
-  COMPILE_D_TO_DLG
-  BUT_ONLY_IF_IT_CHANGES
-  
 /////                                                  \\\\\
 ///// scripting fixes                                  \\\\\
 /////                                                  \\\\\
@@ -1090,41 +1071,41 @@ COPY_EXISTING ~uhkid01.dlg~ ~override~
 // player AI script fixes
 // please don't cast chaotic commands on enemies
 COPY ~scripts/cleric1.bs~ ~scripts/cleric1.bs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(CLERIC_CHAOTIC_COMMANDS)~ ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // targets for the misc heals are poorly defined, can be mistargeted
 COPY ~scripts/cleric2.bs~ ~scripts/cleric2.bs~
      ~scripts/cleric3.bs~ ~scripts/cleric3.bs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(HPPercentLT(LastSeenBy(Myself),10)\)~ ~See([PC]) \1~
     REPLACE_TEXTUALLY ~\(HPPercentLT(Myself,90)[%TAB% %LNL%%MNL%%WNL%]+HaveSpell(CLERIC_CURE_LIGHT_WOUNDS)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(MostDamagedOf(Myself),CLERIC_CURE_LIGHT_WOUNDS)~
     ~\1 Spell(Myself,CLERIC_CURE_LIGHT_WOUNDS)~
     REPLACE_TEXTUALLY ~MostDamagedOf(Myself)~ ~MostDamagedOf()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // check to see if outside is broken
 COPY ~scripts/cleric3.bs~ ~scripts/cleric3.bs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~AreaCheck("UTDOOR)")~ ~AreaType(OUTDOOR)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // check to see if outside is broken
 COPY ~scripts/fighter4.bs~ ~scripts/fighter4.bs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!Dead("astAttackerOf(LastSeenBy(Myself)))")~ ~!StateCheck(LastAttackerOf(LastSeenBy(Myself)),STATE_REALLY_DEAD)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // please don't cast ray of enfeeblement on yourself
 COPY ~scripts/mage3.bs~ ~scripts/mage3.bs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Spell(Myself,WIZARD_RAY_OF_ENFEEBLEMENT)~ ~Spell(LastSeenBy(Myself),WIZARD_RAY_OF_ENFEEBLEMENT)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // actual compile errors first
@@ -1133,17 +1114,17 @@ EXTEND_BOTTOM ~ar2812.bcs~   ~bg2fixpack/compile/ar0512.baf~
 
 // fix compile error
 COPY_EXISTING ~IDIOT01.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(31)~ ~OR(30)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // fix compile errors with bad numbers in OR blocks
 COPY_EXISTING ~VICG.BCS~  ~override~
               ~VICG1.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(4)~ ~OR(2)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // big, major script patch
@@ -1371,7 +1352,7 @@ COPY_EXISTING ~ABAZDRAG.BCS~ ~override~
               ~YSGP04.BCS~   ~override~
               ~YSGRUNT.BCS~  ~override~
               ~ZILMAG01.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY %Dead("yself)")% %StateCheck(Myself,STATE_REALLY_DEAD)%
     REPLACE_TEXTUALLY %Dead("astSeenBy(\(Myself\)?))")% %StateCheck(LastSeenBy(Myself),STATE_REALLY_DEAD)%
     REPLACE_TEXTUALLY %Dead("astHeardBy(\(Myself\)?))")% %StateCheck(LastHeardBy(Myself),STATE_REALLY_DEAD)%
@@ -1413,7 +1394,7 @@ COPY_EXISTING ~ABAZDRAG.BCS~ ~override~
     REPLACE_TEXTUALLY %CreateVisualEffect("SPGFLSH"% %CreateVisualEffect("SPGFLSH1"%
     REPLACE_TEXTUALLY %Spell(Myself,WIZARD_LIGHTNING_BOLT)% %Spell(NearestEnemyOf(Myself),WIZARD_LIGHTNING_BOLT)%
     REPLACE_TEXTUALLY %Global("R0406PitFight","",3)% %Global("PitFight","AR0406",3)%
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 /////                                                  \\\\\
@@ -1422,21 +1403,21 @@ COPY_EXISTING ~ABAZDRAG.BCS~ ~override~
 
 //COMPILE     ~ease/romhap/rom/JAGALVAR.D~      now in soa-dlg.d
 COPY_EXISTING ~aerie.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~AreaType(0)~ ~AreaType(OUTDOOR)~
-  COMPILE_BAF_TO_BCS
+  END
 
 COPY_EXISTING ~anomen.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobal("AnomenIsNotKnight","GLOBAL",1)~
       ~SetGlobal("AnomenIsNotKnight","GLOBAL",1)
       ChangeAlignment("Anomen",CHAOTIC_NEUTRAL)~
     REPLACE_TEXTUALLY ~"TALKEDTOCOR","GLOBAL"~ ~"TALKEDCOR","GLOBAL"~
-  COMPILE_BAF_TO_BCS
+  END
 EXTEND_TOP ~anomen.bcs~ ~bg2fixpack/baf/anomen.baf~
 
 COPY_EXISTING ~jaheira.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~GlobalLT("DerminSpawn","GLOBAL",5)~
       ~  GlobalLT("DerminSpawn","GLOBAL",5)
         !InParty(Myself)
@@ -1452,28 +1433,28 @@ COPY_EXISTING ~jaheira.BCS~ ~override~
         False()~
     REPLACE_TEXTUALLY ~\bSetGlobalTimer("TerminselAppear","GLOBAL",FIVE_DAYS)~
                       ~RealSetGlobalTimer("TerminselAppear","GLOBAL",3600)~ // originally 36000 seems to be more than random.
-  COMPILE_BAF_TO_BCS
+  END
 
 COPY_EXISTING ~viconia.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("LoveTalk","LOCALS",71)~ ~False()~
-  COMPILE_BAF_TO_BCS
+  END
 
 // If ToB installed, patch ToB BCS files:
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN
 
   COPY_EXISTING ~anom25.BCS~ ~override~
-    DECOMPILE_BCS_TO_BAF
+    DECOMPILE_AND_PATCH BEGIN
       REPLACE_TEXTUALLY ~Global("AnomenSummoned","GLOBAL",1)~
       ~Global("AnomenSummoned","GLOBAL",1)
       !Global("AnomenIsKnight","GLOBAL",1)~
-    COMPILE_BAF_TO_BCS
+    END
   EXTEND_TOP ~anom25.bcs~ ~bg2fixpack/baf/anom25.baf~
 
   COPY_EXISTING ~jahe25.BCS~ ~override~
-    DECOMPILE_BCS_TO_BAF
+    DECOMPILE_AND_PATCH BEGIN
       REPLACE_TEXTUALLY ~OR(2)~ ~!Global("JaheiraRomanceActive","GLOBAL",0) !Global("JaheiraRomanceActive","GLOBAL",3) OR(2)~
-    COMPILE_BAF_TO_BCS
+    END
 
 END
 
@@ -1501,11 +1482,11 @@ COPY_EXISTING ~abazdrag.bcs~ ~override~
               ~meliss03.bcs~ ~override~
               ~planet.bcs~   ~override~
               ~senbattl.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~CheckStatGT(LastSeenBy(Myself),0,0)[%TAB% %LNL%%MNL%%WNL%]+CheckStatGT(LastSeenBy(Myself),0,0)~
                      ~CheckStatGT(LastSeenBy(Myself),0,IMPROVEDHASTE) CheckStatGT(LastSeenBy(Myself),0,STONESKINS)~
                      // triggers for a dispel magic
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // alter missing areatype check to match banter trigger
@@ -1514,9 +1495,9 @@ COPY_EXISTING ~aerie.bcs~   ~override~
               ~minsc.bcs~   ~override~
               ~nalia.bcs~   ~override~
               ~yoshimo.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~AreaType(0)~ ~AreaType(OUTDOOR)~ // for Minsc Umar Hills reminder, Nalia-Edwina banter
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // many priest scripts have a failed CLERIC_HEAL call
@@ -1528,16 +1509,16 @@ COPY_EXISTING ~aeriex.bcs~   ~override~
               ~pries18c.bcs~ ~override~
               ~pries18d.bcs~ ~override~
               ~saerkx.bcs~   ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~ // trigger checks for this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // aerie's very straightforward--both missing Spell calls check for a spell in memory in the trigger
 COPY_EXISTING ~aeriex.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)~ ~Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~ // trigger checks for this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // recurring issue--going to enemy, but checks that allegiance is either neutral, goodbutblue, or ?
@@ -1570,40 +1551,40 @@ COPY_EXISTING ~amduel1.bcs~  ~override~
               ~trgrdr02.bcs~ ~override~
               ~trgrdr03.bcs~ ~override~
               ~trgrdr04.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,EVILBUTBLUE)~ // third allegiance check?
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~amlich02.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ForceSpell(Myself,0)~ ~ForceSpell(Myself,WIZARD_STONE_SKIN)~ // trigger, locals checks for stoneskins
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // anomen's very straightforward--missing Spell calls check for a spell in memory in the trigger
 COPY_EXISTING ~anomx.bcs~   ~override~
               ~anvskel.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)[%TAB% %LNL%%MNL%%WNL%]+AttackOneRound(LastSeenBy(Myself))~
                      ~Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING) AttackOneRound(LastSeenBy(Myself))~ // trigger checks for this spell
    REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)[%TAB% %LNL%%MNL%%WNL%]+Continue()~ 
                      ~Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3) Continue()~ // trigger checks for this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // pairing MI with trigger
 COPY_EXISTING ~clone1.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY 
       ~HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+Spell(Myself,WIZARD_MIRROR_IMAGE)\)~
       ~HaveSpell(WIZARD_MIRROR_IMAGE)\1~ // Spell action associated with this block casts WIZARD_MIRROR_IMAGE
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // end of CI Escape cutscene, everyone leaving
 COPY_EXISTING ~cut01g.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~ForceSpell(Myself,0)~
       ~ForceSpell(Myself,DRYAD_TELEPORT)~   // cast by CSCowl6 and 8
@@ -1613,109 +1594,109 @@ COPY_EXISTING ~cut01g.bcs~ ~override~
     REPLACE_TEXTUALLY
       ~ForceSpell("CSIren",0)~ 
       ~ForceSpell("CSIren",DRYAD_TELEPORT) ForceSpell(Myself,DRYAD_TELEPORT)~ // cast by CSCowl7 on Irenicus, also makes CSCowl7 go away
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // all other cres are hasted with identical blocks to this one
 COPY_EXISTING ~cut207c.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,CUTSCENE_HASTE)~ // all other creatures hasted in similar blocks
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // displays 'protection from energy' string without, uh, casting it
 COPY_EXISTING ~dlich01.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,WIZARD_PROTECTION_FROM_ENERGY)~ // action immediately above is displaystring 'protection from energy'
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // saladrex's dispel block is missing a stat check and valid stat.ids refs
 COPY_EXISTING ~gorsal.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~OR(8)\([%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_HASTED)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_BLESS)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_DRAWUPONHOLYMIGHT)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_BLUR)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_MIRRORIMAGE)[%TAB% %LNL%%MNL%%WNL%]+\)CheckStatGT(LastSeenBy(Myself),0,0)\([%TAB% %LNL%%MNL%%WNL%]+THEN\)~
                      ~OR(9) \1 CheckStatGT(LastSeenBy(Myself),0,IMPROVEDHASTE) CheckStatGT(LastSeenBy(Myself),0,STONESKINS) \2~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // gphealer should run away and heal themselves, but missing actual casting; two more unknown issues
 COPY_EXISTING ~gphealer.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY 
      ~HaveSpell(\([A-Z_]+\))\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+RunAwayFrom(NearestEnemyOf(Myself),30)[%TAB% %LNL%%MNL%%WNL%]+\)Spell(Myself,0)~ 
      ~HaveSpell(\1) \2 Spell(Myself,\1)~ //
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // missing a priest spell in their resist fear trigger
 COPY_EXISTING ~gpmage1.bcs~  ~override~
               ~magehigh.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~SpellCastPriest(\[GOODCUTOFF\],0)~ ~SpellCastPriest([GOODCUTOFF],CLERIC_CLOAK_OF_FEAR)~ // only missing divine 'fear' spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // should attack Jon's minions until minions dead, then turn on party
 COPY_EXISTING ~ishthf01.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,GOODBUTBLUE)~ // triggers for a dispel magic
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // missing spell is preceded by stringhead
 COPY_EXISTING ~jatermin.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,WIZARD_PROTECTION_FROM_NORMAL_MISSILES)~ // preceded by string
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // action dictates trigger
 COPY_EXISTING ~jatermin.bcs~ ~override~
               ~mage20a.bcs~  ~override~
               ~mage20c.bcs~  ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_MAZE)~ // associated action casts this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // should attack Jon's minions until minions dead, then turn on party
 COPY_EXISTING ~jonthief.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,GOODBUTBLUE)~ // triggers for a dispel magic
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // mage10d checks for buffing spells; remove fear appears to fit the gap between bless and sanctuary
 COPY_EXISTING ~mage10d.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~SpellCastPriest(\[PC\],0)~ ~SpellCastPriest([PC],CLERIC_REMOVE_FEAR)~ // triggers are for party buffs
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // missing spell trigger is followed by casting spell
 COPY_EXISTING ~mage16m.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_STONE_SKIN)~ // associated action casts this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // missing spell is preceded by stringhead
 COPY_EXISTING ~mage8d.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_CHROMATIC_ORB)~ // associated action casts this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // trigger defines spell
 COPY_EXISTING ~senbattl.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,WIZARD_STONE_SKIN)~ // associated trigger checks this spell
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // surakw1-4 identical except for surakw1's spell trigger
 COPY_EXISTING ~surakw2.bcs~  ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(IncrementGlobal("Fight","LOCALS",1)[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
         ~\1 ForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // from surakw4
     REPLACE_TEXTUALLY ~\(StateCheck(Myself,STATE_SILENCED)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
@@ -1725,47 +1706,47 @@ COPY_EXISTING ~surakw2.bcs~  ~override~
     REPLACE_TEXTUALLY
       ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
       ~ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \1 ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // two spell spell trigger
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // surakw1-4 identical except for surakw1's spell trigger
 COPY_EXISTING ~surakw3.bcs~  ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
        ~ApplySpell(Myself,WIZARD_STONE_SKIN) \1 ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \2 ApplySpell(Myself,WIZARD_MISLEAD)~ // from surakw4
    REPLACE_TEXTUALLY ~\(IncrementGlobal("Fight","LOCALS",1)[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
        ~\1 ForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // from surakw4
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // surakw1-4 identical except for surakw1's spell trigger
 COPY_EXISTING ~surakw4.bcs~  ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
        ~ApplySpell(Myself,WIZARD_STONE_SKIN) \1 ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \2 ApplySpell(Myself,WIZARD_MISLEAD)~ // three spell spell trigger
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // viccy's combat script for keldorn fight
 COPY_EXISTING ~vicvskel.bcs~  ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~
    REPLACE_TEXTUALLY ~\(HPGT("Keldorn",20)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
      ~\1 Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING)~
    REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_ANIMAL_SUMMONING_3)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
      ~\1 Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // viccy's generic combat script
 COPY_EXISTING ~vicx.bcs~  ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~
    REPLACE_TEXTUALLY ~\(HPGT(NearestEnemyOf(Myself),20)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
      ~\1 Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING)~
    REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_ANIMAL_SUMMONING_3)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
      ~\1 Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 /////                                                  \\\\\
@@ -1780,19 +1761,19 @@ EXTEND_TOP ~gparcher.bcs~ ~bg2fixpack/baf/gparcher.baf~
 COPY_EXISTING ~amntrp01.bcs~ ~override~
               ~amntrp02.bcs~ ~override~
               ~amntrp03.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!GlobalTimerNotExpired("MostNobleOrder","GLOBAL")~ ~!GlobalTimerNotExpired("CDMostNobleOrder","GLOBAL")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Puts the variable setting in front of the dialogue triggering so that Anomen's complaint about delaying Garren kid's quest gets triggered
 // also add triggers to stop infinite whining if anomen is !good
 COPY_EXISTING ~anomen.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(StartDialogu?e?NoSet(Player1)[%TAB% %LNL%%MNL%%WNL%]+\)\(SetGlobal("ddAnomenWhine","LOCALS",1)\)~
       ~\2 \1~
     REPLACE_TEXTUALLY ~Global("ddAnomenWhine","LOCALS",0)~ ~Global("ddAnomenWhine","LOCALS",0) !Dead("garkid01") !Dead("garkid02")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // flydian shouldn't hang around asking folks to save trademeet after it's already been saved
@@ -1800,32 +1781,32 @@ EXTEND_BOTTOM ~ar0020.bcs~ ~bg2fixpack/baf/ar0020.baf~
 
 // UE not appearing bug
 COPY_EXISTING ~ar0202.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("UnseeingEye","GLOBAL",1)~ ~Global("UnseeingEye","GLOBAL",1) Global("CDSpawnTheEyeOnlyOnce","GLOBAL",0)~
     REPLACE_TEXTUALLY ~CreateCreature("BHEYE",\[2429\.1914\],0)~ ~CreateCreature("BHEYE",[2429.1914],0) SetGlobal("CDSpawnTheEyeOnlyOnce","GLOBAL",1)~
-  COMPILE_BAF_TO_BCS
+  END
 
 // instead of a wait, change to timer for new block
 COPY_EXISTING ~ar0205.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CreateCreature("BHEYE",\[2528\.1897\],12)~ ~~
     REPLACE_TEXTUALLY ~Wait(~ ~SetGlobalTimer("CDUnseeingEyeAppears","AR0205",~
     APPEND_FILE ~bg2fixpack/baf/ar0205.baf~
-  COMPILE_BAF_TO_BCS
+  END
 
 // fixing transition calls
 COPY_EXISTING ~ar0300.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(TriggerActivation("Tran0329\)\(",[A-Z]+)\)~ ~\1a\2 \1b\2~
     REPLACE_TEXTUALLY ~Tran0303a~ ~Tran0303~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Arledrian goes hostile but stands there due to area script bug
 COPY_EXISTING ~ar0312.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobal("ArledHostile","GLOBAL",1)~ ~SetGlobal("ArledHostile","AR0312",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // allows resting in thieves guild stronghold
@@ -1836,29 +1817,29 @@ EXTEND_BOTTOM ~ar0324.bcs~ ~bg2fixpack/baf/ar032x.baf~
 
 // multiple stringheads for thieves return fix; not paying thieves guild quota fix; see also baldur.bcs, joster.bcs, shthlt01.dlg
 COPY_EXISTING ~ar0322.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobal("NotifyThiefHead","GLOBAL",0)~ ~~
     REPLACE_TEXTUALLY ~CreateCreature("SHTH05",\[691\.292\],2)~
       ~SetGlobal("CDJoster","AR0322",1) CreateCreature("SHTH05",[691.292],2)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // welther can spawn infinitely, Shagbag's always-true block disables half the area script
 COPY_EXISTING ~ar0400.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("ElgeaGone","GLOBAL",0)~
                       ~Global("ElgeaGone","GLOBAL",0)
                        Global("ElgeaFree","GLOBAL",0)~
     REPLACE_TEXTUALLY ~[^!]GlobalTimerExpired("FindShagbag","GLOBAL")~
                       ~False()~
     APPEND_FILE ~bg2fixpack/baf/ar0400.baf~
-  COMPILE_BAF_TO_BCS
+  END
 
 // stops Yoshimo's block from interrupting everything else in the area
 COPY_EXISTING ~ar0406.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("WorkingForBodhi","GLOBAL",1)~ ~Global("WorkingForBodhi","GLOBAL",1) Exists("Yoshimo")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Teos/Planar Sphere fix
@@ -1869,46 +1850,46 @@ EXTEND_TOP ~ar0415.bcs~ ~bg2fixpack/baf/ar0415.baf~
 
 // saerk's doors should lock and unlock together
 COPY_EXISTING ~ar0500.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Unlock("DOOR0504")~ ~Unlock("DOOR0504") Unlock("DOOR0505b")~
     REPLACE_TEXTUALLY ~\bLock("DOOR0504")~ ~CloseDoor("DOOR0504") CloseDoor("DOOR0505b") Lock("DOOR0504") Lock("DOOR0505b")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // area objects can't have LOCALS variables
 // bard playhouse issues--transition can be left open
 COPY_EXISTING ~ar0522.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"SamuelAttacks","LOCALS"~ ~"SamuelAttacks","AR0522"~
     REPLACE_TEXTUALLY ~GlobalTimerExpired("MeetHiggin6a","GLOBAL")~
                       ~GlobalTimerExpired("MeetHiggin6a","GLOBAL") Global("BardPlot1","GLOBAL",40)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // bard playhouse issues--jenna not going to proper spot, meck sometimes not appearing upon completion
 COPY_EXISTING ~ar0523.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ActionOverride("bdact03",MoveToPoint(\[1301\.453\]))~
                       ~ActionOverride("bdact03",MoveToPoint([1301.181]))~
     APPEND_FILE ~bg2fixpack/baf/ar0523.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Waukeen's Promenade script loop fix (Nythrun)
 COPY_EXISTING ar0700.bcs override
-  DECOMPILE_BCS_TO_BAF 
+  DECOMPILE_AND_PATCH BEGIN 
     REPLACE_TEXTUALLY
     ~^\(  GlobalTimerExpired("Bystander","GLOBAL")\)~
     ~\1 OR(2) InMyArea("bystand1") InMyArea("bystand2")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY
 
 // ar0701 shouldn't be able to trigger in ar0205, but it does
 COPY_EXISTING ~ar0701.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~PartyHasItem("MISC5Z")~ 
       ~PartyHasItem("MISC5Z") InMyArea(Player1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // death of mekrath not clearing journal entries; see mekrat.dlg
@@ -1916,41 +1897,41 @@ EXTEND_BOTTOM ~ar0705.bcs~ ~bg2fixpack/baf/ar0705.baf~
 
 // random Garrick stuff can prevent Bodhi's appearance
 COPY_EXISTING ~ar0800.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("GarrickSpeak","GLOBAL",1)~
                       ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   EXTEND_BOTTOM ~ar0800.bcs~ ~bg2fixpack/baf/ar0800.baf~
 
 // bodhi broken if saved during her wait()-laden spawn; unstakable vampire fix
 // Unlock the main door to Bodhi's lair if the player sides with her in Chapter 2 (aVENGER)
 COPY_EXISTING ~ar0801.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobal("LassalVampires","GLOBAL",3)~ ~~
     REPLACE_TEXTUALLY ~CreateCreatureDoor("bodhi2",\[480\.1338\],14)~
       ~SetGlobal("LassalVampires","GLOBAL",3) CreateCreatureDoor("bodhi2",[480.1338],14)~
     REPLACE_TEXTUALLY EXACT_MATCH ~SetGlobal("SpawnBodhiFriends","AR0801",1)~ ~SetGlobal("SpawnBodhiFriends","AR0801",1) Unlock("DOOR03")~
     APPEND_FILE ~bg2fixpack/baf/ar0801.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // allow cleric-rangers to acquire temple stronghold; see bharval.dlg, borinall.dlg, scsain.dlg, travin.dlg
 COPY_EXISTING ~ar0900.bcs~ ~override~
               ~ar0902.bcs~ ~override~
               ~arval.bcs~  ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(5)\([%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_CLERIC)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC_MAGE)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC_THIEF)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_MAGE_CLERIC)[%TAB% %LNL%%MNL%%WNL%]+\)\(Alignment(Player1,MASK_GOOD)\)~
                       ~OR(6) \1 Class(Player1,CLERIC_RANGER) \2~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // can still rest in lathander temple after stripped due to var scope issue
 // telwyn HoG exploit fix, pt 2/2 (see sctelwyn.d)
 COPY_EXISTING ~ar0901.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"AR0902"~ ~"AR0901"~
     APPEND_FILE ~bg2fixpack/baf/ar0901.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // allows resting in paladin stronghold
@@ -1958,22 +1939,22 @@ EXTEND_BOTTOM ~ar0903.bcs~ ~bg2fixpack/baf/ar0903.baf~
 
 // terrece should only spawn if you speak to corneil, not just enter his area
 COPY_EXISTING ~ar1000.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("TerreceSpawn","GLOBAL",1)~
                       ~Global("TerreceSpawn","GLOBAL",1) Global("TalkedToCorneil","GLOBAL",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // ar1002 should check tolgerias' alternate DV
 /// Tolgerias only vanishes once (proposed by Jastey, coded by DavidW)
 // Ketlaar Argrim and his bodyguards go away from the Council building if he's imprisoned
 COPY_EXISTING ~ar1002.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Dead("TOLGER")~
                       ~OR(2) Dead("TOLGER") Dead("TOLGER2")~
     REPLACE_TEXTUALLY CASE_INSENSITIVE ~Dead("TOLGER2")~ ~Dead("TOLGER2")Exists("tolger")~
     APPEND_FILE ~bg2fixpack/baf/ar1002.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // no escape from TR
@@ -1981,61 +1962,61 @@ EXTEND_BOTTOM ~ar1008.bcs~ ~bg2fixpack/baf/ar1008.baf~
 
 // paladin-firkraag journal entry not being set due to bad variable scope
 COPY_EXISTING ~ar1202.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"AR1200"~ ~"AR1202"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // monster invincible items updated, need to update script to same
 COPY_EXISTING ~ar1300.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ActionOverride("trolgi0\([12]\)",DestroyItem("MINHP1"))~
                       ~ActionOverride("trolgi0\1",DestroyItem("MINHP1")) ActionOverride("trolgi0\1",DestroyItem("MONHP1"))~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // can't lure dead umber hulks; assigned kpumb01 DVs to make this work
 COPY_EXISTING ~ar1301.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("UmberHungry","AR1301",0)~ ~Global("UmberHungry","AR1301",0) NumDeadLT("KPUMB01",5)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // fixes Glacias charm issue
 COPY_EXISTING ~ar1303.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~[^,]ApplySpell("kpglai01",WIZARD_TRUE_DISPEL_MAGIC)~
                       ~ActionOverride("kpglai01",ApplySpell("kpglai01",FORCE_DISPEL_MAGIC))~
     REPLACE_TEXTUALLY ~[^,]ChangeEnemyAlly("kpglai01",NEUTRAL)~
                       ~ActionOverride("kpglai01",ChangeEnemyAlly(Myself,NEUTRAL))~
-  COMPILE_BAF_TO_BCS
+  END
 
 // spirit doesn't escape area due to bad DV call
 COPY_EXISTING ~ar1400.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ActionOverride("rspirit1"~ ~ActionOverride("rspirit01"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // enables container in shade lord dungeon; see shaava01.dlg
 COPY_EXISTING ~ar1401.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~SetGlobal("Deactivate","AR1401",1)~
     ~SetGlobal("Deactivate","AR1401",1)
      ContainerEnable("CONTAINER2",FALSE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // more shadow fiends don't spawn due to DV typo
 COPY_EXISTING ~ar1404.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"shdafi01"~ ~"shadfi01"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // asylum script bugs
 COPY_EXISTING ~ar1515.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("ppattackedJon","GLOBAL",1)~
                       ~Global("ppattackedJon","GLOBAL",1)
                        Global("WackoArmy","GLOBAL",0)~
@@ -2043,12 +2024,12 @@ COPY_EXISTING ~ar1515.BCS~ ~override~
                       ~OR(2)
                          Global("PPdeshSend","GLOBAL",0)
                          Global("PirateRefused","GLOBAL",1)~
-  COMPILE_BAF_TO_BCS
+  END
 UNLESS ~PirateRefused~
 
 // Brynnlaw initial vamp fight should check for non-existence not dead (revised by Ardanis)
 COPY_EXISTING ~ar1600.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~Dead("ppvalen")
   Dead("ppparis")
   Dead("ppdel")~
@@ -2056,23 +2037,23 @@ COPY_EXISTING ~ar1600.BCS~ ~override~
   !Exists("ppvalen")
   !Exists("ppparis")
   !Exists("ppdel")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // multiple rerdes due to bad var scope
 COPY_EXISTING ~ar1613.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"SpawnCaptain","AR1613"~ ~"SpawnCaptain","GLOBAL"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Jenia will wait until PC officially hero of trademmet
 COPY_EXISTING ~ar2000.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~Global("JeniaSpawn","AR2000",0)~
     ~Global("JeniaSpawn","AR2000",0)
      Global("loganjob2","GLOBAL",2)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // deirex killed during cutscene fix 1/2; see jarlich.cre
@@ -2085,21 +2066,21 @@ EXTEND_BOTTOM ~ar2300.bcs~   ~bg2fixpack/baf/ar2300.baf~
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB, much easier thanks to new action
 
   COPY_EXISTING ~ar2601.bcs~ ~override~
-    DECOMPILE_BCS_TO_BAF
+    DECOMPILE_AND_PATCH BEGIN
       REPLACE_TEXTUALLY ~"DrizztEncounter","AR2601"~ ~"DrizztEncounter","GLOBAL"~
       REPLACE_TEXTUALLY ~Explore()~ ~Explore()
         SetEncounterProbability("AR2500","AR0020",0)
         SetEncounterProbability("AR2500","AR1300",0)
         SetEncounterProbability("AR2500","AR1304",0)
         SetEncounterProbability("AR2500","AR1700",0)~
-    COMPILE_BAF_TO_BCS
+    END
     BUT_ONLY_IF_IT_CHANGES
   
 END ELSE BEGIN // SoA
 
   COPY_EXISTING ~ar2601.bcs~ ~override~
-    DECOMPILE_BCS_TO_BAF
-    COMPILE_BAF_TO_BCS
+    DECOMPILE_AND_PATCH BEGIN
+    END
     BUT_ONLY_IF_IT_CHANGES
   COPY_EXISTING ~ar0043.bcs~ ~override~
   EXTEND_BOTTOM ~ar2601.bcs~ ~override/ar0043.bcs~
@@ -2114,7 +2095,7 @@ EXTEND_BOTTOM ~ar2901.bcs~ ~bg2fixpack/baf/ar2901.baf~
 EXTEND_BOTTOM ~ar2902.bcs~ ~bg2fixpack/baf/ar2902.baf~
 EXTEND_BOTTOM ~ar2903.bcs~ ~bg2fixpack/baf/ar2903.baf~
 COPY_EXISTING ~ar2904.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("PaladinGone","AR2904"~ ~Global("AbyssPaladinGone","GLOBAL"~
     REPLACE_TEXTUALLY ~Global("RangerGone","AR2904"~  ~Global("AbyssRangerGone","GLOBAL"~
     REPLACE_TEXTUALLY ~Class(Player1,RANGER_ALL)~  ~Class(Player1,RANGER_ALL) !Class(Player1,CLERIC_RANGER)~
@@ -2122,29 +2103,29 @@ COPY_EXISTING ~ar2904.bcs~ ~override~
     REPLACE_TEXTUALLY ~\(OpenState("DOOR04",TRUE)\)~ ~\1 Global("OpenedDoor2","AR2904",1)~
     REPLACE_TEXTUALLY ~\(OpenState("DOOR05",TRUE)\)~ ~\1 Global("OpenedDoor3","AR2904",1)~
     REPLACE_TEXTUALLY ~\(OpenState("DOOR06",TRUE)\)~ ~\1 Global("OpenedDoor4","AR2904",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_BOTTOM ~ar2905.bcs~ ~bg2fixpack/baf/ar2905.baf~
 
 // tries to remove override scripts for knights before killing them
 COPY_EXISTING ~ar3020.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ChangeAIScript("one",OVERRIDE))~ ~ChangeAIScript("",OVERRIDE))~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // removing call to nonexistent trigger
 COPY_EXISTING ~ar3021.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~TriggerActivation("OilDoor",FALSE)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Viccy can romance half-orcs; multi-brus fixes
 // drow item exploits closed
 // not paying thieves guild quota fix; see also ar0322.bcs, joster.bcs, shthlt01.dlg
 COPY_EXISTING ~baldur.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Race(Player1,0)~ ~Race(Player1,HALFORC)~
     REPLACE_TEXTUALLY ~Global("SpawnBrus","GLOBAL",1)~ 
       ~Global("SpawnBrus","GLOBAL",1) Global("CHAPTER","GLOBAL",2) !AreaCheck("AR0800") !AreaCheck("AR2000") CombatCounter(0)~
@@ -2152,29 +2133,29 @@ COPY_EXISTING ~baldur.bcs~ ~override~
       ~CreateCreatureObjectOffScreen("BRUS3",Player1,0,0,0) SetGlobal("SPAWNBRUS","GLOBAL",2)~
     REPLACE_TEXTUALLY ~\bGlobal("JosterLeave","GLOBAL",2)~ ~!Global("JosterLeave","GLOBAL",1)~
     APPEND_FILE ~bg2fixpack/baf/baldur.baf~
-  COMPILE_BAF_TO_BCS
+  END
 
 // cespy's handing out undercharged items
 COPY_EXISTING ~botsmith.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~GiveItemCreate("clck31",Player1,0,0,0)~ ~GiveItemCreate("clck31",Player1,1,1,0)~
     REPLACE_TEXTUALLY ~GiveItemCreate("sw1h69",Player1,0,0,0)~ ~GiveItemCreate("sw1h69",Player1,0,1,1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~BRANNEL.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("LathanPlot1","GLOBAL",1)~ ~Global("LathanPlot","GLOBAL",1)~
     REPLACE_TEXTUALLY ~Global("LathanPlot2","GLOBAL",1)~ ~Global("LathanPlot","GLOBAL",2)~
     REPLACE_TEXTUALLY ~StartDialog\(ue\)?NoSet(Myself)~  ~StartDialogueNoSet(Player1)~
-  COMPILE_BAF_TO_BCS
+  END
 
 // ch 6 allies check wrong drizzt DV
 COPY_EXISTING ~c6arkan.bcs~ ~override~
               ~c6eric.bcs~  ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~("c6drizz")~ ~("c6drizz2")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Killing war elves while escaping Underdark lets you kill the surface elves
@@ -2183,34 +2164,34 @@ COPY_EXISTING ~c6elf.bcs~   ~override~
               ~c6extra.bcs~ ~override~
               ~c6gener.bcs~ ~override~
               ~warsage.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("GoodElfKill","GLOBAL",0)~ ~GlobalLT("GoodElfKill","GLOBAL",2)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // valen's premature death prevents Del changing from bat form and attacking
 COPY_EXISTING ~c6valen.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ReallyForceSpellDead(Myself,VALEN_MIST_FORM_CHANGE)~
       ~SetGlobal("ValenFight","AR0808",1) ReallyForceSpellDead(Myself,VALEN_MIST_FORM_CHANGE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // remove minhp1 for a moment to allow bodhi's str decrease to take effect
 COPY_EXISTING ~c6bweak.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ApplySpell(Myself,C6BODHI_WEAKNESS)~
                       ~TakeItemReplace("monhp1","minhp1",Myself) ApplySpell(Myself,C6BODHI_WEAKNESS) TakeItemReplace("minhp1","monhp1",Myself)~
     REPLACE_TEXTUALLY ~DestroyItem("VAMPREG3")~ ~DestroyItem("VAMPREG2")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // cadril's script using wrong DVs for Cyrando and Irlana
 COPY_EXISTING ~cadril.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"tcyrando"~ ~"cyrando"~
     REPLACE_TEXTUALLY ~"tirlana"~ ~"irlana"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Cernd goes hostile if Grove poisoned
@@ -2219,18 +2200,18 @@ EXTEND_BOTTOM ~cernd.bcs~ ~bg2fixpack/baf/cernd.baf~
 // new troll scripts to transform to dead versions at low HP
 COPY_EXISTING ~troll01.bcs~  ~override/cdtroll1.bcs~
               ~trolsn01.bcs~ ~override/obsice11.bcs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLSN02")~ ~ChangeAnimationNoEffect("obsice11")~
     REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLL02")~  ~ChangeAnimationNoEffect("cdtroll2")~
-  COMPILE_BAF_TO_BCS
+  END
 
 // new troll scripts to transform from dead to alive after time expires
 COPY_EXISTING ~troll02.bcs~  ~override/cdtroll2.bcs~
               ~trolsn02.bcs~ ~override/obsice01.bcs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_CHANGE)~      ~ReallyForceSpellRES("cdtroll1",Myself)~
     REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_SNOW_CHANGE)~ ~ReallyForceSpellRES("obsice01",Myself)~
-  COMPILE_BAF_TO_BCS
+  END
 
 // trolls giving double XP if slain by instant-death spell
 COPY_EXISTING ~chaltrol.bcs~ ~override~ // giant troll, challenge
@@ -2248,63 +2229,63 @@ COPY_EXISTING ~chaltrol.bcs~ ~override~ // giant troll, challenge
               ~trollsm2.bcs~ ~override~ // small troll - lacking timers and such
               ~trolsn01.bcs~ ~override~ // snow troll
               ~trolsp01.bcs~ ~override~ // spectral troll
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HPLT(Myself,\([0-9]+\))~ ~!StateCheck(Myself,STATE_REALLY_DEAD) HPLT(Myself,\1)~
     PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "trolfr01" = 0) BEGIN // extra fix for freshwater troll
       REPLACE_TEXTUALLY ~"TROLGI02"~ ~"trolfr02"~ // freshwater trolls becoming giant trolls when knocked down
     END
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // cromwell cutscene; removes multi-forged item bug
 COPY_EXISTING ~cromwell.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CutSceneId("wsmith01")~ ~CutSceneId("wsmith01") ClearAllActions()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~ctaltar.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"PortalOpen","GLOBAL"~ ~"PortalOpen","AR3001"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 /// Ployer breaks the game if he meets Jaheira when she has fewer than 20 hit points. (see also dw#fpplo.spl) 
 // (proposed and originally coded by Icendoan, this code by DavidW)
 COPY_EXISTING ~cut12b.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY CASE_INSENSITIVE ~ForceSpell("Jaheira",JAHEIRA_WEAKNESS)~ ~ApplySpellRES("dw#fpplo","Jaheira")SmallWait(5)ForceSpell("Jaheira",JAHEIRA_WEAKNESS)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // removes call to nonexistent cre file
 COPY_EXISTING ~cut31q.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CreateCreature("bdcoun04",\[592\.825\],10)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // rest commands not executed due to DayNight flakiness
 COPY_EXISTING ~cut41c.bcs~ ~override~
               ~cut41d.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~[^,]Rest()~
                       ~Wait(1)
                       Rest()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // fix cutscene for departing Amn
 COPY_EXISTING ~cut41d.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ActionOverride("pparan2",DestroySelf())~
                       ~ActionOverride("aran",DestroySelf())~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // part of desharik's xp exploit fix, see ppdesh in the d file
 COPY_EXISTING ~cut41f.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~SetGlobal("EnteredArea1500","GLOBAL",1)~
     ~SetGlobal("EnteredArea1500","GLOBAL",1)
      AddXPObject(Player1,38500)
@@ -2313,49 +2294,49 @@ COPY_EXISTING ~cut41f.bcs~ ~override~
      AddXPObject(Player4,38500)
      AddXPObject(Player5,38500)
      AddXPObject(Player6,38500)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // familiars and summons should be pushed back when hell door opens
 COPY_EXISTING ~cut85a.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ActionOverride("HELLSPY4",ApplySpell(Player[1-6],HELL_BUFFET))~ ~~
     REPLACE_TEXTUALLY ~ActionOverride("hellspy4",ApplySpell(\[FAMILIAR\],HELL_BUFFET))~ ~ActionOverride("HELLSPY4",ForceSpell(Player1,HELL_BUFFET))~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // ust natha scenery cutscene can occur offscreen, meaning player stands in dark for no apparent reason
 COPY_EXISTING ~dadrow20.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~StartCutSceneMode()~
       ~StartCutSceneMode() CreateCreature("cutspy",[3864.273],0) MoveViewPoint([3864.273],INSTANT)~
     REPLACE_TEXTUALLY ~EscapeArea()~
       ~EscapeArea() ActionOverride("cutspy",DestroySelf()) MoveViewObject(Player1,INSTANT)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // delon's script using wrong variable for talking to Lloyd; had EscapeArea() issues
 COPY_EXISTING ~delon.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~TalkedToMayor~ ~TalkedToLloyd~
     REPLACE_TEXTUALLY ~OR(4)[%TAB% %LNL%%MNL%%WNL%]+Global("Acceptance","GLOBAL",1)~ ~OR(3)~
     REPLACE_TEXTUALLY ~AreaCheck("AR1000")~ ~~
     REPLACE_TEXTUALLY ~GlobalTimerExpired("MinscDelon","GLOBAL")~ ~False()~
     APPEND_FILE ~bg2fixpack/baf/delon.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 COPY_EXISTING ~demglasu.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~See(\[ANYONE\])[%TAB% %LNL%%MNL%%WNL%]+Global("Prep","LOCALS",1)~  ~See([ANYONE])~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY
 
 // restore Nith's attack script, pt 1: false() out stuff that'll break
 COPY_EXISTING ~drshnl01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HPLT(Myself,10)~ ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // new troll scripts to transform to dead versions at low HP
@@ -2365,9 +2346,9 @@ COPY_EXISTING ~troll01.bcs~ ~override/drshnl11.bcs~
               ~troll01.bcs~ ~override/pptroll2.bcs~
               ~troll01.bcs~ ~override/sutroll2.bcs~
               ~troll01.bcs~ ~override/torgal2.bcs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLL02")~ ~ChangeAnimationNoEffect("%DEST_RES%")~
-  COMPILE_BAF_TO_BCS
+  END
 
 // duplicates functionality, but needed for ub compatibility
 EXTEND_TOP ~drshnl01.bcs~ ~override/drshnl11.bcs~
@@ -2379,103 +2360,103 @@ COPY_EXISTING ~troll02.bcs~ ~override/drshnl21.bcs~
               ~troll02.bcs~ ~override/pptroll1.bcs~
               ~troll02.bcs~ ~override/sutroll.bcs~
               ~troll02.bcs~ ~override/torgal3.bcs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_CHANGE)~ ~ReallyForceSpellRES("%DEST_RES%",Myself)~
-  COMPILE_BAF_TO_BCS
+  END
 
 // edwin soundset issues for transformation
 COPY_EXISTING ~edwin.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30716,SELECT_ACTION4)~ ~SetPlayerSound(Myself,30715,SELECT_ACTION4)~
     REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30717,SELECT_ACTION5)~ ~SetPlayerSound(Myself,3984,SELECT_ACTION5)~
     REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30718,SELECT_ACTION6)~ ~SetPlayerSound(Myself,3985,SELECT_ACTION6)~
     REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30719,SELECT_ACTION7)~ ~SetPlayerSound(Myself,3986,SELECT_ACTION7)~
-  COMPILE_BAF_TO_BCS
+  END
 
 // containers can summon guards days after they're open
 COPY_EXISTING ~enforam.bcs~ ~override~
               ~tempv01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(2)[%TAB% %LNL%%MNL%%WNL%]+!See(\[NOTGOOD\])[%TAB% %LNL%%MNL%%WNL%]+Global("warn","LOCALS",1)~
       ~GlobalTimerExpired("CDGoAway","LOCALS")~
     REPLACE_TEXTUALLY ~Global("warn","LOCALS",0)~ ~Global("warn","LOCALS",0) GlobalTimerNotExpired("CDGoAway","LOCALS")~
     REPLACE_TEXTUALLY ~Wait(5)~ ~~
     REPLACE_TEXTUALLY ~See(\[NEUTRAL\])~ ~See([NEUTRAL.HUMANOID])~
     APPEND_FILE ~bg2fixpack/baf/enforam.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // script should check live and dead troll DV
 COPY_EXISTING ~firamb01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\([^!]\)Dead("firamb05")~ ~\1OR(2) Dead("firamb03") Dead("firamb05")~
-  COMPILE_BAF_TO_BCS
+  END
 
 // add slight delay so Anomen can comment on dead Windspear knights before Garren
 // double Garren Windspears
 COPY_EXISTING ~garren.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(GlobalLT("DomainPaladinBattle","GLOBAL",4)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100\)[%TAB% %LNL%%MNL%%WNL%]+\(StartDialogu?e?NoSet(Player1)\)~
       ~\1 Wait(1) \2~
     APPEND_FILE ~bg2fixpack/baf/garren.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // animals shold not run away from druids, elves, and rangers
 COPY_EXISTING ~genshy.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(3)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // other gladiators should do something when Hendak does
 COPY_EXISTING ~glad2782.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~Dead("Hendak")~
     ~OR(2)
      Dead("Hendak")
      Allegiance("Hendak",255)~
     APPEND_FILE ~bg2fixpack/baf/glad2782.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // gorf the squisher fixes
 COPY_EXISTING ~gorf.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobal("GoKillEm","LOCALS",2)~
                       ~SetGlobal("GoKillEm","LOCALS",2)
                       SetGlobal("GorfBystander","GLOBAL",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // prevents Tamoko from running away and making PP challenge unfinishable, see chtaz02.cre for other half
 COPY_EXISTING ~gpkensai.bcs~ ~override/cdtamoko.bcs~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!HasItem("POTN55",Myself)~ ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // move grae's minhp1 destruction to dialogue options where she dies; see soa-dlg.d for rest of changes
 COPY_EXISTING ~grae.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~DestroyItem("minhp1")~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // don't interrupt lucette when she's kiling xzar
 COPY_EXISTING ~harpass1.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~FaceObject("Lyros")~ ~SetInterrupt(FALSE) DialogInterrupt(FALSE) FaceObject("Lyros")~
     REPLACE_TEXTUALLY ~StartDialog\(ue\)?NoSet(Player1)~ ~DialogInterrupt(TRUE) SetInterrupt(TRUE) StartDialogueNoSet(Player1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // lesser clay golems in CI can be killed twice
 COPY_EXISTING ~igolfle1.bcs~ ~override~
               ~igolfle2.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("Ellsime","AR0602",1)~ ~Global("Ellsime","AR0602",1) !StateCheck(Myself,STATE_REALLY_DEAD)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // ilyich actually wears his imported armor
@@ -2483,10 +2464,10 @@ EXTEND_BOTTOM ~ilyich.bcs~ ~bg2fixpack/baf/ilyich.baf~
 
 // sahugin spectre should only kill one party member and then escape
 COPY_EXISTING ~impches3.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!Global("ImpRiddle","GLOBAL",3)~ ~!Global("ImpRiddle","GLOBAL",3) Global("CDImpChest","AR2300",0)~
     REPLACE_TEXTUALLY ~Kill(LastTrigger)~ ~Kill(LastTrigger) SetGlobal("CDImpChest","AR2300",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // not paying thieves guild quota fix; see also ar0322.bcs, baldur.bcs, shthlt01.dlg
@@ -2494,29 +2475,29 @@ EXTEND_BOTTOM ~joster.bcs~ ~bg2fixpack/baf/joster.baf~
 
 // script fixes for anarg-smuggler battle; see also kaypal03.bcs, kaysmg04.bcs
 COPY_EXISTING ~kaypal02.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~(\[NEUTRAL\.0\.HUMAN\.THIEF\])~ ~([NOTGOOD.0.0.CLERIC])~
    REPLACE_TEXTUALLY ~(\[ENEMY\.0\.HUMAN\.THIEF\])~   ~([NOTGOOD.0.0.THIEF]) Name("kaysmg",LastSeenBy(Myself))~
    REPLACE_TEXTUALLY ~AttackReevaluate(NearestEnemyOf(Myself),15)~
                      ~AttackReevaluate(LastSeenBy(Myself),15)~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // script fixes for anarg-smuggler battle; see also kaypal02.bcs, kaysmg04.bcs
 COPY_EXISTING ~kaypal03.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~AttackReevaluate(NearestEnemyOf(Myself),30)~ 
                      ~AttackReevaluate(LastSeenBy(Myself),30)~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // script fixes for anarg-smuggler battle; see also kaypal02.bcs, kaypal03.bcs
 COPY_EXISTING ~kaysmg04.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~\(HPPercentLT("kaysmgl",50)[%TAB% %LNL%%MNL%%WNL%]+See("kaysmgl")\)~ ~\1 !Dead("kaysmgl")~
    REPLACE_TEXTUALLY ~HPPercentLT("kaysmg",30)[%TAB% %LNL%%MNL%%WNL%]+See("kaysmg")~ 
                      ~See([NOTGOOD.0.0.THIEF]) HPPercentLT(LastSeenBy(Myself),30) Name("kaysmg",LastSeenBy(Myself))~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // Arkanis Gath should not spawn and kill the PC post-Bynnlaw
@@ -2525,26 +2506,26 @@ EXTEND_TOP ~killpc.bcs~ ~bg2fixpack/baf/killpc.baf~
 // flail of ages forge should still work after acquiring stronghold; wasn't due to bad variable scope
 // Assembling the Flail of Ages piece by piece should grant an XP reward (Wisp)
 COPY_EXISTING ~kpforge.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~,"AR1302",~ ~,"GLOBAL",~
     REPLACE_TEXTUALLY CASE_INSENSITIVE EVALUATE_REGEXP ~TakePartyItem("\(blun14[abc]\)")[ %LNL%]+TakePartyItem("\(blun14[ghi]\)")[ %LNL%]+TakePartyItem("\(blun14[def]\)")[ %LNL%]+GiveItemCreate("BLUN14",LastTrigger,0,0,0)[%LNL%]END~ ~TakePartyItem("\1") TakePartyItem("\2") TakePartyItem("\3") GiveItemCreate("BLUN14",LastTrigger,0,0,0) AddexperienceParty(22350) SetGlobal("ForgeUsed","GLOBAL",1) END~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY
 
 // should be able to steal at Lathander temple if invisible
 COPY_EXISTING ~LATHALRM.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(2)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // lavok dying too early because of this cheese script
 // False()d rather than unassigned in case someone wants to use this for lavok02-specific scripting
 COPY_EXISTING ~lavok02.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!HasItem("MINHP1",Myself)~ ~False()~
     APPEND_FILE ~bg2fixpack/baf/lavok02.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
   
 // madeen should go away if Tolgerias dead--check for other DV
@@ -2552,12 +2533,12 @@ EXTEND_TOP ~madeen.bcs~ ~bg2fixpack/baf/madeen.baf~
 
 // mazzy only goes hostile if Valygar is hostile and not charmed
 COPY_EXISTING ~mazzy.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Allegiance("Valygar",ENEMY)~
                       ~Allegiance("Valygar",ENEMY)
                       !StateCheck("Valygar",STATE_CHARMED)~
     REPLACE_TEXTUALLY ~OR(2)[ %LNL%%MNL%%WNL%]+Dead("gorf")[ %LNL%%MNL%%WNL%]+Dead("gorf03")~ ~Dead("gorf")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Hostile and out of party Minsc and Valygar shouldn't heal party members (Nythrun)
@@ -2570,19 +2551,19 @@ IF ~^0 0 0 0 0 0 0 1 6 0 0 0 ""OB~
 
 // disables Gath spawn from mvally
 COPY_EXISTING ~mvally.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~OR(2)~
                       ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_TOP ~mvally.bcs~ ~bg2fixpack/baf/mvally.baf~
 
 // disables Gath spawn from mvally2
 COPY_EXISTING ~mvally2.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~AttackedBy(\[GOODCUTOFF\],DEFAULT)~
                       ~False()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_TOP ~mvally2.bcs~ ~bg2fixpack/baf/mvally2.baf~
 
@@ -2591,10 +2572,10 @@ EXTEND_BOTTOM ~plgirl01.bcs~ ~bg2fixpack/baf/plgirl01.baf~
 
 // asylum crushing trap hitting wrong folks
 COPY_EXISTING ~ppcrus1.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!StateCheck(LastTrigger,STATE_REALLY_DEAD)~ ~False()~
     REPLACE_TEXTUALLY ~StateCheck(LastTrigger,STATE_REALLY_DEAD)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // emphatic manifestation can be killed by resting outside
@@ -2602,7 +2583,7 @@ EXTEND_TOP ~riftcr04.bcs~ ~bg2fixpack/baf/riftcr04.baf~
 
 // fixes breaking bridge in UE quest
 COPY_EXISTING ~riftg01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY ~!Dead("Riftcr0[23]")~ ~False()~
   REPLACE_TEXTUALLY ~!Dead("Riftcr01")~ ~Dead("Riftcr01")~
   REPLACE_TEXTUALLY ~!Exists("Riftcr01")~
@@ -2615,38 +2596,38 @@ COPY_EXISTING ~riftg01.bcs~ ~override~
      Dead("Riftcr02")
    OR(2)
      !Exists("Riftcr01")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // amalas' buddies should leave together if you kill him
 COPY_EXISTING ~rufpal.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global(\("itFight","R0406P"\|"R0406PitFight",""\),3)~ ~Global("PitFight","AR0406",3)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // trigger misordering causing folks to flee from party, not enemies
 COPY_EXISTING ~runenemy.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(See(\[ENEMY\])\)[%TAB% %LNL%%MNL%%WNL%]+\(!?Detect(\[PC\])\)~ ~\2 \1~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // prevent dupe CoC items; see also ar2300.bcs, sahpr4.cre, sahpr2.dlg, string sets
 EXTEND_BOTTOM ~sahkng01.bcs~ ~bg2fixpack/baf/sahkng01.baf~
 
 COPY_EXISTING ~sardw01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~"SaradushAmbientInsults","GLOBAL"~ ~"SaradushAmbientInsults","AR5000"~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // habib shouldn't spawn if dead
 COPY_EXISTING ~slilmat.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("SpawnHabib","GLOBAL",5)~
                       ~Global("SpawnHabib","GLOBAL",5) !Dead("Habib")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // ring of djinni summoning should destroy ring if djinni dies
@@ -2654,12 +2635,12 @@ EXTEND_TOP ~sumdj01.bcs~ ~bg2fixpack/baf/sumdj01.baf~
 
 // avatar of rilifane xp exploit fix
 COPY_EXISTING ~sustatue.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Contains("MISCB3",Myself)~
       ~Contains("MISCB3",Myself) Global("CDNoRepeat","AR2803",0)~
     REPLACE_TEXTUALLY ~TriggerActivation("Tran2800",FALSE)~
       ~SetGlobal("CDNoRepeat","AR2803",1) TriggerActivation("Tran2800",FALSE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // alignment change if evil path in hell trials; other fixes in ar2900.bcs
@@ -2667,9 +2648,9 @@ EXTEND_TOP ~teardoor.bcs~ ~bg2fixpack/baf/teardoor.baf~
 
 // stops Terrece from initiating dialogue from outside
 COPY_EXISTING ~terrece.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("TerreceSpawn","GLOBAL",2)~ ~Global("TerreceSpawn","GLOBAL",2) See([PC])~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // multiple ring of the ram exploit fixes
@@ -2677,55 +2658,55 @@ EXTEND_TOP ~tolger.bcs~ ~bg2fixpack/baf/tolger.baf~
 
 // summoned juggernaut golem shouldn't die instantly if summoned by clone
 COPY_EXISTING ~tomegol4.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~!CheckStatGT(Player1,0,STONESKINSGOLEM)~ ~!CheckStatGT(LastSummonerOf(Myself),0,STONESKINSGOLEM) !CheckStatGT(Player1,0,STONESKINSGOLEM)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // removes bug of losing rogue stone if reloaded
 // The Twisted Rune entrance trigger in the Bridge District should only consume a single Rogue Stone (aVENGER)
 COPY_EXISTING ~tran1008.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~TakePartyItem("MISC45")~ ~~
     REPLACE_TEXTUALLY ~ActionOverride(Player1,LeaveAreaLUAPanic("AR1008","",\[495\.755\],10))~
                       ~ActionOverride(Player1,LeaveAreaLUAPanic("AR1008","",[495.755],10))
                       TakePartyItemNum("MISC45",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
  
 // trrakxx should have dialogue when attacked
 COPY_EXISTING ~TrRak01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~AttackedBy(\[ANYONE\],DEFAULT)~ ~Global("attacked","LOCALS",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_TOP ~TrRak01.bcs~ ~bg2fixpack/baf/TrRak01.baf~
 
 // endless Ust Natha tavern combat music
 COPY_EXISTING ~ucounter.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF 
+  DECOMPILE_AND_PATCH BEGIN 
     REPLACE_TEXTUALLY ~SetGlobal("HaltMusicWithLesaonar","GLOBAL",0)~ ~SetGlobal("HaltMusicWithLesaonar","GLOBAL",2)~
     REPLACE_TEXTUALLY ~\(CombatCounterLT(50)[%TAB% %LNL%%MNL%%WNL%]+Global("HaltMusicWithLesaonar","GLOBAL",\)0)~ ~\12)~
     APPEND_FILE ~bg2fixpack/baf/ucounter.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // prevent journal entry for already-openeed UD illithid doors
 COPY_EXISTING ~uddoor2.bcs~ ~override~
               ~uddoor3.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("thrallDoorMes","AR2400",0)~  ~Global("thrallDoorMes","AR2400",0)  Global("thrallDoorOpen","AR2400",0)~
     REPLACE_TEXTUALLY ~Global("thrallDoorMes2","AR2400",0)~ ~Global("thrallDoorMes2","AR2400",0) Global("thrallDoorOpen2","AR2400",0)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Ust Natha egg guards no longer see invisible folks
 COPY_EXISTING ~udeggs.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~GlobalTimerExpired("eggGuardDoesWarn","GLOBAL")~
                       ~GlobalTimerExpired("eggGuardDoesWarn","GLOBAL")
                       See([PC])~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
   
 // dialogue breaks in phaere's recue if Sola is invald for dialogue
@@ -2733,71 +2714,71 @@ EXTEND_TOP ~udphae01.bcs~ ~bg2fixpack/baf/udphae01.baf~
 
 // uhleave5 and 6 should be moving between areas, opening doors, etc.
 COPY_EXISTING ~uhleave5.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~MoveToPointNoInterrupt(\[805\.407\])~ ~MoveToPointNoInterrupt([805.407]) Unlock("DOOR02") OpenDoor("DOOR02")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_TOP ~uhleave5.bcs~ ~BG2Fixpack/baf/uhleave5.baf~
 
 COPY_EXISTING ~uhleave6.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~MoveToPointNoInterrupt(\[709\.301\])~ ~MoveToPointNoInterrupt([709.301]) Unlock("DOOR02") OpenDoor("DOOR02")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 EXTEND_TOP ~uhleave6.bcs~ ~BG2Fixpack/baf/uhleave6.baf~
 
 // trap triggers can't check LOCALS variables; display different string if umber hulks already dead
 EXTEND_TOP    ~umbpoly.bcs~ ~bg2fixpack/baf/umbpoly.baf~
 COPY_EXISTING ~umbpoly.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("UmbPoly","LOCALS",0)~ ~Global("UmbPoly","AR1301",0) NumDeadLT("KPUMB01",5)~
     REPLACE_TEXTUALLY ~"LOCALS"~ ~"AR1301"~
-  COMPILE_BAF_TO_BCS
+  END
   REPLACE ~98765~ @142
   BUT_ONLY_IF_IT_CHANGES
 
 // Valygar only goes hostile if mazzy is hostile and not charmed
 // valygar goes hostile if something happens to hervo, but should leave the party first
 COPY_EXISTING ~valygar.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Allegiance("Mazzy",ENEMY)~
                       ~Allegiance("Mazzy",ENEMY)
                       !StateCheck("Mazzy",STATE_CHARMED)~
     REPLACE_TEXTUALLY ~SetGlobal("vgAttackTheParty","LOCALS",1)~ ~SetGlobal("vgAttackTheParty","LOCALS",1) LeaveParty()~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
   
 // Valygar leaving party in Slums can cause cutscene hang
 COPY_EXISTING ~valyorb.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~IsOverMe("Valygar")~
       ~IsOverMe("Valygar") InParty("Valygar") IsValidForPartyDialogue("Valygar") !StateCheck("Valygar",STATE_SLEEPING)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // prevents viekang's double dialogue
 COPY_EXISTING ~viekang.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("Attacked","LOCALS",0)~ ~Global("Attacked","LOCALS",0) !Global("ViekangSeesPC","LOCALS",1)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // closes Yoshimo exploit of resurrecting him after Spellhold
 // prevent Yoshimo telling you to see Renal when you already have
 COPY_EXISTING ~yoshimo.BCS~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Kill(Myself)~
                       ~Kill(Myself)
                       LeaveParty()~
     REPLACE_TEXTUALLY ~Global("YoshimoMentionsRenal","LOCALS",0)~ ~Global("YoshimoMentionsRenal","LOCALS",0) Global("TalkedToRenal","GLOBAL",0)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // Yoshimo should not drop two hearts when slain by a petrification effect (Nythrun)
 COPY_EXISTING yoshimox.bcs override
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~^\(  Die()\)~ ~\1 !StateCheck(Myself,128)~
-  COMPILE_BAF_TO_BCS
+  END
 BUT_ONLY
 
 ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB check
@@ -2808,9 +2789,9 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB check
 
   COPY_EXISTING ~demnabsu.bcs~ ~override~
                 ~dempitsu.bcs~ ~override~
-    DECOMPILE_BCS_TO_BAF
+    DECOMPILE_AND_PATCH BEGIN
       REPLACE_TEXTUALLY ~See(\[ANYONE\])~ ~See([ANYONE]) CheckStatLT(LastSeenBy(Myself),1,169)~
-    COMPILE_BAF_TO_BCS
+    END
     BUT_ONLY
 
   // Hostile Planetars and Devas should not attempt to heal party members (Nythrun and aVENGER)
@@ -2819,13 +2800,13 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB check
     ACTION_IF FILE_EXISTS_IN_GAME ~%script%.bcs~ THEN BEGIN
 
       COPY_EXISTING ~%script%.bcs~ override
-        DECOMPILE_BCS_TO_BAF
+        DECOMPILE_AND_PATCH BEGIN
           REPLACE_TEXTUALLY ~HaveSpell(CLERIC_LESSER_RESTORATION)~ ~HaveSpell(CLERIC_LESSER_RESTORATION) Allegiance(Myself,GOODCUTOFF)~
           REPLACE_TEXTUALLY ~HaveSpell(CLERIC_NEUTRALIZE_POISON)~ ~HaveSpell(CLERIC_NEUTRALIZE_POISON) Allegiance(Myself,GOODCUTOFF)~
           REPLACE_TEXTUALLY ~HaveSpell(CLERIC_REMOVE_FEAR)~ ~HaveSpell(CLERIC_REMOVE_FEAR) Allegiance(Myself,GOODCUTOFF)~
           REPLACE_TEXTUALLY ~HPPercentLT(MostDamagedOf(Myself),25)~ ~HPPercentLT(MostDamagedOf(Myself),25) Allegiance(Myself,GOODCUTOFF)~
           REPLACE_TEXTUALLY ~HaveSpell(CLERIC_DISPEL_MAGIC)~ ~HaveSpell(CLERIC_DISPEL_MAGIC) Allegiance(Myself,GOODCUTOFF)~
-        COMPILE_BAF_TO_BCS
+        END
       BUT_ONLY
 
     END
@@ -2843,9 +2824,9 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // ToB check
 
   // Killing unrelated baatezu outside Ka'rashur's room should not turn him and his cohort in Watcher's Keep hostile (see also ar3005.are, ar3006.are, ar3009.are and ar6012.are) (Wisp)
   COPY_EXISTING yssumm2.bcs override
-    DECOMPILE_BCS_TO_BAF
+    DECOMPILE_AND_PATCH BEGIN
       REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~"gorbat2"~ ~"deriny01"~
-    COMPILE_BAF_TO_BCS
+    END
 
 END
 
@@ -6689,7 +6670,7 @@ COPY_EXISTING ~senani03.cre~ ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // resref typo
 COPY_EXISTING ~gorje.cre~  ~override~
   READ_LONG  0x2bc "itm_off" ELSE 0
@@ -9035,7 +9016,7 @@ COPY_EXISTING ~aerie7.cre~ ~override~
     WRITE_LONG 0x2bc ("%itm_off%" + "%offset%")
   END
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // anomen save fix
 COPY_EXISTING ~anomen6.cre~ ~override~
   WRITE_BYTE 0x57 12 // save v breath
@@ -9955,7 +9936,7 @@ COPY_EXISTING ~famimp.cre~ ~override~
   WRITE_SHORT 0x46 6  // natural ac
   WRITE_SHORT 0x48 6  // effective ac
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // soa rabbit
 COPY_EXISTING ~famrab.cre~   ~override~
   WRITE_BYTE  0x45 20 // hide in shadows
@@ -10001,7 +9982,7 @@ COPY_EXISTING ~famfair.cre~   ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
-  
+
 // soa cat
 COPY_EXISTING ~famcat.cre~   ~override~
   WRITE_BYTE  0x45 89 // hide in shadows
@@ -14712,6 +14693,7 @@ COPY_EXISTING ~chalcy2.itm~ ~override~
 // fixes chan02 description
 COPY_EXISTING ~chan02.itm~ ~override~
   SAY IDENTIFIED_DESC #16272
+  WRITE_LONG 0x4c 20 // weight
   BUT_ONLY_IF_IT_CHANGES
 
 // item requires lore
@@ -15172,6 +15154,7 @@ COPY_EXISTING ~halb09.itm~ ~override~
 
 // borok's fist should use its own, unique icon
 COPY_EXISTING ~hamm05.itm~ ~override~
+  WRITE_LONG  0x0c 61268 // unique name string
   WRITE_ASCII 0x3a ~ihamm05~ #8
   WRITE_ASCII 0x58 ~chamm05~ #8
   READ_LONG   0x64 "abil_off"
@@ -15319,24 +15302,11 @@ COPY_EXISTING ~imp.itm~      ~override~ // imp soa
 
 //removes poison ability from imp and quasit attacks
 COPY_EXISTING ~imp.itm~     ~override~
+              ~impclaw.itm~ ~override~
               ~impqua.itm~  ~override~
   PATCH_IF (SOURCE_SIZE > 0x71) THEN BEGIN // protects against invalid files
-    READ_LONG  0x64 "abil_off"
-    READ_SHORT 0x68 "abil_num"
-    READ_LONG  0x6a "fx_off"
-    WHILE ("%abil_num%" > 0) BEGIN
-      SET "abil_num" = ("%abil_num%" - 1)
-      READ_SHORT ("%abil_off%" + ("%abil_num%" * 0x38)) "type"
-      PATCH_IF ("%type%" = 1) BEGIN // if melee ability
-        WRITE_SHORT ("%abil_off%" + 0x16 + ("%abil_num%" * 0x38)) 6 // sets dice size to 6
-        READ_SHORT ("%abil_off%" + 0x1e + ("%abil_num%" * 0x38)) "fx_num"
-        READ_SHORT ("%abil_off%" + 0x20 + ("%abil_num%" * 0x38)) "fx_idx"
-        WHILE ("%fx_num%" > 0) BEGIN // sets prob = 0 to any effects that go with it
-          SET "fx_num" = ("%fx_num%" - 1)
-          WRITE_BYTE ("%fx_off%" + 0x12 + (("%fx_idx%" + "%fx_num%") * 0x30)) 0
-        END
-      END
-    END
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 25 END // delete poison effect
+    LPF ITEM_ALTER_HEADER INT_VAR type = 1 dicesize = 6 END  // change damage to 1d6
   END
   BUT_ONLY_IF_IT_CHANGES
 
@@ -16370,7 +16340,6 @@ COPY_EXISTING ~scrl7m.itm~ ~override~ // true sight
 COPY_EXISTING ~scrl5c.itm~ ~override~ // protection from lightning
               ~scrl5k.itm~ ~override~ // spirit armor
               ~scrl9h.itm~ ~override~ // maze
-              ~scrla8.itm~ ~override~ // contagion
               ~scrlak.itm~ ~override~ // remove curse
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
@@ -16460,6 +16429,7 @@ COPY_EXISTING ~scrl6j.itm~ ~override~ // spell thrust
 COPY_EXISTING ~scrl63.itm~ ~override~ // raise dead
               ~scrl76.itm~ ~override~ // infravision
               ~scrla1.itm~ ~override~ // wizard eye
+              ~scrla8.itm~ ~override~ // contagion
   READ_LONG  0x64 "abil_off"
   READ_SHORT 0x68 "abil_num"
   READ_LONG  0x6a "fx_off"
@@ -16587,6 +16557,7 @@ COPY_EXISTING ~scrla9.itm~  ~override~ // waneev's note
               ~scrlick.itm~ ~override~ // illithid correspndence
               ~scrlmz.itm~  ~override~ // note from Mazzy Fentan
   WRITE_SHORT 0x1c 37 // book
+  WRITE_BYTE  0x2a  0 // min int
   WRITE_SHORT 0x38  1 // 1 max stack
   BUT_ONLY_IF_IT_CHANGES
 
@@ -17413,6 +17384,12 @@ COPY_EXISTING ~ttwand.itm~ ~override~
     END
   END
   BUT_ONLY_IF_IT_CHANGES
+
+// add disease immunity to vampires; fleshed out in immunity batches below
+COPY_EXISTING ~vampreg.itm~  ~override~
+              ~vampreg1.itm~ ~override~
+              ~vampreg2.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 parameter2 = 78 timing = 2 END
 
 // sensate amulet should increase max HP and not current & max HP to close healing loophole
 COPY_EXISTING ~wa2amu.itm~   ~override~
@@ -19276,6 +19253,9 @@ COPY_EXISTING ~spcl415.spl~ ~override~ // otiluke's sphere (special snare)
         WRITE_BYTE            ("%fx_off%" + 0x0d + (0x30 * "%abil_fx_idx%")) 1               // dispel/not bypass
         WRITE_BYTE            ("%fx_off%" + 0x12 + (0x30 * "%abil_fx_idx%")) 100             // probability
         WRITE_EVALUATED_ASCII ("%fx_off%" + 0x14 + (0x30 * "%abil_fx_idx%")) ~%SOURCE_RES%a~ // spell
+        WRITE_BYTE            ("%fx_off%" + 0x24 + (0x30 * "%abil_fx_idx%")) 1               // save vs.spell
+
+
     END
   END
   BUT_ONLY_IF_IT_CHANGES
@@ -21519,7 +21499,7 @@ COPY_EXISTING ~spwi319.spl~ ~override~
       READ_SHORT abil_off + 0x28 * i + 0x1e num_fx
       READ_SHORT abil_off + 0x28 * i + 0x20 fx_idx
       READ_ASCII fx_off + 0x30 * fx_idx fx_block_clone (0x30 * num_fx)
-      header_point = abil_off + 0x28 * (i + 1)          //+1, to get ahead of the level 18 header 
+      header_point = abil_off + 0x28 * (i + 1)          //+1, to get ahead of the level 18 header
       fx_point = fx_off + 0x30 * (fx_idx + num_fx)
       FOR (j = abil_num - 1; j > 0; --j) BEGIN          //Verify that levels 19 and 20 are indeed missing; in this context j must always be positive, 
                                                         //since we know we have at least one header for level 18
@@ -23239,6 +23219,7 @@ COPY_EXISTING ~spwi307.spl~ ~override~
 COPY_EXISTING ~spwi409.spl~ ~override~ // contagion
   PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN
     WRITE_BYTE 0x22 9 // necromancy animation
+    LPF SPELL_ALTER_HEADER INT_VAR range = 30 END
   END
   BUT_ONLY_IF_IT_CHANGES
 
@@ -25792,25 +25773,25 @@ ACTION_FOR_EACH file IN abazring.itm ammonk07.cre ammonk08.cre amsmith.cre amul1
             END
           END
           PATCH_IF (("%new_fx_1%" = 1) OR ("%new_fx_2%" = 1) OR ("%new_fx_3%" = 1)) BEGIN
-            // put three immunities at end of effects, others first so immunities don't prevent other new/ existing effects
+            // put three immunities at one before the end of effects, others first so immunities don't prevent other new/ existing effects
             PATCH_IF ("%new_fx_1%" = 0) BEGIN
-              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
-                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
-                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) 23           // modify morale imunity
+              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) 23           // modify morale imunity
               SET "new_fx" = ("%new_fx%" + 1)
               SET "counter" = ("%counter%" + 1)
             END
             PATCH_IF ("%new_fx_2%" = 0) BEGIN
-              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
-                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
-                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) 24           // panic imunity
+              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) 24           // panic imunity
               SET "new_fx" = ("%new_fx%" + 1)
               SET "counter" = ("%counter%" + 1)
             END
             PATCH_IF ("%new_fx_3%" = 0) BEGIN
-              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
-                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
-                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%") * (0x30 + (0xd8 * "%fx_type%")))) 106          // morale break modifier immunity
+              INSERT_BYTES   ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) (0x30 + (0xd8 * "%fx_type%"))
+                WRITE_ASCIIE ("%fx_off%"                               + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) "%template%" // clones immunity effect
+                WRITE_LONG   ("%fx_off%" + 0x08 + (0x10 * "%fx_type%") + (("%counter%" + "%abil_fx_idx%" - 1) * (0x30 + (0xd8 * "%fx_type%")))) 106          // morale break modifier immunity
               SET "new_fx" = ("%new_fx%" + 1)
               SET "counter" = ("%counter%" + 1)
             END
@@ -26339,6 +26320,9 @@ COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
               ~spcl814.spl~  ~override~ // <invalid strref -1>
               ~sword01.cre~  ~override~ // magical sword
               ~tstatue.itm~  ~override~ // <invalid strref -1>
+              ~vampreg.itm~  ~override~ // vampire regen item
+              ~vampreg1.itm~ ~override~ // vampire regen item
+              ~vampreg2.itm~ ~override~ // vampire regen item
   LAUNCH_PATCH_MACRO ~add_fx_batch_prep~ // defines vars for rest of patch
   PATCH_IF (SOURCE_SIZE >= min_size) BEGIN
     SET "new_fx" = 0
@@ -26424,13 +26408,16 @@ COPY_EXISTING ~demogorg.itm~ ~override~ // <invalid strref -1>
   BUT_ONLY_IF_IT_CHANGES
 
 // poison resistance (immunity to both disease damage and poison damage)
-COPY_EXISTING demogorg.itm override //<Invalid Strref -1>
-              finmel01.itm override //<Invalid Strref -1>
-              minhp1.itm   override //<Invalid Strref -1>
-              ravag03.itm  override //<Invalid Strref -1>
-              ring39.itm   override //Ring of Gaxx
-              sengua04.itm override //<Invalid Strref -1>
-              tstatue.itm  override //<Invalid Strref -1>
+COPY_EXISTING ~demogorg.itm~ ~override~ //<Invalid Strref -1>
+              ~finmel01.itm~ ~override~ //<Invalid Strref -1>
+              ~minhp1.itm~   ~override~ //<Invalid Strref -1>
+              ~ravag03.itm~  ~override~ //<Invalid Strref -1>
+              ~ring39.itm~   ~override~ //Ring of Gaxx
+              ~sengua04.itm~ ~override~ //<Invalid Strref -1>
+              ~tstatue.itm~  ~override~ //<Invalid Strref -1>
+              ~vampreg.itm~  ~override~ // vampire regen item
+              ~vampreg1.itm~ ~override~ // vampire regen item
+              ~vampreg2.itm~ ~override~ // vampire regen item
   LAUNCH_PATCH_MACRO ~add_fx_batch_prep~ // defines vars for rest of patch
   PATCH_IF (SOURCE_SIZE >= min_size) BEGIN
     SET "new_fx" = 0
@@ -28159,6 +28146,8 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
               ~sword01.cre~  ~override~ // magical sword
               ~telslav2.itm~ ~override~ // <invalid strref -1>
               ~torgal.cre~   ~override~ // torgal
+              ~torgal2.cre~  ~override~ // torgal
+              ~torgal3.cre~  ~override~ // torgal
               ~trollall.itm~ ~override~ // attack
               ~trollimm.itm~ ~override~ // ring
               ~tstatue.itm~  ~override~ // <invalid strref -1>
@@ -28327,6 +28316,8 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
               ~sw2h06.itm~   ~override~ // spider's bane
               ~sword01.cre~  ~override~ // magical sword
               ~torgal.cre~   ~override~ // torgal
+              ~torgal2.cre~  ~override~ // torgal
+              ~torgal3.cre~  ~override~ // torgal
               ~trollall.itm~ ~override~ // attack
               ~tstatue.itm~  ~override~ // <invalid strref -1>
               ~uddrow50.cre~ ~override~ // drow wizard
@@ -28423,6 +28414,7 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring
     LAUNCH_PATCH_MACRO ~add_fx_batch_final~ // wrapup creature offset patching
   END
   BUT_ONLY_IF_IT_CHANGES  
+
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -28558,66 +28550,50 @@ END
 ///// dialogue fixes                                   \\\\\
 /////                                                  \\\\\
 
-// Keldorn re-joining variable typo fix (berelinde)
-COPY_EXISTING ~keldorj.dlg~ ~override~
-    DECOMPILE_DLG_TO_D
-      REPLACE_TEXTUALLY ~SetGlobal("KeldornLeaves","GLOBAL",1)~  ~SetGlobal("KeldornLeave","GLOBAL",1)~
-    COMPILE_D_TO_DLG
-    BUT_ONLY_IF_IT_CHANGES
-
-// Fix Aerie's "Blanket Thieves" banter which could never occur due to a duplicated PartyRested() trigger (berelinde)
-COPY_EXISTING ~baerie.dlg~ ~override~
-  DECOMPILE_DLG_TO_D
-    REPLACE_TEXTUALLY EXACT_MATCH ~PartyRested()
-Gender(Player1,FEMALE)~ ~Gender(Player1,FEMALE)~
-  COMPILE_D_TO_DLG
-BUT_ONLY_IF_IT_CHANGES
-
-// Fix Haer'Dalis' "Arcane muttering" banter with Edwin which could never occur due to a duplicated PartyRested() trigger (aVENGER)
-COPY_EXISTING ~bhaerda.dlg~ ~override~
-  DECOMPILE_DLG_TO_D
-    REPLACE_TEXTUALLY EXACT_MATCH ~PartyRested()
-InParty("Edwin")~ ~InParty("Edwin")~
-  COMPILE_D_TO_DLG
-BUT_ONLY_IF_IT_CHANGES
-
 /////                                                  \\\\\
 ///// scripting fixes                                  \\\\\
 /////                                                  \\\\\
 
+// remove old map note instead of laying new one one top of it
+COPY_EXISTING ~AR0300.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(AddMapNote(\[3078\.2434\],4636)\)~ ~RemoveMapNote([3078.2434],48359) \1~
+  END
+  BUT_ONLY
+
 // Temple of Talos script can loop interminably if <CHARNAME> murders too wantonly (Nythrun and Wisp)
 COPY_EXISTING ar0904.bcs override
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~^ *Dead("talmiss")~
                                           ~  Dead("talmiss")  Exists("talmiss2")  !Dead("talmiss2")~
     REPLACE_TEXTUALLY ~^ *Dead("talmiss2")~
                                           ~  Dead("talmiss2")  Exists("talmiss")  !Dead("talmiss")~
-  COMPILE_BAF_TO_BCS
+  END
 BUT_ONLY
 UNLESS ~16465 0 1 0 0 "talmiss[2]?" "" OB~
 
 // fixes Glacias charm issue
 COPY_EXISTING ~ar1303.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~StateCheck("kpglai01",STATE_CHARMED)~ ~!Allegiance("kpglai01",ENEMY)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY
 
 // The Spellhold Asylum door should be unlocked and opened once (aVENGER)
 COPY_EXISTING ~ar1500.bcs~ ~override~
-DECOMPILE_BCS_TO_BAF
+DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY EXACT_MATCH ~GlobalGT("AsylumPlot","GLOBAL",55)~ ~GlobalGT("AsylumPlot","GLOBAL",55) Global("RR#Door1501","AR1500",0)~
   REPLACE_TEXTUALLY EXACT_MATCH ~Unlock("Door1501")~ ~SetGlobal("RR#Door1501","AR1500",1) Unlock("Door1501")~
-COMPILE_BAF_TO_BCS
+END
 BUT_ONLY_IF_IT_CHANGES
 
 // saemon brynnlaw -> sahuagin city sequence errors (8 changes)
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
 // add extra trigger so this won't fire twice
 COPY_EXISTING ~ar1600.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Dead("ppright")~  ~GlobalLT("AsylumPlot","GLOBAL",78) Dead("ppright")~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // militia wizard breaking up fight
@@ -28628,35 +28604,50 @@ COPY_EXISTING ~ar2010.bcs~ ~override~
   END
   BUT_ONLY
 
+// aerie's banter meant for player1 as it mentions missing soul
+COPY_EXISTING ~ar2100.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("AerieInUnderdark","AR2100",0)\)~ ~\1 IsValidForPartyDialogue(Player1)~
+    REPLACE_TEXTUALLY ~ActionOverride("Aerie",StartDialog\(ue\)?NoSet(\[PC\]))~ ~ActionOverride("Aerie",StartDialogueNoSet(Player1))~
+  END
+  BUT_ONLY
+
 // saemon brynnlaw -> sahuagin city sequence errors (8 changes)
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
 // many changes--clear actions, make uniterruptable, reorder textscreen, move saemon dialogue call here from ppsaem2.bcs
 COPY_EXISTING ~cut41q.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CutSceneId(Player1)~     ~CutSceneId(Player1) ClearAllActions() SetInterrupt(FALSE)~
     REPLACE_TEXTUALLY ~TextScreen("SCRTXT05")~  ~ActionOverride("ppsaem3",StartDialogueNoSet(Player1))~
     REPLACE_TEXTUALLY ~MultiPlayerSync()~       ~MultiPlayerSync() TextScreen("SCRTXT05")~
     REPLACE_TEXTUALLY ~Explore()~               ~Explore() SetInterrupt(TRUE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // saemon brynnlaw -> sahuagin city sequence errors (8 changes)
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
 // clear actions, make uninterruptable
 COPY_EXISTING ~cut41zf.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CutSceneId(Player1)~                  ~CutSceneId(Player1) ClearAllActions() SetInterrupt(FALSE)~
     REPLACE_TEXTUALLY ~SetGlobal("AttackedGith","GLOBAL",1)~ ~SetGlobal("AttackedGith","GLOBAL",1) SetInterrupt(TRUE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // saemon brynnlaw -> sahuagin city sequence errors (8 changes)
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
 // add a bit more time for sahuagin attack
 COPY_EXISTING ~cut41zg.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SetGlobalTimer("GithTimer1","GLOBAL",5)~ ~SetGlobalTimer("GithTimer1","GLOBAL",10)~
-  COMPILE_BAF_TO_BCS
+  END
+  BUT_ONLY_IF_IT_CHANGES
+
+// make mask of king strohm a little more reliable
+COPY_EXISTING ~ddguard7.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!HasItemEquiped("key20",\[PC\])~ ~!HasItemEquiped("key20",LastSeenBy(Myself))~
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // druids fighting unspawned trolls
@@ -28671,11 +28662,19 @@ COPY_EXISTING ~dgdru01.bcs~ ~override~
 COPY_EXISTING ~dgtrol02.bcs~ ~override~ // Druid Grove trolls that are fighting some adventurers
               ~troll03.bcs~  ~override~ // small trolls which emerge out of a bigger one on the first floor of de'Arnise Keep
               ~firamb05.bcs~ ~override~ // the troll fighting the werewolf captain in Firkraag's lair
-DECOMPILE_BCS_TO_BAF
+DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY EXACT_MATCH ~PlayDead(150)~ ~ApplySpell(Myself,TROLL_SETHP1) PlayDead(150)~
   REPLACE_TEXTUALLY EXACT_MATCH ~PlayDead(300)~ ~ApplySpell(Myself,TROLL_SETHP1) PlayDead(300)~
-COMPILE_BAF_TO_BCS
+END
 BUT_ONLY_IF_IT_CHANGES
+
+// duergar mage has inconsistent target/attack blocks
+COPY_EXISTING duemag01.bcs override
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~See(NearestEnemyOf(Myself))[ %TAB%%LNL%%MNL%%WNL%]*\(HaveSpell(WIZARD_AGANNAZAR_SCORCHER)\)~ 
+      ~See(SecondNearestEnemyOf(Myself)) \1~
+  END
+BUT_ONLY
 
 // Drow etc. guarding the way out of the Underdark start to stutter if they are charmed after you have made an enemy of the Ust Natha (Wisp)
 COPY_EXISTING dwgates1.bcs override
@@ -28687,11 +28686,17 @@ UNLESS ~16439 8192 1 0 0 "" "" OB~ //UNLESS !StateCheck(Myself,STATE_CHARMED)
 
 //Kruin can spawn again if you killed him before he could talk (Wisp)
 COPY_EXISTING githspwn.bcs override
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~!Exists("Kruin")~ ~!Exists("Kruin") !Dead("Kruin")~
-  COMPILE_BAF_TO_BCS
+  END
 UNLESS ~16465 0 1 0 0 "Kruin" "" OB~
 BUT_ONLY
+
+// generic healer script casting bless long before combat
+COPY_EXISTING ~gphealer.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_BLESS)\)~ ~\1 See(NearestEnemyOf(Myself))~
+  END
 
 // script assigned to both container and area-trigger traps, but only working for area triggers
 COPY_EXISTING gtspike.bcs override
@@ -28700,13 +28705,16 @@ COPY_EXISTING gtspike.bcs override
   END
   BUT_ONLY
   UNLESS ~16521 [0-9]+ 0 0 0 "" "" OB~
+  
+// hannah xp exploit; see also kftown02.cre
+EXTEND_BOTTOM ~kftown02.bcs~ ~bg2fixpack/baf/kftown02.baf~
 
 // Hendak should not randomly end up in some other part of the Copper Coronet if he performs a jump to arrive at Lehtinan's spot (Wisp)
 COPY_EXISTING hendak.bcs override
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY EXACT_MATCH "SetHomeLocation([32.120])" "SetHomeLocation([526.1193])"
     REPLACE_TEXTUALLY EXACT_MATCH "JumpToPoint([526.1193])" "SetHomeLocation([526.1193]) JumpToPoint([526.1193])"
-  COMPILE_BAF_TO_BCS
+  END
 BUT_ONLY
 UNLESS // True unless there already is a SetHomeLocation before JumpToPoint.
 ~AC
@@ -28724,17 +28732,17 @@ AC
 // see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
 // false block for saemon initiating dialogue (moved to cut41q.bcs); add block to make saemon hostile if attacked
 COPY_EXISTING ~ppsaem2.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Global("SaemInit1607","GLOBAL",0)~ ~False()~
     APPEND_FILE ~bg2fixpack/baf/ppsaem2.baf~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 //reddeath doesn't work because it uses the wrong action (Wisp)
 COPY_EXISTING reddeath.bcs override
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
   REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ReallyForceSpell ReallyForceSpellDead
-  COMPILE_BAF_TO_BCS
+  END
 UNLESS 240OB
 BUT_ONLY
 
@@ -28748,12 +28756,26 @@ COPY_EXISTING udelf1.bcs override
 BUT_ONLY
 UNLESS ~16500 0 1 0 0 "" "" OB%LNL%255 0 0 0 0 0 0 0 0 0 0 0 ""OB~ //UNLESS !Detect([ENEMY])
 
+// replace flaky Die() in underdark mind flayer script
+COPY_EXISTING ~udmpswn.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Die()~ ~StateCheck(Myself,STATE_REALLY_DEAD) Global("CDDieReplace","LOCALS",0)~
+    REPLACE_TEXTUALLY ~\(SetGlobal("spawnIll","AR2400",0)\)~ ~\1 SetGlobal("CDDieReplace","LOCALS",1)~
+  END
+  BUT_ONLY
+
 // valygar drops his body if imprisoned
 COPY_EXISTING valygar.bcs override
   DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(Global("DropValygar","GLOBAL",0)\)~ ~Dead("Valygar") \1~
   END
 BUT_ONLY
+
+ACTION_IF GAME_IS tob BEGIN
+
+  EXTEND_TOP ~wish01.bcs~ ~bg2fixpack/baf/wish01.baf~ // asc64 wish fixes; see wish25.dlg
+  
+END
 
 /////                                                  \\\\\
 ///// area fixes                                       \\\\\
@@ -28766,16 +28788,7 @@ COPY_EXISTING ~ar0020.are~ ~override~
 
 // container traps won't trigger due to ground scripts
 COPY_EXISTING ar0503.are override
-              ar5204.are override
-  PATCH_IF (SOURCE_SIZE > 0x11b) THEN BEGIN // protects against invalid files
-    READ_LONG 0x70 co
-    FOR (i = 0; i < SHORT_AT 0x5a; ++i) BEGIN
-      READ_ASCII co + 0xc0 * i + 0x48 s (2)
-      PATCH_IF "%s%" STRING_EQUAL_CASE gt BEGIN
-        WRITE_ASCII co + 0xc0 * i + 0x48 CT #2
-      END
-    END
-  END
+  LPF AREA_ALTER_CONTAINER STR_VAR cont_name = "Container 1" cont_script = "ctfb" END
   BUT_ONLY
 
 // shift guarded compund entrance in temple district
@@ -28853,6 +28866,13 @@ BUT_ONLY
 COPY_EXISTING ~ar1902.are~ ~override~
   READ_LONG 0xbc song_off
   WRITE_LONG (song_off + 0x0c) 54 // battle music
+
+// container traps won't trigger due to ground scripts; see also ct028.bcs
+COPY_EXISTING ar5204.are override
+  PATCH_IF (SOURCE_SIZE > 0x11b) THEN BEGIN // protects against invalid files
+    LPF AREA_ALTER_CONTAINER STR_VAR cont_name = "Bed" cont_script = "ctfb" END
+  END
+  BUT_ONLY
 
 /////                                                  \\\\\
 ///// creature file fixes                              \\\\\
@@ -29069,6 +29089,10 @@ COPY_EXISTING ~demgla01.cre~   ~override~ // Ranger stronghold Glabrezu
 WRITE_LONG 0x14 12500 // XP value
 BUT_ONLY_IF_IT_CHANGES
 
+// hannah xp exploit; see also kftown02.bcs
+COPY_EXISTING ~kftown02.cre~ ~override~
+  WRITE_ASCII 0x250 ~kftown02~ #8
+
 // new method for glacias charm issue; see ar1303.bcs and kpglai01.dlg
 COPY_EXISTING ~kpglai01.cre~ ~override~
   WRITE_BYTE 0x270 128
@@ -29084,6 +29108,13 @@ COPY_EXISTING pcapt03.cre override
     END
   END
 BUT_ONLY
+
+// torgal's HD are exceedingly low, making her vulnerable to cloudkill
+// when this moves to core, remove the torgal2/3 copies if this goes above the troll cloning
+COPY_EXISTING ~torgal.cre~  ~override~
+              ~torgal2.cre~ ~override~
+              ~torgal3.cre~ ~override~
+  WRITE_BYTE 0x234 16
 
 /////                                                  \\\\\
 ///// item file fixes                                  \\\\\
@@ -29148,6 +29179,10 @@ COPY_EXISTING bolt07.itm override
     END
   END
 BUT_ONLY
+
+// remove apr opcode from ranged header
+COPY_EXISTING ~bow08.itm~ ~override~
+  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 1 END
 
 // bow thac0 fixes
 ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bow_thac0 BEGIN
@@ -29223,6 +29258,11 @@ COPY_EXISTING ~clck15.itm~ ~override~
               ~clck16.itm~ ~override~
               ~clck17.itm~ ~override~
   LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 = 63 timing = 2 END
+
+// cloaks using robe ground icons
+COPY_EXISTING ~clck28.itm~ ~override~
+              ~clck30.itm~ ~override~
+  WRITE_ASCII 0x44 ~gclck01~ #8
 
 //Asp's Nest darts do 1 HP damage every second for 40 seconds but are stated to do 1 HP damage every 3 seconds for 120 seconds (Wisp)
 COPY_EXISTING dart05.itm override
@@ -29352,6 +29392,11 @@ COPY_EXISTING ~misc7n.itm~ ~override~ // wand of lightning (unused?)
     WRITE_BYTE (abil_off + 0x19 + (index * 0x38)) 10 // secondary: offensive damage
   END
   BUT_ONLY
+  
+// ground icon for unused potion
+COPY_EXISTING ~misca4.itm~ ~override~
+  WRITE_ASCII 0x44 ~GPOTN01~ #8
+  BUT_ONLY
 
 // fix speed
 COPY_EXISTING ~npbow.itm~ ~override~
@@ -29371,6 +29416,10 @@ READ_SHORT  0x70 "fx_num"
   END
 BUT_ONLY_IF_IT_CHANGES
 
+// ruby pendant lacks icon for ability
+COPY_EXISTING ~regisamu.itm~ ~override~
+  LPF ITEM_ALTER_HEADER STR_VAR icon = "spwi316" END
+
 // Undead creatures are erroneously immune to Lightning Bolt instead of Hold Person (aVENGER)
 COPY_EXISTING ~ring95.itm~ ~override~ // undead immunity ring
 PATCH_IF (%SOURCE_SIZE% > 0x71) THEN BEGIN // file size sanity check
@@ -29385,6 +29434,10 @@ READ_SHORT  0x70 "fx_num"
   END
 END
 BUT_ONLY_IF_IT_CHANGES
+
+// wrong quickbar icon for rod of terror
+COPY_EXISTING ~rods05.itm~ ~override~
+  LPF ITEM_ALTER_HEADER STR_VAR icon = "rods05" END
 
 // add arcane spell failure (CamDawg)
 COPY_EXISTING ~scrl12.itm~ ~override~ //cursed scroll of foolishness
@@ -29932,6 +29985,10 @@ COPY_EXISTING ~sppr722.spl~ ~override~ // Storm of Vengeance
     END
   END
 BUT_ONLY_IF_IT_CHANGES
+
+// duration of avenger version of animal summoning ii is wrong, should be 3 turns (180)
+COPY_EXISTING ~spra305.spl~ ~override~
+  LPF SPELL_ALTER_EFFECT INT_VAR duration_high = 180 END
 
 // A few trap spells ignore magic resistance, but they probably should not since all other trap spells don't (aVENGER)
 COPY_EXISTING ~spwi001.spl~ ~override~ // Fireball (trap)
@@ -30783,9 +30840,9 @@ COPY_EXISTING ~sw1h01.itm~ ~override/cdfp0108.g3~
 
 // remove bonuses here as the player is already rewarded at the door
 COPY_EXISTING ~ar2905.bcs~ ~override~
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~Global("Player1Wrath","GLOBAL",2)~ ~False()~
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 /////                                                  \\\\\
@@ -30906,78 +30963,78 @@ COPY_EXISTING ~abazdrag.bcs~ ~override~ // abazigal
               ~draggre2.bcs~ ~override~
               ~draggree.bcs~ ~override~
               ~gorsal.bcs~   ~override~ // saladrex
- DECOMPILE_BCS_TO_BAF
+ DECOMPILE_AND_PATCH BEGIN
    REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~~ // in response to death fog/incend cloud, cloudkill
- COMPILE_BAF_TO_BCS
+ END
  BUT_ONLY_IF_IT_CHANGES
 
 // direct target of breath attacks gets some extra damage; see drgrbrht or RED_DRAGON_HIT (spin693) in other dragon AI scripts
 COPY_EXISTING ~abazdrag.bcs~ ~override~
               ~dragblue.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ReallyForceSpell(LastSeenBy(Myself),0)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // unknown fourth possible option; efreet seems to be a common alternative to nishruu summoning (plus it's known to cre)
 COPY_EXISTING ~amlich02.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SpellNoDec(Myself,0)~ ~SpellNoDec(Myself,WIZARD_SUMMON_EFREET)~ // other three actions--two summoning spells and move to PC
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // blank block for HaveSpell, CastSpell--only one memorized but not scripted is ADHW
 COPY_EXISTING ~bheye.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_ABI_DALZIMS_HORRID_WILTING)~
     REPLACE_TEXTUALLY ~Spell(NearestEnemyOf(Myself),0)~ ~Spell(NearestEnemyOf(Myself),WIZARD_ABI_DALZIMS_HORRID_WILTING)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // two presumably olive slimes were supposed to spawn--no such creatures
 COPY_EXISTING ~ar2200.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~CreateCreature("jeloli01",\[4422\.3524\],6)~ ~CreateCreature("jelmus01",[4422.3524],6)~ // replace w/ mustard jelly
     REPLACE_TEXTUALLY ~CreateCreature("jeloli01",\[4052\.3574\],6)~ ~CreateCreature("jelgre01",[4052.3574],6)~ // replace w/ green slime
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // script designed to turn invisible repeatedly; given level and kit, assassination seems a good fit here
 COPY_EXISTING ~chalcy02.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SpellNoDec(Myself,0)~ ~SpellNoDec(Myself,ROGUE_ASSASINATION)~ // Some prep spell
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // blank block for HaveSpell, CastSpell in offensive situation--two spells memorized but not scripted: fireball and magic missile
 // select MM as there's no range check for fireball safety
 COPY_EXISTING ~clone1.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(NearestEnemyOf(Myself),0)~
       ~HaveSpell(WIZARD_MAGIC_MISSILE) \1 Spell(NearestEnemyOf(Myself),WIZARD_MAGIC_MISSILE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // final game cutscene
 COPY_EXISTING ~cut59a.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~ApplySpell(\([A-Za-z0-9]+\),0)~
       ~ApplySpellRES("cdpr417",\1)~   // some form of restoration--follows resurrections and full heal
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // cutscene
 COPY_EXISTING ~cut67d.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ForceSpell("Dpimo01",0)~ ~ForceSpell("Dpimo01",CUTSCENE_DAMAGE_1)~   // irenicus doing something to Imoen
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // degardan has one messed up script
 COPY_EXISTING ~degard2.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY // against non-humanoids; use HM even though not memorized since used in similar blocks in other AI scripts
       ~\(!General(LastSeenBy(Myself),HUMANOID)[%TAB% %LNL%%MNL%%WNL%]+\)HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
       ~\1 HaveSpell(WIZARD_HOLD_MONSTER) \2 Spell(LastSeenBy(Myself),WIZARD_HOLD_MONSTER)~
@@ -30990,21 +31047,21 @@ COPY_EXISTING ~degard2.bcs~ ~override~
     REPLACE_TEXTUALLY // anti-mage spell--hold person? do this one last, had problems with matching
       ~HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
       ~HaveSpell(WIZARD_HOLD_PERSON) \1 Spell(LastSeenBy(Myself),WIZARD_HOLD_PERSON)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // in between dragon fear and a wing buffet--per other dragon AI, should be lowering specific resistances to breath attack, but nothing to reduce poison resistance
 COPY_EXISTING ~draggre2.bcs~ ~override~
               ~draggree.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ReallyForceSpell(NearestEnemyOf(Myself),0)~ ~~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 /*
 // gauths should be firing off more spells
 COPY_EXISTING ~gauth01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~ReallyForceSpell(\[PC\],0)\([%TAB% %LNL%%MNL%%WNL%]+SetGlobal("GauthBehavior","LOCALS",1)\)~
       ~ReallyForceSpell([PC],0) \1~ // no idea
@@ -31014,64 +31071,64 @@ COPY_EXISTING ~gauth01.bcs~ ~override~
     REPLACE_TEXTUALLY
       ~\([^!]See(LeastDamagedOf(Myself))[%TAB% %LNL%%MNL%%WNL%]+HPGT(Myself,35)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+ReallyForceSpell(\[PC\],BEHOLDER_HOLD_PERSON)[%TAB% %LNL%%MNL%%WNL%]+\)ReallyForceSpell([PC],0)~
       ~\1 ReallyForceSpell([PC],0)~ // no idea
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 */
 /*
 // missing spell in heal-?-restoration sequence
 COPY_EXISTING ~gorgua01.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,FORCE_DISPEL_MAGIC)~ // between full heal and restore--dispel effects?
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 */
 
 // gphealer has two HaveSpell, Spell blocks with unknown IDS entries--something offensive with a 5' radius
 // found near-identical sequence for mage symbol spells in gpmage1
 COPY_EXISTING ~gphealer.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~\(IF[%TAB% %LNL%%MNL%%WNL%]+\)HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+!HasBounceEffects(LastSeenBy(Myself))[%TAB% %LNL%%MNL%%WNL%]+!Range(LastSeenBy(Myself),5)[%TAB% %LNL%%MNL%%WNL%]+RandomNum(2,1)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)\([%TAB% %LNL%%MNL%%WNL%]+END[%TAB% %LNL%%MNL%%WNL%]+IF[%TAB% %LNL%%MNL%%WNL%]+\)HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+!HasBounceEffects(LastSeenBy(Myself))[%TAB% %LNL%%MNL%%WNL%]+!Range(LastSeenBy(Myself),5)[%TAB% %LNL%%MNL%%WNL%]+RandomNum(2,1)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)\([%TAB% %LNL%%MNL%%WNL%]+END\)~
       ~\1 HaveSpell(CLERIC_SYMBOL_DEATH) \2 Spell(LastSeenBy(Myself),CLERIC_SYMBOL_DEATH) \3 HaveSpell(CLERIC_SYMBOL_STUN) \4 Spell(LastSeenBy(Myself),CLERIC_SYMBOL_STUN) \5~ //
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // gpmage1 is missing IDS refs in a HaveSpell, Spell block
 // gpmage2 has identical block
 COPY_EXISTING ~gpmage1.bcs~  ~override~
               ~magehigh.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_DISPEL_MAGIC)~ // trigger...
     REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)~ ~Spell(LastSeenBy(Myself),WIZARD_DISPEL_MAGIC)~ // ... and action
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // missing IDS refs in a HaveSpell, Spell block--offensive/disabling spell
 // every mage12 ends with a magic missile block before melee
 COPY_EXISTING ~lyros.bcs~   ~override~
               ~mage12b.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_MAGIC_MISSILE)~ // trigger...
     REPLACE_TEXTUALLY ~Spell(NearestEnemyOf(Myself),0)~ ~Spell(NearestEnemyOf(Myself),WIZARD_MAGIC_MISSILE)~ // ... and action
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // missing IDS refs in a HaveSpell, Spell block--offensive/disabling spell
 // based on sequencing, chaos is a good guess here
 COPY_EXISTING ~mage12e.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_CHAOS)~ // trigger...
     REPLACE_TEXTUALLY ~Spell(NearestEnemyOf(Myself),0)~ ~Spell(NearestEnemyOf(Myself),WIZARD_CHAOS)~ // ... and action
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // missing IDS refs in a HaveSpell, Spell block for > 6 opponents
 // kproen02 has exact same sequencing
 COPY_EXISTING ~mage14d.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_DEATH_SPELL)~ // trigger...
     REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)~ ~Spell(LastSeenBy(Myself),WIZARD_DEATH_SPELL)~ // ... and action
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // one possible attack with mag missile and fireball--no bounce, indiv target, range > 5
@@ -31079,59 +31136,59 @@ COPY_EXISTING ~mage14d.bcs~ ~override~
 COPY_EXISTING ~meliss01.bcs~ ~override~
               ~meliss02.bcs~ ~override~
               ~meliss03.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SpellNoDec(LastSeenBy(Myself),0)~ ~SpellNoDec(LastSeenBy(Myself),WIZARD_SYMBOL_DEATH)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // big, high-level spell: only against 75% HP+. similar blocks are very high-level spells--comet, bigby, bone blades
 COPY_EXISTING ~meliss03.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ForceSpell(LastSeenBy(Myself),0)~ ~ForceSpell(LastSeenBy(Myself),WIZARD_DRAGONS_BREATH)~ // dragon's breath?
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // lilarcor sound
 COPY_EXISTING ~pipe04.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~PlaySound("MISC_02A")~ ~PlaySound("EFF_P54")~ // Cromwell's forging sound
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // some fire mephit attack
 COPY_EXISTING ~mepfir.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ForceSpell(NearestEnemyOf(Myself),0)~ ~ForceSpell(NearestEnemyOf(Myself),MEPHIT_FLAME_FAN)~ // attack spell
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // two missing actions in four-action blocks; blocks seem identical
 // for fire slamanders; should be offensive fire spell
 COPY_EXISTING ~salgrfir.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~SpellNoDec(NearestEnemyOf(Myself),0)~ ~SpellNoDec(NearestEnemyOf(Myself),WIZARD_AGANNAZAR_SCORCHER)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 /*
 // viekang's scripts; allegiance check to destroy minhp1
 COPY_EXISTING ~sarvie01.bcs~  ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,EVILBUTBLUE)~ // third allegiance check?
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 */
 
 // one of four attack options--others all cleric damage/disabling spells
 COPY_EXISTING ~tahazz.bcs~ ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~ForceSpell(NearestEnemyOf(Myself),0)~ ~ForceSpell(NearestEnemyOf(Myself),CLERIC_FLAME_STRIKE)~
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 // demon knights
 COPY_EXISTING ~uddeath.bcs~  ~override~
-  DECOMPILE_BCS_TO_BAF
+  DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY
       ~ReallyForceSpell(LastSeenBy(Myself),0)~
       ~ReallyForceSpell(LastSeenBy(Myself),WIZARD_SYMBOL_STUN)~ // one of five attack options--symbol stun?
@@ -31141,7 +31198,7 @@ COPY_EXISTING ~uddeath.bcs~  ~override~
     REPLACE_TEXTUALLY 
       ~ForceSpell(LastSeenBy(Myself),0)\([%TAB% %LNL%%MNL%%WNL%]+SetGlobal("DeathAttack","LOCALS",1)\)~
       ~ForceSpell(LastSeenBy(Myself),WIZARD_SYMBOL_DEATH) \1~ // one of three attack options--symbol death?
-  COMPILE_BAF_TO_BCS
+  END
   BUT_ONLY_IF_IT_CHANGES
 
 /////                                                  \\\\\
