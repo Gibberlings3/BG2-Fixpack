@@ -16,7 +16,7 @@
 @1000159 = ~I'm not interested in fighting extra-planar creatures... I'll be on my way, thank you.~ []
 @1000163 = ~You are more than kind.  Haer'Dalis's blades are something to behold.  Would you have him join you for this fight?~ []
 @1000172 = ~Neither did we... he wore a mask and met with us in the alleyways. It doesn't matter... Come, my bards. It appears 'tis time to make our reckoning. Haer'Dalis?~
-@1000176 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the long bow is slightly slower than the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+@1000176 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the long bow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
 
 STATISTICS:
 
@@ -3815,7 +3815,7 @@ I have encountered Coran, who told me that Safana has been kidnapped by a group 
 
 Not Usable By:
  Wizard Slayer~ []
-@1011848 = ~Little is known about this item, other than that the claw itself was taken from the corpse of the great beast Kazgaroth. It has multiple enchantments that all become activated when the claw is worn as a ring. The image of the wearer becomes blurred and more difficult to hit with weapons or target with spells. It has one drawback however, as it seems to fuel its power with the blood of its wearer. Because of this, the wearer of the claw will often be more sickly and therefore more susceptible to poisons.
+@1011848 = ~Little is known about this item, other than that the claw itself was taken from the corpse of the great beast Kazgaroth. It has multiple enchantments that all become activated when the claw is worn as a ring. The image of the wearer become blurred and more difficult to hit with weapons or target with spells. It has one drawback however, as it seems to fuel its power with the blood of its wearer. Because of this, the wearer of the claw will often be more sickly and therefore more susceptible to poisons.
 
 STATISTICS:
 
@@ -16383,14 +16383,14 @@ THAC0: +1 bonus (strikes as a +5 weapon)
 Damage: 1D6 +1
 Damage type: crushing
 Weight: 3
-Speed Factor: 1
+Speed Factor: 2
 Proficiency Type: Quarterstaff
 Type: 2-handed
 Requires: 5 Strength
 Usable By
  Mages~ []
 @1039629 = ~Staff of Thunder and Lightning +2
-There are stories that tell of such staves sprouting in the undergrowth around druid groves when the forest is threatened. Fanciful tales, but whether they are true or not, this staff is a powerful tool. It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down. It casts Lightning Bolt, and if circumstances warrant it, it can Call Lightning to blast enemies to dust.  Some abilities are limited by charges.
+There are stories that tell of such staves sprouting in the undergrowth around druid groves when the forest is threatened. Fanciful tales, but whether they are true or not, this staff is a powerful tool. It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down. It casts Lightning Bolt, and if circumstances warrant it, it can summon a lighting storm to blast enemies to dust. Some abilities are limited by charges.
 
 STATISTICS
 
@@ -18447,7 +18447,7 @@ Damage type: missile (piercing)
 Weight:  0
 Launcher: Crossbow~ []
 @1046722 = ~Drow Bolt of Stunning
-This item, like most drow equipment, was created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark. A target hit by this bolt must make a saving throw vs. death or be stunned for four rounds.
+This item, like most drow equipment, was created using Adamantine, an alloy of adamantite that quickly turns to dust if removed from the Underdark. A target hit by this bolt must making a saving throw vs. death or be stunned for four rounds.
 
 STATISTICS:
 
@@ -20265,7 +20265,7 @@ I met the Githyanki again. I found them resting in a cavern, quite surprised to 
 @1057888 = ~I admit to being somewhat uneasy. Perhaps it is this blade. Yes, that's it. The weapon that Irenicus gave me, it reminds too much of what has occurred.~ []
 @1057897 = ~Kuo-Toa Bolt
 
-This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists. A target hit by this bolt must make a saving throw vs. spells or be stunned for four rounds.
+This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists. A target hit by this bolt must making a saving throw vs. spells or be stunned for four rounds.
 
 STATISTICS:
 
@@ -20282,7 +20282,7 @@ Launcher:  Crossbow~
 Elhan has requested my service none too subtly. To reach Irenicus I must first help the elves gain entry to their own city, Suldanessellar. Irenicus has hidden it using illusionary magics of some sort that defy dispelling. If we are to regain access, I have to retrieve the Rhynn Lanthorn, an artifact lantern that is attuned to the elven nation. Elhan believes that someone powerful that follows Irenicus stole it from the desecrated elven temple, and I have a very clear idea just who that might be. I will not receive help from the elves in tracking her, even though I am certain I am familiar with her old stomping ground. Elhan has advised that he cannot follow with his battalions for risk of causing an even larger incident, this time with paranoid human forces. He suggested that I seek out allies among the groups I have already met within human territories.~ []
 @1057919 = ~Paralytic Bolt
 
-Any target hit by this bolt must make a saving throw or be paralyzed for five rounds.
+Any target hit by this bolt must making a saving throw or be paralyzed for five rounds.
 
 STATISTICS:
 

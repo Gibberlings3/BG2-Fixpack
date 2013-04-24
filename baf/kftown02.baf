@@ -1,8 +1,0 @@
-IF
-  Global("RescuedMother","GLOBAL",1)
-THEN
-  RESPONSE #100
-    SetInterrupt(FALSE)
-    MoveToPointNoInterrupt([359.595])
-    EscapeArea()
-END

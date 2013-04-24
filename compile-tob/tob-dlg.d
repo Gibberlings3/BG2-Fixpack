@@ -1,6 +1,5 @@
 // dialogue error fixes for ToB
 REPLACE_ACTION_TEXT_REGEXP ~^famil[1-3]25$~ ~CLERIC_CURE_MODERATE_WOUNDS~ ~CLERIC_CURE_MEDIUM_WOUNDS~
-REPLACE_ACTION_TEXT_REGEXP ~^famil[1-3]25$~ ~\(GiveItemCreate("FAM[A-Z]+25",Player1,0,0,0)\)~ ~GivePartyAllEquipment() \1~
 REPLACE_ACTION_TEXT_REGEXP ~\(^fsspir2$\)\|\(^imoen25j$\)\|\(^jahei25j$\)\|\(^vicon25j$\)~  ~TriggerActivation("IT302\([4-6]\)"~ ~TriggerActivation("Exit302\1"~
 REPLACE_ACTION_TEXT ~amfaheed~  ~[^,]EscapeArea())~ ~EscapeArea()~
 REPLACE_ACTION_TEXT ~amman02~  ~ApplySpell("runrun",Myself)~ ~ApplySpellRES("runrun",Myself)~

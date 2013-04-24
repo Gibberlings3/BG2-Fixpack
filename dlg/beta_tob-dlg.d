@@ -9,6 +9,3 @@ ALTER_TRANS BKELDO25 BEGIN 33 END BEGIN 0 END // filename, state, trans
 BEGIN // list of changes, see below for flags
   EPILOGUE ~EXTERN BANOME25 52~
 END
-
-// wish fixes from asc64; see also wish01.bcs changes
-REPLACE_ACTION_TEXT ~wish25~ ~\(SetupWish([0-9],1)\)~ ~/* \1 */~
