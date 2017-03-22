@@ -4,6 +4,8 @@ IF
 THEN
   RESPONSE #100
     SetGlobal("CDTime","AR0334",0)
+    ActionOverride("WSMITH01",StartDialogueNoSet([PC]))
+    Continue()
 END
 
 IF

@@ -208,3 +208,31 @@ END
 
 // prevent Yoshimo telling you to see Renal when you already have
 ADD_STATE_TRIGGER YOSHJ 129 ~Global("TalkedToRenal","GLOBAL",0)~
+
+// No valid replies or links for Cernd
+ALTER_TRANS cernd BEGIN 6 END BEGIN 0 END BEGIN TRIGGER
+~!Class(Player1,DRUID_ALL) !Class(Player1,RANGER_ALL) !InParty("Jaheira") !InParty("Minsc")~ END
+
+// Romance interests can comment on PhaereInnuendo in chapter 6 if they were not in the party during chapter 5 (the bigg)
+ADD_STATE_TRIGGER ~AERIEJ~ 119 ~Global("Chapter","GLOBAL",5)~ 124 126
+ADD_STATE_TRIGGER ~JAHEIRAJ~ 437 ~Global("Chapter","GLOBAL",5)~ 441 447
+ADD_STATE_TRIGGER ~VICONIJ~ 97 ~Global("Chapter","GLOBAL",5)~ 106 108
+
+//You can ask Roger about the gong again and again; put an end to that (Wisp)
+ADD_TRANS_TRIGGER roger 0 ~Global("flRogerGong","LOCALS",0)~ 1 DO 3
+ADD_TRANS_TRIGGER roger 4 ~Global("flRogerGong","LOCALS",0)~ 7 24 27 DO 2
+ADD_TRANS_TRIGGER roger 8 ~Global("flRogerGong","LOCALS",0)~ 9 DO 1
+ADD_TRANS_ACTION roger BEGIN 12 END BEGIN 0 END ~SetGlobal("flRogerGong","LOCALS",1)~
+
+// Jarlaxle should have enough gold to reward the party for their efforts (Ardanis)
+REPLACE_ACTION_TEXT jarlaxle ~GivePartyGold(~ ~GiveGoldForce(~
+
+// Fix for Jaheira having the wrong dialogue when a non-romance protagonist refuses to follow her to the Harper Hold (aVENGER)
+REPLACE_TRIGGER_TEXT ~jaheirap~  ~GlobalGT("JaheiraHarperPlot","GLOBAL",3)~ ~Global("JaheiraHarperPlot","GLOBAL",3) AreaCheck("AR0300") !InParty(Myself)~
+ADD_STATE_TRIGGER ~jaheirap~ 32 ~!AreaCheck("AR0300")~
+
+// duplicate journal entries for torgal death
+ADD_TRANS_ACTION NALIAJ BEGIN 225 END BEGIN END ~EraseJournalEntry(11648)~
+
+// glacias charm/dispel fix, new method
+ALTER_TRANS KPGLAI01 BEGIN 0 END BEGIN END BEGIN "ACTION" ~~ END

@@ -1,3 +1,5 @@
+// -*- coding: cp1252 -*-
+
   @0 = ~BG2 Fixpack - Correctifs principaux~
   @1 = ~BG2 Fixpack - Correction du texte~
   @2 = ~Correctifs optionnels~
@@ -35,7 +37,7 @@
 
 PARAMETRES :
 
-TAC0 : +2 
+TAC0 : +2
 Dégâts : 1D4 + 2
 Type de dégâts : perforant
 Poids : 1
@@ -132,7 +134,7 @@ Avantages :
 Désavantages :
 - Essoufflement après la Furie : -2 au toucher, -2 aux dégâts et +2 à la Classe d'Armure.
 - Ne peut se spécialiser (deux points de compétences) dans les armes à distance (arcs, arbalètes, frondes ou fléchettes).~ []
-@138 = ~BARBARE: Les barbares peuvent être d'excellents guerriers. Bien que moins disciplinés ou entraînés que les guerriers normaux, les barbares peuvent entrer dans une rage meurtrière, devenant ainsi des adversaires plus coriaces et plus puissants.  
+@138 = ~BARBARE: Les barbares peuvent être d'excellents guerriers. Bien que moins disciplinés ou entraînés que les guerriers normaux, les barbares peuvent entrer dans une rage meurtrière, devenant ainsi des adversaires plus coriaces et plus puissants.
 
 Avantages :
 - Leur vitesse de déplacement est supérieure de 2 points à celle des personnages normaux.
@@ -178,9 +180,9 @@ Non utilisable par :
 @141 = ~Symbole, Terreur
 (Conjuration, Convocation)
 Niveau : 7
-Sphère : Garde 
+Sphère : Garde
 Portée : 30 mètres
-Durée : spéciale 
+Durée : spéciale
 Temps d'incantation : 1 round
 Zone d'effet : spéciale
 Jet de sauvegarde : annule
@@ -229,7 +231,7 @@ Inutilisable par :
 
 STATISTIQUES :
 
-TACO : +2
+TAC0 : +2
 Poids : 2
 Facteur de vitesse : 4
 Type de compétence : arc court
@@ -260,12 +262,12 @@ Faite du coeur décomposé d'un Sylvanien, cette lance sent la mort. Quand on la p
 
 PARAMETRES :
 
-TAC0 : + 4 
-Dégâts :  1D6 + 4, + 4 dégâts du poison 
+TAC0 : + 4
+Dégâts :  1D6 + 4, + 4 dégâts du poison
 Type de dégâts : perforant
 Poids: 5
 Facteur de Vitesse : 2
-Type de compétence : Lance 
+Type de compétence : Lance
 Type : arme à 2 mains
 Force nécessaire : 5
 Inutilisable par :
@@ -281,7 +283,7 @@ Inutilisable par :
 
 PARAMETRES :
 
-TAC0 : +1 
+TAC0 : +1
 Dégâts :  1D8 +1, +1 dégâts du feu
 Type de Dégâts :  tranchant
 Poids : 4
@@ -293,7 +295,7 @@ Inutilisable par :
  Druide
  Clerc
  Mage~ []
- 
+
 // easiest translation evar
 @152 = ~~ [MUSTR08]
 
@@ -302,27 +304,27 @@ Inutilisable par :
 
 PARAMETRES :
 
-Classe d'Armure : bonus de +1 
-Bonus à la Classe d'Armure contre projectiles : bonus de +4 
+Classe d'Armure : bonus de +1
+Bonus à la Classe d'Armure contre projectiles : bonus de +4
 Jet de sauvegarde contre Mort : pénalité de -3
-Jet de sauvegarde contre Baguettes : bonus de +3 
+Jet de sauvegarde contre Baguettes : bonus de +3
 Jet de sauvegarde contre Métamorphose : bonus de +3
 Jet de sauvegarde contre Souffle : bonus de +3
 Jet de sauvegarde contre Sorts : bonus de +3
 Modificateur de constitution : pénalité de -2~
 
-// MGoI claims that dispel magic works against it, but does not, originally string #12164
-@154 = ~Globe mineur d'invulnérabilité (Abjuration) 
+// MGoI claims that dispel magic works against it, but does not, originally string #12146
+@154 = ~Globe mineur d'invulnérabilité (Abjuration)
 Niveau : 4
-Portée : 0 
-Durée : 1 round/niveau 
-Temps d'incantation : 4 
+Portée : 0
+Durée : 1 round/niveau
+Temps d'incantation : 4
 Zone d'effet : sphère de 1,5 m de rayon
 Jet de sauvegarde : aucun
 
 Ce sort crée autour du magicien une sphère magique immobile et faiblement phosphorescente qui empêche les sorts de 1er, 2ème ou 3ème niveau de pénétrer à l'intérieur (la zone d'effet de ces sorts n'inclut pas le volume du globe mineur d'invulnérabilité). Cela comprend les capacités innées et les effets magiques des dispositifs. Cependant, le magicien peut lancer des sorts à l'extérieur de la sphère magique sans endommager le globe. Les sorts de 4ème niveau et plus ne sont pas affectés par ce sort. Ce globe peut être détruit par des attaques magiques comme Perce-magie ou Anéantissement des défenses.~
 
-// GoI claims that dispel magic works against it, but does not, originally string #12164
+// GoI claims that dispel magic works against it, but does not, originally string #8064
 @155 = ~Globe d'invulnérabilité (Abjuration)
 Niveau : 6
 Portée : 0
@@ -348,7 +350,7 @@ Ce sort crée une zone de téléportation dans le champ visuel du lanceur. Toutes l
 
 @158 = ~Je me sens d'humeur généreuse aujourd'hui... pour entrer dans l'Ombreterre, vous aurez besoin de la corde magique que vous trouverez sur le cadavre du Roi. Utilisez-là pour descendre par le trou derrière mon précédent thrône.~
 
-@159 = ~Familier 
+@159 = ~Familier
 (Conjuration/Convocation)
 Niveau : 1
 Portée : n/d
@@ -357,7 +359,7 @@ Temps d'incantation : 1 round
 Zone d'effet : 1 familier
 Jet de sauvegarde : Spécial
 
-Ce sort permet au magicien de tenter la convocation d'un familier qui deviendra son aide et son compagnon. Les familiers sont de petites créatures. Une créature agissant en tant que familier peut aider un magicien en envoyant ses pouvoirs sensoriels vers son maître, en lui parlant ou en lui servant de garde, d'éclaireur ou d'espion. Un magicien ne peut avoir qu'un seul familier à la fois, et il ne contrôle pas le type de créature qui sera convoquée par le sort, s'il réussit. 
+Ce sort permet au magicien de tenter la convocation d'un familier qui deviendra son aide et son compagnon. Les familiers sont de petites créatures. Une créature agissant en tant que familier peut aider un magicien en envoyant ses pouvoirs sensoriels vers son maître, en lui parlant ou en lui servant de garde, d'éclaireur ou d'espion. Un magicien ne peut avoir qu'un seul familier à la fois, et il ne contrôle pas le type de créature qui sera convoquée par le sort, s'il réussit.
 
 Remarque : Ce sort ne peut être lancé que par le protagoniste.
 
@@ -540,3 +542,708 @@ Classe d'Armure: -2
 Points de Vie: 48
 Résistance à la Magie: 35 %
 Capacités Spéciales: Trois attaques par round faisant 1d6 dégâts, sauvegarde contre la mort ou perte d'un point de dextérité pendant 36 secondes. Bénéficie de 100% de résistance au feu, au froid et à l'électricité. Peut lancer 'Horreur' et 'Flou' une fois par jour. Regénère d'un point de vie par round. Est immunisé à l'abosrption de niveau, au sommeil, à la pétrification, ainsi qu'aux armes non magiques.~
+
+//Changes for the following strings: altered the value for speed factor and/or weight. The strings are otherwise identical to vanilla.
+
+//Originally string #71131
+@176 = ~Généralement utilisé par les guérisseurs itinérants, cette boîte de cuir aux renforts de plumes et aux lanières de cuir permet de protéger des chocs les potions et les fioles les plus fragiles.
+
+PARAMETRES
+
+Poids : 2~
+
+//Originally string #19359
+@177 = ~Le fléau est une solide poignée en bois attachée à une tringle en fer, une baguette de bois comportant des pointes, ou une balle en fer pointue. La poignée et l'équipement qui l'accompagne sont reliés par une charnière ou une chaîne. Cette arme a été renforcée par magie, si bien qu'il semble se nouer un lien entre elle et la personne qui la manie.
+
+PARAMETRES :
+
+Dégâts : 1D6 + 2
+TAC0 : +1
+Type de dégâts : contondant
+Poids : 13
+Facteur de vitesse : 6
+Type de compétence : Fléau/Etoile du matin
+Type: arme à 1 main
+Force nécessaire : 13
+Non utilisable par :
+Druide
+Mage
+Voleur~
+
+//Originally string #73912
+@178 = ~La tête de cette étoile du matin est faite de glace incassable. Son manche est glacial et son porteur est aussitôt enveloppé d'un air froid qui le protège contre le feu.
+
+PARAMETRES :
+
+Capacité d'équipement :
++20% de résistance au feu
+
+TAC0 : +4
+Dégâts : 2D4 +4 +1D4 de froid
+Type de dégâts : tranchant
+Poids : 8
+Facteur de vitesse : 3
+Compétence : Fléau/Etoile du matin
+Type d'arme : à 1 main
+Force nécessaire : 11
+Inutilisable par :
+Druides
+Mages
+Voleurs~
+
+//Originally string #39511
+@179 = ~Bras puissant +2
+Cet arc massif appartenait au rôdeur Patte d'Ours, qui l'aurait reçu d'un ogre étonnamment amical. Nul ne connaît la raison de ce présent qui lui valut le respect de tous ceux qu'il croisait, et lui permit sans doute de se lier avec les créatures de la forêt de Bois-Manteau. Patte d'Ours pouvait bander l'arc sans aucun effort, mais quand après sa mort l'arc fut remis à sa femme et à ses fils, aucun d'entre eux ne pouvait même ramener la corde de moitié. Ils finirent par le vendre à un marchand qui partait vers le sud.
+
+PARAMETRES :
+
+TAC0 : +3
+Dégâts : +3
+Poids : 8
+Facteur de vitesse : 5
+Type de compétence : arc long
+Type : arme à 2 mains
+Force nécessaire : 19
+Inutilisable par :
+Druide
+Clerc
+Mage
+Voleur
+Barde~
+
+//Originally string #54340
+@180 = ~Forgée par les elfes noirs, cette masse a été spécialement traitée pour résister aux rayons du soleil en vue de raids à la surface. Son métal noir est luisant d'un poison violent qu'elle semble générer elle-même et qui cause des dégâts énormes en cas d'impact.
+Cette masse semble presque vivante ; elle est chaude au toucher et semble vouloir glisser des mains de ceux qu'elle n'aime pas... tout autre qu'un elfe noir ou approchant. Dans les mains d'une autre personne, elle ne constitue qu'un poids mort.
+
+PARAMETRES :
+
+Capacités de combat : toute cible touchée doit réussir un jet de sauvegarde contre les poisons ou subir 2 points de dégâts par round dans 20 rounds.
+TAC0 : +2
+Dégâts : 1D6+3
+Type de dégâts : contondant
+Poids : 7
+Facteur de vitesse : 6
+Type de compétence : masse
+Type : arme à 1 main
+Non utilisable par :
+Tout autre qu'un elfe ou demi-elfe clerc mauvais~
+
+//Originally string #57897
+@181 = ~Carreau Kuo-Toa
+
+Ce carreau est enduit d'un poison spécial créé par les alchimistes Kuo-Toa. Toute cible touchée doit réussir un jet de sauvegarde contre les sorts ou être sonnée pendant 4 rounds
+
+PARAMETRES :
+
+Capacités de combat : la cible doit réussir un jet de sauvegarde contre les sorts ou être étourdie pendant 4 rounds
+Dégâts : 2D6
+Type de dégâts : missile (perforant)
+Poids : 0
+Arme de jet : arbalète~
+
+//Originally string #47131
+@182 = ~Il s'agit d'un Bâton des baies qui appartenait au chaman kobold des égouts.
+
+PARAMETRES :
+Créer des baies magiques une fois par jour
+Dégâts : 1D6
+Type de dégâts : contondant
+Poids : 4
+Facteur de vitesse : 4
+Type de compétence : bâton
+Type : arme à 2 mains~
+
+//Originally string #39579
+@183 = ~Autrefois un bouclier très puissant utilisé par les prêtres de Bane le Fléau, mais dont la plupart des enchantements ont disparu consécutivement à la chute du dieu. Il lui reste toutefois la base de sa protection magique, ce qui peut le rendre utile à n'importe quel aventurier.
+
+PARAMETRES :
+
+Bonus de Classe d'Armure : 4
+Poids : 4
+Force nécessaire : 12
+Inutilisable par :
+Barde
+Druide
+Mage
+Voleur~
+
+//Originally string #61580
+@184 = ~Bouclier +3 de Balduran
+Le bouclier du célèbre héros. Il fait partie des objets volés au musée de la ville de la Porte de Baldur.
+
+PARAMETRES :
+
+Capacités d'équipement :
+Renvoi des rayons de spectateur
+-1 à la Force
+Bonus CA : 4
+Poids : 4
+Force nécessaire : 12
+Non utilisable par :
+Barde
+Druide
+Mage
+Voleur~
+
+//Originally string #41389
+@185 = ~Ce fléau à deux têtes inflige des dégâts de feu et de froid. Si l'autre tête du Fléau de l'éternité peut être trouvée, l'arme deviendra encore plus puissante.
+
+PARAMETRES :
+
+Dégâts : 1D6+3, +1 de feu, +1 de froid
+Type de dégâts : contondant
+Poids : 10
+Facteur de vitesse : 5
+Type de compétence : Fléau/Etoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+Non utilisable par :
+Druides
+Magiciens
+Voleurs~
+
+//Originally string #41620
+@186 = ~Ce fléau à deux têtes inflige des dégâts d'acide et de froid. Si l'autre tête du Fléau de l'éternité peut être trouvée, l'arme deviendra encore plus puissante.
+
+PARAMETRES :
+
+Dégâts : 1D6+3, +1 d'acide, +1 de froid
+Type de dégâts : contondant
+Poids : 10
+Facteur de vitesse : 5
+Type de compétence : Fléau/Etoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+Non utilisable par :
+Druides
+Magiciens
+Voleurs~
+
+//Originally string #41621
+@187 = ~Ce fléau à deux têtes inflige des dégâts de feu et d'acide. Si l'autre tête du Fléau de l'éternité peut être trouvée, l'arme deviendra encore plus puissante.
+
+PARAMETRES :
+
+Dégâts : 1D6+3, +1 de feu, +1 d'acide
+Type de dégâts : contondant
+Poids : 10
+Facteur de vitesse : 5
+Type de compétence : Fléau/Etoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+Non utilisable par :
+Druides
+Magiciens
+Voleurs~
+
+//Originally string #71058
+@188 = ~L'arc long est très similaire à l'arc court, sauf en ce qui concerne sa hauteur, généralement égale à celle d'un homme. Bien qu'un peu plus lent à utiliser, il a une plus grand précision et portée. La hampe de cet arc est chaude au toucher, signe évident de propriétés magiques.
+
+PARAMETRES
+
+TAC0 : +4
+Poids : 2
+Facteur de Vitesse : 4
+Compétence : Arc long
+Type d'arme : à 2 mains
+Force nécessaire : 6
+Inutilisable par :
+Druides
+Clercs
+Mages
+Voleurs~
+
+//Originally string #39531
+@189 = ~Ruine-dragons, Hallebarde +3
+Cette arme était celle de Thorvin Dukal, l'un des sept autoproclamés 'Tueurs de dragons' qui passèrent des années à vitupérer contre ce qu'ils appelaient "une infestation insidieuse de dragons menaçant Féérune". Thorvin fit enchanter son arme à grand frais et s'en servi assez souvent, quoiqu'en matière de dragons, seul un jeune blanc ait péri sous ses coups. Les Tueurs de dragons tombèrent finalement sur un ancien et grincheux dragon rouge qui les tua tous au cours d'un épique combat. Cependant, l'arme ne finit pas dans le butin de la créature, car celle-ci rentra dans son antre pour se remettre de ses blessures, et quand elle en ressortit, le champ de bataille avait été consciencieusement pillé.
+
+CARACTERISTIQUES :
+
+TAC0 : +3
+Dégâts : 1D10 +3, +6 contre les dragons
+Type de dégât : perforant
+Poids : 12
+Facteur de vitesse : 6
+Type de compétence : Hallebarde
+Type d'arme : à deux mains
+Nécessite : 13 de Force
+Inutilisable par :
+Druide
+Clerc
+Mage
+Voleur~
+
+//Originally string #34732
+@190 = ~La dague d'Embarl prouvera à Mae'var qu'on s'est 'occupé' de lui.
+
+PARAMETRES :
+
+Dégâts : 1D6
+Type de dégâts : perforant
+Poids : 2
+Facteur de vitesse : 2
+Type de compétence : dague
+Type : arme à 1 main
+Inutilisable:
+Clerc~
+
+//Originally string #8505
+@191 = ~Bâton de la Haute Forêt
+
+Ce bâton est issu d'un cycle de saisons lors desquelles Cernd a médité sur son rôle dans la nature. Il avait accompli ce voyage intérieur près d'un jeune arbre, un chêne particulièrement intéressant à étudier, étrange tout en étant merveilleusement ordonné. Au début du printemps, Cernd l'a examiné une dernière fois et il lui est venu dans la main, un bâton vivant, comme un cadeau de dame nature. Il a grandi pour sa main et peu d'autres que lui sauraient le porter.
+
+PARAMETRES :
+
+Porté: Régénère 1 point de vie toutes les 12 secondes
+
+TAC0 : +2
+Dégâts : 1D6 + 2
+Type de dégâts : contondant
+Poids : 3
+Facteur de vitesse : 2
+Type : arme à 2 mains
+
+Utilisable par:
+Cernd~
+
+//Originally string #51947
+@192 = ~Entropie
+Cette lame +2 de couleur verte est l'une des armes préférées de Haer'Dalis. Cette épée courte inflige trois points de dégâts supplémentaires dus au poison si la victime rate son Jet de Sauvegarde. Cette lame ne peut être utilisée que par un tieffelin.
+
+PARAMETRES :
+
+Capacités spéciales : 3 points de dégâts de poison si Jet de sauvegarde raté.
+TAC0 : +2
+Dégâts : 1D6+2
+Type de dégâts : perforant
+Poids : 2
+Facteur de vitesse : 1
+Type de compétence : épée courte
+Type : arme à 1 main
+Utilisable par :
+Tieffelin~
+
+//Originally string #51949
+@193 = ~Lame du chaos
+Chaos est une épée courte +2 utilisable seulement par les tieffelins. A chaque fois qu'elle touche un adversaire, il perd 2 points de dextérité (pour 30 secondes). Haer'Dalis se sert de cette épée en conjonction avec Entropie, ce qui fait de lui un adversaire redoutable.
+
+PARAMETRES :
+
+Capacités spéciales : la cible perd deux points de Dextérité pendant 30 secondes.
+TAC0 : +2
+Dégâts : 1D6+2
+Type de dégâts : perforant
+Poids : 2
+Facteur de vitesse : 1
+Type de compétence : épée courte
+Type : arme à 1 main
+Utilisable par :
+Tieffelin~
+
+//Originally string #66372
+@194 = ~Depuis des générations immémorables, ce bâton magique est séparé de la Pointe d'Ixil, la tête de la lance légendaire. Cependant, même incomplet, cet artéfact n'en conserve pas moins une grande puissance.
+
+PARAMETRES
+
+TAC0 : +4
+Dégâts : 1D6 +4
+Type de Dégâts : Perforant
+Poids : 5
+Facteur de Vitesse : 2
+Compétence : Lance
+Type d'arme : à 2 mains
+Force nécessaire : 5
+Inutilisable par :
+Clercs
+Mages
+Voleurs~
+
+//Originally string #66474
+@195 = ~Une fois que le manche et la pointe ont été réunis, le Pieu d'Ixil devient une arme redoutable. Au cous des combats, la pointe peut se détacher pour empaler au col l'adversaire, pendant qu'une nouvelle pointe réapparaît au bout de la lance.
+
+PARAMETRES
+
+Capacité d'équipement :
+Action libre en permanence.
+
+Capacité de combat :
+La cible doit réussir un jet de sauvegarde contre les sorts à chaque coup réussi ou être empalé au sol pour trois rounds, et subir 1D6+5 points de dégâts par round.
+
+TAC0 : +6
+Dégâts : 1D6 +6
+Type de dégâts : Perforant
+Poids : 5
+Facteur de Vitesse : 1
+Compétence : Lance
+Type d'arme : à 2 mains
+Force nécessaire : 5
+Inutilisable par :
+Clercs
+Mages
+Voleurs~
+
+//Originally string #39626
+@196 = ~Bâton de soins
+On dit que Torm fait apparaître ces objets pendant les périodes de grands troubles, les confiant à ses prêtres qui soignent les blessés, les malades, et les empoisonnés. Il ne faut cependant pas le tenir pour acquis, car quoique très utile, son enchantement est fugitif. Il faut l'utiliser avec la plus grande précaution.
+
+PARAMETRES :
+
+Capacités (une charge) :
+Soins : 3D6 +3 points de dégâts, maladie et poison
+
+AC : +2
+TAC0 : +1
+Dégâts : 1D6 +1
+Type de dégât : contondant
+Poids : 4
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+Inutilisable par :
+Voleur
+Guerrier
+Mage~
+
+//Originally string #39627
+@197 = ~Bâton du Mage
+Quoi que très rare, ce type de bâton est parfaitement lié à l'image du lanceur de sort. C'est l'un des outils les plus puissants dont un mage puisse disposer, la culmination d'enchantement complexes et d'études interminables. Celui-ci est efficace en combat de mêlée, peut rendre invisible, offre une protection contre les charmes et le mal. Il peut aussi piéger un sort, lancer une combinaison de boule de feu et d'éclair magique, et dissiper la magie. C'est la quintessence d'un objet de mage.
+
+PARAMETRES :
+
+Capacités d'équipement :
+Invisibilité
+Immunité aux charmes
+Protection contre le mal
+
+Capacités spéciales :
+Eclair-Boule de feu
+Dégâts : dégâts combinés d'Eclair magique et de Boule de feu
+Portée : 50 mètres
+Utilisation : 3 fois par jour
+Emprisonnement de sort
+Durée : 8 heures ou jusqu'à ce que 30 niveaux de sort ait été emprisonnés
+Utilisation : une fois par jour
+
+Capacités de combat (chaque coup) : Dissipation de la magie
+Classe d'armure : bonus de 2
+Jets de protection : bonus de 2
+TAC0 : +1 (frappe comme une arme +5)
+Dégâts : 1D6 +1
+Type de dégât : contondant
+Poids : 4
+Facteur de vitesse : 1
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+Utilisable uniquement par :
+Mage~
+
+//Originally string #39629
+@198 = ~Bâton de foudre et tonnerre +2
+Certaines histoires racontent comment ces bâtons auraient poussé dans la végétation autour des bosquets aux druides quand la forêt était menacée. De folles légendes, mais qui ne doivent pas nous faire ignorer que ce bâton est un outil puissant. Il absorbe l'énergie des tempêtes, et il peut déclencher un coup de tonnerre capable de renverser les adversaires chaque fois qu'il est utilisé en combat. Il peut aussi projeter des éclairs, et si les circonstance le permettent, il peut invoquer une tempête de foudre pour réduire les ennemis en poussière. Certaines de ses capacités sont limitées par le nombre de charges.
+
+PARAMETRES :
+
+Capacités (une charge) :
+Eclair
+Dégâts : 10D6
+Portée : 45 mètres
+Jet de sauvegarde : contre les sorts pour la moitié des dégâts
+Appel de la foudre
+La foudre touche la cible
+Dégâts : 3D8 par coup
+
+Capacité de combat :
+Coup de tonnerre (10 % de chance sur chaque coup réussi)
+Portée : Mêlée
+Jet de sauvegarde : contre les sorts pour ne pas être étourdi pendant deux rounds
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de dégât : contondant
+Poids : 4
+Facteur de vitesse : 2
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5
+Utilisable uniquement par :
+Clerc
+Druide~
+
+//Originally string #39631
+@199 = ~Bâton de l'Air
+L'aspect de ce bâton semble venir des traditions artistiques des elfes, bien qu'il soit moins lié à la forêt que ce qui est courant. Il a apparemment été conçu pour contrôler les élémentaux de l'air, étant capable d'en invoquer pour servir son porteur, et potentiellement de détruire d'un seul coup les créatures de ce type. Quand c'est nécessaire, il peut aussi émettre un nuage de gaz qui plonge tous ceux se trouvant dans la zone d'effet dans un profond sommeil. Certaines de ses capacités sont limitées par le nombre de charges.
+
+PARAMETRES :
+
+Capacités de combat : si un élémental de l'air est touché, il doit réussir un jet de sauvegarde contre les sorts pour ne pas être détruit.
+
+Capacités spéciales (pour 1 charge) :
+Invoquer un élémental de l'air de 8 DV
+Durée : 1 heure
+Nuage de sommeil
+Portée : 12 mètres
+Durée : 3 rounds
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de dégât : contondant
+Poids : 3
+Facteur de vitesse : 2
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5~
+
+//Originally string #39632
+@200 = ~Bâton de la Terre
+Lié au Plan élémentaire de Terre, ce bâton a pu être façonné par une ancienne secte druidique. Il peut invoquer un élémental de terre, bien qu'il ait également le potentiel pour détruire ces créatures d'un seul coup, ce qui est peut-être un indice de la difficulté qu'il y a à les contrôler. Il peut aussi libérer une personne de l'emprise de la terre en transmutant la pierre en chair. Certaines de ses capacités sont limitées par le nombre de charges.
+
+PARAMETRES :
+
+Capacités de combat : si un élémental de terre est touché, il doit réussir un jet de sauvegarde contre les sorts pour ne pas être détruit.
+
+Capacités spéciales (pour 1 charge) :
+Invoquer un élémental de terre de 8 DV
+Durée : 1 heure
+Transmutation de la pierre en chair
+Effet inverse d'une attaque de pétrification
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de dégât : contondant
+Poids : 3
+Facteur de vitesse : 2
+Force nécessaire : 5
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5~
+
+//Originally string #39633
+@201 = ~Bâton du Feu
+Ce bâton porte une rune antique qui pourrait constituer un lien avec les mages de la lointaine Halruaa, mais rien n'est sûr. Tirant son énergie du Plan élémentaire du Feu, il peut s'entourer d'un bouclier de feu qui endommage les assaillants, invoquer un élémental de feu sous le contrôle de son porteur, et peut potentiellement aspirer toute l'énergie d'un élémental de feu qu'il touche, le détruisant instantanément. Certaines de ses capacités sont cependant limitées par le nombre de charges.
+
+PARAMETRES :
+
+Capacités de combat : si un élémental de feu est touché, il doit réussir un jet de sauvegarde contre les sorts pour ne pas être détruit.
+
+Capacités spéciales (pour 1 charge) :
+Invoquer un élémental de feu de 8 DV
+Durée : 1 heure
+Bouclier de feu (rouge)
+Une enceinte de flammes protège le porteur du bâton de même façon que le sort de magicien de quatrième niveau Bouclier de feu (rouge)
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de dégât : contondant
+Poids : 3
+Facteur de vitesse : 2
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5~
+
+//Originally string #39634
+@202 = ~Bâton de combat +2
+Le bâton est une des armes les plus simples qui soient, un morceau de bois de deux mètres à deux mètres cinquante de long. Les bâtons de combat de bonne qualité sont fait dans du chêne solide, et sont renforcés de métal aux deux extrémités. Ce bâton a été enchanté pendant sa fabrication pour que sa frappe soit plus précise et plus dévastatrice.
+
+PARAMETRES :
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de dégât : contondant
+Poids : 3
+Facteur de vitesse : 2
+Type de compétence : bâton
+Type : arme à 2 mains
+Force nécessaire : 5~
+
+//Originally string #66369
+@203 = ~Orné de décorations ophidiennes, ce puissant bâton peut empoisonner sa cible à chaque coup porté.
+
+PARAMETRES
+
+Capacité de combat :
+50% de chance d'empoisonner la cible à chaque coup réussi. Le poison agit pendant 1 round et inflige 2 points de dégâts par seconde, à moins de réussir un jet de sauvegarde contre la mort
+
+TAC0 : +2
+Dégâts : 1D6 +2
+Type de Dégâts : Contondant
+Poids : 3
+Facteur de Vitesse : 2
+Compétence : Bâton
+Type d'arme : à 2 mains
+Force nécessaire : 5~
+
+//Originally string #51884
+@204 = ~Cimeterre +3 : "Bord de l'eau"
+La lame de cette arme semble miroiter, révélant un tranchant de rasoir. De grandes compétences furent nécessaires pour forger cette arme, ainsi que les bénédictions de plusieurs instances supérieures, même si en comparaison, le travail effectué sur la poignée semble maladroit.
+
+PARAMETRES :
+
+Dégâts : 1D8+3
+TAC0 : +3
+Type de dégâts : tranchant
+Poids : 3
+Facteur de vitesse : 2
+Type de compétence : Cimeterre/Wakizashi/Ninja-To
+Type : arme à 1 main
+Force nécessaire : 8
+Non utilisable par :
+Clerc
+Magicien
+Voleur~
+
+//Originally string #66203
+@205 = ~Egalement connu sous le nom de Fleuve d'angoisse, il s'agit de la légendaire lame enflammée de Frithiof.
+
+PARAMETRES
+
+Capacité spéciale :
+Force de l'utilisateur portée à 22 pour 60 secondes, 1 fois par jour
+
+TAC0 : +4
+Dégâts : 1D8 +4, +1 de feu
+Type de Dégâts : Tranchant
+Poids : 2
+Facteur de Vitesse : 1
+Compétence : Epée longue
+Type d'arme : à 1 main
+Inutilisable par :
+Druides
+Clercs
+Mages~
+
+//Originally string #48658
+@206 = ~Epée d'Argent
+Elle exsude une sombre aura quand examinée de près, et la lame est si aiguisée qu'on pourrait couper une tête en un seul coup.
+
+PARAMETRES :
+
+Capacités de combat : à chaque fois qu'elle est touchée, la cible doit réussir un Jet de Sauvegarde contre la mort (à -2) ou mourir.
+TAC0 : +3
+Dégâts : 1D10+3
+Type de dégâts : tranchant
+Poids : 15
+Facteur de vitesse : 7
+Type de compétence : épée à 2 mains
+Type : arme à 2 mains
+Force nécessaire : 14
+Non utilisable par :
+Druide
+Clerc
+Magicien
+Voleur~
+
+//Originally string #70785
+@207 = ~Epée longue +3
+
+Cette magnifique épée a été enchantée de façon à améliorer les compétences et les dégâts infligés par son porteur. En dehors de ça, elle n'a rien de remarquable...
+
+PARAMETRES
+
+TAC0 : +3
+Dégâts : 1D8 +3
+Type de dégâts : Tranchant
+Poids : 3
+Facteur de Vitesse : 2
+Compétence : Epée longue
+Type d'arme : à 1 main
+Force nécessaire : 6
+Inutilisable par :
+Druides
+Clercs
+Mages~
+
+//Originally string #61593
+@208 = ~Hallebarde d'Harmonie +3
+Cette arme est généralement destinée au plus puissant des capitaines de l'Harmonie. Rappelons que l'Harmonie est un groupe de guerriers qui opère à l'extérieur de la ville planaire de 'Sigil'.
+
+PARAMETRES :
+
+Capacités d'équipement :
++1 Force
+-1 Intelligence
+-1 Sagesse
+TAC0 : +3
+Dégâts : 1D10 +3
+Type de dégâts : perforant
+Poids : 12
+Facteur de vitesse : 6
+Type de compétence : hallebarde
+Type : arme à 2 mains
+Force nécessaire : 11
+Non utilisable par :
+Druide
+Clerc
+Mage
+Voleur~
+
+//Originally string #21957
+@210 = ~Hache de Bala, Tueuse de mages :
+
+Bala était le prince au caractère exécrable d'un clan de nains. Il avait été capturé et réduit en esclavage par un magicien elfe de Thesk. Moins couard, mais plus malpropre et sale que ceux de sa race, Bala en eut vite assez de l'esclavage. Il se glissa furtivement dans l'étude du magicien, et lui ouvrit promptement le crâne d'un coup de hache. La rumeur prétend que c'est l'odeur pestilentielle qu'il dégage qui a achevé le mage, mais il s'agit plutôt de la hache enchantée de Bala. De par sa facture rudimentaire, il est évident qu'elle a été créée par Bala lui-même. Par contre, personne ne sait d'où en émane la magie. Après une longue carrière de tueur de mages, Bala mourut, sans avoir révélé à quiconque, même à ceux assez téméraires pour risquer d'attraper des puces en l'approchant, l'origine de cet enchantement. Certains suggèrent que c'est la haine de Bala pour les magiciens qui en est à l'origine. Cette hache donne à son porteur la capacité de dissiper la magie une fois par jour.
+
+PARAMETRES :
+
+Dégâts : 1D8
+Type de dégâts : tranchant
+
+Spécial : Fourvoiement magique affecte la victime à chaque coup porté
+Fourvoiement magique : Toute créature lanceuse de sorts affectée par ce sort voit ses capacités d'incantation sévèrement pénalisées. Quand elle tente de lancer un sort, celui-ci a 80 % de chances d'échouer. Les créatures peuvent faire un jet de sauvegarde à -2 pour tenter de résister.
+
+Poids : 6
+Facteur de vitesse : 7
+Type de compétence : hache
+Type : arme à 1 main
+Force nécessaire : 4
+Non utilisable par :
+Druide
+Clerc
+Mage
+Voleur~
+
+//Originally string #32186
+@211 = ~Protecteur de Easthaven +3~
+
+//Originally string #32187
+@212 = ~Protecteur de Easthaven +3
+Ce fléau fut forgé il y a un siècle environ, en l'honneur de la défaite du démon Balhifet. Il devait toujours être conservé dans la ville de Easthaven pour rappeler à la population que le démon n'avait été vaincu qu'après de terribles combats.
+
+PARAMETRES :
+
+Capacités :
++1 CA
++20 % résistance aux dégâts physiques
+TAC0 : +2
+Dégâts : 1D6 + 2
+Type de dégâts : contondant
+Poids : 12
+Facteur de vitesse : 5
+Type de compétence : Fléau/Etoile du matin
+Type : arme à 1 main
+Force nécessaire : 13
+Non utilisable par :
+Druide
+Mage
+Voleur~
+
+//Originally string #39461
+@213 = ~Lame des Roses, épée longue +3
+Cette arme est d'une splendeur surnaturelle, et il est possible que Sunie, la déesse de la beauté et de la passion, ait contribué à sa création. Les effets sur son porteur sont immédiats, et cette épée a été plusieurs fois dans l'histoire le secret de l'élévation soudaine au rang de courtisan d'un soldat sans éclat.
+
+PARAMETRES :
+
+Capacités d'équipement :
+Charisme : +2
+TAC0 : +3
+Dégâts : 2D4 +3
+Type de dégât : tranchant
+Poids : 3
+Facteur de vitesse : 2
+Type de compétence : épée longue
+Type : arme à 1 main
+Force nécessaire : 6
+Inutilisable par :
+Druide
+Clerc
+Mage~

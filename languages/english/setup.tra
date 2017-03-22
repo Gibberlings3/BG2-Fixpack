@@ -1,0 +1,1295 @@
+  @0 = ~BG2 Fixpack - Core Fixes~
+  @1 = ~BG2 Fixpack - Game Text Update~
+  @2 = ~Optional, But Cool~
+  @3 = ~Super Happy Fun Lucky Modder Pack~
+  @4 = ~This step may take a few moments ...~
+  @5 = ~This component is not available in your language.~
+  @6 = ~Party Gets XP for Sending Keldorn to Reconcile With Maria~
+  @7 = ~Improved Spell Animations~
+  @8 = ~Cromwell's Forging Actually Takes a Day~
+  @9 = ~Mixed-Use Dagger Fixes~
+ @10 = ~Ghreyfain's Holy Symbol Fixes~
+ @11 = ~Throne of Bhaal is required for this component.~
+ @12 = ~Additional Hero Quests in Trademeet Wait Until 
+ Hero is Officially Named~
+ @13 = ~Giants Receive Penalties When Attacking Halflings, 
+ Dwarves, and Gnomes~
+ @14 = ~Remove Dual-Classing Restriction from Archers 
+ and Stalkers~
+ @15 = ~Remove Second Attribute Bonus for Evil Path in
+ Wrath Hell Trial~
+ @16 = ~Corrected Summoned Demon Behavior~
+ @17 = ~Additional Script Fixes~
+ @18 = ~Bard Song Fixes~
+ @19 = ~Wizard Slayers Cause Miscast Magic on Ranged Attacks~
+ @20 = ~BETA Core Fixes (please check the readme!)~
+ @21 = ~Additional Alignment Fixes~
+ @22 = ~This component has been deprecated.~
+ @23 = ~Change Free Action to Protect Against Stun~
+ @24 = ~Paws from Shapeshifting Can Not Be Dispelled~
+ @25 = ~Change Behavior of Simulacrum, Projected Image, and Mislead~
+ @26 = ~Previous fixpack installation detected.~
+ @27 = ~The Fixpack is not needed for this game.~
+ @28 = ~Remove Thieving Start Bonuses from Bard and Ranger Skills~
+ @29 = ~This component requires TobEx~
+
+@100 = ~Well, I was barely listening, anyway, so don't worry about it. Let's just concentrate on killing the next orc we see.~ []
+@101 = ~I shall do that, jaluk. And when I bash its skull in, you do not mind if I picture you in its porcine features, hm?~
+@102 = ~IMOEN chuckles when you ask her about her past, assuming you are just trying to keep her mind on happier times and places. She indulges you, and certainly does cheer up when speaking of how you spent your youths together in Candlekeep. She arrived there the same as you, in the company of your foster father Gorion, but despite this similarity she grew up much more carefree than you did. Indeed, her lighthearted outlook has long kept her immune to the hardships of the world, though the horrors she has endured have definitely taken their toll.~
+@103 = ~You've made a fatal error in judgment!~ [SILVER19]
+@104 = ~This is your end!~ [SILVER18]
+@105 = ~Hello again! Have you come here on business or just to sample the rich beauty of nature?~ [CERND79]
+@106 = ~This is a vicious weapon used by Neb and is covered with old blood. Only the truly evil would dare to use this item on their own. The poison has been used up, and the dagger is now a normal enchanted dagger.
+
+STATISTICS:
+
+THAC0: +2 bonus
+Damage: 1D4 + 2
+Damage type: piercing
+Weight: 1
+Speed Factor: 0
+Proficiency Type: Dagger
+Type: 1-handed
+Not Usable By:
+ Cleric
+ Non-evil alignments~
+@107 = ~Just be sure you've acid or fire at your disposal. Trolls will not fall to anything else. May the gods go with you.~
+//@108 = ~Take these arrows, they might help.~
+@109 = ~ You have come for a reason. Out with it.~ [SILVER14]
+@110 = ~ I would not have expected the likes of you.~ [SILVER12]
+@111 = ~ You are welcome in my sight.~ [SILVER11]
+@112 = ~ I see you there.~ [SILVER13]
+@113 = ~ I will not fall here today... I will not!~ [SILVER22]
+@114 = ~You cannot cast this spell until the current casting has run out.~
+@115 = ~Flaming Long Sword +1~
+@116 = ~Mace +3~
+@117 = ~Morning Star +3~
+@118 = ~Long Sword +3~
+@119 = ~Short Sword +3~
+@120 = ~Fist +1~
+@121 = ~Fist +2~
+@122 = ~Fist +3~
+@123 = ~Fist +4~
+@124 = ~Yoshimo's Katana +1~
+@125 = ~Flail of Ages +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~Ho there! More Cowled ones or their servants, no doubt. By the gods, I swear you'll not live to take me to that damnable sphere!~ [VALYGA01]
+@128 = ~Holy Symbol of Baervan~
+@129 = ~Only those most worthy and devoted servants of the Masked Leaf are granted these powerful holy symbols.
+
+STATISTICS:
+
+   Grants an additional 6th and 7th level spell.
+   5% Magic Resistance while worn
+   +1 to Strength while worn
+
+Usable By:
+Good Clerics~
+
+@130 = ~Holy Symbol of Shar~
+@131 = ~Only those most worthy and devoted servants of the Nightsinger are granted these powerful holy symbols.
+
+STATISTICS: 
+
+   Grants an additional 6th and 7th level spell. 
+   5% Magic Resistance while worn 
+   +1 to Strength while worn 
+
+Usable By: 
+Evil Clerics~
+@132 = ~(The man looks at you blankly for a moment and then speaks)
+
+I serve only Master Mekrath.~ [HAERDA95]
+@133 = ~Well by Aunt Petunia's beard! A ghost from my past? Looking to buy some turnips, perhaps?~ [JANJAN67]
+@134 = ~Wait! Who comes? You... you are the Child of Bhaal, aren't you? The one that Joneleth... Jon... boasted of stealing power from? He claimed to have slain you!~ [ELLESI02]
+@135 = ~Dagger of Throwing +3 Firetooth
+This throwing knife is imbued with magical fire, and was supposedly carved from an extracted red dragon tooth. Tavern tales suggest that the beast is still alive, her anger fueling the enchantment within the weapon. Though fanciful, the story is consistent, and it is said the dagger returns to the thrower "as though on wings."
+
+STATISTICS:
+
+Combat Abilities: dagger returns to the thrower
+THAC0: +3 bonus
+Damage: 1D4 + 3, 1D2 fire damage
+Damage type: missile (piercing)
+Weight: 1
+Speed Factor: 1
+Proficiency Type: Dagger
+Type: 1-handed
+Requires: 3 Strength
+Not Usable By:
+Cleric
+Beast Master~ []
+@136 = ~Spellstrike (Abjuration, Alteration)
+Level: 9
+Range: Visual sight of caster
+Duration: Instantaneous
+Casting Time: 5
+Area of Effect: Target Creature
+Saving Throw: None 
+
+When this spell is cast at a target creature, it will dispel all of the magical protections that surround that creature. This includes: Iron Skins, Magic Resistance, Shield of the Archons, Minor Spell Turning, Minor Globe Of Invulnerability, Spell Immunity, Globe Of Invulnerability, Minor Spell Deflection, Spell Turning, Spell Shield, Spell Deflection, Spell Invulnerability, and Spell Trap. The target's magic resistance, if any, does not affect this spell.~
+@137 = ~BERSERKER: Berserkers are warriors in tune with their animalistic side and, during combat, can achieve an ecstatic state of mind that will enable them to fight longer, harder and more savagely than any humanoid has a right to. Berserkers tend to be barbarian-like in nature, but not always. Sometimes it is a conscious choice that a warrior in training makes. Regardless, opponents on the battlefield will be unsettled when they see the savage elements of the berserker's personality. This class is common amongst dwarves, known to them as 'battleragers'.
+
+Advantages:
+-  May use 'enrage' ability once per day per 4 levels. The enraged state lasts for 60 seconds.
+-  While enraged: +2 to hit, +2 damage, -2 AC
+-  While enraged: immune to Charm, Confusion, Fear, Feeblemind, Hold, Imprisonment, Level Drain, Maze, Stun and Sleep.
+-  While enraged: gains 15 hit points. These hit points are temporary, and are taken away at the end of the berserk spree, possibly killing the berserker.
+
+Disadvantages:
+-  Becomes winded after berserking. While winded receives penalties of -2 to hit, -2 to damage and +2 to armor class.
+-  Cannot specialize (two proficiency points) in ranged weapons (bows, crossbows, slings, or darts)~ []
+@138 = ~BARBARIAN: A barbarian can be an excellent warrior. While not as disciplined or as skilled as a normal fighter, the barbarian can willingly be thrown into a berserker rage, becoming a tougher and stronger opponent.
+
+Advantages:
+-  Moves at 2 points faster than the normal character movement rate
+-  Immunity to backstab
+-  Can Rage once per day per every 4 levels (starts at 1st level with one use). Rage gives +4 to constitution and strength for 5 rounds. Gives a 2 point armor class penalty and +2 to saves vs magic (for 5 rounds). Rage also gives immunity to all charm, hold, fear, maze, confusion, stun, sleep and level drain spells.
+-  At 11th level the barbarian gains 10% resistance to slashing, piercing, crushing and missile damage, and gains a further +5% to this at levels 15 and 19.
+-  The barbarian rolls D12 for hit points instead of a fighter's D10.
+
+Disadvantages:
+-  Cannot wear full plate or plate mail armors.
+-  Cannot specialize in weapons past normal specialization (two proficiency points.)~ []
+@139 = ~The flail is a sturdy wooden handle attached to an iron rod, a wooden rod with spikes, or a spiked iron ball. Between the handle and its implement is either a hinge or chain link. This particular flail has been magically enhanced.
+
+STATISTICS:
+
+THAC0: +2 bonus
+Damage: 1D6 + 3
+Damage type: crushing
+Weight: 12
+Speed Factor: 5
+Proficiency Type: Flail/Morning Star
+Type: 1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+@140 = ~The mace is a direct descendant of the basic club, being nothing more than a wooden shaft with a stone or iron head mounted on the end. The head design varies; some being spiked, others flanged, and still others have pyramidal knobs.
+
+STATISTICS:
+
+Damage: 1D6 + 1
+Damage type: crushing
+Weight: 10
+Speed Factor: 7
+Proficiency Type: Mace
+Type: 1-handed
+Requires: 10 Strength
+Not Usable By:
+ Druid
+ Mage
+ Thief~
+@141 = ~Symbol, Fear
+(Conjuration,Summoning) 
+Level: 7
+Sphere: Guardian
+Range: 30 yards
+Duration: Special
+Casting Time: 1 round 
+Area of Effect: 30' radius
+Saving Throw: Neg.
+
+Symbol, Fear is a powerful enchantment that allows the priest to inscribe a symbol on the ground or any other surface. The symbol will remain there until someone comes too close, at which point it will explode, causing all those within the area to make a save vs. spells at -4 or be effected by fear for 2 rounds + 1 round for every 3 levels of the caster.~
+@142 = ~This cell appears to be where the umber hulks gained entrance to the castle. Several stew pots lie in the tunnel area directly behind the cell, which seems to be their feeding area.~
+@143 = ~I have a strange request... sister. I have the heart of a man that died in shame.~
+@144 = ~WIZARD SLAYER: These warriors have been specially trained by their sect to excel in hunting and attacking spellcasters of all kinds.
+
+Advantages:
+-  For each successful hit (melee or ranged) on an opponent, 10% cumulative spell failure penalty is applied
+-  2% magic resistance per level
+
+Disadvantages:
+-  May not use ANY magic items (potions other than healing potions, scrolls, rings, amulets, cloaks, etc.) except for weapons and armor~ []
+@145 = ~WIZARD SLAYER: These warriors have been specially trained by their sect to excel in hunting and attacking spellcasters of all kinds.
+
+Advantages:
+-  For each successful hit (melee or ranged) on an opponent, 10% cumulative spell failure penalty is applied.
+-  1% magic resistance per level until level 20, then alternates between 5% and 1% each level thereafter
+
+Disadvantages:
+-  May not use ANY magic items (potions other than healing potions, scrolls, rings, amulets, cloaks, etc.) except for weapons and armor~ []
+// fix speed factor, originally string #176
+@146 = ~The long bow is similar to the short bow, except that the staff is about as long as the archer is tall, usually 6 to 6.5 feet. Even though the long bow is slightly slower than the short bow, it has more range and is more accurate. The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Weight: 3
+Speed Factor: 5
+Proficiency Type: Long Bow
+Type: 2-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~ []
+
+// fix speed factor, originally string #199
+@147 = ~Short bows were the first bows to be developed, although they were not called such. This is more of a default term that refers to anything which is not a long bow. Short bow staves are about 5 feet long on the average. This short bow is the rival of any of the larger bows. The magic inherent within it, whether from the wood or the spellcasting of a mage, makes this bow more accurate and damaging than a normal bow.
+
+STATISTICS:
+
+THAC0: +2 bonus
+Weight: 2
+Speed Factor: 4
+Proficiency Type: Short Bow
+Type: 2-handed
+Requires: 3 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+
+// fix weight, originally string #1768
+@148 = ~Full plate armor is the best armor a warrior can buy, both in appearance and protection. The perfectly fitted interlocking plates are specially angled to deflect arrows and blows, and the entire suit is carefully adorned with rich engraving and embossed detail. This +2 armor was created with the Limited Wish spell.
+
+STATISTICS:
+
+Armor Class: -1
+Weight: 40
+Requires: 15 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief~
+
+// fix speed factor, originally string #2494
+@149 = ~Spear of Withering +4
+Carved from the heart of a rotten Treant, this spear smells of death. When held in your hands it groans a little, as if reluctant to allow a living thing to touch it. In battle the Spear of Withering spits a foul poison into its target upon each successful hit.
+
+STATISTICS:
+
+THAC0: +4 bonus
+Damage: 1D6 + 4, +4 poison damage
+Damage type: piercing
+Weight: 5
+Speed Factor: 2
+Proficiency Type: Spear
+Type: 2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~ []
+
+// adds proper sound file, originally string #4330
+@150 = ~Come on, now, don't let me suffer in this place. We've both had enough of that.~ [IMOEN20]
+
+// fix speed factor, originally string #4421
+@151 = ~This blade burns with a magical fire, and a charring blast is released whenever a hit is scored. "Meta Infernum" is etched on the hilt, though it appears somewhat faded and may not be original to the sword.
+
+STATISTICS:
+
+THAC0: +1 bonus
+Damage: 1D8 + 1, +1 fire damage
+Damage type: slashing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Long Sword
+Type: 1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~ []
+ 
+// easiest translation evar
+@152 = ~~ [MUSTR08]
+
+// wrong listed save v. death penalty for claw of kazgaroth, originally string #11848
+@153 = ~Little is known about this item, other than that the claw itself was taken from the corpse of the great beast Kazgaroth. It has multiple enchantments that all become activated when the claw is worn as a ring. The image of the wearer becomes blurred and more difficult to hit with weapons or target with spells. It has one drawback however, as it seems to fuel its power with the blood of its wearer. Because of this, the wearer of the claw will often be more sickly and therefore more susceptible to poisons.
+
+STATISTICS:
+
+Armor Class: +1 bonus
+Missile Armor Class bonus: +4 bonus
+Save vs Death: -3 penalty
+Save vs Wands: +3 bonus
+Save vs Polymorph: +3 bonus
+Save vs Breath: +3 bonus
+Save vs Spells: +3 bonus
+Constitution modifier: -2 penalty~
+
+// MGoI claims that dispel magic works against it, but does not, originally string #12164
+@154 = ~Minor Globe of Invulnerability (Abjuration)
+Level: 4
+Range: 0
+Duration: 1 round/level
+Casting Time: 4
+Area of Effect: 5-foot-radius sphere
+Saving Throw: None
+
+This spell creates a faintly shimmering magical sphere around the caster that prevents any 1st-, 2nd-, or 3rd-level spell effects from penetrating (i.e., the area of effect of any such spells does not include the area of the minor globe of invulnerability). This includes innate abilities and effects from devices. However, any type of spell can be cast out of the magical sphere, and these pass from the caster of the globe to their subject without affecting the minor globe. Fourth and higher level spells are not affected by the globe. The globe can be brought down by forms of magical attack such as Spellstrike and Pierce Magic.~
+
+// GoI claims that dispel magic works against it, but does not, originally string #12164
+@155 = ~Globe of Invulnerability (Abjuration)
+Level: 6
+Range: 0
+Duration: 1 round/level
+Casting Time: 6
+Area of Effect: 5-foot-radius sphere
+Saving Throw: None
+
+This spell creates an immobile, faintly shimmering magical sphere around the caster that prevents any 1st-, 2nd-, 3rd- or 4th-level spell effects from penetrating (i.e., the area of effect of any such spells does not include the area of the globe of invulnerability). This includes innate abilities and effects from devices. However, any type of spell can be cast out of the magical sphere, and these pass from the caster of the globe to their subject without affecting the globe. Fifth and higher level spells are not affected by the globe. The globe can be brought down by forms of magical attack such as Spellstrike and Pierce Magic.~
+
+// teleport field has no saving throw, originally string #25894
+@156 = ~Teleport Field (Alteration)
+Level: 4
+Range: Visual sight of caster
+Duration: 1 turn
+Casting Time: 4
+Area of Effect: 30' radius
+Saving Throw: None
+
+With this spell, the wizard may create a random teleportation effect as far as the wizard can see. All enemies caught in the area of effect are randomly teleported for the duration of the spell. This spell is best used against multiple enemies, serving to confuse them, and allowing the wizard to concentrate on activating his or her defenses.~ []
+@157 = ~For that, I give you the first spoils of war. Take the treasury key from Ixilthetocal's corpse... use it to enter the city's treasury and take what you will.~
+@158 = ~I am feeling generous today... to enter the Underdark, you need the magic rope from the king's corpse. Use it to go down the pit behind my former throne.~ 
+@159 = ~Find Familiar
+(Conjuration/Summoning)
+Level: 1
+Range: n/a
+Duration: Special
+Casting Time: 1 round
+Area of Effect: 1 familiar
+Saving Throw: Special
+
+This spell enables the caster to attempt to summon a familiar to act as his aide and companion. Familiars are typically small creatures. A creature acting as a familiar can benefit a wizard, conveying its sensory powers to its master, conversing with him, and serving as a guard/scout/spy as well. A wizard can have only one familiar at a time, and he has no control over what sort of creature answers the summoning, if any come at all.
+(Note: This spell may only be cast by the protagonist.)
+
+The creature is always more intelligent than others of its type (typically by 2 or 3 Intelligence points), and its bond with the wizard confers upon it an exceptionally long life. 
+
+The wizard has an empathic link with the familiar and can issue it mental commands. 
+
+The caster receives half the familiar's total hit points as bonus hit points. However the caster must take care to treat his familiar well, for if the familiar should die, the caster loses the bonus hit points and half the familiar's hit points again as damage. Also when a familiar dies, the caster loses 1 point of constitution PERMANENTLY.
+
+Example: A mage has 12 hit points and casts find familiar. The imp summoned has 18 hit points, so the caster gets a bonus of 9 hit points. The caster now has 21 hit points. If the familiar dies the caster loses those 9 hit points (putting him back at 12), 1 point of constitution permanently (which may cause additional hit point loss), and takes 9 damage.
+
+Here is a list of the familiars that the player receives according to alignment:
+
+LAWFUL GOOD, NEUTRAL GOOD: Pseudo Dragon
+Armor Class: -2
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: 2 attacks per round at THAC0: 13 for 1d3 damage, save vs. death or be rendered unconscious for 120 seconds. It can also cast 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification.
+
+LAWFUL NEUTRAL: Ferret
+Armor Class: 0
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: Has 75% Pick Pockets ability, 40% Hide in Shadows/Move Silently, and 20% Detect Traps. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.
+
+LAWFUL EVIL: Imp
+Armor Class: 2
+Hit Points: 18
+Magic Resistance: 25%
+Special abilities: Has 100% resistance to fire, cold, and electricity. It can also cast 'Polymorph Self' once per day. Regenerates 1hp/round.
+
+NEUTRAL: Rabbit
+Armor Class: 1
+Hit Points: 24
+Magic Resistance: 65%
+Special abilities: Has 50% Detect Traps ability, and 30% Hide in Shadows/Move Silently. Has 75% resistance to fire, cold, and electricity. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.
+
+NEUTRAL EVIL: Dust Mephit
+Armor Class: 6
+Hit Points: 24
+Magic Resistance: 10%
+Special abilities: Has 100% resistance to fire and 50% resistance to slashing, piercing, and missile damage. It can also cast 'Glitterdust' once per day and 'Glass Dust' twice per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification.
+
+CHAOTIC GOOD: Fairy Dragon
+Armor Class: 4
+Hit Points: 24
+Magic Resistance: 32%
+Special abilities: Can cast cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.
+
+CHAOTIC NEUTRAL: Cat
+Armor Class: 0
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: Has 99% Move Silently/Hide in Shadows ability and 30% Pick Pockets. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.
+
+CHAOTIC EVIL: Quasit
+Armor Class: 2
+Hit Points: 24
+Magic Resistance: 25%
+Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
+@160 = ~This is your familiar, a pseudo-dragon, currently curled up and safe within your backpack. The lizard-like creature is quite intelligent and fairly well-armored and quick... it does not do much damage in combat, but its magical claws are able to render some enemies unconscious. It is also quite resistant to magical spells.
+
+Abilities:
+Armor Class: -2
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: 2 attacks per round at THAC0: 13 for 1d3 damage, save vs. death or be rendered unconscious for 120 seconds. It can also cast 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification.~
+@161 = ~This is your familiar, a pseudo-dragon, currently curled up and safe within your backpack. The lizard-like creature is quite intelligent and fairly well-armored and quick.
+
+Abilities:
+Armor Class: -2
+Hit Points: 48
+Magic Resistance: 50%
+Special abilities: 2 attacks per round at THAC0: 8 for 1d6 damage, save vs. death or be rendered unconscious for 120 seconds. It can also cast 'Blur' and 'Ghost Armor' once per day and 'Detect Illusions' twice per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification.~
+@162 = ~This is your familiar, a ferret, currently curled up and safe in your backpack. The ferret is an incredibly quick and agile animal, hard to hit and magically resistant to both damage and spells. The ferret's uncanny ability to get into almost anything unseen makes it a handy pickpocket.
+
+Abilities:
+Armor Class: 0
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: Has 75% Pick Pockets ability, 40% Hide in Shadows/Move Silently, and 20% Detect Traps. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.~
+@163 = ~This is your familiar, a ferret, currently curled up and safe in your backpack. The ferret is an incredibly quick and agile animal, hard to hit and magical made resistant to both damage and spells. The ferret's uncanny ability to get into almost anything unseen makes it a handy pickpocket.
+
+Abilities:
+Armor Class: -4
+Hit Points: 48
+Magic Resistance: 65%
+Special abilities: Has 95% pick pockets ability, 60% Hide in Shadows/Move Silently, and 60% Detect Traps. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.~
+@164 = ~This is your familiar, an imp, currently grumpy yet safe within your backpack. The imp is an unusual creature that is fairly quick and quite resistant to magical spells... and has the ability to cast its own spells on behalf of its master.
+
+Abilities:
+Armor Class: 2
+Hit Points: 18
+Magic Resistance: 25%
+Special abilities: Has 100% resistance to fire, cold, and electricity. It can also cast 'Polymorph Self' once per day. Regenerates 1hp/round.~
+@165 = ~This is your familiar, an imp, currently grumpy yet safe within your backpack. The imp is an unusual creature that is fairly quick and quite resistant to magical spells... and has the ability to cast its own spells on behalf of its master.
+
+Abilities:
+Armor Class: -2
+Hit Points: 48
+Magic Resistance: 35%
+Special abilities:  Has 100% resistance to fire, cold, and electricity. It can also cast 'Polymorph Self' once per day, attack does 1d6 damage with poison (save vs. death or die). Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
+@166 = ~This is your familiar, a rabbit, currently curled up and safe within your backpack. The rabbit might not be one's first choice for a familiar, but this creature is incredibly quick and difficult to hit in combat... and has been augmented by magic to become quite resistant to physical harm as well as spells. The rabbit also has a keen nose for sniffing out traps on behalf of its master.
+
+Abilities:
+Armor Class: 1
+Hit Points: 24
+Magic Resistance: 65%
+Special abilities: Has 50% Detect Traps ability, and 30% Hide in Shadows/Move Silently. Has 75% resistance to fire, cold, and electricity. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.~
+@167 = ~This is your familiar, a rabbit, currently curled up and safe within your backpack. The rabbit might not be one's first choice for a familiar, but this creature is incredibly quick and difficult to hit in combat... The rabbit also has a keen nose for sniffing out traps on behalf of its master.
+
+Abilities:
+Armor Class: 1
+Hit Points:  48
+Magic Resistance: 65%
+Special abilities: Has 85% Detect Traps ability, 60% Hide in Shadows/Move Silently, and 50% Detect Illusions. Has 75% resistance to fire, cold, and electricity. It can also cast 'Blur' once per day. The rabbit moves as if under a constant 'Haste' spell. Immune to level drain, sleep, and petrification. spell.~
+@168 = ~This is your familiar, a dust mephit currently safe within your backpack. The dust mephit is not strong in combat, but it is slightly resistant to magical attack and has the ability to cast spells to assist its master.
+
+Abilities:
+Armor Class: 6
+Hit Points: 24
+Magic Resistance: 10%
+Special abilities: Has 100% resistance to fire and 50% resistance to slashing, piercing, and missile damage. It can also cast 'Glitterdust' once per day and 'Glass Dust' twice per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification.~
+@169 = ~This is your familiar, a dust mephit currently safe within your backpack. The dust mephit is not strong in combat, but it is slightly resistant to magical attack and has the ability to cast spells to assist its master.
+
+Abilities:
+Armor Class: 3
+Hit Points: 48
+Magic Resistance: 25%
+Special abilities: Has 100% resistance to fire and 60% resistance to slashing, piercing, and missile damage. It can also cast 'Glitterdust', 'Prismatic Spray', and 'Stoneskin' once per day and 'Glass Dust' twice per day. Regenerates 1hp/second. Immune to level drain, sleep, and petrification.~
+@170 = ~This is your familiar, a fairy dragon, currently curled up and safe within your backpack. The mischievous fairy dragon is fairly resistant to magic... and has the ability to both protect and obscure itself with illusionary magic of its own.
+
+Abilities:
+Armor Class: 4
+Hit Points: 24
+Magic Resistance: 32%
+Special abilities: Can cast cast 'Mirror Image' and 'Invisibility 10' Radius' once per day. Immune to level drain, sleep, and petrification.~
+@171 = ~This is your familiar, a fairy dragon, currently curled up and safe within your backpack. The mischievous fairy dragon is fairly resistant to magic... and has the ability to both protect and obscure itself with illusionary magic of its own.
+
+Abilities:
+Armor Class: 0
+Hit Points: 48
+Magic Resistance: 45%
+Special abilities: Can cast cast 'Mirror Image', 'Invisibility 10' Radius', and 'Improved Invisibility' once per day. Immune to level drain, sleep, and petrification.~
+@172 = ~This is your cat familiar, currently curled up and safe within your backpack. The cat familiar is a master scout, able to move in the shadows with the ability of a master thief. It is also difficult to hit in combat, and the magic of the spell has made this cat resistant to both physical and magical attacks.
+
+Abilities:
+Armor Class: 0
+Hit Points: 24
+Magic Resistance: 50%
+Special abilities: Has 99% Move Silently/Hide in Shadows ability and 30% Pick Pockets. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.~
+@173 = ~This is your cat familiar, currently curled up and safe within your backpack. The cat familiar is a master scout, able to move in the shadows with the ability of a master thief. It is also difficult to hit in combat, and the magic of the spell has made this cat resistant to both physical and magical attacks.
+
+Abilities:
+Armor Class: -4
+Hit Points: 48
+Magic Resistance: 65%
+Special abilities: Has 60% Detect Traps ability, 99% Hide in Shadows/Move Silently, 60% Pick Pockets, and 60% Detect Illusions. It can also cast 'Blur' once per day. Immune to level drain, sleep, and petrification.~
+@174 = ~This is your familiar, a quasit, currently grumpy yet safe within your backpack. The quasit is a small, infernal creature that is fairly quick and quite resistant to magical spells... and has the ability to cast its own spells on behalf of its master.
+
+Abilities:
+Armor Class: 2
+Hit Points: 24
+Magic Resistance: 25%
+Special abilities: Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round.~
+@175 = ~This is your familiar, a quasit, currently grumpy yet safe within your backpack. The quasit is a small, infernal creature that is fairly quick and quite resistant to magical spells... and has the ability to cast its own spells on behalf of its master.
+
+Abilities:
+Armor Class: -2
+Hit Points: 48
+Magic Resistance: 35%
+Special abilities: 3 attacks per round 1d6 damage, save vs. death or lose one point of dexterity for 36 seconds. Has 100% resistance to fire, cold, and electricity. Can cast cast 'Horror' and 'Blur' once per day. Regenerates 1hp/round. Immune to level drain, sleep, and petrification. Immune to non-magical weapons.~
+
+//Description fixes for item weight and speed factor
+//Originally string #71131
+@176 = ~Typically carried by travelling healers, this leather case folds open and allows the user to strap delicate potion bottles to its cushioned side with numerous leather thongs for safe storage during travel.
+
+STATISTICS:
+
+Weight: 2~
+
+//Originally string #19359
+@177 = ~The flail is a sturdy wooden handle attached to an iron rod, a wooden rod with spikes, or a spiked iron ball. Between the handle and its implement is either a hinge or chain link.  The weapon has been enhanced magically, effectively forming a bond between the weapon and its wielder.
+
+STATISTICS:
+
+Damage:  1D6 + 2
+THACO:  +1
+Damage type:  crushing
+Weight: 13
+Speed Factor: 6
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #73912
+@178 = ~The head of this morning star appears to be forged from unbreakable ice-blue crystal.  The handle is chill to the touch, and the wielder is surrounded by a soothing nimbus of cool air which protects against even magical fire.
+
+
+STATISTICS:
+
++20% Fire Resistance
+
+THACO:  +4
+Damage:  2D4 +4 +1-4 extra cold damage
+Damage type:  crushing
+Weight: 8
+Speed Factor: 3
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #39511
+@179 = ~Strong Arm +2
+This massive bow was the property of the ranger Bearpaw, who reportedly received it from a strangely benevolent ogre.  The reason for the gift was never discussed, but he earned the respect of everyone he met, and likely befriended the creature while patrolling the Cloakwood Forest.  Bearpaw could draw back the bow without the slightest effort, but when he died it was bequeathed to his wife and sons, and not a one could draw the string even halfway.  They eventually sold it to a merchant heading South.
+
+STATISTICS:
+
+THACO:  +3 bonus
+Damage:  +3 bonus
+Weight: 8
+Speed Factor: 5
+Proficiency Type: Longbow
+Type:  2-handed
+Requires: 19 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief
+ Bard~
+
+//Originally string #54340
+@180 = ~This mace has been crafted finely by the drow, and specially treated to survive the glare of the sun.  It is made for surface raids by the subterranean race... and its black metal glistens with a dark poison that seems to be generated from within and causes incredible damage upon a successful impact.
+The mace seems almost alive and warm to the touch, and slithers away from those whom it does not like... namely drow or those who are similar enough to not make a difference.  In the hands of anyone else, the mace becomes mere dead weight.
+
+STATISTICS:
+
+Combat Ability: A creature hit by this mace must make a saving throw vs. poison or suffer 2 points of damage each round for 10 rounds.
+THAC0: +2 bonus
+Damage:  1D6 + 3
+Damage type:  crushing
+Weight: 7
+Speed Factor: 6
+Proficiency Type: Mace
+Type:  1-handed
+Not Usable By:
+ Any who are not either Elf or Half-Elf Evil Clerics~
+
+//Originally string #57897
+@181 = ~Kuo-Toa Bolt
+
+This slender bolt is coated with a special poison, developed by Kuo-Toa alchemists.  A target hit by this bolt must making a saving throw vs. spells or be stunned for four rounds.
+
+STATISTICS:
+
+Combat Ability: target must save vs. spells or be stunned for four rounds
+Damage:  2D6 
+Damage type:  missile (piercing)
+Weight:  0
+Launcher:  Crossbow~
+
+//Originally string #47131
+@182 = ~This is a Staff of Goodberries that belonged to the Kobold Shaman in the sewers below the slums. 
+
+STATISTICS
+
+Abilities
+ Create Goodberries once per day
+Damage:  1D6
+Damage type:  crushing
+Weight: 4
+Speed Factor: 4
+Proficiency Type: Quarterstaff
+Type:  2-handed~
+
+//Originally string #39579
+@183 = ~Once a very powerful shield used by the clerics of Bane, most of the enchantments fled with their god's demise.  The basic magical protection of still remains, making it useful for any adventurer.
+
+STATISTICS:
+
+Armor Class Bonus: 4
+Weight: 4
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief~
+
+//Originally string #61580
+@184 = ~Shield of Balduran +3
+This shield was worn by the hero Balduran.   It is part of a set of weapons and armor that was stolen from the museum in the city of Baldur's Gate.
+
+STATISTICS:
+
+Equipped Abilities:
+ Reflects beholder rays
+ -1 Penalty to Strength
+Armor Class Bonus: 4
+Weight: 4
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Druid
+ Mage
+ Thief~
+
+//Originally string #41389
+@185 = ~This two-headed flail causes fire and cold damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Fire Damage, +1 Cold Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief
+~
+
+//Originally string #41620
+@186 = ~This two-headed flail causes acid and cold damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Acid Damage, +1 Cold Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #41621
+@187 = ~This two-headed flail causes fire and acid damage.  If the other head for the Flail of Ages could be found, it would make this weapon more powerful.
+
+STATISTICS:
+
+Damage:  1D6 + 3, +1 Fire Damage, +1 Acid Damage
+Damage type:  crushing
+Weight: 10
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+
+//Originally string #71058
+@188 = ~The long bow is similar to the short bow, except that the staff is about as high as the archer is, usually 6 to 6.5 feet.  Even though the longbow is slightly slower then the short bow, it has more range and is more accurate.  The smooth staff of this bow is warm to the touch, just a hint of the energy that surges through the wood.
+
+STATISTICS:
+
+THACO: +3 bonus
+Weight: 2
+Speed Factor: 4
+Proficiency Type: Long Bow
+Type:  2-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #39531
+@189 = ~Halberd +3: Dragon's Bane
+This was the weapon of Thorvin Dukal, one of seven self-proclaimed Dragonslayers who spent years railing against what they called "an insidious dragon infestation that threatened Faerun."  Thorvin had this weapon enchanted at great expense and used it on many occasions, though of dragons only a single white has fallen to it.  The Dragonslayers met their match in a cantankerous ancient red who slew the entire group in an epic battle.  This weapon did not end up in the beast's hoard however, as the creature returned to its lair to recuperate and when it emerged the field of combat was well scavenged.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Damage:  1D10 +3, +6 vs. dragons
+Damage type:  piercing
+Weight: 12
+Speed Factor: 6
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #34732
+@190 = ~Embarl's Dagger will prove to Mae'Var that Embarl has been 'dealt with.'
+
+STATISTICS:
+
+Damage:  1D6 
+Damage type:  Piercing
+Weight: 2
+Speed Factor: 2
+Proficiency Type: Dagger
+Type:  1-handed
+Not Usable By:
+ Cleric~
+
+//Originally string #8505
+@191 = ~Staff of the High Forest
+
+This staff was the culmination of a cycle of seasons in which Cernd meditated on his role within nature.  His perch for this personal journey was next to a sapling, a young oak that was a particular interest of study; it seemed odd, and yet somehow wonderfully ordered.  At the coming of spring Cernd examined it one last time, and it came loose in his hands, a living staff, granted as boon from nature herself.  It has grown to fit his grip, and few others may wield it.   
+
+STATISTICS:
+
+Equipped Abilities: Regenerate 1 hit point every 12 seconds
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Type:  2-handed
+
+Usable By:
+ Cernd~
+
+//Originally string #51947
+@192 = ~Entropy
+This +2 abyssal greensteel blade is one of Haer'Dalis' favorite weapons.  This shortsword is capable of inflicting an additional three points of poison damage if the target fails a saving throw.  This blade may only be used by tieflings.
+
+STATISTICS:
+
+Special Abilities: 3 points of poison damage if target fails save
+THACO:  +2 bonus
+Damage:  1D6 +2
+Damage type:  piercing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By:
+  Tieflings~
+
+//Originally string #51949
+@193 = ~Chaos Blade
+Chaos is a +2 short-sword usable only by tieflings.  Every time it strikes an opponent, he or she loses 2 points of dexterity (for 30 seconds).  Haer'Dalis prefers using Chaos with its partner -- Entropy.  When dual wielding these two blades, Haer'Dalis is a dangerous opponent.
+
+STATISTICS:
+
+Special Abilities: Target loses 2 points of dexterity each hit (duration: 30 seconds)
+THACO:  +2 bonus
+Damage:  1D6 +2
+Damage type:  piercing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Short Sword
+Type:  1-handed
+Usable By:
+  Tieflings~
+
+//Originally string #66372
+@194 = ~For many generations this magical shaft has been separated from Ixil's Spike, the enchanted head of the legendary spear.  However, even incomplete, this artifact is still a weapon of great power.  
+
+STATISTICS:
+
+THAC0: + 4 bonus
+Damage:  1D6 + 4
+Damage type:  piercing
+Weight: 5
+Speed Factor: 2
+Proficiency Type: Spear 
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #66474
+@195 = ~With shaft and tip reunited, Ixil's Spike is a fearsome weapon.  During the battle the head can detach to pin opponents to the ground even as a new head magically reforms on the end of the spear.
+
+STATISTICS:
+
+Equipped Abilities: Permanent Free Action
+
+Combat Abilities:  With each successful hit, the opponent must save or be pinned for 3 rounds, taking an additional 1D6+5 damage each round.
+
+THAC0: + 6 bonus
+Damage:  1D6 + 6
+Damage type:  piercing
+Weight: 5
+Speed Factor: 1 
+Proficiency Type: Spear 
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #39626
+@196 = ~Staff of Curing
+Torm is said to manifest these items during times of great trouble, granting them to priests who care for the wounded, diseased, and poisoned.  It is not to be taken for granted however, as the enchantment, though useful, is fleeting.  It must be used with all due care.
+
+STATISTICS
+
+Abilities (one charge): 
+ Cure: 3 - 18 +3 hit points, Disease and Poison
+
+AC: +2 bonus
+THAC0: +1 bonus
+Damage:  1D6 +1
+Damage type:  crushing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength
+Not Usable By:
+ Bard
+ Thief
+ Fighter
+ Mage~
+
+//Originally string #39627
+@197 = ~Staff of the Magi
+This type of staff is thoroughly linked of the image of the spellcasting profession, rare though it is.  It is among the most powerful tools that a wizard can possess, the culmination of complex enchantment and endless study.  This particular example is good in melee, grants Invisibility, and offers protection from Charms and Evil.  It can also cast a Spell Trap, launch a Fireball-Lighting Bolt combination, and Dispel Magic. The quintessential mage item.
+
+STATISTICS
+Armor Class: +2 bonus
+Saving Throws: +2 bonus
+Equipped Abilities:
+ Invisibility
+ Immunity to Charm
+ Protection From Evil
+
+  Fireball-Lightning
+   Damage: combined lightning and fireball damage
+   Range: 150 feet
+   Use: Three times a day
+
+Abilities: Trap Spell
+   Duration: 8 hours or until 30 spell levels have been trapped
+   Use: Once a day
+
+Combat Ability (each hit): Dispel Magic  
+THAC0: +1 bonus  (strikes as a +5 weapon)
+Damage:  1D6 +1
+Damage type:  crushing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength
+Usable By
+ Mages~
+
+//Originally string #39629
+@198 = ~Staff of Thunder and Lightning +2
+There are stories that tell of these staves sprouting in the growth around druid groves when the forest is threatened.  Fanciful tales, but truth or not, this staff is a powerful tool.  It draws energy from storms, and there is a chance that any blow may trigger a thunderclap that knocks enemies down.  It casts Lightning Bolt, and if circumstances warrant it, it can summon a lighting storm to blast enemies to dust.  Some abilities are limited by charges.
+
+STATISTICS
+
+Abilities (one charge):
+Lightning Bolt
+ Damage: 10d6
+ Range: 140 yards
+ Saving throw: Spells for half damage
+
+Call Lightning
+ Lightning strike hits the target
+ Damage: 3d8 per strike
+
+Melee :
+Thunderclap (10% chance on a successful strike)
+ Range: Melee 
+ Saving Throw: Save vs. spells or be stunned for two rounds
+
+THACO: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 4
+Speed Factor: 2
+Proficiency Type: Staff
+Type:  2-handed
+Requires: 5 Strength
+Usable By:
+ Clerics
+ Druids~
+
+//Originally string #39631
+@199 = ~Staff of Air
+This staff seems to draw from eleven artistic traditions, though tied less to the forest than is usually customary.  It was apparently designed to control air elementals, being able to summon one as a servant to the wielder, and potentially destroying creatures of the same type in a single blow.  When necessary, it can also spawn a cloud of gas causing anyone within the area of effect to fall into a deep slumber.  Some effects are limited by charges.
+
+STATISTICS
+
+Combat Abilities: If an air elemental is hit it must save vs. spells or be destroyed
+Abilities: (cost 1 charge)
+Summon an 8hd Air Elemental
+ Duration: 1 hour
+
+Sleep Cloud
+ Range: 40 feet
+ Duration: 3 rounds
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39632
+@200 = ~Staff of Earth
+Linked to the Plane of Earth, this staff may have been fashioned by an ancient druidic sect.  It can summon an Earth Elemental, though it also has the potential to slay such creatures in a single blow, possibly hinting at how difficult it is to control them.  It can also free a person from the earth by casting Stone to Flesh.  Some abilities are limited by charges.
+
+STATISTICS
+
+Combat Abilities: If an earth elemental is hit it must save vs. spells or be destroyed
+Abilities: (one charge)
+ Summon an 8 hit dice Earth Elemental
+  Duration: 1 hour
+Stone to Flesh
+  Revert effects of a petrification attack
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39633
+@201 = ~Staff of Fire
+This staff bears an ancient rune that may link it to the wizards of faraway Halruaa, but it is impossible to be certain.  Drawing from the Plane of Fire it can erupt in a Fire Shield that damages attackers, it can summon a Fire Elemental under the control of the wielder, and it can potentially draw all the energy from any fire elemental that it hits, destroying them instantly.  Some abilities are limited with charges however.
+
+STATISTICS
+
+Combat Abilities: If a fire elemental is hit it must save vs. spells or be destroyed
+Abilities: (one charge)
+Summon an 8 hit dice Fire Elemental
+ Duration: 1 hour
+Fire Shield (Red)
+ A protective shield that surrounds the wielder of the staff as per the 4th level wizard spell Fire Shield (Red).
+
+THAC0: +2 bonus
+Damage:  1D6 +2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #39634
+@202 = ~Quarter Staff +2
+The simplest of staff weapons is the quarterstaff, a length of wood six to nine feet in length.  High quality quarterstaves are made of stout oak and are shod with metal at both ends.  Powerful enchantments during the making of this staff have improved its accuracy and the damage it can cause, but they bear no signature.
+
+STATISTICS:
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #66369
+@203 = ~Adorned with serpentine designs, this powerful quarter staff has a chance to release a lethal toxin against its opponents with every blow.  
+
+STATISTICS:
+
+Combat Abilities:
+  50% chance of poisoning opponents with every successful attack.  The poison lasts for 1 round, and does 2 hp of damage/second unless the target makes a save vs death.
+
+THACO:  +2 bonus
+Damage:  1D6 + 2
+Damage type:  crushing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Quarterstaff
+Type:  2-handed
+Requires: 5 Strength~
+
+//Originally string #51884
+@204 = ~Scimitar +3: 'Water's Edge'
+The blade of this weapon seems to shimmer, revealing a fluid, razor edge. Truly there was great skill involved in its construction, as well as a blessing or two from some well-meaning eye above, even though the hilt is comparatively almost clumsily adorned. 
+
+STATISTICS:
+
+Damage:  1D8 +3
+THAC0: +3
+Damage type: slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Scimitar/Wakizashi/Ninja-To
+Type:  1-handed
+Requires: 8 Strength
+Not Usable By:
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #66203
+@205 = ~Also known as the Stream of Anguish, this is the legendary burning blade of Frithiof.     
+
+STATISTICS:
+Special Abilities:
+Once per day increase user's strength to 22 for 60 seconds.
+
+THAC0: +4 bonus
+Damage:  1D8 +4, +1 fire damage
+Damage type:  slashing
+Weight: 2
+Speed Factor: 1
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+
+//Originally string #48658
+@206 = ~Silver Sword
+This Vorpal Silver Sword radiates a dark aura when you examine it, and the blade is so finely sharpened it could likely sever a head in a single blow.
+
+STATISTICS:
+
+Combat Abilities:
+ 25% chance each hit that target must make a saving throw vs death (-2 penalty) or die.
+
+THAC0: +3 bonus
+Damage:  1D10 +3
+Damage type:  slashing
+Weight: 15
+Speed Factor: 7
+Proficiency Type: Two Handed sword
+Type:  2-handed
+Requires: 14 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~
+
+//Originally string #70785
+@207 = ~Long Sword +3
+
+This exquisitely-crafted sword has been enchanted with a powerful dweomer to enhance the user's skill and the damage caused...but is otherwise unremarkable.  
+
+STATISTICS:
+
+Damage:  1D8 +3
+THACO:  +3 bonus
+Damage type:  slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+~
+
+//Originally string #61593
+@208 = ~Harmonium Halberd +3
+This weapon is a powerful weapon usually given out to the most important of Harmonium captains.  The Harmonium is an faction based out of the planar city known as 'Sigil'.
+
+STATISTICS:
+
+Equipped Abilities:
+ +1 strength
+ -1 Intelligence
+ -1 Wisdom
+THAC0: +3 bonus
+Damage:  1D10 +3
+Damage type:  piercing
+Weight: 12
+Speed Factor: 6
+Proficiency Type: Halberd
+Type:  2-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+
+//Originally string #1764
+@209 = ~Battle Axe +3
+
+This is the axe of Bruenor Battlehammer, and a fine weapon it is. It has a formidable single-edged blade, and handles with the efficiency of a hand axe despite its size.
+
+STATISTICS:
+
+THAC0: +3 bonus
+Damage:  1D8 + 3
+Damage type:  slashing
+Weight: 6
+Speed Factor: 4
+Proficiency Type: Axe
+Type:  1-handed
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~
+                          
+//Originally string #21957                          
+@210 = ~Bala's Axe - Wizard Slayer:
+Bala was a foul-tempered prince of a gully dwarf clan, which was enslaved by a cruel elven mage in Thesk. Though Bala managed to escape the more cowardly traits of his race he was even more filthy and obnoxious than the average gully dwarf. Sickened of his enslavement, Bala crept into the mage's lair and cracked the elf's skull open. Although rumor has it that it was the dwarf's stench that overcame the mage, it was, in fact, his enchanted axe that dispelled the elf's magical defenses. It is obvious from the poor workmanship that Bala himself crafted the axe. The mystery lies in where its power originates. After a lengthy career of mage-slaying, Bala died, never having revealed his secret to those who were willing to risk a lice infestation by approaching him. Some say that the axe was powered by Bala's intense hatred of wizards. The axe gives the owner the ability to dispel magic once a day.
+
+STATISTICS:
+
+Damage:  1D8
+Damage type:  slashing
+
+Special:  Miscast Magic affects victim on each successful hit
+Miscast Magic:  Any spellcasting creature that is affected by this spell has its casting ability severely disabled.  When the creature attempts to cast a spell it has an 80% chance of failure.  Creatures can save vs spells to avoid the affect, but do so at -2. 
+
+Weight: 6
+Speed Factor: 7
+Proficiency Type: Axe
+Type:  1-handed
+Requires: 10 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage 
+ Thief~ 
+ 
+//Originally string #32186
+@211 = ~Defender of Easthaven +3~ 
+
+//Originally string #32187
+@212 = ~Defender of Easthaven +3
+This flail was created a century ago to commemorate the defeat of the demon Belhifet.  It was meant to always remain within the town of Easthaven to remind the people of the great evil that had been barely defeated.   
+
+STATISTICS:
+
+Equipped Abilities:
+ +1 AC bonus
+ +20% resistance to slashing, piercing, and blunt damage
+THACO:  +3 bonus
+Damage:  1D6 + 4
+Damage type:  crushing
+Weight: 12
+Speed Factor: 5
+Proficiency Type: Flail/Morningstar
+Type:  1-handed
+Requires: 13 Strength
+Not Usable By:
+ Druid
+ Mage 
+ Thief~
+ 
+//Originally string #39461
+@213 = ~Blade of Roses, Long Sword +3
+This blade possesses an unearthly splendor, and it is likely that Sune, the goddess of beauty and passion, had a hand in its creation.  The effect it has on the wielder is immediate, and more than once in its history has this sword been the secret behind a lackluster soldier's sudden elevation at court.
+
+STATISTICS:
+
+Equipped Abilities: 
+ Charisma: +2 bonus
+THAC0:  +3 bonus
+Damage:  1D8 + 3
+Damage type:  slashing
+Weight: 3
+Speed Factor: 2
+Proficiency Type: Long sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@214 = ~Bastard sword +1, +3 vs. Shapeshifters:  'Kondar'
+At first glance, this sword appears much like any other.  In the presence of any shapeshifting creature however, the blade becomes warm as its power stirs.  Its namesake was the original owner of the weapon, and his tale, though mostly long forgotten, was wrought with treachery and deceit.  Rumors persist that he paid a fearsome price for this blade, but with it he revealed the true identities of those that sought to betray him.  Their names and crimes however, are long since lost to history.
+
+STATISTICS:
+
+THAC0:  +1 bonus, +3 vs. Shapeshifters
+Damage:  2D4 +1, +3 vs. Shapeshifters
+Damage type:  slashing
+Weight: 8
+Speed Factor: 7
+Proficiency Type: Bastard Sword
+Type:  1-handed
+Requires: 11 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage
+ Thief~
+@215 = ~Flame Tongue +1
+
+There was a time before Neverwinter was warm and before the great Anauroch was dry...or so it is said.  Few relics remain to prove such an age existed, and fewer still have an identifiable purpose.  "The Burning Earth" seems straightforward enough -it burns a victim with magical fire, and a cryptic rune seems to suggest that the power comes from the ground itself- but whomever constructed it remains a mystery.  It looks a perfectly serviceable weapon, but something in the balance or grip is...wrong.  It strains the forearm a touch, and does not fit the hand just right.  It doesn't seem to hurt a warrior's performance, aside from the nagging doubt that the blade was not made for him...or any other humanoid.
+
+STATISTICS:
+
+THAC0:  +1 bonus, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage:  1D8 +1, +2 vs. regenerating creatures, +3 vs. cold-using creatures, +4 vs. undead
+Damage type:  slashing
+Weight: 4
+Speed Factor: 3
+Proficiency Type: Long Sword
+Type:  1-handed
+Requires: 6 Strength
+Not Usable By:
+ Druid
+ Cleric
+ Mage~
+@1000 = ~GTU Light (by Wisp)~
+@1001 = ~GTU Classic (from Baldurdash, by Kevin Dorner)~

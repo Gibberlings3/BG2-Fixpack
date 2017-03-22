@@ -106,7 +106,7 @@ REPLACE_ACTION_TEXT_REGEXP ~ramazi~ ~CreateCreature(\("[a-zA-Z0-9]+"\),\(\[[0-9]
 REPLACE_ACTION_TEXT_REGEXP ~thalan~ ~CreateCreature(\("[a-zA-Z0-9]+"\),\(\[[0-9]+\.[0-9]+\]\))~ ~CreateCreature(\1,\2,0)~
 
 // death variable fixes
-REPLACE_TRIGGER_TEXT_REGEXP ~\(^barl$\)\|\(^temsup$\)\|\(^trgeni01$\)\|\(^trlgrd01$\)\|\(^trmer03$\)\|\(^trrak01$\)~ ~"Faldorn"~ ~"cefaldor"~
+REPLACE_TRIGGER_TEXT_REGEXP ~\(^barl$\)\|\(^temsup$\)\|\(^trgeni01$\)\|\(^trlgrd01$\)\|\(^trmer03$\)\|\(^trrak01$\)~ ~"Faldorn"~ ~"cefald01"~
 REPLACE_TRIGGER_TEXT_REGEXP ~^bnoble[12]$~ ~"bnoble1"~ ~"feveron"~
 REPLACE_TRIGGER_TEXT_REGEXP ~^bnoble[12]$~ ~"bnoble2"~ ~"diana"~
 REPLACE_TRIGGER_TEXT_REGEXP ~\(^c6fake$\)\|\(^keldor$\)\|\(^xc6elxxx$\)~ ~"[Bb][Hh][Ee][Yy][Ee]"~ ~"UnseeingEye"~
@@ -571,11 +571,11 @@ REPLACE_TRIGGER_TEXT FFWENCH ~Global("InteractMinsc","LOCALS",0)~
 REPLACE_ACTION_TEXT FFWENCH ~SetGlobal("InteractMinsc","LOCALS",1)~
                             ~SetGlobal("IKFFWenchMinsc","GLOBAL",1)~
 
-// Gaal takes the rift device part
+/* // Gaal takes the rift device part (note: this change has been deprecated due to player input)
 ADD_TRANS_ACTION GAAL
 BEGIN 18 END
 BEGIN 0 END
-~TakePartyItem("misc5a")~
+~TakePartyItem("misc5a")~ */
 
 // townsperson interjection is checking for viccy on a valygar interjection
 REPLACE_TRIGGER_TEXT ~gmtown02~ ~Viconia~ ~Valygar~
@@ -800,15 +800,8 @@ BEGIN 1 END
 REPLACE_ACTION_TEXT PIRCOR05
 ~AddXPObject(Player6,2250)~ ~AddXPObject(Player6,2250) EscapeArea()~
 
-REPLACE PLAYER1
-  IF WEIGHT #8 ~Global("Slayer10","GLOBAL",1)~ THEN BEGIN 27 SAY #55324
-    IF ~~ THEN REPLY #55326 DO ~SetGlobal("Slayer10","GLOBAL",0)~ EXIT
-    IF ~~ THEN REPLY #55325 DO ~SetGlobal("Slayer10","GLOBAL",2)
-                                SetGlobalTimer("TheSlayerTimer","GLOBAL",60)
-                                ReputationInc(-2)
-                                ApplySpell(Player1,SLAYER_CHANGE_TWO)~ EXIT
-  END
-END
+// The Slayer change dialogue should use the proper reply string
+ALTER_TRANS PLAYER1 BEGIN 27 END BEGIN 2 END BEGIN "REPLY" ~#55325~ END
 
 // removes Desharik XP exploit along with cut41f changes
 REPLACE_ACTION_TEXT ~ppdesh~ ~AddXPObject(Player[1-6],38500)~ ~~
@@ -1448,3 +1441,28 @@ REPLACE_ACTION_TEXT ~wish~ ~GivePartyGold(2000)~ ~GiveGoldForce(2000)~
 
 // if wish cast by non-party member (i.e. simulcrum or projected image), scroll to start quest would be lost
 REPLACE_ACTION_TEXT WISH ~GiveItemCreate("wishscrl",LastTalkedToBy,0,0,0)~ ~GiveItemCreate("wishscrl",Player1,0,0,0)~
+
+REPLACE_STATE_TRIGGER imoenp 3 ~Global("ImoenRunning","LOCALS",1)~
+SET_WEIGHT imoenp 3 #-1
+
+// The merchant who gets assaulted by a thug at the City Gates no longer shares a store with the Brynnlaw storekeeper (see also cdaemerc.sto) (Nythrun and devSin)
+REPLACE_TRANS_ACTION aemerch BEGIN 8 END BEGIN 0 END
+  ~StartStore("ppstor01",LastTalkedToBy())~   
+  ~StartStore("cdaemerc",LastTalkedToBy(Myself))~
+
+// An instance of Jaheira's dialogue will no longer loop endlessly if the player isn't a suitable romance partner for her (Jason Compton and Wisp)
+
+ALTER_TRANS bjaheir BEGIN 68 END BEGIN 0 1 2 END BEGIN
+"ACTION" ~IncrementGlobal("LoveTalk","LOCALS",1)~
+END
+
+
+ADD_TRANS_ACTION GARREN BEGIN 45 END BEGIN 1 END ~ActionOverride("firban01",DestroySelf())
+ActionOverride("firban02",DestroySelf())
+ActionOverride("firban03",DestroySelf())
+ActionOverride("firban04",DestroySelf())
+ActionOverride("firban05",DestroySelf())
+ActionOverride("garjum",DestroySelf())
+SetGlobal("DomainPaladinBattle","GLOBAL",5)~
+
+ADD_TRANS_ACTION FIRKRA02 BEGIN 34 END BEGIN END ~AddXPObject(Player1,40500)~
