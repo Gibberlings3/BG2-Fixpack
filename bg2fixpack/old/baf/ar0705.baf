@@ -1,8 +1,0 @@
-IF
-  Dead("Mekrath")
-  Global("CDClearJournal","MYAREA",0)
-THEN
-  RESPONSE #100
-    EraseJournalEntry(4660)
-    SetGlobal("CDClearJournal","MYAREA",1)
-END

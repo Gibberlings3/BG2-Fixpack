@@ -1,8 +1,0 @@
-IF
-  Global("AsylumPlot","GLOBAL",81)
-  !Allegiance(Myself,ENEMY)
-  AttackedBy([GOODCUTOFF],DEFAULT)
-THEN
-  RESPONSE #100
-    Enemy()
-END

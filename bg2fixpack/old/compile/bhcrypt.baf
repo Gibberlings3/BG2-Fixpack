@@ -1,8 +1,0 @@
-IF
-  See(NearestEnemyOf(Myself))
-  Global("CastHorror","LOCALS",0)
-THEN
-  RESPONSE #100
-    ReallyForceSpell(NearestEnemyOf(Myself),WIZARD_HORROR)
-    SetGlobal("CastHorror","LOCALS",1)
-END

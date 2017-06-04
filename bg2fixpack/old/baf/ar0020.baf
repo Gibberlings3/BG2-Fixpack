@@ -1,7 +1,0 @@
-IF
-  Dead("cefald01")
-  Exists("messen")
-THEN
-  RESPONSE #100
-    ActionOverride("messen",DestroySelf())
-END

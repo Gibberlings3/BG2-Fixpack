@@ -1,7 +1,0 @@
-IF
-  OnCreation()
-THEN
-  RESPONSE #100
-    SetGlobalTimer("CDGoAway","LOCALS",5)
-    Continue()
-END

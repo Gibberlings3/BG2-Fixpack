@@ -1,8 +1,0 @@
-IF
-  !InParty(Myself)
-  !Allegiance(Myself,ENEMY)
-  Global("GrovePoisoned","GLOBAL",1)
-THEN
-  RESPONSE #100
-    Enemy()
-END

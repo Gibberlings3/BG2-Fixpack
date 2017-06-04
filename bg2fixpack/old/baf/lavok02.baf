@@ -1,6 +1,0 @@
-IF
-  !Allegiance(Myself,NEUTRAL)
-THEN
-  RESPONSE #100
-    ChangeEnemyAlly(Myself,NEUTRAL)
-END

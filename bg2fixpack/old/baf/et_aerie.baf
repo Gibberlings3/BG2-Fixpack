@@ -1,8 +1,0 @@
-IF
-	HasItem("Belt12","Aerie") // Holy Symbol of Lathander
-	Global("J#HolySymbol","LOCALS",0)
-THEN
-	RESPONSE #100
-		SetGlobal("J#HolySymbol","LOCALS",1)
-		TakeItemReplace("J#Belt12","Belt12","Aerie") // Holy Symbol of Lathander
-END

@@ -1,9 +1,0 @@
-IF
-	HasItem("Belt12","Anomen") // Holy Symbol of Lathander
-	Alignment("Anomen",LAWFUL_GOOD)
-	Global("J#HolySymbol","LOCALS",0)
-THEN
-	RESPONSE #100
-		SetGlobal("J#HolySymbol","LOCALS",1)
-		TakeItemReplace("Belt13","Belt12","Anomen") // Holy Symbol of Lathander
-END

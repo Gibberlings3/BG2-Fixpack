@@ -1,6 +1,0 @@
-IF
-  HasItem("helm03","sctelwyn")
-THEN
-  RESPONSE #100
-    ActionOverride("sctelwyn",DestroyItem("helm03"))
-END

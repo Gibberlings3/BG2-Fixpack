@@ -1,6 +1,0 @@
-IF
-  Dead("TOLGER")
-THEN
-  RESPONSE #100
-    DestroySelf()
-END

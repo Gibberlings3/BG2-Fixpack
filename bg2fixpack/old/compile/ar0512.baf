@@ -1,9 +1,0 @@
-/*
-IF
-  False()
-THEN
-  RESPONSE #100
-    NoAction()
-END
-*/
-

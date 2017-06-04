@@ -1,8 +1,0 @@
-IF
-  GlobalGT("GreatDruid","GLOBAL",0)
-THEN
-  RESPONSE #100
-    DestroySelf()
-END
-
-

@@ -1,8 +1,0 @@
-IF
-  AreaCheck("ar1200")
-  Global("GarTrig","GLOBAL",1)
-  Global("Kidnap","GLOBAL",3)
-THEN
-  RESPONSE #100
-    EscapeArea()
-END

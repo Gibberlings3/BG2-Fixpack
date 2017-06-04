@@ -1,9 +1,0 @@
-IF
-	IsOverMe([PC])
-	Global("UmbPoly","AR1301",0)
-        !NumDeadLT("KPUMB01",5)
-THEN
-	RESPONSE #100
-		DisplayString(Myself,98765)
-		SetGlobal("UmbPoly","AR1301",1)
-END

@@ -1,6 +1,0 @@
-IF
-  Global("PaladinPlot","GLOBAL",60)
-THEN
-  RESPONSE #100
-    DestroySelf()
-END

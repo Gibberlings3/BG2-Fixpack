@@ -1,9 +1,0 @@
-IF
-  AttackedBy([GOODCUTOFF],DEFAULT)
-  Global("attacked","LOCALS",0)
-  !Allegiance(Myself,ENEMY)
-THEN
-  RESPONSE #100
-    SetGlobal("attacked","LOCALS",1)
-    StartDialogueNoSet([PC])
-END

@@ -1,8 +1,0 @@
-IF
-  !Dead("Valygar")
-  PartyHasItem("misc7l")
-THEN
-  RESPONSE #100
-    TakePartyItem("misc7l")
-    DestroyItem("misc7l")
-END

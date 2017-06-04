@@ -1,9 +1,0 @@
-IF
-  Die()
-THEN
-  RESPONSE #100
-    DisplayStringHead(Myself,3035) // With the death of your Djinni, the summoning ring vanishes.
-    TakePartyItem("ring26") // Ring of Djinni Summoning
-    DestroyItem("ring26") // Ring of Djinni Summoning
-    DestroySelf()
-END
