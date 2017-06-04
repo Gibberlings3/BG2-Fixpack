@@ -1,0 +1,11 @@
+IF
+  Global("JaheiraCursed","GLOBAL",8)
+  PartyHasItem("MISC5V") // Lock of Jaheira's Hair
+  InParty(Myself)
+  !Dead("Ployer")
+  !See("Ployer")
+  See([PC])
+THEN
+  RESPONSE #100
+    StartDialogueNoSet([PC])
+END

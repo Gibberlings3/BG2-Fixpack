@@ -1,0 +1,15 @@
+IF
+  PartyHasItem("figure01")
+  Global("CDPlayerHasShakti","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDPlayerHasShakti","GLOBAL",1)
+END
+
+IF
+  HasItem("figure01",Myself)
+  Global("CDPlayerHasShakti","GLOBAL",1)
+THEN
+  RESPONSE #100
+    DestroyItem("figure01")
+END

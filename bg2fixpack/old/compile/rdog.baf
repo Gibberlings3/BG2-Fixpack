@@ -1,0 +1,23 @@
+IF
+	HPLT(Myself,6)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		RunAwayFrom(LastAttackerOf(Myself),50)
+		SetInterrupt(TRUE)
+END
+
+IF
+	AttackedBy([ANYONE],DEFAULT)
+THEN
+	RESPONSE #100
+		Attack(LastAttackerOf(Myself))
+END
+
+IF
+	True()
+THEN
+	RESPONSE #100
+		RandomWalk()
+END
+

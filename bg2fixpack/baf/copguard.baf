@@ -1,0 +1,8 @@
+IF
+  Allegiance(Myself,ENEMY)
+  Global("makeHostile","LOCALS",0)
+THEN
+  RESPONSE #100
+    ChangeAIScript("",CLASS)
+    SetGlobal("makeHostile","LOCALS",1)
+END

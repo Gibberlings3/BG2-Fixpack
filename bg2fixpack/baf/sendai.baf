@@ -1,0 +1,8 @@
+IF
+  StateCheck(Myself,CD_STATE_NOTVALID)
+  Global("Death","LOCALS",1)
+THEN
+  RESPONSE #100
+    ForceSpell(Myself,FORCE_DISPEL_MAGIC)
+    SetGlobal("Death","LOCALS",0) // allows death block (that initiates final dialogue) to trip again
+END

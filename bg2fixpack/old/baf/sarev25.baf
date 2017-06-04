@@ -1,0 +1,12 @@
+IF
+ !Alignment(Myself,CHAOTIC_EVIL)
+ Global("NewSounds","LOCALS",0)
+THEN
+ RESPONSE #100
+   SetPlayerSound(Myself,70832,BATTLE_CRY1)
+   SetPlayerSound(Myself,70833,BATTLE_CRY3)
+   SetPlayerSound(Myself,70834,DYING)
+   SetPlayerSound(Myself,70835,AREA_CITY)
+   SetPlayerSound(Myself,70836,AREA_NIGHT)
+   SetGlobal("NewSounds","LOCALS",1)
+END

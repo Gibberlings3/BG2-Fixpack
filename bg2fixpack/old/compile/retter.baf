@@ -1,0 +1,16 @@
+IF
+	Delay(15)
+	AttackedBy([ANYONE],DEFAULT)
+	HPLT(Myself,7)
+THEN
+	RESPONSE #100
+		RunAwayFrom(LastAttackerOf(Myself),150)
+END
+
+IF
+	See(NearestEnemyOf(Myself))
+THEN
+	RESPONSE #100
+		Attack(NearestEnemyOf(Myself))
+END
+

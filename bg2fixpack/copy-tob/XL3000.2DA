@@ -1,0 +1,25 @@
+2DA V1.0
+*
+         AREA    FLAGS    ENTRY_POINT    DISTANCE_SCALE    ENCOUNTER_PROB    ENCOUNTER0    ENCOUNTER1    ENCOUNTER2    ENCOUNTER3    ENCOUNTER4    LINKTO_DIR
+1        AR0020  1        EXITNE         5                 0                 *             *             *             *             *             *
+2        AR2000  4        EXITNW         5                 0                 *             *             *             *             *             *
+3        AR1200  8        EXITW          6                 0                 *             *             *             *             *             *
+4        AR1100  4        EXITSE         6                 0                 *             *             *             *             *             *
+5        AR1300  4        EXITSE         5                 0                 *             *             *             *             *             *
+6        AR1304  4        EXITSE         5                 0                 *             *             *             *             *             *
+7        AR1700  4        CDEXIT         3                 0                 *             *             *             *             *             *
+8        AR2500  4        CDEXIT         2                 0                 *             *             *             *             *             *
+9        AR1200  4        EXITSW         6                 0                 *             *             *             *             *             2
+10       AR2000  4        EXITSW         5                 0                 *             *             *             *             *             2
+11       AR2000  4        EXITSW         5                 0                 *             *             *             *             *             1
+12       AR2000  4        EXITSW         5                 0                 *             *             *             *             *             3
+13       AR1100  4        EXITSW         6                 0                 *             *             *             *             *             2
+14       AR1100  4        EXITSW         6                 0                 *             *             *             *             *             3
+15       AR1300  4        EXITSW         5                 0                 *             *             *             *             *             2
+16       AR1300  4        EXITSW         5                 0                 *             *             *             *             *             3
+17       AR1304  4        EXITSW         5                 0                 *             *             *             *             *             2
+18       AR1304  4        EXITSW         5                 0                 *             *             *             *             *             3
+19       AR0020  4        EXITSW         5                 0                 *             *             *             *             *             2
+20       AR0020  4        EXITSW         5                 0                 *             *             *             *             *             0
+21       AR1700  4        EXITSW         3                 0                 *             *             *             *             *             2
+22       AR2500  4        EXITSW         2                 0                 *             *             *             *             *             2

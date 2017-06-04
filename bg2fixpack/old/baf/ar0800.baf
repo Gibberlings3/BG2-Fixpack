@@ -1,0 +1,12 @@
+IF
+  Global("WorkingForBodhi","GLOBAL",1)
+  OpenState("DOOR12",FALSE)
+  GlobalLT("Chapter","GLOBAL",6)
+  !Global("Door12Opened","AR0800",1)
+THEN
+  RESPONSE #100
+    TriggerActivation("Tran0801c",TRUE)
+    Unlock("DOOR12")
+    OpenDoor("DOOR12")
+    SetGlobal("Door12Opened","AR0800",1)
+END

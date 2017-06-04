@@ -1,0 +1,16 @@
+IF
+  Global("moveMage4","AR2202",1)
+  Global("HaltMusicWithLesaonar","GLOBAL",2)
+THEN
+  RESPONSE #100
+    SetGlobal("CDGoAwayUcounter","AR2202",1)
+    SetGlobal("HaltMusicWithLesaonar","GLOBAL",0)
+    SetGlobal("CombatCounter","AR2202",0)
+END
+
+IF
+  Global("CDGoAwayUcounter","AR2202",1)
+THEN
+  RESPONSE #100
+    DestroySelf()
+END

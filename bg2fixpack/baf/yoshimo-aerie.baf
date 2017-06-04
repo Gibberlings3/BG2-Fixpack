@@ -1,0 +1,39 @@
+IF
+  InParty(Myself)
+  InParty("Aerie")
+  Dead("Aerie")
+  Global("CDYoshimoAerieBanter","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDYoshimoAerieBanter","LOCALS",1)
+END
+
+IF
+  InParty(Myself)
+  !StateCheck(Myself,STATE_SLEEPING)
+  InParty("Aerie")
+  See("Aerie")
+  !StateCheck("Aerie",STATE_SLEEPING)
+  !Dead("Aerie")
+  Global("CDYoshimoAerieBanter","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetGlobal("CDYoshimoAerieBanter","LOCALS",2)
+    Interact("Aerie")
+END
+
+IF
+  InParty(Myself)
+  !StateCheck(Myself,STATE_SLEEPING)
+  InParty("Minsc") 
+  See("Minsc") 
+  HPLT("Minsc",20) 
+  !StateCheck("Minsc",STATE_SLEEPING) 
+  CombatCounter(0)
+  Global("BYoshimo13","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("BYoshimo13","LOCALS",1)
+    Interact("Minsc")
+END
+

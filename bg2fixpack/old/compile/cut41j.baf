@@ -1,0 +1,38 @@
+IF
+	True()
+THEN
+	RESPONSE #100
+		CutSceneId(Player1)
+		FadeToColor([20.0],0)
+		Wait(1)
+		ActionOverride("Yoshimo",ChangeAIScript("yoshimox",OVERRIDE))
+		ActionOverride("Yoshimo",JumpToPoint([1275.652]))
+		ActionOverride("Yoshimo",SetDialog("yoshimox"))
+		ActionOverride("ppimoen",DestroySelf())
+		ApplySpell(Player2,NOHOLD_PARTY)
+		ApplySpell(Player3,NOHOLD_PARTY)
+		ApplySpell(Player4,NOHOLD_PARTY)
+		ApplySpell(Player5,NOHOLD_PARTY)
+		ApplySpell(Player6,NOHOLD_PARTY)
+		ActionOverride(Player2,MakeUnselectable(1))
+		ActionOverride(Player3,MakeUnselectable(1))
+		ActionOverride(Player4,MakeUnselectable(1))
+		ActionOverride(Player5,MakeUnselectable(1))
+		ActionOverride(Player6,MakeUnselectable(1))
+		Wait(1)
+		LeaveAreaLUAPanic("AR1512","",[1669.1382],6)
+		LeaveAreaLUA("AR1512","",[1669.1382],6)
+		ActionOverride(Player2,LeaveAreaLUA("AR1512","",[1680.1373],6))
+		ActionOverride(Player3,LeaveAreaLUA("AR1512","",[1653.1406],6))
+		ActionOverride(Player4,LeaveAreaLUA("AR1512","",[1782.1409],6))
+		ActionOverride(Player5,LeaveAreaLUA("AR1512","",[1742.1424],6))
+		ActionOverride(Player6,LeaveAreaLUA("AR1512","",[1676.1437],6))
+		MultiPlayerSync()
+		Wait(1)
+		FadeFromColor([20.0],0)
+		Wait(2)
+		EndCutSceneMode()
+		ActionOverride("ppbodhi4",StartDialogueNoSet(Player1))
+END
+
+

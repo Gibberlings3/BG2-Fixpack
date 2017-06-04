@@ -1,0 +1,11 @@
+IF
+  Name("firkra02",Myself)
+  NumTimesTalkedToGT(0)
+  Global("CDJournal","AR1203",0)
+THEN
+  RESPONSE #100
+    EraseJournalEntry(15724)
+    AddJournalEntry(22917,QUEST_DONE)
+    SetGlobal("CDJournal","AR1203",1)
+    Continue()
+END

@@ -1,0 +1,9 @@
+IF
+  OpenState("DOOR02",TRUE)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    CreateVisualEffectObject("SPDEATH3",Myself)
+    SmallWait(7)
+    DestroySelf()     
+END

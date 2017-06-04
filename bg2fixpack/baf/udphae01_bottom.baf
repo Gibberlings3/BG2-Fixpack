@@ -1,0 +1,7 @@
+IF
+  Global("PhaereJob","GLOBAL",8)
+  !AreaCheck("ar2201")
+THEN
+  RESPONSE #100
+    EscapeAreaMove("AR2201",1014,1253,0)
+END

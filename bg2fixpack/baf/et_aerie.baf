@@ -1,0 +1,8 @@
+
+IF
+  HasItem("CDHLYSYM",Myself)
+THEN 
+  RESPONSE #100
+    ApplySpellRES("CDHLYSY2",Myself)
+    TakeItemReplace("J#Belt12","CDHLYSYM",Myself)
+END

@@ -1,0 +1,9 @@
+IF
+  Global("ForgeStuff","GLOBAL",0)
+  Global("CDTime","AR0334",1)
+THEN
+  RESPONSE #100
+    SetGlobal("CDTime","AR0334",0)
+    ActionOverride("WSMITH01",StartDialogueNoSet([PC]))
+    Continue()
+END

@@ -1,0 +1,19 @@
+IF
+  Global("CutScene01","AR0700",5)
+  NumTimesTalkedTo(0)
+  !See([PC])
+  CombatCounter(0)
+THEN
+  RESPONSE #100
+    MoveToObject(Player1)
+END
+
+IF
+  Global("CutScene01","AR0700",5)
+  See([PC])
+  NumTimesTalkedTo(0)
+  CombatCounter(0)
+THEN
+  RESPONSE #100
+    StartDialogNoSet([PC])
+END

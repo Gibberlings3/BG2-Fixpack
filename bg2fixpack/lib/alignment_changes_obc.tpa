@@ -1,0 +1,30 @@
+ACTION_CLEAR_ARRAY cd_bulk_cre_changes_align
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_align BEGIN
+
+  acolyte3 =>  18 // Watchknight Aabir, from NEUTRAL to LAWFUL_NEUTRAL
+  alex     =>  17 // Sir Beverus, from CHAOTIC_GOOD to LAWFUL_GOOD
+  amtgen01 =>  19 // Jamis Tombelthen, from LAWFUL_NEUTRAL to LAWFUL_EVIL
+  bdact05  =>  18 // Zaren, from LAWFUL_NEUTRAL to LAWFUL_NEUTRAL
+  bdhigg01 =>  18 // Higgold, from LAWFUL_NEUTRAL to LAWFUL_NEUTRAL
+  bounha   =>  19 // Bounty Hunter, from NEUTRAL_EVIL to LAWFUL_EVIL
+  bounha04 =>  19 // Bounty Hunter, from LAWFUL_NEUTRAL to LAWFUL_EVIL
+  drow07   =>  51 // Drow Priestess, from NEUTRAL to CHAOTIC_EVIL
+  garkid01 =>  17 // Iltha, from NEUTRAL to LAWFUL_GOOD
+  garkid02 =>  17 // Taar, from NEUTRAL to LAWFUL_GOOD
+  gftown01 =>  18 // Commoner, from CHAOTIC_GOOD to LAWFUL_NEUTRAL
+  gmtown02 =>  18 // Commoner, from NEUTRAL_GOOD to LAWFUL_NEUTRAL
+  helmbyr  =>  18 // Acolyte Byron, from NEUTRAL to LAWFUL_NEUTRAL
+  helmkni1 =>  18 // Shield Knight, from NEUTRAL to LAWFUL_NEUTRAL
+  helmpr   =>  18 // Sir Lothtyran, from NEUTRAL to LAWFUL_NEUTRAL
+  jade2    =>  19 // Thenry, from NEUTRAL to LAWFUL_EVIL
+  jade3    =>  19 // Jeremon, from CHAOTIC_NEUTRAL to LAWFUL_EVIL
+  jarev1   =>  50 // Harper, from CHAOTIC_EVIL to CHAOTIC_NEUTRAL
+  priss    =>  51 // Priss, from NEUTRAL to CHAOTIC_EVIL
+  prophelm =>  18 // Shield Knight, from NEUTRAL to LAWFUL_NEUTRAL
+  rumar    =>  51 // Rumar, from NEUTRAL to CHAOTIC_EVIL
+  sctelwyn =>  18 // Guardian Telwyn, from NEUTRAL to LAWFUL_NEUTRAL
+  victown1 =>  51 // Commoner, from NEUTRAL_GOOD to CHAOTIC_EVIL
+  victown2 =>  51 // Commoner, from CHAOTIC_GOOD to CHAOTIC_EVIL
+  victown3 =>  51 // Nobleman, from NEUTRAL_GOOD to CHAOTIC_EVIL
+
+END

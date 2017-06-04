@@ -1,0 +1,9 @@
+IF
+  Global("cd_change","LOCALS",1)
+THEN
+  RESPONSE #100
+    ReallyForceSpell(Myself,RED_EFFECT) // SPIN899.SPL (No such index)
+    ScreenShake([5.5],5)
+    ReallyForceSpell(Myself,LICH_REPLACE_SELF) // SPIN806.SPL (No such index)
+    SetGlobal("cd_change","LOCALS",2)
+END

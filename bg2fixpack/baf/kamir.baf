@@ -1,0 +1,20 @@
+IF
+  Global("KamirWard","GLOBAL",0)
+  TimeGT(6)
+  TimeLT(15)
+  !IsActive(Myself)
+THEN
+  RESPONSE #100
+    Activate(Myself)
+END
+
+IF
+  Global("KamirWard","GLOBAL",0)
+  OR(2)
+    TimeLT(7)
+    TimeGT(14)
+  IsActive(Myself)
+THEN
+  RESPONSE #100
+    Deactivate(Myself)
+END

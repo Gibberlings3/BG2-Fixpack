@@ -1,0 +1,10 @@
+IF
+  Time(%index%)
+  Global("ForgeStuff","GLOBAL",1)
+  Global("CDTime","AR0334",0)
+THEN
+  RESPONSE #100
+    DayNight(%index2%)
+    SetGlobal("CDTime","AR0334",1)
+    Continue()
+END

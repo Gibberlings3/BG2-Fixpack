@@ -1,0 +1,114 @@
+IF
+	InParty("Mazzy")
+	Global("DROWITEMCHECKDONE","GLOBAL",1)
+	Global("MazzyDrowCheck","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		MultiPlayerSync()
+		SmallWait(8)
+		ActionOverride("Mazzy",ApplySpell(Myself,UNDER_NORM))
+		SetGlobal("MazzyDrowCheck","GLOBAL",1)
+		TakePartyItemAll("DWCHAN01") // Drow Elven Chain +3
+		TakePartyItemAll("DWCHAN02") // Drow Adamantine Chain +5
+		TakePartyItemAll("DWSW1H01") // Drow Scimitar +3
+		TakePartyItemAll("DWSW1H02") // Drow Longsword +3
+		TakePartyItemAll("DWBLUN01") // Drow Flail +3
+		TakePartyItemAll("DWHALB01") // Drow Halberd +3
+		TakePartyItemAll("DWSPER01") // Drow Lance +3
+		TakePartyItemAll("DWXBOW01") // Drow Crossbow of Speed
+		TakePartyItemAll("DWSHLD01") // Drow Shield +3
+		TakePartyItemAll("DWCLCK01") // Drow Piwafwi Cloak
+		TakePartyItemAll("DWBOLT01") // Drow Bolt of Sleep
+		TakePartyItemAll("DWBOLT02") // Drow Bolt of Stunning
+		TakePartyItemAll("DWBOLT03") // Drow Bolt +1
+		TakePartyItemAll("DWPLAT01") // Drow Full Plate +5
+		TakePartyItemAll("MISC9W") // Drow Piwafwi Cloak
+		SetInterrupt(TRUE)
+END
+
+IF
+	!InParty("Mazzy")
+	!Dead("Mazzy")
+	Global("MazzyDrowCheck","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("MazzyDrowCheck","GLOBAL",0)
+END
+
+IF
+	InParty("Jaheira")
+	Global("DROWITEMCHECKDONE","GLOBAL",1)
+	Global("JaheiraDrowCheck","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		MultiPlayerSync()
+		SmallWait(8)
+		ActionOverride("Jaheira",ApplySpell(Myself,UNDER_NORM))
+		SetGlobal("JaheiraDrowCheck","GLOBAL",1)
+		TakePartyItemAll("DWCHAN01") // Drow Elven Chain +3
+		TakePartyItemAll("DWCHAN02") // Drow Adamantine Chain +5
+		TakePartyItemAll("DWSW1H01") // Drow Scimitar +3
+		TakePartyItemAll("DWSW1H02") // Drow Longsword +3
+		TakePartyItemAll("DWBLUN01") // Drow Flail +3
+		TakePartyItemAll("DWHALB01") // Drow Halberd +3
+		TakePartyItemAll("DWSPER01") // Drow Lance +3
+		TakePartyItemAll("DWXBOW01") // Drow Crossbow of Speed
+		TakePartyItemAll("DWSHLD01") // Drow Shield +3
+		TakePartyItemAll("DWCLCK01") // Drow Piwafwi Cloak
+		TakePartyItemAll("DWBOLT01") // Drow Bolt of Sleep
+		TakePartyItemAll("DWBOLT02") // Drow Bolt of Stunning
+		TakePartyItemAll("DWBOLT03") // Drow Bolt +1
+		TakePartyItemAll("DWPLAT01") // Drow Full Plate +5
+		TakePartyItemAll("MISC9W") // Drow Piwafwi Cloak
+		SetInterrupt(TRUE)
+END
+
+IF
+	!InParty("Jaheira")
+	!Dead("Jaheira")
+	Global("JaheiraDrowCheck","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("JaheiraDrowCheck","GLOBAL",0)
+END
+
+IF
+	InParty("Imoen2")
+	Global("DROWITEMCHECKDONE","GLOBAL",1)
+	Global("ImoenDrowCheck","GLOBAL",0)
+THEN
+	RESPONSE #100
+		SetInterrupt(FALSE)
+		MultiPlayerSync()
+		SmallWait(8)
+		ActionOverride("Imoen2",ApplySpell(Myself,UNDER_NORM))
+		SetGlobal("ImoenDrowCheck","GLOBAL",1)
+		TakePartyItemAll("DWCHAN01") // Drow Elven Chain +3
+		TakePartyItemAll("DWCHAN02") // Drow Adamantine Chain +5
+		TakePartyItemAll("DWSW1H01") // Drow Scimitar +3
+		TakePartyItemAll("DWSW1H02") // Drow Longsword +3
+		TakePartyItemAll("DWBLUN01") // Drow Flail +3
+		TakePartyItemAll("DWHALB01") // Drow Halberd +3
+		TakePartyItemAll("DWSPER01") // Drow Lance +3
+		TakePartyItemAll("DWXBOW01") // Drow Crossbow of Speed
+		TakePartyItemAll("DWSHLD01") // Drow Shield +3
+		TakePartyItemAll("DWCLCK01") // Drow Piwafwi Cloak
+		TakePartyItemAll("DWBOLT01") // Drow Bolt of Sleep
+		TakePartyItemAll("DWBOLT02") // Drow Bolt of Stunning
+		TakePartyItemAll("DWBOLT03") // Drow Bolt +1
+		TakePartyItemAll("DWPLAT01") // Drow Full Plate +5
+		TakePartyItemAll("MISC9W") // Drow Piwafwi Cloak
+		SetInterrupt(TRUE)
+END
+
+IF
+	!InParty("Imoen2")
+	!Dead("Imoen2")
+	Global("ImoenDrowCheck","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("ImoenDrowCheck","GLOBAL",0)
+END
+

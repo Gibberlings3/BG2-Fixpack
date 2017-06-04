@@ -1,0 +1,10 @@
+IF
+  GlobalTimerExpired("CDMourner3Timer","ar0800")
+  OR(2)
+    Exists("mourner3")
+    Exists("mourner4")
+THEN
+  RESPONSE #100
+    ActionOverride("mourner3",EscapeArea())
+    ActionOverride("mourner4",EscapeArea())
+END

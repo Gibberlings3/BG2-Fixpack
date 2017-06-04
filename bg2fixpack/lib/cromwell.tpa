@@ -1,0 +1,10 @@
+OUTER_FOR (index = 0 ; index < 24 ; ++index) BEGIN
+
+  OUTER_SET index2 = index + passtime
+  ACTION_IF index2 > 23 BEGIN OUTER_SET index2 -= 24 END
+
+  EXTEND_TOP ~ar0334.bcs~ ~bg2fixpack/baf/ar0334_cromwell.baf~ EVALUATE_BUFFER
+
+END
+
+EXTEND_TOP ~ar0334.bcs~ ~bg2fixpack/baf/ar0334.baf~

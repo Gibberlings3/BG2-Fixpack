@@ -1,0 +1,7 @@
+IF
+	HPGT(Myself,2)
+	!InMyArea([PC])
+THEN
+	RESPONSE #100
+		ApplyDamagePercent(Myself,60,FIRE)
+END

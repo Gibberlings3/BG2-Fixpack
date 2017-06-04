@@ -1,0 +1,12 @@
+IF
+  NumDead("udill01",6)
+  StateCheck("Solaufein",CD_STATE_NOTVALID)
+  GlobalLT("udDrowPlot","GLOBAL",5)
+  !Allegiance(Myself,ENEMY)
+  !Dead("Solaufein")
+  !Dead("Phaere")
+THEN
+  RESPONSE #100
+    ForceSpell("Solaufein",FORCE_DISPEL_MAGIC)
+    Wait(4)
+END

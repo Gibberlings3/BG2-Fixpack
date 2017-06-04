@@ -1,0 +1,31 @@
+IF
+  PartyHasItem("key24")
+  Global("CDKeyGone","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDKeyGone","AR2300",1)
+END
+
+IF
+  PartyHasItem("miscbi")
+  Global("CDRopeGone","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDRopeGone","AR2300",1)
+END
+
+IF
+  PartyHasItem("rods02")
+  Global("CDRoLMGone","AR2300",0)
+THEN
+  RESPONSE #100
+    SetGlobal("CDRoLMGone","AR2300",1)
+END
+
+IF // close CoC exploit
+  Global("CDMoveSah","AR2300",0)
+THEN
+  RESPONSE #100
+    ActionOverride("sahchf02",MoveToPoint([3787.2500]))
+    SetGlobal("CDMoveSah","AR2300",1)
+END

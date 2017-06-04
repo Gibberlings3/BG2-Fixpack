@@ -1,0 +1,11 @@
+IF
+  Dead("haegan")
+  Range([PC],30)
+  Global("didThis","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetGlobal("didThis","LOCALS",1)
+    Unlock("Door0405")
+    OpenDoor("Door0405")
+    Enemy()
+END

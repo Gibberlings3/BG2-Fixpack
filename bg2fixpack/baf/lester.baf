@@ -1,0 +1,9 @@
+IF
+  !Dead("mourner1")
+  Global("LesterDialogue","GLOBAL",1)
+  ActionListEmpty()
+THEN
+  RESPONSE #100
+    Attack("Mourner1")
+    ActionOverride("Mourner1",Attack("Lester"))
+END

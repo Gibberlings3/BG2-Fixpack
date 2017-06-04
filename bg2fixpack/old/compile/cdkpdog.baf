@@ -1,0 +1,42 @@
+IF
+  Global("CDKeepDogsEnemy","AR1300",1)
+  !Allegiance(Myself,ENEMY)
+THEN
+  RESPONSE #100
+    Enemy()
+END
+
+IF
+  Global("CDKeepDogsEnemy","AR1300",0)
+  OR(8)
+    Allegiance("kpdog01",ENEMY)
+    Allegiance("kpdog02",ENEMY)
+    Allegiance("kpdog03",ENEMY)
+    Allegiance("kpdog04",ENEMY)
+    Dead("kpdog01")
+    Dead("kpdog02")
+    Dead("kpdog03")
+    Dead("kpdog04")
+THEN
+  RESPONSE #100
+    SetGlobal("CDKeepDogsEnemy","AR1300",1)
+    ActionOverride("kpdog01",Enemy())
+    ActionOverride("kpdog02",Enemy())
+    ActionOverride("kpdog03",Enemy())
+    ActionOverride("kpdog04",Enemy())
+END
+
+IF
+  Global("CDKeepDogsEnemy","AR1300",0)
+  OR(2)
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    HitBy([GOODCUTOFF],CRUSHING)
+  Allegiance(Myself,NEUTRAL)
+THEN
+  RESPONSE #100
+    SetGlobal("CDKeepDogsEnemy","AR1300",1)
+    ActionOverride("kpdog01",Enemy())
+    ActionOverride("kpdog02",Enemy())
+    ActionOverride("kpdog03",Enemy())
+    ActionOverride("kpdog04",Enemy())
+END

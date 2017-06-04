@@ -1,0 +1,43 @@
+IF
+	Global("DisplayAlignmentChange","AR2900",1)
+	Alignment(Player1,MASK_CHAOTIC)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",0)
+		ChangeAlignment(Player1,CHAOTIC_EVIL)
+		Wait(1)
+		DisplayStringHead(Player1,14055) // Alignment Change
+		Wait(1)
+		DisplayStringHead(Player1,1110) // Chaotic Evil
+END
+
+IF
+	Global("DisplayAlignmentChange","AR2900",1)
+	Alignment(Player1,MASK_LAWFUL)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",0)
+		ChangeAlignment(Player1,LAWFUL_EVIL)
+		Wait(1)
+		DisplayStringHead(Player1,14055) // Alignment Change
+		Wait(1)
+		DisplayStringHead(Player1,1103) // Lawful Evil
+END
+
+IF
+	Global("DisplayAlignmentChange","AR2900",1)
+	Alignment(Player1,MASK_LCNEUTRAL)
+	!Alignment(Player1,MASK_EVIL)
+THEN
+	RESPONSE #100
+		SetGlobal("DisplayAlignmentChange","AR2900",0)
+		ChangeAlignment(Player1,NEUTRAL_EVIL)
+		Wait(1)
+		DisplayStringHead(Player1,14055) // Alignment Change
+		Wait(1)
+		DisplayStringHead(Player1,1107) // Neutral Evil
+END
+
+

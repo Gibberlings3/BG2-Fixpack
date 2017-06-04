@@ -1,0 +1,9 @@
+IF
+  Range([PC],25)
+  Global("SpawnPaac","GLOBAL",1)
+  GlobalTimerExpired("SpawnPaacTimer","GLOBAL")
+THEN
+  RESPONSE #100
+    SetGlobal("SpawnPaac","GLOBAL",2)
+    CreateCreatureDoor("mgkhol01",[2551.2231],0) // Khollynnus Paac
+END

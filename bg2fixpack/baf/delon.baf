@@ -1,0 +1,13 @@
+IF
+  Global("TalkedToDelon","GLOBAL",1)
+  Global("DelonMoves","LOCALS",0)
+  !Global("umarplot","GLOBAL",1)
+  !Global("OgronAttack","GLOBAL",1)
+  ActionListEmpty()
+  NumTimesTalkedTo(0)
+  Global("DelonSpawn","GLOBAL",0) // set to 1 or 2 when delon returns for umar/ogron events
+THEN
+  RESPONSE #100
+    SetGlobal("DelonMoves","LOCALS",1)
+    DestroySelf()
+END

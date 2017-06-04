@@ -1,0 +1,9 @@
+IF
+  HasItem("miscbi",Myself)
+  OR(2)
+    Global("CDRopeGone","AR2300",1)
+    !Global("villynatyjob","GLOBAL",0)
+THEN
+  RESPONSE #100
+    DestroyItem("miscbi")
+END

@@ -1,0 +1,8 @@
+IF
+  PartyHasItem("misc4d")
+  Global("HelpDjinni","GLOBAL",1)
+THEN
+  RESPONSE #100
+    AddJournalEntry(47514,QUEST)
+    SetGlobal("HelpDjinni","GLOBAL",2)
+END

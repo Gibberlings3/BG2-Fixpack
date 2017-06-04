@@ -1,0 +1,15 @@
+IF
+  HasItem("key24",Myself)
+  Global("CDKeyGone","AR2300",1)
+THEN
+  RESPONSE #100
+    DestroyItem("key24")
+END
+
+IF
+  HasItem("miscbi",Myself)
+  Global("CDRopeGone","AR2300",1)
+THEN
+  RESPONSE #100
+    DestroyItem("miscbi")
+END

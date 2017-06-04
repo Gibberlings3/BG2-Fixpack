@@ -1,0 +1,54 @@
+// alignment corrections from Oversight
+COPY_EXISTING ~garkid01.cre~ ~override~ // Iltha
+              ~garkid02.cre~ ~override~ // Taar
+                  ~alex.cre~ ~override~ // Sir Beverus
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    WRITE_BYTE 0x27b 17 // alignment: lawful good
+  END
+  BUT_ONLY
+
+// alignment corrections from Oversight
+COPY_EXISTING ~acolyte3.cre~ ~override~ // Watchknight Aabir
+              ~bdact05.cre~  ~override~ // Zaren
+              ~bdhigg01.cre~ ~override~ // Higgold
+              ~gftown01.cre~ ~override~ // Commoner
+              ~gmtown02.cre~ ~override~ // Commoner
+              ~helmbyr.cre~  ~override~ // Acolyte Byron
+              ~helmkni1.cre~ ~override~ // Shield Knight
+              ~helmpr.cre~   ~override~ // Sir Lothtyran
+              ~prophelm.cre~ ~override~ // Shield Knight
+              ~sctelwyn.cre~ ~override~ // Guardian Telwyn
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    WRITE_BYTE 0x27b 18 // alignment: lawful neutral
+  END
+  BUT_ONLY
+
+// alignment corrections from Oversight
+COPY_EXISTING ~amtgen01.cre~ ~override~ // Jamis Tombelthen
+              ~bounha.cre~   ~override~ // Bounty Hunter
+              ~bounha04.cre~ ~override~ // Bounty Hunter
+              ~jade2.cre~    ~override~ // Thenry
+              ~jade3.cre~    ~override~ // Jeremon
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    WRITE_BYTE 0x27b 19 // alignment: lawful evil
+  END
+  BUT_ONLY
+  
+// alignment corrections from Oversight
+COPY_EXISTING ~jarev1.cre~   ~override~ // Harper
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    WRITE_BYTE 0x27b 50 // alignment: chaotic neutral
+  END
+  BUT_ONLY
+
+// alignment corrections from Oversight
+COPY_EXISTING ~priss.cre~    ~override~ // Priss
+              ~rumar.cre~    ~override~ // Rumar
+              ~victown1.cre~ ~override~ // Commoner
+              ~victown2.cre~ ~override~ // Commoner
+              ~victown3.cre~ ~override~ // Nobleman
+                ~drow07.cre~ ~override~ // Drow Priestess
+  PATCH_IF (SOURCE_SIZE > 0x2d3) THEN BEGIN // protects against invalid files
+    WRITE_BYTE 0x27b 51 // alignment: chaotic evil
+  END
+  BUT_ONLY

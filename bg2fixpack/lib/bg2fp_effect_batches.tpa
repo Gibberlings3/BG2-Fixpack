@@ -1,0 +1,1356 @@
+/////                                                  \\\\\
+///// elven sleep/charm resistance                     \\\\\
+/////                                                  \\\\\
+
+DEFINE_PATCH_FUNCTION cd_elven_sleep_charm_resistance BEGIN
+
+  READ_ASCII 0x00 sig (3)
+  SET abil_length = 0
+  PATCH_IF ("%sig%" STRING_COMPARE_CASE "ITM" = 0) BEGIN
+    SET abil_length = 0x38
+  END ELSE
+  PATCH_IF ("%sig%" STRING_COMPARE_CASE "SPL" = 0) BEGIN
+    SET abil_length = 0x28
+  END
+  PATCH_IF abil_length = 0 BEGIN
+    PATCH_WARN ~WARNING: file type not recognized on %SOURCE_FILE% for cd_elven_sleep_charm_resistance macro.~
+  END ELSE BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET fx_delta = 0
+    FOR (index = 0 ; index < abil_num ; ++index) BEGIN // start iterating through abilities
+      READ_SHORT  (abil_off + 0x1e + (abil_length * index)) abil_fx_num
+      WRITE_SHORT (abil_off + 0x20 + (abil_length * index)) THIS + fx_delta
+      READ_SHORT  (abil_off + 0x20 + (abil_length * index)) abil_fx_idx
+      SET patch_sleep = 0
+      SET patch_charm = 0
+      FOR (index2 = 0 ; index2 < abil_fx_num ; ++index2) BEGIN
+        READ_SHORT (fx_off +        (0x30 * (abil_fx_idx + index2))) opcode
+        PATCH_IF (((opcode = 39) AND (patch_sleep = 0)) OR ((opcode = 5) AND (patch_charm = 0))) BEGIN // if there's a sleep or charm opcode that hasn't been patched already
+          READ_BYTE  (fx_off + 0x02 + (0x30 * (abil_fx_idx + index2))) target
+          READ_BYTE  (fx_off + 0x12 + (0x30 * (abil_fx_idx + index2))) prob1
+          READ_BYTE  (fx_off + 0x13 + (0x30 * (abil_fx_idx + index2))) prob2
+          PATCH_IF (opcode = 5) BEGIN // if charm
+            SET new_fx = 16
+            SPRINT eff_file cdelfcm
+            SET patch_charm = 1
+          END ELSE BEGIN // sleep
+            SET new_fx = 8
+            SPRINT eff_file cdelfsl
+            SET patch_sleep = 1
+          END
+          PATCH_FOR_EACH race IN 2 3 BEGIN
+            FOR (index3 = 0 ; index3 < ((new_fx / 2)) ; ++index3) BEGIN
+              INSERT_BYTES   (fx_off +        (0x30 * abil_fx_idx)) 0x30                                                 // insert new effect
+                WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177                                                  // use eff file
+                WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx)) target                                               // preserve target
+                WRITE_LONG   (fx_off + 0x04 + (0x30 * abil_fx_idx)) race                                                 // elf or half elf
+                WRITE_LONG   (fx_off + 0x08 + (0x30 * abil_fx_idx)) 4                                                    // race.ids
+                WRITE_BYTE   (fx_off + 0x12 + (0x30 * abil_fx_idx)) (prob2 + ((21 - (race * 6)) * (prob1 - prob2) / 10)) // 90/30% of original
+                WRITE_BYTE   (fx_off + 0x13 + (0x30 * abil_fx_idx)) prob2                                                // base prob
+                WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) ~%eff_file%%index3%~                                 // eff file
+            END
+          END
+          SET fx_delta    += new_fx
+          SET index2      += new_fx
+          SET abil_fx_num += new_fx
+        END
+      END
+      WRITE_SHORT  (abil_off + 0x1e + (abil_length * index)) abil_fx_num
+    END
+  END
+
+END
+
+/////                                                  \\\\\
+///// arrays for batch effects                         \\\\\
+/////                                                  \\\\\
+
+/*
+The cd_apply_batch function, defined below, requires a macro name. That macro needs to define
+three arrays for the function:
+
+* cd_immunity_batches_key
+If any effect in this array is present on the item/creature/spell being patches, it will proceed with
+adding extra effects and deleting effects, as defined by the next two arrays. If you have mutiple 
+effects defined here, it will match any of them and add any missing.
+
+* cd_immunity_batches_extras
+This array contains all of the subsiduary effects that should accompany the effects in the key area.
+
+* cd_immunity_batches_deletes
+If a key is found, any effect matching this array will be deleted. 
+
+If a key is found, the function will then proceed back through the file being patched and add--if they
+are not present--all of the effects not found in the _key and _extras arrays. It will also, only with
+a key effect matched, delete any effects listed in the _deletes array.
+
+Note that since it's a macro, you can conditionally define your arrays. The free action batch will
+remove stun immunity unless a particular component from the Fixpack is installed, for example. Remember
+that's it's being run in a patch context, so you'll need to use PATCH actions instead of ACTIONs.
+
+An example use--the cd_full_dispel_arrays uses a dispel magic opcode (58) as the lone key element. If
+found, the function will delete a variety of old item removal opcodes defined in the _deletes array,
+and add (if not already present) the series of effects that cure feeblemind and deafness.
+
+In general, try to avoid explicit spell blockages with 206 opcodes. If you can block the relevant
+effects with other immunities, do so, as it's a more robust and extensible solution. In some cases 
+they are needed --e.g. the slow immunity batch blocks slow spells outright, as most come paired 
+with AC and THAC0 penalties which can't be blocked via opcode without serious collateral damage.
+
+* Format of all arrays are opcode, parameter1, parameter2, resref, timing, duration
+* Timing and duration are only used for new fx writes
+* Use -1 in a field (or "same" in string fields) if the match value for that field doesn't matter.
+* Always map the effect to zero.
+
+*/
+
+// free action should always be supplemented by other macros to supplement the basic immunities it adds
+// unlike other batches, do *not* use this one in a regexp--it'll turn a small web immunity into fullblown FA.
+DEFINE_PATCH_MACRO ~cd_immunity_free_action_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10",  16, "same",  "-10",  "-10", "same" => 1 // immunity to haste
+    101,  "-10",  40, "same",  "-10",  "-10", "same" => 1 // immunity to slow
+    101,  "-10", 109, "same",  "-10",  "-10", "same" => 1 // immunity to paralyzation
+    101,  "-10", 126, "same",  "-10",  "-10", "last" => 1 // immunity to movement rate bonus
+    101,  "-10", 154, "same",  "-10",  "-10", "same" => 1 // immunity to entangle
+    101,  "-10", 157, "same",  "-10",  "-10", "same" => 1 // immunity to web
+    101,  "-10", 158, "same",  "-10",  "-10", "same" => 1 // immunity to grease
+    101,  "-10", 175, "same",  "-10",  "-10", "same" => 1 // immunity to hold
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+     46,   "-10",  "-10",    "same",       1,      0, "same"  => 1 // unstun
+    162,   "-10",  "-10",    "same",       1,      0, "same"  => 1 // remove paralysis
+    163,   "-10",  "-10",    "same",       1,      0, "same"  => 1 // free action
+    126,     100,      2,    "same",   "-10",  "-10", "first" => 1 // set movement rate to 100%
+//    206,    "-1",  "-10", "spcl522",   "-10",  "-10", "same"  => 1 // immunity to defensive spin (no longer needed now that DS uses op 176)
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      142,   "-10",  19, "same",      "-10",  "-10", "same" => 1 // free action icon
+      240,   "-10",  13, "same",      "-10",  "-10", "same" => 1 // remove held icon
+      240,   "-10",  38, "same",      "-10",  "-10", "same" => 1 // remove haste icon
+      240,   "-10",  41, "same",      "-10",  "-10", "same" => 1 // remove slow icon
+      240,   "-10",  55, "same",      "-10",  "-10", "same" => 1 // remove stun icon
+      240,   "-10", 129, "same",      "-10",  "-10", "same" => 1 // remove web icon
+      240,   "-10", 144, "same",      "-10",  "-10", "same" => 1 // remove entangled icon
+      240,   "-10", 145, "same",      "-10",  "-10", "same" => 1 // remove grease icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN
+    101,  "-10", 185, "same",  "-10",  "-10", "same" => 1 // immunity to 'special' hold
+  END
+  PATCH_IF ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~114~) OR (bonus_var_1 = 1))  BEGIN // obc: free action protects against stun
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+      101,  "-10",  45, "same",  "-10",  "-10", "same" => 1 // immunity to stun
+    END
+  END ELSE BEGIN // otherwise nuke stun stuff
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN
+      101, "-10",    45, "same", "-10", "-10", "same" => 1 // stun immunity
+      101, "-10",   210, "same", "-10", "-10", "same" => 1 // pw: stun immunity
+      169, "-10",    55, "same", "-10", "-10", "same" => 1 // prevent stun icon
+      267,  1280, "-10", "same", "-10", "-10", "same" => 1 // prevent stunned string
+      267, 14043, "-10", "same", "-10", "-10", "same" => 1 // prevent stun string
+    END
+  END
+END
+
+
+
+// turns entangle immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_entangle_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 154, "same",  "-10",  "-10", "same" => 1 // immunity to entangle
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spin688",  "-10", "-10", "same" => 1 // protection from spell, plant growth
+    206, "-1", "-10", "sppr105",  "-10", "-10", "same" => 1 // protection from spell, entangle
+    206, "-1", "-10", "spwm111",  "-10", "-10", "same" => 1 // protection from spell, plant growth
+    206, "-1", "-10", "cdhgnya1", "-10", "-10", "same" => 1 // protection from spell, nyalee
+    206, "-1", "-10", "cdmound",  "-10", "-10", "same" => 1 // protection from spell, shambling mound
+    206, "-1", "-10", "cdsw1h58", "-10", "-10", "same" => 1 // protection from spell, ss of mask
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 144, "same", "-10", "-10", "same" => 1 // prevent entangled icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns grease immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_grease_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 158, "same",  "-10",  "-10", "same" => 1 // immunity to grease
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END // nothing w/o cosmetic
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 145, "same", "-10", "-10", "same" => 1 // prevent grease icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns slow immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_slow_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 40, "same",  "-10",  "-10", "same" => 1 // immunity to slow
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1",  "-10", "spwm164",  "-10", "-10", "same" => 1 // protection from spell, slow
+    206, "-1",  "-10", "spin977",  "-10", "-10", "same" => 1 // protection from spell, golem slow
+    206, "-1",  "-10", "spin983",  "-10", "-10", "same" => 1 // protection from spell, slow
+    206, "-1",  "-10", "spwish25", "-10", "-10", "same" => 1 // protection from spell, slow
+    206, "-1",  "-10", "spwi312",  "-10", "-10", "same" => 1 // protection from spell, slow
+    206, "-1",  "-10", "spin575",  "-10", "-10", "same" => 1 // protection from spell, vortex web
+    267, 14000, "-10",    "same",  "-10", "-10", "same" => 1 // protection from string "slow"
+    267, 14668, "-10",    "same",  "-10", "-10", "same" => 1 // protection from string "slowed"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 41, "same", "-10", "-10", "same" => 1 // prevent slow icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns confusion immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_confusion_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 128, "same",  "-10",  "-10", "same" => 1 // immunity to confusion
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    296, "-10", "-10", "spconfus",  "-10", "-10", "same" => 1 // confusion visuals
+    267, 14782, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "confused"
+    267, 14791, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "Rigid Thinking"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10",  2, "same", "-10", "-10", "same" => 1 // prevent rigid thinking icon
+      169, "-10",  3, "same", "-10", "-10", "same" => 1 // prevent confused icon
+      169, "-10", 47, "same", "-10", "-10", "same" => 1 // prevent chaos icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns level drain immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_level_drain_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 216, "same",  "-10",  "-10", "same" => 1 // immunity to level drain
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 41495, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "one level drained"
+    267, 40968, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "two levels drained"
+    267, 40969, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "three levels drained"
+    267, 40979, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "four levels drained"
+    267, 41616, "-10",     "same",  "-10", "-10", "same" => 1 // protection from string "five levels drained"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 59, "same", "-10", "-10", "same" => 1 // prevent level drain icon
+      142, "-10", 90, "same", "-10", "-10", "same" => 1 // display npp icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns special-hold immunity into all-hold immunity
+// should run cd_immunity_hold_arrays after this
+DEFINE_PATCH_MACRO ~cd_immunity_hold_special_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 185, "same",  "-10",  "-10", "same" => 1 // immunity to 'special' hold
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    101,  "-10", 109, "same",  "-10",  "-10", "same" => 1 // immunity to paralyzation
+    101,  "-10", 175, "same",  "-10",  "-10", "same" => 1 // immunity to hold
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns hold immunity into full immunity
+// should run cd_immunity_hold_special_arrays before this
+DEFINE_PATCH_MACRO ~cd_immunity_hold_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 109, "same",  "-10",  "-10", "same" => 1 // immunity to paralyzation
+    101,  "-10", 175, "same",  "-10",  "-10", "same" => 1 // immunity to hold
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 14102, "-10",     "same",     "-10", "-10", "same" => 1 // protection from string "held"
+    296, "-10", "-10",     "spmindat", "-10", "-10", "same" => 1 // protection from animation
+    296, "-10", "-10",     "spflayer", "-10", "-10", "same" => 1 // protection from animation
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 13, "same", "-10", "-10", "same" => 1 // prevent hold icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns fear immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_fear_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN // these three go last so they don't block their own extras effects
+    101,  "-10",  23, "same",  "-10",  "-10", "last" => 1 // immunity to reset morale 
+    101,  "-10",  24, "same",  "-10",  "-10", "last" => 1 // immunity to horror
+    101,  "-10", 106, "same",  "-10",  "-10", "last" => 1 // immunity to morale break modifier
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+     23, "-10", "-10",     "same",     1,     0, "first" => 1 // reset morale
+    161, "-10", "-10",     "same",     1,     0, "same"  => 1 // remove fear
+    267, 14007, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "panic"
+    267, 17427, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "panic"
+    296, "-10", "-10", "cdhorror", "-10", "-10", "same"  => 1 // protection from animation
+    106, "-10",     1,     "same",     1,     0, "first" => 1 // morale break
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 36, "same", "-10", "-10", "same" => 1 // prevent panic icon
+      240, "-10", 36, "same", "-10", "-10", "same" => 1 // remove panic icon
+      142, "-10", 37, "same", "-10", "-10", "same" => 1 // display resist fear icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns charm immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_charm_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10",  5, "same",  "-10",  "-10", "same" => 1 // immunity to charm
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  8364, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "dominated"
+    267, 14672, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "charmed"
+    267, 14780, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "dire charmed"
+    296, "-10", "-10", "spnwchrm", "-10", "-10", "same"  => 1 // protection from animation
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10",  0, "same", "-10", "-10", "same" => 1 // prevent charm icon
+      169, "-10",  1, "same", "-10", "-10", "same" => 1 // prevent dire charm icon
+      169, "-10", 43, "same", "-10", "-10", "same" => 1 // prevent domination icon
+      142, "-10", 52, "same", "-10", "-10", "same" => 1 // display mind shield icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+        
+
+// turns haste immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_haste_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 16, "same",  "-10",  "-10", "same" => 1 // immunity to haste
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 14023, "-10",    "same",  "-10", "-10", "same" => 1 // protection from string "hasted"
+    206,     0,  "-10", "spin572",  "-10", "-10", "same" => 1 // protection from spell, haste
+    206,     0,  "-10", "spin828",  "-10", "-10", "same" => 1 // protection from spell, haste
+    206,     0,  "-10", "spra301",  "-10", "-10", "same" => 1 // protection from spell, haste
+    206,     0,  "-10", "spwi305",  "-10", "-10", "same" => 1 // protection from spell, haste
+    // explicit blocking of imp haste (spwi613) not needed as its relevant effects are blocked with other immunities in the batch
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 38, "same", "-10", "-10", "same" => 1 // prevent haste icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns disease immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_disease_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 78, "same",  "-10",  "-10", "same" => 1 // immunity to disease
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 39752, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "stricken by a foul disease"
+    267, 54337, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "diseased"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 7, "same", "-10", "-10", "same" => 1 // prevent diseased icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns poison immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_poison_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 25, "same",  "-10",  "-10", "same" => 1 // immunity to poison
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 14662, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "poisoned"
+    267, 14017, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "poison"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10",   6, "same", "-10", "-10", "same" => 1 // prevent poison icon
+      169, "-10", 137, "same", "-10", "-10", "same" => 1 // prevent bleeding icon
+      142, "-10",  30, "same", "-10", "-10", "same" => 1 // display protection from poison icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+// turns poison resistance (immunity to both disease damage and poison damage) immunity into full immunity
+// must run this with all_or set to all
+DEFINE_PATCH_MACRO ~cd_immunity_poison_resistance_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 78, "same",  "-10",  "-10", "same" => 1 // immunity to disease
+    101,  "-10", 25, "same",  "-10",  "-10", "same" => 1 // immunity to poison
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    173, 100, 0, "same",  "-10", "-10", "same" => 1 // 100% reduced damage from poison
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+// turns web immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_web_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101,  "-10", 157, "same",  "-10",  "-10", "same" => 1 // immunity to web
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267, 14102, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "held"
+    101,  "-10", 109, "same",  "-10",  "-10", "last" => 1 // immunity to paralyze
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 129, "same", "-10", "-10", "same" => 1 // prevent webbed icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns spell level immunities into full immunities (level 1)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_1_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 1, "-10", "same", "-10", "-10", "same" => 1 // immunity to spell level 1
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr105", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 2)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_2_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 2, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 2
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spwi215", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spwi213", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr211", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 3)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_3_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 3, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 3
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spwi312", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spwi313", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr314", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr313", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr304", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr302", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 4)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_4_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 4, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 4
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END // nothing here yet
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 5)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_5_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 5, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 5
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spwi502", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 6)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_6_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 6, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 6
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10",  "spwi614", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr603d", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 7)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_7_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 7, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 7
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10",  "spwi712", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "sppr725d", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "sppr719", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "sppr718", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "sppr706", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "sppr705", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 8)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_8_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 8, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 8
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10",  "spwi817", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "spwi816", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "spwi811", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "spwi810", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns spell level immunities into full immunities (level 9)
+DEFINE_PATCH_MACRO ~cd_immunity_spell_level_9_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    102, 9, "-10", "same",  "-10",  "-10", "same" => 1 // immunity to spell level 9
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spwish35", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spwish32", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spwish27", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spwish25", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10",  "spwi911", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+
+// turns blind effect into full blindness
+// always needs to be run in tandem with cd_full_blindness_eff_arrays
+DEFINE_PATCH_MACRO ~cd_full_blindness_opcode_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    74, "-10", "-10", "same",  "-10",  "-10", "same" => 1 // blindness
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    139,  14674, "-10", "same",     1,     0, "same" => 1 // display 'blinded' string
+    142, "-10",     8, "same", "-10", "-10", "same" => 1 // display 'blinded' icon
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN // alternate blinded strings, trying to consolidate on one
+    139,  14071, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,   1474, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  12015, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  12948, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  13017, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  17399, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+  END
+END
+
+
+// turns blind effect into full blindness
+// always needs to be run in tandem with cd_full_blindness_opcode_arrays
+DEFINE_PATCH_MACRO ~cd_full_blindness_eff_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    177, "-10", "-10", "blind",  "-10",  "-10", "same" => 1 // blindness
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    177, "-10", "-10", "cdblind",  "-10",  "-10", "same" => 1 // blindness icon via eff
+    177, "-10", "-10", "cdblind1", "-10",  "-10", "same" => 1 // blindness string via eff
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN // alternate blinded strings, trying to consolidate on one
+    139,  14071, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,   1474, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  12015, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  12948, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  13017, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+    139,  17399, "-10", "same",     1,     0, "same" => 1 // display 'blindness' string
+  END
+END
+
+
+
+
+
+// turns petrification immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_petrification_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 134, "same",  "-10",  "-10", "same" => 1 // immunity to petrification
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14665, "-10", "same", "-10",  "-10", "same" => 1 // disable string "petrified"
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+// turns kill target immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_kill_target_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 13, "same",  "-10",  "-10", "same" => 1 // immunity to kill target
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  64285, "-10", "same", "-10",  "-10", "same" => 1 // disable string "vorpal hit"
+    267,  14026, "-10", "same", "-10",  "-10", "same" => 1 // disable string "death"
+    267,  10554, "-10", "same", "-10",  "-10", "same" => 1 // disable string "undead destroyed"
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+// turns invisibility immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_invisibility_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 20, "same",  "-10",  "-10", "same" => 1 // immunity to invisibility
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14773, "-10", "same", "-10",  "-10", "same" => 1 // disable string "invisible"
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+// turns silence immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_silence_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 38, "same",  "-10",  "-10", "same" => 1 // immunity to silence
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14002, "-10", "same", "-10",  "-10", "same" => 1 // disable string "silence"
+    267,  14676, "-10", "same", "-10",  "-10", "same" => 1 // disable string "silenced"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 34, "same", "-10", "-10", "same" => 1 // prevent silenced icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns blindness immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_blindness_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 74, "same",  "-10",  "-10", "same" => 1 // immunity to blindness
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14674, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blinded"
+    267,   1474, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 8, "same", "-10", "-10", "same" => 1 // prevent blindness icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN // these alts don't appear to be used
+/*
+    267,   1474, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+    267,  14071, "-10", "same", "-10",  "-10", "same" => 1 // display 'blindness' string
+    267,  12015, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+    267,  12948, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+    267,  13017, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+    267,  17399, "-10", "same", "-10",  "-10", "same" => 1 // disable string "blind"
+*/
+  END // nothing to delete
+END
+
+
+// turns deafness immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_deafness_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 80, "same",  "-10",  "-10", "same" => 1 // immunity to deafneas
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  54318, "-10", "same", "-10",  "-10", "same" => 1 // disable string "deaf"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 112, "same", "-10", "-10", "same" => 1 // prevent deaf icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+
+
+// turns slay immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_slay_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 55, "same",  "-10",  "-10", "same" => 1 // immunity to slay
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 51, "same", "-10", "-10", "same" => 1 // prevent dying icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+// turns invisible detection immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_invisible_detection_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 116, "same",  "-10",  "-10", "same" => 1 // immunity to detect invisible
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14109, "-10", "same", "-10",  "-10", "same" => 1 // disable string "dispel invisible"
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns polymorph immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_polymorph_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10", 135, "same",  "-10",  "-10", "same" => 1 // immunity to polymorph
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "spwi711", "-10", "-10", "same" => 1 // protection from spell, sphere of chaos
+    206, "-1", "-10", "spwi415", "-10", "-10", "same" => 1 // protection from spell, polymorph other
+    206, "-1", "-10", "spwm113", "-10", "-10", "same" => 1 // protection from spell, wild surge polymorph
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// turns sleep immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_sleep_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10",  39, "same",  "-10",  "-10", "same" => 1 // immunity to sleep
+    101, "-10", 217, "same",  "-10",  "-10", "same" => 1 // immunity to pw: sleep
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,  14001, "-10", "same", "-10",  "-10", "same" => 1 // disable string "sleep"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 14, "same", "-10", "-10", "same" => 1 // prevent sleep icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// turns stun immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_stun_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10",  45, "same",  "-10",  "-10", "same" => 1 // immunity to stun
+    101, "-10", 210, "same",  "-10",  "-10", "same" => 1 // immunity to pw: stun
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    267,   1280, "-10", "same", "-10",  "-10", "same" => 1 // disable string "stunned"
+    267,  14043, "-10", "same", "-10",  "-10", "same" => 1 // disable string "stun"
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 55, "same", "-10", "-10", "same" => 1 // prevent stun icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+// turns fear removal into full removal
+DEFINE_PATCH_MACRO ~cd_fear_removal_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    161, "-10", "-10", "same",  "-10",  "-10", "same" => 1 // fear removal
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END
+  PATCH_IF FILE_EXISTS_IN_GAME ~monkfist.2da~ BEGIN // ee game
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      321, "-10", "-10", "spin105", 1, 0, "same" => 1 // remove spell effects: horror, innate (removes visuals)
+      321, "-10", "-10", "spwi205", 1, 0, "same" => 1 // remove spell effects: horror, arcane (removes visuals)
+    END
+  END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      240, "-10", 36, "same", 1, 0, "same" => 1 // remove panic icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+// turns feeblemind immunity into full immunity
+DEFINE_PATCH_MACRO ~cd_immunity_feeblemind_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    101, "-10",  76, "same",  "-10",  "-10", "same" => 1 // immunity to stun
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END
+  PATCH_IF cosmetic = 1 BEGIN
+    DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+      169, "-10", 48, "same", "-10", "-10", "same" => 1 // prevent stun icon
+    END
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+
+
+// round out dispel magic
+DEFINE_PATCH_MACRO ~cd_full_dispel_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    58, "-10", "-10", "same", "-10", "-10", "same" => 1 // dispel magic opcode
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    177,     7,     7, "destself", "-10", "-10", "same" => 1 // destroy illusionary creatures
+    215, "-10",     1, "spdispma",     0,     1, "same" => 1 // show dispel visual effect
+    139, 14056, "-10", "same",     "-10", "-10", "same" => 1 // display 'dispel effects' string
+     81, "-10", "-10", "same",     "-10", "-10", "same" => 1 // cure deafness
+     77, "-10", "-10", "same",     "-10", "-10", "same" => 1 // cure feeblemind
+    240, "-10",   112, "same",     "-10", "-10", "same" => 1 // remove deafness icon
+    240, "-10",    48, "same",     "-10", "-10", "same" => 1 // remove feeblemind icon
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN
+    177,      7,      7, "die"     , "-10", "-10", "same" => 1 // handful of items (e.g. deva.itm) nuke illusionary creatures with die.eff instead of correct destself.eff
+    112,  "-10",  "-10", "chillt"  , "-10", "-10", "same" => 1 // delete redundant magical weapon calls as
+    112,  "-10",  "-10", "critical", "-10", "-10", "same" => 1 // dispel already nukes the magical weapon slot)
+    112,  "-10",  "-10", "fblade"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "ghoult"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "harm"    , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "hsword"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "melfmet" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "serious" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp01", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp02", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp03", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp04", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp05", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp06", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp07", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp08", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp09", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp10", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp11", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp12", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp13", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp14", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp15", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp16", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp17", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp18", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp19", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp20", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr2" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr3" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shille"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "slaylive", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sorb"    , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "stardart", "-10", "-10", "same" => 1
+  END
+END
+
+// round out dispel magic
+DEFINE_PATCH_MACRO ~cd_full_dispel_novis_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    58, "-10", "-10", "same", "-10", "-10", "same" => 1 // dispel magic opcode
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    177,     7,     7, "destself", "-10", "-10", "same" => 1 // destroy illusionary creatures
+//    215, "-10",     1, "spdispma",     0,     1, "same" => 1 // show dispel visual effect
+//    139, 14056, "-10", "same",     "-10", "-10", "same" => 1 // display 'dispel effects' string
+     81, "-10", "-10", "same",     "-10", "-10", "same" => 1 // cure deafness
+     77, "-10", "-10", "same",     "-10", "-10", "same" => 1 // cure feeblemind
+    240, "-10",   112, "same",     "-10", "-10", "same" => 1 // remove deafness icon
+    240, "-10",    48, "same",     "-10", "-10", "same" => 1 // remove feeblemind icon
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN
+    177,      7,      7, "die"     , "-10", "-10", "same" => 1 // handful of items (e.g. deva.itm) nuke illusionary creatures with die.eff instead of correct destself.eff
+    112,  "-10",  "-10", "chillt"  , "-10", "-10", "same" => 1 // delete redundant magical weapon calls as
+    112,  "-10",  "-10", "critical", "-10", "-10", "same" => 1 // dispel already nukes the magical weapon slot)
+    112,  "-10",  "-10", "fblade"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "ghoult"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "harm"    , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "hsword"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "melfmet" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "serious" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp01", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp02", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp03", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp04", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp05", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp06", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp07", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp08", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp09", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp10", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp11", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp12", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp13", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp14", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp15", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp16", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp17", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp18", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp19", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sgrasp20", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr2" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shammr3" , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "shille"  , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "slaylive", "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "sorb"    , "-10", "-10", "same" => 1
+    112,  "-10",  "-10", "stardart", "-10", "-10", "same" => 1
+  END
+END
+
+// immunity to psionics - this one's a little special, since it'll pick up on an immunity to any psionic attack and
+// extend it to *all* psionics. obviously, don't use this in a regexp
+DEFINE_PATCH_MACRO ~cd_immunity_psionics_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    206, "-1", "-10", "spin542", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin543", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin544", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin545", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin546", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin547", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin774", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin775", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin804", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin834", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin909", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin910", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin911", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin912", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin959", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin974", "-10", "-10", "same" => 1 // protection from spell
+    206, "-1", "-10", "spin975", "-10", "-10", "same" => 1 // protection from spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// human transform array - clears out special abilities from all forms
+DEFINE_PATCH_MACRO ~cd_spell_transformation_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    172, "-10", "-10", "spin160", 1, 0, "same" => 3 // remove spell x3
+    172, "-10", "-10", "spinhum", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spwi491", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin122", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin123", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin124", 1, 0, "same" => 1 // remove spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// human transform array - clears out special abilities from all forms
+DEFINE_PATCH_MACRO ~cd_spell_transformation_human_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    279, "-10",     7,    "same", 1, 0, "same" => 1 // enable talk button
+    279, "-10",     2,    "same", 1, 0, "same" => 1 // enable select spell button
+    279, "-10",     3,    "same", 1, 0, "same" => 1 // enable quick spell 1 button
+    279, "-10",     4,    "same", 1, 0, "same" => 1 // enable quick spell 2 button
+    279, "-10",     5,    "same", 1, 0, "same" => 1 // enable quick spell 3 button
+    172, "-10", "-10", "spin160", 1, 0, "same" => 3 // remove spell x3
+    172, "-10", "-10", "spinhum", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spwi491", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin122", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin123", 1, 0, "same" => 1 // remove spell
+    172, "-10", "-10", "spin124", 1, 0, "same" => 1 // remove spell
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    111, "-10", "-10", "wolfm", 0, 0, "first" => 1 // add item
+    112, "-10", "-10", "wolfm", 1, 0, "last"  => 1 // remove item
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN
+    112, "-10", "-10", "same", "-10", "-10", "same" => 1 // remove spell
+  END
+END
+
+// ensures stun is always accompanied by string and icon
+DEFINE_PATCH_MACRO ~cd_full_stun_arrays~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    45, "-10", "-10", "same",  "-10",  "-10", "same" => 1 // blindness
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    139,  1280, "-10", "same",     1,     0, "same" => 1 // display 'stunned' string
+    142, "-10",    55, "same", "-10", "-10", "same" => 1 // display 'stun' icon
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_abjuration~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 1, "same", "-10", "-10", "same" => 1 // immunity to abjuration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr304",  "-10", "-10", "same" => 1 // protection from spell glyph of warding, abjuration
+    206, "-1", "-10", "spwish27", "-10", "-10", "same" => 1 // protection from spell knockback (wish), abjuration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_conjuration~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 2, "same", "-10", "-10", "same" => 1 // immunity to conjuration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr706",  "-10", "-10", "same" => 1 // protection from spell symbol fear (divine), conjuration
+    206, "-1", "-10", "sppr718",  "-10", "-10", "same" => 1 // protection from spell symbol stun (divine), conjuration
+    206, "-1", "-10", "sppr719",  "-10", "-10", "same" => 1 // protection from spell symbol death (divine), conjuration
+    206, "-1", "-10", "spwi811",  "-10", "-10", "same" => 1 // protection from spell symbol fear (arcane), conjuration
+    206, "-1", "-10", "spwi816",  "-10", "-10", "same" => 1 // protection from spell symbol stun (divine), conjuration
+    206, "-1", "-10", "spwi817",  "-10", "-10", "same" => 1 // protection from spell symbol death (divine), conjuration
+    206, "-1", "-10", "spwish35", "-10", "-10", "same" => 1 // protection from spell pw: silence, conjuration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_evocation~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 6, "same", "-10", "-10", "same" => 1 // immunity to evocation
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr603d", "-10", "-10", "same" => 1 // protection from spell blade barrier, invocation
+    206, "-1", "-10", "sppr705",  "-10", "-10", "same" => 1 // protection from spell fire storm, invocation
+    206, "-1", "-10", "sppr725d", "-10", "-10", "same" => 1 // protection from spell globe of blades, invocation
+    206, "-1", "-10", "spwi213",  "-10", "-10", "same" => 1 // protection from spell stinking cloud, invocation
+    206, "-1", "-10", "spwi215",  "-10", "-10", "same" => 1 // protection from spell web, invocation
+    206, "-1", "-10", "spwi502",  "-10", "-10", "same" => 1 // protection from spell cloudkill, evocation
+    206, "-1", "-10", "spwi614",  "-10", "-10", "same" => 1 // protection from spell death fog, evocation
+    206, "-1", "-10", "spwi712",  "-10", "-10", "same" => 1 // protection from spell delayed blast fireball, evocation
+    206, "-1", "-10", "spwi810",  "-10", "-10", "same" => 1 // protection from spell incendiary cloud, evocation
+    206, "-1", "-10", "spwi911",  "-10", "-10", "same" => 1 // protection from spell meteor swarm, evocation
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_necromancy~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 7, "same", "-10", "-10", "same" => 1 // immunity to necromancy
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr313",  "-10", "-10", "same" => 1 // protection from spell holy smite, necromancy
+    206, "-1", "-10", "sppr314",  "-10", "-10", "same" => 1 // protection from spell unholy blight, necromancy
+    206, "-1", "-10", "spwi313",  "-10", "-10", "same" => 1 // protection from spell skull trap, necromancy
+    206, "-1", "-10", "spwi812" , "-10", "-10", "same" => 1 // protection from spell abi-dalzim's horrid wilting, necromancy
+    206, "-1", "-10", "spwish32", "-10", "-10", "same" => 1 // protection from spell abi-dalzim's horrid wilting (wish), necromancy
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_alteration~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 8, "same", "-10", "-10", "same" => 1 // immunity to alteration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+    206, "-1", "-10", "sppr105",  "-10", "-10", "same" => 1 // protection from spell entangle, alteration
+    206, "-1", "-10", "sppr211",  "-10", "-10", "same" => 1 // protection from spell silence 15', alteration
+    206, "-1", "-10", "sppr302",  "-10", "-10", "same" => 1 // protection from spell call lightning, alteration
+    206, "-1", "-10", "spwi312" , "-10", "-10", "same" => 1 // protection from spell slow, alteration
+    206, "-1", "-10", "spwish25", "-10", "-10", "same" => 1 // protection from spell slow (wish), alteration
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+/* nothing for these, yet
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_illusion~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 5, "same", "-10", "-10", "same" => 1 // immunity to illusion
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_enchantment~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 4, "same", "-10", "-10", "same" => 1 // immunity to enchantment
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+
+// alters spell school immunities to cover AoE spells in school
+DEFINE_PATCH_MACRO ~cd_immunity_divination~ BEGIN
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN
+    204, "-10", 3, "same", "-10", "-10", "same" => 1 // immunity to divination
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
+  END
+  DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_delete BEGIN END // nothing to delete
+END
+*/
+
+/////                                                  \\\\\
+///// the batch... err... patch                        \\\\\
+/////                                                  \\\\\
+
+// batch effects
+DEFINE_PATCH_FUNCTION ~cd_apply_batch~ 
+  INT_VAR debug          = 0 // 1 - spit out C_E list, 2 same w/ additional info, 3 lists effects as they're added
+          force_cosmetic = "-1"
+          bonus_var_1    = "-1" // bonus vars for use in setting arrays
+          bonus_var_2    = "-1"
+          bonus_var_3    = "-1"
+  STR_VAR array_name     = "same"
+          all_or         = "or"
+  BEGIN
+
+  SET debug_message = 0
+  // formerly the immunity post array
+  READ_ASCII 0x00 type (3)
+  SET min_size = 0
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "spl" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x28
+    SET global_loop    = 0
+    SET fx_type        = 0
+    SET min_size       = 0x72
+    SET cosmetic       = 1
+  END ELSE
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "itm" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x38
+    SET global_loop    = 1
+    SET fx_type        = 0
+    SET min_size       = 0x72
+    READ_BYTE 0x18 flags ELSE 0
+    PATCH_IF ((flags BAND BIT2) = BIT2) BEGIN // if droppable, add portrait icons and whatnot
+      SET cosmetic = 1
+    END ELSE BEGIN
+      SET cosmetic = 0
+    END
+  END ELSE
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "cre" = 0) BEGIN
+    READ_LONG  0x2c4 fx_off ELSE 0
+    READ_BYTE 0x33 fx_type ELSE 2
+    SET abil_off       = 0
+    SET abil_num       = 0
+    SET counter_offset = 0x2c8
+    SET abil_length    = 0
+    SET global_loop    = 1
+    SET min_size       = 0x2d4
+    SET cosmetic       = 0
+  END ELSE BEGIN
+    PATCH_PRINT ~Warning: %macro_name% macro halting; file type not recognized (%type%)~
+  END
+  // if user overrides normal cosmetic stuff with function var
+  PATCH_IF force_cosmetic = 1 BEGIN 
+    SET cosmetic = 1 
+  END ELSE
+  PATCH_IF force_cosmetic = 0 BEGIN 
+    SET cosmetic = 0 
+  END
+  PATCH_IF ((SOURCE_SIZE >= min_size) AND (min_size != 0)) BEGIN // min_size must get set by file type detection
+    SET new_fx = 0
+    FOR (index = (0 - global_loop) ; index < abil_num ; ++index) BEGIN
+      SPRINT template "" // replaced if key match found
+      // always clear your arrays
+      CLEAR_ARRAY cd_immunity_batches_key
+      CLEAR_ARRAY cd_immunity_batches_extras
+      CLEAR_ARRAY cd_immunity_batches_deletes
+      LAUNCH_PATCH_MACRO ~%array_name%~ // loads up arrays with effects to match
+      PATCH_IF (index < 0) BEGIN // if loop through globals needed
+        SET abil_fx_idx = 0
+      END ELSE BEGIN // otherwise normal ability
+        SET counter_offset = (abil_off + 0x1e + (abil_length * index))
+        READ_SHORT  (abil_off + 0x20 + (abil_length * index)) abil_fx_idx
+        SET abil_fx_idx += new_fx
+        WRITE_SHORT (abil_off + 0x20 + (abil_length * index)) (abil_fx_idx)
+      END
+      READ_SHORT counter_offset counter // fx_num on global loop, otherwise abil_fx_num
+      // run one pass purely looking for keys
+      FOR (index2 = 0 ; index2 < counter ; ++index2) BEGIN
+        READ_SHORT (fx_off        + (0x08 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) opcode
+        READ_LONG  (fx_off + 0x04 + (0x10 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) param1
+        READ_LONG  (fx_off + 0x08 + (0x10 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) param2
+        READ_ASCII (fx_off + 0x14 + (0x14 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) resref
+        // look through key array for matches
+        PHP_EACH cd_immunity_batches_key AS matches => value BEGIN
+          PATCH_IF ((value != 0) AND
+                    ((matches_0 = opcode) OR (matches_0 < "-9")) AND // opcode matches and/or isn't set
+                    ((matches_1 = param1) OR (matches_1 < "-9")) AND // param1 matches and/or isn't set
+                    ((matches_2 = param2) OR (matches_2 < "-9")) AND // param2 matches and/or isn't set
+                    (("%matches_3%" STRING_COMPARE_CASE "%resref%" = 0) OR ("%matches_3%" STRING_COMPARE_CASE "same" = 0))) BEGIN // match found
+            SET value -= 1
+            DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_key BEGIN "%matches_0%", "%matches_1%", "%matches_2%", "%matches_3%", "%matches_4%", "%matches_5%", "%matches_6%" => "%value%" END // update array to indicate match present
+            READ_ASCII (fx_off + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) template ((0x30 + (0xd8 * fx_type))) // read whole effect into a template
+            SET insert_point = index2
+          END
+        END
+      END
+      PATCH_IF ("%all_or%" STRING_COMPARE_CASE "all" = 0) BEGIN // if an all clause, clear template if any is not matched
+        PHP_EACH cd_immunity_batches_key AS matches => value BEGIN
+          PATCH_IF value != 0 BEGIN
+            SPRINT template "" // clear template, prevents advancement
+          END
+        END
+      END
+      // if we have a key match, run second pass looking for extras and deleting targeted effects
+      PATCH_IF ("%template%" STRING_COMPARE_CASE "") BEGIN // if key found, template is set and we look for associated/delete effects
+        SET last_adj = 0
+        FOR (index2 = 0 ; index2 < counter ; ++index2) BEGIN
+          READ_SHORT (fx_off        + (0x08 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) opcode
+          READ_LONG  (fx_off + 0x04 + (0x10 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) param1
+          READ_LONG  (fx_off + 0x08 + (0x10 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) param2
+          READ_ASCII (fx_off + 0x14 + (0x14 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) resref
+          PATCH_IF index2 = (counter - 1) BEGIN                                                     // on final loop
+            PATCH_IF ((opcode = 206) AND ("%SOURCE_RES%" STRING_COMPARE_CASE "%resref%" = 0)) BEGIN // special check to make sure last effect isn't immunity to self
+              SET last_adj = "-1"                                                                   // if it is, "last" effects need to go one effect before it
+            END
+          END
+          // look through associated array for matches
+          PHP_EACH cd_immunity_batches_extras AS matches => value BEGIN
+            PATCH_IF ((value != 0) AND
+                      ((matches_0 = opcode) OR (matches_0 < "-9")) AND // opcode matches and/or isn't set
+                      ((matches_1 = param1) OR (matches_1 < "-9")) AND // param1 matches and/or isn't set
+                      ((matches_2 = param2) OR (matches_2 < "-9")) AND // param2 matches and/or isn't set
+                      (("%matches_3%" STRING_COMPARE_CASE "%resref%" = 0) OR ("%matches_3%" STRING_COMPARE_CASE "same" = 0))) BEGIN // match found
+              SET value -= 1
+              DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN "%matches_0%", "%matches_1%", "%matches_2%", "%matches_3%", "%matches_4%", "%matches_5%", "%matches_6%" => "%value%" END // update array to indicate match present
+            END
+          END
+          // look through delete array
+          PHP_EACH cd_immunity_batches_delete AS matches => value BEGIN
+            PATCH_IF (((matches_0 = opcode) OR (matches_0 < "-9")) AND // opcode matches and/or isn't set
+                      ((matches_1 = param1) OR (matches_1 < "-9")) AND // param1 matches and/or isn't set
+                      ((matches_2 = param2) OR (matches_2 < "-9")) AND // param2 matches and/or isn't set
+                      (("%matches_3%" STRING_COMPARE_CASE "%resref%" = 0) OR ("%matches_3%" STRING_COMPARE_CASE "same" = 0))) BEGIN // match found
+              DELETE_BYTES (fx_off        + (0x08 * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) ((0x30 + (0xd8 * fx_type))) // delete effect
+              PATCH_IF insert_point > index2 BEGIN SET insert_point -= 1 END // move insert point up if we're deleting an effect in front of it
+              SET new_fx  -= 1
+              SET counter -= 1
+              SET index2  -= 1
+              SET debug_message = 1 // something's changed!
+            END
+          END
+        END // end second effects pass
+
+        // with a completed second pass, start adding needed effects
+        PATCH_FOR_EACH array IN cd_immunity_batches_key cd_immunity_batches_extras BEGIN
+          PHP_EACH ~%array%~ AS matches => value BEGIN
+            PATCH_IF debug > 2 BEGIN PATCH_PRINT ~%array% array: %matches_0%, %matches_1%, %matches_2%, %matches_3%, %matches_4%, %matches_5%, %matches_6% => %value%~ END
+            WHILE (value > 0) BEGIN
+              SET base = (fx_off + ((abil_fx_idx + insert_point) * (0x30 + (0xd8 * fx_type))))
+              PATCH_IF ("%matches_6%" STRING_COMPARE_CASE "first" = 0) BEGIN SET base = (fx_off + ((abil_fx_idx                     ) * (0x30 + (0xd8 * fx_type)))) END
+              PATCH_IF ("%matches_6%" STRING_COMPARE_CASE "last" = 0)  BEGIN SET base = (fx_off + ((abil_fx_idx + counter + last_adj) * (0x30 + (0xd8 * fx_type)))) END
+              INSERT_BYTES                                                             (base) (0x30 + (0xd8 * fx_type))
+                WRITE_ASCIIE                                                           (base                          ) "%template%"  // clones immunity effect
+                PATCH_IF (matches_0 >= "-9") BEGIN WRITE_SHORT                         (base        + (0x08 * fx_type)) matches_0 END // opcode
+                PATCH_IF (matches_1 >= "-9") BEGIN WRITE_LONG                          (base + 0x04 + (0x10 * fx_type)) matches_1 END // parameter1
+                PATCH_IF (matches_2 >= "-9") BEGIN WRITE_LONG                          (base + 0x08 + (0x10 * fx_type)) matches_2 END // parameter2
+                PATCH_IF ("%matches_3%" STRING_COMPARE_CASE "same") BEGIN WRITE_ASCIIE (base + 0x14 + (0x14 * fx_type)) ~%matches_3%~ #8 END // resref
+                PATCH_IF (matches_4 >= "-9") BEGIN WRITE_BYTE                          (base + 0x0c + (0x10 * fx_type)) matches_4 END // timing
+                PATCH_IF (matches_5 >= "-9") BEGIN WRITE_BYTE                          (base + 0x0e + (0x13 * fx_type)) matches_5 END // duration
+              SET new_fx  += 1
+              SET counter += 1
+              SET debug_message = 1 // something's changed!
+              SET value -= 1
+            END
+          END
+        END
+      END
+      WRITE_SHORT counter_offset counter
+    END
+
+    // formerly the immunity post array
+    PATCH_IF (("%type%" STRING_COMPARE_CASE "cre" = 0) AND (new_fx > 0)) BEGIN // fix offsets for cre files if fx inserted
+      PATCH_FOR_EACH offset IN 0x2a0 0x2a8 0x2b0 0x2b8 0x2bc BEGIN
+        READ_LONG offset curr_off
+        PATCH_IF (fx_off < curr_off) BEGIN
+          WRITE_LONG offset (THIS + ((0x30 + (0xd8 * fx_type)) * new_fx))
+        END
+      END
+    END
+    
+    // debug message
+    PATCH_IF debug > 0 BEGIN
+      READ_LONG 0x0c name
+      PATCH_IF (name > 0) AND (name < 999999) BEGIN
+        READ_STRREF 0x0c name
+      END ELSE BEGIN
+        READ_STRREF 0x08 name
+      END
+      PATCH_IF (debug_message != 0) BEGIN
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^........$" = 0) BEGIN SPRINT spc " " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^.......$" = 0) BEGIN SPRINT spc "  " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^......$" = 0) BEGIN SPRINT spc "   " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^.....$" = 0) BEGIN SPRINT spc "    " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^....$" = 0) BEGIN SPRINT spc "     " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^...$" = 0) BEGIN SPRINT spc "      " END ELSE
+        PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^..$" = 0) BEGIN SPRINT spc "       " END ELSE
+                                                                  BEGIN SPRINT spc "        " END
+        PATCH_PRINT "              ~%SOURCE_FILE%~%spc%~override~ // %name%, %new_fx% new effects from %array_name%"
+      END ELSE BEGIN
+        PATCH_IF (debug > 1) BEGIN
+          PATCH_PRINT " // %SOURCE_FILE% had no new effects from %array_name%"
+        END
+      END
+    END 
+
+  END // end file size check
+
+END

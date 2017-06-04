@@ -1,0 +1,22 @@
+IF
+  Global("cd_must_summon","LOCALS",1)
+THEN
+  RESPONSE #100
+    SetInterrupt(FALSE)
+    DialogInterrupt(FALSE)
+    SetGlobal("SolNoTalk1","GLOBAL",1)
+    Wait(5)
+    ForceSpell(Myself,DO_NOTHING) // SPIN905.SPL (No such index)
+    Wait(5)
+    ForceSpell(Myself,DO_NOTHING) // SPIN905.SPL (No such index)
+    Wait(5)
+    ForceSpell(Myself,DO_NOTHING) // SPIN905.SPL (No such index)
+    Wait(1)
+    ScreenShake([4707.3105],5)
+    Wait(1)
+    DialogInterrupt(TRUE)
+    SetInterrupt(TRUE)
+    StartCutSceneMode()
+    SetGlobal("cd_must_summon","LOCALS",2)
+    StartCutScene("Cut44v")
+END

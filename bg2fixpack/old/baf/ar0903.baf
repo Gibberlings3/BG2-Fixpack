@@ -1,0 +1,17 @@
+IF
+	Global("SetRest","AR0903",0)
+	Global("PaladinOrder","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("SetRest","AR0903",1)
+		SetAreaRestFlag(1)
+END
+
+IF
+	Global("SetRest","AR0903",1)
+	!Global("PaladinOrder","GLOBAL",1)
+THEN
+	RESPONSE #100
+		SetGlobal("SetRest","AR0903",0)
+		SetAreaRestFlag(0)
+END

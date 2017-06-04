@@ -1,0 +1,16 @@
+IF
+  Global("GaalSpoke","AR0900",2)
+  Global("NeutralMask","AR0900",1)
+  Global("cd_beholder_dc_shenanigans","GLOBAL",0)
+  !Alignment(Player1,MASK_GENEUTRAL)
+  OR(6)
+    Class(Player1,CLERIC)
+    Class(Player1,FIGHTER_CLERIC)
+    Class(Player1,CLERIC_MAGE)
+    Class(Player1,CLERIC_THIEF)
+    Class(Player1,FIGHTER_MAGE_CLERIC)
+    Class(Player1,CLERIC_RANGER)
+THEN
+  RESPONSE #100
+    SetGlobal("cd_beholder_dc_shenanigans","GLOBAL",1)
+END

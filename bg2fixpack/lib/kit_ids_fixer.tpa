@@ -1,0 +1,98 @@
+/////                                                  \\\\\
+///// kit.ids fixer                                    \\\\\
+/////                                                  \\\\\
+
+COPY_EXISTING ~kit.ids~ ~override~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(TRUECLASS[ %TAB%%LNL%%MNL%%WNL%]+\)~              ~0x4000 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BERSERKER[ %TAB%%LNL%%MNL%%WNL%]+\)~              ~0x4001 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(WIZARDSLAYER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x4002 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(KENSAI[ %TAB%%LNL%%MNL%%WNL%]+\)~                 ~0x4003 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(CAVALIER[ %TAB%%LNL%%MNL%%WNL%]+\)~               ~0x4004 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(INQUISITOR[ %TAB%%LNL%%MNL%%WNL%]+\)~             ~0x4005 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(UNDEADHUNTER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x4006 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_ABJURER[ %TAB%%LNL%%MNL%%WNL%]+\)~     ~0x0040 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_CONJURER[ %TAB%%LNL%%MNL%%WNL%]+\)~    ~0x0080 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_DIVINER[ %TAB%%LNL%%MNL%%WNL%]+\)~     ~0x0100 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_ENCHANTER[ %TAB%%LNL%%MNL%%WNL%]+\)~   ~0x0200 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_ILLUSIONIST[ %TAB%%LNL%%MNL%%WNL%]+\)~ ~0x0400 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_INVOKER[ %TAB%%LNL%%MNL%%WNL%]+\)~     ~0x0800 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_NECROMANCER[ %TAB%%LNL%%MNL%%WNL%]+\)~ ~0x1000 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_TRANSMUTER[ %TAB%%LNL%%MNL%%WNL%]+\)~  ~0x2000 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(MAGESCHOOL_GENERALIST[ %TAB%%LNL%%MNL%%WNL%]+\)~  ~0x4000 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(FERALAN[ %TAB%%LNL%%MNL%%WNL%]+\)~                ~0x4007 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(STALKER[ %TAB%%LNL%%MNL%%WNL%]+\)~                ~0x4008 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BEASTMASTER[ %TAB%%LNL%%MNL%%WNL%]+\)~            ~0x4009 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(ASSASIN[ %TAB%%LNL%%MNL%%WNL%]+\)~                ~0x400A \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BOUNTYHUNTER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x400B \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(SWASHBUCKLER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x400C \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BLADE[ %TAB%%LNL%%MNL%%WNL%]+\)~                  ~0x400D \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(JESTER[ %TAB%%LNL%%MNL%%WNL%]+\)~                 ~0x400E \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(SKALD[ %TAB%%LNL%%MNL%%WNL%]+\)~                  ~0x400F \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(GODTALOS[ %TAB%%LNL%%MNL%%WNL%]+\)~               ~0x4013 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(GODHELM[ %TAB%%LNL%%MNL%%WNL%]+\)~                ~0x4014 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(GODLATHANDER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x4015 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(TOTEMIC[ %TAB%%LNL%%MNL%%WNL%]+\)~                ~0x4010 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(SHAPESHIFTER[ %TAB%%LNL%%MNL%%WNL%]+\)~           ~0x4011 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BEASTFRIEND[ %TAB%%LNL%%MNL%%WNL%]+\)~            ~0x4012 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BARBARIAN[ %TAB%%LNL%%MNL%%WNL%]+\)~              ~0x40000000 \1~
+  REPLACE_TEXTUALLY ~^.+[ %TAB%]\(WILDMAGE[ %TAB%%LNL%%MNL%%WNL%]+\)~               ~0x80000000 \1~
+  BUT_ONLY
+
+APPEND ~kit.ids~ ~0x4000 TRUECLASS~     UNLESS ~^.+[ %TAB%]TRUECLASS[ %TAB%%LNL%%MNL%%WNL%]+~
+APPEND ~kit.ids~ ~0x40000000 BARBARIAN~ UNLESS ~^.+[ %TAB%]BARBARIAN[ %TAB%%LNL%%MNL%%WNL%]+~
+APPEND ~kit.ids~ ~0x80000000 WILDMAGE~  UNLESS ~^.+[ %TAB%]WILDMAGE[ %TAB%%LNL%%MNL%%WNL%]+~
+
+ACTION_FOR_EACH crefile IN
+  _imoen1
+  _imoen2
+  _imoen4
+  _imoen6
+  anomen10
+  anomen12
+  anomen6
+  anomen7
+  anomen8
+  anomen9
+  haer10  
+  haer11
+  haer13
+  haer15
+  haer19
+  imoen1  
+  imoen10 
+  imoen15
+  imoen2
+  imoen211
+  imoen213
+  imoen4
+  imoen61
+  korgan11
+  korgan12
+  korgan15
+  korgan8  
+  korgan9
+  mazzy11
+  mazzy12
+  mazzy15
+  mazzy8  
+  mazzy9
+  BEGIN
+  
+  ACTION_IF FILE_EXISTS_IN_GAME ~%crefile%.cre~ BEGIN
+  
+    COPY_EXISTING ~%crefile%.cre~ ~override~
+      READ_LONG 0x0244 KIT_VALUE
+      PATCH_IF (KIT_VALUE = 0x00) BEGIN
+        WRITE_LONG 0x0244 0x40000000
+      END ELSE
+      PATCH_IF (KIT_VALUE = 0x20) BEGIN
+        WRITE_LONG 0x0244 0x400d0000
+      END ELSE
+      PATCH_IF (KIT_VALUE = 0x010000) BEGIN
+        WRITE_LONG 0x0244 0x40010000
+      END
+    BUT_ONLY
+
+  END
+
+END

@@ -1,0 +1,47 @@
+IF
+	Global("SpawnTeosAssasin","GLOBAL",1)
+	!Dead("MGTEOS01") // Teos
+THEN
+	RESPONSE #100
+		SetGlobal("SpawnTeosAssasin","GLOBAL",2)
+		FadeToColor([30.0],0)
+		CloseDoor("DoorPool2")
+		CloseDoor("DoorTreasure2")
+		Wait(1)
+		CreateCreatureDoor("MGTEOS01",[2900.2580],0) // Teos
+		MoveViewPoint([2995.2649],INSTANT)
+		ActionOverride(Player1,JumpToPoint([2995.2649]))
+		ActionOverride(Player2,JumpToPoint([2939.2667]))
+		ActionOverride(Player3,JumpToPoint([2869.2692]))
+		ActionOverride(Player4,JumpToPoint([3019.2720]))
+		ActionOverride(Player5,JumpToPoint([2961.2736]))
+		ActionOverride(Player6,JumpToPoint([2904.2751]))
+		FadeFromColor([30.0],0)
+		Wait(7)
+		ActionOverride("MGTEOS01",StartDialogueNoSet(Player1))
+END
+
+IF
+	Global("SpawnAssassins","AR0411",1)
+THEN
+	RESPONSE #100
+		SetGlobal("SpawnAssassins","AR0411",2)
+		StartCutSceneMode()
+		CreateVisualEffect("SPWOOD",[2774.2650])
+		CreateVisualEffect("SPWOOD",[2839.2781])
+		CreateVisualEffect("SPWOOD",[3160.2714])
+		CreateVisualEffect("SPWOOD",[2989.2821])
+		CreateVisualEffect("SPWOOD",[2908.2795])
+		CreateVisualEffect("SPWOOD",[2842.2772])
+		CreateVisualEffect("SPWOOD",[2894.2508])
+		Wait(5)
+		CreateCreatureImpassable("mgass01",[2774.2650],14) // Sergeant Natula
+		CreateCreatureImpassable("mgass02",[2839.2781],11) // Tyrian
+		CreateCreatureImpassable("mgass03",[3160.2714],4) // Vilhelm
+		CreateCreatureImpassable("pardru",[2989.2821],8) // Sorsha
+		CreateCreatureImpassable("parthf",[2908.2795],8) // Alnarow
+		CreateCreatureImpassable("parmonk",[2842.2772],8) // Mahar
+		CreateCreatureImpassable("parfig16",[2894.2508],8) // Jalin Tix
+		EndCutSceneMode()
+		ActionOverride("mgass01",StartDialogueNoSet(Player1))
+END

@@ -1,0 +1,17 @@
+IF
+  Allegiance(Myself,NEUTRAL)
+  AttackedBy([GOODCUTOFF],DEFAULT)
+  Global("ViconiaFree","AR1000",0)
+THEN
+  RESPONSE #100
+    Enemy()
+    Continue()
+END
+
+IF
+  Allegiance(Myself,ENEMY)
+  Global("ViconiaFree","AR1000",0)
+THEN
+  RESPONSE #100
+    NoAction()
+END

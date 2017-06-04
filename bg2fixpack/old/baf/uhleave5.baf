@@ -1,0 +1,23 @@
+IF
+  AreaCheck("AR1105")
+  Global("SETHOME","LOCALS",0)
+THEN
+  RESPONSE #100
+    SetHomeLocation([779.447])
+    SetGlobal("SETHOME","LOCALS",1)
+END
+
+IF
+  TimeGT(4)
+  TimeLT(DUSK_START)
+  See([PC])
+  AreaCheck("AR1105")
+  Global("Move","LOCALS",1)
+THEN
+  RESPONSE #100
+    Unlock("DOOR02")
+    OpenDoor("DOOR02")
+    SetGlobal("Move","LOCALS",0)
+    MoveToPointNoInterrupt([779.447])
+    Face(2)
+END

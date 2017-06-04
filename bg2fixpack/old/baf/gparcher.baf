@@ -1,0 +1,20 @@
+IF
+  Global("RR#Active","LOCALS",0)
+  OR(5)
+    TookDamage()
+    AttackedBy([GOODCUTOFF],DEFAULT)
+    Heard([EVILCUTOFF],124)
+    Heard([EVILCUTOFF],125)
+    See(NearestEnemyOf(Myself))
+THEN
+  RESPONSE #100
+    SetGlobal("RR#Active","LOCALS",1)
+    Continue()
+END
+
+IF
+  Global("RR#Active","LOCALS",0)
+THEN
+  RESPONSE #100
+    NoAction()
+END

@@ -1,0 +1,1390 @@
+// -*- coding: cp1252-unix -*-
+// use linefeed to avoid cutoff when "SUCCESSFULLY INSTALLED" is displayed
+@0   = ~BG2 Fixpack - Fehlerbehebungen~
+@1   = ~BG2 Fixpack - Textkorrekturen~
+@2   = ~Optional, aber cool~
+@3   = ~Super froehliches spassiges glueckliches
+Entwicklerpaket~
+@4   = ~Dieser Schritt kann einen Moment dauern...~
+@5   = ~Diese Komponente ist in Eurer Sprache nicht verfuegbar.~
+@6   = ~Gruppe bekommt Erfahrung, wenn sie Keldorn zu Maria
+schickt~
+@7   = ~Verbesserte Zauberanimationen~
+@8   = ~Cromwell braucht zum Schmieden wirklich einen Tag~
+@9   = ~Dolche mit Nah- und Fernkampf korrigieren~
+@10  = ~Ghreyfains Korrekturen der Heiligen Symbole~
+@11  = ~Diese Komponente erfordert Thron des Bhaal.~
+@12  = ~Weitere Aufgaben in Handelstreff erst nach der
+Helden-Ernennung~
+@13  = ~Riesen erhalten Abzuege beim Angriff auf Halblinge,
+Zwerge und Gnome~
+@14  = ~Mehrklassen-Beschraenkung fuer Bogenschuetzen und
+Pirscher entfernen~
+@15  = ~Zweiten Attributsbonus fuer den boesen Weg bei den
+Hoellenpruefungen entfernen~
+@16  = ~Korrigiertes Verhalten beschworener Daemonen~
+@17  = ~Zusaetzliche Skripte korrigieren~
+@18  = ~Berichtigte Bardenlieder~
+@19  = ~Magierkiller verursachen "Magie fehlwirken" im
+Fernkampf~
+@20  = ~BG2 Fixpack - BETA-Fehlerbehebungen (schaut bitte
+in die Readme!)~
+@21  = ~Zusaetzliche Gesinnungen korrigieren~
+@22  = ~Diese Komponente wurde verworfen.~
+@23  = ~Handlungsfreiheit schuetzt gegen Betaeubung~
+@24  = ~Klauen der Gestaltwandler koennen nicht gebannt
+werden~
+@25  = ~Geaendertes Verhalten von Abbild, Projiziertes
+Ebenbild und Ablenkung~
+@26  = ~Vorherige Fixpack-Installation erkannt.~
+@27  = ~Das Fixpack ist fuer dieses Spiel nicht noetig.~
+@28  = ~Zusatzpunkte auf Diebesfaehigkeiten von Barden und
+Waldlaeufern entfernen~
+@29  = ~Diese Komponente erfordert TobEx.~
+
+@100 = ~Nun, ich habe ohnehin kaum zugehört. Macht Euch also keine Gedanken. Lasst uns einfach darauf konzentrieren, den nächsten Ork zu töten, sobald wir einen sehen.~
+@101 = ~Ich werde es tun, Jaluk. Und wenn ich seinen Schädel einschlage, habt Ihr doch sicher nichts dagegen, wenn ich mir vorstelle, dass es Euer Schädel wäre, hmm?~
+@102 = ~IMOEN kichert, als Ihr sie nach ihrer Vergangenheit fragt, und glaubt, Ihr wollt bloß ihre Gedanken auf glücklichere Zeiten und Orte lenken. Sie gibt Euch nach und ihr Gesicht erhellt sich, als sie davon spricht, wie Ihr Eure Jugend zusammen in Kerzenburg verbracht habt. Sie kam ebenso wie Ihr dorthin, in der Begleitung Eures Ziehvaters Gorion. Doch trotz dieser Gemeinsamkeit wuchs sie viel sorgloser auf als Ihr. Tatsächlich hat ihre unbeschwerte Art sie lange vor dem Elend der Welt geschützt, wenn auch die Schrecken, denen sie ausgesetzt war, entschieden ihren Tribut gefordert haben.~
+// concerning all sound references: no plain translation! instead, the texts must match the actual sounds
+@103 = ~Ihr habt mich unterschätzt! Das war ein fataler Fehler!~ [SILVER19]
+@104 = ~Das ist Euer Ende!~ [SILVER18]
+@105 = ~Hallo, schön, Euch erneut zu treffen. Seid Ihr aus geschäftlichen Gründen hier oder weil Ihr die reichhaltige Schönheit der Natur genießen wollt?~ [CERND79]
+@106 = ~Nebs Widerlicher Schnitter
+
+Diese hinterhältige Waffe wurde von Neb eingesetzt. Sie ist mit verkrustetem Blut überzogen. Nur wahrhaft böse Wesen würden es wagen, diese Waffe zu verwenden. Das Gift ist verbraucht und der Dolch ist jetzt ein normaler magischer Dolch.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W4 +2 (Stich)
+ETW0-Bonus: -2
+Gewicht: 1
+Initiativefaktor: 0
+Mindeststärke: 3
+Fertigkeit: Dolch
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Guten und neutralen Wesen
+- Klerikern~
+@107 = ~Stellt auf jeden Fall sicher, dass Ihr Säure oder Feuer dabeihabt. Trolle sind mit nichts anderem zu erledigen. Mögen die Götter mit Euch sein.~
+//@108 = ~Nehmt diese Pfeile, vielleicht nützen sie Euch was.~
+@109 = ~Ihr seid aus einem bestimmten Grund hier. Heraus damit!~ [SILVER14]
+@110 = ~Ich hätte Leute Eurer Sorte nicht erwartet.~ [SILVER12]
+@111 = ~Ihr seid hier willkommen.~ [SILVER11]
+@112 = ~Wir treffen uns dort.~ [SILVER13]
+@113 = ~Ich werde hier und heute nicht fallen. Bestimmt nicht!~ [SILVER22]
+@114 = ~Ihr könnt diesen Zauber nicht wirken, bevor die Wirkung des aktuellen Zaubers aufgehört hat.~
+// this is not sw1h53 so don't call it that
+@115 = ~Flammendes Langschwert +1~
+@116 = ~Streitkolben +3~
+@117 = ~Morgenstern +3~
+@118 = ~Langschwert +3~
+@119 = ~Kurzschwert +3~
+@120 = ~Faust +1~
+@121 = ~Faust +2~
+@122 = ~Faust +3~
+@123 = ~Faust +4~
+@124 = ~Yoshimos Katana +1~
+@125 = ~Flegel der Zeitalter +2~
+@126 = ~~ [FAMCAT01]
+@127 = ~He, Ihr da! Kein Zweifel noch mehr berobte Gestalten und ihre Diener. Ich schwöre bei den Göttern, dass Ihr es nicht überleben werdet, wenn Ihr versucht, mich zu dieser verdammten Sphäre zu bringen!~ [VALYGA01]
+@128 = ~Heiliges Symbol von Baervan~
+@129 = ~Nur die treuesten und würdigsten Diener des Maskierten Blattes erhalten diese mächtigen Heiligen Symbole.
+
+EIGENSCHAFTEN:
+
+Stärke: +1
+Zauber: +1 (Grad 6 und 7)
+Magiewiderstand: 5%
+
+Kann nur verwendet werden von:
+- Guten Wesen
+- Klerikern~
+@130 = ~Heiliges Symbol von Shar~
+@131 = ~Nur die treuesten und würdigsten Diener der Nachtsängerin erhalten diese mächtigen Heiligen Symbole.
+
+EIGENSCHAFTEN:
+
+Stärke: +1
+Zauber: +1 (Grad 6 und 7)
+Magiewiderstand: 5%
+
+Kann nur verwendet werden von:
+- Bösen Wesen
+- Klerikern~
+@132 = ~(Der Mann sieht Euch für einen Moment blicklos an, dann spricht er.)
+
+Ich diene nur Meister Mekrath.~ [HAERDA95]
+@133 = ~Bei Tante Petunias Bart? Ein Schatten aus meiner Vergangenheit? Kommt Ihr mich vielleicht heimsuchen, um ein paar Steckrüben zu kaufen?~ [JANJAN67]
+@134 = ~Stehen bleiben! Wer kommt da? Ihr... Ihr seid das Kind des Bhaal, nicht wahr? Joneleth... Jon brüstete sich damit, Euch die Kräfte gestohlen zu haben. Er behauptete, Euch umgebracht zu haben.~ [ELLESI02]
+// damage adjustment, currently unused (Mixed-Use Dagger Fixes)
+@135 = ~Feuerzahn
+
+In diesem Wurfdolch lodert ein magisches Feuer und man sagt, dass er aus dem Zahn eines roten Drachen geschnitzt wurde. Den Geschichten zufolge, die in den verschiedensten Schänken erzählt werden, ist das Untier noch immer am Leben, und sein glühender Zorn ist es, der dafür sorgt, dass die Waffe über magische Fähigkeiten verfügt. Die Geschichte wirkt zwar unglaubwürdig, wird aber immer gleich erzählt. Außerdem sagt man, dass der Dolch in die Hand des Werfers zurückkehrt, "als ob er über Flügel verfügen würde".
+
+EIGENSCHAFTEN:
+
+Schaden: 1W4 +3 (Geschoss)
+Schadensbonus: +1W2 (Feuer)
+ETW0-Bonus: -3
+(Kehrt sofort zum Werfer zurück)
+Gewicht: 1
+Initiativefaktor: 1
+Mindeststärke: 3
+Fertigkeit: Dolch
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Klerikern~
+@136 = ~Zauberschlag
+
+Grad: 9
+Schule: Bannzauber
+Reichweite: Lang
+Dauer: Sofort
+Zeitaufwand: 5
+Bereich: 1 Wesen
+Rettungswurf: Nein
+
+Der Zauberschlag zerstört jeden Zauberschutz, der auf einem Wesen liegt. Die betroffenen Zauber sind: Eisenhaut, Magieresistenz, Schild der Archonen, Geringere Zauber zurückwerfen, Kleinere Kugel der Unverwundbarkeit, Immunität gegen Zauber, Kugel der Unverwundbarkeit, Geringere Zauberabwehr, Zauber zurückwerfen, Zauberschild, Zauberabwehr, Zauberunverwundbarkeit und Zauberfalle. Magieresistenz schützt nicht gegen diesen Zauber.~
+// German: use terms consistent with MK's textpatch for the immunities; also correct the mistranslation in the original BG2 text
+@137 = ~Berserker sind eins mit der animalischen Seite ihres Wesens. Dadurch können sie sich im Kampf in einen ekstatischen Rauschzustand hineinsteigern und so länger, härter und wilder kämpfen, als man es von einem menschlichen Wesen erwarten würde. Berserker sind meist typische Barbaren, doch es gibt Ausnahmen von der Regel. Manchmal handelt es sich um einen zivilisierten Krieger, der während seiner Ausbildung die bewusste Entscheidung trifft, diesen Weg einzuschlagen. In jedem Fall werden die Feinde auf dem Schlachtfeld verunsichert, wenn sie sich mit dieser wilden, animalischen Tötungsmaschine konfrontiert sehen. Diese Klasse ist vor allem bei Zwergen sehr verbreitet, wo man sie unter dem Namen "Schlachtenwüter" kennt.
+
+Besondere Vorteile:
+- Kann sich für je 4 Stufen einmal pro Tag für 60 Sekunden in Berserkerwut versetzen.
+- Erhält im Kampfrausch +2 auf Trefferwürfe, +2 auf Schaden und -2 auf Rüstungsklasse.
+- Ist im Kampfrausch immun gegen Bezauberung, Verwirrung, Furcht, Schwachsinn, Festhalten, Einkerkerung, Entzug von Lebensenergie, Irrgarten, Betäubung und Schlaf.
+- Erhält im Kampfrausch 15 vorübergehende Trefferpunkte. Wenn der Kampfrausch endet, verschwinden diese wieder, wodurch der Berserker sterben kann.
+
+Besondere Nachteile:
+- Ist nach dem Kampfrausch eine Zeit lang erschöpft und erhält solange -2 auf Trefferwürfe, -2 auf Schaden und +2 auf Rüstungsklasse.
+- Kann sich im Umgang mit Fernkampfwaffen (Bögen, Armbrüste, Schleudern oder Wurfpfeile) nicht spezialisieren (maximal ein Fertigkeitspunkt).~
+@138 = ~Der Barbar ist ein geborener Kämpfer. Er ist zwar nicht so diszipliniert und gut ausgebildet wie der normale Krieger, aber durch seine Fähigkeit, sich in einen Kampfrausch zu versetzen, wird er zu einem zäheren und stärkeren Gegner.
+
+Besondere Vorteile:
+- Erhält +2 auf die Bewegungsrate.
+- Ist immun gegen hinterhältige Angriffe.
+- Kann sich für je 4 Stufen einmal täglich in einen Kampfrausch hineinsteigern (einmal auf der 1. Stufe). Durch den Kampfrausch erhält er für 5 Runden +4 auf Stärke und Konstitution, einen Malus von +2 auf Rüstungsklasse und einen Rettungswurf-Bonus von -2 gegen Zauber. Während des Kampfrausches ist er immun gegen Bezauberung, Festhalten, Furcht, Irrgarten, Verwirrung, Betäubung, Schlaf und Entzug von Lebensenergie.
+- Ab der 11. Stufe erhält der Barbar 10% Widerstandsfähigkeit gegen Klingenwaffen, Stichwaffen, Wuchtwaffen und Geschosswaffen. Diese Widerstandsfähigkeit erhöht sich auf den Stufen 15 und 19 um 5%.
+- Der Barbar würfelt seine Trefferpunkte pro Stufe mit 1W12 aus (im Gegensatz zum Kämpfer, der 1W10 verwendet).
+
+Besondere Nachteile:
+- Kann keinen Plattenpanzer und keinen Prunkharnisch tragen.
+- Kann sich im Umgang mit Waffen höchstens spezialisieren (zwei Fertigkeitspunkte).~
+// concerning all item and spell descriptions: use texts according to MK's German textpatch (MKs Textpatch als Grundlage)
+@139 = ~Ein Flegel besteht aus einem kräftigen Holzgriff, der mit einem Eisenstab, einem dornenbesetzten Holzstab oder einer mit Dornen besetzten Eisenkugel verbunden ist. Die beiden Teile sind entweder mit einem Scharnier oder einer Kette verbunden. Ursprünglich wurde diese Waffe zum Dreschen von Getreide benutzt. Dieser Flegel wurde zusätzlich verzaubert.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +3 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 12
+Initiativefaktor: 5
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@140 = ~Der Streitkolben ist eine direkte Ableitung der einfachen Keule und besteht lediglich aus einem Holzschaft, auf den ein Stein- oder Eisenkopf aufgesetzt ist. Der Kopf kann entweder mit Spitzen versehen, geflanscht oder aber auch pyramidenförmig ausgearbeitet sein.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +1 (Wucht)
+Gewicht: 10
+Initiativefaktor: 7
+Mindeststärke: 10
+Fertigkeit: Streitkolben
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@141 = ~Symbol der Furcht
+
+Grad: 7
+Schule: Beschwörung
+Reichweite: Lang
+Dauer: Speziell
+Zeitaufwand: 9
+Bereich: 9 m Radius
+Rettungswurf: Ja (gg. Zauber)
+
+Mit Hilfe dieses mächtigen Zaubers kann der Anwender ein Symbol auf den Erdboden oder eine beliebige andere Oberfläche zeichnen. Das Symbol bleibt an diesem Ort, bis sich jemand nähert. Dann entlädt sich seine magische Energie explosionsartig. Jeder im Wirkungsbereich muss einen Rettungswurf mit einem Malus von +4 gegen Zauber bestehen, oder er wird für 2 Runden + 1 Runde je 3 Stufen des Anwenders von Furcht betroffen.~
+@142 = ~Offenbar sind die Erdkolosse durch die Wand dieser Zelle gebrochen und haben so Einlass in die Burg gefunden. In dem Tunnel direkt hinter der Zelle liegen mehrere Töpfe mit Eintopf. Hier scheinen die Erdkolosse zu fressen.~
+@143 = ~Ich habe eine seltsame Bitte... Schwester. Ich habe hier das Herz eines Mannes, der in Schande gestorben ist.~
+@144 = ~Diese Krieger wurden von ihrer fanatischen Sekte darin ausgebildet, Magier aller Arten zu jagen und zu töten.
+
+Besondere Vorteile:
+- Gegner erleidet für jeden Treffer (Nahkampf oder Fernkampf), den der Magierkiller bei ihm landet, eine kumulative Chance von 10%, dass das Wirken eines Zaubers versagt.
+- 2% Magiewiderstand pro Stufe.
+
+Besondere Nachteile:
+- Darf keine magischen Gegenstände außer Rüstungen, Waffen und Heiltränke verwenden.~
+@145 = ~Diese Krieger wurden von ihrer fanatischen Sekte darin ausgebildet, Magier aller Arten zu jagen und zu töten.
+
+Besondere Vorteile:
+- Gegner erleidet für jeden Treffer (Nahkampf oder Fernkampf), den der Magierkiller bei ihm landet, eine kumulative Chance von 10%, dass das Wirken eines Zaubers versagt.
+- 1% Magiewiderstand pro Stufe bis Stufe 20, danach abwechselnd 5% und 1% auf den weiteren Stufen.
+
+Besondere Nachteile:
+- Darf keine magischen Gegenstände außer Rüstungen, Waffen und Heiltränke verwenden.~
+@146 = ~Der Langbogen ist dem Kurzbogen sehr ähnlich. Der einzige Unterschied besteht darin, dass der Bogen fast so groß wie der Bogenschütze ist, normalerweise etwa 1,80 bis 2 m. Obwohl der Langbogen im Einsatz etwas langsamer ist als der Kurzbogen, hat er eine größere Reichweite und eine höhere Treffsicherheit. Der glatte Schaft dieses Bogens fühlt sich warm an. Das ist offenbar auf die magische Energie zurückzuführen, die in dem Holz enthalten ist.
+
+EIGENSCHAFTEN:
+
+ETW0-Bonus: -3
+Gewicht: 3
+Initiativefaktor: 5
+Mindeststärke: 6
+Fertigkeit: Langbogen
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@147 = ~Der Kurzbogen ist die älteste Form eines Bogens, jedoch wurde er nicht als solcher bezeichnet. Der Begriff "Kurzbogen" ist eher eine Bezeichnung für alle Bögen, die nicht als Langbogen gelten. Ein Kurzbogen ist durchschnittlich etwa 1,50 m lang und daher leichter handzuhaben als größere Bögen. Dieser spezielle Kurzbogen kann es mit fast jedem Langbogen aufnehmen. Ob seine Magie auf die Verwendung magischen Holzes oder auf Verzauberungen zurückzuführen ist, kann man nicht sagen. Auf jeden Fall trifft er genauer als ein normaler Kurzbogen.
+
+EIGENSCHAFTEN:
+
+ETW0-Bonus: -2
+Gewicht: 2
+Initiativefaktor: 4
+Mindeststärke: 3
+Fertigkeit: Kurzbogen
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@148 = ~Ein Prunkharnisch stellt die prächtigste Rüstung dar, die man sich als Krieger kaufen kann. Sie sieht nicht nur beeindruckend aus, sondern bietet auch den besten Schutz. Die perfekt gearbeiteten Metallplatten sind eng miteinander verbunden und wehren sowohl Schläge als auch Pfeile ab. Die ganze Rüstung ist mit Gravuren und Prägungen verziert. Dieser Prunkharnisch +2 wurde mit Hilfe eines begrenzten Wunsches erschaffen.
+
+EIGENSCHAFTEN:
+
+Rüstungsklasse: -1
+Gewicht: 40
+Mindeststärke: 15
+
+Kann nur verwendet werden von:
+- Kämpfern
+- Klerikern
+- Paladinen
+- Waldläufern~
+@149 = ~Speer des Verdorrens
+
+Dieser Speer wurde aus dem Kern eines verrotteten Baumhirten geschnitzt und riecht förmlich nach Tod und Verderben. Wenn man ihn in den Händen hält, stöhnt er ganz leicht. Es wirkt fast so, als ob es ihm nicht gefallen würde, von einem lebenden Wesen berührt zu werden. Im Kampf injiziert der Speer seinen Opfern bei jedem Treffer ein widerwärtiges Gift.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +4 (Stich)
+Schadensbonus: +4 (Gift)
+ETW0-Bonus: -4
+Gewicht: 5
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Speer
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Klerikern
+- Magiern
+- Mönchen~
+@150 = ~Los, macht schon. Lasst mich nicht an diesem Ort leiden. Davon haben wir beide genug.~ [IMOEN20]
+@151 = ~Die Klinge brennt mit einem magischen Feuer und bei jedem Schlag wird versengende Hitze freigesetzt. Die Worte "Meta Infernum" sind in den Griff geritzt. Die Inschrift wirkt jedoch leicht verwischt und wurde vielleicht erst später von einem der Besitzer angebracht.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W8 +1 (Klinge)
+Schadensbonus: +1 (Feuer)
+ETW0-Bonus: -1
+Gewicht: 4
+Initiativefaktor: 4
+Mindeststärke: 6
+Fertigkeit: Langschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern~
+@152 = ~~ [MUSTR08]
+// German: make AC notation consistent with shields in MK's textpatch: +4 additional AC bonus vs. missiles equals "-1, -5 ...", not "-1, -4 ..."
+@153 = ~Es ist recht wenig über diesen Gegenstand bekannt, außer dass die Klaue selbst von dem Kadaver der großen Bestie Kazgaroth stammt. Der Klaue wohnen zahlreiche magische Wirkungen inne, die alle aktiviert werden, wenn sie an der Hand getragen wird. Der Träger erscheint verschwommen, wodurch es erschwert wird, mit einer Waffe auf ihn zu zielen oder einen Zauber auf ihn zu wirken. Jedoch besitzt die Klaue einen großen Nachteil, denn sie scheint ihre Kraft aus dem Blut des Trägers zu ziehen. Aus diesem Grund ist er oft kränklich und somit anfälliger für Vergiftungen.
+
+EIGENSCHAFTEN:
+
+Kann nur durch Fluch brechen wieder abgenommen werden.
+
+RK-Bonus: -1, -5 gg. Geschosswaffen
+RW-Bonus:
+ -3 gg. Zauberstäbe
+ -3 gg. Verwandlung
+ -3 gg. Odemwaffen
+ -3 gg. Zauber
+RW-Malus:
+ +3 gg. Tod
+Konstitution: -2~
+@154 = ~Kleinere Kugel der Unverwundbarkeit
+
+Grad: 4
+Schule: Bannzauber
+Reichweite: Anwender
+Dauer: 1 Runde/Stufe
+Zeitaufwand: 4
+Bereich: Anwender
+Rettungswurf: Nein
+
+Der Zauber erschafft eine unbewegliche, leicht schimmernde magische Sphäre rund um den Anwender, die alle Zauber des 1., 2. und 3. Grades daran hindert, in die Sphäre einzudringen, das heißt, der Wirkungsbereich dieser Zauber spart die Kugel aus. Das schließt auch angeborene Fähigkeiten und Zauber von magischen Gegenständen ein. Aus der Kugel der Unverwundbarkeit heraus können ganz normal Zauber eingesetzt werden, das heißt, diese Zauber und die Kugel beeinflussen sich in keiner Weise. Zauber des 4. oder eines höheren Grades werden von der Kugel nicht abgehalten. Die Kugel kann durch magische Angriffe wie "Zauberschlag" oder "Magie durchdringen" entfernt werden.~
+@155 = ~Kugel der Unverwundbarkeit
+
+Grad: 6
+Schule: Bannzauber
+Reichweite: Anwender
+Dauer: 1 Runde/Stufe
+Zeitaufwand: 6
+Bereich: Anwender
+Rettungswurf: Nein
+
+Der Zauber erschafft eine unbewegliche, leicht schimmernde magische Kugel rund um den Anwender, die für alle Zauber des 1. bis 4. Grades undurchdringlich ist, das heißt, der Wirkungsbereich dieser Zauber spart die Kugel aus. Das schließt auch angeborene Fähigkeiten und Zauber von magischen Gegenständen ein. Aus der Kugel der Unverwundbarkeit heraus können ganz normal Zauber eingesetzt werden, das heißt, diese Zauber und die Kugel beeinflussen sich in keiner Weise. Zauber des 5. oder eines höheren Grades werden von der Kugel nicht abgehalten. Die Kugel kann durch magische Angriffe wie "Zauberschlag" oder "Magie durchdringen" entfernt werden.~
+@156 = ~Teleportationsfeld
+
+Grad: 4
+Schule: Veränderung
+Reichweite: Lang
+Dauer: 1 Phase
+Zeitaufwand: 4
+Bereich: 9 m Radius
+Rettungswurf: Nein
+
+Mit Hilfe dieses Zaubers erzeugt der Anwender ein Teleportationsfeld irgendwo in Sichtweite. Alle Wesen im Wirkungsbereich des Zaubers werden während der Wirkungsdauer wahllos durch die Gegend teleportiert. Der Zauber ist vor allem sehr nützlich, um große Gruppen von Feinden durcheinanderzubringen, so dass der Anwender genug Zeit hat, seine Verteidigung oder seinen Angriff vorzubereiten.~
+@157 = ~Deswegen sollt Ihr als Erster von den Früchten des Sieges profitieren. Nehmt den Schlüssel zur Schatzkammer von Ixilthetocals Leichnam... Geht damit in die Schatzkammer der Stadt und nehmt, was Euch beliebt.~
+@158 = ~Ich bin heute in großzügiger Stimmung... Um in das Unterreich zu gelangen, benötigt Ihr das magische Seil von der Leiche des Königs. Verwendet es, um in die Grube hinabzuklettern, die hinter meinem ehemaligen Thron liegt.~
+
+// German: also correct the mistranslation in the original BG2 text
+// warning: the current length of @159 does not allow adding any more characters! else the spell selection screen will crash
+@159 = ~Vertrauten finden
+
+Grad: 1
+Schule: Beschwörung
+Reichweite: Mittel
+Dauer: Speziell
+Zeitaufwand: 9
+Bereich: 1 Vertrauter
+Rettungswurf: Nein
+
+Der Anwender versucht einen Vertrauten zu finden, der ihm in Zukunft als Gefährte und Verbündeter beisteht. Dabei handelt es sich um ein kleines Wesen, das dem Anwender auf vielfältige Weise dient. Es kann seine Sinneskräfte auf den Anwender übertragen, ihm Gesellschaft leisten und als Wächter, Aufklärer und Spion fungieren. Der Anwender kann immer nur einen Vertrauten haben und nicht darüber entscheiden, welche Kreatur seinem Ruf folgt - falls überhaupt ein Wesen antwortet. Der Zauber kann nur vom Hauptcharakter eingesetzt werden.
+Das Wesen ist intelligenter als andere seiner Art (normalerweise um 2 bis 3 Punkte) und seine enge Verbindung mit dem Anwender beschert ihm ein längeres Leben, als es für ein derartiges Tier typisch wäre. Der Anwender und der Vertraute stehen durch ein emphatisches Band miteinander in Verbindung. Auf diesem Weg kann der Anwender seinem Vertrauten auch Befehle erteilen.
+Der Anwender erhält die Hälfte der Trefferpunkte seines Vertrauten als zusätzliche Trefferpunkte. Er sollte jedoch stets um das Wohlergehen seines Vertrauten besorgt sein. Stirbt dieser, verliert er die zusätzlichen Trefferpunkte, erleidet halb so viel Schaden, wie der Vertraute Trefferpunkte hatte, und verliert PERMANENT einen Konstitutionspunkt.
+Ein Beispiel: Ein Magier mit 12 Trefferpunkten wirkt diesen Zauber. Er erhält ein Teufelchen mit 18 Trefferpunkten als Vertrauten. Dadurch erhöhen sich die Trefferpunkte des Magiers auf 21. Stirbt das Teufelchen, reduzieren sich die Trefferpunkte des Magiers wieder auf 12, er verliert einen Konstitutionspunkt (und dadurch eventuell weitere Trefferpunkte) und erleidet dann noch 9 Schadenspunkte.
+
+Die Art des Vertrauten wird durch die Gesinnung des Anwenders bestimmt:
+
+RECHTSCHAFFEN/NEUTRAL GUT: Pseudo-Drache
+Rüstungsklasse: -2
+Trefferpunkte: 24
+Magiewiderstand: 50%
+Besonderheiten:
+2 Angriffe pro Runde, ETW0: 13, 1W3 Schaden, Opfer wird für 2 Phasen bewusstlos (Rettungswurf gg. Tod). Kann einmal täglich "Verschwimmen" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+RECHTSCHAFFEN NEUTRAL: Frettchen
+Rüstungsklasse: 0
+Trefferpunkte: 24
+Magiewiderstand: 50%
+Besonderheiten:
+75% Taschendiebstahl, 40% List und 20% Fallen finden. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+RECHTSCHAFFEN BÖSE: Teufelchen
+Rüstungsklasse: 2
+Trefferpunkte: 18
+Magiewiderstand: 25%
+Besonderheiten:
+100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Selbstverwandlung" wirken. Regeneriert 1 TP pro Runde.
+
+NEUTRAL: Hase
+Rüstungsklasse: 1
+Trefferpunkte: 24
+Magiewiderstand: 65%
+Besonderheiten:
+50% Fallen finden und 30% List. 75% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+NEUTRAL BÖSE: Staubmephit
+Rüstungsklasse: 6
+Trefferpunkte: 24
+Magiewiderstand: 10%
+Besonderheiten:
+100% Widerstand gegen Feuer und 50% Widerstand gegen Klingenwaffen, Stichwaffen und Geschosswaffen. Kann einmal täglich "Glitzerstaub" und zweimal täglich "Glasstaub" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+CHAOTISCH GUT: Feendrache
+Rüstungsklasse: 4
+Trefferpunkte: 24
+Magiewiderstand: 32%
+Besonderheiten:
+Kann einmal täglich "Spiegelbild" und "Unsichtbarkeit: 3 m Radius" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+CHAOTISCH NEUTRAL: Katze
+Rüstungsklasse: 0
+Trefferpunkte: 24
+Magiewiderstand: 50%
+Besonderheiten:
+99% List und 30% Taschendiebstahl. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.
+
+CHAOTISCH BÖSE: Quasit
+Rüstungsklasse: 2
+Trefferpunkte: 24
+Magiewiderstand: 25%
+Besonderheiten:
+100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Schrecken" und "Verschwimmen" wirken. Regeneriert 1 TP pro Runde.~
+@160 = ~Das ist Euer Vertrauter, ein Pseudo-Drache, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Dieses echsenähnliche Wesen ist ziemlich intelligent, recht gut gepanzert und ziemlich flink. Es verursacht zwar nicht besonders viel Schaden im Kampf, aber seine magischen Klauen sind in der Lage, manche Gegner in Bewusstlosigkeit zu versetzen. Außerdem verfügt der Pseudo-Drache über eine recht starke Magieresistenz.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -2
+Trefferpunkte: 24
+Magiewiderstand: 50%
+
+Besondere Fähigkeiten:
+2 Angriffe pro Runde, ETW0: 13, 1W3 Schaden, Opfer wird für 2 Phasen bewusstlos (Rettungswurf gg. Tod). Kann einmal täglich "Verschwimmen" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@161 = ~Das ist Euer Vertrauter, ein Pseudo-Drache, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Dieses echsenähnliche Wesen ist ziemlich intelligent, recht gut gepanzert und ziemlich flink.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -2
+Trefferpunkte: 48
+Magiewiderstand: 50%
+
+Besondere Fähigkeiten:
+2 Angriffe pro Runde, ETW0: 8, 1W6 Schaden, Opfer wird für 2 Phasen bewusstlos (Rettungswurf gg. Tod). Kann einmal täglich "Verschwimmen" und "Geisterüstung" sowie zweimal täglich "Illusion entdecken" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@162 = ~Das ist Euer Vertrauter, ein Frettchen, das es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Das Frettchen ist ein unglaublich schnelles und flinkes Tier, das nur schwer zu treffen ist. Durch seine magischen Fähigkeiten ist es sowohl gegen Zauber als auch gegen normalen Schaden widerstandsfähig. Da das Frettchen über die erstaunliche Fähigkeit verfügt, ungesehen in praktisch jeden Beutel, Sack usw. zu gelangen, ist es ein ausgezeichneter Taschendieb.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 0
+Trefferpunkte: 24
+Magiewiderstand: 50%
+
+Besondere Fähigkeiten:
+75% Taschendiebstahl, 40% List und 20% Fallen finden. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@163 = ~Das ist Euer Vertrauter, ein Frettchen, das es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Das Frettchen ist ein unglaublich schnelles und flinkes Tier, das nur schwer zu treffen ist. Durch seine magischen Fähigkeiten ist es sowohl gegen Zauber als auch gegen normalen Schaden widerstandsfähig. Da das Frettchen über die erstaunliche Fähigkeit verfügt, ungesehen in praktisch jeden Beutel, Sack usw. zu gelangen, ist es ein ausgezeichneter Taschendieb.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -4
+Trefferpunkte: 48
+Magiewiderstand: 65%
+
+Besondere Fähigkeiten:
+95% Taschendiebstahl, 60% List und 60% Fallen finden. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@164 = ~Das ist Euer Vertrauter, ein Teufelchen, das es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Das Teufelchen ist ein ungewöhnliches Wesen, das ziemlich flink ist, über eine mäßige Magieresistenz verfügt und die Fähigkeit hat, sich zu verwandeln, um seinem Meister dienlich zu sein.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 2
+Trefferpunkte: 18
+Magiewiderstand: 25%
+
+Besondere Fähigkeiten:
+100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Selbstverwandlung" wirken. Regeneriert 1 TP pro Runde.~
+@165 = ~Das ist Euer Vertrauter, ein Teufelchen, das es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Das Teufelchen ist ein ungewöhnliches Wesen, das ziemlich flink ist, über eine mäßige Magieresistenz verfügt und die Fähigkeit hat, sich zu verwandeln, um seinem Meister dienlich zu sein.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -2
+Trefferpunkte: 48
+Magiewiderstand: 35%
+
+Besondere Fähigkeiten:
+100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Selbstverwandlung" wirken. Angriff verursacht 1W6 Schaden, Opfer wird vergiftet (Rettungswurf gg. Tod). Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung sowie gegen normale Waffen.~
+@166 = ~Das ist Euer Vertrauter, ein Hase, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Hase mag auf den ersten Blick nicht gerade als der ideale Vertraute erscheinen, aber dieses Tier ist unvorstellbar flink und im Kampf kaum zu treffen. Die Magie des Zaubers, durch den der Hase zu Eurem Vertrauten wurde, hat ihm außerdem eine hohe Magieresistenz und Widerstandsfähigkeit gegen normalen Schaden verliehen. Der Hase kann mit seinem guten Geruchssinn und seiner ausgeprägten Intuition Fallen für seinen Meister aufspüren.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 1
+Trefferpunkte: 24
+Magiewiderstand: 65%
+
+Besondere Fähigkeiten:
+50% Fallen finden und 30% List. 75% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@167 = ~Das ist Euer Vertrauter, ein Hase, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Hase mag auf den ersten Blick nicht gerade als der ideale Vertraute erscheinen, aber dieses Tier ist unvorstellbar flink und im Kampf kaum zu treffen. Der Hase kann mit seinem guten Geruchssinn und seiner ausgeprägten Intuition Fallen für seinen Meister aufspüren.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 1
+Trefferpunkte: 48
+Magiewiderstand: 65%
+
+Besondere Fähigkeiten:
+85% Fallen finden, 60% List und 50% Illusionen entdecken. 75% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Verschwimmen" wirken. Der Hase bewegt sich so, als würde immer "Hast" auf ihn wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@168 = ~Das ist Euer Vertrauter, ein Staubmephit, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Staubmephit ist zwar kein besonders guter Kämpfer, verfügt jedoch über eine leichte Magieresistenz und kann seinen Meister mit Zaubern unterstützen.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 6
+Trefferpunkte: 24
+Magiewiderstand: 10%
+
+Besondere Fähigkeiten:
+100% Widerstand gegen Feuer und 50% Widerstand gegen Klingenwaffen, Stichwaffen und Geschosswaffen. Kann einmal täglich "Glitzerstaub" und zweimal täglich "Glasstaub" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@169 = ~Das ist Euer Vertrauter, ein Staubmephit, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Staubmephit ist zwar kein besonders guter Kämpfer, verfügt jedoch über eine leichte Magieresistenz und kann seinen Meister mit Zaubern unterstützen.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 3
+Trefferpunkte: 48
+Magiewiderstand: 25%
+
+Besondere Fähigkeiten:
+100% Widerstand gegen Feuer und 60% Widerstand gegen Klingenwaffen, Stichwaffen und Geschosswaffen. Kann einmal täglich "Glitzerstaub", "Regenbogenstrahlen" und "Steinhaut" sowie zweimal täglich "Glasstaub" wirken. Regeneriert 1 TP pro Sekunde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@170 = ~Das ist Euer Vertrauter, ein Feendrache, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Feendrache verfügt über eine gute Magieresistenz und kann sich selbst durch Illusionsmagie schützen und tarnen.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 4
+Trefferpunkte: 24
+Magiewiderstand: 32%
+
+Besondere Fähigkeiten:
+Kann einmal täglich "Spiegelbild" und "Unsichtbarkeit: 3 m Radius" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@171 = ~Das ist Euer Vertrauter, ein Feendrache, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Feendrache verfügt über eine gute Magieresistenz und kann sich selbst durch Illusionsmagie schützen und tarnen.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 0
+Trefferpunkte: 48
+Magiewiderstand: 45%
+
+Besondere Fähigkeiten:
+Kann einmal täglich "Spiegelbild", "Unsichtbarkeit: 3 m Radius" und "Verbesserte Unsichtbarkeit" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@172 = ~Das ist Eure Vertraute, eine Katze, die es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Die Katze ist perfekt als Aufklärer geeignet und kann sich ebenso gut wie ein Meisterdieb im Schatten verstecken. Sie ist im Kampf nur schwer zu treffen und dank der Magie des Zaubers, mit dem Ihr sie herbeigerufen habt, sowohl gegen magische als auch körperliche Angriffe resistent.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 0
+Trefferpunkte: 24
+Magiewiderstand: 50%
+
+Besondere Fähigkeiten:
+99% List und 30% Taschendiebstahl. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@173 = ~Das ist Eure Vertraute, eine Katze, die es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Die Katze ist perfekt als Aufklärer geeignet und kann sich ebenso gut wie ein Meisterdieb im Schatten verstecken. Sie ist im Kampf nur schwer zu treffen und dank der Magie des Zaubers, mit dem Ihr sie herbeigerufen habt, sowohl gegen magische als auch körperliche Angriffe resistent.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -4
+Trefferpunkte: 48
+Magiewiderstand: 65%
+
+Besondere Fähigkeiten:
+99% List, 60% Taschendiebstahl, 60% Fallen finden und 60% Illusionen entdecken. Kann einmal täglich "Verschwimmen" wirken. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung.~
+@174 = ~Das ist Euer Vertrauter, ein Quasit, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Quasit ist ein kleines Höllenwesen, das ziemlich flink ist, über eine mäßige Magieresistenz verfügt und Zauber einsetzen kann, um seinem Meister dienlich zu sein.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: 2
+Trefferpunkte: 24
+Magiewiderstand: 25%
+
+Besondere Fähigkeiten:
+100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Schrecken" und "Verschwimmen" wirken. Regeneriert 1 TP pro Runde.~
+@175 = ~Das ist Euer Vertrauter, ein Quasit, der es sich im Moment in Eurem Gepäck gemütlich gemacht hat und dort sicher ist. Der Quasit ist ein kleines Höllenwesen, das ziemlich flink ist, über eine mäßige Magieresistenz verfügt und Zauber einsetzen kann, um seinem Meister dienlich zu sein.
+
+FÄHIGKEITEN:
+
+Rüstungsklasse: -2
+Trefferpunkte: 48
+Magiewiderstand: 35%
+
+Besondere Fähigkeiten:
+3 Angriffe pro Runde, 1W6 Schaden, Opfer verliert für 6 Runden 1 Punkt Geschicklichkeit (Rettungswurf gg. Tod). 100% Widerstand gegen Feuer, Kälte und Elektrizität. Kann einmal täglich "Schrecken" und "Verschwimmen" wirken. Regeneriert 1 TP pro Runde. Immun gegen Entzug von Lebensenergie, Schlaf und Versteinerung sowie gegen normale Waffen.~
+
+//Description fixes for item weight and speed factor
+@176 = ~Diese Ledertasche kann man aufklappen. An den gepolsterten Seiten kann man zahlreiche Tränke mit Lederschnüren sicher festmachen. Eine derartige Tasche wird normalerweise von reisenden Heilern benutzt.
+
+EIGENSCHAFTEN:
+
+Gewicht: 2~
+@177 = ~Ein Flegel besteht aus einem kräftigen Holzgriff, der mit einem Eisenstab, einem dornenbesetzten Holzstab oder einer mit Dornen besetzten Eisenkugel verbunden ist. Die beiden Teile sind entweder mit einem Scharnier oder einer Kette verbunden. Ursprünglich wurde diese Waffe zum Dreschen von Getreide benutzt. Dieser Flegel wurde magisch verbessert, wodurch es zu einer Bindung zwischen ihm und dem Träger kommt.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -1
+Gewicht: 13
+Initiativefaktor: 6
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@178 = ~Eisstern
+
+Der Waffenkopf dieses Morgensterns scheint aus einem unzerbrechlichen, eisblauen Kristall gefertigt zu sein. Der Griff ist eiskalt. Der Träger wird von einer angenehm kühlen Aura umgeben, die sogar vor magischem Feuer schützt.
+
+EIGENSCHAFTEN:
+
+Feuerwiderstand: +20%
+
+Schaden: 2W4 +4 (Wucht)
+Schadensbonus: +1W4 (Kälte)
+ETW0-Bonus: -4
+Gewicht: 7
+Initiativefaktor: 3
+Mindeststärke: 11
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@179 = ~Starker Arm
+
+Der massive Bogen gehörte einst dem Waldläufer Bärenpratze, der ihn angeblich von einem Oger erhielt, der ihm aus unbekannten Gründen freundlich gesonnen war. Warum er das Geschenk erhalten hatte, weiß niemand, aber Bärenpratze war von solch gutmütiger Natur, dass er mit praktisch jedem, den er traf, Freundschaft schloss. Vermutlich freundete er sich mit dem Oger an, während er im Mantelwald patrouillierte. Bärenpratze konnte den Bogen mühelos spannen. Als er starb, wurde der Bogen an seine Frau und seine Söhne weitergegeben, aber keinem von ihnen gelang es, den Bogen auch nur zur Hälfte zu spannen. Sie verkauften ihn schließlich an einen Händler, der nach Süden unterwegs war.
+
+EIGENSCHAFTEN:
+
+Schadensbonus: +3 (Geschoss)
+ETW0-Bonus: -3
+Gewicht: 8
+Initiativefaktor: 5
+Mindeststärke: 19
+Fertigkeit: Langbogen
+Typ: 2-händig
+
+Kann nur verwendet werden von:
+- Barbaren
+- Kämpfern
+- Paladinen
+- Waldläufern~
+@180 = ~Der hochwertige Streitkolben wurde von den Drow hergestellt. Er wurde speziell behandelt, damit er dem Sonnenlicht widersteht. Offenbar wurde er von den unterirdisch lebenden Drow für Überfalle an der Oberfläche geschaffen. Auf dem schwarzen Metall schimmert ein Gift, das offenbar vom Streitkolben selbst erzeugt wird. Es verursacht bei einem Treffer starken Schaden.
+Der Streitkolben ist warm und scheint förmlich zu leben. Er versucht beständig, sich aus dem Griff jener zu winden, die ihm nicht sympathisch sind, also aus dem Griff all jener, die keine Drow sind oder ihnen nicht zumindest sehr ähneln. In den Händen von anderen Wesen ist er völlig nutzlos.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +3 (Wucht)
+Schadensbonus:
+ +20 (Gift in 60 Sekunden)
+ (Rettungswurf gg. Tod)
+ETW0-Bonus: -2
+Gewicht: 7
+Initiativefaktor: 6
+Mindeststärke: 9
+Fertigkeit: Streitkolben
+Typ: 1-händig
+
+Kann nur verwendet werden von:
+- Elfenartigen, bösen Klerikern~
+@181 = ~Der schlanke Bolzen ist mit einem speziellen Gift bestrichen, das von Kuo-Toa-Alchimisten entwickelt wurde. Wird ein Gegner von dem Bolzen getroffen, muss er einen Rettungswurf gegen Zauber bestehen, oder er wird für vier Runden betäubt.
+
+EIGENSCHAFTEN:
+
+Bei jedem Treffer wird das Ziel für 4 Runden betäubt (Rettungswurf gg. Zauber).
+
+Schaden: 2W6 (Geschoss)
+Gewicht: 0
+Schusswaffe: Armbrust
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@182 = ~Das ist ein Stab der Guten Beeren. Er gehörte dem Koboldschamanen, der sich in den Abwasserkanälen unter dem Slumviertel aufgehalten hat.
+
+EIGENSCHAFTEN:
+
+Gute Beeren (1x täglich)
+
+Schaden: 1W6 (Wucht)
+Gewicht: 4
+Initiativefaktor: 4
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@183 = ~Gnadenretter
+
+Dies war einst ein unglaublich mächtiger, magischer Schild, der von den Klerikern des Tyrannos eingesetzt wurde. Der Großteil seiner Verzauberungen verblasste allerdings nach dem Untergang des Gottes. Der Schild bietet jedoch noch immer guten magischen Schutz und ist daher für Abenteurer sehr nützlich.
+
+EIGENSCHAFTEN:
+
+RK-Bonus: -4
+Gewicht: 4
+Mindeststärke: 12
+
+Kann nicht verwendet werden von:
+- Barden
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+// German: also correct the mistranslation in the original BG2 text
+@184 = ~Baldurans Schild
+
+Dieser Schild wurde einst vom Helden Balduran getragen und gehört zu einem vollständigen Satz, bestehend aus Rüstung, Schild und Waffen, der aus dem Museum von Baldurs Tor entwendet wurde.
+
+EIGENSCHAFTEN:
+
+Die magischen Angriffe der Augenstiele eines Betrachters werden reflektiert.
+
+Stärke: -1
+
+RK-Bonus: -4
+Gewicht: 4
+Mindeststärke: 12
+
+Kann nicht verwendet werden von:
+- Barden
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@185 = ~Der Flegel verfügt über zwei Waffenköpfe und verursacht Feuer- und Kälteschaden. Wenn man den fehlenden Waffenkopf des Flegels der Zeitalter fände, würde er noch mächtiger.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +3 (Wucht)
+Schadensbonus:
+ +1 (Feuer)
+ +1 (Kälte)
+ETW0-Bonus: -2
+Gewicht: 10
+Initiativefaktor: 5
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@186 = ~Der Flegel verfügt über zwei Waffenköpfe und verursacht Säure- und Kälteschaden. Wenn man den fehlenden Waffenkopf des Flegels der Zeitalter fände, würde er noch mächtiger.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +3 (Wucht)
+Schadensbonus:
+ +1 (Säure)
+ +1 (Kälte)
+ETW0-Bonus: -2
+Gewicht: 10
+Initiativefaktor: 5
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@187 = ~Der Flegel verfügt über zwei Waffenköpfe und verursacht Feuer- und Säureschaden. Wenn man den fehlenden Waffenkopf des Flegels der Zeitalter fände, würde er noch mächtiger.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +3 (Wucht)
+Schadensbonus:
+ +1 (Feuer)
+ +1 (Säure)
+ETW0-Bonus: -2
+Gewicht: 10
+Initiativefaktor: 5
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@188 = ~Der Langbogen ist dem Kurzbogen sehr ähnlich. Der einzige Unterschied besteht darin, dass der Bogen fast so groß wie der Bogenschütze ist, normalerweise etwa 1,80 bis 2 m. Obwohl der Langbogen im Einsatz etwas langsamer ist als der Kurzbogen, hat er eine größere Reichweite und eine höhere Treffsicherheit. Der glatte Schaft dieses Bogens fühlt sich warm an. Das ist offenbar auf die magische Energie zurückzuführen, die in dem Holz enthalten ist.
+
+EIGENSCHAFTEN:
+
+ETW0-Bonus: -4
+Gewicht: 2
+Initiativefaktor: 4
+Mindeststärke: 6
+Fertigkeit: Langbogen
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@189 = ~Drachenbann
+
+Diese Waffe gehörte Thorvin Dukal, einem von sieben selbsternannten Drachentötern, die viele Jahre gegen eine angebliche "hinterhältige Invasion Faerûns durch die Drachen" Stimmung machten. Thorvin ließ die Waffe für gutes Geld verzaubern und setzte sie häufig ein. Es gelang ihm damit jedoch nur, einen Drachen, und zwar einen weißen Drachen, zu töten. Die Drachentöter fanden ihr Ende durch die Klauen eines behäbigen, uralten roten Drachen, der die ganze Gruppe in einem epischen Kampf vernichtete. Die Waffe wanderte jedoch nicht in den Hort des Untiers, da es sich zurückziehen musste, um sich von seinen Wunden zu erholen. Als der Drache auf das Schlachtfeld zurückkehrte, hatten die Plünderer bereits ihre Arbeit getan.
+
+EIGENSCHAFTEN:
+
+Schaden:
+ 1W10 +3 (Stich)
+ 1W10 +6 (gg. Drachen)
+ETW0-Bonus: -3
+Gewicht: 12
+Initiativefaktor: 6
+Mindeststärke: 13
+Fertigkeit: Hellebarde
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@190 = ~Embarls Dolch wird Mae'Var beweisen, dass Ihr Euch um das Problem Embarl "gekümmert" habt.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 (Stich)
+Gewicht: 2
+Initiativefaktor: 2
+Mindeststärke: 3
+Fertigkeit: Dolch
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Klerikern~
+@191 = ~Stecken des Hochwaldes
+
+Cernd hat diesen besonderen Stecken erhalten, als er am Ende eines Jahreskreislaufes über seinen besonderen Platz in der Natur meditierte. Er ließ sich für diese Meditation neben einer jungen Eiche nieder, die sein ganz besonderes Interesse erweckte. Sie erschien ihm irgendwie seltsam, aber dennoch auf wunderbare Weise den Gesetzen der Natur unterworfen. Als der Frühling kam und seine Meditation zu Ende ging, untersuchte er den Trieb der Eiche, der ihn so fasziniert hatte, ein letztes Mal. Plötzlich löste er sich und schmiegte sich förmlich in seine Hände. Es war ein Geschenk der Natur selbst. Der Stecken hat sich so geformt, dass er nur von Cernd geführt werden kann.
+
+EIGENSCHAFTEN:
+
+Regeneration: 1 TP alle 2 Runden
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nur verwendet werden von:
+- Cernd~
+@192 = ~Entropie
+
+Dieses Kurzschwert stammt aus dem Abyss und ist aus Grünstahl gefertigt. Es ist eine der Lieblingswaffen von Haer'Dalis. Das Kurzschwert verursacht bei einem Gegner, der bei seinem Rettungswurf scheitert, drei zusätzliche Schadenspunkte durch Gift. Es kann nur von Tieflingen verwendet werden.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +2 (Stich)
+Schadensbonus: +3 (Gift)
+ (Rettungswurf gg. Tod)
+ETW0-Bonus: -2
+Gewicht: 2
+Initiativefaktor: 1
+Mindeststärke: 4
+Fertigkeit: Kurzschwert
+Typ: 1-händig
+
+Kann nur verwendet werden von:
+- Tieflingen~
+@193 = ~Chaosklinge
+
+Dieses magische Kurzschwert kann nur von Tieflingen verwendet werden. Jedes Mal, wenn die Klinge trifft, verliert der Gegner für 30 Sekunden zwei Geschicklichkeitspunkte. Haer'Dalis setzt die Chaosklinge gerne zusammen mit ihrer Schwesterwaffe "Entropie" ein und wird mit beiden Waffen gemeinsam zu einem äußerst gefährlichen Gegner.
+
+EIGENSCHAFTEN:
+
+Bei jedem Treffer verliert das Ziel für 5 Runden 2 Punkte Geschicklichkeit.
+
+Schaden: 1W6 +2 (Stich)
+ETW0-Bonus: -2
+Gewicht: 2
+Initiativefaktor: 1
+Mindeststärke: 4
+Fertigkeit: Kurzschwert
+Typ: 1-händig
+
+Kann nur verwendet werden von:
+- Tieflingen~
+@194 = ~Ixils Nagel
+
+Viele Generationen schon ist dieser Schaft von Ixils Dorn getrennt, der magischen Spitze des legendären Speers. Selbst in seinem unvollständigen Zustand handelt es sich bei diesem Artefakt um eine mächtige Waffe.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +4 (Stich)
+ETW0-Bonus: -4
+Gewicht: 5
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Speer
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Klerikern
+- Magiern
+- Mönchen~
+@195 = ~Ixils Dorn
+
+Jetzt, wo der Schaft und die Spitze wieder vereint sind, ist Ixils Dorn wahrhaft eine furchterregende Waffe. Die Spitze des Speers kann sich vom eigentlichen Speer trennen und einen Gegner am Boden festnageln. Einen Augenblick später bildet sich eine neue Spitze, so dass man ungehindert weiterkämpfen kann.
+
+EIGENSCHAFTEN:
+
+Jeder Treffer hält das Ziel für 3 Runden fest und verursacht zusätzlich in jeder Runde 1W6 +5 Schadenspunkte (Rettungswurf gg. Tod).
+Auf dem Träger liegt Handlungsfreiheit.
+
+Schaden: 1W6 +6 (Stich)
+ETW0-Bonus: -6
+Gewicht: 5
+Initiativefaktor: 1
+Mindeststärke: 5
+Fertigkeit: Speer
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Klerikern
+- Magiern
+- Mönchen~
+@196 = ~Heilstecken
+
+Man sagt, dass Torm diese Stecken in Zeiten großer Not praktisch aus dem Nichts entstehen lässt und sie Priestern zuspielt, die sich um die Verwundeten, Kranken und Vergifteten kümmern. Man sollte die Macht des Steckens jedoch nicht als die Lösung für alle Probleme betrachten. Sie ist zwar groß, wird jedoch meist rasch aufgebraucht, so dass man ihn mit Bedacht einsetzen sollte.
+
+EIGENSCHAFTEN:
+
+Heilung (10 Ladungen)
+ 3W6 +3 Trefferpunkte heilen
+ Gift neutralisieren
+ Krankheit heilen
+
+RK-Bonus: -2
+
+Schaden: 1W6 +1 (Wucht)
+ETW0-Bonus: -1
+Gewicht: 4
+Initiativefaktor: 3
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nur verwendet werden von:
+- Druiden
+- Klerikern
+- Paladinen
+- Waldläufern~
+@197 = ~Stecken der Magister
+
+Obwohl diese Stecken sehr rar sind, sind sie doch die archetypischen Stecken, mit dem sich der Mann auf der Straße einen Magier vorstellt. Er stellt eines der mächtigsten Werkzeuge dar, das ein Magier erlangen kann. Seine Erschaffung steht am Ende schier endloser Studien und komplizierter Verzauberungen. Der Stecken der Magister lässt sich vorzüglich im Nahkampf einsetzen, macht den Magier unsichtbar und schützt ihn vor Bezauberung und Bösem. Außerdem kann er Zauberfallen erzeugen und Magie bannen sowie einen zerstörerischen magischen Angriff entfesseln, der einen Blitzstrahl und einen Feuerball kombiniert. Kurz gesagt, repräsentiert dieser Stecken alles, was man sich als Laie unter einem großen Zauberstab vorstellen würde.
+
+EIGENSCHAFTEN:
+
+Feuerball/Blitzstrahl (3x täglich)
+ (kombinierter Schaden beider Zauber)
+ Reichweite: Lang
+
+Zauberfalle (1x täglich)
+ Dauer: 8 Stunden bzw. 30 Zaubergrade
+
+Bei jedem Treffer wird beim Ziel Magie bannen gewirkt.
+Auf dem Träger liegt Unsichtbarkeit und Schutz vor Bösem. Außerdem ist er immun gegen Bezauberung. Darüber hinaus kann er Wesen verletzen, die nur von magischen Waffen +5 oder besser verletzt werden können.
+
+RK-Bonus: -2
+RW-Bonus: -2
+
+Schaden: 1W6 +1 (Wucht)
+ETW0-Bonus: -1
+Gewicht: 4
+Initiativefaktor: 1
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nur verwendet werden von:
+- Magiern~
+@198 = ~Gewitterstecken
+
+Es gibt Legenden, dass diese Stecken aus dem Unterholz rund um heilige Druidenhaine emporwachsen, wenn der umliegende Wald bedroht wird. Ob die fantastischen Geschichten wahr sind oder nicht, sei dahingestellt. Auf jeden Fall ist der Stecken eine mächtige Waffe. Er bezieht seine Energie aus Gewittern. Es besteht bei jedem Treffer im Nahkampf eine Chance, dass der Stecken einen Donnerschlag entfesselt, der den Feind zu Boden werfen kann. Der Stecken kann Blitzstrahlen schleudern und, wenn es die Umstände erfordern, sogar Blitze herbeirufen, um die Feinde zu vernichten. Einige der Fähigkeiten werden durch die Zahl der Ladungen eingeschränkt.
+
+EIGENSCHAFTEN:
+
+Blitzstrahl (10 Ladungen)
+ Schaden: 10W6 (Elektrizität)
+ Reichweite: Lang
+ Rettungswurf: 1/2 (gg. Zauber)
+
+Blitze herbeirufen (10 Ladungen)
+ Schaden: 3W8 je Blitz (Elektrizität)
+
+Bei jedem Treffer besteht eine 10%ige Chance, das Ziel mit einem Donnerschlag zu treffen und dadurch für 2 Runden zu betäuben (Rettungswurf gg. Zauber).
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 4
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nur verwendet werden von:
+- Druiden
+- Klerikern~
+@199 = ~Luftstecken
+
+Der Stecken scheint seine Wurzeln in der elfischen Handwerkskunst zu haben. Er ist jedoch weniger mit dem Wald verbunden, als es normalerweise bei elfischen Stecken der Fall ist. Der Stecken dient offenbar dazu, Luftelementare zu beherrschen. Er kann einen Luftelementar als Diener des Trägers beschwören und gleichzeitig feindliche Luftelementare mit einem einzigen Schlag zerstören. Wenn es notwendig sein sollte, kann der Träger des Stabes eine Wolke einschläfernden Gases erzeugen. Einige dieser Fähigkeiten sind durch die Anzahl der vorhandenen Ladungen beschränkt.
+
+EIGENSCHAFTEN:
+
+Luftelementar beschwören (1x täglich)
+ Besitzt 8 Trefferwürfel
+ Dauer: 1 Stunde
+
+Schlafgas erzeugen (10 Ladungen)
+ Reichweite: Lang
+ Dauer: 3 Runden
+
+Wird ein Luftelementar getroffen, wird dieser sofort zerstört (Rettungswurf gg. Zauber).
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@200 = ~Erdstecken
+
+Der Stecken hat eine starke Verbindung zur Erde und wurde vermutlich von einer uralten Gruppe von Druiden erschaffen. Er kann einen Erdelementar als Diener des Trägers beschwören und gleichzeitig feindliche Erdelementare mit einem einzigen Schlag zerstören. Vielleicht stellt das einen Sicherheitsmechanismus dar, weil es extrem schwierig ist, derartige Wesen zu kontrollieren. Außerdem kann der Stecken Wesen aus dem unerbittlichen Griff der Erde befreien, d.h. er kann Stein zu Fleisch verwandeln. Einige dieser Fähigkeiten sind durch die Anzahl der vorhandenen Ladungen beschränkt.
+
+EIGENSCHAFTEN:
+
+Erdelementar beschwören (30 Ladungen)
+ Besitzt 8 Trefferwürfel
+ Dauer: 1 Stunde
+
+Stein zu Fleisch (30 Ladungen)
+
+Wird ein Erdelementar getroffen, wird dieser sofort zerstört (Rettungswurf gg. Zauber).
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@201 = ~Feuerstecken
+
+Der Stecken trägt eine uralte Rune, aufgrund derer man schließen kann, dass er in irgendeiner Verbindung mit dem fernen Halruaa steht. Natürlich ist das eine reine Vermutung. Der Stecken bezieht seine Energie von der Feuerebene und kann einen Feuerschild um den Träger legen, der dessen Angreifer verletzt. Er kann einen Feuerelementar beschwören, der unter der Kontrolle des Trägers steht, und einem Feuerelementar mit einem einzigen Schlag alle Energie entziehen und ihn dadurch augenblicklich zerstören. Einige dieser Fähigkeiten sind durch die Anzahl der vorhandenen Ladungen beschränkt.
+
+EIGENSCHAFTEN:
+
+Feuerelementar beschwören (30 Ladungen)
+ Besitzt 8 Trefferwürfel
+ Dauer: 1 Stunde
+
+Roter Feuerschild (30 Ladungen)
+
+Wird ein Feuerelementar getroffen, wird dieser sofort zerstört (Rettungswurf gg. Zauber).
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@202 = ~Der Kampfstab ist ein 1,80 bis 2,70 m langer Holzstab und somit die einfachste aller Stangenwaffen. Qualitativ hochwertige Kampfstäbe sind aus festem Eichenholz hergestellt und an beiden Enden mit Metall beschlagen. Auf diesem Stab liegt eine mächtige Verzauberung, die ihn treffsicherer macht. Außerdem richtet er mehr Schaden an. Über den Ursprung dieser Verzauberung lässt sich nichts sagen.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +2 (Wucht)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@203 = ~Schlangenschaft
+
+Dieser mächtige Kampfstab ist mit Schlangenmustern verziert. Bei jedem Schlag besteht eine Chance, dass auf den Gegner ein tödliches Gift wirkt.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W6 +2 (Wucht)
+Schadensbonus:
+ +12 (Gift in 6 Sekunden): 50% Chance
+ (Rettungswurf gg. Tod)
+ETW0-Bonus: -2
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 5
+Fertigkeit: Kampfstab
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Mönchen~
+@204 = ~Wasserklinge
+
+Die Klinge der Waffe scheint zu glänzen und zu fließen. Wenn man genauer hinsieht, kann man erkennen, dass sie eine rasiermesserscharfe Kante aus Wasser hat. Die Herstellung der Waffe hat große Handwerkskunst erfordert und den einen oder anderen Segen von einem wohlmeinenden Gott. Das Heft ist im Vergleich zur Klinge plump und mit relativ einfachen Verzierungen überzogen.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W8 +3 (Klinge)
+ETW0-Bonus: -3
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 8
+Fertigkeit: Krummsäbel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Klerikern
+- Magiern~
+@205 = ~Angurvadal
+
+Die legendäre, brennende Klinge von Frithior ist auch als "Der Bringer der Qual" bekannt.
+
+EIGENSCHAFTEN:
+
+Stärke: 22 (1x täglich)
+ Dauer: 1 Phase
+ Bereich: Anwender
+
+Schaden: 1W8 +4 (Klinge)
+Schadensbonus: +1 (Feuer)
+ETW0-Bonus: -4
+Gewicht: 2
+Initiativefaktor: 1
+Mindeststärke: 6
+Fertigkeit: Langschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern~
+@206 = ~Silberschwert
+
+Das Silberschwert strahlt eine düstere Aura aus. Die Klinge ist so scharf, dass sie vermutlich den Kopf eines Gegners mit einem Hieb vom Leib trennen könnte.
+
+EIGENSCHAFTEN:
+
+Bei jedem Treffer besteht eine 25%ige Chance, das Ziel sofort zu töten (Rettungswurf gg. Tod, +2 Malus).
+
+Schaden: 1W10 +3 (Klinge)
+ETW0-Bonus: -3
+Gewicht: 15
+Initiativefaktor: 7
+Mindeststärke: 14
+Fertigkeit: Zweihänder
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@207 = ~Dieses Meisterwerk der Schmiedekunst wurde auf magischem Weg noch zusätzlich verstärkt. Es verursacht mehr Schaden und trifft besser. Davon abgesehen ist es ein Schwert wie jedes andere.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W8 +3 (Klinge)
+ETW0-Bonus: -3
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 6
+Fertigkeit: Langschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern~
+@208 = ~Harmoniumhellebarde
+
+Mit dieser mächtigen Waffe werden normalerweise die wichtigsten Hauptmänner des Harmoniums ausgestattet. Das Harmonium ist eine der Fraktionen in der extraplanaren Stadt, die unter dem Namen Sigil bekannt ist.
+
+EIGENSCHAFTEN:
+
+Stärke: +1
+Intelligenz: -1
+Weisheit: -1
+
+Schaden: 1W10 +3 (Stich)
+ETW0-Bonus: -3
+Gewicht: 12
+Initiativefaktor: 6
+Mindeststärke: 11
+Fertigkeit: Hellebarde
+Typ: 2-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@209 = ~Dies ist die Axt von Bruenor Heldenhammer, eine wahrhaft prächtige Waffe. Die Axt hat nur eine Klinge. Trotz ihrer immensen Größe kann man sie mit der Leichtigkeit einer Handaxt schwingen.
+
+EIGENSCHAFTEN:
+
+Schaden: 1W8 +3 (Klinge)
+ETW0-Bonus: -3
+Gewicht: 6
+Initiativefaktor: 4
+Mindeststärke: 10
+Fertigkeit: Axt
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@210 = ~Magierschlächter
+
+Bala war ein stets missmutiger Prinz eines Clans der Gossenzwerge, der von einem grausamen Elfenmagier in Thesk gefangen genommen und versklavt wurde. Bala war zwar nicht ganz so feige wie der gewöhnliche Gossenzwerg, dafür war er aber erheblich schmutziger und abstoßender als der Durchschnitt. Als seine Gefangenschaft unerträglich wurde, kroch Bala in den Schlafsaal des Magiers und schlug dem Elfen den Schädel ein. Manche behaupten zwar, Bala habe den Magier mit seinen Körperausdünstungen erstickt, aber es war tatsächlich die magische Axt des Gossenzwerges, die die arkanen Abwehrzauber des Magiers überwandt. Die schlampige Verarbeitung ist Beweis dafür, dass es Bala selbst war, der die Axt hergestellt hat. Das wahre Geheimnis aber ist die Frage, woher die Macht der Waffe stammt. Nach einer langen Karriere als Magierkiller starb Bala, ohne dieses Geheimnis preiszugeben - nicht einmal den wenigen Neugierigen, die mutig genug waren, die völlige Verlausung zu riskieren, indem sie ihn in seinem Heim aufsuchten. Man einigte sich schließlich darauf, dass wohl Balas intensiver Hass auf Magier die Quelle gewesen sein muss.
+
+EIGENSCHAFTEN:
+
+Bei jedem Treffer wird auf das Ziel Magie fehlwirken gewirkt (Rettungswurf gg. Zauber, +2 Malus).
+
+Schaden: 1W8 (Klinge)
+Gewicht: 6
+Initiativefaktor: 7
+Mindeststärke: 10
+Fertigkeit: Axt
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@211 = ~Osthafens Verteidiger +3~
+@212 = ~Osthafens Verteidiger
+
+Der Flegel wurde als Erinnerungsstück und Mahnmal an den Sieg über den Dämon Belhifet geschaffen. Eigentlich sollte diese Waffe in Osthafen bleiben, um die Bevölkerung stets daran zu erinnern, wie knapp der Sieg gewesen war, den sie über das Böse errungen hatte.
+
+EIGENSCHAFTEN:
+
+RK-Bonus: -1
+Widerstand gg. Klingenwaffen: +20%
+Widerstand gg. Stichwaffen: +20%
+Widerstand gg. Wuchtwaffen: +20%
+
+Schaden: 1W6 +4 (Wucht)
+ETW0-Bonus: -3
+Gewicht: 12
+Initiativefaktor: 5
+Mindeststärke: 13
+Fertigkeit: Flegel
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Magiern
+- Mönchen~
+@213 = ~Rosenklinge
+
+Die Klinge verfügt über eine überirdische Schönheit. Es ist ziemlich wahrscheinlich, dass Sune, die Göttin der Schönheit und der Leidenschaft, bei ihrer Entstehung mitgewirkt hat. Wenn man die Waffe in die Hand nimmt, kann man sofort sehen, wie der Träger eine wunderbare Veränderung erfährt. In der Geschichte war diese Waffe schon oft insgeheim dafür verantwortlich, dass ein unauffälliger Soldat am Hof irgendeines Adeligen plötzlich durch sein beeindruckendes Auftreten in höfischen Kreisen befördert wurde.
+
+EIGENSCHAFTEN:
+
+Charisma: +2
+
+Schaden: 1W8 +3 (Klinge)
+ETW0-Bonus: -3
+Gewicht: 3
+Initiativefaktor: 2
+Mindeststärke: 6
+Fertigkeit: Langschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern~
+
+//various other description fixes
+@214 = ~Kondar
+
+Auf den ersten Blick wirkt das Schwert wie jedes andere. Bei Anwesenheit eines Gestaltwandlers erwärmt sich jedoch die Klinge und entfaltet ihre Kraft. Ihr Name stammt vom ursprünglichen Besitzer der Waffe. Seine Geschichte war gezeichnet von Täuschung und Verrat, auch wenn sie größtenteils in Vergessenheit geraten ist. Es hält sich weiterhin das Gerücht, dass er einen stattlichen Preis für diese Klinge bezahlte, aber er konnte mit ihr den wirklichen Charakter derer aufdecken, die ihn verraten wollten. Ihre Namen und Schandtaten sind allerdings längst in der Geschichte verloren gegangen.
+
+EIGENSCHAFTEN:
+
+Schaden:
+ 2W4 +1 (Klinge)
+ 2W4 +3 (gg. Gestaltwandler)
+ETW0-Bonus: -1, -3 (gg. Gestaltwandler)
+Gewicht: 8
+Initiativefaktor: 7
+Mindeststärke: 11
+Fertigkeit: Bastardschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Dieben
+- Druiden
+- Klerikern
+- Magiern
+- Mönchen~
+@215 = ~Die Brennende Erde
+
+Es gab eine Zeit, in der es in Niewinter noch nicht warm und in der großen Wüste Anauroch noch nicht trocken war. So behaupten es zumindest die Legenden. Es gibt nur noch wenige Relikte, die Zeugnis dieses Zeitalters ablegen, und nur ein Bruchteil dieser Relikte hat einen Zweck, den man auch heute noch erkennen kann. "Die Brennende Erde" ist jedoch kein besonders komplizierter Gegenstand: Es verbrennt die Feinde schlicht und einfach mit magischem Feuer. Eine kryptische Rune scheint anzudeuten, dass das Schwert die Energie dazu direkt aus dem Erdreich bezieht. Wer die Waffe konstruiert hat, bleibt ein Rätsel für Euch. Auf den ersten Blick wirkt die Waffe ganz normal, aber irgendwie scheint sie nicht richtig ausbalanciert zu sein. Vielleicht passt auch der Griff nicht. Sie belastet den Unterarm, wenn man sie schwingt, und passt nicht so richtig in die Hand. Das stört im Kampf zwar nicht wirklich, doch man kann den lästigen Gedanken nie ganz abschütteln, dass die Waffe vielleicht nicht für humanoide Hände gedacht war.
+
+EIGENSCHAFTEN:
+
+Schaden:
+ 1W8 +1 (Klinge)
+ 1W8 +2 (gg. regenerierende Wesen)
+ 1W8 +3 (gg. Kältewesen)
+ 1W8 +4 (gg. Untote)
+ETW0-Bonus: -1
+ -2 (gg. regenerierende Wesen)
+ -3 (gg. Kältewesen)
+ -4 (gg. Untote)
+Gewicht: 4
+Initiativefaktor: 3
+Mindeststärke: 6
+Fertigkeit: Langschwert
+Typ: 1-händig
+
+Kann nicht verwendet werden von:
+- Druiden
+- Klerikern
+- Magiern~
+
+@1000 = ~GTU Light (Autor: Wisp)~
+@1001 = ~GTU Classic (von Baldurdash, Autor: Kevin Dorner)~

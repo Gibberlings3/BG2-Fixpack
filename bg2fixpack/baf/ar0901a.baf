@@ -1,0 +1,8 @@
+IF
+  Global("TelwynSpawn","GLOBAL",0)
+  Global("cd_beholder_dc_shenanigans","GLOBAL",1)
+THEN
+  RESPONSE #100
+    SetGlobal("TelwynSpawn","GLOBAL",1)
+    CreateCreature("SCTELWYN",[705.711],4)
+END
