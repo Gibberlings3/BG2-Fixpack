@@ -1,9 +1,9 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
 
-VERSION ~v11 Beta 1~
+VERSION ~v11 Beta 2~
 
-README ~bg2fixpack/readme-bg2fixpack.html~
+README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 
 LANGUAGE ~English~                                ~english~ ~bg2fixpack/languages/english/setup.tra~
 LANGUAGE ~Polski (by yarpen)~                     ~polski~  ~bg2fixpack/languages/english/setup.tra~
@@ -37,7 +37,7 @@ LANGUAGE ~Simplified Chinese (by good0593)~      ~schinese~ ~bg2fixpack/language
 
 BEGIN @0 DESIGNATED 0 // Core Fixes
 REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~druidab.bcs~ @26 // in case BD or Fixpack already installed
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // disable broken stuff from key file
 ACTION_FOR_EACH file IN iplot01k.itm iplot04g.itm iplot04h.itm iplot04i.itm xr2400.are xr2600.are BEGIN
@@ -95,6 +95,8 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
   36460 => 139 // flail +2 damage
   37155 => 133 // [JANJAN67] sound restoration
   39461 => 213 // damage, blade of roses
+  39565 => 255 // ashen scales usable by druids
+  39578 => 256 // shield of the lost usable by druids
   41385 => 172 // soa cat familiar item description
   45869 => 138 // Barbarian rage missing protection list
   45889 => 159 // find familiar spell descript
@@ -103,7 +105,6 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
   58250 => 134 // [ELLESI02] sound restoration
   60724 => 112 // adalon soundset restoration
   60741 => 113 // adalon soundset restoration
-  39565 => 255 // ashen scales usable by druids
 
 END
 
@@ -5384,6 +5385,11 @@ COPY_EXISTING ~ar18dwaf.cre~ ~override~ // duergar
   LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 charge2 = 0 STR_VAR match_item = ax1h04 END // no secondary charges for throwing axes, make a stack of 10
   BUT_ONLY
 
+COPY_EXISTING ~ar18prie.cre~ ~override~ // has better melee set as offhand
+  REPLACE_CRE_ITEM shld03 #0 #0 #0 ~NONE~ SHIELD // move mace +1 to mainhand
+  REPLACE_CRE_ITEM blun05 #0 #0 #0 ~NONE~ WEAPON1 EQUIP
+  BUT_ONLY
+
 COPY_EXISTING ~aran.cre~     ~override~ // aran linvail
               ~maevar.cre~   ~override~ // mae'var
   LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = helmnoan END // no-animation helmet shouldnt have charges
@@ -10133,7 +10139,7 @@ COPY_EXISTING ~blakblad.itm~ ~override~
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 10 power = 9 match_target = 2 END // all of the 10% effects (level drain et al) on target
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 10 power = 0 match_target = 1 END // all of the 10% effects (level drain et al) on self
   PATCH_IF NOT FILE_EXISTS_IN_GAME ~mel01.cre~ BEGIN // SoA-only fix; lacks grandmastery-when-wielded
-    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 211 target = 1 parameter1 = 5 parameter2 = 90 timing = 2 resist_dispel = 2 END
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 233 target = 1 parameter1 = 5 parameter2 = 90 timing = 2 resist_dispel = 2 END
   END
   BUT_ONLY
 
@@ -10659,7 +10665,7 @@ COPY_EXISTING ~ipsion.itm~ ~override~
   BUT_ONLY
 
 // MMM APR fixes; shuffle APR in Boon/Offensive spin into shell spell for easier blockage (see also spcl521.spl, spcl521d.spl, spcl741.spl, spcl741d.spl)
-ACTION_IF NOT FILE_EXISTS_IN_GAME ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
+ACTION_IF NOT FILE_EXISTS ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
 
   COPY_EXISTING ~melfmet.itm~  ~override~
     PATCH_FOR_EACH spell IN spcl521d spcl741d BEGIN // immunity to boon of lathander, offensive spin
@@ -12101,14 +12107,14 @@ COPY_EXISTING ~spcl521.spl~ ~override~
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 177 opcode =  54 parameter1 = 2 parameter2 = 0 STR_VAR resource = ~~ END // change from thac0 via eff to direct 54 opcode
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  16 opcode = 101 parameter2 = 16 END // change haste to immunity: haste
   LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  65 opcode = 126 parameter1 = 200 parameter2 = 2 END // clone blur into movement speed: 200%
-  PATCH_IF NOT FILE_EXISTS_IN_GAME ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
+  PATCH_IF NOT FILE_EXISTS ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
     LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  65 opcode = 146 parameter1 = 0 parameter2 = 1 timing = 1 duration = 0 STR_VAR resource = spcl521d END // clone blur into spell for APR
   END ELSE BEGIN
     LPF ADD_SPELL_EFFECT INT_VAR opcode =   1 target = 1 parameter1 =    1 duration = 24 resist_dispel = 2 END // +1 apr
   END
   BUT_ONLY
 
-ACTION_IF NOT FILE_EXISTS_IN_GAME ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
+ACTION_IF NOT FILE_EXISTS ~tobex_ini/tobexcore.ini~ BEGIN // skip this song and dance if TobEx is present
 
   // offensive spin sub-spell (needed for MMM/spin conflicts)
   // MMM APR fixes; shuffle APR to shell spell for easier blockage (see also spcl521.spl, spcl741.spl, spcl741d.spl, melfmet.itm)
@@ -14821,7 +14827,7 @@ COPY_EXISTING ~trskin03.bcs~ ~override~
     REPLACE_TEXTUALLY ~\(DropItem("MISC79",\[\)[0-9]+\.[0-9]+\(\])\)~ ~\1-1.-1\2~ // change coords to -1, -1
   END
   BUT_ONLY
-  
+
 // player can break ust natha if (s)he beats phaere to the door post-gettin' it on
 EXTEND_BOTTOM ~udphae01.bcs~ ~bg2fixpack/baf/udphae01_bottom.baf~
 
@@ -14927,7 +14933,7 @@ ACTION_IF FILE_EXISTS_IN_GAME ~mel01.cre~ THEN BEGIN // tob stuff
         ~\1 OR(3) !LevelGT(Player1,18) !NumInPartyGT(1) Global("IllaseraSpell","LOCALS",1)
             OR(3) !LevelGT(Player1,21) !NumInPartyGT(1) Global("IllaseraSpell","LOCALS",2)~ // but preserve current order, e.g. let symbol stun and ADHW still go first if applicable
     END
-    BUT_ONLY 
+    BUT_ONLY
   
   // shouldn't get 'need more str' message in YS lair if you actually are strong enough
   COPY_EXISTING ~ittempl2.bcs~ ~override~
@@ -16738,7 +16744,7 @@ COPY_EXISTING ~spcl731.spl~ ~override~
   END
   BUT_ONLY
 
-// boon of lathander missing headers
+// boon of lathander missing headers; spcl741d will be missing if TobEx installed
 COPY_EXISTING ~spcl741.spl~  ~override~
               ~spcl741d.spl~ ~override~
   LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 10 END // adds headers 2-10
@@ -16746,7 +16752,7 @@ COPY_EXISTING ~spcl741.spl~  ~override~
   FOR (index = 1 ; index < (abil_num + 1) ; ++index) BEGIN
     LPF ALTER_SPELL_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 header = index duration_high = (index * 6) END // one round/level
   END
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // hold undead missing headers
 // most undead already block spnwchrm animation through their charm immunity
@@ -16888,11 +16894,6 @@ COPY_EXISTING ~spin683.spl~ ~override~ // kilthix's web ability
 COPY_EXISTING ~spin698.spl~ ~override~
   LPF DELETE_EFFECT INT_VAR match_opcode = 69 END // delete non-detection
   LPF ADD_SPELL_EFFECT INT_VAR header = 2 opcode = 174 target = 1 timing = 1 resist_dispel = 2 STR_VAR resource = eff_m51 END // add sound to second header
-  BUT_ONLY
-
-// psionic blast has no name and therefore doesn't show up in the combat log
-COPY_EXISTING ~spin775.spl~ ~override~
-  WRITE_LONG 0x08 5739 // psionic blast
   BUT_ONLY
 
 // stoneskin effect for trademeet statues can be dispelled
@@ -17259,7 +17260,7 @@ COPY_EXISTING ~spwi597.spl~  ~override~ // immunity: alteration, 60 new effects 
 
 BEGIN @6 DESIGNATED 100
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // get xp for keldorn's reconciliation if keldorn is released from the party
 COMPILE ~bg2fixpack/dlg/keldorn.d~
@@ -17270,7 +17271,7 @@ COMPILE ~bg2fixpack/dlg/keldorn.d~
 
 BEGIN @7 DESIGNATED 101
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // maze animation, part 1
 COPY_EXISTING ~spcl415.spl~ ~override~ // maze (special snare)
@@ -17374,7 +17375,6 @@ COPY_EXISTING ~spin541.spl~ ~override~ // divination
 BEGIN @36 DESIGNATED 102
 SUBCOMPONENT @8
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
 
 OUTER_SET passtime = 23
 
@@ -17386,7 +17386,6 @@ INCLUDE ~bg2fixpack/lib/cromwell.tpa~
 
 BEGIN @9 DESIGNATED 103
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
 
 // removes melee abilities from Fire Tooth and Boomerang dagger; change APR to be consistent
 // with other throwing daggers; alters base Fire Tooth damage to 1d4 (again for consistency); damage change now rescinded (Wisp)
@@ -17407,7 +17406,7 @@ COPY_EXISTING ~tooltip.2da~ ~override~
 BEGIN @10 DESIGNATED 104
 GROUP @2
 REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~mel01.cre~   @11 // ToB required
-REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~) OR (GAME_IS ~bg2ee~)) @33 // requires the holy symbol exploit removed
+REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~) OR (GAME_IS ~bg2ee eet~)) @33 // requires the holy symbol exploit removed
 
 // disable holy symbols for Aerie, Anomen, and Viconia in main game scripts
 COPY_EXISTING ~baldur.bcs~   ~override~
@@ -17456,6 +17455,7 @@ DEPRECATED @22
 
 BEGIN @13 DESIGNATED 106
 GROUP @2
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // giant weapons get THAC0 penalties vs. small people (revised by aVENGER)
 COPY_EXISTING ~giafir.itm~   ~override~
@@ -17473,7 +17473,7 @@ COPY_EXISTING ~giafir.itm~   ~override~
 
 BEGIN @14 DESIGNATED 107
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 COPY_EXISTING ~dualclas.2da~ ~override~
   SET_2DA_ENTRY 32 2 7 ~1~ // archer (feralan)
@@ -17486,7 +17486,7 @@ COPY_EXISTING ~dualclas.2da~ ~override~
 
 BEGIN @15 DESIGNATED 108
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // remove bonuses here as the player is already rewarded at the door
 COPY_EXISTING ~ar2905.bcs~ ~override~
@@ -17512,7 +17512,7 @@ COMPILE ~bg2fixpack/baf/demglasu.baf~
                 
 BEGIN @17 DESIGNATED 110
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // commoners missing scripts to turn hostile if attacked
 COPY_EXISTING ~aewimer1.cre~ ~override~
@@ -17887,7 +17887,7 @@ END
 
 BEGIN @21 DESIGNATED 113
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // alignment fixes
 // read in array of changes from external file to make it easier for players to make their own changes here
@@ -17907,7 +17907,6 @@ END
 
 BEGIN @23 DESIGNATED 114
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
 
 INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
 
@@ -17926,8 +17925,8 @@ COPY_EXISTING ~blun30.itm~  ~override~ // foa +5
 
 BEGIN @24 DESIGNATED 115
 GROUP @2
-REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~tobex_ini/tobexcore.ini~ @29              // This component requires TobEx
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
+REQUIRE_PREDICATE FILE_EXISTS ~tobex_ini/tobexcore.ini~ @29              // This component requires TobEx
+REQUIRE_PREDICATE FILE_EXISTS ~dialog.tlk~  @27 // not needed for EE
 
 // Add the non-dispellable flag to shapechange weapons if TobEx is detected
 // This will prevent the natural weapons of the shapechange forms (i.e. claws and such) from being removed by Dispel Magic and Dead Magic Zones
@@ -18024,7 +18023,6 @@ END
 BEGIN @37 DESIGNATED 117
 SUBCOMPONENT @8
 GROUP @2
-REQUIRE_PREDICATE GAME_IS ~soa tob bgt tutu tutu_totsc ca~  @27 // not needed for EEs
 
 OUTER_SET passtime = 8
 

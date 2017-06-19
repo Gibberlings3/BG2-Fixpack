@@ -981,7 +981,18 @@ Not Usable By:
  Bard
  Mage
  Thief~
+@256 = ~This odd shield was constructed by nomads that once inhabited the forest of Mir, a group long since absorbed into "civilized" society and forgotten.  Examination reveals fine weaving of animal and human hair bound together by enchantment, though how this was done is lost to time.
 
+STATISTICS:
+
+Armor Class Bonus: 3
+Special: +5% magical resistance
+Weight: 5
+Requires: 12 Strength
+Not Usable By:
+ Bard
+ Mage
+ Thief~
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>The Tweaks Anthology</title>
+<title>The Baldur's Gate II Fixpack</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="style/g3readme_cam_022916.css" type="text/css" />
 <link href="style/g3icon.ico" rel="icon" type="image/bmp" />
@@ -31,7 +31,7 @@
         Authors: </strong>Multiple, see below<strong><br />
         Project Lead: <a href="http://www.gibberlings3.net/forums/index.php?showuser=8">CamDawg</a>, <acronym title="Also Known As">aka</acronym> 'Cam'
     Camagna</strong></p>
-      <p><strong>Version 11 (beta 1) - <a href="http://www.gibberlings3.net/forums/index.php?app=downloads&amp;showcat=36">Check
+      <p><strong>Version 11 (beta 2) - <a href="http://www.gibberlings3.net/forums/index.php?app=downloads&amp;showcat=36">Check
     for the most recent version</a></strong><br />
     <strong> Languages:</strong> Chinese (simplified and traditional), English, French, German, Italian, Korean, Polish,
     and Spanish<br />
@@ -118,37 +118,20 @@
     <div class="ribbon_triangle_h2-r"></div>
     <div class="section">
       <p><strong>Windows</strong><br />
-        The <acronym title="Baldur's Gate II">BG2</acronym> Fixpack is packaged
-        and installed with WeiDU and
-        is distributed as a self-extracting archive. To install, simply double-click
-        the archive and follow the instructions on screen.</p>
-      <p>Alternatively the files can be extracted from the archive using <a href="http://www.rarlab.com/">WinRAR</a>.
-        If properly extracted, you should have a bg2fixpack folder and setup-bg2fixpack.exe
-        in your game folder. To install,
-        simply double-click setup-bg2fixpack.exe and follow the instructions on screen.</p>
-      <p>Please run setup-bg2fixpack.exe in your game folder
-        to reinstall, uninstall or otherwise change components.</p>
+      The BG2 Fixpack for Windows is distributed as a self-extracting   archive and includes a WeiDU installer. To install, simply double-click   the archive and follow the instructions on screen.</p>
+<p>Alternatively, the files can be extracted into your game directory using <a href="http://www.7-zip.org/download.html">7zip</a> or <a href="http://www.rarlab.com/download.htm">WinRAR</a>. When properly extracted, your game directory will contain <strong>setup-bg2fixpack.exe</strong> and the folder <strong>bg2fixpack</strong>. To install, double-click <strong>setup-bg2fixpack.exe</strong> and follow the instructions on screen.</p>
+      <p>You can run <strong>setup-bg2fixpack.exe</strong> in your game folder to reinstall, uninstall or otherwise change components.</p>
       <p><strong>Mac OS X</strong><br />
-        <em>If the mod was previously installed, uninstall it before extracting the
-        new version.</em> The Tweaks Anthology is packaged and installed with WeiDU.
-        To install, simply extract the contents of the mod into your game folder.
-        If properly extracted, you should have a bg2fixpack folder, setup-bg2fixpack,
-        and setup-bg2fixpack.command in your game folder.
-        To install, simply double-click setup-bg2fixpack.command and
-        follow the instructions on screen.</p>
+        The BG2 Fixpack for Mac OS X is distributed as a compressed tarball and includes a WeiDU installer.</p>
+      <p>First, extract the files from the tarball into your game directory. When properly extracted, your game directory will contain <strong>setup-bg2fixpack</strong>, <strong>setup-bg2fixpack.command</strong>, and the folder <strong>bg2fixpack</strong>. To install, double-click <strong>setup-bg2fixpack.command</strong> and follow the instructions on screen.</p>
+      <p>You can run <strong>setup-bg2fixpack.command</strong> in your game folder to reinstall, uninstall or otherwise change components.</p>
       <p><strong>Linux</strong><br />
-        Download the latest version of WeiDU for
-        Linux from <a href="http://www.weidu.org/~thebigg/">weidu.org</a> and extract
-        (at least) the WeiDU,
-        weinstall and tolower executables in a $PATH directory (E.G. /usr/bin). Following that, open a terminal, cd to your game installation directory, run `tolower' and answer Y to both queries.</p>
-      <p> You can avoid running the second option (linux.ini)
-        if you've already ran it once in the same directory. To save time, the
-        archive is already tolowered, so there's no need to run the first option
-        (lowercasing file names) either if you've extracted only this mod since
-        the last time you lower cased file name. If you're unsure, running tolower and choosing both
-        options is the safe bet.</p>
-      <p> After that, run 'weinstall bg2fixpack' from your game installation directory
-        to install or uninstall the mod. </p>
+        The BG2 Fixpack for Linux is distributed as a compressed tarball and does not include a WeiDU installer.</p>
+      <p>Extract the contents of the mod to the folder of the game you wish to modify.</p>
+      <p>Download the latest version of WeiDU for Linux from <a href="http://www.weidu.org/%7Ethebigg/">WeiDU.org</a> and copy WeiDU and WeInstall to /usr/bin. Following that, open a terminal, cd to your game installation directory, run tolower   and answer Y to both queries. You can avoid running the second option   (linux.ini) if you've already ran it once in the same directory. To save   time, the archive is already tolowered, so there's no need to run the   first option (lowercasing file names) either if you've extracted only   this mod since the last time you lowercased file names. If you're   unsure, running tolower and choosing both options is the safe bet.</p>
+      <p>To install, run WeInstall bg2fixpack in your game folder. Then run wine BGMain.exe and start playing. </p>
+      <p><strong> Note for Complete Uninstallation</strong><br />
+        In addition to the methods above for removing individual components, you can completely uninstall the mod using setup-bg2fixpack --uninstall at the command line to remove all components without wading through prompts. . </p>
     </div>
     <div class="ribbon_rectangle_h2"><a id="Contents" name="Contents"></a>
       <h2>Contents</h2>
@@ -439,11 +422,9 @@
     <div class="section">
       <p><strong>Version 11 - work in progress builds</strong></p>
       <ul>
-        <li>Beta 1 - date TBD
-          <ul>
-            <li>Lots of stuff</li>
-          </ul>
-        </li>
+        <li><a href="http://gibberlings3.net/forums/index.php?showtopic=28815">Changelog thread on G3</a></li>
+        <li>Beta 2 - June 19, 2017        </li>
+        <li>Beta 1 - June 4, 2017 </li>
       </ul>
       <p><strong>Version 10 - April 14, 2013</strong></p>
       <ul>
@@ -810,7 +791,7 @@
           to <em>Weapon of Cyric's Favored Not Displaying Portrait Icon or String</em>,
           as they're really named Favored and not Chosen </li>
         <li>Reworked <em>Otiluke's Resilient Sphere Fixes</em>, as it was still far from complete</li>
-        <li>Reworked <em>Option to Charm Glaicas Instead of Fight
+        <li>Reworked <em>Option to Charm Glacius Instead of Fight
           Fix</em> and <em>Troll Fixes</em> to remove incompatibilities with Unfinished Business </li>
         <li>Added <em>Spotty Golem Immunities</em> fix directly into <strong>Core
           Fixes</strong>, as it's essentially an adaptation of existing (and working
