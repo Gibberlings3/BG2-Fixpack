@@ -260,5 +260,8 @@ BEGIN // list of changes, see below for flags
   TRIGGER ~IsValidForPartyDialog("Anomen") !Alignment("Anomen",CHAOTIC_NEUTRAL)~
 END
 
+// limited wish quest should not be available in ToB
+ADD_TRANS_TRIGGER WISH 1 ~GlobalLT("Chapter","GLOBAL",8)~ DO 6
+
 // wish fixes from asc64; see also wish01.bcs changes
 REPLACE_ACTION_TEXT ~wish25~ ~\(SetupWish([0-9],1)\)~ ~/* \1 */~

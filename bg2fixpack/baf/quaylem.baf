@@ -1,0 +1,7 @@
+IF
+  Dead("Quaylem")  // if Quayle-as-mustard-slime is dead...
+  Global("SPRITE_IS_DEADQuayle","GLOBAL",0)
+THEN
+  RESPONSE #100
+    SetGlobal("SPRITE_IS_DEADQuayle","GLOBAL",1) // set quayle-as-gnome as dead, too
+END

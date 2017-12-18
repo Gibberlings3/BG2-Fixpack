@@ -322,7 +322,7 @@ Level: 3
 Sphere: Healing 
 Range: Caster line of sight
 Duration: Instant
-Casting Time: 3 
+Casting Time: 3
 Area of Effect: 15-foot radius
 Saving Throw: Special 
 
@@ -358,6 +358,7 @@ Armor Class: -4
 Hit Points:  16
 Resistance to fire, cold, electricity: 75%
 Special abilities:  Has a 50% Detect Traps ability.  30% stealth ability.~
+@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~
 @1004453 = ~ Why Nimbul has been hired to deal with the likes of you, I'll never know.~ [NIMBL06]
 @1004602 = ~This magical dart was created using the Cloak of Stars. The darts will only last for twenty four hours.
 
@@ -2248,7 +2249,7 @@ STATISTICS:
 
 Effects:  1-10 damage per round
   1-4 HD : Instant death, no save
-  5-6 HD : save vs. poison or instant death
+  5-6 HD : save vs. poison at -4 or instant death
 Range:  60 ft.
 Area:  15-foot radius
 Duration:  1d4 turns
@@ -7230,7 +7231,7 @@ STATISTICS:
 Combat Ability: target must save vs. paralyzation or be paralyzed for five rounds
 Damage: 1D10 
 Damage type: missile (piercing)
-Weight: 1
+Weight: 0
 Launcher: Crossbow~ []
 @1057926 = ~Food! Irenicus has sent lunch at last. It is well. I grow tired of this, treasure or no. Nizidramanii'yt is no pathetic soldier to stand guard over a tarnished cup.~
 @1057985 = ~The lid holds five pressure plates, each adorned with symbols common to Suldanessellar: Rillifane, the Tree of Life, a rune of Suldanessellar, Corellon Larethian (the father of the Elven Pantheon), and the elven Symbol of Water.~

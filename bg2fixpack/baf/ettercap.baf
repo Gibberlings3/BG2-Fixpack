@@ -1,0 +1,17 @@
+IF
+  !GlobalTimerNotExpired("CD_PICK_WEAPON","LOCALS")
+  OR(2)
+    ActionListEmpty()
+    Global("CD_FIRST_WEAPON","LOCALS",0)
+THEN
+  RESPONSE #60
+    SelectWeaponAbility(SLOT_WEAPON0,0)
+    SetGlobalTimer("CD_PICK_WEAPON","LOCALS",12)
+    SetGlobal("CD_FIRST_WEAPON","LOCALS",1)
+    Continue()
+  RESPONSE #40
+    SelectWeaponAbility(SLOT_WEAPON1,0)
+    SetGlobalTimer("CD_PICK_WEAPON","LOCALS",12)
+    SetGlobal("CD_FIRST_WEAPON","LOCALS",1)
+    Continue()
+END

@@ -1,4 +1,9 @@
-// TRANSLATORS! If you translate strings @30 and @31, you can delete
+/* the following strings are no longer needed due to @30 and @31 and can be deleted from your tra file once @30 and @31 are translated:
+
+@140, @146, @147, @148, @149, @151, @176, @177, @178, @179, @180, @181, @182, @183, @184, @185, @186, @187, @188, @189,
+@190, @191, @192, @193, @194, @195, @196, @197, @198, @199, @200, @201, @202, @203, @204, @205, @206, @207, @208
+
+*/
 
   @0 = ~BG2 Fixpack - Core Fixes~
   @1 = ~BG2 Fixpack - Game Text Update~
@@ -12,14 +17,10 @@
   @9 = ~Mixed-Use Dagger Fixes~
  @10 = ~Ghreyfain's Holy Symbol Fixes~
  @11 = ~Throne of Bhaal is required for this component.~
- @12 = ~Additional Hero Quests in Trademeet Wait Until 
- Hero is Officially Named~
- @13 = ~Giants Receive Penalties When Attacking Halflings, 
- Dwarves, and Gnomes~
- @14 = ~Remove Dual-Classing Restriction from Archers 
- and Stalkers~
- @15 = ~Remove Second Attribute Bonus for Evil Path in
- Wrath Hell Trial~
+ @12 = ~Additional Hero Quests in Trademeet Wait Until Hero is Officially Named~
+ @13 = ~Giants Receive Penalties When Attacking Halflings, Dwarves, and Gnomes~
+ @14 = ~Remove Dual-Classing Restriction from Archers and Stalkers~
+ @15 = ~Remove Second Attribute Bonus for Evil Path in Wrath Hell Trial~
  @16 = ~Corrected Summoned Demon Behavior~
  @17 = ~Additional Script Fixes~
  @18 = ~Bard Song Fixes~
@@ -42,12 +43,7 @@
  @35 = ~-foot radius~
  @36 = ~A day lasts 24 hours~
  @37 = ~A day is a work day, 8 hours~
-/* the following strings are no longer needed due to @30 and @31 and can be deleted from your tra file once @30 and @31 are translated:
 
-@140, @146, @147, @148, @149, @151, @176, @177, @178, @179, @180, @181, @182, @183, @184, @185, @186, @187, @188, @189,
-@190, @191, @192, @193, @194, @195, @196, @197, @198, @199, @200, @201, @202, @203, @204, @205, @206, @207, @208
-
-*/
 
 @100 = ~Well, I was barely listening, anyway, so don't worry about it. Let's just concentrate on killing the next orc we see.~ []
 @101 = ~I shall do that, jaluk. And when I bash its skull in, you do not mind if I picture you in its porcine features, hm?~
@@ -725,7 +721,7 @@ STATISTICS:
 
 Effects:  1-10 damage per round
   1-4 HD : Instant death, no save
-  5-6 HD : save vs. poison or instant death
+  5-6 HD : save vs. poison at -4 or instant death
 Range:  60 ft.
 Area:  15-foot radius
 Duration:  1d4 turns
@@ -760,7 +756,7 @@ Level: 3
 Sphere:  Law
 Range: 0 
 Duration: 1 turn 
-Casting Time: 3 
+Casting Time: 3
 Area of Effect: 15-foot radius
 Saving Throw: None
 
@@ -904,7 +900,7 @@ The secondary effect of this spell is to instill upon the caster the feeling of 
 Level: 5
 Range: 10 yards 
 Duration: 1 turn
-Casting Time: 5 
+Casting Time: 5
 Area of Effect: 15-foot radius
 Saving Throw: None
 
@@ -993,9 +989,21 @@ Not Usable By:
  Bard
  Mage
  Thief~
+// @257 = ~Pixie Prick +3, item file now changed instead
+@258 = ~This armor has been worn by many a fine soldier, but among the best known, and for whom it was named, was Delver Kinlake.  He was a vagabond whose strong sword-arm and keen wits made him a respected general to the Lords of Waterdeep.  A gift from Lord Baeron, the armor served Delver well for thirty years, and after his death, it passed to his eldest son.  It has since made its way into the hands of a variety of adventurers.
 
+STATISTICS:
 
-
+Armor Class: 1
+Special: +2 bonus to saves vs. spells
+Weight: 25
+Requires: 12 Strength
+Not Usable By:
+ Bard 
+ Druid
+ Mage
+ Thief~
+@259 = ~fighter / great druid~
 
 
 

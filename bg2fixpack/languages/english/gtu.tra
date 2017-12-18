@@ -824,6 +824,7 @@ Not Usable By:
 @1004428 = ~Right to the point, eh? That's fine with me. You are a very capable person, and I wish to propose a trade of services.~ [ARAN07]
 @1004449 = ~ I am Death come for thee. Surrender, and thy passage shall be... quicker.~ [NIMBL01]
 @1004453 = ~ Why Nimbul has been hired to deal with the likes of you, I'll never know.~ [NIMBL06]
+@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~
 @1004567 = ~ The evidence we have about Entar's murder does resemble the work of the Shadow Thieves, but...~ [LIIAJ04]
 @1004589 = ~Uhhhh... yeah.~ [KRUMM01]
 @1004591 = ~ Duhhhhhhh....~ [KRUMM02]
@@ -6028,7 +6029,7 @@ STATISTICS:
 
 Effects: 1-10 damage per round
   1-4 HD: Instant death, no save allowed
-  5-6 HD: Save vs. poison or instant death
+  5-6 HD: Save vs. poison at -4 or instant death
 Range: 60 ft.
 Area: 15-foot radius
 Duration: 1 turn
@@ -15343,7 +15344,7 @@ The Pixie Prick almost appears to be a toy, so fine and delicate is the workmans
 
 STATISTICS:
 
-Combat Ability: Target will fall asleep for two rounds if a save vs. death at a +6 bonus is failed
+Combat Ability: Target will fall asleep for two rounds if a save vs. death is failed
 THAC0: +3 bonus
 Damage: 1D4 + 3
 Damage type: piercing
@@ -20383,7 +20384,7 @@ STATISTICS:
 Combat Ability: target must save vs. paralyzation or be paralyzed for five rounds
 Damage: 1D10 
 Damage type: missile (piercing)
-Weight: 1
+Weight: 0
 Launcher: Crossbow~ []
 @1057925 = ~With its defenses down, the parasite is easily dispatched.~ []
 @1057926 = ~Food! Irenicus has sent lunch at last. It is as well. I grow tired of this, treasure or no. Nizidramanii'yt is no pathetic soldier to stand guard duty over a tarnished cup.~ []

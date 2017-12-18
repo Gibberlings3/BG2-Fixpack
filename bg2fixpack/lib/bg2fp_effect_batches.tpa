@@ -40,16 +40,18 @@ DEFINE_PATCH_FUNCTION cd_elven_sleep_charm_resistance BEGIN
             SPRINT eff_file cdelfsl
             SET patch_sleep = 1
           END
+          PATCH_IF prob1 > 99 BEGIN SET prob1 = 99 END // prob1's ceiling is actually 99, not 100
           PATCH_FOR_EACH race IN 2 3 BEGIN
+            SET prob1_new = ((((((prob1 + 1) - prob2) * (21 - (race * 6))) / 10) + prob2) - 1) // 90/30% of original, +1/-1 to signify the bounds are inclusive
             FOR (index3 = 0 ; index3 < ((new_fx / 2)) ; ++index3) BEGIN
-              INSERT_BYTES   (fx_off +        (0x30 * abil_fx_idx)) 0x30                                                 // insert new effect
-                WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177                                                  // use eff file
-                WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx)) target                                               // preserve target
-                WRITE_LONG   (fx_off + 0x04 + (0x30 * abil_fx_idx)) race                                                 // elf or half elf
-                WRITE_LONG   (fx_off + 0x08 + (0x30 * abil_fx_idx)) 4                                                    // race.ids
-                WRITE_BYTE   (fx_off + 0x12 + (0x30 * abil_fx_idx)) (prob2 + ((21 - (race * 6)) * (prob1 - prob2) / 10)) // 90/30% of original
-                WRITE_BYTE   (fx_off + 0x13 + (0x30 * abil_fx_idx)) prob2                                                // base prob
-                WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) ~%eff_file%%index3%~                                 // eff file
+              INSERT_BYTES   (fx_off +        (0x30 * abil_fx_idx)) 0x30                 // insert new effect
+                WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177                  // use eff file
+                WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx)) target               // preserve target
+                WRITE_LONG   (fx_off + 0x04 + (0x30 * abil_fx_idx)) race                 // elf or half elf
+                WRITE_LONG   (fx_off + 0x08 + (0x30 * abil_fx_idx)) 4                    // from race.ids
+                WRITE_BYTE   (fx_off + 0x12 + (0x30 * abil_fx_idx)) prob1_new            // calculated above
+                WRITE_BYTE   (fx_off + 0x13 + (0x30 * abil_fx_idx)) prob2                // base prob
+                WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) ~%eff_file%%index3%~ // eff file
             END
           END
           SET fx_delta    += new_fx
@@ -399,8 +401,11 @@ DEFINE_PATCH_MACRO ~cd_immunity_poison_arrays~ BEGIN
     101,  "-10", 25, "same",  "-10",  "-10", "same" => 1 // immunity to poison
   END
   DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
-    267, 14662, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "poisoned"
-    267, 14017, "-10", "same",  "-10", "-10", "same" => 1 // protection from string "poison"
+    267, 14662, "-10",    "same",  "-10", "-10", "same" => 1 // protection from string "poisoned"
+    267, 14017, "-10",    "same",  "-10", "-10", "same" => 1 // protection from string "poison"
+    206,  "-1", "-10", "spin673",  "-10", "-10", "same" => 1 // protection from spell, cloudkill (via spore)
+    206,  "-1", "-10", "spwi016",  "-10", "-10", "same" => 1 // protection from spell, cloudkill (via trap)
+    206,  "-1", "-10", "spwi502",  "-10", "-10", "same" => 1 // protection from spell, cloudkill (via arcane magic)
   END
   PATCH_IF cosmetic = 1 BEGIN
     DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN

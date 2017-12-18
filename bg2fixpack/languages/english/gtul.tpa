@@ -172,6 +172,7 @@ STRING_SET
 4413 @1004413 //overun->overrun
 4428 @1004428 //matching VO, That is->That's
 4438 @1004438 //augumented
+4446 @1004446 // fixed for BGT; had trailing apostrophe
 4453 @1004453 // two spaces between "of" and "you"
 4602 @1004602 //adds STATISTICS section to Star Dart
 4866 @1004866 //"yer all such BIG men"->"ye're all such BIG men"
@@ -1397,7 +1398,7 @@ STRING_SET
 39526 @1039526 //STATISTICS
 39527 @1039527 //thaco, "well to do family"->"well-to-do family"
 39528 @1039528 //thaco
-39529 @1039529 //two handed, thaco
+39529 @1039529 //two handed, thaco, save is +6
 39530 @1039530 //thaco
 39533 @1039533 //thaco
 39538 @1039538 //thieves can not use plate armour
@@ -2021,7 +2022,7 @@ STRING_SET
 57887 @1057887 // two spaces between "threats" and "from"
 57888 @1057888 //occured
 57903 @1057903 //unstrustworthy->untrustworthy
-57919 @1057919 // two spaces between "Any" and "target"
+57919 @1057919 // two spaces between "Any" and "target", weight
 57926 @1057926 //"to guard duty over"->"to stand guard over"
 57985 @1057985 //"Corellan Lotharian"->"Corellon Larethian", "Elven Panthenon" -> "Elven Pantheon"
 57990 @1057990 //"Corellan Lotharian"->"Corellon Larethian"

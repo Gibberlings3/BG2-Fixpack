@@ -9,3 +9,12 @@ THEN
   RESPONSE #100
     StartDialogueNoSet([PC])
 END
+
+IF 
+  Global("JaheiraReturns","GLOBAL",2)
+  Global("JaheiraHarperPlot","GLOBAL",2) 
+  InMyArea(Player1)
+THEN
+  RESPONSE #100
+    StartDialogNoSet(Player1)
+END

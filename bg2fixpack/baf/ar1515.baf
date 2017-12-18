@@ -1,0 +1,11 @@
+IF
+  Dead("ppworker")
+  Global("playerTalk","AR1515",1)
+  Global("speakWhenLonkDead","GLOBAL",1)
+THEN
+  RESPONSE #100
+    StartCutSceneMode()
+    SetGlobal("playerTalk","AR1515",2)
+    SetGlobal("AsylumPlot","GLOBAL",54)
+    StartCutScene("CUT41M")
+END
