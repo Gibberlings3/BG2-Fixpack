@@ -1,5 +1,6 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
 AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
+//SUPPORT ~http://gibberlings3.net/forums/index.php?showforum=74~
 
 ALWAYS
 
