@@ -1,5 +1,5 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
-AUTHOR ~pcamagna@yahoo.com~ // email address displayed if install fails
+AUTHOR ~http://gibberlings3.net/forums/index.php?showforum=74~ // email address displayed if install fails
 //SUPPORT ~http://gibberlings3.net/forums/index.php?showforum=74~
 
 ALWAYS
@@ -28,7 +28,7 @@ ALWAYS
 
 END
 
-VERSION ~v11 Beta 3~
+VERSION ~v11 Beta 4~
 
 README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -14461,17 +14461,26 @@ COPY ~bg2fixpack/copy/ar6011sr.bmp~ ~override~ // swampy water produces metallic
      ~bg2fixpack/copy/spcl234d.spl~ ~override~ // fallen paladins/rangers should not cast spells via script; see also clabpa05.2da and clabrn05.2da
      ~bg2fixpack/copy/spin722a.eff~ ~override~ // great druid title change should retain 'fighter' part fot multi/dual-classes; see also spin722.spl, spin722b.eff, spin722c.eff
      ~bg2fixpack/copy/spwi117a.spl~ ~override~ // for chill touch fixes; see chillt.itm, spwi117a.eff
-     ~bg2fixpack/copy/wphaxinv.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wphaxoin.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wplaxinv.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wplaxoin.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpmaxinv.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpmaxoin.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpnaxinv.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpnaxoin.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpsaxinv.bam~ ~override~ // paperdoll axe coloring
-     ~bg2fixpack/copy/wpsaxoin.bam~ ~override~ // paperdoll axe coloring
-
+     ~bg2fixpack/copy/wphaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wphaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wphflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wphmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wplaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wplaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wplflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wplmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpmaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpmaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpmflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpmmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpnaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpnaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpnflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpnmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpsaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpsaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpsflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpsmcinv.bam~ ~override~ // paperdoll mace coloring fix
 COMPILE ~bg2fixpack/dlg/beta_soa-dlg.d~
         ~bg2fixpack/compile/bystand1.baf~ // ler should approach PC after irenicus/cw carnage; see also bystand1.cre
 
