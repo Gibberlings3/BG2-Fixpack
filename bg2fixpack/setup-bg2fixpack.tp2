@@ -1,6 +1,5 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
-AUTHOR ~http://gibberlings3.net/forums/index.php?showforum=74~ // email address displayed if install fails
-//SUPPORT ~http://gibberlings3.net/forums/index.php?showforum=74~
+SUPPORT ~http://gibberlings3.net/forums/index.php?showforum=74~
 
 ALWAYS
 
@@ -28,7 +27,7 @@ ALWAYS
 
 END
 
-VERSION ~v11 Beta 4~
+VERSION ~v12~
 
 README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -4945,7 +4944,6 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_gender BEGIN
   HLSKULL  =>   4 // Golden Skull, from MALE to NIETHER
   HSPECTR1 =>   2 // Spectral Harpist, from MALE to FEMALE
   ICFUNG02 =>   4 // Spore Colony, from MALE to NIETHER
-  ICFUNG02 =>   4 // Spore Colony, from MALE to NIETHER
   ICFUNGUS =>   4 // Spore Colony, from MALE to NIETHER
   ICMYC01  =>   4 // Myconid, from MALE to NIETHER
   ICMYC02  =>   4 // Myconid King, from MALE to NIETHER
@@ -6829,27 +6827,6 @@ COPY_EXISTING ~amsi.cre~     ~override~
               ~gpthief1.cre~ ~override~
   WRITE_LONG 0xcc 0xffffffff // was "No one crosses the Shadow Thieves... and lives!"
   BUT_ONLY
-
-// cre changes to match new kit.ids
-COPY_EXISTING ~anomen6.cre~  ~override~
-              ~anomen7.cre~  ~override~
-              ~anomen8.cre~  ~override~
-              ~anomen9.cre~  ~override~
-              ~anomen10.cre~ ~override~
-              ~anomen12.cre~ ~override~
-              ~imoen.cre~    ~override~
-              ~imoen6.cre~   ~override~
-              ~imoen10.cre~  ~override~
-              ~imoen15.cre~  ~override~
-              ~imoen211.cre~ ~override~
-              ~imoen213.cre~ ~override~
-              ~mazzy8.cre~   ~override~
-              ~mazzy9.cre~   ~override~
-              ~mazzy11.cre~  ~override~
-              ~mazzy12.cre~  ~override~
-              ~mazzy15.cre~  ~override~
-  WRITE_LONG 0x244 0x40000000 // true class
-  BUT_ONLY IF_EXISTS
 
 // anomen save fix
 COPY_EXISTING ~anomen6.cre~ ~override~
@@ -16668,6 +16645,15 @@ COPY_EXISTING ~ax1h07.itm~ ~override~
   LPF ADD_ITEM_HEADER INT_VAR required_id = 1 target = 4 target_count = 1 range = 40 charges = 1 depletion = 3 flags = BIT11 damage_type = 1 overhand = 100 STR_VAR icon = SPPR303B END
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 148 target = 1 timing = 1 parameter2 = 1 STR_VAR resource = sppr303 END
   BUT_ONLY
+  
+// basilisk petrification should force, you know, a save against petrification
+COPY_EXISTING ~basigaze.itm~ ~override~
+  LPF ALTER_EFFECT match_savingthrow = BIT0 savingthrow = BIT4 END // save vs. spell > petrification
+  
+// basilisk petrification should force, you know, a save against petrification
+COPY_EXISTING ~basilg1.itm~ ~override~
+              ~basill1.itm~ ~override~
+  LPF ALTER_EFFECT match_savingthrow = BIT2 savingthrow = BIT4 END // save vs. poison > petrification
 
 // fire damage probabilities incorrect
 COPY_EXISTING ~blun26.itm~   ~override~ // club of detonation +3 needs 4 probabilities adjusted - fix separately
@@ -16904,11 +16890,6 @@ COPY_EXISTING ~plywyvrn.itm~ ~override~
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 25 dicesize = 0 END // dicesize also min level
   BUT_ONLY
 
-// oil of speed is supposed to provide improved haste, not normal haste (2x APR, not +1 ApR)
-COPY_EXISTING ~potn14.itm~ ~override~
-  LPF ALTER_EFFECT INT_VAR match_opcode = 16 parameter2 = 1 END
-  BUT_ONLY
-
 // potion of power is supposed to increase HiS, not MS
 COPY_EXISTING ~potn41.itm~ ~override~
   LPF ALTER_EFFECT INT_VAR match_opcode = 59 opcode = 275 END
@@ -17081,6 +17062,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
 
   sppr412 => 15 // holy power, necromancy > invocation
   sppr415 => 16 // farsight, invocation > divination
+  sppr417 =>  9 // lesser restoration, alteration > necromancy
   sppr515 => 12 // repulse undead, alteration > abjuration
   sppr517 => 14 // insect plague, invocation > conjuration
   sppr717 => 14 // creeping doom, invocation > conjuration
@@ -18646,6 +18628,7 @@ COPY_EXISTING ~uddeath.bcs~  ~override~
 
 BEGIN @18 DESIGNATED 111
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
 
 COPY ~bg2fixpack/spl/fjbard.spl~   ~override~
      ~bg2fixpack/spl/fjbarda.spl~  ~override~

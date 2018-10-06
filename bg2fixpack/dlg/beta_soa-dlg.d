@@ -488,6 +488,10 @@ ALTER_TRANS MGTEOS01 BEGIN 53 END BEGIN 1 END BEGIN TRIGGER ~OR(2) GlobalGT("Asy
 ALTER_TRANS MGTEOS01 BEGIN 82 83 END BEGIN 0 END BEGIN TRIGGER ~Global("AsylumPlot","GLOBAL",0) Global("CDAskedTeosImoen","LOCALS",1)~ END // only offer imoen info if asked before
 ALTER_TRANS MGTEOS01 BEGIN 82 83 END BEGIN 1 END BEGIN TRIGGER ~OR(2) GlobalGT("AsylumPlot","GLOBAL",0) !Global("CDAskedTeosImoen","LOCALS",1)~ END // exit w/o imoen info
 
+// typo in teos' variable set
+REPLACE_ACTION_TEXT MGTEOS01
+~SetGlobalTimer("TeolMessanger","GLOBAL",SEVEN_DAYS)~ ~SetGlobalTimer("TeolMessenger","GLOBAL",SEVEN_DAYS)~
+
 // minsc injured dialogues need better triggers, see also minsc.bcs
 ADD_STATE_TRIGGER MINSCJ 17 ~Global("MinscComplain","LOCALS",0)~ // new var to tighten trigger
 REPLACE_STATE_TRIGGER MINSCJ 21 ~HPLT(Myself,20) Global("MinscInjured","LOCALS",1) Global("MinscComplain","LOCALS",0)~ // was !0 !2, new var

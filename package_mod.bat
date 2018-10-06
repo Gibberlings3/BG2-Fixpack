@@ -6,7 +6,7 @@ call "%~dp0..\ModPackaging\utilities\ie_games.bat"
 
 REM /* MODIFY: set the values of the 3 variables below to reflect the current mod version */
 set "mod_name=BG2 Fixpack"
-set mod_version=v11_Beta_4
+set mod_version=v12
 set mod_folder=bg2fixpack
 
 REM /* MODIFY: list here which IE games the mod is compatible with, from this list of possibilities: */
