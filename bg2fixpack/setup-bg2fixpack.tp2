@@ -16648,12 +16648,12 @@ COPY_EXISTING ~ax1h07.itm~ ~override~
   
 // basilisk petrification should force, you know, a save against petrification
 COPY_EXISTING ~basigaze.itm~ ~override~
-  LPF ALTER_EFFECT match_savingthrow = BIT0 savingthrow = BIT4 END // save vs. spell > petrification
+  LPF ALTER_EFFECT INT_VAR match_savingthrow = BIT0 savingthrow = BIT4 END // save vs. spell > petrification
   
 // basilisk petrification should force, you know, a save against petrification
 COPY_EXISTING ~basilg1.itm~ ~override~
               ~basill1.itm~ ~override~
-  LPF ALTER_EFFECT match_savingthrow = BIT2 savingthrow = BIT4 END // save vs. poison > petrification
+  LPF ALTER_EFFECT INT_VAR match_savingthrow = BIT2 savingthrow = BIT4 END // save vs. poison > petrification
 
 // fire damage probabilities incorrect
 COPY_EXISTING ~blun26.itm~   ~override~ // club of detonation +3 needs 4 probabilities adjusted - fix separately
