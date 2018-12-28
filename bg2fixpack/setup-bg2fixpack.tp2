@@ -1,5 +1,5 @@
 BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
-SUPPORT ~http://gibberlings3.net/forums/index.php?showforum=74~
+SUPPORT ~https://www.gibberlings3.net/forum/74-bg2-fixpack-general-discussion/~
 
 ALWAYS
 
@@ -27,7 +27,7 @@ ALWAYS
 
 END
 
-VERSION ~v12~
+VERSION ~v13~
 
 README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 

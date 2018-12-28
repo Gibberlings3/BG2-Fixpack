@@ -6,7 +6,7 @@ call "%~dp0..\ModPackaging\utilities\ie_games.bat"
 
 REM /* MODIFY: set the values of the 3 variables below to reflect the current mod version */
 set "mod_name=BG2 Fixpack"
-set mod_version=v12
+set mod_version=v13
 set mod_folder=bg2fixpack
 
 REM /* MODIFY: list here which IE games the mod is compatible with, from this list of possibilities: */
@@ -23,7 +23,7 @@ set ico_folder=%mod_folder%\style
 set audio_folder=%mod_folder%\audio
 set tispack_folder=%mod_folder%\tiz
 set iconv_folder=%mod_folder%\languages\iconv
-set mod_readme=http://www.gibberlings3.net/readmes/readme-%mod_folder%.html
+set mod_readme=http://htmlpreview.github.io/?https://github.com/Gibberlings3/Documentation/blob/master/readmes/readme-bg2fixpack.html
 
 REM /* MODIFY: if you don't need to build a specific package, you can disable it by setting the appropriate variable below to 0 */
 set build_windows=1
