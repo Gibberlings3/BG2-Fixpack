@@ -15235,6 +15235,7 @@ COPY_EXISTING ~ar0502.are~ ~override~ // tanner's home, second level
     END
   END
   PATCH_IF vert_delta != 0 BEGIN
+    WRITE_SHORT 0x80 (THIS + vert_delta)
     // now to update vertex indices elsewhere
     READ_LONG  0x70 cont_off
     READ_SHORT 0x74 cont_num
