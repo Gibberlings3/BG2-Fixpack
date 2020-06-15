@@ -16660,12 +16660,12 @@ COPY_EXISTING ~basilg1.itm~ ~override~
 COPY_EXISTING ~blun26.itm~   ~override~ // club of detonation +3 needs 4 probabilities adjusted - fix separately
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 20 match_probability2 = 0 probability1 = 19 END // fire damage should be 20% of hits, not 21% (0-19)
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 27 match_probability2 = 20 probability1 = 26 END // fireball should be 7% of hits, not 8%, not overlap with fire damage (20-26)
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // fire damage probabilities incorrect
 COPY_EXISTING ~blun27.itm~   ~override~ // club of detonation +5 needs 3 probabilities adjusted - fix separately
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  30 match_probability2 =  0 probability1 = 29 END // fire damage should be 30% of hits, not 31% (0-29)
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // both versions of foa +4 use foa +3 quick icon
 COPY_EXISTING ~blun30c.itm~ ~override~
@@ -16758,7 +16758,7 @@ COPY_EXISTING ~dagg20.itm~ ~override~ // crom faeyr
 COPY_EXISTING ~dagg22.itm~   ~override~ // dagger of the star +5 needs 3 probabilities adjusted
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  15 match_probability2 =  0 probability1 = 14 END // invisibility should be 15% of hits, not 16%
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 100 match_probability2 = 94 probability2 = 95 END // bonus fire/electrical damage should be on 5% of hits, not 6%
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // melee hit probabilities incorrect
 COPY_EXISTING ~dwwhip.itm~   ~override~ // skull needs 6 probabilities adjusted
@@ -16796,7 +16796,7 @@ COPY_EXISTING ~gorfirg.itm~  ~override~
 // melee hit probabilities incorrect - poison at 41%, stun at 30% (stun correct)
 COPY_EXISTING ~gorsnake.itm~ ~override~ // skull needs 5 probabilities adjusted -
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 40 match_probability2 =  0 probability1 = 39 END // poison should be 40%, not 41%
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // none of these are  magical
 COPY_EXISTING ~helm33.itm~ ~override~ // gold horned helmet
@@ -16864,7 +16864,7 @@ COPY_EXISTING ~misc5x.itm~ ~override~ // harper pin
 // vampiric wraith attack drains one level, but combat feedback says two
 COPY_EXISTING ~mistva2.itm~ ~override~
   LPF ALTER_EFFECT INT_VAR match_opcode = 139 match_parameter1 = 40968 parameter1 = 41495 END // change 'two levels drained' to 'one level drained'
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // mazzy's bow should use ground icon of short bow, not long bow
 COPY_EXISTING ~npbow.itm~ ~override~
@@ -17021,7 +17021,7 @@ COPY_EXISTING ~telwrai.itm~  ~override~ // <invalid strref -1> needs 1 probabili
   LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 216 match_probability1 = 100 probability2 = 50 END // now fires only 50-99, one level drain
   LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 216 match_probability1 = 50 probability1 = 49 parameter1 = 2 END // now fires only 0-49, upped to two levels to compensate for other 216 changing percentages
   LPF CLONE_EFFECT INT_VAR match_opcode = 139 probability1 = 49 probability2 = 0 parameter1 = 40968 STR_VAR insert = last END     // add 'two levels drained' string to match
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // using wands on neutrals should make them hostile
 COPY_EXISTING ~wand04.itm~ ~override~ // wand of paralyzation
@@ -17185,7 +17185,7 @@ COPY_EXISTING ~projimag.spl~ ~override~
 // melee hit probabilities incorrect
 COPY_EXISTING ~sareveff.spl~ ~override~ // <invalid strref -1> needs 8 probabilities adjusted - stun on 11%; adjust manually
   LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 10 match_probability2 =  0 probability1 = 9 END // stun on 10% of hits, not 11%
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 // called shot effects kast two rounds instead of the listed ten seconds
 COPY_EXISTING ~spcl121.spl~ ~override~
@@ -17635,7 +17635,7 @@ COPY_EXISTING ~spwish12.spl~ ~override~ // hardiness (wish)
 // Time Stop (SPWI909, SPWISH17) plays EFF_M91 with wrong duration (should be set to half of the Time Stop effect duration due to the quirks of opcode 231).
 COPY_EXISTING ~spwish17.spl~ ~override~ // time stop (wish)
   LPF ALTER_EFFECT INT_VAR match_opcode = 174 match_duration = 72 duration = 36 END // time stop only runs half its listed duration
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
   
 // wild surge hold was using special, unblockable hold
 COPY_EXISTING ~spwm114.spl~ ~override~
@@ -17664,7 +17664,7 @@ COPY_EXISTING ~garlena.sto~  ~override~ // temple of helm
               ~type1.sto~    ~override~ // merchant
               ~udduer01.sto~ ~override~ // merchant
   LPF ALTER_STORE_ITEM STR_VAR match_item = scrl1v item = scrl2b END
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 /////                                                  \\\\\
 ///// pro fixes                                        \\\\\
@@ -18038,7 +18038,7 @@ COPY_EXISTING ~aurstaf.itm~  ~override~ // staff of the ram +4 needs 3 probabili
       END
     END
   END
-  BUT_ONLY
+  BUT_ONLY IF_EXISTS
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
