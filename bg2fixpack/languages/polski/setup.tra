@@ -2,7 +2,7 @@
   @1 = ~BG2 Fixpack - Poprawki tekstu~
   @2 = ~Dodatkowe ulepszenia~
   @3 = ~Ulatwienia i poprawki dla moderow~
-  @4 = ~To potrwa chwile ...~
+  @4 = ~To potrwa chwile...~
   @5 = ~Ten komponent jest tylko anglojezyczny.~
   @6 = ~Druzyna otrzymuje PD za odeslanie Keldorna by sie pogodzil z Maria~
   @7 = ~Ulepszone animacje zaklec~
@@ -21,9 +21,13 @@
  @20 = ~Ogolne poprawki BETA (Uwaga! Sprawdz README)~
  @21 = ~Dodatkowe poprawki charakterow~
  @22 = ~Ten komponent zostal usuniety.~
- @23 = ~Spraw by Swoboda dzialania chronila przed ogÅ‚uszeniem~
- @24 = ~Usuniecie mozliwosci rozproszenia Å‚ap dla Zmiany ksztaÅ‚tu~
+ @23 = ~Spraw by Swoboda dzialania chronila przed ogluszeniem~
+ @24 = ~Usuniecie mozliwosci rozproszenia lap dla Zmiany ksztaltu~
  @25 = ~Zmiany zachowania Zwodniczego sobowtora, Projekci obrazu i Zmylenia~
+ @26 = ~Wykryto instalacje poprzedniego fixpacka.~
+ @27 = ~Fixpack nie jest wymagany dla tej gry.~
+ @28 = ~Usun poczatkowy bonus do umiejetnosci zlodziejskich dla Barda i Lowcy~
+ @29 = ~Ten komponent wymaga instalacji TobEx.~
  
 @100 = ~Ale¿ nie przejmuj siê, i tak s³ucha³em jednym uchem.~ []
 @101 = ~Muszê to zrobiæ, jaluku. I nie masz chyba nic przeciwko, jeœli roz³upawszy mu ³eb na dwoje, przypiszê tobie jego wo³owate cechy, co?~
@@ -31,13 +35,14 @@
 @103 = ~Pope³niliœcie fatalny b³¹d w ocenie!~ [SILVER19]
 @104 = ~Tak wygl¹da twój koniec!~ [SILVER18]
 @105 = ~Witaj ponownie! Sprowadzi³y ciê tu interesy, czy chcesz podziwiaæ piêkno przyrody?~ [CERND79]
-@106 = ~To jest niebezpieczna broñ u¿ywana przez Neba, pokryta star¹ krwi¹ i trucizn¹, która nie tylko b³yskawicznie dzia³a, ale jest równie¿ niezwykle œmiercionoœna. Tylko naprawdê z³a istota mo¿e u¿ywaæ tego przedmiotu. 
+@106 = ~To jest niebezpieczna broñ u¿ywana przez Neba, pokryta star¹ krwi¹ i trucizn¹, która nie tylko b³yskawicznie dzia³a, ale jest równie¿ niezwykle œmiercionoœna. Tylko naprawdê z³a istota mo¿e u¿ywaæ tego przedmiotu.
+
 Trucizna ju¿ siê zu¿y³a, i broñ ta zachowuje siê jak zwyczajny sztylet o umagicznieniu +2.
 
 PARAMETRY:
 
 Obra¿enia: 1K4 +2
-TraK0:+2
+TraK0: +2
 Typ obra¿eñ: k³ute
 Waga: 1
 OpóŸnienie: 0
@@ -45,7 +50,7 @@ Rodzaj bieg³oœci: sztylet
 Typ broni: 1-rêczna
 Nie mo¿e u¿ywaæ:
  Kap³an
- Postaæ o nie charakterze dobrym lub neutralnym~
+ Postaæ o charakterze dobrym lub neutralnym~
 @107 = ~Pamiêtaj, by mieæ mo¿liwoœæ u¿ycia kwasu lub ognia. Trolli nie pokona siê niczym innym. Niech bogowie bêd¹ z tob¹. WeŸ te strza³y - przydadz¹ ci siê.~
 @108 = ~WeŸ te strza³y, przydadz¹ ci siê.~
 @109 = ~Przychodzisz tu nie bez powodu. No dalej - mów.~ [SILVER14]
@@ -99,18 +104,19 @@ S³u¿ê tylko Mistrzowi Mekrathowi.~ [HAERDA95]
 
 PARAMETRY:
 
-Obra¿enia: 1K4 +3, 1K2 od ognia
+Obra¿enia: 1K4 +3, +1K2 obra¿eñ od ognia
 TraK0: +3
 Typ obra¿eñ: pocisk (k³ute)
 Specjalne:
- Wraca do rêki w³aœciciela.
+ Wraca do rêki w³aœciciela
 Waga: 1
 OpóŸnienie: 1
 Rodzaj bieg³oœci: sztylet
 Typ broni: 1-rêczna
 Wymagana si³a: 3
 Nie mo¿e u¿ywaæ:
- Kap³an~ []
+ Kap³an
+ W³adca Zwierz¹t~ []
 @136 = ~Uderzenie czaru (Odrzucanie, Przemiany)
 Poziom: 9
 Zasiêg: pole widzenia
@@ -139,7 +145,7 @@ Po u¿yciu tej zdolnoœci Barbarzyñca na czas 5 rund uzyskuje premie +4 do Kondycj
 
 Wady:
 - Nie mo¿e u¿ywaæ zbroi p³ytowych.
-- Jest ograniczony do specjalizacji (2 punkty) w broni~ []
+- Jest ograniczony do specjalizacji (2 punkty) w broni.~ []
 @139 = ~Cep bojowy to toporna drewniana rêkojeœæ przymocowana do ¿elaznego prêta, drewnianego prêta z kolcami, albo kolczastej ¿elaznej kuli. Miêdzy rêkojeœci¹ a jej uzupe³nieniem znajduje siê ³¹czenie z ³añcucha b¹dŸ zawias. Ten cep zosta³ umagiczniony.
 
 PARAMETRY:
@@ -248,7 +254,7 @@ Nie mo¿e u¿ywaæ:
 
 // fix speed factor, originally string #2494
 @149 = ~W³ócznia uwi¹du +4
-Ta wyciosana z serca zmursza³ego Treanta w³ócznia pachnie œmierci¹. Kiedy chwytasz j¹ w swoje d³onie, wydaje jêk, jak gdyby niechêtnie pozwala³a dotkn¹æ siê ¿ywej istocie. W czasie walki, przy ka¿dym udanym trafieniu, W³ócznia uwi¹du wstrzykuje w ofiarê œmiercionoœn¹ truciznê.
+Ta wyciosana z serca zmursza³ego Treanta w³ócznia pachnie œmierci¹. Kiedy chwytasz j¹ w swoje d³onie, wydaje jêk, jak gdyby niechêtnie pozwala³a dotkn¹æ siê ¿ywej istocie. W czasie walki, przy ka¿dym udanym trafieniu, w³ócznia uwi¹du wstrzykuje w ofiarê œmiercionoœn¹ truciznê.
 
 PARAMETRY:
 
@@ -273,7 +279,7 @@ Nie mo¿e u¿ywaæ:
 PARAMETRY:
 
 Obra¿enia: 1K8 +1, +1 pkt. obra¿eñ od ognia
-TrAK0: +1
+TraK0: +1
 Typ obra¿eñ: sieczne
 Waga: 4
 OpóŸnienie: 4
@@ -281,9 +287,9 @@ Rodzaj bieg³oœci: d³ugi miecz
 Typ broni: 1-rêczna
 Wymagana si³a: 6
 Nie mo¿e u¿ywaæ:
-Druid
-Kap³an
-Mag~
+ Druid
+ Kap³an
+ Mag~
  
 // easiest translation evar
 @152 = ~~ [MUSTR08]
@@ -356,7 +362,7 @@ PRAWORZ¥DNY DOBRY, NEUTRALNY DOBRY: Pseudo smok
 KP: -2
 P¯: 24
 Odpornoœæ na magiê: 50%
-Zdolnoœci specjalne: 2 ataki na rundê z Trak0: 13 za 1k3 pkt. obra¿eñ. Ofiara musi wykonaæ rzut obronny przeciwko œmierci albo pada nieprzytomna na 2 tury. Regeneruje 1p¿/runda. Mo¿e tak¿e rzucaæ raz dziennie Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
+Zdolnoœci specjalne: 2 ataki na rundê z TraK0: 13 za 1K3 pkt. obra¿eñ. Ofiara musi wykonaæ rzut obronny przeciwko œmierci albo pada nieprzytomna na 2 tury. Regeneruje 1 P¯/rundê. Mo¿e tak¿e rzucaæ raz dziennie Rozmycie. Odporny na wysysanie poziomów, sen i petryfikacjê.
 
 PRAWORZ¥DNY NEUTRALNY: Fretka
 KP: 0
@@ -368,7 +374,7 @@ PRAWORZ¥DNY Z£Y: Chochlik
 KP: 2
 P¯: 18
 Odpornoœæ na magiê: 25%
-Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ czar Polimorfowanie siebie. Regeneruje 1p¿/runda.
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ czar Polimorfowanie siebie. Regeneruje 1 P¯/rundê.
 
 NEUTRALNY: Królik
 KP: 1
@@ -380,7 +386,7 @@ NEUTRALNY Z£Y: Mefit Py³u
 KP: 6
 P¯: 24
 Odpornoœæ na magiê: 10%
-Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, 50% odpornoœci na obra¿enia ciête, k³ute i pociskowe. Mo¿e rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie. Regeneruje 1p¿/runda. Odporny na wysysanie poziomów, sen i petryfikacjê.
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, 50% odpornoœci na obra¿enia ciête, k³ute i od pocisków. Mo¿e rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie. Regeneruje 1 P¯/rundê. Odporny na wysysanie poziomów, sen i petryfikacjê.
 
 CHAOTYCZNY DOBRY: Baœniowy smok
 KP: 4
@@ -398,30 +404,30 @@ CHAOTYCZNY Z£Y: Quasit
 KP: 2
 P¯: 24
 Odpornoœæ na magiê: 25%
-Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ Horror i Rozmycie. Regeneruje 1p¿/runda.~
+Zdolnoœci specjalne: Ca³kowita odpornoœæ na ogieñ, ch³ód i elektrycznoœæ. Mo¿e raz dziennie rzucaæ Horror i Rozmycie. Regeneruje 1 P¯/rundê.~
 @160 = ~To jest twój chowaniec, pseudo-smok, zwiniêty teraz w k³êbek w twoim plecaku. To jaszczuropodobne stworzenie jest doœæ inteligentne, szybkie i ca³kiem nieŸle uzbrojone. Choæ w walce wielkich obra¿eñ nie zadaje, jego magiczne szpony potrafi¹ pozbawiæ niektóre stworzenia przytomnoœci. Do tego jest doœæ odporny na magiê i potrafi rzucaæ Rozmycie.
 
 Klasa Pancerza: -2
 Punkty ¯ycia: 24
 Odpornoœæ na magiê: 50%
 Specjalne zdolnoœci:
- 2 ataki na rundê przy TraK0: 13 za 1k3  obra¿eñ
- Trafiony przeciwnik musi wykonaæ rzut obronny albo straci przytomnoœæ na 120 sekund.
+ 2 ataki na rundê przy TraK0: 13 za 1K3 pkt. obra¿eñ
+ Trafiony przeciwnik musi wykonaæ rzut obronny albo straci przytomnoœæ na 120 sekund
  Potrafi rzucaæ Rozmycie
- Regeneruje 1p¿/runda
+ Regeneruje 1 P¯/rundê
  Odporny na wysysanie poziomów, sen i petryfikacjê~
 @161 = ~To jest twój chowaniec, pseudo-smok, zwiniêty teraz w k³êbek w twoim plecaku. To jaszczuropodobne stworzenie jest doœæ inteligentne, szybkie i ca³kiem nieŸle uzbrojone.
 
-Klasa Pancerza: -0
+Klasa Pancerza: 0
 Punkty ¯ycia: 48
 Odpornoœæ na magiê: 35%
 Specjalne zdolnoœci:
- 2 ataki na rundê przy TraK0 8 za 1K6 obra¿eñ.
- Trafiony przeciwnik musi wykonaæ rzut obronny przeciw œmierci albo straci przytomnoœæ na 120 sekund.
- Potrafi rzucaæ Rozmycie i Duchowy pancerz raz na dzieñ oraz Wykrywaæ Iluzje dwa razy dziennie.~
+ 2 ataki na rundê przy TraK0 8 za 1K6 pkt. obra¿eñ
+ Trafiony przeciwnik musi wykonaæ rzut obronny przeciw œmierci albo straci przytomnoœæ na 120 sekund
+ Potrafi rzucaæ Rozmycie i Duchowy pancerz raz na dzieñ oraz Wykrywaæ Iluzje dwa razy dziennie~
 @162 = ~To jest twój chowaniec, fretka, obecnie zwiniêta w k³êbek w twoim plecaku. Fretka to niezwykle szybkie i zwinne stworzenie, trudne do trafienia i w magiczny sposób odporne zarówno na obra¿enia jak i na magiê. Osobliwa umiejêtnoœæ fretki dostawania siê prawie wszêdzie, gdzie wzrok nie siêga, czyni j¹ zrêcznym z³odziejaszkiem.
 
-Klasa pancerza: 0
+Klasa Pancerza: 0
 Punkty ¯ycia: 24
 Odpornoœæ na magiê: 50%
 Specjalne zdolnoœci:
@@ -429,11 +435,11 @@ Specjalne zdolnoœci:
  40% Krycie siê
  20% Wykrywanie pu³apek
  Potrafi rzucaæ Rozmycie
- Regeneruje 1p¿/runda
+ Regeneruje 1 P¯/rundê
  Odporny na wysysanie poziomów, sen i petryfikacjê~
 @163 = ~To jest twój chowaniec, fretka, obecnie zwiniêta w k³êbek w twoim plecaku. Fretka to niezwykle szybkie i zwinne stworzenie, trudne do trafienia i w magiczny sposób odporne zarówno na obra¿enia jak i na magiê. Osobliwa umiejêtnoœæ fretki dostawania siê prawie wszêdzie, gdzie wzrok nie siêga, czyni j¹ zrêcznym z³odziejaszkiem.
 
-Klasa pancerza: -4
+Klasa Pancerza: -4
 Punkty ¯ycia: 48
 Odpornoœæ na magiê: 65%
 Specjalne zdolnoœci:
@@ -441,114 +447,114 @@ Specjalne zdolnoœci:
  60% Krycie siê
  60% Wykrywanie pu³apek
  Potrafi rzucaæ Rozmycie
- Regeneruje 1p¿/runda
+ Regeneruje 1 P¯/rundê
  Odporny na wysysanie poziomów, sen i petryfikacjê~
 @164 = ~To jest twój chowaniec, chochlik, aktualnie zrzêdzi, mimo i¿ siedzi bezpiecznie w twoim plecaku. Chochlik to niezwyk³e stworzenie, które jest doœæ szybkie i czêœciowo odporne na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
 
-Klasa pancerza: 2
+Klasa Pancerza: 2
 Punkty ¯ycia: 18
 Odpornoœæ na magiê: 25%
 Odpornoœæ na ¿ywio³y: 100%
 Specjalne zdolnoœci:
  Potrafi rzucaæ zaklêcie Polimorfowanie siebie
- Regeneruje 1p¿/runda~
+ Regeneruje 1 P¯/rundê~
 @165 = ~To jest twój chowaniec, chochlik, aktualnie zrzêdzi, mimo i¿ siedzi bezpiecznie w twoim plecaku. Chochlik to niezwyk³e stworzenie, które jest doœæ szybkie i czêœciowo odporne na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
 
-Klasa pancerza: -2
+Klasa Pancerza: -2
 Punkty ¯ycia: 48
 Odpornoœæ na magiê: 35%
 Odpornoœæ na ¿ywio³y: 100%
 Specjalne zdolnoœci:
- Atak wyrz¹dza 1K6 obra¿eñ od trucizny (je¿eli istota nie wykona rzutu obronnego przeciwko œmierci, umrze).
- Potrafi rzucaæ zaklêcie Polimorfowanie siebie raz dziennie.
- Odporny na niemagiczn¹ broñ.
- Odporny na wysysanie poziomów, sen i petryfikacjê.
- Regeneracja 1p¿/runda~
+ Atak wyrz¹dza 1K6 obra¿eñ od trucizny (je¿eli istota nie wykona rzutu obronnego przeciwko œmierci, umrze)
+ Potrafi rzucaæ zaklêcie Polimorfowanie siebie raz dziennie
+ Odporny na niemagiczn¹ broñ
+ Odporny na wysysanie poziomów, sen i petryfikacjê
+ Regeneruje 1 P¯/rundê~
 @166 = ~To jest twój chowaniec, królik, zwiniêty w k³êbek i bezpieczny teraz w twoim plecaku. Królik mo¿e i nie jest chowañcem pierwszego wyboru, stworzenie to jednak jest niezwykle szybkie i trudne do trafienia w walce. Do tego zosta³o magicznie powiêkszone, w celu zwiêkszenia odpornoœci na obra¿enia fizyczne i czary. Królik posiada równie¿ przenikliwy zmys³ wêchu do wykrywania pu³apek w imieniu swojego pana.
 
-Klasa pancerza: 1
-Punkty ¿ycia: 24
+Klasa Pancerza: 1
+Punkty ¯ycia: 24
 Odpornoœæ na magiê: 65%
 Odpornoœæ na ¿ywio³y: 75%
 Specjalne zdolnoœci:
  50% Wykrywanie pu³apek
  30% Krycie siê
  Potrafi rzucaæ Rozmycie
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @167 = ~To jest twój chowaniec, królik, zwiniêty w k³êbek i bezpieczny teraz w twoim plecaku. Królik mo¿e i nie jest chowañcem pierwszego wyboru, stworzenie to jednak jest niezwykle szybkie i trudne do trafienia w walce. Królik posiada równie¿ przenikliwy zmys³ wêchu do wykrywania pu³apek w imieniu swojego pana.
 
-Klasa pancerza: 1
-Punkty ¿ycia: 48
+Klasa Pancerza: 1
+Punkty ¯ycia: 48
 Odpornoœæ na magiê: 65%
 Odpornoœæ na ¿ywio³y: 75%
 Specjalne zdolnoœci:
  85% Wykrywanie pu³apek
  60% Krycie siê
- 50% Wykrywanie umiejêtnoœci iluzji
+ 50% Wykrywanie iluzji
  Potrafi rzucaæ Rozmycie
- Królik porusza siê jakby ca³y czas by³ pod wp³ywem czaru przyspieszaj¹cego ruchy.
- Odpornoœæ na wysysanie poziomów, sen i petryfikacje.~
+ Królik porusza siê jakby ca³y czas by³ pod wp³ywem czaru przyspieszaj¹cego ruchy
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacje~
 @168 = ~To jest twój chowaniec, mefit py³u, bezpieczny obecnie w twoim plecaku. Mefit py³u nie jest silny w walce, ale posiada pewn¹ odpornoœæ na ataki magiczne i umiejêtnoœæ rzucania czaru B³yszcz¹cy py³ dwa razy dziennie.
 
-Klasa pancerza: 6
-Punkty ¿ycia: 24
+Klasa Pancerza: 6
+Punkty ¯ycia: 24
 Odpornoœæ na magiê: 10%
 Specjalne zdolnoœci:
- Potrafi rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie.
- Odporny na ogieñ.
- 50% odpornoœci na obra¿enia sieczne, k³ute i pociskowe.
- Regeneruje 1p¿/runda
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Potrafi rzucaæ B³yszcz¹cy py³ raz dziennie i Szklany py³ dwa razy dziennie
+ Odporny na ogieñ
+ 50% odpornoœci na obra¿enia sieczne, k³ute i od pocisków
+ Regeneruje 1 P¯/rundê
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @169 = ~To jest twój chowaniec, mefit py³u, bezpieczny obecnie w twoim plecaku. Mefit py³u nie jest silny w walce, ale posiada pewn¹ odpornoœæ na ataki magiczne i jest w stanie asystowaæ swojemu panu w rzucaniu czarów.
 
-Klasa pancerza: 3
-Punkty ¿ycia: 48
+Klasa Pancerza: 3
+Punkty ¯ycia: 48
 Odpornoœæ na magiê: 25%
 Specjalne zdolnoœci:
- Potrafi rzucaæ B³yszcz¹cy py³, Kamienn¹ skórê i Têczowe kolory raz dziennie oraz Szklany py³ dwa razy dziennie.
- Odporny na ogieñ.
- 60% odpornoœci na obra¿enia sieczne, k³ute i pociskowe.
- Regeneruje 1p¿/runda
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Potrafi rzucaæ B³yszcz¹cy py³, Kamienn¹ skórê i Têczowe kolory raz dziennie oraz Szklany py³ dwa razy dziennie
+ Odporny na ogieñ
+ 60% odpornoœci na obra¿enia sieczne, k³ute i od pocisków
+ Regeneruje 1 P¯/rundê
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @170 = ~To jest twój chowaniec, baœniowy smok, zwiniêty obecnie w k³êbek w twoim plecaku. Ten psotnik jest doœæ odporny na magiê i posiada zarówno umiejêtnoœæ bronienia jak i zas³aniania siê swoj¹ w³asn¹ iluzoryczn¹ magi¹.
 
-Klasa pancerza: 4
+Klasa Pancerza: 4
 Punkty ¯ycia: 24
 Odpornoœæ na magiê: 32%
 Specjalne zdolnoœci:
- Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m.
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @171 = ~To jest twój chowaniec, baœniowy smok, zwiniêty obecnie w k³êbek w twoim plecaku. Ten psotnik jest doœæ odporny na magiê i posiada zarówno umiejêtnoœæ bronienia jak i zas³aniania siê swoj¹ w³asn¹ iluzoryczn¹ magi¹.
 
-Klasa pancerza: 0
+Klasa Pancerza: 0
 Punkty ¯ycia: 48
 Odpornoœæ na magiê: 45%
 Specjalne zdolnoœci:
- Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m i Ulepszon¹ niewidzialnoœæ.
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Mo¿e raz dziennie rzucaæ Lustrzane odbicie i Niewidzialnoœæ, promieñ 3 m oraz Ulepszon¹ niewidzialnoœæ
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @172 = ~To jest twój kot-chowaniec, obecnie zwiniêty w k³êbek i bezpieczny w twoim plecaku. Jest on mistrzem zwiadu i potrafi poruszaæ siê w cieniu z wpraw¹ najlepszych z³odziei. Ciê¿ko jest go trafiæ w walce, a magia zaklêcia uczyni³a go odpornym na ataki zarówno fizyczne, jak i magiczne.
 
 Klasa Pancerza: 0
 Punkty ¯ycia: 24
 Odpornoœæ na magiê: 50%
-W³aœciwoœci specjalne:
+Specjalne zdolnoœci:
  99% Ciche chodzenie
  99% Krycie siê w cieniu
  30% Kradzie¿ kieszonkowa
  Potrafi rzucaæ Rozmycie
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @173 = ~To jest twój kot-chowaniec, obecnie zwiniêty w k³êbek i bezpieczny w twoim plecaku. Jest on mistrzem zwiadu i potrafi poruszaæ siê w cieniu z wpraw¹ najlepszych z³odziei. Ciê¿ko jest go trafiæ w walce, a magia zaklêcia uczyni³a go odpornym na ataki zarówno fizyczne, jak i magiczne.
 
 Klasa Pancerza: -4
 Punkty ¯ycia: 48
 Odpornoœæ na magiê: 65%
-W³aœciwoœci specjalne:
+Specjalne zdolnoœci:
  99% Ciche chodzenie
  99% Krycie siê w cieniu
  60% Znajdywanie pu³apek
- 60% Wykrywanie iluzji i niewidzialnoœci
+ 60% Wykrywanie iluzji
  Potrafi rzucaæ Rozmycie
- Odpornoœæ na wysysanie poziomów, sen i petryfikacjê.~
+ Odpornoœæ na wysysanie poziomów, sen i petryfikacjê~
 @174 = ~To jest twój chowaniec, quasit, aktualni zrzêdzi, chocia¿ siedzi bezpiecznie w twoim plecaku. Quasit jest ma³ym, piekielnym stworzeniem, które nie doœæ, ¿e jest szybkie, to równie¿ czêœciowo niewra¿liwe na magiê. Ponadto posiada zdolnoœæ rzucania zaklêæ w imieniu swojego pana.
 
 Klasa Pancerza: 2
@@ -556,8 +562,8 @@ Punkty ¯ycia: 24
 Odpornoœæ na magiê: 25%
 Odpornoœæ na ¿ywio³y: 100%
 Specjalne zdolnoœci:
- Potrafi rzucaæ czar Groza i Rozmycie.
- Regeneruje 1p¿/runda.~
+ Potrafi rzucaæ czar Groza i Rozmycie
+ Regeneruje 1 P¯/rundê~
 @175 = ~To jest twój chowaniec, quasit, aktualni zrzêdzi, chocia¿ siedzi bezpiecznie w twoim plecaku. Quasit jest ma³ym, piekielnym stworzeniem, które nie doœæ, ¿e jest szybkie, to równie¿ czêœciowo niewra¿liwe na magiê.
 
 Klasa Pancerza: -2
@@ -565,7 +571,7 @@ Punkty ¯ycia: 48
 Odpornoœæ na magiê: 35%
 Odpornoœæ na ¿ywio³y: 100%
 Specjalne zdolnoœci:
- Potrafi rzucaæ czar Groza i Rozmycie.
- Mo¿e wykonaæ 3 ataki na rundê, ofiara doznaje 1K6 obra¿eñ plus musi wykonaæ rzut obronny przeciw œmierci, jeœli nie chce otrzymaæ modyfikatora -1 do Zrêcznoœci na 6 rund.
- Regeneruje 1p¿/runda
- Odpornoœæ na zwyk³e bronie.~
+ Potrafi rzucaæ czar Groza i Rozmycie
+ Mo¿e wykonaæ 3 ataki na rundê, ofiara doznaje 1K6 obra¿eñ plus musi wykonaæ rzut obronny przeciw œmierci, jeœli nie chce otrzymaæ modyfikatora -1 do Zrêcznoœci na 6 rund
+ Regeneruje 1 P¯/rundê
+ Odpornoœæ na zwyk³e bronie~
