@@ -57,7 +57,7 @@ Nie mo¿e u¿ywaæ:
 @110 = ~Nie oczekiwa³am kogoœ takiego jak ty.~ [SILVER12]
 @111 = ~Witam ciê przed sob¹.~ [SILVER11]
 @112 = ~Widzê, ¿e jesteœ.~ [SILVER13]
-@113 = ~Nie zginê tu dzisiaj.. nie!~ [SILVER22]
+@113 = ~Nie zginê tu dzisiaj... nie!~ [SILVER22]
 @114 = ~Nie mo¿esz rzucaæ zaklêcia do czasu, gdy nie skoñczysz poprzedniego.~
 @115 = ~P³on¹cy d³ugi miecz +1~
 @116 = ~Wiekiera +3~
@@ -100,7 +100,9 @@ Mo¿e u¿ywaæ:
 S³u¿ê tylko Mistrzowi Mekrathowi.~ [HAERDA95]
 @133 = ~Na brodê ciotki Petunii! Duch z mojej przesz³oœci? Mo¿e pragniesz kupiæ nieco rzepy?~ [JANJAN67]
 @134 = ~Stój! Kto idzie? Tyœ... tyœ jest Dzieciêciem Bhaala, czy¿ nie? Tym, któremu Joneleth... Jon... rzekomo ukrad³ moc? Twierdzi³, ¿e ciê zabi³!~ [ELLESI02]
-@135 = ~Ten sztylet jest obdarzony magicznym ogniem i prawdopodobnie zosta³ zrobiony z zêba czerwonego smoka. Opowieœci z tawern sugeruj¹, ¿e ta bestia wci¹¿ ¿yje, a jej gniew podsyca zaklêcie broni. Historia fantazyjna, ale logiczna. Powiadaj¹ tak¿e, ¿e sztylet powraca do rzucaj¹cego "jakby na skrzyd³ach".
+@135 = ~Sztylet do rzucania +3: 'Ognisty kie³'
+
+Ten sztylet jest obdarzony magicznym ogniem i prawdopodobnie zosta³ zrobiony z zêba czerwonego smoka. Opowieœci z tawern sugeruj¹, ¿e ta bestia wci¹¿ ¿yje, a jej gniew podsyca zaklêcie broni. Historia fantazyjna, ale logiczna. Powiadaj¹ tak¿e, ¿e sztylet powraca do rzucaj¹cego "jakby na skrzyd³ach".
 
 PARAMETRY:
 
@@ -116,7 +118,7 @@ Typ broni: 1-rêczna
 Wymagana si³a: 3
 Nie mo¿e u¿ywaæ:
  Kap³an
- W³adca Zwierz¹t~ []
+ W³adca zwierz¹t~ []
 @136 = ~Uderzenie czaru (Odrzucanie, Przemiany)
 Poziom: 9
 Zasiêg: pole widzenia
@@ -243,6 +245,7 @@ Nie mo¿e u¿ywaæ:
 @148 = ~Najlepsza (i najciê¿sza) zbroja, jak¹ wojownik mo¿e zdobyæ - zarówno pod wzglêdem wygl¹du, jak i ochrony, któr¹ zapewnia. Jej znakomicie dopasowane, po³¹czone elementy z litego metalu s¹ specjalnie modelowane, by jak najlepiej odbija³y tak uderzenia broni ró¿nego typu, jak i strza³y. Zwykle zbroja tego rodzaju jest bogato zdobiona - artystycznie grawerowana i upiêkszana ró¿nymi dodatkami. Ta zbroja +2 zosta³a stworzona zaklêciem Ograniczone ¿yczenie.
 
 PARAMETRY:
+
 Klasa Pancerza: -1
 Waga: 40
 Wymagana si³a: 15
