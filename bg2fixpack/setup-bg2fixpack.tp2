@@ -9190,6 +9190,8 @@ END
 ACTION_CLEAR_ARRAY cd_bulk_item_fixes
 ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
 
+  aegis    => 3 // aegis fang, real
+  aegis2   => 3 // aegis fang, droppable version
   arow04   => 1 // acid arrows
   bearspir => 3 // weapon of totemic druid summon
   bolt07   => 1 // Flasher Master Bruiser Mate
