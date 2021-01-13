@@ -28,6 +28,9 @@
  @27 = ~Fixpack nie jest wymagany dla tej gry.~
  @28 = ~Usun poczatkowy bonus do umiejetnosci zlodziejskich dla Barda i Lowcy~
  @29 = ~Ten komponent wymaga instalacji TobEx.~
+ @33 = ~Komponent "Podstawowe poprawki" jest wymagany, aby moc zainstalowac ten komponent.~
+ @36 = ~Jako dzien przyjmuje sie 24 godziny~
+ @37 = ~Jako dzien przyjmuje sie godziny pracy (8 godzin)~
  
 @100 = ~Ale¿ nie przejmuj siê, i tak s³ucha³em jednym uchem.~ []
 @101 = ~Muszê to zrobiæ, jaluku. I nie masz chyba nic przeciwko, jeœli roz³upawszy mu ³eb na dwoje, przypiszê tobie jego wo³owate cechy, co?~
@@ -72,29 +75,31 @@ Nie mo¿e u¿ywaæ:
 @125 = ~Cep bojowy wieków +2~
 @126 = ~~ [FAMCAT01]
 @127 = ~Hej, tam! Kolejni Zakapturzeni albo ich s³ugi, nie ma w¹tpliwoœci! Klnê siê na bogów, ¿e ¿ywi nie zaci¹gniecie mnie do tej przeklêtej kuli!~ [VALYGA01]
-@128 = ~Œwiêty Symbol Baervana~
+@128 = ~Œwiêty symbol Baervana~
 @129 = ~Te niezwykle potê¿ne œwiête symbole mog¹ otrzymaæ tylko najbardziej oddani s³udzy Zamaskowanego Liœcia.
 
 PARAMETRY:
 
- Zapewnia dodatkowe zaklêcie 6. i 7. poziomu.
- Kiedy siê go nosi, w³aœciciel otrzymuje dodatkowe 5% odpornoœci na magiê
- Kiedy siê go nosi, w³aœciciel otrzymuje +1 do Si³y.
-
+Specjalne:
+ Pozwala zapamiêtaæ po jednym dodatkowym zaklêciu kap³ana z 6. i 7. poziomu
+ +5% do odpornoœci na magiê
+ +1 do Si³y
+Waga: 0
 Mo¿e u¿ywaæ:
- Dobry kap³an~
+ Kap³an o charakterze dobrym~
 
-@130 = ~Œwiêty Symbol Shar~
+@130 = ~Œwiêty symbol Shar~
 @131 = ~Te niezwykle potê¿ne œwiête symbole mog¹ otrzymaæ tylko najbardziej oddani s³udzy Pani Nocy i Zagubienia.
 
 PARAMETRY:
 
- Zapewnia dodatkowe zaklêcie 6. i 7. poziomu.
- Kiedy siê go nosi, w³aœciciel otrzymuje dodatkowe 5% odpornoœci na magiê
- Kiedy siê go nosi, w³aœciciel otrzymuje +1 do Si³y.
-
+Specjalne:
+ Pozwala zapamiêtaæ po jednym dodatkowym zaklêciu kap³ana z 6. i 7. poziomu
+ +5% do odpornoœci na magiê
+ +1 do Si³y
+Waga: 0
 Mo¿e u¿ywaæ:
- Z³y kap³an~
+ Kap³an o charakterze z³ym~
 @132 = ~(Mê¿czyzna patrzy na ciebie obojêtnie przez chwilê, po czym mówi)
 
 S³u¿ê tylko Mistrzowi Mekrathowi.~ [HAERDA95]
@@ -257,7 +262,8 @@ Nie mo¿e u¿ywaæ:
 
 // fix speed factor, originally string #2494
 @149 = ~W³ócznia uwi¹du +4
-Ta wyciosana z serca zmursza³ego Treanta w³ócznia pachnie œmierci¹. Kiedy chwytasz j¹ w swoje d³onie, wydaje jêk, jak gdyby niechêtnie pozwala³a dotkn¹æ siê ¿ywej istocie. W czasie walki, przy ka¿dym udanym trafieniu, w³ócznia uwi¹du wstrzykuje w ofiarê œmiercionoœn¹ truciznê.
+
+Ta wyciosana z serca zmursza³ego drzewca w³ócznia pachnie œmierci¹. Kiedy chwytasz j¹ w swoje d³onie, wydaje jêk, jak gdyby niechêtnie pozwala³a dotkn¹æ siê ¿ywej istocie. W czasie walki, przy ka¿dym udanym trafieniu, w³ócznia uwi¹du wstrzykuje w ofiarê œmiercionoœn¹ truciznê.
 
 PARAMETRY:
 
@@ -281,7 +287,7 @@ Nie mo¿e u¿ywaæ:
 
 PARAMETRY:
 
-Obra¿enia: 1K8 +1, +1 pkt. obra¿eñ od ognia
+Obra¿enia: 1K8 +1, +1 pkt obra¿eñ od ognia
 TraK0: +1
 Typ obra¿eñ: sieczne
 Waga: 4
