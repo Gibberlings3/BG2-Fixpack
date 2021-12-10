@@ -126,8 +126,8 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
   41385 => 172 // soa cat familiar item description
   45869 => 138 // Barbarian rage missing protection list
   45889 => 159 // find familiar spell descript
-  46589 => 157 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
-  46590 => 158 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
+  46589 => 157 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
+  46590 => 158 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
   58250 => 134 // [ELLESI02] sound restoration
   60724 => 112 // adalon soundset restoration
   60741 => 113 // adalon soundset restoration
@@ -822,6 +822,7 @@ COMPILE ~bg2fixpack/compile/soa-dlg.d~    // all dialogue fixes
         ~bg2fixpack/compile/rogre.baf~    // corrupted scrpt; compile new one with uncorrupted bits
         ~bg2fixpack/compile/rsiren.baf~   // corrupted scrpt; compile new one with uncorrupted bits
         ~bg2fixpack/compile/rsirine.baf~  // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/sahkng02.baf~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
 COPY_EXISTING ~ar0512.bcs~ ~override/ar1700.bcs~ // small teeth pass also using old BG script
               ~ar0512.bcs~ ~override/ar1800.bcs~ // north forest also using old BG script
 
@@ -1988,7 +1989,7 @@ COPY_EXISTING ~ar2100.bcs~ ~override~
 // deirex killed during cutscene fix 1/2; see jarlich.cre
 EXTEND_BOTTOM ~ar2207.bcs~ ~bg2fixpack/baf/ar2207.baf~
 
-// prevent dupe CoC items; see also sahkng01.bcs, sahkng01.dlg, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+// prevent dupe CoC items; see also sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
 EXTEND_BOTTOM ~ar2300.bcs~   ~bg2fixpack/baf/ar2300.baf~
 
 // alignment change if evil path in hell trials; other fixes in teardoor.bcs and spin747.spl, spin749-51.spl, spin753.spl, apin755.spl
@@ -2609,10 +2610,10 @@ COPY_EXISTING ~runenemy.bcs~ ~override~
   END
   BUT_ONLY
 
-// prevent dupe CoC items; see also ar2300.bcs, sahkng01.dlg, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
-EXTEND_BOTTOM ~sahkng01.bcs~ ~bg2fixpack/baf/sahkng01.baf~
+// prevent dupe CoC items; see also ar2300.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+EXTEND_BOTTOM ~sahkng01.bcs~ ~bg2fixpack/compile/sahkng02.baf~
 
-// prevent dupe CoC items; see also ar2300.bcs, sahkng01.dlg, sahpr2.dlg, sahpr4.cre, sahkng01.bcs, string sets
+// prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, string sets
 COPY_EXISTING ~sahtreas.bcs~ ~override~
   DECOMPILE_AND_PATCH BEGIN
     REPLACE_TEXTUALLY ~\(Global("sahkngjob","GLOBAL",2)\)~ ~\1 OR(2) HasItem("rods02",Myself) HasItem("brac19",Myself)~
@@ -6463,6 +6464,10 @@ COPY_EXISTING ~sahextra.cre~ ~override~
   LPF cd_equip_item STR_VAR item = "xbow01" slot = "weapon" END // legit item not assigned to slot
   BUT_ONLY
 
+COPY_EXISTING ~sahkng02.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+  ADD_CRE_ITEM miscbi #0 #0 #0 NONE ~INV~
+  BUT_ONLY
+
 COPY_EXISTING ~sahlace.cre~  ~override~
   REMOVE_CRE_ITEM ghoul1 // delete unassigned item
   LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = all END // summons shouldn't drop items
@@ -6472,7 +6477,7 @@ COPY_EXISTING ~sahoty01.cre~ ~override~
   REMOVE_CRE_ITEM b2-8 // delete unassigned item
   BUT_ONLY
 
-COPY_EXISTING ~sahpr4.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahpr2.dlg, sahtreas.bcs, string sets
+COPY_EXISTING ~sahpr4.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahtreas.bcs, string sets
   REMOVE_CRE_ITEM misc8q
   BUT_ONLY
 
@@ -8008,6 +8013,10 @@ COPY_EXISTING ~ppmag01.cre~ ~override~
 // assigns amalas.bcs to Amalas as his override script
 COPY_EXISTING ~ruffian.cre~ ~override~
   WRITE_ASCII 0x248 ~AMALAS~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~sahkng02.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+  WRITE_ASCII 0x258 ~sahkng02~ #8
   BUT_ONLY
 
 // fixes sahzomb flags

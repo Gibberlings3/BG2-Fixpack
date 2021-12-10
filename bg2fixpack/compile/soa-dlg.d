@@ -1524,7 +1524,7 @@ BEGIN 0 END
 BEGIN END
 ~SetGlobal("D0SpokenSpectator","GLOBAL",1)~
 
-// prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahpr4.cre, sahtreas.bcs, string sets
+// prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng02.bcs, sahkng02.cre, sahpr4.cre, sahtreas.bcs, string sets
 REPLACE_ACTION_TEXT SAHPR2 ~GiveItemCreate("key24",LastTalkedToBy,0,0,0)~ ~~
 REPLACE_ACTION_TEXT SAHPR2 ~GiveItemCreate("miscbi",LastTalkedToBy,0,0,0)~ ~~
 EXTEND_BOTTOM SAHKNG01 81
