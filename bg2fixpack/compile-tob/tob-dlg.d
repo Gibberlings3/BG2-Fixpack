@@ -42,6 +42,9 @@ ADD_TRANS_TRIGGER BANOME25 51 ~IsValidForPartyDialogue("Korgan")~ DO 1
 ADD_TRANS_TRIGGER BANOME25 51 ~IsValidForPartyDialogue("Mazzy")~ DO 2
 ADD_TRANS_TRIGGER BANOME25 51 ~IsValidForPartyDialogue("Jaheira")~ DO 3
 ADD_TRANS_TRIGGER BANOME25 51 ~IsValidForPartyDialogue("Keldorn")~ DO 4
+
+// force-talking draconis can cause bad things; see also bazdra01.bcs
+ADD_TRANS_ACTION BAZDRA01 BEGIN 5 END BEGIN END ~SetGlobal("cd_transform","LOCALS",1)~
   
 // Anomen should not speak ill of the Order during his banters with Imoen unless he had failed his test (Wisp)
 ALTER_TRANS bimoen25 BEGIN 14 16 END BEGIN 0 END BEGIN "TRIGGER" ~!Alignment("Anomen",CHAOTIC_NEUTRAL)~ END
@@ -69,6 +72,9 @@ BEGIN 81 82 127 END
 BEGIN END
 ~RestParty()~
 
+// love talk could repeat as variable not bumped
+ADD_TRANS_ACTION BVICON25 BEGIN 125 END BEGIN END ~IncrementGlobal("ExpLoveTalk","LOCALS",1)~
+
 // Thieves and Bards now properly receive a Dexterity bonus upon drawing the "STAR" card from the Deck of Many Things (Nythrun)
 ALTER_TRANS domt BEGIN 19 END BEGIN 3 END BEGIN
     ~TRIGGER~ ~OR(2)
@@ -89,6 +95,11 @@ REPLACE_ACTION_TEXT_REGEXP ~^famil[1-3]25$~ ~\(GiveItemCreate("FAM[A-Z]+25",Play
 ADD_TRANS_TRIGGER FSSPIR2 5 ~See("Imoen2")~  DO 1
 ADD_TRANS_TRIGGER FSSPIR2 5 ~See("Viconia")~ DO 2
 ADD_TRANS_TRIGGER FSSPIR2 5 ~See("Jaheira")~ DO 3
+
+// solo players w/o remove curse can get permanently screwed with high priestess draw
+EXTEND_BOTTOM GORCAMB 62
+  IF ~RandomNum(2,1) NumInParty(1)~ THEN DO ~SetGlobal("PlayerDraw","GLOBAL",4)~ GOTO 35 // sub strife for high priestess, but only for solo players
+END
 
 // brother Odren dialogue fixes; just adding dialogue interrupts here
 ALTER_TRANS GORODR1 BEGIN 41 END BEGIN 0 END // filename, state, trans

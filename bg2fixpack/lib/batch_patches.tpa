@@ -888,6 +888,7 @@ COPY_EXISTING ~abazring.itm~ ~override~ // ring, 2 new effects from cd_immunity_
               ~killsw01.itm~ ~override~ // long sword +2, 1 new effects from cd_immunity_web_arrays
               ~mistpo01.cre~ ~override~ // poison mist, 2 new effects from cd_immunity_web_arrays
               ~npplat.itm~   ~override~ // firecam full-plate armor, 1 new effects from cd_immunity_web_arrays
+              ~plyspid.itm~  ~override~ // weapon for polymorphed spider
               ~rossring.itm~ ~override~ // ring of free action, 1 new effects from cd_immunity_web_arrays
               ~sw2h06.itm~   ~override~ // spider's bane, 1 new effects from cd_immunity_web_arrays
               ~sw2h13.itm~   ~override~ // spider's bane, 1 new effects from cd_immunity_web_arrays
@@ -1486,6 +1487,77 @@ COPY_EXISTING ~amul17.itm~   ~override~ // greenstone amulet, 1 new effects from
               ~potn21.itm~   ~override~ // potion of clarity, 1 new effects from cd_immunity_feeblemind_arrays
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_feeblemind_arrays END
   BUT_ONLY IF_EXISTS
+
+// adds string and portrait icon to stuns; items commented out already have the full suite but were getting flagged since they use an alt stun string
+COPY_EXISTING ~carrio.itm~   ~override~ // ghoul hand, 2 new effects from cd_full_stun_arrays
+              ~cornugon.itm~ ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~demcor01.itm~ ~override~ // skull, 2 new effects from cd_full_stun_arrays
+              ~deva.itm~     ~override~ // mace of disruption +2, 1 new effects from cd_full_stun_arrays
+              ~elemhydr.itm~ ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~fampsdat.itm~ ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~ghoulc.itm~   ~override~ // ghoul hand, 2 new effects from cd_full_stun_arrays
+              ~goltome4.itm~ ~override~ // attack, 1 new effects from cd_full_stun_arrays
+              ~gorcamb.itm~  ~override~ // two-handed sword +2, 1 new effects from cd_full_stun_arrays
+              ~gorsnake.itm~ ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~icetrl.itm~   ~override~ // attack, 2 new effects from cd_full_stun_arrays
+              ~mepsal.itm~   ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~misc3h.itm~   ~override~ // horn of blasting, 1 new effects from cd_full_stun_arrays
+              ~mistwa.itm~   ~override~ // skull, 1 new effects from cd_full_stun_arrays
+              ~ravag02.itm~  ~override~ // boneblade +4, 1 new effects from cd_full_stun_arrays
+              ~sareveff.spl~ ~override~ // <invalid strref -1>, 1 new effects from cd_full_stun_arrays
+              ~slng06.itm~   ~override~ // sling of arvoreen +4, 1 new effects from cd_full_stun_arrays
+              ~spcl123.spl~  ~override~ // <invalid strref -1>, 2 new effects from cd_full_stun_arrays
+//              ~spdr101.spl~  ~override~ // chromatic orb, 2 new effects from cd_full_stun_arrays
+              ~spermel.itm~  ~override~ // spear, 1 new effects from cd_full_stun_arrays
+              ~spin543.spl~  ~override~ // inflict pain, 1 new effects from cd_full_stun_arrays
+              ~spin727.spl~  ~override~ // psionic blast, 1 new effects from cd_full_stun_arrays
+              ~spin832.spl~  ~override~ // silver dragon paralyzation, 1 new effects from cd_full_stun_arrays
+              ~spin834.spl~  ~override~ // psionic blast, 1 new effects from cd_full_stun_arrays
+              ~spin927.spl~  ~override~ // boiling rain storm, 1 new effects from cd_full_stun_arrays
+              ~spin934.spl~  ~override~ // salt crystals, 1 new effects from cd_full_stun_arrays
+              ~spin944.spl~  ~override~ // power word, stun, 1 new effects from cd_full_stun_arrays
+              ~spin959.spl~  ~override~ // psionic blast, 1 new effects from cd_full_stun_arrays
+              ~spin974.spl~  ~override~ // psionic blast, 1 new effects from cd_full_stun_arrays
+              ~sppr718.spl~  ~override~ // symbol, stun, 4 new effects from cd_full_stun_arrays
+//              ~sppr984.spl~  ~override~ // chromatic orb, 1 new effects from cd_full_stun_arrays
+//              ~spwi118.spl~  ~override~ // chromatic orb, 2 new effects from cd_full_stun_arrays
+              ~spwi816.spl~  ~override~ // symbol, stun, 3 new effects from cd_full_stun_arrays
+              ~spwi959.spl~  ~override~ // power word, stun, 1 new effects from cd_full_stun_arrays
+              ~spwm152.spl~  ~override~ // polymorph other, 2 new effects from cd_full_stun_arrays
+//              ~staf12.itm~   ~override~ // staff of power, 1 new effects from cd_full_stun_arrays - now handled by cdstaf12.spl
+              ~staf13.itm~   ~override~ // staff of thunder and lightning, 1 new effects from cd_full_stun_arrays
+              ~sw1h51.itm~   ~override~ // celestial fury, 2 new effects from cd_full_stun_arrays
+  LPF cd_apply_batch STR_VAR array_name = cd_full_stun_arrays END // adds string/icon to stun effects
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~plyspid.itm~ ~override~ // weapon for polymorphed spider
+  LPF cd_apply_batch INT_VAR force_cosmetic = 1 STR_VAR array_name = cd_immunity_web_arrays END // undroppable but player-available via polymorph so needs cosmetic protections
+  BUT_ONLY
+
+// alters spell school immunities to cover AoE spells in school
+COPY_EXISTING ~spwi590.spl~  ~override~ // immunity: abjuration, 24 new effects from cd_immunity_abjuration
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_abjuration END
+  BUT_ONLY
+
+// alters spell school immunities to cover AoE spells in school
+COPY_EXISTING ~spwi591.spl~  ~override~ // immunity: conjuration, 84 new effects from cd_immunity_conjuration
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_conjuration END
+  BUT_ONLY
+
+// alters spell school immunities to cover AoE spells in school
+COPY_EXISTING ~spwi595.spl~  ~override~ // immunity: evocation, 120 new effects from cd_immunity_evocation
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_evocation END
+  BUT_ONLY
+
+// alters spell school immunities to cover AoE spells in school
+COPY_EXISTING ~spwi596.spl~  ~override~ // immunity: necromancy, 60 new effects from cd_immunity_necromancy
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_necromancy END
+  BUT_ONLY
+
+// alters spell school immunities to cover AoE spells in school
+COPY_EXISTING ~spwi597.spl~  ~override~ // immunity: alteration, 60 new effects from cd_immunity_alteration
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_alteration END
+  BUT_ONLY
 
 // imoen's belt is tricky--undroppable, so cosmetic protections get skipped in the batches
 // e.g. she's immune to level drain, but the energy drain icon would still appear
