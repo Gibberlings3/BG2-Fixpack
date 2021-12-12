@@ -1,0 +1,1635 @@
+/////                                                  \\\\\
+///// bulk area fixes                                  \\\\\
+/////                                                  \\\\\
+
+// adds new entrance points to wmp areas that don't have one already (second half of wmp fixes, see worldmap.wmp)
+COPY_EXISTING ~ar1700.are~ ~override~
+              ~ar1800.are~ ~override~
+              ~ar2500.are~ ~override~
+              ~ar2600.are~ ~override~
+  PATCH_IF ("ar1700" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN
+    SET "x_coord" = 3375
+    SET "y_coord" = 142
+  END ELSE
+  PATCH_IF ("ar1800" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN
+    SET "x_coord" = 1325
+    SET "y_coord" = 56
+  END ELSE
+  PATCH_IF ("ar2500" STRING_COMPARE_CASE ~%SOURCE_RES%~ = 0) BEGIN
+    SET "x_coord" = 404
+    SET "y_coord" = 125
+  END ELSE BEGIN // ar2600
+    SET "x_coord" = 3856
+    SET "y_coord" = 115
+  END
+  READ_LONG  0x68 ent_off
+  WRITE_LONG 0x6c (THIS + 1) // entrance number
+  INSERT_BYTES ent_off 0x68
+    WRITE_ASCII (ent_off       ) ~CDExit~ // entrance name
+    WRITE_SHORT (ent_off + 0x20) x_coord
+    WRITE_SHORT (ent_off + 0x22) y_coord
+  PATCH_FOR_EACH offset IN 0x54 0x5c 0x60 0x6c 0x70 0x78 0x7c 0x84 0x88 0xa0 0xa8 0xb0 0xb8 0xbc 0xc0 0xc4 BEGIN
+    READ_LONG offset val
+    PATCH_IF val >= ent_off BEGIN
+      WRITE_LONG offset (THIS + 0x68)
+    END
+  END
+  BUT_ONLY
+
+// some areas have scripts that are not assigned to them
+COPY_EXISTING ~ar0321.are~ ~override~
+              ~ar0323.are~ ~override~
+              ~ar0324.are~ ~override~
+              ~ar0327.are~ ~override~
+              ~ar0401.are~ ~override~
+              ~ar1005.are~ ~override~
+              ~ar1009.are~ ~override~ // has wrong script assigned; could cause cutscene hangs
+              ~ar1904.are~ ~override~
+              ~ar5004.are~ ~override~
+  WRITE_ASCIIE 0x94 ~%SOURCE_RES%~ #8
+  BUT_ONLY IF_EXISTS
+
+// adds outdoor flag
+COPY_EXISTING ~ar0041.are~ ~override~
+              ~ar0042.are~ ~override~
+              ~ar0044.are~ ~override~
+              ~ar0045.are~ ~override~
+              ~ar1607.are~ ~override~
+              ~ar2806.are~ ~override~
+  WRITE_BYTE 0x48 (THIS BOR BIT0)
+  BUT_ONLY
+
+// removes outdoor flag
+COPY_EXISTING ~ar0321.are~ ~override~
+              ~ar0322.are~ ~override~
+              ~ar0323.are~ ~override~
+              ~ar0600.are~ ~override~
+  WRITE_BYTE 0x48 (THIS BAND `BIT0)
+  BUT_ONLY
+
+// removes city flag
+COPY_EXISTING ~ar0303.are~ ~override~
+              ~ar0305.are~ ~override~
+              ~ar0307.are~ ~override~
+              ~ar0308.are~ ~override~
+              ~ar0309.are~ ~override~
+              ~ar0311.are~ ~override~
+              ~ar0312.are~ ~override~
+              ~ar0315.are~ ~override~
+              ~ar0316.are~ ~override~
+              ~ar0317.are~ ~override~
+              ~ar0406.are~ ~override~ //Copper Coronet
+              ~ar0501.are~ ~override~
+              ~ar0504.are~ ~override~
+              ~ar0505.are~ ~override~
+              ~ar0506.are~ ~override~
+              ~ar0507.are~ ~override~
+              ~ar0508.are~ ~override~
+//              ~ar0509.are~ ~override~ //Five Flagons, ground floor
+//              ~ar0510.are~ ~override~ //Five Flagons, theater
+//              ~ar0511.are~ ~override~ //Five Flagons, second floor
+//              ~ar0512.are~ ~override~
+              ~ar0513.are~ ~override~ //Calbor's Inn, first floor
+              ~ar0514.are~ ~override~ //Calbor's Inn, second floor
+              ~ar0515.are~ ~override~ //Calbor's Inn, third floor
+//              ~ar0522.are~ ~override~ //Five Flagons, ground floor (stronghold)
+//              ~ar0523.are~ ~override~ //Five Flagons, theater (stronghold)
+              ~ar0706.are~ ~override~
+              ~ar0901.are~ ~override~ //Temple District, Helm temple
+              ~ar0902.are~ ~override~ //Temple District, Lathander temple
+              ~ar0904.are~ ~override~ //Temple District, Talos temple
+              ~ar0905.are~ ~override~ //Temple District, Pimlico's Estate
+              ~ar0906.are~ ~override~ //Temple District, guarded compound ground floor
+              ~ar0907.are~ ~override~ //Temple District, guarded compound second floor
+              ~ar5507.are~ ~override~ //Saradush, basement entrance to Gromnir's castle
+  WRITE_BYTE 0x48 (THIS BAND `BIT3)
+  BUT_ONLY IF_EXISTS
+
+// adds dungeon flag
+COPY_EXISTING ~ar0203.are~ ~override~ // sewers under temple
+              ~ar0310.are~ ~override~
+              ~ar0331.are~ ~override~
+              ~ar0418.are~ ~override~
+              ~ar0521.are~ ~override~
+              ~ar0526.are~ ~override~
+              ~ar0600.are~ ~override~
+              ~ar0601.are~ ~override~
+              ~ar0606.are~ ~override~
+              ~ar0804.are~ ~override~
+              ~ar1106.are~ ~override~
+              ~ar1203.are~ ~override~
+              ~ar1402.are~ ~override~
+              ~ar1501.are~ ~override~
+              ~ar1608.are~ ~override~
+              ~ar1610.are~ ~override~
+              ~ar2901.are~ ~override~
+              ~ar2902.are~ ~override~
+              ~ar2903.are~ ~override~
+              ~ar2905.are~ ~override~
+  WRITE_BYTE 0x48 (THIS BOR BIT5)
+  BUT_ONLY
+
+// removes dungeon flag
+COPY_EXISTING ~ar1101.are~ ~override~
+              ~ar2603.are~ ~override~
+  WRITE_BYTE 0x48 (THIS BAND `BIT5)
+  BUT_ONLY
+
+// adds 'can rest' flag
+COPY_EXISTING ~ar0522.are~ ~override~ // five flagons theater, stronghold version
+              ~ar0905.are~ ~override~ // pimlico's estate
+              ~ar0906.are~ ~override~ // guarded compound ground floor
+              ~ar0907.are~ ~override~ // guarded compound second floor
+  WRITE_BYTE 0x48 (THIS BOR BIT7)
+  BUT_ONLY
+
+// fixes several areas with detected traps
+COPY_EXISTING ~ar0062.are~ ~override~
+              ~ar0063.are~ ~override~
+              ~ar0064.are~ ~override~
+              ~ar0065.are~ ~override~
+              ~ar0328.are~ ~override~
+              ~ar0406.are~ ~override~
+              ~ar0413.are~ ~override~
+              ~ar0801.are~ ~override~
+              ~ar0803.are~ ~override~
+              ~ar0808.are~ ~override~
+              ~ar1006.are~ ~override~
+  READ_LONG  0x70 cont_off
+  READ_SHORT 0x74 cont_num
+  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+    READ_SHORT (cont_off + 0x30 + (index * 0xc0)) trapped
+    READ_SHORT (cont_off + 0x32 + (index * 0xc0)) detected
+    PATCH_IF ((trapped = 1) AND (detected = 1)) BEGIN
+      WRITE_SHORT (cont_off + 0x32 + (index * 0xc0)) 0 // no longer detected
+    END
+  END
+  BUT_ONLY
+
+// areas with identified items in containers
+COPY_EXISTING ~ar0405.are~ ~override~
+              ~ar0602.are~ ~override~
+              ~ar1101.are~ ~override~
+  READ_SHORT 0x76 item_num
+  READ_LONG  0x78 item_off
+  FOR (index = 0 ; index < item_num ; ++index) BEGIN
+    READ_ASCII (item_off +        (0x14 * index)) item
+    PATCH_IF (("%item%" STRING_COMPARE_CASE "arow02" = 0) OR // ar1101, container 1
+              ("%item%" STRING_COMPARE_CASE "arow08" = 0) OR // ar0405, barrel 3
+              ("%item%" STRING_COMPARE_CASE "sper02" = 0) OR // ar1101, container 2
+              ("%item%" STRING_COMPARE_CASE "sw1h05" = 0)) BEGIN // ar0602, table 3
+      WRITE_BYTE  (item_off + 0x10 + (0x14 * index)) (THIS BAND `BIT0)
+    END
+  END
+  BUT_ONLY
+
+/////                                                  \\\\\
+///// other area fixes                                 \\\\\
+/////                                                  \\\\\
+
+COPY_EXISTING ~ar0011.are~ ~override~ // Candlekeep Dream 1 (Do you remember Candlekeep?)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit2621 END // fix orientation: unused, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0012.are~ ~override~ // Candlekeep Library (Main Door Trigger)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit0012 END // fix orientation: unused, NW
+  BUT_ONLY
+
+COPY_EXISTING ~ar0013.are~ ~override~ // Candlekeep Library (Stairway Triggers Up and Down)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit2321 END // fix orientation: unused, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit2623 END // fix orientation: unused, NW
+  BUT_ONLY
+
+COPY_EXISTING ~ar0014.are~ ~override~ // Candlekeep Library (Stairway Trigger Down)
+              ~ar0083.are~ ~override~ // Candlekeep Library (Dream: PC learns to control the Slayer)
+              ~ar0084.are~ ~override~ // Candlekeep Library (Stairway trigger down)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit2622 END // fix orientation: unused, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0015.are~ ~override~ // Baldur's Gate Estate (Tutorial starts here)
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0018 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0016.are~ ~override~ // Baldur's Gate Estate (Tutorial area)
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 trap_detect = 0 STR_VAR container_name = "Container 1" END // fixes traps in tut area
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 trap_detect = 0 STR_VAR container_name = "Container 2" END // fixes traps in tut area
+  BUT_ONLY
+
+COPY_EXISTING ~ar0018.are~ ~override~ // Baldur's Gate Estate Cellar (Tutorial area)
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 8 STR_VAR match_item = ttwand END // zero-charge item: wand of the heavens (tutorial version) (num 5) has assigned 0 to stack 1 charges 100 in header 1
+  BUT_ONLY
+
+// add map note for crooked crane at city gates
+COPY_EXISTING ~ar0020.are~ ~override~
+  ADD_MAP_NOTE #231 #517 ~gray~ #46216
+  BUT_ONLY
+
+COPY_EXISTING ~ar0021.are~ ~override~ // Crooked Crane 1st Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0020 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0082 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0022.are~ ~override~ // Crooked Crane 2nd Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0021 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0028.are~ ~override~ // Candlekeep Dream (After PC Soultheft)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit0028 END // fix orientation: unused, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0065.are~ ~override~ // Empty (Triggers, Doors... are there but no area)
+  LPF ALTER_AREA_ITEM INT_VAR charge2 = 10 STR_VAR match_item = wand05 END // zero-charge item: wand of fire (num 3) has assigned 0 to stack 1 charges 50 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0071.are~ ~override~ // Spellhold (Imoen Soultheft Cutscene -- "Silence dog, you have no purpose...")
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit1508 END // fix orientation: unused, NW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1515 END // fix orientation: unused, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0082.are~ ~override~ // Lich Grave in Bridge District Inn
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0021 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0201.are~ ~override~ // Leading to ghoul village and beholder lair (Temple District)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = exit0206a END // fix orientation: ghouls under temple from halfling village, south-southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = exit0206b END // fix orientation: ghouls under temple from halfling village, south-southeast
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 10 STR_VAR container_name = "Skeleton 1" END // correct container icon to body
+  BUT_ONLY
+
+COPY_EXISTING ~ar0202.are~ ~override~ // UE quest, cult hideout
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = exit0205 END // fix orientation: beholder hideout from cult hideout (UE), south-southeast
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 2037 coord_y = 2242 container_type = 6 STR_VAR container_name = "Drawer 1" END // move to avoid actor collision, correct icon to shelf
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "SWERDOOR" END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0204.are~ ~override~ // UE quest, temple city
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 9 STR_VAR entrance_name = exit0202 END // fix orientation: graveyard to bohdi's lair, north-northeast
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 STR_VAR container_name = "Container 1" END // correct container icon to nonvisible
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 3738 coord_y = 2515 container_type = 8 STR_VAR container_name = "Container 3" END // move to avoid actor collision, correct icon to nonvisible
+  LPF ALTER_AREA_REGION INT_VAR cursor = 28 STR_VAR region_name = Tran0202 END // transition down uses stair icon
+  BUT_ONLY
+
+COPY_EXISTING ~ar0205.are~ ~override~ // The Beholder Hideout (Unseeing Eye Plot)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = Exit0201 END // fix orientation: from ghoul villge, N
+  BUT_ONLY
+
+COPY_EXISTING ~ar0206.are~ ~override~ // Ghoul village (Temple District)
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 STR_VAR container_name = "Bones 1" END // correct container icon to nonvisible
+  BUT_ONLY
+
+COPY_EXISTING ~ar0300.are~ ~override~ // docks
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = exit0308 END // fix orientation: harper hq to docks, east-southeast
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0301 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0302 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0303 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0304a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0304b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0308 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0308b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0308c END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0309 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0309b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0328 END // transition should be party required
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = EXIT0305 END // fix orientation: from main entrance of shadow thief lair, ESE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = Exit0306 END // fix orientation: from door just south of main entrance of shadow thief lair, ESE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = Exit0309 END // fix orientation: harper roof from second level of harper HQ, ESE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0302.are~ ~override~ // mae'var's guild entrance
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = exit0301 END // fix orientation: basement to entrance, mae'var, east
+  BUT_ONLY
+
+COPY_EXISTING ~ar0304.are~ ~override~ // mae'var's guild third floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0303 END // fix orientation: 2nd to 3rd floor, mae'var, northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = exi0300b END // fix orientation: 2nd to 3rd floor, mae'var (pc), east
+  BUT_ONLY
+
+COPY_EXISTING ~ar0305.are~ ~override~ // Shadow Thieves Guild Entrance
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0300 END // transition can not be used by npcs
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = dagg01 END // overcharged item: dagg01 (num 10) has assigned 3 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw1h01 END // overcharged item: dagg01 (num 10) has assigned 3 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_DOOR INT_VAR flag_detected = 0 STR_VAR door_name = "Secret 01" END // secret door already detected
+  BUT_ONLY
+
+COPY_EXISTING ~ar0306.are~ ~override~ // Renal Bloodscalp's Hideout
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = TRAN0300 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0307.are~ ~override~ // Aran Linvail's Hideout
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran300a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran300b END // transition can not be used by npcs
+  // animation glitches due to bad layering/flags
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xff7e flag_background = 1 STR_VAR match_name = am307tt1 END // spiky wheel in torturer's room
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0                          STR_VAR match_name = am307ur1 END // spiky wheel you run across
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffcc                     STR_VAR match_name = am307ur3 END // another spiky wheel you run across
+  BUT_ONLY
+
+COPY_EXISTING ~ar0308.are~ ~override~ // Harper's 1st Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tra0300b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tra0300c END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tra0309 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0300 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0311.are~ ~override~ // Living Room (Entry points outside and up) -- Gaelan?
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 10 STR_VAR match_item = ax1h04 END // zero-charge item: ax1h04 (num 1) has assigned 0 to stack 10 charges 1 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0312.are~ ~override~ // sleeping room
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0311 END // fix orientation: gaelan downstairs to upstairs, northeast
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 2 STR_VAR container_name = "Container 2" END // correct container icon to chest
+  // animation glitches due to bad layering
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
+  BUT_ONLY
+
+COPY_EXISTING ~ar0313.are~ ~override~ // Sea Bounty Tavern 1st Floor
+  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // // animation glitches due to bad flags: oven
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit0314 END // fix orientation: from second floor, NE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0317.are~ ~override~ // Sleeping Room (Favour for Edwin -- Mae'Var Plot)
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 10 charge2 = 10 STR_VAR match_item = wand05 END // zero-charge item: wand of fire (num 3) has assigned 0 to stack 1 charges 50 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0319.are~ ~override~ // Temple of Oghma
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 5 STR_VAR container_name = "Table 1" END // correct container icon to table
+  BUT_ONLY
+
+COPY_EXISTING ~ar0322.are~ ~override~ // mae'var's guild entrance (pc controlled)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = exit0321 END // fix orientation: basement to entrance, mae'var (pc), east
+  BUT_ONLY
+
+COPY_EXISTING ~ar0324.are~ ~override~ // mae'var's guild third floor (pc controlled)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0323 END // fix orientation: 2nd to 3rd floor, mae'var (pc), northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = exit0300b END // fix orientation: 2nd to 3rd floor, mae'var (pc), east
+  BUT_ONLY
+
+COPY_EXISTING ~ar0326.are~ ~override~ // Corthala House 2nd Floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit0325 END // fix orientation: from first floor, NE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0327.are~ ~override~ // Shadow Thief Entrance (sided with Bodhi)
+  LPF ALTER_AREA_CONTAINER INT_VAR lock_difficulty = 90 STR_VAR container_name = "Container 11" END // make unpickable chest pickable
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 STR_VAR container_name = "Container 7" END // container flagged as trapped, no actual script
+  BUT_ONLY
+
+// makes doors actually require keys that they are listed as requiring
+COPY_EXISTING ~ar0329.are~ ~override~ // Aran's Hideout (sided with Bodhi)
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "DOOR07" END // sets uses key bit
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "DOOR08" END // sets uses key bit
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 1 STR_VAR match_item = ring26 END // zero-charge item: ring of djinni summoning (num 7) has assigned 0 to stack 1 charges 1 in header 1
+  // haz can escape, as trigger is not tied to door
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 flag_connect_to_door = 1 STR_VAR region_name = Tran300b END // flag transition as impassable by npcs, connect to the door
+  LPF ALTER_AREA_DOOR STR_VAR door_name = "Door08" travel_trigger = "Tran300b" END // associate the door with the transition
+  BUT_ONLY
+
+// ar0333.are entry/exit points are reversed; undoing the Escher architecture
+COPY_EXISTING ~ar0333.are~ ~override~ // Barracks in the Docks
+  READ_SHORT 0x5a info_num
+  READ_LONG  0x5c info_off
+  READ_LONG  0x68 enter_off
+  READ_LONG  0x6c enter_num
+  FOR (index = 0 ; index < info_num ; ++index) BEGIN // swap transition (exit) points
+    READ_ASCII (info_off + 0x38 + (0xc4 * index)) area
+    PATCH_IF ("ar0300" STRING_COMPARE_CASE "%area%" = 0) BEGIN
+      WRITE_ASCII (info_off +        (0xc4 * index)) "Tran0332" #32 // transition point name
+      WRITE_ASCII (info_off + 0x38 + (0xc4 * index)) "ar0332" #8    // destination area
+    END ELSE
+    PATCH_IF ("ar0332" STRING_COMPARE_CASE "%area%" = 0) BEGIN
+      WRITE_ASCII (info_off +        (0xc4 * index)) "Tran0300" #32 // transition point name
+      WRITE_ASCII (info_off + 0x38 + (0xc4 * index)) "ar0300" #8    // destination area
+    END
+  END
+  FOR (index = 0 ; index < enter_num ; ++index) BEGIN // swap entry points
+    READ_ASCII (enter_off +        (index * 0x68)) name
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Exit0300" = 0) BEGIN
+      WRITE_ASCII (enter_off +        (index * 0x68)) "Exit0332"
+    END ELSE
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Exit0332" = 0) BEGIN
+      WRITE_ASCII (enter_off +        (index * 0x68)) "Exit0300"
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0334.are~ ~override~ // Cromwell's Shop
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow01 END // overcharged: composite long bow
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow03 END // overcharged: long bow
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  BUT_ONLY
+
+// animation glitches due to bad layering
+COPY_EXISTING ~ar0335.are~ ~override~ // Sleeping Room
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
+  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
+  BUT_ONLY
+
+COPY_EXISTING ~ar0400.are~ ~override~ // slums
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 5           STR_VAR container_name = "Table 8" END // correct container icon to table
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 1000 coord_y = 840 STR_VAR container_name = "Table 1" END // move to avoid actor collision
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  3 STR_VAR entrance_name = exit0402 END // fix orientation: jansen home to slums, west-southwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exi0406b END // fix orientation: CC to slums, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0405 END // fix orientation: slaver ship to slums, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0406 END // fix orientation: CC to slums, southeast
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0407 END // transition can not be used by npcs (despite name, goes to ar0311)
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0402 END // transition should be party required (two in area, one not flagged)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  3 STR_VAR entrance_name = Exitsphe END // fix orientation: platform in front of sphere from main slums, WSW
+  BUT_ONLY
+
+COPY_EXISTING ~ar0402.are~ ~override~ // jansen ground floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 5 STR_VAR entrance_name = Exit0400 END // from the slums, west-northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar0404.are~ ~override~ // sewers under CC
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0405 END // fix orientation: slaver ship to sewers, northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0406 END // fix orientation: CC to sewers, southeast
+  BUT_ONLY
+
+COPY_EXISTING ~ar0405.are~ ~override~ // slaver's ship
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0400 END // fix orientation: slums to slaver ship, northeast
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 40 STR_VAR match_item = bolt01 END // zero-charge item: bolt01 (num 36) has assigned 0 to stack 40 charges 1 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0406.are~ ~override~ // copper coronet
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0400 END // fix orientation: slums to CC, northeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exi0400b END // fix orientation: slums to CC, northeast
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 2 STR_VAR container_name = "Crate 1" END // correct container icon to chest
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  BUT_ONLY
+
+COPY_EXISTING ~ar0407.are~ ~override~ // Prebek's House
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0400 END // transition can not be used by npcs (despite name, goes to ar0300)
+  LPF ALTER_AREA_CONTAINER INT_VAR STR_VAR container_name = "Container 2" container_script = "ctmm" END // trapped container doesn't actually do anything; assign script
+  BUT_ONLY
+
+// both ilmater temples have entrances outside of the usable area; see also ar0703.are
+COPY_EXISTING ~ar0408.are~ ~override~
+  LPF ALTER_AREA_ENTRANCE INT_VAR x_coord = 314 y_coord = 392 STR_VAR entrance_name = Exit0400 END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0409.are~ ~override~ // ployer's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0400 END // fix orientation: slums to ployer's home, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar0410.are~ ~override~ // Sphere: Navigator's room -- Lavok's Hideout
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0412b END // transition can not be used by npcs (despite name, goes to ar0411)
+  BUT_ONLY
+
+COPY_EXISTING ~ar0411.are~ ~override~ // Sphere: Entrance floor
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 10 STR_VAR container_name = "Body 1" END // correct container icon to body
+  BUT_ONLY
+
+COPY_EXISTING ~ar0413.are~ ~override~ // Sphere: Enginge Room
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0412a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0412b END // transition can not be used by npcs
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit0412a END // fix orientation: from planar sphere ice room, NE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0414.are~ ~override~ // Sphere: Demon Plane
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Exit0414 END // transition can not be used by npcs (goes to ar0411)
+  LPF ALTER_AREA_ANIMATION INT_VAR y_coord = 2794 STR_VAR match_name = am414ey2 END // fixes demon eye animation
+  BUT_ONLY
+
+COPY_EXISTING ~ar0415.are~ ~override~ // Living Room 1st Floor
+  LPF ALTER_AREA_CONTAINER INT_VAR STR_VAR container_name = "Container 1" container_script = "CTALARM" END // correct trap script reference
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 flag_party_required = 1 STR_VAR region_name = Tran0400 END // transition can not be used by npcs, party required (despite name, goes to ar0300)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = Exit0416 END // fix orientation: from upstairs, E
+  BUT_ONLY
+
+COPY_EXISTING ~ar0500.are~ ~override~ // bridge district
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0506b END // fix orientation: noble house to bridge dist, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0513 END // fix orientation: calbor's inn to bridge dist, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0514a END // fix orientation: inn at bridge district to bridge, north-northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 2 STR_VAR entrance_name = exit0506a END // fix orientation: noble home to bridge, southwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 2 STR_VAR entrance_name = exit0515 END // fix orientation: inn to bridge dist, southwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 2 STR_VAR entrance_name = exit0705 END // fix orientation: mekrath's lair to bridge, southwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 7 STR_VAR entrance_name = exit0514b END // fix orientation: inn at bridge district to bridge, southeast
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0505a END // transition should be party required
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0505b END // transition should be party required
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit0522 END // fix orientation: from Five Flagons (stronghold), SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit0504 END // fix orientation: from Saerk Estate ground floor, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit0505a END // fix orientation: from Saerk Estate, dead end balcony, SW
+  LPF ALTER_AREA_DOOR INT_VAR flag_locked = 1 STR_VAR door_name = Door0505b END // only one door to saerk's place is locked
+  // fixes multiple Stanets
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  SET stanets = 0
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "BMTOWN4" = 0) BEGIN // leave first stanet alone
+      PATCH_IF (stanets = 0) BEGIN
+        SET stanets = 1
+      END ELSE BEGIN
+        WRITE_ASCII (actor_off +        (index * 0x110)) ~Commoner~ #32 // change others to generic commoner
+        WRITE_ASCII (actor_off + 0x80 + (index * 0x110)) ~BMTOWN2~ #8
+      END
+    END
+  END
+  BUT_ONLY
+
+// incorrect container icon
+COPY_EXISTING ~ar0501.are~ ~override~ // Tanner's Hideout 1st Floor
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 11 STR_VAR container_name = "Container 1" END // correct container icon to barrel
+  BUT_ONLY
+
+COPY_EXISTING ~ar0502.are~ ~override~
+  LPF ALTER_AREA_REGION STR_VAR region_name = "Fireball" door_script = "gtfb" END // ground traps won't trigger due to container scripts
+  // fixes wonky container overlay for lightning trap
+  READ_SHORT 0x5a trig_num
+  READ_LONG  0x5c trig_off
+  READ_LONG  0x7c vert_off
+  SET vert_delta = 0
+  FOR (index = 0 ; index < trig_num ; ++index) BEGIN
+    READ_SHORT (trig_off + 0x22 + (index * 0xc4)) lbound // container overlay corrections
+    WRITE_LONG (trig_off + 0x2c + (index * 0xc4)) (THIS + vert_delta)
+    PATCH_IF (lbound = 450) BEGIN // lightining trap [sic]
+      READ_SHORT (trig_off + 0x2a + (index * 0xc4)) vert_num
+      READ_LONG  (trig_off + 0x2c + (index * 0xc4)) vert_idx
+      FOR (index2 = 0 ; index2 < vert_num ; ++index2) BEGIN
+        READ_SHORT (vert_off +        ((vert_idx + index2) * 0x04)) x_coord
+        READ_SHORT (vert_off + 0x02 + ((vert_idx + index2) * 0x04)) y_coord
+        PATCH_IF (((x_coord = 487) AND (y_coord = 385)) OR
+                  ((x_coord = 548) AND (y_coord = 446))) BEGIN
+          DELETE_BYTES (vert_off +        ((vert_idx + index2) * 0x04)) 0x04
+          SET vert_num   -= 1
+          SET index2     -= 1
+          SET vert_delta -= 1
+          SET vert_cutoff = vert_idx
+        END
+      END
+      WRITE_SHORT (trig_off + 0x2a + (index * 0xc4)) vert_num
+    END
+  END
+  PATCH_IF vert_delta != 0 BEGIN
+    WRITE_SHORT 0x80 (THIS + vert_delta)
+    // now to update vertex indices elsewhere
+    READ_LONG  0x70 cont_off
+    READ_SHORT 0x74 cont_num
+    FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+      READ_SHORT  (cont_off + 0x50 + (index * 0xc0)) vert_idx
+      PATCH_IF vert_idx > vert_cutoff BEGIN
+        WRITE_SHORT  (cont_off + 0x50 + (index * 0xc0)) (THIS + vert_delta)
+      END
+    END
+    READ_LONG  0xa4 door_num
+    READ_LONG  0xa8 door_off
+    FOR (index = 0 ; index < door_num ; ++index) BEGIN
+      PATCH_FOR_EACH off IN 0x2c 0x34 0x48 0x50 BEGIN
+        READ_SHORT  (door_off + off + (index * 0xc8)) vert_idx
+        PATCH_IF vert_idx > vert_cutoff BEGIN
+          WRITE_SHORT  (door_off + 0x50 + (index * 0xc8)) (THIS + vert_delta)
+        END
+      END
+    END
+    // and now general offsets
+    WRITE_SHORT 0x80 (THIS + vert_delta) // number of vertices
+    PATCH_FOR_EACH off IN 0x54 0x5c 0x60 0x68 0x70 0x78 0x84 0x88 0x90 0xa0 0xa8 0xb0 0xb8 0xbc 0xc0 0xc4 0xcc BEGIN
+      READ_LONG off offset
+      PATCH_IF offset > vert_off BEGIN
+        WRITE_LONG off (THIS + (vert_delta * 0x04))
+      END
+    END
+  END
+  BUT_ONLY
+
+// container traps won't trigger due to ground scripts
+COPY_EXISTING ar0503.are override
+  LPF ALTER_AREA_CONTAINER STR_VAR container_name = "Container 1" container_script = "ctfb" END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0504.are~ ~override~ // Saerk's House 1st Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0500 END // transition should be party required
+  BUT_ONLY
+
+COPY_EXISTING ~ar0505.are~ ~override~
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0500a END // transition should be party required
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran0500b END // transition should be party required
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow01 END // overcharged item: bow01 (num 19) has assigned 2 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow03 END // overcharged item: bow01 (num 19) has assigned 2 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow05 END // overcharged item: bow01 (num 19) has assigned 2 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw1h01 END // overcharged item: bow01 (num 19) has assigned 2 to stack 1 charges 0 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0506.are~ ~override~ // Saerk's House 2nd Floor
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 7 STR_VAR container_name = "Cabinet 1" END // correct container icon to altar
+  BUT_ONLY
+
+COPY_EXISTING ~ar0508.are~ ~override~ // Kidnappers' Hideout 2nd Floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = Exit0507 END // fix orientation: from first floor, N
+  BUT_ONLY
+
+COPY_EXISTING ~ar0509.are~ ~override~ // first floor five flagons
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0500 END // fix orientation: bridge to five flagons, northwest
+  // standardize on one stoneskin scroll; see also garlena.sto, sahpr1.sto, suefl10.sto, type1.sto, udduer01.sto
+  LPF ALTER_AREA_ITEM STR_VAR match_item = scrl1v item = scrl2b END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0510.are~ ~override~ // Five Flagons Inn Theater
+  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 839 STR_VAR match_name = AM0510A END // adjusts x coordinate to fix portal animation
+  BUT_ONLY
+
+COPY_EXISTING ~ar0513.are~ ~override~ // calbor's inn
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 886 coord_y = 471 STR_VAR container_name = "Table 3" END // move to avoid actor collision
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = exit0514 END // fix orientation: calbor's inn, second floor to first, south-southeast
+  BUT_ONLY
+
+COPY_EXISTING ~ar0516.are~ ~override~ // Planar Prison
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 11 STR_VAR entrance_name = Exit0517 END // fix orientation: from fleshy trap, ENE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  5 STR_VAR entrance_name = Exit0519 END // fix orientation: from fleshy trap, WNW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  5 STR_VAR entrance_name = Exit0518 END // fix orientation: from fleshy trap, WNW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  7 STR_VAR entrance_name = Exit0520 END // fix orientation: from fleshy trap, NNW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  7 STR_VAR entrance_name = Exit0521 END // fix orientation: from fleshy trap, NNW
+  BUT_ONLY
+
+COPY_EXISTING ~ar0527.are~ ~override~ // House 1st Floor
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 10 STR_VAR match_item = wand03 END // zero-charge item: wand03 (num 0) has assigned 0 to stack 1 charges 100 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0529.are~ ~override~ // Neb's Hideout
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 trap_detect = 50 trap_remove = 90 STR_VAR container_name = "Container 6" END // correct container icon to nonvisible, make disarmable, not auto-detected
+  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
+  BUT_ONLY
+
+COPY_EXISTING ~ar0530.are~ ~override~ // Storehouse
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw2h01 END // overcharged item: sw2h01 (num 3) has assigned 2 to stack 1 charges 0 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0531.are~ ~override~ // commoner house
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0500 END // fix orientation: bridge to commoner home, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar0601.are~ ~override~ // Air Plane in Irenicus's Dungeon
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0602 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0602.are~ ~override~ // Irenicus's Dungeon 1st Floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit0601 END // fix orientation: from plane of air, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar0603.are~ ~override~ // Irenicus's Dungeon 2nd Floor
+  LPF ALTER_AREA_ACTOR STR_VAR actor_name = "Ice Mephit" script_override = "waitpc2" END // ice mephit has wrong script
+  // fixes wonky container overlay for throne
+  READ_LONG  0x70 cont_off
+  READ_SHORT 0x74 cont_num
+  READ_LONG  0x7c vert_off
+  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+    READ_SHORT (cont_off + 0x20 + (index * 0xc0)) x_coord // container overlay corrections
+    PATCH_IF (x_coord = 1933) BEGIN // statue (container 21)
+      READ_LONG   (cont_off + 0x50 + (index * 0xc0)) vert_idx
+      WRITE_SHORT (vert_off +        ((vert_idx +  0) * 0x04)) 2001 // x0
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  0) * 0x04))  379 // y0
+      WRITE_SHORT (vert_off +        ((vert_idx +  1) * 0x04)) 2019 // x1
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  1) * 0x04))  370 // y1
+      WRITE_SHORT (vert_off +        ((vert_idx +  2) * 0x04)) 2016 // x2
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  2) * 0x04))  347 // y2
+      WRITE_SHORT (vert_off +        ((vert_idx +  3) * 0x04)) 2016 // x3
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  3) * 0x04))  328 // y3
+      WRITE_SHORT (vert_off +        ((vert_idx +  4) * 0x04)) 2000 // x4
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  4) * 0x04))  308 // y4
+      WRITE_SHORT (vert_off +        ((vert_idx +  5) * 0x04)) 1980 // x5
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  5) * 0x04))  303 // y5
+      WRITE_SHORT (vert_off +        ((vert_idx +  6) * 0x04)) 1976 // x6
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  6) * 0x04))  326 // y6
+      WRITE_SHORT (vert_off +        ((vert_idx +  7) * 0x04)) 1965 // x7
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  7) * 0x04))  337 // y7
+      WRITE_SHORT (vert_off +        ((vert_idx +  8) * 0x04)) 1941 // x8
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  8) * 0x04))  360 // y8
+      WRITE_SHORT (vert_off +        ((vert_idx +  9) * 0x04)) 1952 // x9
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx +  9) * 0x04))  372 // y9
+      WRITE_SHORT (vert_off +        ((vert_idx + 10) * 0x04)) 1981 // x10
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 10) * 0x04))  392 // y10
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0605.are~ ~override~ // Circus Tent 2nd Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = TRAN0606 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar0700.are~ ~override~ // promenade
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 1 STR_VAR entrance_name = exit0709 END // fix orientation: den of seven vales to promenade, south-southwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0706 END // fix orientation: fletcher to promenade, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0707 END // fix orientation: enge's shop to promenade, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0708 END // fix orientation: cernd's home to promenade, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = exit0710 END // fix orientation: fennecia's home to promenade, southeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = exit0704 END // fix orientation: mithrest to promenade, south-southeast
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 3249 coord_y = 300 STR_VAR container_name = "Table 2" END // move to avoid actor collision
+  LPF ALTER_AREA_CONTAINER INT_VAR coord_x = 572 coord_y = 1163 STR_VAR container_name = "Table 7" END // move to avoid actor collision
+  // helpful folks disappear before they can actually help; see also vvhelp.cre, vvhelp.dlg, vvpriest.cre
+  LPF ALTER_AREA_ACTOR INT_VAR flag_time_0 = 1 flag_time_1 = 1 flag_time_2 = 1 flag_time_3 = 1 flag_time_4 = 1 flag_time_19 = 1 flag_time_20 = 1 flag_time_21 = 1 flag_time_22 = 1 flag_time_23 = 1 // present only at night
+    flag_time_5 = 0 flag_time_6 = 0 flag_time_7 = 0 flag_time_8 = 0 flag_time_9 = 0 flag_time_10 = 0 flag_time_11 = 0 flag_time_12 = 0 flag_time_13 = 0 flag_time_14 = 0 flag_time_15 = 0 flag_time_16 = 0 flag_time_17 = 0 flag_time_18 = 0
+    STR_VAR actor_name = "Priest of Talos" END
+// changes guard reference in ar0700 to not be the rubble-guarder type
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "AMNG1" = 0) BEGIN
+      WRITE_ASCII (actor_off + 0x80 + (index * 0x110)) AMNG2 #8
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0701.are~ ~override~ // The Sewers
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "Door02" END // mind flayer door uses up key
+  BUT_ONLY
+
+COPY_EXISTING ~ar0703.are~ ~override~ // temple of ilmater (promenade)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0700 END // fix orientation: ilmater temple from promenade, northeast
+  LPF ALTER_AREA_ACTOR STR_VAR actor_name = "Priest of Ilmater" cre_file = "wilmat" END // wrong creature reference in Waukeen Ilmater temple; see soa-dlg.d for changes to wilmat.dlg
+  // both ilmater temples have entrances outside of the usable area; see also ar0408.are
+  LPF ALTER_AREA_ENTRANCE INT_VAR x_coord = 314 y_coord = 392 STR_VAR entrance_name = Exit0700 END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0705.are~ ~override~ // Mekrath's Hideout in the Sewers (Haer'Dalis Plot)
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 6 STR_VAR container_name = "Container 3" END // correct container icon to shelf
+  BUT_ONLY
+
+COPY_EXISTING ~ar0706.are~ ~override~ // Armourer/Fletcher
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 10 STR_VAR match_item = ax1h04 END // zero-charge item: ax1h04 (num 1) has assigned 0 to stack 10 charges 1 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0707.are~ ~override~ // enge's shop
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0700 END // fix orientation: promenade to enge's shop, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar0709.are~ ~override~ // Den of the Seven Vales 1st Floor
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = Exit0712 END // fix orientation: from Mencar upstairs, E
+  BUT_ONLY
+
+COPY_EXISTING ~ar0713.are~ ~override~ // Store or Inn at Promenade
+  LPF ALTER_AREA_ACTOR STR_VAR actor_name = "Peasant" script_override = "runenemy" END // indoor actor has outdoor script
+  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
+  BUT_ONLY
+
+COPY_EXISTING ~ar0800.are~ ~override~ // Graveyard
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0801a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0801b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0801c END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0801d END // transition can not be used by npcs
+  // orphan-paladin quest in graveyard can be interrupted by actor-active flags; see also arenthis.bcs, kamir.bcs, risa.bcs
+  READ_LONG  0x54 act_off
+  READ_SHORT 0x58 act_num
+  FOR (index = 0 ; index < act_num; ++index) BEGIN
+    READ_ASCII (act_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF (("%cre_file%" STRING_COMPARE_CASE "arenthis" = 0) OR ("%cre_file%" STRING_COMPARE_CASE "kamir" = 0) OR ("%cre_file%" STRING_COMPARE_CASE "mourner7" = 0)) BEGIN
+      WRITE_LONG (act_off + 0x40 + (index * 0x110)) `0 // flags active at all times; active/inactive now handled by thier scripts
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0801.are~ ~override~ // bodhi's area
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 7 STR_VAR entrance_name = exit0800d END // fix orientation: graveyard to bohdi's lair, north-northwest
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0800a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0800b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0800c END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0800d END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran0802 END // transition can not be used by npcs
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = misc6w END // overcharged item: misc6w (num 0) has assigned 3 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  7 STR_VAR entrance_name = Exit0800b END // fix orientation: from graveyard (eastmost entrance), NNW
+  BUT_ONLY
+
+// makes VVMADMAN only exist at night so he won't EscapeArea()
+// shift guarded compund entrance in temple district
+COPY_EXISTING ~ar0900.are~ ~override~ // Temple District
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 STR_VAR container_name = "Shelf 1" END // correct container icon to nonvisible
+  LPF ALTER_AREA_ACTOR INT_VAR flag_time_0 = 1 flag_time_1 = 1 flag_time_2 = 1 flag_time_3 = 1 flag_time_4 = 1 flag_time_19 = 1 flag_time_20 = 1 flag_time_21 = 1 flag_time_22 = 1 flag_time_23 = 1 // present only at night
+    flag_time_5 = 0 flag_time_6 = 0 flag_time_7 = 0 flag_time_8 = 0 flag_time_9 = 0 flag_time_10 = 0 flag_time_11 = 0 flag_time_12 = 0 flag_time_13 = 0 flag_time_14 = 0 flag_time_15 = 0 flag_time_16 = 0 flag_time_17 = 0 flag_time_18 = 0
+    STR_VAR actor_name = "Shadow Thief" END
+  // moving entrance
+  SET delta_x = "-98"
+  SET delta_y = 40
+  READ_SHORT 0x5a trig_num
+  READ_LONG  0x5c trig_off
+  READ_LONG  0x68 ent_off
+  READ_LONG  0x6c ent_num
+  READ_LONG  0x7c vert_off
+  FOR (index = 0 ; index < ent_num ; ++index) BEGIN
+    READ_ASCII (ent_off +        (index * 0x68)) name
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Exit0906" = 0) BEGIN
+      WRITE_SHORT (ent_off + 0x20 + (index * 0x68)) (THIS + delta_x) // exit coordinates
+      WRITE_SHORT (ent_off + 0x22 + (index * 0x68)) (THIS + delta_y)
+      SET index = ent_num // kill loop
+    END
+  END
+  FOR (index = 0 ; index < trig_num ; ++index) BEGIN
+    READ_ASCII (trig_off +        (index * 0xc4)) name
+    PATCH_IF ("%name%" STRING_COMPARE_CASE "Tran0906" = 0) BEGIN
+      WRITE_SHORT (trig_off + 0x22 + (index * 0xc4)) (THIS + delta_x) // bounding box
+      WRITE_SHORT (trig_off + 0x24 + (index * 0xc4)) (THIS + delta_y)
+      WRITE_SHORT (trig_off + 0x26 + (index * 0xc4)) (THIS + delta_x)
+      WRITE_SHORT (trig_off + 0x28 + (index * 0xc4)) (THIS + delta_y)
+      READ_SHORT  (trig_off + 0x2a + (index * 0xc4)) vert_num
+      READ_LONG   (trig_off + 0x2c + (index * 0xc4)) vert_idx
+      WRITE_SHORT (trig_off + 0x70 + (index * 0xc4)) (THIS + delta_x) // launch point
+      WRITE_SHORT (trig_off + 0x72 + (index * 0xc4)) (THIS + delta_y)
+      SET index = trig_num // kill loop
+    END
+  END
+  FOR (index = vert_idx ; index < (vert_idx + vert_num) ; ++index) BEGIN
+    WRITE_SHORT (vert_off +        (index * 0x04))  (THIS + delta_x)
+    WRITE_SHORT (vert_off + 0x02 + (index * 0x04))  (THIS + delta_y)
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar0901.are~ ~override~ // Temple of Helm
+  LPF ALTER_AREA_ITEM STR_VAR match_item = "potn53" item = "potn08" END // changes Festule's potion to minor healing
+  BUT_ONLY
+
+COPY_EXISTING ~ar0902.are~ ~override~ // Temple of Lathander
+  LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 STR_VAR container_name = "Shelf 7" END // correct container icon to nonvisible
+  BUT_ONLY
+
+COPY_EXISTING ~ar0903.are~ ~override~ // norh
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exi0900b END // fix orientation: temple district to norh, northeast
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0900 END // fix orientation: norh from temple district, northwest
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = dagg01 END // overcharged item: dagg01 (num 15) has assigned 4 to stack 1 charges 0 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar0905.are~ ~override~ // pimlico's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit0900 END // fix orientation: temple district to pimlico's, northwest
+  BUT_ONLY
+
+// changes guard references in ar1000 to not be the rubble-guarder type, enables one ambient, fixes multiple gftown02
+COPY_EXISTING ~ar1000.are~ ~override~ // Government District
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  SET gftown02 = 0
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "AMNG1" = 0) BEGIN // guard fix
+      WRITE_ASCII (actor_off + 0x80 + (index * 0x110)) AMNG2 #8
+    END ELSE
+    PATCH_IF (("%cre_file%" STRING_COMPARE_CASE "victown1" = 0) OR
+              ("%cre_file%" STRING_COMPARE_CASE "victown4" = 0)) BEGIN
+      WRITE_BYTE (actor_off + 0x28 + (index * 0x110)) (THIS BOR BIT3) // use area name as DV for scripting fixes
+    END ELSE
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "gftown02" = 0) BEGIN // duplicate gftown02
+      PATCH_IF gftown02 = 0 BEGIN
+        SET gftown02 = 1
+      END ELSE BEGIN
+        WRITE_ASCII (actor_off + 0x80 + (index * 0x110)) gftown01 #8
+      END
+    END
+  END
+  READ_SHORT 0x82 amb_num // inactive ambient
+  READ_LONG  0x84 amb_off
+  FOR (index = 0 ; index < amb_num ; ++index) BEGIN
+    READ_SHORT (amb_off + 0x20 + (index * 0xd4)) x_coord
+    PATCH_IF (x_coord = 907) BEGIN // SS_Prisoners1
+      WRITE_LONG (amb_off + 0x8c + (index * 0xd4)) 0x001fffc0 // time active from 0 to this
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar1001.are~ ~override~ // delryn's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1000 END // fix orientation: gov't to delryn's home, northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit1000b END // fix orientation: gov't to delryn's home, northeast
+  BUT_ONLY
+
+// part of making Ketlaar's guards disappear if Ketlaar is killed (see ar1002.bcs)
+COPY_EXISTING ~ar1002.are~ ~override~ // Council Building
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  SET toggle = 1
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "BODYG2" = 0) BEGIN
+      WRITE_ASCIIE (actor_off +        (index * 0x110)) ~MGKETBG%toggle%~ #32 // new area name
+      WRITE_BYTE   (actor_off + 0x28 + (index * 0x110)) (THIS BOR BIT3) // use area name as DV
+      SET toggle += 1
+    END ELSE
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "argrim" = 0) BEGIN
+      WRITE_ASCII (actor_off +        (index * 0x110)) ~argrim~ #32 // new area name
+      WRITE_BYTE  (actor_off + 0x28 + (index * 0x110)) (THIS BOR BIT3) // use area name as DV
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar1003.are~ ~override~ // keldorn's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1000 END // fix orientation: gov't to keldorn's home, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar1004.are~ ~override~ // deril's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1000 END // fix orientation: gov't to deril's home, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar1005.are~ ~override~ // prison
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1000 END // fix orientation: gov't to prison, northwest
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exi1000b END // fix orientation: prison from gov't district, northeast
+  BUT_ONLY
+
+COPY_EXISTING ~ar1006.are~ ~override~ // Jysstev's Estate (Oisig Plot)
+  LPF ALTER_AREA_CONTAINER INT_VAR lock_difficulty = 90 STR_VAR container_name = "Container 2" END // make unpickable chest pickable
+  BUT_ONLY
+
+COPY_EXISTING ~ar1009.are~ ~override~ // roenall's home
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1000 END // fix orientation: gov't to roenall's home, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar1100.are~ ~override~ // Umar Hills
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1104 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar1106.are~ ~override~ // Umar's Cave
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1100 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar1200.are~ ~override~ // windspear hills
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = exitw END // fix orientation: windspear hills from wmp, east
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1201 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar1202.are~ ~override~ // Firkaarg's Maze
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1201 END // transition can not be used by npcs
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 lock_difficulty = 100 STR_VAR door_name = "Door24" END // sets uses key bit, makes door unpickable
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 lock_difficulty = 100 STR_VAR door_name = "Door29" END // sets uses key bit, makes door unpickable
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = key07 END // overcharged item: key07 (num 4) has assigned 4 to stack 1 charges 0 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge2 = 1 STR_VAR match_item = bow10  END // zero-charge item: heartseeker +3
+  LPF ALTER_AREA_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h32 END // zero-charge item: dragonslayer
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3h END // zero-charge item: horn of blasting (num 20) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_AREA_REGION STR_VAR region_name = "CloudkillTrap" door_script = "gtck" END // ground traps won't trigger due to container scripts
+  LPF ALTER_AREA_REGION STR_VAR region_name = "LightningBoltTrap" door_script = "gtlb" END // ground traps won't trigger due to container scripts
+  BUT_ONLY
+
+COPY_EXISTING ~ar1300.are~ ~override~ // de'arnise keep exterior
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exitse END // fix orientation: de'arnise keep from wmp, northwest
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1302a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1302b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1302c END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar1302.are~ ~override~ // De'Arnise Keep 1st Floor
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1300a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1300b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1300c END // transition can not be used by npcs
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 20 STR_VAR match_item = dart03 END // zero-charge item: darts of stunning (num 74) has assigned 0 to stack 40 charges 1 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~ar1303.are~ ~override~ // De'Arnise Keep 2nd Floor (Destroyed)
+  LPF ALTER_AREA_ITEM STR_VAR match_item = "" item = "arow08" END // fixes blank item reference in Nalia's keep
+  BUT_ONLY
+
+COPY_EXISTING ~ar1304.are~ ~override~ // de'arnise keep exterior (pc)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exitse END // fix orientation: de'arnise keep (pc) from wmp, northwest
+  // copy map notes from de'Arnise keep to stronghold de'Arnise keep; see ar1304-7
+  ADD_MAP_NOTE #1357 #2806 ~gray~ #48434 // side entrance
+  ADD_MAP_NOTE #1038 #3216 ~gray~ #48435 // the fort
+  ADD_MAP_NOTE #2868 #1886 ~gray~ #48436 // gate lever
+  ADD_MAP_NOTE #2112 #1984 ~gray~ #48437 // dog kennels
+  BUT_ONLY
+
+// copy map notes from de'Arnise keep to stronghold de'Arnise keep; see ar1304-7
+COPY_EXISTING ~ar1305.are~ ~override~
+  ADD_MAP_NOTE #869 #446 ~gray~ #48438 // basement exit
+
+// door from ground floor of stronghold de'Arnise Keep is off, not attached to door
+COPY_EXISTING ~ar1306.are~ ~override~ // De'Arnise Keep (Stronghold)
+  // copy map notes from de'Arnise keep to stronghold de'Arnise keep; see ar1304-7
+  ADD_MAP_NOTE  #567 #1855 ~gray~ #48439 // Exit to Outside
+  ADD_MAP_NOTE #1554 #1375 ~gray~ #48440 // Exit to Courtyard
+  ADD_MAP_NOTE #1924 #1107 ~gray~ #48440 // Exit to Courtyard
+  ADD_MAP_NOTE #2367 #1001 ~gray~ #48441 // Stairs to Second Floor
+  ADD_MAP_NOTE #1969  #760 ~gray~ #48442 // kitchen
+  READ_SHORT 0x5a info_num
+  READ_LONG  0x5c info_off
+  READ_LONG  0x7c vert_off
+  READ_LONG  0xa4 door_num
+  READ_LONG  0xa8 door_off
+  FOR (index = 0 ; index < info_num ; ++index) BEGIN
+    READ_ASCII (info_off +        (index * 0xc4)) info_name (32) NULL
+    PATCH_IF ("%info_name%" STRING_COMPARE_CASE "Tran1304a" = 0) BEGIN
+      // bounding box
+      WRITE_SHORT (info_off + 0x22 + (index * 0xc4)) 442  // bounding: left
+      WRITE_SHORT (info_off + 0x24 + (index * 0xc4)) 1799 // bounding: top
+      WRITE_SHORT (info_off + 0x26 + (index * 0xc4)) 520  // bounding: right
+      WRITE_SHORT (info_off + 0x28 + (index * 0xc4)) 1935 // bounding: bottom
+      // vertices
+      READ_SHORT  (info_off + 0x2c + (index * 0xc4)) vert_idx
+      WRITE_SHORT (vert_off +        (0x04 * vert_idx)) 442  // x0
+      WRITE_SHORT (vert_off + 0x02 + (0x04 * vert_idx)) 1799 // y0
+      WRITE_SHORT (vert_off + 0x04 + (0x04 * vert_idx)) 442  // x1
+      WRITE_SHORT (vert_off + 0x06 + (0x04 * vert_idx)) 1891 // y1
+      WRITE_SHORT (vert_off + 0x08 + (0x04 * vert_idx)) 520  // x2
+      WRITE_SHORT (vert_off + 0x0a + (0x04 * vert_idx)) 1935 // y2
+      WRITE_SHORT (vert_off + 0x0c + (0x04 * vert_idx)) 520  // x3
+      WRITE_SHORT (vert_off + 0x0e + (0x04 * vert_idx)) 1845 // y3
+      WRITE_BYTE (info_off + 0x61 + (0xc4 * index)) (THIS BOR BIT3) // add 'connected to door' flag; door adjusted next
+      SET index = info_num // kills loop
+    END
+  END
+  FOR (index = 0 ; index < door_num ; ++index) BEGIN
+    READ_ASCII (door_off +        (index * 0xc8)) door_name (32) NULL
+    PATCH_IF ("%door_name%" STRING_COMPARE_CASE "secret07" = 0) BEGIN
+      WRITE_ASCII (door_off + 0x9c + (index * 0xc8)) "Tran1304a" #24
+      SET index = door_num // kills loop
+    END
+  END
+  BUT_ONLY
+
+// copy map notes from de'Arnise keep to stronghold de'Arnise keep; see ar1304-7
+COPY_EXISTING ~ar1307.are~ ~override~
+  ADD_MAP_NOTE #1182  #812 ~gray~ #48443 // Stairs to Basement
+  ADD_MAP_NOTE #2128  #840 ~gray~ #48444 // Stairs to First Floor
+  ADD_MAP_NOTE #1193  #313 ~gray~ #48445 // Stairs to Roof
+  ADD_MAP_NOTE #1782 #1395 ~gray~ #48445 // Stairs to Roof
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 STR_VAR container_name = "Container 13" END // container flagged as trapped, no actual script
+  BUT_ONLY
+
+COPY_EXISTING ~ar1400.are~ ~override~ // Shadow Temple Land (restored, Ranger)
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1401 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1402 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1403 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar1500.are~ ~override~ // Spellhold
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1515 END // fix orientation: from Spellhold interior, SE
+  BUT_ONLY
+
+// two containers on top of each other; shift one
+COPY_EXISTING ~ar1507.are~ ~override~
+  READ_LONG  0x70 cont_off
+  READ_SHORT 0x74 cont_num
+  READ_LONG  0x7c vert_off
+  SET delta_x = 612
+  SET delta_y = 40
+  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+    READ_SHORT (cont_off + 0x20 + (index * 0xc0)) x_pos
+    PATCH_IF (x_pos = 339) BEGIN // book of the dead 3
+      WRITE_SHORT (cont_off + 0x20 + (index * 0xc0)) (THIS + delta_x) // location x
+      WRITE_SHORT (cont_off + 0x22 + (index * 0xc0)) (THIS + delta_y) // location y
+      WRITE_SHORT (cont_off + 0x34 + (index * 0xc0)) (THIS + delta_x) // launch x
+      WRITE_SHORT (cont_off + 0x36 + (index * 0xc0)) (THIS + delta_y) // launch y
+      WRITE_SHORT (cont_off + 0x38 + (index * 0xc0)) (THIS + delta_x) // bounding box left
+      WRITE_SHORT (cont_off + 0x3a + (index * 0xc0)) (THIS + delta_y) // bounding box top
+      WRITE_SHORT (cont_off + 0x3c + (index * 0xc0)) (THIS + delta_x) // bounding box right
+      WRITE_SHORT (cont_off + 0x3e + (index * 0xc0)) (THIS + delta_y) // bounding box bottom
+      READ_LONG   (cont_off + 0x50 + (index * 0xc0)) vert_idx
+      READ_LONG   (cont_off + 0x54 + (index * 0xc0)) vert_num
+      FOR (index2 = 0 ; index2 < vert_num ; ++index2) BEGIN
+        WRITE_SHORT (vert_off +        ((index2 + vert_idx) * 0x04)) (THIS + delta_x)
+        WRITE_SHORT (vert_off + 0x02 + ((index2 + vert_idx) * 0x04)) (THIS + delta_y)
+      END
+      SET index = cont_num // kill loop
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar1512.are~ ~override~ // Bodhi's Hunt Level 1
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Door1513 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Door1513a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Door1514 END // transition can not be used by npcs
+  BUT_ONLY
+
+// move imp to passable ground; can't use ALTER_AREA_ACTOR since there are multiple imps
+COPY_EXISTING ~ar1513.are~ ~override~ // Bodhi's Hunt Level 2
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1512 END  // fix orientation: both entrances from first bodhi hunt area, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1512a END // fix orientation: both entrances from first bodhi hunt area, SE
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "imp01" = 0) BEGIN
+      READ_SHORT(actor_off + 0x20 + (index * 0x110)) x_coord
+      READ_SHORT(actor_off + 0x22 + (index * 0x110)) y_coord
+      PATCH_IF ((x_coord = 1639) AND (y_coord = 1140)) BEGIN
+        WRITE_SHORT(actor_off + 0x20 + (index * 0x110)) 1724 // current x
+        WRITE_SHORT(actor_off + 0x22 + (index * 0x110)) 1164 // current y
+        WRITE_SHORT(actor_off + 0x24 + (index * 0x110)) 1724 // destination x
+        WRITE_SHORT(actor_off + 0x26 + (index * 0x110)) 1164 // destination y
+        SET index = actor_num // kill loop
+      END
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar1514.are~ ~override~ // Bodhi's Hunt Level 3 (1st Slayer Change Happens here)
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Door1507 END // transition can not be used by npcs
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 40 STR_VAR match_item = arow05 END // zero-charge item: arow05 (num 53) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_AREA_ITEM INT_VAR charge1 = 40 STR_VAR match_item = bolt04 END // zero-charge item
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit1507 END // fix orientation: from Spellhold (Lonk the Sane), SW
+  BUT_ONLY
+
+COPY_EXISTING ~ar1515.are~ ~override~ // Spellhold (Irenicus' Living Room)
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1500 END // transition can not be used by npcs
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit1516 END // fix orientation: from lower levels, NE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit1500 END // fix orientation: from outside, NW
+  BUT_ONLY
+
+COPY_EXISTING ~ar1516.are~ ~override~ // Spellhold (Soultheft Level)
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = Exit1508 END // fix orientation: from lower levels, N
+  BUT_ONLY
+
+COPY_EXISTING ~ar1600.are~ ~override~ // Brynnlaw
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1601 END // fix orientation: from Desharik, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1605 END // fix orientation: from Perth, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit1606 END // fix orientation: from Cayla, SE
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit1602 END // fix orientation: from inn, SW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit1603 END // fix orientation: from shop, SW
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit1604 END // fix orientation: from temple, SW
+  BUT_ONLY
+
+COPY_EXISTING ~ar1601.are~ ~override~ // Desharik's Estate
+  LPF ALTER_AREA_ANIMATION INT_VAR flag_static = 0 STR_VAR match_name = smoke END // oven smoke plume, remove show in fog of war flag
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit1600 END // fix orientation: from outside, NW
+  BUT_ONLY
+
+COPY_EXISTING ~ar1603.are~ ~override~ // Brynnlaw's Shop
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  READ_LONG  0x70 cont_off
+  READ_SHORT 0x74 cont_num
+  READ_LONG  0x7c vert_off
+  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+    READ_SHORT (cont_off + 0x20 + (index * 0xc0)) x_coord // container overlay corrections, container 2
+    PATCH_IF (x_coord = 270) BEGIN
+      WRITE_SHORT (cont_off + 0x38 + (index * 0xc0)) 243 // bounding box: left
+      WRITE_SHORT (cont_off + 0x3a + (index * 0xc0)) 414 // bounding box: top
+      WRITE_SHORT (cont_off + 0x3c + (index * 0xc0)) 292 // bounding box: right
+      READ_SHORT  (cont_off + 0x50 + (index * 0xc0)) vert_idx
+      WRITE_SHORT (vert_off +        ((vert_idx + 0) * 0x04)) 292 // x0
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 0) * 0x04)) 442 // y0
+      WRITE_SHORT (vert_off +        ((vert_idx + 1) * 0x04)) 286 // x1
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 1) * 0x04)) 414 // y1
+      WRITE_SHORT (vert_off +        ((vert_idx + 2) * 0x04)) 243 // x2
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 2) * 0x04)) 458 // y2
+      WRITE_SHORT (vert_off +        ((vert_idx + 3) * 0x04)) 252 // x3
+      WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 3) * 0x04)) 489 // y3
+    END
+  END
+  BUT_ONLY
+
+// Fix the incorrect orientation when entering Cayia's house in Brynnlaw (CamDawg)
+COPY_EXISTING ~ar1606.are~ ~override~
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 6 STR_VAR entrance_name = exit1600 END // fix orientation: house of desharik's lover from brynnlaw, northwest
+  BUT_ONLY
+
+COPY_EXISTING ~ar1608.are~ ~override~ // Cellar of Brothel
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "DOOR05" END // sets uses key bit
+  BUT_ONLY
+
+// changes another door to use its key
+COPY_EXISTING ~ar1611.are~ ~override~
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "Secret 1" END // sets uses key bit
+  BUT_ONLY
+
+// Unreferenced night tilesets (Nythrun), see also ar1900n.wed
+COPY_EXISTING ~ar1900.are~ ~override~ // Brothel
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran1902 END // transition can not be used by npcs
+  WRITE_SHORT  0x48 THIS | BIT6 // add 'extended night' flag
+  BUT_ONLY
+
+// no battle music for adratha's cabin
+COPY_EXISTING ~ar1902.are~ ~override~
+  READ_LONG 0xbc song_off
+  WRITE_LONG (song_off + 0x0c) 54 // battle music, bm1
+  BUT_ONLY
+
+//moves troll to passable ground; can't use ALTER_AREA_ACTOR since there are multiple trolls
+COPY_EXISTING ~ar1904.are~ ~override~ // Troll Hill
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "TROLL01" = 0) BEGIN
+      READ_SHORT(actor_off + 0x20 + (index * 0x110)) x_coord
+      READ_SHORT(actor_off + 0x22 + (index * 0x110)) y_coord
+      PATCH_IF ((x_coord = 1492) AND (y_coord = 1172)) BEGIN
+        WRITE_SHORT(actor_off + 0x20 + (index * 0x110)) 1273 // current x
+        WRITE_SHORT(actor_off + 0x22 + (index * 0x110)) 1180 // current y
+        WRITE_SHORT(actor_off + 0x24 + (index * 0x110)) 1273 // destination x
+        WRITE_SHORT(actor_off + 0x26 + (index * 0x110)) 1180 // destination y
+        SET index = actor_num // kill loop
+      END
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar2000.are~ ~override~ // Trademeet
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2008 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2008b END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2013 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran2002 END // transition should be party required
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran2002b END // transition should be party required
+  LPF ALTER_AREA_DOOR INT_VAR flag_uses_key = 1 STR_VAR door_name = "DOOR01" END // sets uses key bit
+  READ_SHORT 0x82 amb_num // inactive ambient
+  READ_LONG  0x84 amb_off
+  FOR (index = 0 ; index < amb_num ; ++index) BEGIN
+    READ_SHORT (amb_off + 0x20 + (index * 0xd4)) x_coord
+    READ_SHORT (amb_off + 0x22 + (index * 0xd4)) y_coord
+    PATCH_IF ((x_coord = 35) AND (y_coord = 59)) BEGIN // SS-Dogs Day 1
+      WRITE_LONG (amb_off + 0x8c + (index * 0xd4)) 0x001fffc0 // time active from 0 to this
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar2001.are~ ~override~ // The Smithy
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  BUT_ONLY
+
+// removes spurious trap flag
+COPY_EXISTING ~ar2002.are~ ~override~ // Fentan's House
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 trap_detect = 0 trap_remove = 0 STR_VAR container_name = "Container 1" END // removes spurious trap flag
+  BUT_ONLY
+
+COPY_EXISTING ~ar2008.are~ ~override~ // Temple of Waukeen
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2000 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2000b END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar2100.are~ ~override~ // Underdark
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = Exit2402 END // fix orientation: from kuo-toa, E
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = Exit2101 END // fix orientation: from beholders, N
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit2400 END // fix orientation: from illithid, NW
+  READ_LONG 0xbc song_off
+  WRITE_LONG (song_off + 0x04) 31 // corrects night music in underdark (was mx2000, trademeet)
+  READ_LONG  0xc4 note_off // Correct the position of the Western Tunnels map note in the Underdark (aVENGER)
+  READ_LONG  0xc8 note_num
+    FOR (index = 0; index < note_num; ++index) BEGIN // cycle through automap notes
+      READ_SHORT (note_off +        (index * 0x34)) x_coord
+      READ_SHORT (note_off + 0x02 + (index * 0x34)) y_coord
+      PATCH_IF ((x_coord = 335) AND  (y_coord = 1569)) BEGIN // Western Tunnels map note
+       WRITE_SHORT (note_off +        (index * 0x34)) 250    // Coordinate X (250)
+       WRITE_SHORT (note_off + 0x02 + (index * 0x34)) 1830   // Coordinate Y (1830)
+      END
+    END  
+BUT_ONLY
+
+COPY_EXISTING ~ar2101.are~ ~override~ // underdark beholder lair
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 8 STR_VAR entrance_name = Exit2100 END // fix orientation: underdark to beholder lair, north
+  BUT_ONLY
+
+COPY_EXISTING ~ar2102.are~ ~override~ // Adalon's Cave
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit2100 END // fix orientation: from exterior, SE
+  BUT_ONLY
+
+COPY_EXISTING ~ar2200.are~ ~override~ // Ust Natha
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2206 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2207 END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2210a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2210b END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar2206.are~ ~override~ // Qilue's House in Ust Natha
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2200 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar2207.are~ ~override~ // Deirex's Tower in Ust Natha
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 flag_party_required = 1 STR_VAR region_name = Tran2200 END // transition can not be used by npcs, party required
+  LPF ALTER_AREA_CONTAINER INT_VAR trapped = 1 STR_VAR container_name = "Shelf 1" END // trap has everything except trapped? = yes
+  LPF ALTER_AREA_CONTAINER INT_VAR trap_detect = 50 trap_remove = 90 STR_VAR container_name = "Shelf 3" END // trap required 0% for detection, but couldn't be removed
+  BUT_ONLY
+
+COPY_EXISTING ~ar2210.are~ ~override~ // Deirex's Cave
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2200a END // transition can not be used by npcs
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2200b END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar2300.are~ ~override~ // Sahuagin City
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffef match_x_coord = 3590 match_y_coord = 2171 END // water spout
+  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffd3 match_x_coord = 4116 match_y_coord = 1641 END // water spout
+  BUT_ONLY
+
+COPY_EXISTING ~ar2400.are~ ~override~ // Mind Flayers in Underdark
+  LPF ALTER_AREA_ITEM INT_VAR charge2 = 0 STR_VAR match_item = misc3o END // overcharged item: misc3o (num 4) has assigned 3 to max 0 in header 2 (methlid's harp, no secondary charges)
+  READ_LONG 0xc0 rest_off              // cleans up junk in the rest spawn block
+  SAY         (rest_off + 0x40) #10134 // random, mismatched string
+  WRITE_ASCII (rest_off + 0x70) ~~ #40 // blanks five junky cre fields   
+  // overlapping containers; disabling empty one
+  READ_LONG  0x70 cont_off
+  READ_SHORT 0x74 cont_num
+  READ_LONG  0x7c vert_off
+  SET vert_delta = 0
+  SET cont_delta = 0
+  FOR (index = 0 ; index < cont_num ; ++index) BEGIN
+    WRITE_LONG (cont_off + 0x50 + (index * 0xc0)) (THIS + vert_delta) // update container vertice indices on the fly
+    READ_SHORT (cont_off + 0x20 + (index * 0xc0)) x_coord // check x-coordinate for match
+    PATCH_IF (x_coord = 1157) BEGIN // container "amp"
+      READ_LONG   (cont_off + 0x50 + (index * 0xc0)) vert_idx
+      READ_SHORT  (cont_off + 0x54 + (index * 0xc0)) vert_num
+      SET vert_cutoff = vert_idx
+      SET vert_delta -= vert_num
+      DELETE_BYTES (vert_off +        (vert_idx * 0x04)) (vert_num * 0x04) // delete vertices for container
+      DELETE_BYTES (cont_off +        (index * 0xc0)) 0xc0 // delete container
+      SET index      -= 1
+      SET cont_num   -= 1
+      SET cont_delta -= 1
+    END
+  END
+  PATCH_IF cont_delta != 0 BEGIN
+    WRITE_SHORT 0x74 (THIS + cont_delta) // update number of containers
+    WRITE_SHORT 0x80 (THIS + vert_delta) // update number of vertices
+    // update general offsets
+    PATCH_FOR_EACH off IN 0x54 0x5c 0x60 0x68 0x70 0x78 0x7c 0x84 0x88 0x90 0xa0 0xa8 0xb0 0xb8 0xbc 0xc0 0xc4 0xcc BEGIN
+      READ_LONG off offset
+      PATCH_IF offset > vert_off BEGIN
+        WRITE_LONG off (THIS + (vert_delta * 0x04))
+      END
+      PATCH_IF offset > cont_off BEGIN
+        WRITE_LONG off (THIS + (cont_delta * 0xc0))
+      END
+    END
+    // now to update vertex indices elsewhere
+    READ_SHORT 0x5a trig_num
+    READ_LONG  0x5c trig_off
+    FOR (index = 0 ; index < trig_num ; ++index) BEGIN
+      READ_SHORT  (trig_off + 0x2c + (index * 0xc4)) vert_idx
+      PATCH_IF vert_idx > vert_cutoff BEGIN
+        WRITE_SHORT  (trig_off + 0x2c + (index * 0xc4)) (THIS + vert_delta)
+      END
+    END
+    READ_LONG  0xa4 door_num
+    READ_LONG  0xa8 door_off
+    FOR (index = 0 ; index < door_num ; ++index) BEGIN
+      PATCH_FOR_EACH off IN 0x2c 0x34 0x48 0x50 BEGIN
+        READ_LONG (door_off + off + (index * 0xc8)) vert_idx
+        PATCH_IF vert_idx > vert_cutoff BEGIN
+          WRITE_LONG (door_off + off + (index * 0xc8)) (THIS + vert_delta)
+        END
+      END
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar2401.are~ ~override~ // war elves in ar2401 go hostile with drow shouts
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 14 STR_VAR entrance_name = Exit2500 END // fix orientation: from surface, SE
+  READ_LONG  0x54 actor_off
+  READ_SHORT 0x58 actor_num
+  FOR (index = 0 ; index < actor_num ; ++index) BEGIN
+    READ_ASCII (actor_off + 0x80 + (index * 0x110)) cre_file
+    PATCH_IF ("%cre_file%" STRING_COMPARE_REGEXP "udelf0[1-5]" = 0) BEGIN
+      WRITE_ASCII (actor_off + 0x60 + (index * 0x110)) ~waitpc~ #8 // overrides class script (prevents gpshout in cre files from working)
+      PATCH_IF ("%cre_file%" STRING_COMPARE_CASE "udelf02" = 0) BEGIN
+        WRITE_ASCII (actor_off + 0x58 + (index * 0x110)) ~wtarsgt~ #8 // also overrides general script (prevents gparcher in cre files from working)
+      END
+    END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~ar2402.are~ ~override~ // Kuo Toa in Underdark
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = Exit2401 END // fix orientation: from drow-surface elf fight area, ESE
+  BUT_ONLY
+
+COPY_EXISTING ~ar2600.are~ ~override~ // Tethyr Wood
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 flag_party_required = 1 STR_VAR region_name = Tran2603 END // sync transition
+  BUT_ONLY
+
+COPY_EXISTING ~ar2603.are~ ~override~ // Coran's Cabin
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 flag_party_required = 1 STR_VAR region_name = Tran2600 END // sync transition
+  BUT_ONLY
+
+COPY_EXISTING ~ar2800.are~ ~override~ // Suldanesselar
+  LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran2807 END // transition can not be used by npcs
+  BUT_ONLY
+
+COPY_EXISTING ~ar2801.are~ ~override~ // House of High Priestess of Suldanesselar
+  LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = Exit2800 END // fix orientation: from exterior, N
+  BUT_ONLY
+
+// Unreferenced night tilesets (Nythrun)
+COPY_EXISTING ~ar2807.are~ ~override~
+  WRITE_SHORT  0x48 THIS | BIT6 // add 'extended night' flag
+  BUT_ONLY
+
+COPY_EXISTING ~ar2902.are~ ~override~ // Pride (Abyss)
+  LPF ALTER_AREA_REGION INT_VAR flag_party_required = 1 STR_VAR region_name = Tran2900 END // transition should be party required
+  BUT_ONLY
+
+ACTION_IF tob_game THEN BEGIN // ToB
+
+  // watcher's keep exterior doors off by a few pixels, allowing players to bypass closed doors
+  COPY_EXISTING ~ar3000.are~ ~override~ // Watcher's Keep
+    READ_SHORT 0x5a info_num
+    READ_LONG  0x5c info_off
+    READ_LONG  0x7c vert_off
+    READ_LONG  0xa4 door_num
+    READ_LONG  0xa8 door_off
+    FOR (index = 0 ; index < info_num ; ++index) BEGIN
+      READ_ASCII ("%info_off%" + 0x7c + (0xC4 * index)) script
+      PATCH_IF ("TP3001A" STRING_COMPARE_CASE "%script%" = 0) BEGIN // door to level one, altar
+        WRITE_SHORT (info_off + 0x24 + (0xC4 * index)) 406  // bounding box top
+        READ_LONG   (info_off + 0x2c + (0xC4 * index)) vert_idx
+        WRITE_SHORT (vert_off +        ((vert_idx + 3) * 0x04)) 1040 // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 3) * 0x04)) 406  // vertex
+      END ELSE
+      PATCH_IF ("TP3017B" STRING_COMPARE_CASE "%script%" = 0) BEGIN // door to carston and the machine
+        READ_LONG   (info_off + 0x2c + (0xC4 * index)) vert_idx
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 2) * 0x04)) 1774 // vertex
+      END ELSE
+      PATCH_IF ("TP3019B" STRING_COMPARE_CASE "%script%" = 0) BEGIN // door to helmite level -- last seals
+        WRITE_SHORT (info_off + 0x24 + (0xC4 * index)) 1596 // bounding box
+        READ_LONG   (info_off + 0x2c + (0xC4 * index)) vert_idx
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 1) * 0x04)) 1569 // vertex
+      END ELSE
+      PATCH_IF ("TP3020" STRING_COMPARE_CASE "%script%" = 0) BEGIN // door to imprisoned one
+        WRITE_SHORT (info_off + 0x22 + (0xC4 * index)) 429  // bounding box
+        WRITE_SHORT (info_off + 0x24 + (0xC4 * index)) 1899 // bounding box
+        WRITE_SHORT (info_off + 0x26 + (0xC4 * index)) 489  // bounding box
+        WRITE_SHORT (info_off + 0x28 + (0xC4 * index)) 2039 // bounding box
+        READ_LONG   (info_off + 0x2c + (0xC4 * index)) vert_idx
+        WRITE_SHORT (vert_off +        ((vert_idx    ) * 0x04)) 429  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx    ) * 0x04)) 2003 // vertex
+        WRITE_SHORT (vert_off +        ((vert_idx + 1) * 0x04)) 448  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 1) * 0x04)) 1899 // vertex
+        WRITE_SHORT (vert_off +        ((vert_idx + 2) * 0x04)) 489  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 2) * 0x04)) 1931 // vertex
+        WRITE_SHORT (vert_off +        ((vert_idx + 3) * 0x04)) 483  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((vert_idx + 3) * 0x04)) 2039 // vertex
+      END
+    END
+    FOR (index = 0 ; index < door_num ; ++index) BEGIN
+      READ_ASCII (door_off +        (index * 0xc8)) doorname
+      PATCH_IF ("%doorname%" STRING_COMPARE_CASE "DOOR02" = 0) BEGIN // door to imprisoned one
+        WRITE_SHORT (door_off + 0x44 + (index * 0xc8)) 508 // bounding box
+        READ_LONG   (door_off + 0x34 + (index * 0xc8)) cl_vert_idx // closed vertex index
+        WRITE_SHORT (vert_off +        ((cl_vert_idx + 1) * 0x04)) 445  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((cl_vert_idx + 1) * 0x04)) 1896 // vertex
+        WRITE_SHORT (vert_off +        ((cl_vert_idx + 2) * 0x04)) 508  // vertex
+        WRITE_SHORT (vert_off +        ((cl_vert_idx + 3) * 0x04)) 495  // vertex
+        WRITE_SHORT (vert_off + 0x02 + ((cl_vert_idx + 3) * 0x04)) 2048 // vertex
+      END
+    END
+    BUT_ONLY
+  
+  // corrects ambients, animation glitches due to bad flag
+  COPY_EXISTING ~ar3001.are~ ~override~ // Watcher's Keep -- Altar level
+    LPF ALTER_AREA_ANIMATION INT_VAR flag_static = 1 STR_VAR match_name = am3001f END // glowing globes, add show in fog of war flag
+    READ_SHORT 0x82 amb_num
+    READ_LONG  0x84 amb_off
+    FOR (index = 0 ; index < amb_num ; ++index) BEGIN
+      READ_SHORT (amb_off + 0x20 + (index * 0xd4)) x_coord
+      PATCH_IF (x_coord = 1406) BEGIN // ghostly single shots
+        WRITE_SHORT (amb_off + 0x80 + (index * 0xd4)) 10 // ambient was only using 1 out of 10 listed sounds
+      END
+    END
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar3004.are~ ~override~ // Watcher's Keep (maze)
+    READ_LONG 0xc0 rest_off
+    WRITE_ASCII (rest_off + 0x60) ~DGLAB01~ #8 // broken cre reference
+    BUT_ONLY
+  
+    // Killing unrelated baatezu outside Ka'rashur's room should not turn him and his cohort in Watcher's Keep hostile (see also yssum2.bcs, ar6012.are) (Wisp)
+  COPY_EXISTING ~ar3005.are~ ~override~ // Watcher's Keep -- tieflings
+                ~ar3006.are~ ~override~ // Watcher's Keep -- Succubus
+                ~ar3009.are~ ~override~ // Watcher's Keep -- Wild Magic ?
+    READ_LONG 0xc0 rest_off
+    FOR (index = 0 ; index < 10 ; ++index) BEGIN
+      READ_ASCII (rest_off + 0x48 + (index * 0x08)) cre_file
+      PATCH_IF ("%cre_file%" STRING_EQUAL_CASE gorbat5) BEGIN
+        WRITE_ASCII (rest_off + 0x48 + (index * 0x08)) dbonef01 #8
+      END
+    END
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar3010.are~ ~override~ // Watcher's Keep -- Tanar'ri -- Obelisk
+    READ_LONG 0xc0 rest_off
+    WRITE_ASCII (rest_off + 0x58) ~DERINY01~ // broken cre reference
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar3016.are~ ~override~ // Watcher's Keep -- Chromatic Demon; Elementalist Level
+    LPF ALTER_AREA_ITEM INT_VAR charge2 = 5 STR_VAR match_item = wand18 END // overcharged: wand of spell striking, second ability has five max charges
+    LPF ALTER_AREA_ITEM INT_VAR charge2 = 0 charge3 = 0 STR_VAR match_item = wand19 END // no secondary/tertiary abilities
+    LPF ALTER_AREA_ITEM STR_VAR match_item = "book59" item = "book44" END // book59 is special book to advance tanner murder plot with Fael
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar3021.are~ ~override~ // Watcher's Keep -- Ilithids
+    LPF ALTER_AREA_ITEM INT_VAR charge2 = 0 charge3 = 0 STR_VAR match_item = wand19 END // overcharged: no secondary/tertiary abilities
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar3022.are~ ~override~ // Watcher's Keep -- Anti-Paladins
+    LPF ALTER_AREA_ITEM INT_VAR charge2 = 5 STR_VAR match_item = wand18 END // overcharged: wand of spell striking, second ability has five max charges
+    BUT_ONLY
+
+  COPY_EXISTING ~ar5000.are~ ~override~ // Saradush
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5002 END // transition can not be used by npcs
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit5010 END // from Santele's home, SW
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient = 15 STR_VAR entrance_name = Exit5003 END // fix orientation: from tavern, SSE
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5001.are~ ~override~ // Gromnir 1st Level
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5000 END // transition can not be used by npcs
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5002 END // transition can not be used by npcs
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5006.are~ ~override~ // Saradush Prison
+    READ_SHORT 0x5a info_num
+    READ_LONG  0x5c info_off
+    FOR (index = 0; index < info_num ; ++index) BEGIN // dupe SpiritAppear1 info points; rename one
+      READ_SHORT (info_off + 0x24 + (0xc4 * index )) bound_top
+      PATCH_IF (bound_top = 603) BEGIN
+        WRITE_ASCII (info_off + (0xC4 * index )) SpiritAppear2 #32
+        SET index = info_num // kill loop
+      END
+    END
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5007.are~ ~override~ // Basement Entrance to Gromnir's Hideout
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5006 END // transition can not be used by npcs
+    BUT_ONLY
+
+  COPY_EXISTING ~ar5009.are~ ~override~ // House (no exit?)
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit5008 END // fix orientation: unused, NE
+    BUT_ONLY
+
+  COPY_EXISTING ~ar5010.are~ ~override~
+    LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 1110 x_coord = 108 y_coord = 367 END // one candle had coords outside the area
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5012.are~ ~override~
+    LPF ALTER_AREA_CONTAINER INT_VAR trapped = 0 STR_VAR container_name = "Container 1" END // container flagged as trapped, no actual script
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5013.are~ ~override~ // Sewers beneath Saradush
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5000a END // transition can not be used by npcs
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5000b END // transition can not be used by npcs
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5000c END // transition can not be used by npcs
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient = 13 STR_VAR entrance_name = Exit5007 END // fix orientation: from gromnir's basement, ESE
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5015.are~ ~override~ // Saradush Militia Entrance
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5016 END // transition can not be used by npcs
+    LPF ALTER_AREA_DOOR INT_VAR flag_secret = 0 STR_VAR door_name = "Secret 1" END // removes secret flag; despite name not secret
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5200.are~ ~override~ // Fire Giant Entrance Area
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5201 END // transition can not be used by npcs
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient =  4 STR_VAR entrance_name = ExitW END // fix orientation: from worldmap, east edge, W
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5201.are~ ~override~
+    LPF ALTER_AREA_REGION STR_VAR region_name = "Inc Cloud Trap" door_script= "gtfb" END // ground traps won't trigger due to container scripts
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5204.are~ ~override~
+    LPF ALTER_AREA_CONTAINER STR_VAR container_name = "Bed" container_script = "ctfb" END // container traps won't trigger due to ground scripts; see also ct028.bcs
+    BUT_ONLY
+
+  COPY_EXISTING ~ar5500.are~ ~override~ // Amkethran
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient =  4 STR_VAR entrance_name = ExitE END // fix orientation: from worldmap, east edge, W
+    BUT_ONLY  
+  
+  COPY_EXISTING ~ar5502.are~ ~override~ // Kerrick the Smith's House
+    LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw1h05 END // overcharged item: sw1h05 (num 5) has assigned 2 to stack 1 charges 0 in header 1
+    BUT_ONLY
+
+  COPY_EXISTING ~ar5503.are~ ~override~ // Chyil's House
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5500 END // transition can not be used by npcs
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5504.are~ ~override~ // Smuggler Cave
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5500 END // transition can not be used by npcs
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar5507.are~ ~override~ // Empty Home
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran5500 END // transition can not be used by npcs
+    BUT_ONLY
+  
+  // Killing unrelated baatezu outside Ka'rashur's room should not turn him and his cohort in Watcher's Keep hostile (see also yssum2.bcs, ar3005.are, ar3006.are, ar3009.are) (Wisp)
+  COPY_EXISTING ~ar6012.are~ ~override~ // Pool Home -- breath under water
+    LPF ALTER_AREA_ACTOR STR_VAR actor_name = "Bone Fiend" cre_file = "dbonef01" END
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar6101.are~ ~override~ // Main Entrance Sendai's Lair
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran6100 END // transition can not be used by npcs
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient = 12 STR_VAR entrance_name = Exit6100 END // fix orientation: from exterior, E
+    BUT_ONLY
+
+  COPY_EXISTING ~ar6105.are~ ~override~ // Sendai's Lair -- Diaytha, Abishai
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient =  2 STR_VAR entrance_name = Exit6106 END // fix orientation: from Egeissag, SW
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar6107.are~ ~override~ // Sendai's Lair -- Mithykyl
+    LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran6108 END // transition can not be used by npcs
+    BUT_ONLY
+  
+  // dimension door at Sendai's enclave has funky lighting
+  COPY_EXISTING ~ar6108.are~ ~override~ // sendai's enclave
+    LPF ALTER_AREA_ANIMATION INT_VAR flag_not_light_source = 1 STR_VAR match_name = spdimndr END
+    BUT_ONLY
+
+  COPY_EXISTING ~ar6111.are~ ~override~ // Woodcutter's House -- Sendai's Area
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit6100 END // fix orientation: from exterior, NE
+    BUT_ONLY
+  
+  COPY_EXISTING ~ar6300.are~ ~override~ // Oasis in Tethyr
+    LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = plot16a END // overcharged item: plot16a (num 6) has assigned 2 to stack 1 charges 0 in header 1
+    BUT_ONLY
+
+  COPY_EXISTING ~ar6400.are~ ~override~ // River Area
+    LPF ALTER_AREA_ENTRANCE INT_VAR orient =  8 STR_VAR entrance_name = ExitS END // fix orientation: from worldmap, south edge, N
+    BUT_ONLY
+  
+END

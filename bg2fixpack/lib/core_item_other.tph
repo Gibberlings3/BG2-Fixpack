@@ -1,0 +1,1817 @@
+/////                                                  \\\\\
+///// other item file fixes                            \\\\\
+/////                                                  \\\\\
+
+// pair disease only with disease icons; see also ghast1.itm, paraghas.itm, magispwr.itm, spidwr1.itm, sharswd.itm
+COPY_EXISTING ~acidooz3.itm~ ~override~ // slow w/ disease icon
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 7 parameter2 = 41 END // changed to slow icon
+
+// aegis fang shouldn't display name while unidentified
+// aegis fang should look like a hammer
+COPY_EXISTING ~aegis.itm~  ~override~
+              ~aegis2.itm~ ~override~
+  SAY 0x08 #6345 // "aegis fang" > "war hammer"
+  WRITE_ASCII 0x3a ~ihamm06~ #8
+  WRITE_ASCII 0x44 ~ghamm01~ #8
+  WRITE_ASCII 0x58 ~chamm06~ #8
+  LPF ALTER_HEADER STR_VAR icon = ihamm06 END
+  BUT_ONLY
+
+// missile weapons using wrong projectiles and being blocked by protection from normal missiles; see also arow02.itm and wasling.itm
+COPY_EXISTING ~aegis.itm~    ~override~ // aegis fang
+              ~ax1h05.itm~   ~override~ // throwing axe +2
+              ~ax1h06.itm~   ~override~ // throwing axe +2
+              ~ax1h08.itm~   ~override~ // hangard's axe +2
+              ~ax1h09.itm~   ~override~ // rifthome axe +3
+              ~ax1h16.itm~   ~override~ // k'logarath +4
+              ~hamm06.itm~   ~override~ // dwarven thrower
+  LPF ALTER_HEADER INT_VAR projectile = 7 match_type = 2 END // magic axe (7) from normal axe (10) on ranged headers
+  BUT_ONLY IF_EXISTS
+
+// descript/item range don't match
+COPY_EXISTING ~amul01.itm~ ~override~ // necklace of missiles
+  LPF ALTER_HEADER INT_VAR silent = 1 range = 50 END
+  BUT_ONLY
+
+// amulet of shield not protecting against MM
+COPY_EXISTING ~amul15.itm~   ~override~
+  LPF DELETE_EFFECT INT_VAR check_globals = 0 END // delete all effects
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 146 target = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi114 END // just cast shield spell directly
+  BUT_ONLY
+
+// amul23 and amul24 have different BAMs than amul22
+COPY_EXISTING ~amul23.itm~ ~override~
+              ~amul24.itm~ ~override~
+  WRITE_ASCIIE 0x3a ~i%SOURCE_RES%~ #8
+  WRITE_ASCIIE 0x58 ~c%SOURCE_RES%~ #8
+  BUT_ONLY
+
+// ability requires ID
+COPY_EXISTING ~amul26.itm~   ~override~ // amulet of cheetah speed - haste
+              ~boot12.itm~   ~override~ // gargoyle boots - stoneskin
+              ~regisamu.itm~ ~override~ // ruby pendant - charm
+              ~misc3e.itm~   ~override~ // black spider figurine - summon kitthix
+              ~misc3f.itm~   ~override~ // jade hound - summon jade hound
+  LPF ALTER_HEADER INT_VAR silent = 1 identify = 1 END // id to use
+  BUT_ONLY IF_EXISTS
+
+// missile weapons using wrong projectiles and being blocked by protection from normal missiles; see also aegis.itm et al and wasling.itm
+COPY_EXISTING ~arow02.itm~   ~override~ // arrows +1
+  LPF ALTER_HEADER INT_VAR projectile = 2 match_type = 2 END // magic arrow (2) from normal arrow (5) on ranged headers
+  BUT_ONLY
+
+// Arrows of Biting and Protector of the Dryads +2 have the "Use Strength" flag enabled
+COPY_EXISTING ~arow05.itm~ ~override~ // arrows of biting
+              ~arow12.itm~ ~override~ // arrows of biting
+              ~arow14.itm~ ~override~ // poisoned arrows
+              ~bow08.itm~  ~override~ // eagle bow
+              ~bow99.itm~  ~override~ // eagle bow
+  LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 flag_strength = 0 END // remove strength bonus flag
+  BUT_ONLY
+  
+// unused, but fix anyway
+COPY_EXISTING ~ax1h05.itm~ ~override~ // throwing axe +2
+  LPF ALTER_HEADER INT_VAR silent = 1 match_type = 2 flag_strength = 1 END // add strength bonus flag to ranged header
+  BUT_ONLY
+
+// bala's axe shows string 'magic resistance lowered', but what it actually does is miscast magic, add icon
+// add once-per-day dispel magic ability
+COPY_EXISTING ~ax1h07.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode = 142 END // delete existing miscast/spell failure icons
+  LPF CLONE_EFFECT INT_VAR match_opcode = 60 match_parameter2 = 1 opcode = 142 parameter2 = 105 END
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 139 match_parameter1 = 14790 parameter1 = 54303 END
+  LPF ADD_ITEM_HEADER INT_VAR required_id = 1 target = 4 target_count = 1 range = 40 charges = 1 depletion = 3 flags = BIT11 damage_type = 1 overhand = 100 STR_VAR icon = SPPR303B END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 148 target = 1 timing = 1 parameter2 = 1 STR_VAR resource = sppr303 END
+  BUT_ONLY
+
+COPY_EXISTING ~ax1h10.itm~ ~override~
+// first uncorrupt the item by deleting any bytes beyond the listed effects
+  READ_LONG  0x64 abil_off
+  READ_SHORT 0x68 abil_num
+  READ_LONG  0x6a fx_off
+  READ_SHORT 0x70 fx_num
+  t_fx_num = fx_num
+  CLEAR_ARRAY ab_array
+  GET_OFFSET_ARRAY ab_array 0x64 4 0x68 2 0 0 0x38
+  PHP_EACH ab_array AS int => goa_abil_off BEGIN
+    CLEAR_ARRAY fx_array
+    GET_OFFSET_ARRAY2 fx_array goa_abil_off 0x6a 4 0x1e 2 0x20 2 0x30
+    PHP_EACH fx_array AS int => goa_fx_off BEGIN
+      t_fx_num += 1
+    END
+  END
+  PATCH_IF 0x72 + abil_num*0x38 + 0x30*t_fx_num < BUFFER_LENGTH BEGIN
+    DELETE_BYTES 0x72 + abil_num*0x38 + 0x30*t_fx_num BUFFER_LENGTH - (0x72 + abil_num*0x38 + 0x30*t_fx_num)
+  END
+  LPF DELETE_EFFECT INT_VAR match_opcode = 177 END // purge all old EFF-targeted damage
+  LPF DELETE_EFFECT INT_VAR match_opcode =  55 END // purge all old slay effects
+  PATCH_FOR_EACH resref IN mesdie die ax1h10a BEGIN // now replace them with good stuff
+    LPF ADD_ITEM_EFFECT INT_VAR type = 99 opcode = 177 target = 2 parameter1 = 4 parameter2 = 3 timing = 1 STR_VAR resource = EVAL "%resref%" END
+  END
+  LPF ALTER_HEADER INT_VAR match_type = 2 flag_strength = 1 dicenumber = 1 END // add strength bonus to ranged ability, change to 1d6 from 3d6
+  LPF ALTER_EFFECT INT_VAR header_type = 2 STR_VAR match_resource = "ax1h10a" resource = "ax1h10b" END
+  BUT_ONLY
+
+// Amkethran duplicate gem bag fix, part one of four (see amsmug01.sto amsmug02.sto, cdbag02i.sto, cdbag02j.sto)
+ACTION_IF tob_game THEN BEGIN // ToB-only stuff check
+
+  COPY_EXISTING ~bag02i.itm~ ~override/cdbag02i.itm~
+                ~bag02i.itm~ ~override/cdbag02j.itm~
+
+END
+  
+// basilisk petrification should force, you know, a save against petrification
+COPY_EXISTING ~basigaze.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_savingthrow = BIT0 savingthrow = BIT4 END // save vs. spell > petrification
+  
+// basilisk petrification should force, you know, a save against petrification
+COPY_EXISTING ~basilg1.itm~ ~override~
+              ~basill1.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_savingthrow = BIT2 savingthrow = BIT4 END // save vs. poison > petrification
+
+//Belt of Inertial Barrier displays MR icon instead of Resistance to Magic Energy (Wisp)
+COPY_EXISTING ~belt10.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 63 parameter2 = 123 END
+  BUT_ONLY
+
+// black blade o' disaster using wrong power level for level drain
+// black blade o' disaster is supposed to disintegrate, not slay
+// soa black blade does not grant long sword grandmastery per descript; see also SoA-only spwi915.spl patch for duration, thac0 fixes
+COPY_EXISTING ~blakblad.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 55 opcode = 238 END
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 10 power = 9 match_target = 2 END // all of the 10% effects (level drain et al) on target
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 10 power = 0 match_target = 1 END // all of the 10% effects (level drain et al) on self
+  PATCH_IF !tob_game BEGIN // SoA-only fix; lacks grandmastery-when-wielded
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 233 target = 1 parameter1 = 5 parameter2 = 90 timing = 2 resist_dispel = 2 END
+  END
+  BUT_ONLY
+
+// two clubs using thrusting animations; other eight do not
+COPY_EXISTING ~blun01.itm~ ~override~
+              ~blun31.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 overhand = 50 backhand = 50 thrust = 0 END // balance of attack animations
+  BUT_ONLY IF_EXISTS
+
+//Give Root of the Problem a price (Wisp)
+COPY_EXISTING ~blun10.itm~ ~override~
+  WRITE_LONG 0x34 2750
+  BUT_ONLY
+
+// %$#*$&^ damage vs type opcode. remove global 'use eff' opcode; move to melee header (revised by Wisp)
+// see macedisr.eff for second half of this fix
+COPY_EXISTING ~blun12.itm~ ~override~
+              ~deva.itm~   ~override~
+              ~hamm10.itm~ ~override~
+              ~hamm11.itm~ ~override~
+  SPRINT neweff cddisr // deva, blun12
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_REGEXP "^hamm1[01]$" = 0) BEGIN SPRINT neweff ~%SOURCE_RES%~ END
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 STR_VAR match_resource = macedisr END // delete from global effects
+  // have to add the match_param1/2 to avoid duping deva.itm's illusionary creature kill
+  // remove saves for runehammers double-save fix, make both 'die'
+  LPF ALTER_EFFECT INT_VAR                 silent = 1 check_globals = 0 match_opcode = 177 match_parameter1 = 4 match_parameter2 = 3 savingthrow = 0 savebonus = 0 END // remove dupe saves
+  LPF ALTER_EFFECT INT_VAR                 silent = 1 check_globals = 0 match_opcode = 177 match_parameter1 = 4 match_parameter2 = 3 STR_VAR match_resource = ~mesdie~ resource = ~die~ END // change all to die
+  LPF ALTER_EFFECT INT_VAR multi_match = 1 silent = 1 check_globals = 0 match_opcode = 177 match_parameter1 = 4 match_parameter2 = 3 STR_VAR match_resource = ~die~ resource = ~mesdie~ END // change only first one to use mesdie instead
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 177 match_parameter1 = 4 match_parameter2 = 3 STR_VAR match_resource = ~die~ resource = EVAL ~%neweff%~ insert = ~last~ END // add new eff to melee headers (extra 1d6+2 to undead)
+  BUT_ONLY IF_EXISTS
+
+// name fix for FoA +2
+COPY_EXISTING ~blun14d.itm~ ~override~
+              ~blun14e.itm~ ~override~
+              ~blun14f.itm~ ~override~
+  SAY NAME2 @125 // flail of ages +2
+  BUT_ONLY
+
+// fixes wrong BAMs for cold-acid flail of ages
+COPY_EXISTING ~blun14e.itm~ ~override~
+  WRITE_ASCII 0x3a ~IBLUN14E~
+  WRITE_ASCII 0x58 ~CBLUN14E~
+  LPF ALTER_HEADER INT_VAR match_type = 1 STR_VAR icon = IBLUN14E END // update icon on melee headers
+  BUT_ONLY
+
+// Club +3, Blackblood had Mace Animation. change it to club
+COPY_EXISTING ~blun22.itm~ ~override~
+  WRITE_ASCII 0x22 ~CL~
+  BUT_ONLY
+
+// level drain now handled by batch fixes
+// changes the icon from generic mace to MoD's one. Also see macedisu.eff.
+// new for v4; fix ^&%&# damage v opcode no-die bug
+COPY_EXISTING ~blun25.itm~ ~override~
+  WRITE_ASCII 0x3a ~iblun12~ #8 // use MoD BAM
+  WRITE_ASCII 0x44 ~gblun06~ #8 // use MoD BAM
+  WRITE_ASCII 0x58 ~cblun12~ #8 // use MoD BAM
+  LPF ALTER_HEADER INT_VAR match_type = 1 STR_VAR icon = iblun12 END // update MoD icon on melee headers
+  // change unneeded macedisr call to color pulse to match un-upgraded MoD
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 9 target = 1 parameter1 = ((202 << 16) + (255 << 24)) parameter2 = (21 + (110 << 16)) timing = 2 END // blue 202/green 255 cycle at loc 21, cycle speed 110
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 STR_VAR match_resource = macedisr END // delete eff on equipping effect
+  // add new eff to melee headers, last (extra undead 1d6+1 damage)
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 177 match_parameter1 = 4 match_parameter2 = 3 savingthrow = 0 savebonus = 0 END // remove dupe saves
+  // now to fix eff order on melee attacks
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 177 STR_VAR match_resource = ~mesdie~ resource = ~die~ END // now both use 'die'
+  LPF ALTER_EFFECT INT_VAR multi_match = 1 silent = 1 check_globals = 0 match_opcode = 177 STR_VAR match_resource = ~die~ resource = ~mesdie~ END // change only first one to use mesdie instead
+  LPF CLONE_EFFECT INT_VAR silent = 1 multi_match = 1 check_globals = 0 match_opcode = 177 resist_dispel = 0 STR_VAR match_resource = ~die~ resource = ~macedisu~ insert = ~last~ END // add undead damage back to header
+  BUT_ONLY
+
+// club of detonation's 3 fire damage only occurring 20% of the time, instead of always
+// club of detonation +3 needs 4 probabilities adjusted - fix separately
+COPY_EXISTING ~blun26.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 12 match_parameter1 = 3 probability1 = 100 END
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 20 match_probability2 = 0 probability1 = 19 END // fire damage should be 20% of hits, not 21% (0-19)
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 27 match_probability2 = 20 probability1 = 26 END // fireball should be 7% of hits, not 8%, not overlap with fire damage (20-26)
+  BUT_ONLY IF_EXISTS
+
+// changes upgraded club o detonation to use club paperdoll and not be a flail, fire damage probabilities incorrect
+COPY_EXISTING ~blun27.itm~ ~override~
+  WRITE_ASCII 0x22 ~CL~  // club
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  30 match_probability2 =  0 probability1 = 29 END // fire damage should be 30% of hits, not 31% (0-29)
+  BUT_ONLY IF_EXISTS
+
+// both versions of foa +4 use foa +3 quick icon
+COPY_EXISTING ~blun30c.itm~ ~override~
+              ~blun30d.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR header_type = 1 STR_VAR icon= EVAL ~i%SOURCE_RES%~ END
+  BUT_ONLY IF_EXISTS
+
+// items with only fire resistance should use protection from fire icon, not resist fire/cold icon
+COPY_EXISTING ~blun35.itm~  ~override~ // Ice Star +4
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 26 parameter2 = 16 END // protection from fire
+  BUT_ONLY IF_EXISTS
+
+//Flasher Master Bruiser Mates lack their advertised +1 to hit and have an undocumented save penalty (Wisp)
+COPY_EXISTING ~bolt07.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 savebonus = 0 END
+  LPF ALTER_HEADER INT_VAR match_type = 2 to_hit = 1 END // add +1 thac0
+  BUT_ONLY
+
+// fixes price for 2 books to make them sellable
+COPY_EXISTING ~book27.itm~ ~override~ // History of Shadowdale
+              ~book39.itm~ ~override~ // History of the Drow
+  WRITE_LONG 0x34 2
+  BUT_ONLY
+
+// boots of speed, grandmaster armor haste > movement rate bonus fix
+COPY_EXISTING ~boot01.itm~ ~override~
+              ~leat24.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 16 opcode = 126 parameter1 = 200 parameter2 = 2 resist_dispel = 0 END // haste to set 200% movement rate, no dispel
+  BUT_ONLY IF_EXISTS
+
+// items with only cold resistance should use protection from cold icon, not resist fire/cold icon
+COPY_EXISTING ~boot03.itm~  ~override~ // boots of the north
+              ~plot01p.itm~ ~override~ // Old Slippers
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 26 parameter2 = 25 END // protection from cold
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~boot12.itm~ ~override~ // Gargoyle Boots
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 7 END // Stoneskin, primary Transmuter, secondary Combat Protections
+  BUT_ONLY IF_EXISTS
+
+// fixes swapped icons
+COPY_EXISTING ~bow01.itm~ ~override~
+              ~bow03.itm~ ~override~
+  WRITE_ASCIIE 0x3a ~i%SOURCE_RES%~ #8
+  BUT_ONLY
+
+// fixes incorrect BAMs for several bows
+COPY_EXISTING ~bow01.itm~    ~override~
+              ~bow03.itm~    ~override~
+              ~bow09.itm~    ~override~
+              ~bow11.itm~    ~override~
+              ~bow12.itm~    ~override~
+              ~bow14.itm~    ~override~
+              ~bow15.itm~    ~override~
+              ~bow16.itm~    ~override~
+              ~bow17.itm~    ~override~
+              ~bow18.itm~    ~override~
+              ~bow22.itm~    ~override~
+              ~bow23.itm~    ~override~
+              ~gorwom2.itm~  ~override~
+              ~npbow.itm~    ~override~
+  READ_ASCII 0x3a bam
+  LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 STR_VAR icon = EVAL ~%bam%~ END // location weapon slots
+  BUT_ONLY IF_EXISTS
+
+// fixes enchantment, weight, icons, and prof of short bow +1
+COPY_EXISTING ~bow06.itm~ ~override~
+  WRITE_ASCII 0x3a ~ibow06~ #8 // icons
+  WRITE_ASCII 0x58 ~cbow06~ #8
+  LPF ALTER_HEADER INT_VAR match_type = 4 range = 75 STR_VAR icon = ibow06 END
+  BUT_ONLY
+
+// remove apr opcode from ranged header
+COPY_EXISTING ~bow08.itm~ ~override~
+  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 1 END
+  BUT_ONLY
+
+// Heartseeker gives regular THAC0 instead of missile THAC0
+COPY_EXISTING ~bow10.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 54 opcode = 167 END
+  BUT_ONLY
+
+// inconsistent handwear: bracers should use (unidentified) bracer name and descript and ground icon; see also brac17-20.itm, npmisc2.itm
+COPY_EXISTING ~brac11.itm~ ~override~ // bracers of binding
+              ~brac16.itm~ ~override~ // bracers of blinding strike
+              ~brac22.itm~ ~override~ // paladin's bracers (ground icon)
+              ~brac23.itm~ ~override~ // blessed bracers (ground icon)
+              ~brac26.itm~ ~override~ // tzu-zan's bracers (ground icon)
+  WRITE_LONG  0x08 6341 // bracers
+  WRITE_ASCII 0x44 ~gbrac01~ #8 // bracer ground icon
+  WRITE_LONG  0x50 6791 // generic bracer descript
+  BUT_ONLY IF_EXISTS
+
+// Standardize the school and secondary type of items which cast alteration spells (aVENGER)
+COPY_EXISTING ~brac16.itm~ ~override~ // Bracers of Blinding Strike
+              ~sw1h27.itm~ ~override~ // Arbane's Sword +2
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 13 END // imp haste, primary Transmuter, secondary Non-Combat
+  BUT_ONLY
+
+// inconsistent handwear: gauntlet/gloves should use (unidentified) gauntlet name and descript and ground icon; see also brac11.itm, brac16.itm, brac22-23.itm, brac26.itm, npmisc2.itm
+COPY_EXISTING ~brac17.itm~ ~override~ // gloves of pickpocketing
+              ~brac18.itm~ ~override~ // gloves of missile snaring
+              ~brac19.itm~ ~override~ // gauntlets of crushing
+              ~brac20.itm~ ~override~ // gloves of healing
+  WRITE_LONG  0x08 6797 // gauntlets
+  WRITE_ASCII 0x44 ~gbrac06~ #8 // gauntlet ground icon
+  WRITE_LONG  0x50 6798 // generic gauntlet descript
+  BUT_ONLY
+
+// fix power levels
+COPY_EXISTING ~brac20.itm~ ~override~ // gloves of curing
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = 1 END
+  BUT_ONLY
+
+// power/school/secondary for resist fear on magic flute
+COPY_EXISTING ~brdflute.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 1 secondary = 2 STR_VAR match_icon = spwi210b END // resist fear, primary abjuration, secondary specific protections
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 power = 2 END // power level, only on resist fear (one visual at power 1)
+  BUT_ONLY IF_EXISTS
+
+//Correcting the damage of Bruenor's axe to be in line with the description (Wisp)
+COPY_EXISTING ~bruenaxe.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 dicenumber = 1 END // 3d8 to 1d8
+  BUT_ONLY
+
+// disallows str bonus for magic bullets
+COPY_EXISTING ~bull02.itm~   ~override~
+              ~bull03.itm~   ~override~
+              ~bull04.itm~   ~override~
+              ~bull05.itm~   ~override~
+              ~bull06.itm~   ~override~
+              ~quiver05.itm~ ~override~
+              ~quiver06.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 2 flag_strength = 0 END
+  BUT_ONLY IF_EXISTS
+
+// remove damage bonus to bring inline with tansheron
+COPY_EXISTING ~cattibow.itm~ ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR damage_bonus = 0 dicenumber = 1 END
+  BUT_ONLY
+
+// fixes chan +1 descript, weight
+COPY_EXISTING ~chan02.itm~ ~override~
+  SAY IDENTIFIED_DESC #16272 // was chain +2 descript
+  WRITE_LONG 0x4c 20 // fixes item weight
+  BUT_ONLY
+
+// touch attacks providing spurious thac0 bonuses
+COPY_EXISTING ~chillt.itm~   ~override~ // chill touch
+              ~ghoult.itm~   ~override~ // ghoul touch
+              ~sgrasp01.itm~ ~override~ // shocking grasp
+              ~sgrasp02.itm~ ~override~ // shocking grasp
+              ~sgrasp03.itm~ ~override~ // shocking grasp
+              ~sgrasp04.itm~ ~override~ // shocking grasp
+              ~sgrasp05.itm~ ~override~ // shocking grasp
+              ~sgrasp06.itm~ ~override~ // shocking grasp
+              ~sgrasp07.itm~ ~override~ // shocking grasp
+              ~sgrasp08.itm~ ~override~ // shocking grasp
+              ~sgrasp09.itm~ ~override~ // shocking grasp
+              ~sgrasp10.itm~ ~override~ // shocking grasp
+              ~sgrasp11.itm~ ~override~ // shocking grasp
+              ~sgrasp12.itm~ ~override~ // shocking grasp
+              ~sgrasp13.itm~ ~override~ // shocking grasp
+              ~sgrasp14.itm~ ~override~ // shocking grasp
+              ~sgrasp15.itm~ ~override~ // shocking grasp
+              ~sgrasp16.itm~ ~override~ // shocking grasp
+              ~sgrasp17.itm~ ~override~ // shocking grasp
+              ~sgrasp18.itm~ ~override~ // shocking grasp
+              ~sgrasp19.itm~ ~override~ // shocking grasp
+              ~sgrasp20.itm~ ~override~ // shocking grasp
+  LPF ALTER_HEADER INT_VAR silent = 1 match_type = 1 to_hit = 0 dicesize = 2 dicenumber = 1 damage_type = 5 END // no thac0 bonus, change to 1d2 fist damage
+  BUT_ONLY
+
+// chill touch shouldn't apply to constructs and/or undead ("This energy attacks the life force of any living creature"); see spwi117a.spl, spwi117a.eff
+COPY_EXISTING ~chillt.itm~   ~override~ // chill touch
+  LPF DELETE_EFFECT END // deletes all existing effects
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 177 target = 2 parameter1 = 144 parameter2 = 4 duration = 1 STR_VAR resource = spwi117a END // race: golem
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 177 target = 2 parameter1 =   4 parameter2 = 3 duration = 1 STR_VAR resource = spwi117a END // general: undead
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 146 target = 2 parameter2 = 1 timing = 1 STR_VAR resource = spwi117a END
+  BUT_ONLY
+
+// allow arbitrary return-to-human form from clock of the wuff
+// see also cdwolfm.itm, shapeshifting spell batch
+COPY_EXISTING ~clck04.itm~ ~override~
+  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = "-1" END // delete all effects
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 3 STR_VAR resource = sppolymp END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 3 STR_VAR resource = polyback END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 111 target = 1 duration = 120 STR_VAR resource = cdwolfm END
+  PATCH_FOR_EACH spell IN spin124 spin123 spin122 spwi491 spinhum spin160 spin160 spin160 BEGIN
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 172 target = 1 timing = 1 STR_VAR resource = EVAL "%spell%" END
+  END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 171 target = 1 timing = 1 STR_VAR resource = spin122 END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 172 target = 1 timing = 4 duration = 120 STR_VAR resource = EVAL spin122 END
+
+// algernon's cloak
+COPY_EXISTING ~clck08.itm~ ~override~
+  WRITE_ASCII 0x3a ~iclck08~ #8 // inventory icon
+  BUT_ONLY
+
+// mage robe of fire resistance uses a resist fire/cold icon insead of protection from fire
+COPY_EXISTING ~clck10.itm~  ~override~ // mage robe of fire resistance
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 26 parameter2 = 16 END
+  BUT_ONLY
+
+// adding magic resistance icon
+COPY_EXISTING ~clck15.itm~ ~override~
+              ~clck16.itm~ ~override~
+              ~clck17.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 = 63 timing = 2 END
+
+// add electrical resistance icon, reflect all electrical projectiles
+COPY_EXISTING ~clck24.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 = 27 timing = 2 END
+  LPF CLONE_EFFECT INT_VAR match_opcode = 197 match_parameter2 = 39 parameter2 = (cdbehbla - 1) END
+  PATCH_FOR_EACH proj IN 80 81 82 83 84 205 206 212 219 BEGIN
+    LPF CLONE_EFFECT INT_VAR match_opcode = 197 match_parameter2 = 39 parameter2 = proj END
+  END
+  BUT_ONLY
+
+// Cloak of Mirroring also missing many spell immunity effects
+COPY_EXISTING ~clck26.itm~   ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 = 28 timing = 2 END // add protection from magic icon
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 206 target = 1 parameter1 = `0 timing = 2 STR_VAR resource = sppr302 END // Call Lightning
+  // Glyph of Warding, Holy Smite, Unholy Blight, Skull Trap, Cloud Kill, Blade Barrier, Death Fog, Fire Storm, Globe of Blades, Delayed Blast Fireball, Incendiary Cloud, Meteor Swarm, Wish Meteor Swarm, Wish Horrid Wilting
+  PATCH_FOR_EACH spell IN sppr304 sppr313 sppr314 spwi313 spwi502 sppr603d spwi614 sppr705 sppr725d spwi712 spwi810 spwi911 spwish25 spwish32 BEGIN
+    LPF CLONE_EFFECT INT_VAR silent = 1 match_opcode = 206 STR_VAR match_resource = "sppr302" resource = EVAL ~%spell%~ END
+  END
+  BUT_ONLY
+  
+// mustard jelly via cloak of the sewers should match poly self
+COPY_EXISTING ~clck27.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 135 STR_VAR match_resource = polyochr resource = jellmu END
+  BUT_ONLY
+
+// cloaks using robe ground icons
+COPY_EXISTING ~clck28.itm~ ~override~
+              ~clck30.itm~ ~override~
+  WRITE_ASCII 0x44 ~gclck01~ #8
+
+// pixie prick poison effect should be at +0 save, not +6
+COPY_EXISTING ~dagg13.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 savebonus = 0 END
+  BUT_ONLY
+
+// The Stiletto of Demarchess +2 and the Dart of Stunning should display the appropriate strings upon holding/stunning the target (Wisp)
+COPY_EXISTING ~dagg17.itm~ ~override~ // Stiletto of Demarchess +2
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 109 opcode = 139 parameter1 = 14102 parameter2 = 0 timing = 1 duration = 0 END // clone paralyze into 'held' string
+  BUT_ONLY
+
+// shadow thief dagger has ranged APR effect though a melee weapon
+COPY_EXISTING ~dagg18.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 1 END
+  BUT_ONLY
+
+// life stealer should show a string when it drains levels
+COPY_EXISTING ~dagg20.itm~ ~override~ // crom faeyr
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 216 opcode = 139 parameter1 = 41495 END // clone drain into string
+  BUT_ONLY
+
+// melee hit probabilities incorrect
+COPY_EXISTING ~dagg22.itm~   ~override~ // dagger of the star +5 needs 3 probabilities adjusted
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  15 match_probability2 =  0 probability1 = 14 END // invisibility should be 15% of hits, not 16%
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 100 match_probability2 = 94 probability2 = 95 END // bonus fire/electrical damage should be on 5% of hits, not 6%
+  BUT_ONLY IF_EXISTS
+
+// adds proper number of attacks for dart01, disallows str bonus
+COPY_EXISTING ~dart01.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 match_opcode = 1 END // delete all apr effects, and...
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 1 target = 1 parameter1 = 3 parameter2 = 1 timing = 2 END // ... add back as global effect
+  LPF ALTER_HEADER INT_VAR match_type = 2 flag_strength = 0 damage_type = 4 END // slashing > missile damage, disallow str bonus
+  BUT_ONLY
+
+// various items stun but use held icon; lack 'stunned' string (Wisp)
+COPY_EXISTING ~dart03.itm~   ~override~
+              ~dartmel.itm~  ~override~
+              ~paracarr.itm~ ~override~
+              ~paraghas.itm~ ~override~
+              ~paraghou.itm~ ~override~
+              ~wand04.itm~   ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 142 match_parameter2 = 13 parameter2 = 55 END // change held icon to stun
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 45 opcode = 139 parameter1 = 1280 timing = 1 duration = 0 END // clone stun into 'stunned' string
+  BUT_ONLY IF_EXISTS
+
+//Asp's Nest darts do 1 HP damage every second for 40 seconds but are stated to do 1 HP damage every 3 seconds for 120 seconds (Wisp)
+COPY_EXISTING ~dart05.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  25 parameter1 = 3 parameter2 = 3 duration = 120 END // 1 poison damage/3 seconds for 120 seconds
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 142 resist_dispel = 0 duration = 120 END // adjust icon to match duration, dispel
+  BUT_ONLY
+
+// paralyze not universal; expiry sound plays too late
+COPY_EXISTING ~demmau01.itm~ ~override~
+  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 109 target = 2 parameter2 = 2 resist_dispel = 1 duration = 30 probability1 = 15 savingthrow = BIT2 END
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_duration = 42 duration = 30 END // fix expiry sound
+  BUT_ONLY IF_EXISTS
+
+// some effects on dispel magic subject to MR, though all other effects are not; see also sppr303 et al patch
+COPY_EXISTING ~deva.itm~     ~override~ // deva weapon
+              ~devaevil.itm~ ~override~ // deva weapon
+              ~elemchan.itm~ ~override~ // chan weapon
+              ~elemcryo.itm~ ~override~ // cryomix weapon
+              ~elemhydr.itm~ ~override~ // cryomix weapon
+              ~elemimix.itm~ ~override~ // imix weapon
+              ~elemogre.itm~ ~override~ // ogremoch weapon
+              ~elemsunn.itm~ ~override~ // sunnis weapon
+              ~elemyanc.itm~ ~override~ // yan-c-bin weapon
+              ~elemzaam.itm~ ~override~ // zaaman rul weapon
+              ~planetar.itm~ ~override~ // planetar weapon
+              ~ravag01.itm~  ~override~ // ravager weapon
+  PATCH_FOR_EACH op IN 58 77 215 240 BEGIN // dispel, cure feeblemind, remove FM icon, lighting effects
+    LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = op resist_dispel = 0 END
+  END
+  BUT_ONLY IF_EXISTS
+
+// items not working due to mis-targeted effects
+COPY_EXISTING ~dragring.itm~ ~override~
+              ~jonhp1.itm~   ~override~
+              ~lich.itm~     ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 target = 1 END // change all global effects to target: self
+  BUT_ONLY
+
+// removal of extraneous vocalize effect
+COPY_EXISTING ~dwsw1h01.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 48 END // delete vocalize effect
+  BUT_ONLY
+
+// melee hit probabilities incorrect
+COPY_EXISTING ~dwwhip.itm~   ~override~ // skull needs 6 probabilities adjusted
+              ~dwwhip01.itm~ ~override~ // skull needs 6 probabilities adjusted
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  80 match_probability2 = 60 probability1 = 79 END // stop percentages from overlapping
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 =  60 match_probability2 = 40 probability1 = 59 END // stop percentages from overlapping
+  WRITE_ASCII 0x22 "FL" #2 // drow whips not actually using animations
+  BUT_ONLY
+
+// water weirds shouldn't get pushed around by wing buffets
+COPY_EXISTING ~elemhydr.itm~ ~override~ // olhydra's weapon
+              ~waterele.itm~ ~override~ // greater water elemental weapon
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 parameter2 = 235 timing = 2 END // immunity to wing buffet
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 126 opcode = 176 END // for good measure, use 176 to restrict movement (elementals only)
+  BUT_ONLY IF_EXISTS
+  
+// energy blades using wrong power level for electrical damage
+COPY_EXISTING ~eneblade.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = 9 END // only one effect really
+  BUT_ONLY IF_EXISTS
+
+// string fixes
+COPY_EXISTING ~enmace.itm~ ~override~
+  SAY 0x8 @116 // Mace +3
+  SAY 0xc @116
+  BUT_ONLY
+
+// string fixes
+COPY_EXISTING ~enmorn.itm~ ~override~
+  SAY 0x8 @117 // Morning Star +3~
+  SAY 0xc @117
+  BUT_ONLY
+
+// string fixes
+COPY_EXISTING ~ensw1h01.itm~ ~override~
+  SAY 0x8 @118 // Long Sword +3
+  SAY 0xc @118
+  BUT_ONLY
+
+// string fixes
+COPY_EXISTING ~ensw1h02.itm~ ~override~
+  SAY 0x8 @119 // Short Sword +3~
+  SAY 0xc @119
+  BUT_ONLY
+
+COPY_EXISTING ~ensw2h.itm~   ~override~ // axe from enchanted weapon
+              ~hamm09.itm~   ~override~ // crom faeyr
+  LPF ALTER_HEADER INT_VAR silent = 1 range = 1 END // had spear range
+  BUT_ONLY
+
+// familiar icon restorations
+COPY_EXISTING ~famfai25.itm~ ~override~
+              ~famfair.itm~  ~override~
+              ~fampsd.itm~   ~override~
+              ~fampsd25.itm~ ~override~
+  WRITE_ASCII 0x3a ~FAMPSD~ #8
+  BUT_ONLY IF_EXISTS
+  
+// per descript flame blade is non-magical, does 1d4 slashing damage plus 1d2 + 4 fire damage
+// actual item is magical, does 1d2 + 4 slashing damage plus 1d4 fire, and has a spurious thac0 bonus
+COPY_EXISTING ~fblade.itm~ ~override~
+  WRITE_BYTE 0x18 (THIS BAND `BIT6) // removes magical flag
+  LPF ALTER_HEADER INT_VAR match_type = 1 to_hit = 0 dicesize = 4 damage = 0 END // change to 1d4+0 on melee header
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 12 parameter1 = 4 dicesize = 2 END // change fire damage to 1d2+4
+  BUT_ONLY
+
+// pair disease only with disease icons; see also acidooz3.itm, magispwr.itm, spidwr1.itm, sharswd.itm
+COPY_EXISTING ~ghast1.itm~   ~override~ // thac0 penalty w/ disease icon
+              ~paraghas.itm~ ~override~ // thac0 penalty w/ disease icon
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 7 parameter2 = 126 END // changed to nausea icon
+
+// unparalyze sould plays too late
+COPY_EXISTING ~ghoul1.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_duration = 42 duration = 30 END // fix expiry sound
+  BUT_ONLY
+
+// paralyze not universal
+COPY_EXISTING ~ghoullor.itm~ ~override~
+              ~lacedo.itm~   ~override~
+              ~lacedo02.itm~ ~override~
+              ~lich02.itm~   ~override~
+  LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = 109 END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 insert_point = 0 opcode = 109 target = 2 parameter2 = 2 resist_dispel = 1 duration = 30 savingthrow = BIT2 END
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_duration = 42 duration = 30 END // fix expiry sound
+  BUT_ONLY
+
+// ghoul lords nauseated icon lasts too long, can't be dispelled like disease itself
+COPY_EXISTING ~ghoullor.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 142 match_parameter2 = 7 resist_dispel = 1 duration = 100 END // nausea icon
+  BUT_ONLY
+
+// hammer does slashing damage
+COPY_EXISTING ~giafir.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 damage_type = 2 END // slashing > crushing damage on melee headers
+  BUT_ONLY IF_EXISTS
+
+// giants don't have s2 animation
+COPY_EXISTING ~giants01.itm~ ~override~
+  WRITE_ASCII 0x22 ~AX~ #2 
+  BUT_ONLY
+
+// fix power levels
+COPY_EXISTING ~globred2.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = 5 END // cure intox is power 0, string is power 6
+  BUT_ONLY IF_EXISTS
+
+// golem immunities: hold, charm, fear, poison, backstab, sleep (these get rounded out in immunity batches)
+COPY_EXISTING ~golbra.itm~   ~override~ // has none
+              ~golcla.itm~   ~override~ // only has immunity to backstab
+              ~golfle.itm~   ~override~ // only has immunity to backstab
+              ~golmag01.itm~ ~override~ // none
+              ~golstone.itm~ ~override~ // immunity to slow, petrification
+              ~irongol.itm~  ~override~ // immunity to sleep, poison
+  PATCH_IF (("%SOURCE_RES%" STRING_COMPARE_CASE "golcla") AND // immunity to backstab
+            ("%SOURCE_RES%" STRING_COMPARE_CASE "golfle")) BEGIN
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 292 parameter2 = 1 target = 1 timing = 2 END
+  END
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "irongol") BEGIN // immunity to sleep, poison
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 parameter2 = 25 target = 1 timing = 2 END // poison
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 parameter2 = 39 target = 1 timing = 2 END // sleep
+  END
+  PATCH_FOR_EACH op IN 5 106 109 BEGIN // immunity to charm, morale failure, hold
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 parameter2 = op target = 1 timing = 2 END // poison
+  END
+  BUT_ONLY IF_EXISTS
+
+// items which have protections from lightning bolt should get protection from new custom spell; see also cdstaf12.spl, staf12.itm
+COPY_EXISTING ~gorfirg.itm~  ~override~
+              ~gormisti.itm~ ~override~
+              ~spellh01.itm~ ~override~
+              ~stalker.itm~  ~override~
+  LPF CLONE_EFFECT INT_VAR match_opcode = 206 STR_VAR match_resource = spwi308 resource = cdstaf12 END
+  BUT_ONLY IF_EXISTS
+
+// melee hit probabilities incorrect - poison at 41%, stun at 30% (stun correct)
+COPY_EXISTING ~gorsnake.itm~ ~override~ // skull needs 5 probabilities adjusted -
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_probability1 = 40 match_probability2 =  0 probability1 = 39 END // poison should be 40%, not 41%
+  BUT_ONLY IF_EXISTS
+  
+// blackmist casting blindness at wrong power level with wrong projectile
+COPY_EXISTING ~halb06.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 projectile = 263 END // change to 10' projectile
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0                    power = 8 END // change power to match pw blind
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 141 power = 0 END // ...except for the lighting effects
+  BUT_ONLY
+
+// wave should kill salamanders; salas are flagged incorrectly (fixed in creature racial patches) and wear ring95 which
+// prevents slay opcode. Change wave to use an eff with Kill Target opcode instead.
+COPY_EXISTING ~halb09.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 55 opcode = 177 STR_VAR resource = death END // change slay to use eff > death.eff (already has correct ids target)
+  BUT_ONLY
+
+// damage/thac0 bonuses mistargeted, may not be applying
+COPY_EXISTING ~hamm04.itm~ ~override~ // hammer +1/+4 v giantkin
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 parameter1 = 0 parameter2 = 2 END // eff bonuses may not be applying
+  BUT_ONLY
+
+// borok's fist should use its own, unique icon
+COPY_EXISTING ~hamm05.itm~ ~override~
+  WRITE_LONG  0x0c 61268 // unique name string
+  WRITE_ASCII 0x3a ~ihamm05~ #8
+  WRITE_ASCII 0x58 ~chamm05~ #8
+  LPF ALTER_HEADER STR_VAR icon = ihamm05 END
+  BUT_ONLY
+
+// dwarven thrower: changes thrown icon, and fixes melee damage
+COPY_EXISTING ~hamm06.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 damage = 3 END // melee damage now 2d4+3 (was 2d4+2)
+  LPF ALTER_HEADER INT_VAR match_type = 2 STR_VAR icon = ihamm05 END // thrown icon
+  BUT_ONLY
+
+// add ability to kill ettins to Crom
+COPY_EXISTING ~hamm09.itm~ ~override~
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 55 match_parameter1 = 167 parameter1 = 199 parameter2 = 4 END // clone class/troll slay to race/ettin slay
+  BUT_ONLY
+
+// hastring didn't actually, umm, work and stuff.
+COPY_EXISTING ~hastring.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 1 parameter1 = 1 parameter2 = 0 duration = 0 END // change APR from set = 0 to gain one attack
+  BUT_ONLY
+
+// Helm of Brilliance Sunray fix, icons
+COPY_EXISTING ~helm16.itm~ ~override~
+  WRITE_ASCII 0x3a ~ihelm16~ #8 // inventory icon
+  WRITE_ASCII 0x58 ~chelm16~ #8 // description image
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 target = 1 STR_VAR match_resource = sppr707 END // change spell cast (146) to target self for sunray
+  BUT_ONLY
+
+// to avoid double immune messages, cast spell opcodes should all use power 0
+COPY_EXISTING ~helm16.itm~  ~override~
+//              ~helm17.itm~  ~override~ patched below w/ additional fixes
+              ~staf11.itm~  ~override~
+              ~staf13.itm~  ~override~
+              ~sw1h31.itm~  ~override~
+              ~sw1h51.itm~  ~override~
+              ~wa2helm.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 power = 0 END // change spell cast (146) to power 0
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 148 power = 0 END // change spell cast (148) to power 0
+  BUT_ONLY
+
+// The Death Spell cast by the Skull of Death should not require a saving throw nor should it allow two magic resistance and power level checks (aVENGER)
+COPY_EXISTING ~helm17.itm~   ~override~ // Skull of Death
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 power = 0 resist_dispel = 0 savingthrow = 0 END // all handled in the spell itself
+  BUT_ONLY
+
+// none of these are  magical
+COPY_EXISTING ~helm33.itm~ ~override~ // gold horned helmet
+              ~misc4y.itm~ ~override~ // necklace of talos
+              ~misc5e.itm~ ~override~ // harper amulet
+              ~misc5r.itm~ ~override~ // the lover's ring
+              ~ring43.itm~ ~override~ // oaken ring
+  WRITE_BYTE 0x18 (THIS BAND `BIT6) // removes magical flag
+  BUT_ONLY IF_EXISTS
+
+// wong-fei using wrong regen icon
+COPY_EXISTING ~helm34.itm~  ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 56 parameter2 = 87 END // correct portrait icon
+  BUT_ONLY IF_EXISTS
+  
+// gems using generic ground treasure or sack icon instead of gem
+ACTION_FOR_EACH item IN hgstone misc16 misc17 misc18 misc19 misc20 misc21 misc22 misc23 misc24 misc25 misc26 misc27 misc28
+                        misc29 misc30 misc31 misc32 misc33 misc34 misc35 misc36 misc37 misc38 misc39 misc40 misc41 misc6n
+                        misc6o misc6t misc6z miscbh plot02c plot02d plot02e sw1h54c ttgem01 ttgem02 tttreas BEGIN
+
+  COPY_EXISTING ~%item%.itm~ ~override~
+    WRITE_ASCII 0x44 ~ggem01~ #8
+    BUT_ONLY IF_EXISTS
+
+END
+
+// handmaiden's mace is supposed to do 2 pts poison damage/round for 10 rounds; was actually doing 2 per second for 10 seconds
+COPY_EXISTING hlolth.itm override
+  LPF ALTER_EFFECT INT_VAR match_opcode = 25 parameter1 = 3 parameter2 = 3 duration = 60 END
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 duration = 60 END
+  BUT_ONLY
+
+// Illusionary Werewolves should not damage characters who are unarmed or wielding ranged weapons (aVENGER)
+COPY_EXISTING ~illusion.itm~ ~override~ // Illusionary Werewolf weapon
+  LPF ALTER_HEADER INT_VAR silent = 1 match_type = 1 damage_type = 0 dicenumber = 0 dicesize = 0 END // 0d0, damage type none
+  BUT_ONLY
+
+// familiar attacks lack icons
+COPY_EXISTING ~imp.itm~      ~override~ // imp soa
+              ~impclaw.itm~  ~override~ // imp tob
+              ~impqua.itm~   ~override~ // quasit soa
+              ~quasclaw.itm~ ~override~ // quasit tob
+  WRITE_ASCII 0x3a ~iwolf~ #8
+  LPF ALTER_HEADER STR_VAR icon = iwolf END // attack icon
+  BUT_ONLY IF_EXISTS
+
+//removes poison ability from imp and quasit attacks
+COPY_EXISTING ~imp.itm~     ~override~
+              ~impclaw.itm~ ~override~
+              ~impqua.itm~  ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode = 25 END // delete poison effect
+  LPF ALTER_HEADER INT_VAR match_type = 1 dicesize = 6 END  // change damage to 1d6 for melee
+  BUT_ONLY IF_EXISTS
+
+// changes to ipsion, which provides psionic protections for Mordy swords and ToB boneblades
+// The innate immunity to psionics and mind-affecting spells of Mordenkainen Sword should not be dispellable (aVENGER)
+COPY_EXISTING ~ipsion.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 101 match_parameter2 =  45 END // delete dupe stun immunities
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 101 match_parameter2 = 175 END // delete dupe hold immunities
+  LPF ALTER_EFFECT  INT_VAR silent = 1 check_headers = 0 power = 0 resist_dispel = 0 duration = 0 END // The innate immunity to psionics and mind-affecting spells of Mordenkainen Sword should not be dispellable (aVENGER)
+  PATCH_FOR_EACH op IN 5 19 45 175 BEGIN // immunity to charm, intelligence modification, stun, hold
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 parameter2 = op target = 1 timing = 2 END // poison
+  END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 169 parameter2 =    86 target = 1 timing = 2 END // int drain immunity should also suppress strings, icon (revised by Wisp)
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 267 parameter1 = 14021 target = 1 timing = 2 END // int drain immunity should also suppress strings, icon (revised by Wisp)
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 267 parameter1 = 32089 target = 1 timing = 2 END // int drain immunity should also suppress strings, icon (revised by Wisp)
+  BUT_ONLY
+
+// mask of king strohm will float above an attacking monk; just remove helmet animation
+COPY_EXISTING ~key20.itm~ ~override~
+  WRITE_SHORT 0x22 0
+
+// stun length should be four rounds, not 20s
+COPY_EXISTING ~kuobolt.itm~  ~override~
+              ~kuobolt2.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_duration = 20 duration  = 24 END
+  BUT_ONLY IF_EXISTS
+
+// mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+COPY_EXISTING ~mage03.itm~ ~override~ // ring which grants the mirror image effect while equipped
+  LPF ALTER_EFFECT INT_VAR match_opcode = 119 opcode = 146 power = 0 parameter1 = 0 parameter2 = 1 resist_dispel = 3 STR_VAR resource = cdwi212 END // change MI to instant spell cast
+  BUT_ONLY
+
+// mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+COPY_EXISTING ~magebrac.itm~ ~override~ // bracers which grant the Protection From Normal Missiles effect while equipped
+  LPF DELETE_EFFECT END // delete all exidting effects
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 146 target = 1 timing = 2 parameter2 = 1 resist_dispel = 3 STR_VAR resource = cdwi311 END
+  BUT_ONLY
+
+// pair disease only with disease icons; see also acidooz3.itm, ghast1.itm, paraghas.itm, sharswd.itm
+COPY_EXISTING ~magispwr.itm~ ~override~ // strength penalty w/ disease icon
+              ~spidwr1.itm~  ~override~ // strength penalty w/ disease icon
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 7 parameter2 = 91 END // changed to ability score drained icon
+
+// MMM APR fixes; shuffle APR in Boon/Offensive spin into shell spell for easier blockage (see also spcl521.spl, spcl521d.spl, spcl741.spl, spcl741d.spl)
+ACTION_IF !tobex_game BEGIN // skip this song and dance if TobEx is present
+
+  COPY_EXISTING ~melfmet.itm~  ~override~
+    PATCH_FOR_EACH spell IN spcl521d spcl741d BEGIN // immunity to boon of lathander, offensive spin
+      LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 206 target = 1 parameter1 = "-1" timing = 2 STR_VAR resource = EVAL ~%spell%~ END // immunity to spells
+    END
+    BUT_ONLY
+
+END
+
+// monk fists are inconsistent w/ descript
+COPY_EXISTING ~mfist3.itm~ ~override~
+              ~mfist6.itm~ ~override~
+  READ_LONG   0x60 enchantment ELSE 0
+  LPF ALTER_HEADER INT_VAR match_type = 1 to_hit = enchantment damage = enchantment END  // change melee to-hit, damage to match enchantment
+  BUT_ONLY
+
+// string fixes
+COPY_EXISTING ~mfist4.itm~ ~override~
+  SAY 0x8 @120 // Fist +1
+  SAY 0xc @120
+
+// string fixes
+COPY_EXISTING ~mfist5.itm~ ~override~
+  SAY 0x8 @121 // fist +2
+  SAY 0xc @121
+
+// string fixes
+COPY_EXISTING ~mfist6.itm~ ~override~
+              ~mfist7.itm~ ~override~
+  SAY 0x8 @122 // fist +3
+  SAY 0xc @122
+
+// string fixes
+COPY_EXISTING ~mfist8.itm~ ~override~
+  SAY 0x8 @123 // fist +4
+  SAY 0xc @123
+  IF_EXISTS
+
+// int drain string from mind flayers showing up 300 seconds after occurring
+COPY_EXISTING ~mindflay.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 139 timing = 1 duration = 0 END // 'devour brain' string
+  BUT_ONLY
+
+// minhp1 is not protecting from all types of possible death
+COPY_EXISTING ~minhp1.itm~ ~override~
+  PATCH_FOR_EACH string IN 14021 14024 14029 14034 14042 14047 14782 14791 32089 40968 40969 40979 41495 41616 BEGIN
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 267 target = 1 parameter1 = string timing = 2 END // immunity to strings
+  END
+  PATCH_FOR_EACH op IN 10 15 165 19 210 23 241 246 39 44 49 6 76 BEGIN
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 parameter2 = op timing = 2 END // immunity to effects
+  END
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+// fixes for every book except misc3a9 (no page turn ability)
+COPY_EXISTING ~misc3a.itm~  ~override~ // fireball
+              ~misc3a1.itm~ ~override~ // invisibility
+              ~misc3a2.itm~ ~override~ // protection from evil
+              ~misc3a3.itm~ ~override~ // true seeing
+              ~misc3a4.itm~ ~override~ // farsight
+              ~misc3a5.itm~ ~override~ // spell turning
+              ~misc3a6.itm~ ~override~ // wyvern call
+              ~misc3a7.itm~ ~override~ // stinking cloud
+              ~misc3a8.itm~ ~override~ // lightning bolt
+  LPF ALTER_HEADER INT_VAR identify = 1 END // ID before use, all abilities
+  // 'page turn' ability
+  LPF ALTER_HEADER INT_VAR header = 1 STR_VAR icon = imisc3a END // icon
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 1 match_opcode = 122 STR_VAR match_resource = ~misc3a~ resource = ~misc3aa~ END // from original to 0-lore copy
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 1 match_opcode = 174 resist_dispel = 0 END // sound shouldn't be blocked by MR (only wrong on original)
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 target = 4 range = 30 END // ID before use, target/range fixes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_opcode = 146 opcode = 148 target = 1 END // spell cast fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a.itm~ ~override/misc3aa.itm~ // zero lore copy
+  WRITE_SHORT 0x42 0 // lore
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 123 STR_VAR match_resource = ~misc3a~ resource = ~misc3aa~ END // delete item on page turn
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a1.itm~ ~override~
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 range = 1 END // ID before use, target/range fixes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_opcode = 146 resist_dispel = 0 END // spell cast fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a3.itm~ ~override~
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 target = 5 END // target/range fixes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_opcode = 146 target = 1 END // spell cast fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a6.itm~ ~override~
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 target = 4 END // target/range fixes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_opcode = 146 opcode = 148 END // spell cast fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a7.itm~ ~override~
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 target = 4 range = 30 END // target/range fixes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_opcode = 146 opcode = 148 target = 1 END // spell cast fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a8.itm~ ~override~
+  // spell cast ability
+  LPF ALTER_HEADER INT_VAR header = 0 range = 30 END // target/range fixes
+  BUT_ONLY
+
+// book of infinite spells; see all misc3a*.itm
+COPY_EXISTING ~misc3a9.itm~ ~override~ // burning hands, last page
+  LPF ALTER_HEADER INT_VAR identify = 1 END // ID before use, all abilities
+  BUT_ONLY
+
+// figurines were using some screwy system of reappearing that broke; should be using charges
+COPY_EXISTING ~misc3d.itm~ ~override~ // golden lion
+              ~misc3e.itm~ ~override~ // black spider
+              ~misc3f.itm~ ~override~ // jade hound
+              ~misc7t.itm~ ~override~ // moon dog
+  PATCH_FOR_EACH op IN 122 123 139 BEGIN
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 3 match_opcode = op END // immunity to effects
+  END
+  BUT_ONLY
+
+// harp of discord would still play expiry sound, spraklies on successful save
+COPY_EXISTING ~misc3m.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 savingthrow = BIT0 resist_dispel = 1 END // sparklies also bypassed MR
+  BUT_ONLY
+  
+// methlid's harp bugs
+COPY_EXISTING ~misc3o.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_timing = 1 duration = 0 END // remove durations from permanent timing
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 240 parameter2 = 55 END // remove stun icon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 162 opcode =  46 END // add unstun
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 162 opcode = 163 END // add free action
+  BUT_ONLY
+
+// portal key should be droppable
+COPY_EXISTING ~misc4g.itm~ ~override~
+  WRITE_BYTE 0x18 (THIS BOR BIT2) // add droppable flag
+  BUT_ONLY
+
+// harper pin supposed to be usable only by Jaheira
+COPY_EXISTING ~misc5x.itm~ ~override~
+  WRITE_BYTE 0x26 15 // min str
+  WRITE_BYTE 0x2a 10 // min int
+  WRITE_BYTE 0x2c 17 // min dex
+  WRITE_BYTE 0x2e 14 // min wis
+  WRITE_BYTE 0x30 17 // min con
+  WRITE_BYTE 0x32 15 // min chr
+  BUT_ONLY
+
+// bad ground icons
+COPY_EXISTING ~misc5x.itm~ ~override~ // harper pin
+              ~misc7y.itm~ ~override~ // thrall collar
+  WRITE_ASCII 0x44 gamul02 #8 // corrects ground icon
+  BUT_ONLY
+
+// claw of kazgaroth equipping effects are disspellable
+COPY_EXISTING ~misc72.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 resist_dispel = 2 END // not dispel/not bypass
+  BUT_ONLY
+
+// Fix the wrong enchantment level and missing poison icon on the Dagger of Venom (aVENGER)
+COPY_EXISTING ~misc75.itm~ ~override~ // Dagger of Venom
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 25 opcode = 142 parameter1 = 0 parameter2 = 6 END // clone poison into display poison icon
+  BUT_ONLY
+
+// match secondary to underlying spell
+COPY_EXISTING ~misc7n.itm~ ~override~ // wand of lightning (unused?)
+  LPF ALTER_HEADER INT_VAR secondary = 10 END // secondary: offensive damage
+  BUT_ONLY
+
+// Boo gets a quickslot icon
+COPY_EXISTING ~misc84.itm~ ~override~
+  READ_LONG   0x64 abil_off
+  WRITE_SHORT 0x68 (THIS + 1) // add one ability
+  WRITE_LONG  0x6a (THIS + 0x38) // push back fx offsets for new ability
+  READ_SHORT  0x70 fx_num
+  INSERT_BYTES abil_off 0x38 // new ability
+    WRITE_BYTE  (abil_off       ) 3          // magical ability
+    WRITE_BYTE  (abil_off + 0x02) 3          // item slots
+    WRITE_ASCII (abil_off + 0x04) ~imisc84~  // boo icon
+    WRITE_SHORT (abil_off + 0x20) fx_num     // fx index
+  BUT_ONLY
+
+// duration for illithid control circlet charm effect
+COPY_EXISTING ~misc9x.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 5 duration = 1800 END // from 999999
+  BUT_ONLY
+  
+// ground icon for unused potion
+COPY_EXISTING ~misca4.itm~ ~override~
+  WRITE_ASCII 0x44 ~GPOTN01~ #8
+  BUT_ONLY
+
+// blackrazor missing many effects
+COPY_EXISTING ~miscbc.itm~ ~override~
+  // global effects
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  7 resist_dispel = 0 END // colors shouldn't be disspellable
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  98                      opcode = 142 parameter2 = 87 END // display regen portrait icon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 101 match_parameter2 = 5 opcode = 142 parameter2 = 52 END // display mind shield portrait icon
+  // melee hit stuff
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  44 probability1 = 15 END // strength bonus is supposed to be only on 15% of hits
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  44 opcode = 142 parameter2 = 21 END // display strength portrait icon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  16 opcode = 142 parameter2 = 38 END // display haste portrait icon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  17 opcode = 139 parameter1 = 14022 END // display 'healed' string
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 216 opcode = 139 parameter1 = 40979 END // display 'four levels drained' string
+  BUT_ONLY
+
+// vampiric wraith attack drains one level, but combat feedback says two
+COPY_EXISTING ~mistva2.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 139 match_parameter1 = 40968 parameter1 = 41495 END // change 'two levels drained' to 'one level drained'
+  BUT_ONLY IF_EXISTS
+
+// cloning Neb's dagger to make a version with no charges
+COPY_EXISTING ~nebdag.itm~ ~override/cdnebdag.itm~
+  SAY DESC @106
+  WRITE_SHORT 0x42 0 // sets lore to zero for instant ID
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 END // delete all melee effects
+  LPF ALTER_HEADER INT_VAR match_type = 1 charges = 0 drained = 1 END  // regular, uncharged melee header
+  BUT_ONLY
+
+// altering Neb's dagger to change to cdnebdag when charges run out
+COPY_EXISTING ~nebdag.itm~ ~override~
+  WRITE_ASCII 0x10 ~cdnebdag~ // 'used up' item
+  LPF ALTER_HEADER INT_VAR match_type = 1 drained = 2 flag_recharge = 0 END  // regular, uncharged melee header
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 match_opcode = 40 END // delete slow effect
+  BUT_ONLY
+
+// mazzy's bow should use ground icon of short bow, not long bow
+COPY_EXISTING ~npbow.itm~ ~override~
+  WRITE_ASCII 0x44 gbow02 #8
+  BUT_ONLY
+
+// disables arcane spellcasting; charm now handled in effects batch below
+COPY_EXISTING ~npchan.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 145 target = 1 timing = 2 END // disable spellcasting
+  WRITE_ASCII 0x44 ~gleat01~ #8 // ground icon is now leather
+  BUT_ONLY
+
+// inconsistent handwear: gauntlet/gloves should use (unidentified) gauntlet name and descript and ground icon; see also brac11.itm, brac16-20.itm, brac22-23.itm, brac26.itm, npmisc2.itm
+COPY_EXISTING ~npmisc2.itm~ ~override~ // Jansen Techno-Gloves
+  WRITE_ASCII 0x44 ~gbrac06~ #8 // gauntlet ground icon (was generic sack icon)
+  BUT_ONLY
+
+// adds min stat requirements to Keldorn's armor
+// Fix erroneously dispellable effects on Keldorn's armor (polytype)
+COPY_EXISTING ~npplat.itm~ ~override~
+  WRITE_BYTE 0x2a 2  // min int
+  WRITE_BYTE 0x2e 16 // min wis
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 power = 0 resist_dispel = 0 duration = 0 END
+  BUT_ONLY
+
+// string fixes
+COPY_EXISTING ~npsw02.itm~ ~override~
+  SAY 0x8 @124 // Yoshimo's Katana +1
+  SAY 0xc @124 // Yoshimo's Katana +1
+  BUT_ONLY
+
+// Valygar's katana
+COPY_EXISTING ~npsw04.itm~ ~override~
+  WRITE_BYTE 0x2e 14 // min wis
+  BUT_ONLY
+
+// The Silver Sword should display the "Vorpal Hit" message on a successful vorpal hit
+COPY_EXISTING ~planetar.itm~ ~override~ // silver sword (planetar)
+              ~sw2h15.itm~   ~override~ // silver sword
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 13 opcode = 139 parameter1 = 64285 parameter2 = 0 END
+  BUT_ONLY IF_EXISTS
+
+// planetar weapon is a clone of silver sword, but uses mace icon in quickbar
+COPY_EXISTING ~planetar.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 STR_VAR icon = isw2h15 END // icon on melee header
+  BUT_ONLY IF_EXISTS
+
+// both full plate +1 don't disable thieving button, one has bad min str
+COPY_EXISTING ~plat05.itm~ ~override~
+              ~plat14.itm~ ~override~
+  WRITE_BYTE 0x26 15 // correct min str
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 144 parameter2 = 1 END // change first, and only first, effect to disable thieving from disable stealth
+  BUT_ONLY
+
+// three sets of full plate have extraneous movement rate and THAC0 penalties
+COPY_EXISTING ~plat19.itm~ ~override~
+              ~plat22.itm~ ~override~
+              ~plat23.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  54 END // delete thac0 effect
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 126 END // delete movement speed effect
+  LPF ALTER_EFFECT  INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 26 parameter2 = 16 END // for plat22 only, change resist fire/cold icon to pro-fire
+  BUT_ONLY IF_EXISTS
+
+// (zero-weight magical items) ogre's morningstar from polymorph self; uses generic morningstar description so not bulk-fixed
+COPY_EXISTING ~plymstar.itm~ ~override~
+  WRITE_LONG 0x4c 0 // fixes item weight
+  BUT_ONLY
+
+// spider polymorphs should be immune to web
+COPY_EXISTING ~plyspid.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 parameter2 = 157 timing = 2 END // add immunity to web; batch patches add the rest below
+  BUT_ONLY
+
+// baby wyvern poison only applies to creatures above 6 HD
+COPY_EXISTING ~plywyvrn.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 25 dicesize = 0 END // dicesize also min level
+  BUT_ONLY
+
+// Potion of Storm Giant Strength mis-targeted
+COPY_EXISTING ~potn07.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 44 target = 1 END // strength effect target change from preset to self
+  BUT_ONLY
+
+// thrown oil of fiery burning shouldn't say 'gulp!', fix power levels
+// oil of fiery burning damage incorrect
+COPY_EXISTING ~potn13.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 139 END // delete 'gulp' effect
+  LPF ALTER_EFFECT  INT_VAR silent = 1 check_globals = 0 power = 0 END // shouldn't be blocked by spell protections
+  LPF ALTER_EFFECT  INT_VAR silent = 1 check_globals = 0 match_opcode = 12 duration = 0 END // shouldn't be blocked by spell protections
+  LPF ALTER_EFFECT  INT_VAR silent = 1 check_globals = 0 match_opcode = 12 match_savingthrow = 0 dicesize = 6 dicenumber = 2 END // non-save damage is 2d6 not 3d4
+  BUT_ONLY
+  
+// potion of magic blocking should only block up to level 5 spells, per description
+COPY_EXISTING ~potn33.itm~ ~override~
+  FOR (index = 6 ; index < 10 ; ++index) BEGIN
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 102 match_parameter1 = index END // delete imunity to spell level #index
+  END
+  BUT_ONLY
+
+// potion of power is supposed to increase HiS, not MS
+COPY_EXISTING ~potn41.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 59 opcode = 275 END
+  BUT_ONLY
+
+// fix errors; full free action batch effects handled below
+COPY_EXISTING ~potn45.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 101 match_parameter2 =  5 parameter2 =  16 END // change charm immunity to haste immunity
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 101 match_parameter2 = 45 parameter2 = 175 END // change stun immunity to hold immunity
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 142 duration = 600 END // correct portrait icon duration
+  BUT_ONLY
+
+// dense pudding disease effect allows save, but icon does not
+COPY_EXISTING ~pudden01.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 savingthrow = BIT2 END // save vs. death like the paired disease effect
+  BUT_ONLY IF_EXISTS
+
+// The Unholy Reaver should not dispel effects on its wielder and his allies
+// It should dispel magic on the target of the Anti-Paladin's attack
+COPY_EXISTING ~reaver.itm~ ~override~ // Unholy Reaver
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_target = 5 target = 2 resist_dispel = 2 END // preset target, bypass mr
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 215 duration = 0 STR_VAR match_resource = "spdisma" resource = "spdispma" END // typo
+  BUT_ONLY
+
+// ruby pendant charm is supposed to be once-per-day; see also c6regis.cre, c6regis2.cre, add icon
+COPY_EXISTING ~regisamu.itm~ ~override~
+  LPF ALTER_ITEM_HEADER INT_VAR charges = 1 flag_recharge = 1 STR_VAR icon = "spwi316b" END // "Dire Charm once per day" .
+  BUT_ONLY
+
+// descript/item range don't match
+COPY_EXISTING ~ring03.itm~ ~override~ // Ring of Animal Friendship
+  LPF ALTER_HEADER INT_VAR silent = 1 range = 40 END
+  BUT_ONLY
+
+// dupe rings of wizardry; see ring08.itm, ohringwi.itm, jaga3.cre
+COPY_EXISTING ~ring08.itm~ ~override~ // can't be worn with itself or its clone
+  LPF CLONE_EFFECT INT_VAR silent = 1 match_opcode = 180 STR_VAR match_resource = "ring08" resource = "ohringwi" END
+
+// dupe rings of wizardry; see ring08.itm, ohringwi.itm, jaga3.cre
+COPY_EXISTING ~ring08.itm~ ~override/ohringwi.itm~ // clone into new item with new descript
+  SAY 0x54 @218 // descript w/o mentioning being commissioned by <CHARNAME>
+
+// descript/item range don't match, needs ID
+COPY_EXISTING ~ring20.itm~ ~override~ // ring of energy
+  LPF ALTER_HEADER INT_VAR silent = 1 range = 120 identify = 1 END
+  BUT_ONLY
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_elem_rings BEGIN
+
+  ring27  => 187 // elemental_fire
+  ring28  => 186 // elemental_air
+  ring29  => 188 // elemental_earth
+
+END
+
+// fire/air/earth control ring has screwy charm effects; changed to use eff targeting on class fire/air/earth elemental
+ACTION_PHP_EACH cd_elem_rings AS item => class BEGIN
+
+    COPY_EXISTING ~%item%.itm~ ~override~
+      LPF ALTER_EFFECT  INT_VAR match_opcode = 5 opcode = 177 parameter1 = class parameter2 = 5 savingthrow = BIT0 savebonus = 2 STR_VAR resource = cdcmelem END // route charm through new EFF file
+      LPF ALTER_HEADER  INT_VAR header = 0 range = 2 flag_recharge = 1 END // fix range, charges for charm
+      LPF DELETE_EFFECT INT_VAR header = 1 END // delete effects for ability one...
+      LPF DELETE_EFFECT INT_VAR header = 2 END // and two (added below as direct spell castings)
+      BUT_ONLY
+
+END
+
+// delete effects simulating burning hands, flame strike for direct casting of spells
+COPY_EXISTING ~ring27.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR header = 2 range = 5 projectile = 1 END // range, projectile of burning hands ability
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 6 parameter2 = 1 timing = 1 STR_VAR resource = sppr503 END
+  LPF ADD_ITEM_EFFECT INT_VAR header = 3 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi103 END
+  BUT_ONLY
+
+// delete effects simulating improved invisibility for direct casting of spell
+COPY_EXISTING ~ring28.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR header = 1 target = 1 range = 1 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 7 parameter2 = 1 timing = 1 STR_VAR resource = spwi405 END
+  BUT_ONLY
+
+// delete save bonuses, effects simulating stone to flesh for direct casting of spell
+COPY_EXISTING ~ring29.itm~ ~override~
+  FOR (op = 33 ; op < 38 ; ++op) BEGIN // delete save bonuses
+    LPF DELETE_ITEM_EQEFFECT INT_VAR opcode_to_delete = op END
+  END
+  LPF ALTER_HEADER INT_VAR header = 1 range = 50 primary = 0 secondary = 0 END // use schools from spell itself
+  LPF ADD_ITEM_EFFECT INT_VAR header = 2 opcode = 146 target = 2 parameter1 = 1 parameter2 = 1 timing = 1 STR_VAR resource = spwi625 END
+  BUT_ONLY
+
+// ring of gaxx displays wrong icon, Standardize the school and secondary type of items which cast alteration spells (aVENGER)
+COPY_EXISTING ~ring39.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 13 STR_VAR match_icon = spwi613b END // haste, primary Transmuter, secondary Non-Combat
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 28 parameter2 = 63 END // change pro-magic icon to magic resistance
+  BUT_ONLY
+
+// Undead creatures are erroneously immune to Lightning Bolt instead of Hold Person (aVENGER)
+COPY_EXISTING ~ring95.itm~ ~override~ // undead immunity ring
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 206 STR_VAR match_resource = "spwi308" resource = "spwi306" END // swap hold person for lightning bolt
+  BUT_ONLY
+  
+// air form of chromatic demon should be subject to poison; see also spin602-5.spl
+COPY_EXISTING ~ringdemn.itm~ ~override/cdrngchr.itm~ // clone demon ring into one that allows poison damage
+  LPF DELETE_EFFECT INT_VAR match_opcode = 101 match_parameter2 = 25 END // poison immunity
+  LPF DELETE_EFFECT INT_VAR match_opcode = 173 END // poison damage resistance
+  LPF DELETE_EFFECT INT_VAR match_opcode = 267 match_parameter1 = 14662 END // immunity to string: poisoned
+  LPF DELETE_EFFECT INT_VAR match_opcode = 267 match_parameter1 = 14017 END // immunity to string: poison
+
+// change rod-created items to reference clone instead of original
+COPY_EXISTING ~rodmace.itm~  ~override~
+              ~rodspear.itm~ ~override~
+              ~rodsword.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 122 STR_VAR match_resource = ~rods02~ resource = ~rods02a~ END // change back to 0-lore rod
+  LPF ALTER_HEADER INT_VAR match_type = 3 drained = 1 flag_recharge = 0 END // rod o' lordly might sub-items created with no charges
+  BUT_ONLY
+
+// rods02 requires lore (fixed in bulk fixes); however it would make it un-id'd every time you switched back to the rod.
+// So, clone it with 0 lore and have other items create the clone instead of the original
+COPY_EXISTING ~rods02.itm~ ~override/rods02a.itm~ // zero-lore copy
+  WRITE_SHORT 0x42 0
+
+// rod of resurrection using slightly different animation than the spell; route through VVC instead of playing BAM directly
+COPY_EXISTING ~rods03.itm~ ~override~ // Rod of Resurrection
+  LPF ALTER_EFFECT INT_VAR check_globals = 0 match_opcode = 215 STR_VAR resource = icraisei END
+  BUT_ONLY
+
+// rod of smiting golem damage not set properly, should be in melee ability not global fx
+COPY_EXISTING ~rods04.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 STR_VAR match_resource = smitgol1 END // delete this as global effect...
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 177 target = 2 parameter1 = 144 parameter2 = 4 timing = 1 STR_VAR resource = smitgol1 END // and add back as melee effect
+  BUT_ONLY
+
+// wrong quickbar icon for rod of terror
+COPY_EXISTING ~rods05.itm~ ~override~
+  LPF ALTER_ITEM_HEADER STR_VAR icon = "irods05" END
+
+// wrong save for spear from rod of lordly might
+COPY_EXISTING ~rodspear.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 12 savebonus = 6 END // extra damage should be save at +6
+  BUT_ONLY
+
+// string fix, color change
+COPY_EXISTING ~rodsword.itm~ ~override~
+  SAY 0x8 @115 // Flaming Long Sword +1
+  SAY 0xc @115
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 7 parameter1 = 115 END // turns sword flaming
+  BUT_ONLY
+
+// save type, duration wrong
+COPY_EXISTING ~sahbolt.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_savingthrow = BIT0 savingthrow = BIT2 END // anything that was save vs. spell is now save vs. death
+  LPF ALTER_EFFECT INT_VAR match_duration = 36 duration = 30 END // duration is 5 rounds, not 6
+  BUT_ONLY
+
+// pair disease only with disease icons; see also acidooz3.itm, ghast1.itm, paraghas.itm, magispwr.itm, spidwr1.itm
+COPY_EXISTING ~sharswd.itm~ ~override~ // poison using disease icon; slow with fatigue icon, no ability score drained icon
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 7 parameter2 = 6 END // disease to poison
+  LPF ALTER_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 39 parameter2 = 41 END // fatigue to slow
+  LPF CLONE_EFFECT INT_VAR match_opcode = 142 match_parameter2 = 41 parameter2 = 91 probability2 = 0 END // create new ability score drained portrait icon
+  BUT_ONLY IF_EXISTS
+
+// shillelagh: "This spell enables the caster to create a magical cudgel that has a + 1 bonus to its attack roll and inflicts 2d4 points of damage on opponents."
+COPY_EXISTING ~shille.itm~ ~override~ // wand of spell striking
+  LPF ALTER_HEADER INT_VAR silent = 1 to_hit = 1 dicesize = 4 dicenumber = 2 damage = 0 END // 2d4+0, +1 to hit
+  BUT_ONLY
+
+// The Reflection shield should protect the wielder against Ice Arrows (Wisp)
+COPY_EXISTING ~shld24.itm~ ~override~
+  READ_LONG  0x64 ab_off
+  READ_SHORT 0x68 num_ab
+  READ_LONG  0x6a fx_off
+  READ_SHORT 0x70 num_fx
+  FOR (i=0;i<num_fx;i+=1) BEGIN // first pass builds array of already blocked projectiles
+    READ_SHORT fx_off + 0x30*i fx_type
+    PATCH_IF fx_type = 197 BEGIN
+      READ_LONG fx_off + 0x30*i + 0x8 pro
+      SET $fl#pro_shld24("%pro%") = 1
+    END
+  END
+  PATCH_FOR_EACH pro IN 1 3 4 6 9 11 13 14 15 16 19 26 29 31 34 102 BEGIN // now add any missing from this list (patched tob only missing 102, arrowflb)
+    PATCH_IF !VARIABLE_IS_SET $fl#pro_shld24("%pro%") BEGIN
+      INSERT_BYTES fx_off + 0x30*num_fx        0x30
+      WRITE_SHORT  fx_off + 0x30*num_fx        197
+      WRITE_BYTE   fx_off + 0x30*num_fx + 0x2  1
+      WRITE_LONG   fx_off + 0x30*num_fx + 0x8  pro
+      WRITE_BYTE   fx_off + 0x30*num_fx + 0xc  2
+      WRITE_BYTE   fx_off + 0x30*num_fx + 0x12 100
+      num_fx += 1
+    END
+  END
+  WRITE_SHORT 0x70 num_fx
+  FOR (i=0;i<num_ab;i+=1) BEGIN
+    WRITE_SHORT ab_off + 0x38*i + 0x20 num_fx
+    num_fx += SHORT_AT ab_off + 0x38*i + 0x1e
+  END
+  BUT_ONLY
+
+// small shields granting ac bonus v missiles and should not
+COPY_EXISTING ~shld25.itm~  ~override~ // shield o' harmony
+              ~shld28.itm~  ~override~ // small shield +2
+  READ_LONG   0x6a fx_off // can't use ALTER_EFFECT since it won't take negative values
+  READ_SHORT  0x70 fx_num
+  FOR (index = 0; index < fx_num; ++index) BEGIN
+    READ_SHORT (fx_off +        (index * 0x30)) opcode
+    READ_BYTE  (fx_off + 0x08 + (index * 0x30)) flag
+    PATCH_IF ((opcode = 0) AND ((flag BAND BIT1) = BIT1)) BEGIN
+      WRITE_LONG  (fx_off + 0x04 + (index * 0x30)) "-3"
+    END
+  END
+  BUT_ONLY
+
+// shield of harmony stuff could be dispelled
+COPY_EXISTING ~shld25.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 resist_dispel = 0 END
+  BUT_ONLY
+
+// darksteel shield lacking its extra +1 vs. missiles for being a large shield
+COPY_EXISTING ~shld31.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR target = 1 parameter1 = 1 parameter2 = BIT1 insert_point = `0 END
+  BUT_ONLY IF_EXISTS
+
+// slay living using wrong power level for cosmetic visuals
+COPY_EXISTING ~slaylive.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 141 power = 0 END
+  BUT_ONLY
+
+// sol's searing orb - undead blindness should be 6 rounds, 12 on failed save;
+// non-undead should be blinded for 1d6 rounds, not fixed at 6 rounds
+// see also cdsorb1.eff, cdsorb2.eff, udeadbli.eff
+COPY_EXISTING ~sorb.itm~ ~override~
+  PATCH_FOR_EACH op IN 177 139 74 142 BEGIN // delete everything except damage and visuals
+    LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = op END
+  END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 177 target = 2 power = 6 parameter1 = 4 parameter2 = 3 timing = 1   STR_VAR resource = cdsorb2 END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 177 target = 2 power = 6 parameter1 = 4 parameter2 = 3 duration = 1 STR_VAR resource = cdsorb1 END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 177 target = 2 power = 6 parameter1 = 4 parameter2 = 3 timing = 1   STR_VAR resource = udead66 END
+  FOR (index = 0 ; index < 2 ; ++index) BEGIN
+    LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 177 target = 2 power = 6 parameter1 = 4 parameter2 = 3 timing = (3 * index)
+      savingthrow = index duration = 36 STR_VAR resource = udeadbli END
+  END
+  LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 139 target = 2 power = 6 parameter1 = 14674 timing = 1 resist_dispel = 1 savingthrow = BIT0 END
+  SET prob = "-1"
+  FOR (index = 1 ; index < 7 ; ++index) BEGIN
+    PATCH_IF (index = 1) BEGIN SET span = 16 END ELSE BEGIN SET span = 17 END
+    SET prob += span
+    LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 74 target = 2 power = 6 resist_dispel = 1 duration = (6 * index)
+      probability1 = prob probability2 = ((prob - span) + 1) savingthrow = BIT0 END
+    LPF ADD_ITEM_EFFECT INT_VAR type = 2 opcode = 142 target = 2 power = 6 parameter2 = 8 resist_dispel = 1
+      duration = (6 * index) probability1 = prob probability2 = ((prob - span) + 1) savingthrow = BIT0 END
+  END
+
+// spellhaunts have extraneous protection from spell effects
+COPY_EXISTING ~spellh01.itm~ ~override~
+  PATCH_FOR_EACH spell IN sppr316 spwi315 spwi323 BEGIN // none of these exist
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 206 STR_VAR match_resource = EVAL ~%spell%~ END
+  END
+  BUT_ONLY IF_EXISTS
+
+// spear ranges
+COPY_EXISTING ~sper02.itm~   ~override~ // spear +1
+              ~sper03.itm~   ~override~ // spear +3 backbiter
+              ~sper05.itm~   ~override~ // spear +2
+              ~sper06.itm~   ~override~ // spear +3
+              ~sper07.itm~   ~override~ // spear of the unicorn +2
+              ~sper08.itm~   ~override~ // spear +3 impaler
+              ~sper09.itm~   ~override~ // spear +1 halcyon
+              ~sper10.itm~   ~override~ // spear of withering +4
+              ~sper11.itm~   ~override~ // ixil's nail +4
+              ~sper12.itm~   ~override~ // ixil's spike +6
+              ~spermel.itm~  ~override~ // melissan's spear
+              ~tasloiil.itm~ ~override~ // spear
+              ~waspear.itm~  ~override~ // spear of kuldahar +3
+  LPF ALTER_HEADER INT_VAR match_type = 1 range = 2 END // melee range
+  BUT_ONLY IF_EXISTS
+
+// pin damage from ixil's spike is mistimed
+COPY_EXISTING ~sper12.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR check_globals = 0 match_timing = 1 duration = 0 END // anal retentive... permanent effect w/ non-zero duration
+  LPF ALTER_EFFECT INT_VAR check_globals = 0 match_opcode = 12 match_timing = 4 match_duration = 18 duration = 6 END // move this up for 1d6+5 damage at t+0, 6, 12 seconds (was t+0, 12, 18)
+  BUT_ONLY IF_EXISTS
+
+// disables erroneous save effects. healing bypass MR, and fixes enchanment; fix power levels; Staff of Curing does not cure portrait icons (Wisp)
+COPY_EXISTING ~staf10.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_location = 3 power = 2 resist_dispel = 3 END // power, resist of heal effects
+  FOR (index = 33 ; index < 38 ; ++index) BEGIN
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = index END // delete save bonii
+  END
+  PATCH_FOR_EACH parameter2 IN 5 6 7 BEGIN //Intoxication, poison, disease
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 240 target = 2 power = 2 parameter2 timing = 1 resist_dispel = 3 END
+  END
+  BUT_ONLY
+
+// SotM needs a lot of rebuilding--dispel effects don't work in melee, several effects are mistargeted or dispellable, etc.
+COPY_EXISTING ~staf11.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR header = 0 END // delete all effects from melee header
+  LPF DELETE_EFFECT INT_VAR header = 2 END // delete all effects from spell trap header
+  // global effects changes
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0                    resist_dispel = 0 END // bypass MR for all equipped effects...
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  20 resist_dispel = 1 END // except invisibility
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 139 target = 1 END // display string on self
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 141 target = 1 END // lighting effects on self
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 28 parameter2 = 52 END // change pro-magic icon to mind shield
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  33 opcode = 100 parameter1 = 9 parameter2 = 7 END // add protection from creature type, summoned demon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode =  33 opcode = 219 parameter1 = 3 parameter2 = 8 END // add attack roll penalty, evil
+  // melee dispel-on-hit header
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode =  58 target = 2 parameter1 = 30    parameter2 = 2  resist_dispel = 2 timing = 1 END // dispel magic at level 30 (leave rest to batch patches)
+  // spell trap header
+  //LPF ALTER_HEADER INT_VAR match_type = 3 primary = 1 secondary = 1 END // mirror image, primary abjuration, secondary spell protections // not needed, casts a spell trap copy directly
+  LPF ADD_ITEM_EFFECT INT_VAR header = 3 opcode = 146 target = 1 power = 0 parameter1 = 10 parameter2 = 1 resist_dispel = 2 timing = 1 STR_VAR resource = staf11 END // cast spell directly
+  BUT_ONLY // heh
+
+// Staff of Power should actually cast Globe of Invulnerability,
+// not some shabby facsimile. Two icons also incorrect.
+COPY_EXISTING ~staf12.itm~   ~override~
+  WRITE_ASCIIT 0x3a ~istaf12~  // correcting inventory icon
+  LPF ALTER_HEADER INT_VAR match_type = 1 drained = 0 STR_VAR icon = istaf12 END // melee icon, melee charges do not deplete
+  // globe header
+  LPF ALTER_HEADER STR_VAR match_icon = ~spwi406b~ icon = ~spwi602b~ END // change globe ability icon from MGoI to GoI
+  LPF DELETE_EFFECT   INT_VAR header = 2 END // delete all effects from GoI header
+  LPF ADD_ITEM_EFFECT INT_VAR header = 3 opcode = 146 target = 1 parameter1 = 12 parameter2 = 1 timing = 1 timing = 1 STR_VAR resource = spwi602 END // cast GoI spell directly
+  // lightning header
+  LPF ALTER_EFFECT INT_VAR header = 1 power = 3 END
+  LPF ALTER_EFFECT INT_VAR header = 1 match_opcode = 146 power = 0 parameter2 = 1 END
+  // creatures which resist/are immune to staff of power's pseudo-lightning bolt can still get stunned by it; see also cdstaf12.spl, gorfirg.itm, gormisti.itm, spellh01.itm, stalker.itm
+  LPF ALTER_EFFECT INT_VAR header = 1 STR_VAR match_resource = spwi308 resource = cdstaf12 resist_dispel = 0 END // cast new, custom spell instead
+  PATCH_FOR_EACH op IN 142 139 45 BEGIN
+    LPF DELETE_EFFECT INT_VAR header = 1 match_opcode = op END // delete all stun-related effects from lightning header since they're now in the spell
+  END
+  BUT_ONLY // no bad joke for the end of this patch
+
+// Standardize the school and secondary type of items which cast offensive spells (aVENGER)
+COPY_EXISTING ~staf13.itm~ ~override~ // Staff of Thunder and Lightning
+              ~ttwand.itm~ ~override~ // Wand of the Heavens
+              ~wand03.itm~ ~override~ // Wand of Magic Missiles
+              ~wand05.itm~ ~override~ // Wand of Fire
+              ~wand06.itm~ ~override~ // Wand of Frost
+              ~wand07.itm~ ~override~ // Wand of Lightning
+              ~wand11.itm~ ~override~ // Wand of the Heavens
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 6 secondary = 10 END // all magical headers, primary Invoker, secondary offensive damage
+  BUT_ONLY
+
+// melee stun effect has visuals w/o save or MR check
+COPY_EXISTING ~staf13.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR header_type = 1 match_opcode = 215 resist_dispel = 1 savingthrow = BIT0 END
+  BUT_ONLY
+
+// staff of the woodlands
+COPY_EXISTING ~staf14.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 header = 1 match_opcode = 142 resist_dispel = 1 END // portrait icon should dispel
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 0 parameter2 = BIT4 END // barkskin is base ac, not a bonus
+  FOR (index = 33 ; index < 37 ; ++index) BEGIN // all saves except vs. spell
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = index target = 1 parameter1 = 1 timing = 2 resist_dispel = 2 END // add +1 save bonii
+  END
+  // woodland staff lacks barskin visuals
+  FOR (index = 0 ; index < 6 ; ++index) BEGIN
+    LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 7 target = 1 timing = 2 parameter1 = 23 parameter2 = index END // major, minor, belt, leather, skin, armor
+  END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 7 target = 1 timing = 2 parameter1 = 53 parameter2 = 6 END // diff color for hair
+  BUT_ONLY
+
+// woodland staff lacks barskin visuals
+COPY_EXISTING ~staf14.itm~ ~override~
+  BUT_ONLY
+
+// Standardize the school and secondary type of items which cast alteration spells (aVENGER)
+COPY_EXISTING ~staf16.itm~ ~override~ // Staff of Earth +2
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 13 STR_VAR match_icon = spwi625b END // stone to flesh, primary Transmuter, secondary Non-Combat
+  BUT_ONLY
+
+// staff of the ram +6 missing listed 1d4 pierce damage
+COPY_EXISTING ~staf22.itm~ ~override~
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 12 target = 2 parameter2 = (16 << 16) timing = 1 dicenumber = 1 dicesize = 4 END // add 1d4 piercing damage to melee attack
+  BUT_ONLY IF_EXISTS
+
+// mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+COPY_EXISTING ~stonskin.itm~ ~override~ // ring which grants the stoneskin effect while equipped (used by Mekrath, Rayic Gethras, Terminsel... etc.)
+  LPF DELETE_EFFECT END // delete all exidting effects
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 146 target = 1 timing = 2 parameter2 = 1 resist_dispel = 3 STR_VAR resource = cdwi408 END
+  BUT_ONLY
+
+// add portrait icon for fire resistance
+COPY_EXISTING ~sw1h15.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 142 target = 1 parameter2 =  16 timing = 2 END
+
+// sword of balduran is a bastard sword
+COPY_EXISTING ~sw1h18.itm~ ~override~
+  WRITE_SHORT 0x26 12 // min str
+  WRITE_BYTE  0x31 89 // prof: bastard sword
+  BUT_ONLY
+
+// Standardize the school and secondary type of items which cast illusionary spells (aVENGER)
+COPY_EXISTING ~sw1h26.itm~ ~override~ // Ilbratha +1
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 5 secondary = 3 END // mirror image, primary illusion, secondary illusionary protections
+  BUT_ONLY
+
+// arbane's sword has extraneous effects and prevents the wrong string
+COPY_EXISTING ~sw1h27.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 13 END // haste, primary transmuter, secondary non-combat
+//  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 296 END // immunity to spmindat.vvc
+  PATCH_FOR_EACH op IN 45 154 157 158 BEGIN
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 101 match_parameter2 = op END // immunity to stun, entangle, grease, web
+  END
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 multi_match = 1 match_opcode = 101 match_parameter2 = 175 END // delete dupe hold immunity
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 169 match_parameter2 =   55 END // immunity to stun icon
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 169 match_parameter2 =  129 END // immunity to web icon
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 267 match_parameter1 = 1280 END // immunity to 'stunned' string
+  BUT_ONLY
+
+// daystar fix: does 2d8 + 6 vs. evil undead; should be 2d8 + 8
+// harder than usual because of all overlapping effs; see also daystar1.eff, daystar2.eff
+// move daystar1 to melee header, apply only v undead
+// evaildam2 also needs to move, but handled in effing effs section
+COPY_EXISTING ~sw1h31.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode = 177 STR_VAR match_resource = daystar1 END // delete from global effects
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 177 target = 2 parameter1 = 4 parameter2 = 3 timing = 1 STR_VAR resource = daystar1 END // add back as melee effect
+  BUT_ONLY
+
+// dragonslayer missing regeneration portrait icon, dragon damage gets an extra +2
+COPY_EXISTING ~sw1h32.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 177 opcode = 142 parameter2 = 87 STR_VAR match_resource = ~sw1h32a~ resource = ~~ END // delete sw1h32a eff by turning into missing regen icon
+  BUT_ONLY
+
+// Standardize the school and secondary type of items which cast divination spells (aVENGER)
+COPY_EXISTING ~sw1h32.itm~ ~override~ // Dragonslayer
+              ~sw1h34.itm~ ~override~ // Albruin +1
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 3 secondary = 5 END // Detect Invisibility, primary Diviner, secondary Divination Attack
+  BUT_ONLY
+
+// adjatha's healing does not bypass MR and the sword has an incorrect strength requirement
+COPY_EXISTING ~sw1h35.itm~ ~override~
+  WRITE_BYTE 0x26 6 // strength requirement
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 resist_dispel = 0 END // not dispel/bypass
+  BUT_ONLY
+
+// Standardize the school and secondary type of items which cast alteration spells (aVENGER)
+COPY_EXISTING ~sw1h36.itm~ ~override~ // Namarra +2
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 8 secondary = 11 END // silence, primary Transmuter, secondary Disabling
+  BUT_ONLY
+  
+// shazzelim's damage does not match description
+COPY_EXISTING ~sw1h50.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 damage = 1 END // melee, damage from 1d8+2 to 1d8+1
+  BUT_ONLY
+
+// celestial fury's blindness affects every creature in the area, lacks school/secondary; fix power levels
+COPY_EXISTING ~sw1h51.itm~ ~override~ // celestial fury
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 1 power = 1 END // power level for blindness stuff
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 1 target = 2 END // make blindness single target
+  LPF ALTER_HEADER INT_VAR silent = 1 header = 1 primary = 5 secondary = 11 END // blindness: illusion, disabling
+  BUT_ONLY
+
+COPY_EXISTING ~sw1h55.itm~ ~override~
+  WRITE_ASCII 0x3a ~isw1h55~ #8 // inventory icon
+  LPF ALTER_HEADER INT_VAR match_type = 1 STR_VAR icon = ~isw1h55~ END // melee icon
+  BUT_ONLY
+
+// Habib's mighty scimitar
+COPY_EXISTING ~sw1h57.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 111 opcode = 255 parameter1 = 1 END // change from creating in mag wep slot to inventory
+  BUT_ONLY
+
+// foebane's LMD is bypassing MR
+COPY_EXISTING ~sw1h63.itm~ ~override~
+  LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 END // delete all melee effects
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode = 146 target = 2 power = 1 parameter1 = 1 parameter2 = 1 timing = 1 resist_dispel = 1 STR_VAR resource = spin104a END // cast LMD directly
+  BUT_ONLY IF_EXISTS
+
+/// The Priest of Helm's Sword of Seeking should do 2d4 damage, not 1d8 (by Wisp)
+COPY_EXISTING ~sw1hseek.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 dicenumber = 2 dicesize = 4 END // change to 2d4 on melee header
+  BUT_ONLY
+
+// create party-friendly harbinger for c6eric.cre and c6eric3.cre
+COPY_EXISTING ~sw2h07.itm~ ~override/cdsw2h07.itm~
+  LPF DELETE_EFFECT INT_VAR match_opcode = 146 STR_VAR match_resource = spwi304 END  // cast fireball
+  LPF DELETE_EFFECT INT_VAR match_opcode = 174 STR_VAR match_resource = misc_17b END // play fireball sound
+
+// Soul Reaver's THAC0 drain should bypass MR
+COPY_EXISTING ~sw2h08.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 54 resist_dispel = 0 END // thac0 change bypasses MR
+  BUT_ONLY
+
+// Carsomyr's dispel on hit effect is incorrect
+COPY_EXISTING ~sw2h10.itm~ ~override~
+              ~sw2h19.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 1 identify = 0 dicesize = 12 END // no ID required for melee, use d12 for damage
+  LPF ALTER_HEADER INT_VAR match_type = 3 identify = 1 target = 4 END    // ID required for dispel, fix target
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 opcode = 148 target = 1 END // thac0 change bypasses MR
+  // melee dispel-on-hit header - same fix as staf11 except no op 141
+  LPF DELETE_EFFECT INT_VAR header = 0 END // delete all effects from melee header
+  LPF ADD_ITEM_EFFECT INT_VAR type = 1 opcode =  58 target = 2 parameter1 = 30    parameter2 = 2  resist_dispel = 2 timing = 1 END // dispel magic at level 30 (leave rest to batch patches)
+  BUT_ONLY IF_EXISTS
+
+// demon wraith can drain two levels on hit, but feedback always says one level drained; also fix percentages while we're here
+COPY_EXISTING ~telwrai.itm~  ~override~ // <invalid strref -1> needs 1 probabilities adjusted
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 139                          probability2 = 50 END // now fires only 50-99, "one level drained"
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 216 match_probability1 = 100 probability2 = 50 END // now fires only 50-99, one level drain
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 216 match_probability1 = 50 probability1 = 49 parameter1 = 2 END // now fires only 0-49, upped to two levels to compensate for other 216 changing percentages
+  LPF CLONE_EFFECT INT_VAR match_opcode = 139 probability1 = 49 probability2 = 0 parameter1 = 40968 STR_VAR insert = last END     // add 'two levels drained' string to match
+  BUT_ONLY IF_EXISTS
+
+// poison immunity for 'dead' trolls
+COPY_EXISTING ~trolldie.itm~ ~override~
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 31 opcode = 173 END // reduced damage from poison
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 31 opcode = 101 parameter1 = 0 parameter2 = 25 END // immunity to poison
+  BUT_ONLY
+
+// Wand of heavens claims 8d6 damage; actually does 12d4; fix flame strike animation while we're here
+COPY_EXISTING ~ttwand.itm~ ~override~
+              ~wand11.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 projectile = 1 END // remove old bg FS animation
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 12 dicesize = 6 dicenumber = 4 power = 5 END // (half) damage is 4d6, not 6d4 and fix power too
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "ttwand" = 0) BEGIN // ttwand lacks 215 opcodes
+    LPF ADD_ITEM_EFFECT INT_VAR header = 1 opcode = 215 target = 2 timing = 1 resist_dispel = 1 STR_VAR resource = spflast2 END // play 3d effect
+    LPF ADD_ITEM_EFFECT INT_VAR header = 1 opcode = 215 target = 2 timing = 1 resist_dispel = 1 STR_VAR resource = spflsrin END // play 3d effect
+  END ELSE BEGIN // wand11 already has play 3d effect opcodes, but with wrong power
+    LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 215 power = 0 END // visuals shouldn't be blocked by spell protections
+  END
+  BUT_ONLY
+
+// add disease immunity to vampires; fleshed out in immunity batches below
+COPY_EXISTING ~vampreg.itm~  ~override~
+              ~vampreg1.itm~ ~override~
+              ~vampreg2.itm~ ~override~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 101 target = 1 parameter2 = 78 timing = 2 END
+
+// sensate amulet should increase max HP and not current & max HP to close healing loophole
+COPY_EXISTING ~wa2amu.itm~   ~override~
+              ~waspear.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 18 parameter2 = 3 END // increase max hp without increasing current
+  BUT_ONLY
+
+// Vhailor's simulcrum ability could fail on MR check
+COPY_EXISTING ~wa2helm.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 resist_dispel = 0 END // cast simulcrum
+  BUT_ONLY
+
+// since beholder lightning bolt is now a separate projectile, need to add protection in shield of balduran
+COPY_EXISTING ~wa2shiel.itm~ ~override~
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 197 match_parameter2 = 208 parameter2 = (cdbehbla - 1) END // block new beholder projectile
+  BUT_ONLY
+
+// jerrod's mace has incorrect eff assignments
+COPY_EXISTING ~wamace.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 STR_VAR match_resource = ~wamacea~ resource = ~damacea~ END // fix typo
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_opcode = 177 STR_VAR match_resource = ~wamaceb~ resource = ~damaceb~ END // fix typo
+  BUT_ONLY
+
+// match secondary to underlying spell
+COPY_EXISTING ~wand02.itm~ ~override~ // wand of fear
+              ~wand04.itm~ ~override~ // wand of paralyzation
+              ~wand08.itm~ ~override~ // wand of sleep
+  LPF ALTER_HEADER INT_VAR match_type = 3 secondary = 11 END // all magical headers, secondary disabling
+  BUT_ONLY
+
+// using wands on neutrals should make them hostile
+COPY_EXISTING ~wand04.itm~ ~override~ // wand of paralyzation
+              ~wand18.itm~ ~override~ // wand of spell striking
+              ~wand19.itm~ ~override~ // wand of cursing
+  LPF ALTER_HEADER INT_VAR silent = 1 flag_hostile = 1 END // add hostile flag
+  BUT_ONLY IF_EXISTS
+
+// match secondary to underlying spell
+COPY_EXISTING ~wand10.itm~ ~override~ // wand of monster summoning
+  LPF ALTER_HEADER INT_VAR match_type = 3 secondary = 6 END // all magical headers, secondary conjuration
+  BUT_ONLY
+
+// wand of wonder has incorrect max charges; causes it to be sold for 5x its value
+COPY_EXISTING ~wand12.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR match_type = 3 charges = 50 END
+  BUT_ONLY
+
+// wand of cloudkill bypassing MR, Standardize the school and secondary type of items which cast offensive spells (aVENGER)
+// make it cast CK directly so that poison immunity can block it outright
+COPY_EXISTING ~wand13.itm~ ~override~
+  LPF DELETE_EFFECT END // delete existing effects
+  LPF ALTER_ITEM_HEADER INT_VAR projectile = 1 END // remove projectile
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 148 target = 1 parameter1 = 10 parameter2 = 1 timing = 1 STR_VAR resource = spwi502 END // cast spell directly
+  BUT_ONLY
+
+// wand of apprenti had imbalanced elemental attacks
+COPY_EXISTING ~wand15.itm~   ~override~ // wand of apprenti needs 4 probabilities adjusted
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 146 probability1 =  33 probability2 =  0 STR_VAR match_resource = spwi304 END // fireball on 34%, was 36%
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 146 probability1 =  66 probability2 = 34 STR_VAR match_resource = spwi503 END // cone of cold on 33%, was 35%
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 146 probability1 = 100 probability2 = 67 STR_VAR match_resource = spwi308 END // lightning bolt on 33%, was 29%
+  BUT_ONLY
+
+// potion of icedust should be self-targeted
+COPY_EXISTING ~wand16.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 146 target = 1 END // target:self
+  LPF ALTER_HEADER INT_VAR header = 0 target = 5 END // target: caster
+  BUT_ONLY
+
+// Standardize the school and secondary type of items which cast abjuration spells (aVENGER); wand should disappear when out of charges
+COPY_EXISTING ~wand18.itm~ ~override~ // Wand of Spell Striking
+  LPF ALTER_HEADER INT_VAR match_type = 3 primary = 1 secondary = 4 drained = 1 END // breach and/or pierce magic, primary Abjurer, secondary Magic Attack
+  BUT_ONLY IF_EXISTS
+
+// wand of cursing should cause deafness but is not (though it does cause the portrait icon)
+COPY_EXISTING ~wand19.itm~ ~override~
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 38 opcode = 80 END // clone blindness effect into deafness
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 139 match_parameter1 = 14002 parameter1 = 54318 END // clone 'silence' string into 'deaf'
+  BUT_ONLY IF_EXISTS
+
+// missile weapons using wrong projectiles and being blocked by protection from normal missiles; see also arow02.itm and aegis.itm et al
+COPY_EXISTING ~wasling.itm~  ~override~ // sling of everard +5
+  LPF ALTER_HEADER INT_VAR match_type = 2 projectile = 17 flag_strength = 0 END // magic bullet (17) from normal bullet (20) on ranged headers; no strength bonus
+  BUT_ONLY
+
+// allow arbitrary return-to-human form from clock of the wuff
+// see also clck04.itm, shapeshifting spell batch
+COPY_EXISTING ~wolfm.itm~ ~override/cdwolfm.itm~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 60 target = 1 timing = 2 parameter1 = 100 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 60 target = 1 timing = 2 parameter1 = 100 parameter2 = 1 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 53 target = 1 timing = 2 parameter1 = 31488 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 44 target = 1 timing = 2 parameter1 = 18 parameter2 = 1 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 15 target = 1 timing = 2 parameter1 = 17 parameter2 = 1 END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 117 timing = 3 STR_VAR resource = sppolymp END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 117 timing = 3 STR_VAR resource = polyback END
+
+// heavy crossbow of searing only doing fire damage on half its hits
+COPY_EXISTING ~xbow14.itm~   ~override~ // heavy crossbow of searing +1 needs 1 probabilities adjusted
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 12 probability1 = 100 END // fire damage now 100%, was 51%
+  BUT_ONLY
+
+// two xbows lacking min str requirements
+COPY_EXISTING ~xbow15.itm~ ~override~
+              ~xbow16.itm~ ~override~
+  WRITE_BYTE 0x26 8 // min str
+  BUT_ONLY IF_EXISTS

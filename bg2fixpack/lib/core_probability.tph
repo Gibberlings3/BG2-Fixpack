@@ -1,0 +1,176 @@
+/////                                                  \\\\\
+///// probability fixes                                \\\\\
+/////                                                  \\\\\
+
+// automated
+COPY_EXISTING ~aurstaf.itm~  ~override~ // staff of the ram +4 needs 3 probabilities adjusted - wing buffet/sleep at 11%
+              ~ax1h15.itm~   ~override~ // axe of the unyielding +5 needs 3 probabilities adjusted - vorpal hit at 11%
+              ~balor.itm~    ~override~ // skull needs 3 probabilities adjusted - slay effect at 16%
+              ~blakblad.itm~ ~override~ // black blade of disaster needs 7 probabilities adjusted - level drain on 11%
+              ~blun14.itm~   ~override~ // flail of ages +3 needs 2 probabilities adjusted - slow at 34%
+              ~blun29.itm~   ~override~ // storm star +5 needs 1 probabilities adjusted - chain lightning on 6%
+              ~blun30.itm~   ~override~ // flail of ages +5 needs 2 probabilities adjusted - slow at 34%
+              ~blun30c.itm~  ~override~ // flail of ages +4 needs 2 probabilities adjusted - alow at 34%
+              ~blun30d.itm~  ~override~ // flail of ages +4 needs 2 probabilities adjusted - slow at 34%
+              ~bonedag.itm~  ~override~ // mordenkainen's sword needs 3 probabilities adjusted - slow at 26%
+              ~bonefd.itm~   ~override~ // skull needs 4 probabilities adjusted - str/dex penalties at 31%
+              ~dagg17.itm~   ~override~ // stiletto of demarchess +2 needs 3 probabilities adjusted - hold at 21%
+              ~dagg20.itm~   ~override~ // dagger +4, life-stealer needs 2 probabilities adjusted - level drain at 16%
+              ~dagg21.itm~   ~override~ // dagger of the star +4 needs 1 probabilities adjusted - invisibility at 6%
+              ~demmau01.itm~ ~override~ // skull needs 6 probabilities adjusted - hold at 16%
+              ~deva.itm~     ~override~ // mace of disruption +2 needs 2 probabilities adjusted - dispel magic at 26%
+              ~devaevil.itm~ ~override~ // silver sword needs 4 probabilities adjusted - dispel magic, vorpal hit at 26%
+              ~devmon01.itm~ ~override~ // <invalid strref -1> needs 1 probabilities adjusted - crushing damage at 11%
+              ~dogwawp.itm~  ~override~ // attack needs 3 probabilities adjusted - level drain at 21% (slow at 20% correct)
+              ~finsol01.itm~ ~override~ // <invalid strref -1> needs 7 probabilities adjusted - slay at 16%, dispel magic at 84%
+              ~finsol02.itm~ ~override~ // <invalid strref -1> needs 2 probabilities adjusted - kill target at 26%
+              ~gith.itm~     ~override~ // silver sword needs 2 probabilities adjusted - kill target at 26%
+              ~gorcamb.itm~  ~override~ // two-handed sword +2 needs 10 probabilities adjusted - stun at 51%, attribute drain at 49% (mr drain ok, but needs adjustment down to match)
+              ~gorwom1.itm~  ~override~ // <invalid strref -1> needs 18 probabilities adjusted - charm at 51% (sleep/charm effs fixed elsewhere)
+              ~gorwom4.itm~  ~override~ // drow flail +3 needs 5 probabilities adjusted - slow at 51%, blindness at 49%
+              ~halb09.itm~   ~override~ // halberd +4: wave needs 1 probabilities adjusted - cold damage on 16% of hits
+              ~halb11.itm~   ~override~ // ravager +6 needs 3 probabilities adjusted - vorpal hits at 11%
+              ~icetrl.itm~   ~override~ // attack needs 5 probabilities adjusted - dex/stun penalty at 34%
+              ~insanity.spl~ ~override~ // insanity gaze needs 3 probabilities adjusted - feeblemind at 51%
+              ~marili.itm~   ~override~ // sword of flame +1 needs 16 probabilities adjusted - fire damage at 11%, poison damage at 9%
+              ~miscbc.itm~   ~override~ // blackrazor needs 8 probabilities adjusted - level drain etc. on 16% of hits
+              ~mistho.itm~   ~override~ // skull needs 5 probabilities adjusted - panic at 31%, drop item at 11%
+              ~mistice.itm~  ~override~ // skull needs 4 probabilities adjusted - panic at 31%
+              ~mistva.itm~   ~override~ // skull needs 3 probabilities adjusted - level drain at 19%
+              ~mistva2.itm~  ~override~ // skull needs 3 probabilities adjusted - level drain at 51%
+              ~mound.itm~    ~override~ // <invalid strref -1> needs 10 probabilities adjusted - entangle at 51%
+              ~planetar.itm~ ~override~ // silver sword needs 5 probabilities adjusted - vorpal hits/dispel magic at 26%
+              ~ravag01.itm~  ~override~ // skull needs 3 probabilities adjusted - wing buffet/sleep at 49%
+              ~reaver.itm~   ~override~ // unholy reaver needs 1 probabilities adjusted - dispel magic at 51%
+              ~rods05.itm~   ~override~ // rod of terror needs 2 probabilities adjusted - charisma penalty at 21%
+              ~sahzom01.itm~ ~override~ // <invalid strref -1> needs 2 probabilities adjusted - disease at 11%
+              ~sendai.itm~   ~override~ // drow flail +3 needs 5 probabilities adjusted - poison on 76%, slow on 24%
+              ~sharswd.itm~  ~override~ // bastard sword +1 needs 6 probabilities adjusted - poison on 51%, slow on 49
+              ~slimed2.itm~  ~override~ // broken shield needs 4 probabilities adjusted - delayed exploding deaths +1%
+              ~spauru.spl~   ~override~ // <invalid strref -1> needs 6 probabilities adjusted - 26% fire damage, 24% magic damage
+              ~spcl918.spl~  ~override~ // alchemy needs 14 probabilities adjusted - 13% master thievery, 11% rogue potion of frost giant strength
+              ~spermel.itm~  ~override~ // spear needs 5 probabilities adjusted - stun 26%, slow 74%
+              ~spin106a.spl~ ~override~ // <invalid strref -1> needs 90 probabilities adjusted - lowest hp drain 11%, highest 9%
+              ~spin106b.spl~ ~override~ // <invalid strref -1> needs 90 probabilities adjusted - lowest hp drain 11%, highest 9%
+              ~spin203.spl~  ~override~ // cloak of fear needs 1 probabilities adjusted - 26% chance to drop item
+              ~spin534.spl~  ~override~ // call dark horde needs 1 probabilities adjusted - 61% summon chance
+              ~spin675.spl~  ~override~ // wandering horror needs 1 probabilities adjusted - 26% chance to drop item
+              ~spin787.spl~  ~override~ // <invalid strref -1> needs 6 probabilities adjusted - 26% acid damage, 24% fire
+              ~spogre01.spl~ ~override~ // earthquake needs 1 probabilities adjusted - 3% to summon greater earth elemental
+              ~sppr301.spl~  ~override~ // animate dead needs 30 probabilities adjusted - always +1% for one summon, -1% for double
+              ~sppr416.spl~  ~override~ // cloak of fear needs 1 probabilities adjusted - 26% to drop item
+              ~sppr605.spl~  ~override~ // conjure fire elemental needs 40 probabilities adjusted - 61% for weakest elemental, 4% for strongest
+              ~sppr702.spl~  ~override~ // conjure earth elemental needs 28 probabilities adjusted - 61% for weakest elemental, 4% for strongest
+              ~sppr720.spl~  ~override~ // earthquake needs 1 probabilities adjusted - 3% of elemental summoning
+              ~spwi309.spl~  ~override~ // monster summoning i needs 48 probabilities adjusted - 61% for one monster, 39% for two
+              ~spwi314a.spl~ ~override~ // <invalid strref -1> needs 90 probabilities adjusted - lowest hp drain 11%, highest 9%
+              ~spwi314b.spl~ ~override~ // <invalid strref -1> needs 90 probabilities adjusted - lowest hp drain 11%, highest 9%
+              ~spwi407.spl~  ~override~ // monster summoning ii needs 42 probabilities adjusted - 61% for one monster, 39% for two
+              ~spwi423.spl~  ~override~ // spider spawn needs 36 probabilities adjusted - 81% for one spider, 19% for two
+              ~spwi501.spl~  ~override~ // animate dead needs 18 probabilities adjusted - always +1% for one skellie, -1% for two (skel warriors at lev 15+ fine)
+              ~spwi504.spl~  ~override~ // monster summoning iii needs 36 probabilities adjusted - 61% for one monster, 39% for two
+              ~spwi620.spl~  ~override~ // conjure fire elemental needs 40 probabilities adjusted - summon should be 60/35/5 split, instead is 61/35/4
+              ~spwi621.spl~  ~override~ // conjure air elemental needs 40 probabilities adjusted - summon should be 60/35/5 split, instead is 61/35/4
+              ~spwi622.spl~  ~override~ // conjure earth elemental needs 40 probabilities adjusted - summon should be 60/35/5 split, instead is 61/35/4
+              ~spwi623.spl~  ~override~ // carrion summons needs 30 probabilities adjusted - 66% chance to summon one carrion crawler, 34% two
+              ~spwi711.spl~  ~override~ // sphere of chaos needs 19 probabilities adjusted - 11% polymorph, 9% haste
+              ~spwish14.spl~ ~override~ // create wand needs 14 probabilities adjusted - 13% wand of fear, 11% wand of cursing
+              ~spwm130.spl~  ~override~ // repulsion, caster needs 18 probabilities adjusted - 11% spfirepi.vvc, 9% spfleshs.vvc
+              ~spwm136.spl~  ~override~ // good berries needs 4 probabilities adjusted +1% chance for horn coral, -1% pearl
+              ~staf13.itm~   ~override~ // staff of thunder and lightning needs 4 probabilities adjusted - thunderclap on 11% of hits
+              ~staf21.itm~   ~override~ // staff of the ram +4 needs 3 probabilities adjusted - stun/knockback on 11%
+              ~staf22.itm~   ~override~ // staff of the ram +6 needs 3 probabilities adjusted - stun/knockbak on 16%
+              ~staf23.itm~   ~override~ // serpent shaft needs 2 probabilities adjusted - poison at 51%
+              ~sw1h51.itm~   ~override~ // celestial fury needs 1 probabilities adjusted - electrical damage at 6%
+              ~sw1h58.itm~   ~override~ // short sword of mask +4 needs 6 probabilities adjusted - entangle at 16%
+              ~sw1h59.itm~   ~override~ // short sword of mask +5 needs 12 probabilities adjusted - entangle at 16%
+              ~sw1h67.itm~   ~override~ // usuno's blade +4 needs 2 probabilities adjusted - 11% electrical damage
+              ~sw1h99.itm~   ~override~ // sword of chaos needs 3 probabilities adjusted - slay at 11%
+              ~sw2h07.itm~   ~override~ // harbinger +3 needs 2 probabilities adjusted - fireball at 6%
+              ~sw2h15.itm~   ~override~ // silver sword needs 3 probabilities adjusted - vorpal hit at 26%
+              ~sw2h17.itm~   ~override~ // gram the sword of grief +5 needs 1 probabilities adjusted - poison at 11%
+              ~sw2h18.itm~   ~override~ // gram the sword of grief +5 needs 1 probabilities adjusted - poison at 11%
+              ~sw2hdeat.itm~ ~override~ // soul reaver +4 needs 1 probabilities adjusted - level drain at 51%
+              ~telslav.itm~  ~override~ // <invalid strref -1> needs 8 probabilities adjusted - level drain 86%, slay 14%
+              ~trolltor.itm~ ~override~ // attack needs 4 probabilities adjusted - str penalty 51%, slow 49%
+              ~vamt01.itm~   ~override~ // vampiric touch needs 36 probabilities adjusted - +1% for lowest hp drian -1% for highest
+              ~vamt06.itm~   ~override~ // vampiric touch needs 36 probabilities adjusted
+              ~vamt08.itm~   ~override~ // vampiric touch needs 36 probabilities adjusted
+              ~vamt10.itm~   ~override~ // vampiric touch needs 36 probabilities adjusted
+              ~vamt12.itm~   ~override~ // vampiric touch needs 36 probabilities adjusted
+              ~was2h.itm~    ~override~ // joril's dagger +3 needs 3 probabilities adjusted - confusion at 26%
+              ~wastar.itm~   ~override~ // everard's morning star +2 needs 2 probabilities adjusted - spell drain at 51%
+              ~zomsea.itm~   ~override~ // short sword  needs 2 probabilities adjusted - disease at 11%
+//              ~chalcy2.itm~  ~override~ // short sword of backstabbing  needs 3 probabilities adjusted - fine as is
+//              ~misc3a.itm~   ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a1.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a2.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a3.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a4.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a5.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a6.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a7.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3a8.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~misc3aa.itm~  ~override~ // book of infinite spells needs 18 probabilities adjusted - all correct
+//              ~ravag02.itm~  ~override~ // boneblade +4 needs 8 probabilities adjusted - all correct
+//              ~spcl919.spl~  ~override~ // scribe scrolls needs 16 probabilities adjusted - fine as is
+//              ~spin545a.spl~ ~override~ // <invalid strref -1> needs 20 probabilities adjusted - fine as is
+//              ~sppr723.spl~  ~override~ // elemental summoning needs 17 probabilities adjusted - fine as is
+//              ~sppr724.spl~  ~override~ // greater elemental summoning needs 4 probabilities adjusted - fine as is
+//              ~spwi714.spl~  ~override~ // prismatic spray needs 21 probabilities adjusted - fine as is
+//              ~spwish13.spl~ ~override~ // alchemy needs 20 probabilities adjusted - fine as is
+//              ~wand12.itm~   ~override~ // wand of wonder needs 26 probabilities adjusted - fine as is
+  READ_ASCII 0x00 type (3)
+  SET min_size = 0
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "spl" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x28
+    SET global_loop    = 0
+    SET fx_type        = 0
+    SET min_size       = 0x72
+  END ELSE
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "itm" = 0) BEGIN
+    READ_LONG  0x64 abil_off ELSE 0
+    READ_SHORT 0x68 abil_num ELSE 0
+    READ_LONG  0x6a fx_off   ELSE 0
+    SET counter_offset = 0x70
+    SET abil_length    = 0x38
+    SET global_loop    = 1
+    SET fx_type        = 0
+    SET min_size       = 0x72
+/*  END ELSE
+  PATCH_IF ("%type%" STRING_COMPARE_CASE "cre" = 0) BEGIN
+    READ_LONG  0x2c4 fx_off ELSE 0
+    READ_BYTE 0x33 fx_type ELSE 2
+    SET abil_off       = 0
+    SET abil_num       = 0
+    SET counter_offset = 0x2c8
+    SET abil_length    = 0
+    SET global_loop    = 1
+    SET min_size       = 0x2d4
+    SET cosmetic       = 0 */
+  END
+  PATCH_IF ((SOURCE_SIZE >= min_size) AND (min_size != 0)) BEGIN // min_size must get set by file type detection
+    FOR (index = (0 - global_loop) ; index < abil_num ; ++index) BEGIN
+      PATCH_IF (index < 0) BEGIN // if loop through globals needed
+        SET abil_fx_idx = 0
+      END ELSE BEGIN // otherwise normal ability
+        SET counter_offset = (abil_off + 0x1e + (abil_length * index))
+        READ_SHORT  (abil_off + 0x20 + (abil_length * index)) abil_fx_idx
+      END
+      READ_SHORT counter_offset counter // fx_num on global loop, otherwise abil_fx_num
+      // run one pass purely looking for keys
+      FOR (index2 = 0 ; index2 < counter ; ++index2) BEGIN
+        PATCH_FOR_EACH offset IN 0x12 0x13 BEGIN
+          READ_BYTE  (fx_off + offset + (offset * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) prob
+          PATCH_IF (prob > 0) AND (prob < 100) BEGIN
+            WRITE_BYTE  (fx_off + offset + (offset * fx_type) + ((abil_fx_idx + index2) * (0x30 + (0xd8 * fx_type)))) (prob - 1)
+          END
+        END
+      END
+    END
+  END
+  BUT_ONLY IF_EXISTS

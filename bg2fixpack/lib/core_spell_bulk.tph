@@ -1,0 +1,498 @@
+/////                                                  \\\\\
+///// bulk spell fixes                                 \\\\\
+/////                                                  \\\\\
+
+// power level fixes
+//Set power of summoning spells to 0, otherwise they can get blocked if the caster is under (M)GoI (code by Wisp; general idea by lotsa people)
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  melis03  => 0 // summon spells should be 0; Taint of the Slayer
+  senspisu => 0 // summon spells should be 0; Summon Spider
+  spcl621  => 0 // summon spells should be 0; Summon Spirit Animal
+  spcl923  => 0 // summon spells should be 0; Summon Deva
+  spin615  => 0 // summon spells should be 0; Knight
+  spin616  => 0 // summon spells should be 0; Flames
+  spin622  => 0 // summon spells should be 0; Skull
+  spin770  => 0 // HELL_EXPLODE - string at 1, others 0
+  spin771  => 0 // HELL_DAMAGE_HALF - string at 1, others 0
+  spin923  => 7 // GENIE_LIMITED_WISH_HEAL_ALL - visual at 5, others 7
+  spin958  => 4 // ULITHARID_CURE_SERIOUS_WOUNDS - visual at 1, detox 0, others 4
+  sppr105  => 1 // (entangle): one sound effect opcode is power 2.
+  sppr210  => 2 // (resist fire/cold): one display string at level 4 has power 0.
+  sppr301  => 0 // summon spells should be 0; Animate Dead
+  sppr306  => 3 // (protection from fire): The character color pulse effect at all levels is at power 1.
+  sppr315  => 3 // (cure medium wounds): remove intoxication is at power 0.
+  sppr401  => 4 // (cure serious wounds): remove intoxication is at power 0.
+  sppr402  => 0 // summon spells should be 0; Animal summoning I
+  sppr410  => 0 // summon spells should be 0; Call Woodland Beings
+  sppr501  => 0 // summon spells should be 0; Animal summoning II
+  sppr502  => 5 // (cure critical wounds): remove intoxication at power 0, 'healed' string at power 6.
+  sppr512  => 5 // (greater command): visual effect on target at power 1
+  sppr601  => 0 // summon spells should be 0; Aerial Servant
+  sppr602  => 0 // summon spells should be 0; Animal summoning III
+  sppr604  => 0 // summon spells should be 0; Conjure Animals
+  sppr605  => 0 // summon spells should be 0; Conjure Fire Elemental
+  sppr702  => 0 // summon spells should be 0; Conjure Earth Elemental
+  sppr703  => 0 // summon spells should be 0; Gate
+  sppr712  => 7 // (resurrection): most of the 'remove spell' opcodes are at power 5.
+  sppr723  => 0 // summon spells should be 0; Elemental Summoning
+  sppr724  => 0 // summon spells should be 0; Greater Elemental Summoning
+  sppr726  => 0 // summon spells should be 0; Summon Deva
+  sppr727  => 0 // summon spells should be 0; Summon Fallen Deva
+  spra305  => 0 // summon spells should be 0; Animal summoning II
+  spra306  => 0 // summon spells should be 0; Animal summoning III
+  spwi106  => 1 // (blindness): 'blinded' string at power 0
+  spwi111  => 1 // (infravision): 'infravision' string at power 0
+  spwi113  => 1 // (protection from evil): 'protected from evil' string at power 0
+  spwi210  => 2 // (resist fear): visual effect at power 1
+  spwi223  => 2 // (deafness): visual effects at power 1
+  spwi224  => 2 // (glitterdust): visual effect at power 4
+  spwi309  => 0 // summon spells should be 0; Monster summoning I
+  spwi407  => 0 // summon spells should be 0; Monster summoning II
+  spwi410  => 4 // (remove curse): save visual effect, all at power 3
+  spwi414  => 4 // (spirit armor): display string at power 3
+  spwi423  => 0 // summon spells should be 0; Spider Spawn
+  spwi501  => 0 // summon spells should be 0; Animate Dead
+  spwi504  => 0 // summon spells should be 0; Monster summoning III
+  spwi516  => 0 // summon spells should be 0; Conjure Lesser Fire Elemental
+  spwi520  => 0 // summon spells should be 0; Conjure Lesser Air Elemental
+  spwi521  => 0 // summon spells should be 0; Conjure Lesser Earth Elemental
+  spwi523  => 5 // (sunfire): level 10 effects at power 3, level 11 damage effect at power 6
+  spwi601  => 0 // summon spells should be 0; Invisible Stalker
+  spwi613  => 6 // (improved haste): all effects save one at power 3
+  spwi619  => 0 // summon spells should be 0; Wyvern Call
+  spwi620  => 0 // summon spells should be 0; Conjure Fire Elemental
+  spwi621  => 0 // summon spells should be 0; Conjure Air Elemental
+  spwi622  => 0 // summon spells should be 0; Conjure Earth Elemental
+  spwi623  => 0 // summon spells should be 0; Carrion Summons
+  spwi624  => 0 // summon spells should be 0; Summon Nishruu
+  spwi707  => 0 // summon spells should be 0; Cacofiend
+  spwi711  => 7 // (sphere of chaos): play sound at power 4
+  spwi716  => 0 // summon spells should be 0; Mordenkainen's Sword
+  spwi717  => 0 // summon spells should be 0; Summon Efreeti
+  spwi718  => 0 // summon spells should be 0; Summon Djinni
+  spwi719  => 0 // summon spells should be 0; Summon Hakeashar
+  spwi721  => 7 // (mass invisibility): actual invisibility effects at power 4 (this error is propagated when the Fixpack clones this effect for its additional spell protections)
+  spwi803  => 8 // (protection from energy): visual effects at power 7
+  spwi807  => 0 // summon spells should be 0; Summon Fiend
+  spwi905  => 0 // summon spells should be 0; Gate
+  spwi910  => 9 // (imprisonment): visual effects at power 8
+  spwi922  => 9 // (dragon's breath): all effects at power 0
+  spwi923  => 0 // summon spells should be 0; Summon Planetar
+  spwi924  => 0 // summon spells should be 0; Summon Dark Planetar
+  spwi925  => 9 // (comet): knockback at power 0, all others power 9
+  spwish18 => 0 // summon spells should be 0; Summon Dark Planetar
+  spwm154  => 0 // summon spells should be 0; Cacofiend
+  sumslay  => 0 // summon spells should be 0; Summon Slayer Shadow
+//  spin534  => 0 // summon spells should be 0; Call Dark Horde, unused
+//  spin548  => 0 // summon spells should be 0; Gate, power is 0, unused
+//  spin549  => 0 // summon spells should be 0; Summon the Infernal Host, power is 0
+//  spin569  => 0 // summon spells should be 0; Summon Ice Salamander, power is 0
+//  spin570  => 0 // summon spells should be 0; Summon Fire Elemental, power is 0, unused
+//  spin631  => 0 // summon spells should be 0; Construct, unused
+//  spin637  => 0 // summon spells should be 0; Guile, unused
+//  spin638  => 0 // summon spells should be 0; Triumph, unused
+//  spin677  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin730  => 0 // summon spells should be 0; Summon Fungus, power is 0
+//  spin735  => 0 // summon spells should be 0; Wish, power is 0
+//  spin841  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin842  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin843  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin844  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin845  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0, unused
+//  spin855  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0
+//  spin856  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0
+//  spin857  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0
+//  spin870  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0
+//  spin880  => 0 // summon spells should be 0; <Invalid Strref -1>, power is 0
+//  spra304  => 0 // summon spells should be 0; Animal summoning I, power is 0
+//  spwi722  => 0 // summon spells should be 0; Limited Wish, power is 0
+
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = fix END
+      BUT_ONLY IF_EXISTS
+
+END
+
+// spells using wrong power level (custom for dispel magic spells)
+COPY_EXISTING ~spin866.spl~  ~override~ // FORCE_DISPEL_MAGIC
+              ~sppr303.spl~  ~override~ // (divine dispel magic) : all opcodes are power 0 except its visual effect and removing feeblemind, which are at 3. To work v. magic protections, all of these should be 0.
+              ~spwi302.spl~  ~override~ // (remove magic): visual effect at power 3, all others at 0. Should add removal of feeblemind to this spell.
+              ~spwi326.spl~  ~override~ // (arcane dispel magic) : all opcodes are power 0 except its visual effect and removing feeblemind, which are at 3. To work v. magic protections, all of these should be 0.
+              ~sw2h10dm.spl~ ~override~ // dispel magic (unused)
+  PATCH_FOR_EACH op IN 58 77 215 240 BEGIN
+    LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = op resist_dispel = 0 power = 0 END // dispel, cure feeblemind stuff
+  END
+  BUT_ONLY
+
+// massive number of spells should bypass MR and don't
+COPY_EXISTING ~spin765.spl~ ~override~ // hell_lose xp
+              ~spin766.spl~ ~override~ // hell_lose_dex
+              ~spin767.spl~ ~override~ // hell_lose_hp
+              ~spin768.spl~ ~override~ // hell_dispell [sic]
+              ~spin770.spl~ ~override~ // hell_explode
+              ~spin771.spl~ ~override~ // hell_damage_half
+              ~spin772.spl~ ~override~ // hell_fear
+              ~spin923.spl~ ~override~ // City of Caverns party heal before ettin and Illithid/Ularthid heal failed due to poor MR checks: City of Caverns party heal
+              ~spin958.spl~ ~override~ // City of Caverns party heal before ettin and Illithid/Ularthid heal failed due to poor MR checks: Illithid/Ularthid heal
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 resist_dispel = 0 END // no dispel/bypass MR
+  BUT_ONLY
+
+// improved invisibility and its %$^%&$# saves
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_imp_invis BEGIN
+
+  spdr401 => spdr401a // Invisible Stalker Improved Invisibility
+  spin687 => spin687a // Create Shadows
+  spin698 => spin698a // Cerebus Improved Invisibility
+  spwi405 => spwi405a // improved invis (mage)
+  spwi505 => spwi505a // shadow door (mage)
+  spwi607 => spwi607a // Mislead
+  spwi721 => spwi721a // mass invisibility
+
+END
+
+ACTION_IF tob_game THEN BEGIN // add tob-only spells to array
+
+  ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_imp_invis BEGIN
+  
+    balth10 => balth10a // Shadow Stance!
+    spin544 => spin544a // PSIONIC_SUPERIOR_INVISIBILITY
+  
+  END
+
+END
+
+ACTION_PHP_EACH cd_imp_invis AS spell => subspell BEGIN
+
+  COPY_EXISTING ~%spell%.spl~ ~override/%subspell%.spl~ // first make shell spells containing just the saves
+    WRITE_LONG 0x08 "-1" // blank name
+    WRITE_LONG 0x0c "-1" // blank name
+    PATCH_FOR_EACH op IN 139 215 0 141 174 236 33 34 35 36 37 69 BEGIN // delete all non-invisibility effects, including saves if present
+      LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = op END
+    END
+    LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 match_parameter2 = 0 END // delete regular invis if present
+    LPF ALTER_HEADER INT_VAR projectile = 1 END // remove projectile
+    LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 opcode = 33 parameter1 = 4 parameter2 = 0 END // change invis into save vs. death
+    FOR (index = 34 ; index < 38 ; ++index) BEGIN
+      LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 33 opcode = index END // clone save vs. death into four other saves
+    END
+    BUT_ONLY
+    
+
+  COPY_EXISTING ~%spell%.spl~ ~override~ // improved invisibility is missing +4 save bonuses and should not be able to stack with itself
+    // first delete saves if present (moved/added to subspell)
+    FOR (index = 33 ; index < 38 ; ++index) BEGIN
+      LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = index END // delete saves if present
+    END
+    // next cast the *a.spl as first effect to get the saves active
+    LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 power = 0 match_parameter2 = 1 // clone imp. invisibility effect into...
+      opcode = 146 parameter1 = 0 parameter2 = 1 timing = 1 duration = 0 STR_VAR resource = EVAL ~%subspell%~ insert = ~first~ END // instant cast of save subspell
+    // next, add protections against ALL *a.spl spells to prevent cross-stacking
+    PATCH_PHP_EACH cd_imp_invis AS spell2 => subspell2 BEGIN
+      LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 match_parameter2 = 1 // clone imp. invisibility effect into...
+        opcode = 206 parameter1 = 0 STR_VAR resource = EVAL ~%subspell2%~ insert = ~last~ END // prevents all save spells from applying at end of effect stack
+    END
+    BUT_ONLY
+
+END
+
+// many spells stack with themselves and should not
+COPY_EXISTING ~dgfaith.spl~  ~override~ // armor of faith (abazigal)
+              ~dgright.spl~  ~override~ // righteous magic (abazigal)
+              ~spcl423.spl~  ~override~ // assassin poison weapon ability
+              ~spcl907.spl~  ~override~ // hardiness hla
+              ~spcl913.spl~  ~override~ // evasion hla
+              ~spcl914.spl~  ~override~ // greater evasion hla
+              ~spcl917.spl~  ~override~ // avoid death hla
+              ~spin943.spl~  ~override~ // blur (air mephit) (65, 33-37, 0)
+              ~sppr111.spl~  ~override~ // armor of faith (priest)
+              ~sppr113.spl~  ~override~ // doooooooooooooom
+              ~sppr210.spl~  ~override~ // resist fire/cold
+              ~sppr306.spl~  ~override~ // protection from fire (priest)
+              ~sppr406.spl~  ~override~ // defensive harmony
+              ~sppr412.spl~  ~override~ // holy power
+              ~sppr513.spl~  ~override~ // righteous magic (priest)
+              ~spwi107.spl~  ~override~ // friends: special case, handled directly in its own patch // not anymore
+              ~spwi201.spl~  ~override~ // blur (wizard)
+              ~spwi209.spl~  ~override~ // luck
+              ~spwi214.spl~  ~override~ // strength
+              ~spwi319.spl~  ~override~ // protection from fire (wizard)
+              ~spwi320.spl~  ~override~ // protection from cold
+              ~spwi603.spl~  ~override~ // tenser's transformation
+              ~spwi702.spl~  ~override~ // protection from the elements
+              ~spwi703.spl~  ~override~ // projected image
+              ~spwish12.spl~ ~override~ // hardiness via wish
+  SET op = 142
+  PATCH_IF (("%SOURCE_RES%" STRING_COMPARE_CASE "spin943" = 0) OR
+            ("%SOURCE_RES%" STRING_COMPARE_CASE "spwi201" = 0)) BEGIN SET op = 65 END // has no portrait icon
+  PATCH_IF  ("%SOURCE_RES%" STRING_COMPARE_CASE "spwi703" = 0) BEGIN SET op = 236 END // has no portrait icon
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 multi_match = 1 match_opcode = op opcode = 206 parameter1 = RESOLVE_STR_REF (@114) parameter2 = 0 STR_VAR resource = EVAL ~%SOURCE_RES%~ insert = ~last~ END
+  BUT_ONLY IF_EXISTS
+
+// scriptable spells
+COPY_EXISTING ~spcl232.spl~ ~override~ // true sight
+              ~spcl412.spl~ ~override~ // set snare
+              ~spcl414.spl~ ~override~ // set special snare
+              ~spcl621.spl~ ~override~ // summon spirit animal
+              ~spcl721.spl~ ~override~ // storm shield
+              ~spcl722.spl~ ~override~ // lightning bolt
+              ~spcl731.spl~ ~override~ // seeking sword
+              ~spcl732.spl~ ~override~ // true sight
+              ~spcl741.spl~ ~override~ // boon of lathander
+              ~spcl742.spl~ ~override~ // hold undead
+              ~spcl910.spl~ ~override~ // set spike trap
+              ~spcl911.spl~ ~override~ // set exploding trap
+              ~spcl912.spl~ ~override~ // set time trap
+              ~spcl923.spl~ ~override~ // summon deva
+              ~spin683.spl~ ~override~ // figurine_spider_web
+              ~spin696.spl~ ~override~ // moon_dog_howl
+              ~spin697.spl~ ~override~ // haste_self
+              ~spin698.spl~ ~override~ // non_detection_self
+              ~spin891.spl~ ~override~ // moon_dog_fear
+  WRITE_LONG 0x34 1
+  BUT_ONLY IF_EXISTS
+
+// Non-magical innate abilities shouldn't be affected by Wild Magic and Dead Magic zones (aVENGER)
+COPY_EXISTING ~spcl152.spl~  ~override~ // Barbarian Rage
+              ~spcl211.spl~  ~override~ // Paladin Lay On Hands
+              ~spcl321d.spl~ ~override~ // Berserker Enrage secondary effect (becoming winded)
+              ~spcl611.spl~  ~override~ // Druid Shapeshift Brown Bear
+              ~spcl612.spl~  ~override~ // Druid Shapeshift Wolf
+              ~spcl613.spl~  ~override~ // Druid Shapeshift Black Bear
+              ~spcl632.spl~  ~override~ // Avenger Shapeshift Spider
+              ~spcl633.spl~  ~override~ // Avenger Shapeshift Baby Wyvern
+              ~spcl634.spl~  ~override~ // Avenger Shapeshift Fire Salamander
+              ~spcl643.spl~  ~override~ // Shapeshifter Werewolf Transformation
+              ~spcl644.spl~  ~override~ // Shapeshifter Greater Werewolf Transformation
+              ~spcl815.spl~  ~override~ // Monk Lay On Hands
+              ~sppr731.spl~  ~override~ // Druid Fire Elemental Transformation
+              ~sppr732.spl~  ~override~ // Druid Earth Elemental Transformation
+  WRITE_BYTE 0x19 (THIS BOR BIT6) // add the Non-Magical flag aka ignore wild/dead magic
+  BUT_ONLY IF_EXISTS
+
+// casting speed
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  spcl144 => 0 // kensai kai -- non-interruptible innates
+  spcl152 => 0 // barbarian rage -- non-interruptible innates
+  spcl321 => 0 // berserker enrage -- non-interruptible innates
+  spin104 => 1 // innate lmd
+  spin117 => 0 // minsc berserk -- non-interruptible innates
+  sppr104 => 2 // detect evil
+  sppr113 => 9 // doooooooooooooom
+  sppr214 => 2 // duhm divine
+  sppr301 => 9 // animate dead - divine
+  sppr302 => 9 // call lightning
+  sppr305 => 5 // hold animal
+  sppr309 => 8 // invisibility purge
+  sppr310 => 5 // miscast magic
+  sppr311 => 5 // rigid thinking
+  sppr403 => 5 // free action
+  sppr502 => 8 // cure crit wounds
+  sppr608 => 9 // harm
+  sppr711 => 7 // regeneration
+  sppr717 => 5 // creeping doom
+  sppr720 => 9 // earthquake
+  sppr723 => 9 // elemental summoning
+  sppr724 => 9 // greater elemental summoning
+  spwi101 => 1 // grease
+  spwi102 => 9 // armor
+  spwi123 => 9 // find familiar
+  spwi124 => 0 // nrd
+  spwi208 => 9 // know alignment
+  spwi211 => 2 // melf's acid arrow
+  spwi214 => 9 // strength
+  spwi217 => 3 // aganazzar's scorcher
+  spwi309 => 4 // mon summoning i
+  spwi402 => 1 // dimension door
+  spwi408 => 1 // stoneskin
+  spwi417 => 0 // enchanted weapon - spells using 2da tables get casting times pushed to sub-spells
+  spwi420 => 9 // minor sequencer
+  spwi485 => 4 // enchanted weapon: long sword
+  spwi486 => 4 // enchanted weapon: short sword
+  spwi487 => 4 // enchanted weapon: axe
+  spwi488 => 4 // enchanted weapon: mace
+  spwi501 => 9 // animate dead - arcane
+  spwi504 => 5 // mon summoning iii
+  spwi505 => 2 // shadow door
+  spwi511 => 2 // protection from normal weapons
+  spwi517 => 6 // protection from acid
+  spwi522 => 5 // minor spell turning
+  spwi608 => 6 // pierce magic
+  spwi609 => 8 // true sight
+  spwi617 => 9 // contingency
+  spwi710 => 9 // spell sequencer
+  spwi723 => 7 // improved chaos shield
+  spwi802 => 6 // spell deflection
+  spwi809 => 9 // spell trigger
+  spwi811 => 9 // symbol fear (mage)
+  spwi816 => 9 // symbol stun (mage)
+  spwi817 => 9 // symbol death (mage)
+  spwi897 => 9 // symbol death (enemy mage version)
+  spwi898 => 9 // symbol stun (enemy mage version)
+  spwi899 => 9 // symbol fear (enemy mage version)
+  spwm123 => 9 // symbol fear (wild magic)
+//  sppr506 => 0 // iron skins
+
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      LPF ALTER_HEADER INT_VAR silent = 1 speed = fix END // speed on all headers
+      BUT_ONLY IF_EXISTS
+
+END
+
+// range
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  spdr101 => 90 // chromatic orb (avenger)
+  spin104 => 90 // larloch's minor drain (innate)
+  spin685 => 60 // magic missile (imoen/promenade cutscene version)
+  spin937 => 30 // color spray (mephit innate)
+  spin962 => 60 // magic missile (beholder version)
+  sppr203 =>  0 // chant
+  sppr703 => 30 // gate (divine)
+  spwi003 => 60 // magic missile (trap wizard version)
+  spwi101 => 30 // grease
+  spwi103 =>  5 // burning hands
+  spwi105 => 30 // color spray (arcane)
+  spwi106 => 30 // blindness
+  spwi111 => 30 // infravision
+  spwi112 => 60 // magic missile (regular wizard version)
+  spwi116 => 90 // sleep
+  spwi118 => 90 // chromatic orb (arcane)
+  spwi119 => 90 // larloch's minor drain (arcane)
+  spwi125 => 30 // spook
+  spwi313 => 30 // skull trap
+  spwi409 => 30 // contagion
+  spwi503 => 12 // cone of cold
+  spwi905 => 30 // gate (arcane)
+
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      LPF ALTER_HEADER INT_VAR silent = 1 range = fix END // speed on all headers
+      BUT_ONLY
+
+END
+
+// casting animation
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  keldorn =>  0 // hallowed redeemer feedback, none
+  sppr412 => 15 // holy power, necromancy > invocation
+  sppr415 => 16 // farsight, invocation > divination
+  sppr417 =>  9 // lesser restoration, alteration > necromancy
+  sppr515 => 12 // repulse undead, alteration > abjuration
+  sppr517 => 14 // insect plague, invocation > conjuration
+  sppr717 => 14 // creeping doom, invocation > conjuration
+  spwi114 => 15 // shield, evocation
+  spwi124 => 15 // nahal's reckless dweomer, evocation
+  spwi222 => 12 // chaos shield, abjuration
+  spwi409 =>  9 // contagion, necromancy
+  spwi424 => 16 // farsight, divination
+  spwi505 => 13 // shadow door, illusion
+  spwi515 => 16 // oracle, divination
+  spwi723 => 12 // improved chaos shield, abjuration
+  spwi818 => 15 // bigby's clenched fist, evocation
+  spwi897 => 14 // symbol death (npc), abjuration > conjuration
+  spwi898 => 14 // symbol stun (npc), abjuration > conjuration
+  spwi899 => 14 // symbol fear (npc), abjuration > conjuration
+  spwi918 => 15 // bigby's crushing hand, evocation
+  spwm101 => 12 // repulse undead (wild surge), alteration > abjuration
+  spwm123 => 14 // symbol fear (wild surge), abjuration > conjuration
+
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      WRITE_BYTE 0x22 fix
+      BUT_ONLY IF_EXISTS
+
+END
+
+// primary school
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  spin658 =>  0 // hell_buffet, schoolless
+  spin695 =>  0 // dragon_wing_buffet, schoolless
+  spin746 =>  7 // RESTORE_FULL_HEALTH (tutorial), abjurer > necromancer
+  spin765  => 0 // hell_lose xp
+  spin766  => 0 // hell_lose_dex
+  spin767  => 0 // hell_lose_hp
+  spin768  => 0 // hell_dispell [sic]
+  spin769 =>  0 // hell_hold, schoolless
+  spin770  => 0 // hell_explode
+  spin771  => 0 // hell_damage_half
+  spin825 =>  0 // drow transformation
+  spin950 =>  8 // flesh to stone (cutscene), abjurer > transmuter
+  spin951 =>  2 // flesh to stone (cutscene), illusionist > conjurer
+  sppr413 =>  1 // negative plane protection, transmuter > abjurer
+  sppr417 =>  7 // lesser restoration, transmuter > necromancer
+  sppr604 =>  2 // conjure animals, enchanter > conjurer
+  spwi124 =>  6 // nahal's reckless dweomer, invoker
+  spwi721 =>  5 // mass invisibility, illusion
+  spwi920 =>  0 // hla: energy blades, schoolless
+  spwi921 =>  0 // hla: improved alacrity, schoolless
+  spwi922 =>  0 // hla: dragon's breath, schoolless
+  spwi923 =>  0 // hla: summon planetar, schoolless
+  spwi924 =>  0 // hla: summon dark planetar, schoolless
+  spwi925 =>  0 // hla: comet, schoolless
+  
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      WRITE_BYTE 0x25 fix
+      BUT_ONLY IF_EXISTS
+
+END
+
+// secondary type
+ACTION_CLEAR_ARRAY cd_bulk_spell_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_spell_fixes BEGIN
+
+  keldorn =>  2 // hallowed redeemer feedback, specific protections
+  spin658 =>  0 // hell_buffet, none
+  spin694 =>  7 // dragon stoneskin, SPELLPROTECTIONS > COMBATPROTECTIONS (could be taken down by pierce magic but not breach)
+  spin695 =>  0 // dragon_wing_buffet, none
+  spin765  => 0 // hell_lose xp
+  spin766  => 0 // hell_lose_dex
+  spin767  => 0 // hell_lose_hp
+  spin768  => 0 // hell_dispell [sic]
+  spin769 =>  0 // hell_hold, none
+  spin770  => 0 // hell_explode
+  spin771  => 0 // hell_damage_half
+  spin823 =>  0 // slayer_change_two (blocked by spell shield)
+  spin825 =>  0 // drow transformation
+  spwi920 =>  0 // hla: energy blades, none
+  spwi921 =>  0 // hla: improved alacrity, none
+  spwi922 =>  0 // hla: dragon's breath, none
+  spwi923 =>  0 // hla: summon planetar, none
+  spwi924 =>  0 // hla: summon dark planetar, none
+  spwi925 =>  0 // hla: comet, none
+
+END
+
+ACTION_PHP_EACH cd_bulk_spell_fixes AS spell => fix BEGIN
+
+    COPY_EXISTING ~%spell%.spl~ ~override~
+      WRITE_BYTE 0x27 fix
+      BUT_ONLY IF_EXISTS
+
+END

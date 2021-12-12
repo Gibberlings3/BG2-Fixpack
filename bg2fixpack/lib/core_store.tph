@@ -1,0 +1,206 @@
+/////                                                  \\\\\
+///// store fixes                                      \\\\\
+/////                                                  \\\\\
+
+COPY_EXISTING ~25spell.sto~ ~override~ // Arcana Archives
+  SAY 0x0c #70882 // Arcana Archives
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~25spell2.sto~ ~override~ // Arcana Archives
+  SAY 0x0c #73982 // Arcana Archives
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 stock = 2 flag_identified = 1 infinite = 0 STR_VAR match_item = scrl2h END // shadow door was infinite, now two
+  BUT_ONLY IF_EXISTS
+
+// lazarus is supposed to have all spell scrolls in the game
+COPY_EXISTING ~25spell.sto~  ~override~ // arcana archives
+              ~25spell2.sto~ ~override~ // arcana archives
+  ADD_STORE_ITEM ~SCRL81~ AFTER ~SCRL71~ #1 #0 #0 ~IDENTIFIED~ #2 // Sleep
+  ADD_STORE_ITEM ~SCRL73~ AFTER ~SCRL71~ #1 #0 #0 ~IDENTIFIED~ #2 // Protection from Petrification
+  BUT_ONLY IF_EXISTS
+
+// Amkethran duplicate gem bag fix, part two of four (see cdbag02i.itm, cdbag02j.itm, cdbag02i.sto, cdbag02j.sto)
+COPY_EXISTING ~amsmug01.sto~ ~override~ // amkethran smugglers
+  LPF ALTER_STORE_ITEM STR_VAR match_item = "bag02d" item = "cdbag02i" END // swap bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 10 STR_VAR match_item = rods06 END // overcharged: rod of reversal has 10 max charges
+  BUT_ONLY IF_EXISTS
+
+// Amkethran duplicate gem bag fix, part three of four (see cdbag02i.itm, cdbag02j.itm, cdbag02i.sto, cdbag02j.sto)
+COPY_EXISTING ~amsmug02.sto~ ~override~ // amkethran smugglers
+  LPF ALTER_STORE_ITEM STR_VAR match_item = "bag02d" item = "cdbag02j" END // swap bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 2 STR_VAR match_item = boot12 END // undercharged: gargoyle boots
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 10 STR_VAR match_item = rods06 END // overcharged: rod of reversal has 10 max charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~arled.sto~    ~override~ // shadow thief fence
+              ~trgeni01.sto~ ~override~ // khan zahraa
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw1h44 END // katana +1 was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw2h02 END // two-handed sword +1 was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = halb02 END // halberd +1 was infinite, unidentified
+  BUT_ONLY
+
+// starting ToB bags of holding have uncharged items
+COPY_EXISTING ~bag20.sto~ ~override~ // ToB goodie bag
+              ~bag22.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag21.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = brac16 END // add one charge to bracers of blinding strike
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag23.sto~ ~override~ // ToB goodie bag
+              ~bag24.sto~ ~override~ // ToB goodie bag
+              ~bag25.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  LPF ALTER_STORE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h27 END // add one secondary charge to arbanes's sword (haste ability)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag26.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 40 stock = 2 STR_VAR match_item = bull03 END // 80 stacks of one bullet => two stacks of 40 bullets
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag27.sto~ ~override~ // ToB goodie bag
+              ~bag28.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 40 stock = 2 STR_VAR match_item = bull03 END // 80 stacks of one bullet => two stacks of 40 bullets
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3d END // add one charge to joolon
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag29.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 40 stock = 1 STR_VAR match_item = dart04 END // 40 stacks of one dart of wounding => one stacks of 40 darts of wounding
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bag30.sto~ ~override~ // ToB goodie bag
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3d END // add one charge to joolon
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3e END // add one charge to kilthix
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3i END // add one charge to silver horn of valhalla
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 3 STR_VAR match_item = misc3m END // add three charges to harp of discord
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bdbart01.sto~ ~override~ // five flagons
+              ~ffbart.sto~   ~override~ // five flagons
+              ~lehtinan.sto~ ~override~ // copper coronet
+              ~thumb.sto~    ~override~ // sea's bounty
+  LPF ALTER_STORE_ITEM INT_VAR infinite = 0 STR_VAR match_item = book40 END // history of the fateful coin was infinite (bg holdover)
+  BUT_ONLY
+
+COPY_EXISTING ~bernard2.sto~ ~override~ // copper coronet
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 charge1 = 1 infinite = 0 STR_VAR match_item = scrl8p END // prismatic spray was infinite, unidentified
+  BUT_ONLY
+
+COPY_EXISTING ~bshop01.sto~ ~override~ // merchant
+              ~trcar04.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 50 charge2 = 50 STR_VAR match_item = wand05 END // undercharged: wand of fire
+  BUT_ONLY
+
+COPY_EXISTING ~bshop02.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 5 STR_VAR match_item = ax1h04 END // throwing axes were in stacks of 1; changing to 5
+  BUT_ONLY
+
+// Amkethran duplicate gem bag fix, part four of four (see amsmug01.sto, amsmug02.sto, cdbag02i.itm, cdbag02j.itm)
+COPY_EXISTING ~bag02i.sto~ ~override/cdbag02i.sto~
+              ~bag02i.sto~ ~override/cdbag02j.sto~
+  IF_EXISTS
+
+// standardize on one stoneskin scroll; see also ar0510.are
+COPY_EXISTING ~garlena.sto~  ~override~ // temple of helm
+              ~sahpr1.sto~   ~override~ // temple of sekolah
+              ~suelf10.sto~  ~override~ // temple of rillifane
+              ~type1.sto~    ~override~ // merchant
+              ~udduer01.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM STR_VAR match_item = scrl1v item = scrl2b END
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~garlena.sto~  ~override~ // Temple of Helm (Sister Garlena) (Watcher's Keep)
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 5 STR_VAR match_item = ax1h04 END // throwing axes were in stacks of 1; changing to 5
+  LPF ALTER_STORE_ITEM INT_VAR charge2 = 0 STR_VAR match_item = restore END // overcharged: restoration scroll has no secondary ability
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorch.sto~    ~override~ // gorch
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = blun21 END // mace +2 was infinite, unidentified
+  BUT_ONLY
+
+COPY_EXISTING ~hgkar01.sto~  ~override~ // karthis al-hezzar
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = blun31 END // club +3 was infinite, unidentified
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~ppstor01.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR infinite = 0 STR_VAR match_item = dart02 END // darts +1 were infinite though they had a stock set
+  BUT_ONLY
+
+// The merchant who gets assaulted by a thug at the City Gates no longer shares a store with the
+// Brynnlaw storekeeper (see also soa-dlg.d) (Nythrun and devSin)
+COPY_EXISTING ~ppstor01.sto~ ~override/cdaemerc.sto~ // merchant
+  WRITE_LONG 0x14 145 // reduce sell markup
+
+COPY_EXISTING ~ribald.sto~   ~override~ // adventurers' mart
+  LPF ALTER_STORE_ITEM INT_VAR match_stock = 5 STR_VAR match_item = "shld06" item = "shld05" END // stores with dupe large shield +1 entries; should be normal large shields
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = ring03 END // ring of animal freindship was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 charge1 = 1 charge2 = 1 STR_VAR match_item = ring28 END // ring of air control was infinite, unidentified, undercharged
+  BUT_ONLY
+
+COPY_EXISTING ~ribald2.sto~  ~override~ // adventurers' mart
+              ~trmer04.sto~  ~override~ // anvil of the right
+  LPF ALTER_STORE_ITEM INT_VAR infinite = 0 STR_VAR match_item = potn19 END // potions of agility were infinite though they had a stock set
+  BUT_ONLY
+
+COPY_EXISTING ~ribald3.sto~  ~override~ // adventurers' mart; also has infinite freedom scrolls, but those are by design
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 0 charge2 = 1 flag_identified = 1 infinite = 0 STR_VAR match_item = bow10 END // heartseeker had charge on wrong header, was unidentified and infinite
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw2h09 END // warblade was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw2h11 END // two-handed sword +2 was infinite, unidentified
+  BUT_ONLY
+
+COPY_EXISTING ~sahpr1.sto~   ~override~ // Temple of Sekolah (Priestess of Sekolah)
+              ~suelf10.sto~  ~override~ // Temple of Rillifane (Rierra)
+  LPF ALTER_STORE_ITEM INT_VAR charge2 = 0 STR_VAR match_item = restore END // overcharged: restoration scroll has no secondary ability
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 5 STR_VAR match_item = ax1h04 END // throwing axes were in stacks of 1; changing to 5
+  WRITE_LONG 0x14 120 // fixes markup issues at Sahuagin and Suldanesselar stores
+  WRITE_LONG 0x18 50
+  BUT_ONLY
+
+COPY_EXISTING ~sartem01.sto~ ~override~ // waukeen's wares
+  LPF ALTER_STORE_ITEM INT_VAR infinite = 0 STR_VAR match_item = miscau END // elven holy water was infinite though they had a stock set
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~shop02.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR match_stock = 5 STR_VAR match_item = "shld06" item = "shld05" END // stores with dupe large shield +1 entries; should be normal large shields
+
+COPY_EXISTING ~shop03.sto~   ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR infinite = 0 STR_VAR match_item = bull02 END // bullets +1 were infinite though they had a stock set
+  BUT_ONLY
+
+COPY_EXISTING ~shop07.sto~   ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = shld05 END // large shield was infinite, unidentified
+  BUT_ONLY
+
+COPY_EXISTING ~trmer02.sto~  ~override~ // Merchant (Merchant) (Trademeet)
+  LPF ALTER_STORE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h33 END // add one secondary charge to ras
+  BUT_ONLY
+
+COPY_EXISTING ~trmer04a.sto~ ~override~ // anvil of the right
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw2h11 END // two-handed sword +2 was infinite, unidentified
+  BUT_ONLY
+
+COPY_EXISTING ~type2.sto~    ~override~ // adventurers' mart, unused
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = chan05 END // splint mail +1 was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw1h44 END // katana +1 was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR                     infinite = 0 STR_VAR match_item = potn19 END // potions of agility were infinite though they had a stock set
+  BUT_ONLY
+
+COPY_EXISTING ~uddrow23.sto~ ~override~ // merchant
+  LPF ALTER_STORE_ITEM INT_VAR flag_identified = 1 infinite = 0 STR_VAR match_item = sw2h07 END // harbinger +3 was infinite, unidentified
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 0 charge2 = 30 charge3 = 30 STR_VAR match_item = staf16 END // charges: had 20 melee charges (should be 0), none for either magical ability
+  BUT_ONLY
+
+COPY_EXISTING ~uddrow24.sto~ ~override~ // shop
+  LPF ALTER_STORE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = rods04 END // overcharged: rod of smiting
+  BUT_ONLY

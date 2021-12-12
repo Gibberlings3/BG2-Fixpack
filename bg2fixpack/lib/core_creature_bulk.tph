@@ -1,0 +1,1102 @@
+/////                                                  \\\\\
+///// bulk creature file fixes                         \\\\\
+/////                                                  \\\\\
+
+// alignment fixes
+// read in array of changes from external file to make it easier for players to make their own changes here
+INCLUDE ~bg2fixpack/lib/alignment_changes.tpa~
+
+ACTION_PHP_EACH cd_bulk_cre_changes_align AS cre_file => n_align BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x27b n_align
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_race BEGIN
+
+  AEWERE2  => 122 // Fighter, from HUMAN to LYCANTHROPE
+  AEWERE3  => 122 // Fighter, from HUMAN to LYCANTHROPE
+  AEWERE4  => 122 // Fighter, from HUMAN to LYCANTHROPE
+  AEWERE5  => 122 // Fighter, from HUMAN to LYCANTHROPE
+  AEWERE6  => 122 // Fighter, from HUMAN to LYCANTHROPE
+  ALUFIE01 =>   2 // Alu-Fiend, from DWARF to ELF
+  AR18FIG  => 143 // Mercenary, from OGRE to ORC
+  ARNMAN07 =>   2 // Prisoner, from HUMAN to ELF
+  BANSHE01 => 134 // Banshee, from NO_RACE to WRAITH
+  BBEGG2   =>   5 // Beggar, from HUMAN to HALFLING
+  BDTURM03 =>   1 // Turmish Sorceress, from ELF to HUMAN
+  BEAST    =>   3 // Beastmaster, from HUMAN to HALF_ELF
+  BODFGT01 => 133 // Grimwarder, from NO_RACE to SPECTRE
+  BODFGT02 => 133 // Grimward Archer, from NO_RACE to SPECTRE
+  BOUNHA   =>   2 // Bounty Hunter, from HUMAN to ELF
+  BOUNHA04 => 154 // Bounty Hunter, from HUMAN to YUANTI
+  CEDELICH => 150 // Deril Lich, from HUMAN to LICH
+  CEGLUT   => 113 // Glut, from GOLEM to OGRE
+  CHEVIL09 =>   2 // Jon Irenicus, from HUMAN to ELF
+  CHGOOD01 =>   5 // Commoner, from HUMAN to HALFLING
+  CLCOTI01 =>   1 // Cotirso, from HALF_ELF to HUMAN
+  COPAMB03 =>   2 // Gladiator, from HUMAN to ELF
+  COPLION  => 137 // Tabitha, from WOLF to CAT
+  COWENF1  =>   1 // Cowled Enforcer, from ELF to HUMAN
+  COWENF3  =>   1 // Cowled Enforcer, from ELF to HUMAN
+  COWENF4  =>   1 // Cowled Enforcer, from ELF to HUMAN
+  CSIREN   =>   2 // Mage, from HUMAN to ELF
+  CSJON    =>   2 // Mage, from HUMAN to ELF
+  CUJON    =>   2 // Jon Irenicus, from HUMAN to ELF
+  CUJON2   =>   2 // Jon Irenicus, from HUMAN to ELF
+  CUJON3   =>   2 // Jon Irenicus, from HUMAN to ELF
+  CUJON4   =>   2 // Jon Irenicus, from HUMAN to ELF
+  D1MOTHDW =>   4 // Alianna, from HUMAN to DWARF
+  D1MOTHEL =>   2 // Alianna, from HUMAN to ELF
+  D1MOTHHA =>   5 // Alianna, from HUMAN to HALFLING
+  DAABOL   => 255 // Aboleth, from HUMAN to NO_RACE
+  DEMFIG02 =>   2 // Valeria, from HUMAN to ELF
+  DISRUP01 =>   5 // Wizard Slayer, from HUMAN to HALFLING
+  DKHALID  =>   3 // Khalid, from HUMAN to HALF_ELF
+  DKHALID2 =>   3 // Khalid, from HUMAN to HALF_ELF
+  DPJON01  =>   2 // Jon Irenicus, from HUMAN to ELF
+  DPJON02  =>   2 // Jon Irenicus, from HUMAN to ELF
+  DREAM2   =>   2 // Jon Irenicus, from HUMAN to ELF
+  DRIREN   =>   2 // Jon Irenicus, from HUMAN to ELF
+  DRJON    =>   2 // Jon Irenicus, from HUMAN to ELF
+  DRSHSP01 => 133 // Spirit of the Grove, from HUMAN to SPECTRE
+  DRUFF2   =>   4 // Ruffian, from HALFORC to DWARF
+  DUEMAG01 =>   4 // Mage, from HUMAN to DWARF
+  DUEMAG02 =>   4 // Mage, from HUMAN to DWARF
+  ELEARB01 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB02 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB03 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB04 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB05 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB06 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB07 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB08 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB09 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB10 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEARB11 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEPUZ01 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEPUZ02 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEPUZ03 => 133 // Apparition, from HUMAN to SPECTRE
+  ELEPUZ04 => 133 // Apparition, from HUMAN to SPECTRE
+  ESCORT2  =>   5 // Kerstia, from HUMAN to HALFLING
+  ESCORT2A =>   5 // Kerstia, from HUMAN to HALFLING
+  EYEDED01 => 134 // Eye of the Dead, from NO_RACE to WRAITH
+  EYEGOR01 => 102 // Gorgon Eye, from NO_RACE to BASILISK
+  EYESEK01 =>   6 // Seeker, from NO_RACE to GNOME
+  EYESNT01 =>   2 // Sentinel, from NO_RACE to ELF
+  EYEVIG01 =>   1 // Vigilant, from NO_RACE to HUMAN
+  FIRMAG01 =>   1 // Conster, from ELF to HUMAN
+  FIRMON01 => 134 // Banshee, from NO_RACE to WRAITH
+  FSGIBB   => 109 // Gibberling, from HUMAN to GIBBERLING
+  FSGOBL   => 112 // Goblin, from HUMAN to KOBOLD
+  FSMAGE01 =>   1 // Mage, from ELF to HUMAN
+  FSMAGE02 =>   1 // Mage, from ELF to HUMAN
+  FSMAGE03 =>   1 // Mage, from ELF to HUMAN
+  GIAFIR01 => 142 // Fire Giant, from DWARF to GIANT
+  GIBBER01 => 109 // Gibberling, from HUMAN to GIBBERLING
+  GIBBERSU => 109 // Gibberling, from HUMAN to GIBBERLING
+  GORMIND  => 124 // Ulitharid, from HUMAN to MIND_FLAYER
+  GORSTA02 =>   2 // Statue, from HUMAN to ELF
+  GORSTA04 =>   4 // Statue, from HUMAN to DWARF
+  GORSTA09 =>   2 // Statue, from HUMAN to ELF
+  GORSTA11 =>   2 // Statue, from HUMAN to ELF
+  GORSTA12 => 113 // Statue, from ELEMENTAL to OGRE
+  GROMG02  => 143 // Il-Khan Soldier, from HUMAN to ORC
+  HAKSU    => 136 // Hakeashar, from OGRE to MIST
+  HAMASU   => 120 // Hamadryad, from 0 to FAIRY
+  HARPASS1 =>   2 // Lucette, from HUMAN to ELF
+  HELLJON  =>   2 // Jon Irenicus, from HUMAN to ELF
+  HELLJON2 =>   2 // Jon Irenicus, from HUMAN to ELF
+  HGSKU01  => 150 // Flaming Skull, from NO_RACE to LICH
+  HLARCH   =>   2 // Archer, from HUMAN to ELF
+  HLLAYEN  =>   1 // Layene, from ELF to HUMAN
+  HLMAFER  => 110 // Maferan, from NO_RACE to GNOLL
+  HLOLAF   => 143 // Olaf Rassmusen, from NO_RACE to ORC
+  HLSKULL  => 150 // Golden Skull, from HUMAN to LICH
+  HOBELI01 => 111 // Hobgoblin Elite, from HUMAN to HOBGOBLIN
+  HOBGOB01 => 111 // Gerg, from HUMAN to HOBGOBLIN
+  HOBGOBSU => 111 // Hobgoblin Elite, from HUMAN to HOBGOBLIN
+  HSPECTR1 =>   2 // Spectral Harpist, from NO_RACE to ELF
+  HSPECTR2 =>   1 // Spectral Harpist, from NO_RACE to HUMAN
+  HSPECTR3 =>   2 // Spectral Harpist, from NO_RACE to ELF
+  ICMYC01  => 112 // Goblin, from NONE to MYCONID
+  ICMYC02  => 112 // Goblin, from NONE to MYCONID
+  ICGOB03  => 112 // Goblin, from HOBGOBLIN to KOBOLD
+  ICGOB04  => 112 // Goblin Captain, from HOBGOBLIN to KOBOLD
+  ICLIZ01  => 154 // Lizard Man, from NO_RACE to YUANTI
+  ICLIZ02  => 154 // Gorkale, from NO_RACE to YUANTI
+  JADE1    =>   2 // Lennah, from HUMAN to ELF
+  JAGUARSU => 137 // Jaguar, from NO_RACE to CAT
+  JAHEI1   =>   2 // Harper, from HUMAN to ELF
+  JAREV1   =>   2 // Harper, from HUMAN to ELF
+  JON1     =>   2 // Jon Irenicus, from HUMAN to ELF
+  KAYSMG01 =>   3 // Rindus, from HUMAN to HALF_ELF
+  KCHILD1  => 143 // Peasant, from OGRE to ORC
+  KCHILD2  => 143 // Peasant, from OGRE to ORC
+  KPTROL01 => 129 // Troll, from TROLL to TROLL
+  KPTROL02 => 129 // Troll, from TROLL to TROLL
+  KPTROL03 => 129 // Troll, from TROLL to TROLL
+  KPTROL04 => 129 // Troll, from TROLL to TROLL
+  KPTROL05 => 129 // Troll, from TROLL to TROLL
+  KPTROL06 => 129 // Ice Troll, from TROLL to TROLL
+  KSLAVE01 => 120 // Pleasure Slave, from HUMAN to FAIRY
+  LIFE01   =>   2 // Life Support Creature, from HUMAN to ELF
+  LIFE02   =>   2 // Life Support Creature, from HUMAN to ELF
+  LIFE03   =>   2 // Life Support Creature, from HUMAN to ELF
+  LIFE04   =>   2 // Life Support Creature, from HUMAN to ELF
+  LIN      =>   3 // Lin, from GNOME to HALF_ELF
+  MEPHSP1  => 255 // Mephit Portal, from HUMAN to NO_RACE
+  MEPHSP2  => 255 // Mephit Portal, from HUMAN to NO_RACE
+  MEPHSP3  => 255 // Mephit Portal, from HUMAN to NO_RACE
+  MEPHSP4  => 255 // Mephit Portal, from HUMAN to NO_RACE
+  MGAPPR01 =>   2 // Larz, from HUMAN to ELF
+  MINDUL01 => 124 // Ulitharid, from HUMAN to MIND_FLAYER
+  MOURNER6 =>   5 // Mourner, from HUMAN to HALFLING
+  NCAT     => 137 // Cat, from NO_RACE to CAT
+  NISHRUSU => 136 // Nishruu, from OGRE to MIST
+  OTYUGH01 => 127 // Otyugh, from BASILISK to OTYUGH
+  PETTIN   => 199 // Ettin, from HUMAN to ETTIN
+  PLANET01 => 158 // Planetar, from DARKPLANATAR to PLANATAR
+  PLSHFG01 => 199 // Ettin, from GIANT to ETTIN
+  PLSHFG02 => 199 // Ettin, from GIANT to ETTIN
+  PLYSALA  => 145 // Fire Salamander, from TROLL to ELEMENTAL
+  PPDRA2   =>   2 // Dradeel, from HUMAN to ELF
+  PPDRADEE =>   2 // Dradeel, from HUMAN to ELF
+  PPIRENI1 =>   2 // Coordinator, from HUMAN to ELF
+  PPIRENI2 =>   2 // Jon Irenicus, from HUMAN to ELF
+  PPSUNA   =>   2 // Suna Seni, from HUMAN to ELF
+  RABBIT   => 151 // Rabbit, from NO_RACE to RABBIT
+  RABBIT01 => 151 // Rabbit, from NO_RACE to RABBIT
+  RAKRUH01 => 128 // Ruhk, from NO_RACE to RAKSHASA
+  RIELEV   =>   2 // Rielev, from HUMAN to ELF
+  RIFTG03  =>   1 // Avatar, from NO_RACE to HUMAN
+  RSPIRIT1 => 120 // Mairyn, from NO_RACE to FAIRY
+  SAHANGU  => 131 // Anguiliian, from NO_RACE to SAHUAGIN
+  SAHBEH03 =>   1 // Sziltar's Apparition, from NO_RACE to HUMAN
+  SAHOTY01 => 199 // Ettin, from GIANT to ETTIN
+  SAHSKEL  => 115 // Skeleton Warrior, from HUMAN to SKELETON
+  SAHZOMB  => 148 // Sea Zombie, from NO_RACE to ZOMBIE
+  SARBHA02 =>   5 // Oris Nimblefinger, from HUMAN to HALFLING
+  SARBUL04 => 143 // Gromnir Soldier, from HALFORC to ORC
+  SARDW01  =>   4 // Dwarf, from HUMAN to DWARF
+  SARDW02  =>   4 // Dwarf, from HUMAN to DWARF
+  SARHAL   =>   5 // Halfling Cultist, from HUMAN to HALFLING
+  SENANI01 =>   2 // Moose, from HUMAN to ELF
+  SENANI02 =>   2 // Deer, from HUMAN to ELF
+  SENDRO01 =>   2 // Drow, from HUMAN to ELF
+  SENDRO02 =>   2 // Drow, from HUMAN to ELF
+  SENFOD01 =>   2 // Drow, from HUMAN to ELF
+  SENFOD02 =>   2 // Drow, from HUMAN to ELF
+  SENGUA01 =>   2 // Woodcutter, from HUMAN to ELF
+  SENKEN01 =>   2 // Thelynn'ss, from HUMAN to ELF
+  SENSTALK => 133 // Invisible Stalker, from HUMAN to SPECTRE
+  SHANK    =>   3 // Shank, from HUMAN to HALF_ELF
+  SKELWA02 => 115 // Skeleton Warrior, from HUMAN to SKELETON
+  SKELWA03 => 115 // Skeleton Warrior, from HUMAN to SKELETON
+  SKELWASU => 115 // Skeleton Warrior, from HUMAN to SKELETON
+  SLCAT    => 137 // Missy, from NO_RACE to CAT
+  SLEEPDW  =>   4 // Sleeping Dwarf, from HUMAN to DWARF
+  SLIFIS01 => 119 // Fission Slime, from HUMAN to SLIME
+  SLIFIS02 => 119 // Fission Slime, from HUMAN to SLIME
+  SLVIC02  =>   1 // Tourist, from ELF to HUMAN
+  SPIRLION => 137 // Spirit Lion, from NO_RACE to CAT
+  STALKE   => 133 // Invisible Stalker, from HUMAN to SPECTRE
+  STATUE01 => 201 // Magical Sword, from GNOLL to SWORD
+  STATUE02 => 201 // Magical Sword, from GNOLL to SWORD
+  STATUE03 => 201 // Magical Sword, from GNOLL to SWORD
+  STATUE04 => 201 // Magical Sword, from GNOLL to SWORD
+  STATUE05 => 201 // Magical Sword, from GNOLL to SWORD
+  STATUE06 => 201 // Magical Sword, from GNOLL to SWORD
+  SUELF10  =>   2 // Reirra, from HUMAN to ELF
+  SUJON    =>   2 // Jon Irenicus, from HUMAN to ELF
+  SUJON2   =>   2 // Jon Irenicus, from HUMAN to ELF
+  SUNA     =>   2 // Suna Seni, from HUMAN to ELF
+  SWORD01  => 201 // Magical Sword, from GNOLL to SWORD
+  SWORD02  => 201 // Ras, from GNOLL to SWORD
+  SWORD03  => 201 // Sword, from GNOLL to SWORD
+  THRAXI   =>   2 // Thraxis Gall, from HUMAN to ELF
+  TOBBAN02 => 143 // Orc Archer, from ELF to ORC
+  TOBPAR05 =>   4 // Delga Deepdelver, from HUMAN to DWARF
+  TOLMAG02 =>   2 // Mage, from HUMAN to ELF
+  TRANIM03 => 137 // Panther, from WOLF to CAT
+  TREVIL01 =>   5 // Lord Khellon Menold, from HUMAN to HALFLING
+  TROLDE01 => 129 // Desert Troll, from TROLL to TROLL
+  TROLDE02 => 129 // Desert Troll, from TROLL to TROLL
+  TROLFR01 => 129 // Freshwater Troll, from TROLL to TROLL
+  TROLFR02 => 129 // Freshwater Troll, from TROLL to TROLL
+  TROLGI01 => 129 // Giant Troll, from TROLL to TROLL
+  TROLGI02 => 129 // Giant Troll, from TROLL to TROLL
+  TROLIC01 => 129 // Ice Troll, from TROLL to TROLL
+  TROLIC02 => 129 // Ice Troll, from TROLL to TROLL
+  TROLIC03 => 129 // Blizzard Troll, from TROLL to TROLL
+  TROLIC04 => 129 // Blizzard Troll, from TROLL to TROLL
+  TROLL01  => 129 // Troll, from TROLL to TROLL
+  TROLL02  => 129 // Troll, from TROLL to TROLL
+  TROLL03  => 129 // Troll, from TROLL to TROLL
+  TROLLENS => 129 // Giant Troll, from TROLL to TROLL
+  TROLLSM2 => 129 // Troll, from TROLL to TROLL
+  TROLSI01 => 129 // Spirit Troll, from TROLL to TROLL
+  TROLSI02 => 129 // Spirit Troll, from TROLL to TROLL
+  TROLSN01 => 129 // Snow Troll, from GHOUL to TROLL
+  TROLSN02 => 129 // Snow Troll, from GHOUL to TROLL
+  TROLSP01 => 129 // Spectral Troll, from TROLL to TROLL
+  TROLSP02 => 129 // Spectral Troll, from TROLL to TROLL
+  TROLUO01 => 129 // Troll, from TROLL to TROLL
+  TTGIBB   => 109 // Gibberling, from HUMAN to GIBBERLING
+  UDSVIR07 =>   6 // Svirfneblin, from DWARF to GNOME
+  UDSVIR08 =>   6 // Svirfneblin Leader, from DWARF to GNOME
+  VALRAN01 =>   2 // Ranger, from HUMAN to ELF
+  WELLYN   =>   5 // Wellyn, from HUMAN to HALFLING
+  YAGASPIR => 142 // Yaga-Shura, from DWARF to GIANT
+  ZOMBIE01 => 148 // Zombie, from SKELETON to ZOMBIE
+  ZOMBSE01 => 148 // Sea Zombie, from NO_RACE to ZOMBIE
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_race AS cre_file => n_race BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x272 n_race
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_class BEGIN
+
+  CHICKDEF => 255 // Rabid Chicken, from MAGE to NO_CLASS
+  CHICKE   => 255 // Chicken, from MAGE to NO_CLASS
+  CHICKER  => 255 // Rabid Chicken, from MAGE to NO_CLASS
+  COW      => 255 // Cow, from MAGE to NO_CLASS
+  COWH     => 255 // Cow, from MAGE to NO_CLASS
+  DEADCOW1 => 255 // Cow, from MAGE to NO_CLASS
+  DEADCOW2 => 255 // Cow, from MAGE to NO_CLASS
+  DEVAEVIL =>   3 // Fallen Deva, from NO_CLASS to CLERIC
+  DEVAGOOD =>   3 // Deva, from NO_CLASS to CLERIC
+  DEVAST01 =>   3 // Astral Deva, from FIGHTER to CLERIC
+  DEVMON01 =>   3 // Monadic Deva, from FIGHTER to CLERIC
+  ELEMCHAN => 186 // Chan, from ELEMENTAL_EARTH to ELEMENTAL_AIR
+  fampsd25 => 149 // ToB pseudo dragon familiar, from mage to wyvern (matching SoA version)
+  famqua25 => 179 // ToB quasit familiar, from mage to imp (matching SoA version)
+  GORJELF2 => 151 // Ooze Puddle, from MAGE to MUSTARD_JELLY
+  GORJELFU => 151 // Ooze Puddle, from MAGE to MUSTARD_JELLY
+  GORJELGR => 154 // Green Slime, from MAGE to GREEN_SLIME
+  GORSTALK => 255 // Guardian of Air, from MAGE to NO_CLASS
+  ICYUAN01 =>   2 // Yuan-Ti, from LONG_SWORD to FIGHTER
+  ICYUAN02 =>   2 // Greater Yuan-Ti, from LONG_SWORD to FIGHTER
+  ICYUAN03 =>   1 // Yuan-Ti mage, from LONG_SWORD to MAGE
+  ICYUAN04 =>   2 // Yuan-Ti Elite, from LONG_SWORD to FIGHTER
+  ICYUAN05 =>   1 // Yuan-Ti  Prince, from LONG_SWORD to MAGE
+  JELGRA01 => 153 // Gray Ooze, from MAGE to GREY_OOZE
+  JELGRE01 => 154 // Green Slime, from MAGE to GREEN_SLIME
+  KPSHAM01 =>   1 // Yuan-Ti mage, from LONG_SWORD to MAGE
+  KPYUAN01 =>   2 // Greater Yuan-Ti, from OGRE to FIGHTER
+  MEPHSP1  => 255 // Mephit Portal, from MAGE to NO_CLASS
+  MEPHSP2  => 255 // Mephit Portal, from MAGE to NO_CLASS
+  MEPHSP3  => 255 // Mephit Portal, from MAGE to NO_CLASS
+  MEPHSP4  => 255 // Mephit Portal, from MAGE to NO_CLASS
+  NCHICK   => 255 // Chicken, from MAGE to NO_CLASS
+  NCOW     => 255 // Cow, from MAGE to NO_CLASS
+  NWYVBAB  => 149 // Baby Wyvern, from MAGE to WYVERN
+  OTYUGH01 => 165 // Otyugh, from BASILISK_GREATER to OTYUGH
+  PBHUNT03 =>   1 // Bounty Hunter, from LONG_SWORD to MAGE
+  PBHUNT04 =>   1 // Bounty Hunter, from LONG_SWORD to MAGE
+  PETTIN   => 180 // Ettin, from MAGE to GIANT
+  PLANET01 =>   1 // Planetar, from TANARI to MAGE
+  PLANEVIL =>   1 // Fallen Planetar, from NO_CLASS to MAGE
+  PLANGOOD =>   1 // Planetar, from NO_CLASS to MAGE
+  PLANWISH =>   1 // Fallen Planetar, from NO_CLASS to MAGE
+  PLYSALA  => 187 // Fire Salamander, from TROLL to ELEMENTAL_FIRE
+  PLYWYVRN => 149 // Baby Wyvern, from MAGE to WYVERN
+  PUDDEN01 => 151 // Dense Pudding, from MAGE to MUSTARD_JELLY
+  PUDDEN02 => 151 // Dense Pudding, from MAGE to MUSTARD_JELLY
+  SAHZOMB  => 198 // Sea Zombie, from MAGE to ZOMBIE_NORMAL
+  SENSTALK => 255 // Invisible Stalker, from MAGE to NO_CLASS
+  STALKE   => 255 // Invisible Stalker, from MAGE to NO_CLASS
+  TROLDE01 => 167 // Desert Troll, from TROLL to TROLL
+  TROLDE02 => 167 // Desert Troll, from TROLL to TROLL
+  TROLFR01 => 167 // Freshwater Troll, from TROLL to TROLL
+  TROLFR02 => 167 // Freshwater Troll, from TROLL to TROLL
+  TROLGI01 => 167 // Giant Troll, from TROLL to TROLL
+  TROLGI02 => 167 // Giant Troll, from TROLL to TROLL
+  TROLIC01 => 167 // Ice Troll, from TROLL to TROLL
+  TROLIC02 => 167 // Ice Troll, from TROLL to TROLL
+  TROLIC03 => 167 // Blizzard Troll, from TROLL to TROLL
+  TROLIC04 => 167 // Blizzard Troll, from TROLL to TROLL
+  TROLL01  => 167 // Troll, from TROLL to TROLL
+  TROLL02  => 167 // Troll, from TROLL to TROLL
+  TROLL03  => 167 // Troll, from TROLL to TROLL
+  TROLLENS => 167 // Giant Troll, from TROLL to TROLL
+  TROLLSM2 => 167 // Troll, from TROLL to TROLL
+  TROLSI01 => 167 // Spirit Troll, from TROLL to TROLL
+  TROLSI02 => 167 // Spirit Troll, from TROLL to TROLL
+  TROLSN01 => 167 // Snow Troll, from GHOUL_GHAST to TROLL
+  TROLSN02 => 167 // Snow Troll, from GHOUL_GHAST to TROLL
+  TROLSP01 => 167 // Spectral Troll, from TROLL to TROLL
+  TROLSP02 => 167 // Spectral Troll, from TROLL to TROLL
+  TROLUO01 => 167 // Troll, from TROLL to TROLL
+  WYVBAB01 => 149 // Baby Wyvern, from MAGE to WYVERN
+  WYVERN01 => 149 // Wyvern, from MAGE to WYVERN
+  WYVGRE01 => 149 // Greater Wyvern, from MAGE to WYVERN
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_class AS cre_file => n_class BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x273 n_class
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_general BEGIN
+
+  BODTAN   =>   4 // Tanova, from HUMANOID to UNDEAD
+  BOUNHA04 => 255 // Bounty Hunter, from HUMANOID to MONSTER
+  CEDELICH =>   4 // Deril Lich, from HUMANOID to UNDEAD
+  D1GHOST  =>   4 // Alianna, from HUMANOID to UNDEAD
+  D1GORI   =>   4 // Gorion, from HUMANOID to UNDEAD
+  D1MOTHDW =>   4 // Alianna, from HUMANOID to UNDEAD
+  D1MOTHEL =>   4 // Alianna, from HUMANOID to UNDEAD
+  D1MOTHHA =>   4 // Alianna, from HUMANOID to UNDEAD
+  D1MOTHHU =>   4 // Alianna, from HUMANOID to UNDEAD
+  D1SKEL   =>   4 // Gorion, from HUMANOID to UNDEAD
+  DAABOL   => 255 // Aboleth, from HUMANOID to MONSTER
+  DASPITRO => 255 // Spirit Troll, from HUMANOID to MONSTER
+  DGTROL01 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  DGTROL02 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  DRAGBLAC => 255 // Nizidramanii'yt, from ANIMAL to MONSTER
+  DRAGSHAD => 255 // Thaxll'ssillyia, from ANIMAL to MONSTER
+  DRUEAR01 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELAIRL01 =>   5 // Lesser Air Elemental, from MONSTER to GIANTHUMANOID
+  ELAIRSU1 =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  ELAIRSU2 =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  ELAIRSU3 =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  ELAIRSUW =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  ELEARPR  =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARPR2 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARPR3 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARSU2 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARSU3 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARSU4 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELEARSUW =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  ELFIRL01 =>   5 // Lesser Fire Elemental, from MONSTER to GIANTHUMANOID
+  ELFIRSUW =>   5 // Fire Elemental, from MONSTER to GIANTHUMANOID
+  EYEEGL01 =>   2 // Eagle Eye, from HUMANOID to ANIMAL
+  FINSOL04 => 255 // Fallen Solar, from GIANTHUMANOID to MONSTER
+  GENIE02  =>   5 // Genie, from MONSTER to GIANTHUMANOID
+  GIAFIR01 =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+  GLBEAR   => 255 // Troll, from ANIMAL to MONSTER
+  GORAIR01 =>   5 // Lesser Air Elemental, from MONSTER to GIANTHUMANOID
+  GORMIM01 => 255 // Killer Mimic, from ANIMAL to MONSTER
+  GORMIM02 => 255 // Killer Mimic, from ANIMAL to MONSTER
+  GORMIM03 => 255 // Killer Mimic, from ANIMAL to MONSTER
+  GORMIM04 => 255 // Killer Mimic, from ANIMAL to MONSTER
+  GORSTA12 =>   5 // Statue, from UNDEAD to GIANTHUMANOID
+  HAKSU    => 255 // Hakeashar, from GIANTHUMANOID to MONSTER
+  HDRAGRED => 255 // Dragon, from ANIMAL to MONSTER
+  HDRAGSIL => 255 // Dragon, from ANIMAL to MONSTER
+  HLSKULL  =>   4 // Golden Skull, from HUMANOID to UNDEAD
+  ICSALCOL => 255 // Ice Salamander, from UNDEAD to MONSTER
+  ICSALFIR => 255 // Salamander, from UNDEAD to MONSTER
+  IGOLFLE3 =>   5 // Lesser Clay Golem, from HUMANOID to GIANTHUMANOID
+  JUGMIM01 => 255 // Killer Mimic, from ANIMAL to MONSTER
+  KCHILD1  =>   1 // Peasant, from GIANTHUMANOID to HUMANOID
+  KCHILD2  =>   1 // Peasant, from GIANTHUMANOID to HUMANOID
+  KPTROL01 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  KPTROL02 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  KPTROL03 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  KPTROL04 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  KPTROL05 =>   5 // Troll, from UNDEAD to GIANTHUMANOID
+  KPTROL06 =>   5 // Ice Troll, from MONSTER to GIANTHUMANOID
+  KUOARC20 =>   1 // Kuo-Toa Archer, from MONSTER to HUMANOID
+  KUOCLE20 =>   1 // Kuo-Toa Captain, from MONSTER to HUMANOID
+  LAUNE    =>   4 // Meredath, from HUMANOID to UNDEAD
+  MDEARTH  =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  MDEARTH2 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  MEKEAR01 =>   5 // Lesser Earth Elemental, from MONSTER to GIANTHUMANOID
+  MEPHSP1  => 255 // Mephit Portal, from HUMANOID to MONSTER
+  MEPHSP2  => 255 // Mephit Portal, from HUMANOID to MONSTER
+  MEPHSP3  => 255 // Mephit Portal, from HUMANOID to MONSTER
+  MEPHSP4  => 255 // Mephit Portal, from HUMANOID to MONSTER
+  MIMIC01  => 255 // Killer Mimic, from ANIMAL to MONSTER
+  NISHRUSU => 255 // Nishruu, from GIANTHUMANOID to MONSTER
+  OBSDEM04 => 255 // Maurezhi, from GIANTHUMANOID to MONSTER
+  OBSGOL02 =>   5 // Deactivated Guardian Golem, from MONSTER to GIANTHUMANOID
+  PLANEVIL => 255 // Fallen Planetar, from GIANTHUMANOID to MONSTER
+  PLANGOOD =>   5 // Planetar, from MONSTER to GIANTHUMANOID
+  PLANWISH => 255 // Fallen Planetar, from GIANTHUMANOID to MONSTER
+  PLSHFG01 =>   5 // Ettin, from MONSTER to GIANTHUMANOID
+  PLSHFG02 =>   5 // Ettin, from MONSTER to GIANTHUMANOID
+  RIFTCR04 => 255 // Empathic Manifestation, from HUMANOID to MONSTER
+  RSPIRIT1 =>   4 // Mairyn, from HUMANOID to UNDEAD
+  SAHBEH02 =>   4 // Sziltar's Apparition, from HUMANOID to UNDEAD
+  SAHCHF01 =>   1 // Sahuagin Chieftain, from MONSTER to HUMANOID
+  SAHOTY01 =>   5 // Ettin, from MONSTER to GIANTHUMANOID
+  SARFAKI2 =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+  SARFAKIE =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+  SDSHADFI =>   4 // Shadow Fiend, from HUMANOID to UNDEAD
+  SDSHADOW =>   4 // Shadow, from HUMANOID to UNDEAD
+  SHAGRL01 =>   1 // Amuana, from UNDEAD to HUMANOID
+  SKELDED  =>   4 // <Invalid Strref -1>, from HUMANOID to UNDEAD
+  STATUE01 => 101 // Magical Sword, from HUMANOID to WEAPON
+  STATUE02 => 101 // Magical Sword, from HUMANOID to WEAPON
+  STATUE03 => 101 // Magical Sword, from HUMANOID to WEAPON
+  STATUE04 => 101 // Magical Sword, from HUMANOID to WEAPON
+  STATUE05 => 101 // Magical Sword, from HUMANOID to WEAPON
+  STATUE06 => 101 // Magical Sword, from HUMANOID to WEAPON
+  SUELEW2  =>   5 // Greater Fire Elemental, from MONSTER to GIANTHUMANOID
+  SWAAIR01 =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  SWAAIR02 =>   5 // Air Elemental, from MONSTER to GIANTHUMANOID
+  SWAEAR01 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  SWAEAR02 =>   5 // Earth Elemental, from MONSTER to GIANTHUMANOID
+  SWAFIR01 =>   5 // Fire Elemental, from GIANTHUMANOID to GIANTHUMANOID
+  SWORD01  => 101 // Magical Sword, from HUMANOID to WEAPON
+  SWORD02  => 101 // Ras, from HUMANOID to WEAPON
+  SWORD03  => 101 // Sword, from HUMANOID to WEAPON
+  TORGAL   =>   5 // TorGal, from MONSTER to GIANTHUMANOID
+  TOWNC01  =>   1 // Town Crier, from GENERAL_ITEM to HUMANOID
+  TROLDE01 =>   5 // Desert Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLDE02 =>   5 // Desert Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLFR01 =>   5 // Freshwater Troll, from MONSTER to GIANTHUMANOID
+  TROLFR02 =>   5 // Freshwater Troll, from MONSTER to GIANTHUMANOID
+  TROLGI01 =>   5 // Giant Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLGI02 =>   5 // Giant Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLIC01 =>   5 // Ice Troll, from MONSTER to GIANTHUMANOID
+  TROLIC02 =>   5 // Ice Troll, from MONSTER to GIANTHUMANOID
+  TROLIC03 =>   5 // Blizzard Troll, from MONSTER to GIANTHUMANOID
+  TROLIC04 =>   5 // Blizzard Troll, from MONSTER to GIANTHUMANOID
+  TROLL01  =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  TROLL02  =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  TROLL03  =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  TROLLENS =>   5 // Giant Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLLSM2 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  TROLSI01 =>   5 // Spirit Troll, from HUMANOID to GIANTHUMANOID
+  TROLSI02 =>   5 // Spirit Troll, from HUMANOID to GIANTHUMANOID
+  TROLSN01 =>   5 // Snow Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLSN02 =>   5 // Snow Troll, from GIANTHUMANOID to GIANTHUMANOID
+  TROLSP01 =>   5 // Spectral Troll, from MONSTER to GIANTHUMANOID
+  TROLSP02 =>   5 // Spectral Troll, from MONSTER to GIANTHUMANOID
+  TROLUO01 =>   5 // Troll, from MONSTER to GIANTHUMANOID
+  UHOGRE03 =>   5 // Minotaur, from MONSTER to GIANTHUMANOID
+  WELLYN   =>   4 // Wellyn, from HUMANOID to UNDEAD
+  YSCARA03 =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+  YSGUAR01 =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+  YSSOLD10 =>   5 // Fire Giant, from HUMANOID to GIANTHUMANOID
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_general AS cre_file => n_general BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x271 n_general
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_sex BEGIN
+
+  AMFEM01  =>   2 // Commoner, from MALE to FEMALE
+  AMFEM02  =>   2 // Commoner, from MALE to FEMALE
+  AMGIRL01 =>   2 // Girl, from MALE to FEMALE
+  AMMONK08 =>   2 // Monk, from MALE to FEMALE
+  AR18ARCH =>   2 // Archer, from MALE to FEMALE
+  BAZLIZ01 =>   1 // Lizard Man Shaman, from FEMALE to MALE
+  BAZLIZ02 =>   1 // Lizard Man Shaman, from FEMALE to MALE
+  C6CATTI  =>   2 // Catti Brie, from FEMALE to FEMALE
+  C6CATTI2 =>   2 // Catti Brie, from FEMALE to FEMALE
+  C6CLER3  =>   2 // Cleric Of Talos, from MALE to FEMALE
+  C6DEL    =>   2 // Del, from MALE to FEMALE
+  C6GOFUS  =>   1 // Gofus, from FEMALE to MALE
+  C6GUEN   =>   2 // Guenhwyvar, from MALE to FEMALE
+  C6GUEN2  =>   2 // Guenhwyvar, from MALE to FEMALE
+  C6KACH   =>   1 // Kachiko, from FEMALE to MALE
+  CEFALD02 =>   2 // Faldorn, from MALE to FEMALE
+  CHICKDEF =>   2 // Rabid Chicken, from MALE to FEMALE
+  CHICKE   =>   2 // Chicken, from MALE to FEMALE
+  CHICKER  =>   2 // Rabid Chicken, from MALE to FEMALE
+  COW      =>   2 // Cow, from MALE to FEMALE
+  COWENF1  =>   1 // Cowled Enforcer, from FEMALE to MALE
+  CSCLERIC =>   1 // Dawnmaster Kreel, from FEMALE to MALE
+  CSHECK3  =>   2 // Heckler, from MALE to FEMALE
+  CSSUPP2  =>   2 // Peasant, from MALE to FEMALE
+  DEADCOW1 =>   2 // Cow, from MALE to FEMALE
+  DEADCOW2 =>   2 // Cow, from MALE to FEMALE
+  DEER01   =>   2 // Deer, from MALE to FEMALE
+  DERRICK  =>   1 // Derrick, from FEMALE to MALE
+  DEVAEVIL =>   2 // Fallen Deva, from MALE to FEMALE
+  DEVAST01 =>   2 // Astral Deva, from MALE to FEMALE
+  DEVMON01 =>   2 // Monadic Deva, from MALE to FEMALE
+  DPFEMALE =>   2 // Peasant, from MALE to FEMALE
+  DPMON01  =>   1 // Mind Flayer, from FEMALE to MALE
+  DPSTAT05 =>   2 // Petrified Woman, from MALE to FEMALE
+  DROFOD02 =>   2 // Drow, from MALE to FEMALE
+  DROFOD03 =>   1 // Drow, from FEMALE to MALE
+  DROFOD04 =>   2 // Drow Priestess, from MALE to FEMALE
+  DROW04   =>   2 // Drow Priestess, from MALE to FEMALE
+  DSBODY01 =>   2 // Shadow Thief, from MALE to FEMALE
+  ESCORT3  =>   1 // Jenthan, from FEMALE to MALE
+  FANGEL01 =>   2 // Einhiris, from MALE to FEMALE
+  FINSOL01 =>   2 // Solar, from MALE to FEMALE
+  GARKID01 =>   2 // Iltha, from MALE to FEMALE
+  GEMCH01  =>   2 // Chicken, from MALE to FEMALE
+  GEMCH02  =>   2 // Chicken, from MALE to FEMALE
+  GORSTA05 =>   2 // Statue, from MALE to FEMALE
+  HLSHYR   =>   2 // Shyressa, from MALE to FEMALE
+  HSPECTR1 =>   2 // Spectral Harpist, from MALE to FEMALE
+  JADE1    =>   2 // Lennah, from MALE to FEMALE
+  JAHEI1   =>   2 // Harper, from MALE to FEMALE
+  JAREV1   =>   2 // Harper, from MALE to FEMALE
+  KAYSMG01 =>   1 // Rindus, from FEMALE to MALE
+  KPSOLD10 =>   1 // de'Arnise Guard, from FEMALE to MALE
+  KUOARC20 =>   1 // Kuo-Toa Archer, from FEMALE to MALE
+  MGKHOL01 =>   2 // Khollynnus Paac, from MALE to FEMALE
+  NCHICK   =>   2 // Chicken, from MALE to FEMALE
+  NCOW     =>   2 // Cow, from MALE to FEMALE
+  NYMPHSU  =>   2 // Nymph, from MALE to FEMALE
+  PALERN   =>   1 // Palern Flynn, from FEMALE to MALE
+  PALKNI02 =>   1 // Ogre, from FEMALE to MALE
+  PALKNI04 =>   1 // Ogre, from FEMALE to MALE
+  PALKNI05 =>   1 // Baby Wyvern, from FEMALE to MALE
+  PCAPT02  =>   1 // Prison Captain, from FEMALE to MALE
+  PIRFSH02 =>   2 // Fishwife, from MALE to FEMALE
+  PIRSAL02 =>   2 // Sailor, from MALE to FEMALE
+  PLANET01 =>   2 // Planetar, from MALE to FEMALE
+  PLANEVIL =>   2 // Fallen Planetar, from MALE to FEMALE
+  PLANGOOD =>   2 // Planetar, from MALE to FEMALE
+  PLANWISH =>   2 // Fallen Planetar, from MALE to FEMALE
+  PPMAG01  =>   2 // Pirate Mage, from MALE to FEMALE
+  SARBHA01 =>   1 // Alexander Ralisar, from FEMALE to MALE
+  SENDAI7  =>   2 // Sendai, from FEMALE to FEMALE
+  SLEEPFH  =>   2 // Sleeping Woman, from MALE to FEMALE
+  SLVIC02  =>   1 // Tourist, from FEMALE to MALE
+  SOLAR    =>   2 // Solar, from MALE to FEMALE
+  SOLAR01  =>   2 // Solar, from MALE to FEMALE
+  STATUE01 =>   3 // Magical Sword, from MALE to OTHER
+  STATUE02 =>   3 // Magical Sword, from MALE to OTHER
+  STATUE03 =>   3 // Magical Sword, from MALE to OTHER
+  STATUE04 =>   3 // Magical Sword, from MALE to OTHER
+  STATUE05 =>   3 // Magical Sword, from MALE to OTHER
+  STATUE06 =>   3 // Magical Sword, from MALE to OTHER
+  SUENDEL2 =>   2 // Elven Warrior, from MALE to FEMALE
+  SUENDEL4 =>   2 // Elf Female, from MALE to FEMALE
+  SUENDEL6 =>   2 // Elf, from MALE to FEMALE
+  SUENDEL8 =>   2 // Elven Warrior, from MALE to FEMALE
+  SWORD01  =>   3 // Magical Sword, from MALE to OTHER
+  SWORD02  =>   3 // Ras, from MALE to OTHER
+  SWORD03  =>   3 // Sword, from MALE to OTHER
+  TOBPAR02 =>   2 // Berena Elkan, from MALE to FEMALE
+  TOBPAR04 =>   1 // Karun the Black, from FEMALE to MALE
+  TRFTOW04 =>   2 // Peasant, from MALE to FEMALE
+  TRFUED02 =>   1 // Lurraxol Guard, from FEMALE to MALE
+  TRSKIN01 =>   2 // Raissa, from MALE to FEMALE
+  UDDOOR06 =>   2 // Drow Priestess, from MALE to FEMALE
+  UDDROW35 =>   2 // Priestess of Lolth, from MALE to FEMALE
+  VAMPAER  =>   2 // Aerie, from MALE to FEMALE
+  VAMPJAH  =>   2 // Jaheira, from MALE to FEMALE
+  VAMPVIC  =>   2 // Viconia, from MALE to FEMALE
+  VVMADMAN =>   2 // Shadow Thief, from MALE to FEMALE
+  WINNKEEP =>   1 // Pugney, from FEMALE to MALE
+  WPWENCH1 =>   2 // Tavern Wench, from MALE to FEMALE
+  YARMY01  =>   2 // Fighter, from MALE to FEMALE
+  YARMY03  =>   1 // Mage, from FEMALE to MALE
+  YSMAGE02 =>   2 // Yaga-Shura Mage, from MALE to FEMALE
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_sex AS cre_file => n_sex BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x237 n_sex
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_gender BEGIN
+
+  ABISRED1 =>   4 // Abishai, from MALE to NIETHER
+  ABYDEM01 =>   4 // Tanar'ri, from MALE to NIETHER
+  AMMONK08 =>   2 // Monk, from MALE to FEMALE
+  AR18ARCH =>   2 // Archer, from MALE to FEMALE
+  AR18SKEL =>   4 // Skeleton Warrior, from MALE to NIETHER
+  BAZLIZ01 =>   1 // Lizard Man Shaman, from FEMALE to MALE
+  BAZLIZ02 =>   1 // Lizard Man Shaman, from FEMALE to MALE
+  BDOCK1   =>   1 // Dockhand Ogre, from NIETHER to MALE
+  BEARBLSU =>   6 // Black Bear, from MALE to SUMMONED
+  BEARGRSU =>   6 // Grizzly Bear, from MALE to SUMMONED
+  BEHHIV01 =>   4 // Hive Mother, from FEMALE to NIETHER
+  BHGHOUL2 =>   4 // Ghast, from MALE to NIETHER
+  BHGHOUL4 =>   4 // Ghast, from MALE to NIETHER
+  C6CATTI  =>   2 // Catti-Brie, from MALE to FEMALE
+  C6CATTI2 =>   2 // Catti-Brie, from MALE to FEMALE
+  C6CLER3  =>   2 // Cleric Of Talos, from MALE to FEMALE
+  C6DEL    =>   2 // Del, from MALE to FEMALE
+  C6GOFUS  =>   1 // Gofus, from FEMALE to MALE
+  C6GUEN2  =>   2 // Guenhwyvar, from MALE to FEMALE
+  C6KACH   =>   1 // Kachiko, from FEMALE to MALE
+  CEFALD02 =>   2 // Faldorn, from MALE to FEMALE
+  CHICKDEF =>   2 // Rabid Chicken, from MALE to FEMALE
+  CHICKE   =>   2 // Chicken, from MALE to FEMALE
+  CHICKER  =>   2 // Rabid Chicken, from MALE to FEMALE
+  COPLION  =>   2 // Tabitha, from MALE to FEMALE
+  COW      =>   2 // Cow, from MALE to FEMALE
+  COWENF1  =>   1 // Cowled Enforcer, from FEMALE to MALE
+  CSHECK1  =>   2 // Heckler, from MALE to FEMALE
+  CSHECK3  =>   2 // Heckler, from MALE to FEMALE
+  CSSUPP2  =>   2 // Peasant, from MALE to FEMALE
+  DACEMIST =>   4 // Gaseous Form, from MALE to NIETHER
+  DADROW10 =>   2 // Drow Torturer, from MALE to FEMALE
+  DADROW15 =>   1 // Drow, from FEMALE to MALE
+  DADROW2  =>   1 // Drow Servant, from FEMALE to MALE
+  DADROW23 =>   2 // Drow, from MALE to FEMALE
+  DADROW8  =>   1 // Drow Torturer, from FEMALE to MALE
+  DADROW9  =>   1 // Drow Torturer, from FEMALE to MALE
+  DAGHAUN1 =>   2 // Ghaunadaur Priest Leader, from MALE to FEMALE
+  DAGHAUN2 =>   2 // Ghaunadaur Priest, from MALE to FEMALE
+  DAGNOLL  =>   1 // Gnoll, from SUMMONED to MALE
+  DAUMBER  =>   1 // Umber Hulk, from SUMMONED to MALE
+  DEADCOW1 =>   2 // Cow, from MALE to FEMALE
+  DEADCOW2 =>   2 // Cow, from MALE to FEMALE
+  DEADDEM1 =>   4 // Cornugon, from MALE to NIETHER
+  DEATHKNI =>   4 // Demon Knight, from MALE to NIETHER
+  DECK615  =>   4 // Demon Knight, from MALE to NIETHER
+  DEER01   =>   2 // Deer, from MALE to FEMALE
+  DELMIST  =>   4 // Gaseous Form, from MALE to NIETHER
+  DEMABI01 =>   4 // Abishai, from MALE to NIETHER
+  DEMCOR01 =>   4 // Cornugon, from MALE to NIETHER
+  DEMGLA01 =>   4 // Glabrezu, from MALE to NIETHER
+  DEMILICH =>   4 // Demi-Lich, from MALE to NIETHER
+  DEMNAB02 =>   4 // Nabassu, from SUMMONED_DEMON to NIETHER
+  DEMOSUM1 =>   4 // Marilith, from FEMALE to NIETHER
+  DEMOSUM2 =>   4 // Balor, from MALE to NIETHER
+  DEMOSUM3 =>   4 // Glabrezu, from MALE to NIETHER
+  DEMPIT01 =>   4 // Pit Fiend, from MALE to NIETHER
+  DERRICK  =>   1 // Derrick, from FEMALE to MALE
+  DEVAST01 =>   2 // Astral Deva, from NIETHER to FEMALE
+  DEVMON01 =>   2 // Monadic Deva, from NIETHER to FEMALE
+  DGLAB01  =>   4 // Glabrezu, from MALE to NIETHER
+  DGTROL01 =>   1 // Troll, from NIETHER to MALE
+  DGTROL02 =>   1 // Troll, from NIETHER to MALE
+  DORKUS   =>   1 // Dorkus, from 0 to MALE
+  DPDEM01  =>   4 // Demon, from FEMALE to NIETHER
+  DPFEMALE =>   2 // Peasant, from MALE to FEMALE
+  DPMON01  =>   1 // Mind Flayer, from FEMALE to MALE
+  DPMON02  =>   4 // Lich, from MALE to NIETHER
+  DPSTAT05 =>   2 // Petrified Woman, from MALE to FEMALE
+  DROFOD02 =>   1 // Drow, from NIETHER to MALE
+  DROFOD03 =>   1 // Drow, from FEMALE to MALE
+  DROFOD04 =>   2 // Drow Priestess, from MALE to FEMALE
+  DROW04   =>   2 // Drow Priestess, from MALE to FEMALE
+  DSBODY01 =>   2 // Shadow Thief, from MALE to FEMALE
+  ELEARB01 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB02 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB03 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB04 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB05 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB06 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB07 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB08 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB09 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB10 =>   4 // Apparition, from MALE to NIETHER
+  ELEARB11 =>   4 // Apparition, from MALE to NIETHER
+  ELEPUZ01 =>   4 // Apparition, from MALE to NIETHER
+  ELEPUZ02 =>   4 // Apparition, from MALE to NIETHER
+  ELEPUZ03 =>   4 // Apparition, from FEMALE to NIETHER
+  ELEPUZ04 =>   4 // Apparition, from FEMALE to NIETHER
+  ESCORT3  =>   1 // Jenthan, from FEMALE to MALE
+  ETTERCSU =>   6 // Ettercap, from NIETHER to SUMMONED
+  FANGEL01 =>   2 // Einhiris, from NIETHER to FEMALE
+  FINSOL01 =>   2 // Solar, from NIETHER to FEMALE
+  FIRLCH01 =>   4 // Fire Lich, from MALE to NIETHER
+  FIRWRA01 =>   4 // Greater Wraith, from MALE to NIETHER
+  FSSKEL   =>   4 // Skeleton, from MALE to NIETHER
+  GEMCH01  =>   2 // Chicken, from MALE to FEMALE
+  GEMCH02  =>   2 // Chicken, from MALE to FEMALE
+  GHOGR01  =>   4 // Greater Ghoul, from MALE to NIETHER
+  GITH05   =>   1 // Warlock, from FEMALE to MALE
+  GITH06   =>   1 // Captain, from FEMALE to MALE
+  GLBEAR   =>   4 // Troll, from MALE to NIETHER
+  GORAPR   =>   1 // Apprentice, from FEMALE to MALE
+  GORBAT1  =>   4 // Ka'rashur, from MALE to NIETHER
+  GORBAT3  =>   4 // Cornugon, from MALE to NIETHER
+  GORCAMB  =>   4 // Aesgareth, from MALE to NIETHER
+  GORCHR   =>   4 // Chromatic Demon, from MALE to NIETHER
+  GORGUA04 =>   1 // Guardian Spirit, from FEMALE to MALE
+  GORGUA05 =>   1 // Guardian Spirit, from FEMALE to MALE
+  GORMISTP =>   4 // Poison Mist, from SUMMONED to NIETHER
+  GORSTA05 =>   2 // Statue, from MALE to FEMALE
+  GORTAN1  =>   4 // Tahazzar, from MALE to NIETHER
+  GORTAN4  =>   4 // Glabrezu, from MALE to NIETHER
+  GORWOM05 =>   4 // Hive Mother, from FEMALE to NIETHER
+  GRSKEL1  =>   4 // Skeleton Warrior, from MALE to NIETHER
+  GRSKEL2  =>   4 // Skeleton Warrior, from MALE to NIETHER
+  HELLFEAR =>   4 // Fear, from MALE to NIETHER
+  HELLGREE =>   4 // Greed, from MALE to NIETHER
+  HELLPRID =>   4 // Pride, from MALE to NIETHER
+  HELLSELF =>   4 // Selfishness, from MALE to NIETHER
+  HGMIS02  =>   4 // Swamp Horror, from MALE to NIETHER
+  HGSKL01  =>   4 // Skeleton Cleric, from MALE to NIETHER
+  HGSKL02  =>   4 // Skeleton Assassin, from MALE to NIETHER
+  HGSKL03  =>   4 // Skeleton Mage, from FEMALE to NIETHER
+  HGWRA01  =>   4 // Gorion, from MALE to NIETHER
+  HLDEMI   =>   4 // Kangaxx the Demi-Lich, from MALE to NIETHER
+  HLMAGE   =>   1 // Mage, from NIETHER to MALE
+  HLSHYR   =>   2 // Shyressa, from MALE to FEMALE
+  HLSKULL  =>   4 // Golden Skull, from MALE to NIETHER
+  HSPECTR1 =>   2 // Spectral Harpist, from MALE to FEMALE
+  ICFUNG02 =>   4 // Spore Colony, from MALE to NIETHER
+  ICFUNGUS =>   4 // Spore Colony, from MALE to NIETHER
+  ICMYC01  =>   4 // Myconid, from MALE to NIETHER
+  ICMYC02  =>   4 // Myconid King, from MALE to NIETHER
+  IGOLFLE3 =>   4 // Lesser Clay Golem, from MALE to NIETHER
+  IGOLFLE4 =>   4 // Lesser Clay Golem, from MALE to NIETHER
+  JADE1    =>   2 // Lennah, from MALE to FEMALE
+  JAHEI1   =>   2 // Harper, from MALE to FEMALE
+  JAMERONI =>   2 // Meronia, from MALE to FEMALE
+  JAREV1   =>   2 // Harper, from MALE to FEMALE
+  JONDAL   =>   1 // Jondalar, from 0 to MALE
+  KAYSMG01 =>   1 // Rindus, from FEMALE to MALE
+  KCHILD1  =>   1 // Peasant, from NIETHER to MALE
+  KCHILD2  =>   1 // Peasant, from NIETHER to MALE
+  KELZOMB  =>   4 // Zombie, from MALE to NIETHER
+  KPROEN03 =>   1 // Roenall Guard, from NIETHER to MALE
+  KPSOLD10 =>   1 // de'Arnise Guard, from FEMALE to MALE
+  KPTROL01 =>   1 // Troll, from NIETHER to MALE
+  KPTROL02 =>   1 // Troll, from NIETHER to MALE
+  KPTROL03 =>   1 // Troll, from NIETHER to MALE
+  KPTROL04 =>   1 // Troll, from NIETHER to MALE
+  KPTROL05 =>   1 // Troll, from NIETHER to MALE
+  KPTROL06 =>   1 // Ice Troll, from NIETHER to MALE
+  KRUIN    =>   1 // Kruin, from FEMALE to MALE
+  KSHADOW  =>   4 // Shadow, from MALE to NIETHER
+  KUOARC20 =>   1 // Kuo-Toa Archer, from FEMALE to MALE
+  LAVOK02  =>   1 // Lavok, from NIETHER to MALE
+  LESTER   =>   4 // Uncle Lester, from MALE to NIETHER
+  MGKHOL01 =>   2 // Khollynnus Paac, from MALE to FEMALE
+  MISTHO01 =>   4 // Mist Horror, from MALE to NIETHER
+  MISTWA01 =>   4 // Wandering Horror, from MALE to NIETHER
+  NCHICK   =>   2 // Chicken, from MALE to FEMALE
+  NCOW     =>   2 // Cow, from MALE to FEMALE
+  NEVM2    =>   4 // Skeleton Warrior, from MALE to NIETHER
+  OBSDEM01 =>   4 // Lea'liyl, from MALE to NIETHER
+  OGRE01   =>   1 // Ogre, from NIETHER to MALE
+  OGRHAL01 =>   1 // Half Ogre, from NIETHER to MALE
+  OGRILL01 =>   1 // Ogrillon, from NIETHER to MALE
+  PALERN   =>   1 // Palern Flynn, from FEMALE to MALE
+  PALKNI02 =>   1 // Ogre, from FEMALE to MALE
+  PALKNI03 =>   1 // Gnoll Elite, from FEMALE to MALE
+  PALKNI04 =>   1 // Ogre, from FEMALE to MALE
+  PALKNI05 =>   1 // Baby Wyvern, from FEMALE to MALE
+  PCAPT02  =>   1 // Prison Captain, from FEMALE to MALE
+  PETTIN   =>   1 // Ettin, from 0 to MALE
+  PIRFSH02 =>   2 // Fishwife, from MALE to FEMALE
+  PIRSAL02 =>   2 // Sailor, from MALE to FEMALE
+  PLANET01 =>   2 // Planetar, from NIETHER to FEMALE
+  PLANWISH =>   2 // Fallen Planetar, from NIETHER to FEMALE
+  PLYOGRE  =>   1 // Ogre, from 0 to MALE
+  PLYSALA  =>   1 // Fire Salamander, from NIETHER to MALE
+  PMASTER  =>   4 // Master of Thralls, from MALE to NIETHER
+  PPBODHI3 =>   2 // Bodhi, from MALE to FEMALE
+  PPDEMON  =>   4 // Demon, from MALE to NIETHER
+  PPMAG01  =>   2 // Pirate Mage, from MALE to FEMALE
+  PPNAB01  =>   4 // Nabassu, from MALE to NIETHER
+  PPNAB02  =>   4 // Nabassu, from MALE to NIETHER
+  PPNAB03  =>   4 // Nabassu, from MALE to NIETHER
+  PPVALEN  =>   2 // Valen, from MALE to FEMALE
+  PWARDEN  =>   4 // Warden, from MALE to NIETHER
+  REMAGE01 =>   2 // Slaver Wizard, from MALE to FEMALE
+  RETHUG02 =>   1 // Mage, from FEMALE to MALE
+  RIFTG03  =>   1 // Avatar, from NIETHER to MALE
+  RNGSHA   =>   4 // Shadow, from MALE to NIETHER
+  RNGSHA01 =>   4 // Shadow, from MALE to NIETHER
+  RNGSHA02 =>   4 // Shadow Patrick, from MALE to NIETHER
+  RNGSHA03 =>   4 // Shadow, from MALE to NIETHER
+  RNGSHA04 =>   4 // Shadow Jailor, from MALE to NIETHER
+  RNGSHA2D =>   4 // Shadow Patrick, from MALE to NIETHER
+  RSKEL01  =>   4 // Skeleton, from MALE to NIETHER
+  RSKEL03  =>   4 // Skeleton, from MALE to NIETHER
+  RUMAR02  =>   4 // Nabassu, from MALE to NIETHER
+  SAHBEH03 =>   1 // Sziltar's Apparition, from NIETHER to MALE
+  SAHOTY01 =>   1 // Ettin, from NIETHER to MALE
+  SARBHA01 =>   1 // Alexander Ralisar, from FEMALE to MALE
+  SDSHADFI =>   4 // Shadow Fiend, from MALE to NIETHER
+  SDSHADOW =>   4 // Shadow, from MALE to NIETHER
+  SENDAI7  =>   2 // Sendai, from MALE to FEMALE
+  SENDARK  =>   4 // Dark Master, from MALE to NIETHER
+  SEWERM   =>   1 // Quallo, from FEMALE to MALE
+  SEWSHA01 =>   4 // Shadow Fiend, from MALE to NIETHER
+  SEWSHA02 =>   4 // Shadow Fiend, from MALE to NIETHER
+  SEWSHA03 =>   4 // Shadow, from MALE to NIETHER
+  SHADEL   =>   4 // Shade Lord, from FEMALE to NIETHER
+  SHADELD  =>   4 // Shade Lord, from FEMALE to NIETHER
+  SHADFI01 =>   4 // Shadow Fiend, from MALE to NIETHER
+  SHADFI02 =>   4 // Devil Shade, from MALE to NIETHER
+  SHADOW01 =>   4 // Shadow, from MALE to NIETHER
+  SHAPE    =>   4 // Frennedan, from MALE to NIETHER
+  SHAWOL01 =>   4 // Shade Wolf, from MALE to NIETHER
+  SHAWOL02 =>   4 // Greater Shade Wolf, from MALE to NIETHER
+  SHTH03   =>   1 // Kretor, from FEMALE to MALE
+  SKELAR01 =>   4 // Skeleton Archer, from MALE to NIETHER
+  SKELAR02 =>   4 // Skeleton Archer, from MALE to NIETHER
+  SKELE2   =>   4 // Skeleton, from MALE to NIETHER
+  SKELET01 =>   4 // Skeleton, from MALE to NIETHER
+  SKELHP1  =>   4 // Skeleton, from MALE to NIETHER
+  SLEEPFH  =>   2 // Sleeping Woman, from MALE to FEMALE
+  SLIFIS01 =>   4 // Fission Slime, from MALE to NIETHER
+  SLIFIS02 =>   4 // Fission Slime, from MALE to NIETHER
+  SLVIC02  =>   1 // Tourist, from FEMALE to MALE
+  SUENDEL2 =>   2 // Elven Warrior, from MALE to FEMALE
+  SUENDEL4 =>   2 // Elf Female, from MALE to FEMALE
+  SUENDEL6 =>   2 // Elf, from MALE to FEMALE
+  SUENDEL8 =>   2 // Elven Warrior, from MALE to FEMALE
+  SUMDJINN =>   6 // Djinni, from NIETHER to SUMMONED
+  SWORD02  =>   6 // Ras, from ILLUSIONARY to SUMMONED
+  SWORD03  =>   4 // Sword, from BOTH to NIETHER
+  TANARI01 =>   4 // Tanar'ri, from MALE to NIETHER
+  TANOMIST =>   4 // Gaseous Form, from MALE to NIETHER
+  TELBAL1  =>   4 // Balor, from MALE to NIETHER
+  TELCAM1  =>   4 // Cambion, from SUMMONED_DEMON to NIETHER
+  TELCOR1  =>   4 // Cornugon, from MALE to NIETHER
+  TELPIT1  =>   4 // Pit Fiend, from MALE to NIETHER
+  TELPIT2  =>   4 // Pit Fiend, from MALE to NIETHER
+  TELSLAV  =>   4 // Slave Wraith, from MALE to NIETHER
+  TELTAN1  =>   4 // Glabrezu, from MALE to NIETHER
+  TELTAN2  =>   4 // Glabrezu, from MALE to NIETHER
+  TELWRAI  =>   4 // Demon Wraith, from MALE to NIETHER
+  TOBBAN01 =>   1 // Sharik Nefal, from NIETHER to MALE
+  TOBPAR02 =>   2 // Berena Elkan, from MALE to FEMALE
+  TOBPAR04 =>   1 // Karun the Black, from FEMALE to MALE
+  TOLGER   =>   1 // Tolgerias, from NIETHER to MALE
+  TOLGER2  =>   1 // Tolgerias, from NIETHER to MALE
+  TOWNC01  =>   1 // Town Crier, from 0 to MALE
+  TRCUT06  =>   1 // Lord Skarmaen Alibakkar, from NIETHER to MALE
+  TRFTOW04 =>   2 // Peasant, from MALE to FEMALE
+  TRFUED02 =>   1 // Lurraxol Guard, from FEMALE to MALE
+  TRFUED05 =>   1 // Lord Skarmaen Alibakkar, from NIETHER to MALE
+  TROLDE01 =>   1 // Desert Troll, from NIETHER to MALE
+  TROLDE02 =>   1 // Desert Troll, from NIETHER to MALE
+  TROLFR01 =>   1 // Freshwater Troll, from NIETHER to MALE
+  TROLFR02 =>   1 //   I much prefer the wooded regions, but one must be flexible in these times., from NIETHER to MALE
+  TROLGI01 =>   1 // Giant Troll, from NIETHER to MALE
+  TROLGI02 =>   1 // Giant Troll, from NIETHER to MALE
+  TROLIC01 =>   1 // Ice Troll, from NIETHER to MALE
+  TROLIC02 =>   1 // Ice Troll, from NIETHER to MALE
+  TROLIC03 =>   1 // Blizzard Troll, from NIETHER to MALE
+  TROLIC04 =>   1 // Blizzard Troll, from NIETHER to MALE
+  TROLL01  =>   1 // Troll, from NIETHER to MALE
+  TROLL02  =>   1 // Troll, from NIETHER to MALE
+  TROLL03  =>   1 // Troll, from NIETHER to MALE
+  TROLLENS =>   1 // Giant Troll, from NIETHER to MALE
+  TROLLSM2 =>   1 // Troll, from NIETHER to MALE
+  TROLSI01 =>   1 // Spirit Troll, from NIETHER to MALE
+  TROLSI02 =>   1 // Spirit Troll, from NIETHER to MALE
+  TROLSN01 =>   1 // Snow Troll, from NIETHER to MALE
+  TROLSN02 =>   1 // Snow Troll, from NIETHER to MALE
+  TROLSP01 =>   1 // Spectral Troll, from NIETHER to MALE
+  TROLSP02 =>   1 // Spectral Troll, from NIETHER to MALE
+  TROLUO01 =>   1 // Troll, from NIETHER to MALE
+  TRSKIN01 =>   2 // Raissa, from MALE to FEMALE
+  UDDEATH  =>   4 // Demon Knight, from MALE to NIETHER
+  UDDEATH2 =>   4 // Demon Knight, from MALE to NIETHER
+  UDDOOR06 =>   2 // Drow Priestess, from MALE to FEMALE
+  UDDOOR07 =>   4 // Skeleton, from SUMMONED to NIETHER
+  UDDROW35 =>   2 // Priestess of Lolth, from MALE to FEMALE
+  UDNABA   =>   4 // Nabassu, from MALE to NIETHER
+  UHCREAT  =>   4 // Shadow, from MALE to NIETHER
+  VALEMIST =>   4 // Gaseous Form, from MALE to NIETHER
+  VAMANC01 =>   2 // Vampire, from MALE to FEMALE
+  VAMEMI01 =>   2 // Vampire, from MALE to FEMALE
+  VAMMAT01 =>   2 // Vampire, from MALE to FEMALE
+  VAMPAER  =>   2 // Aerie, from MALE to FEMALE
+  VAMPAT01 =>   2 // Vampire, from MALE to FEMALE
+  VAMPJAH  =>   2 // Jaheira, from MALE to FEMALE
+  VAMPVIC  =>   2 // Viconia, from MALE to FEMALE
+  VAMVER01 =>   2 // Vampire, from MALE to FEMALE
+  VVBODHI  =>   2 // Bodhi, from MALE to FEMALE
+  VVDEL    =>   2 // Del, from MALE to FEMALE
+  VVPARIS  =>   2 // Parisa, from MALE to FEMALE
+  VVSALIA  =>   2 // Salia, from MALE to FEMALE
+  VVTANOV  =>   2 // Tanova, from MALE to FEMALE
+  WINNKEEP =>   1 // Pugney, from FEMALE to MALE
+  WISH02   =>   4 // Djinni, from SUMMONED to NIETHER
+  WOLFZO01 =>   4 // Zombie Wolf, from MALE to NIETHER
+  WORGSU   =>   6 // Worg, from MALE to SUMMONED
+  WPWENCH1 =>   2 // Tavern Wench, from MALE to FEMALE
+  WRAITH01 =>   4 // Wraith, from MALE to NIETHER
+  WRASHI01 =>   4 // Shimmering Wraith, from MALE to NIETHER
+  XVARTSU  =>   6 // Xvart Protector, from MALE to SUMMONED
+  YARMY01  =>   2 // Fighter, from MALE to FEMALE
+  YARMY03  =>   1 // Mage, from FEMALE to MALE
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_gender AS cre_file => n_gender BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_BYTE 0x275 n_gender
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_animate BEGIN // most are corrected demon animations from D0Tweak
+
+  ABISRED1 => 57568 // Abishai, from TANARRI to IC_CORNUGONSKI
+  ar18skel => 60176 // skeleton warrior, from skeleton to IC_SKELETONA
+  celvan   => 24836 // celvan uses halfling avatar, to FIGHTER_MALE_GNOME
+  clone1   => 32561 // Ellesime clone in Chateau Irenicus, CLERIC_FEMALE_ELF to ELLISIME
+  cyrando  => 24580 // cyrando uses halfling avatar, to CLERIC_MALE_GNOME
+  daelf    => 25105 // elven mage uses a human avatar, MAGE_FEMALE_HUMAN to MAGE_FEMALE_ELF
+  daelf2   => 25105 // elven mage uses a human avatar, MAGE_FEMALE_HUMAN to MAGE_FEMALE_ELF
+  DEMGLA01 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  DEMGLAB  => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  DEMGLAB2 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  DEMGLASU => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  DEMPIT01 => 32558 // Pit Fiend, from TANARRI to RAVER
+  ENDDEM01 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  ENDDEM02 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  GORDEM   =>  4352 // Balor, from IC_CORNUGONSKI to TANARRI
+  hlshyr   => 32546 // shyressa is a female vamp, but uses male vamp avatar, VAMPIRE to VAMPIRE_FEMALE
+  JONDEM01 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  JONDEM02 =>  4352 // Balor, from RAVER to TANARRI
+  JONDEM03 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  JONDEM04 =>  4352 // Balor, from RAVER to TANARRI
+  JONDEM05 => 57585 // Glabrezu, from TANARRI to IC_GLAB
+  ppdra2   => 25089 // dradeel is an elf but uses a human avatar, MAGE_MALE_HUMAN to MAGE_MALE_ELF
+  ppdradee => 25089 // dradeel is an elf but uses a human avatar, MAGE_MALE_HUMAN to MAGE_MALE_ELF
+  redrad01 => 25089 // dradeel is an elf but uses a human avatar, MAGE_MALE_HUMAN to MAGE_MALE_ELF
+  cssupp2  => 51472 // mob peasant from the gaal cutscene in unseeing eye quest; has female voiced lines (sex/gender also changed), PEASANT_MAN to PEASANT_WOMAN
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_animate AS cre_file => n_animate BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_LONG 0x28 n_animate
+    BUT_ONLY IF_EXISTS
+
+END
+
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_dv BEGIN // most are corrected to just use their file anme as DV
+
+  alex     => NobleOrder // norh paladin from rep trap has wrong DV, script fixed below
+  bodfgt01 => bodfgt01   // used in arnfgt06.bcs (Haz)
+  bodfgt02 => bodfgt02   // used in arnfgt06.bcs (Haz)
+  brus     => brus       // brus dv change
+  brus2    => brus       // brus dv change
+  cattig01 => cattig01   // trbattle.bcs
+  cldad    => cldad      // clmom.dlg
+  ffcrowd1 => ffcrowd1   // ffactor1.dlg, ffbiff01.dlg
+  ffcrowd2 => ffcrowd2   // ffactor1.dlg, ffbiff01.dlg
+  ffcrowd3 => ffcrowd3   // ffactor1.dlg, ffbiff01.dlg
+  ffcrowd4 => ffcrowd4   // ffactor1.dlg, ffbiff01.dlg
+  ffcrowd5 => ffcrowd5   // ffactor1.dlg, ffbiff01.dlg
+  firamb04 => firamb01   // wolfwere capt should have same DV for transformed, non-transformed creature files
+  gerhardt => gerhardt   // jan.bcs
+  guard3   => guard3     // hendak.dlg
+  hobarc02 => hobarc02   // for ar1202.bcs
+  kpumb01  => kpumb01    // for ar1301.bcs
+  mddust   => dustmep    //
+  mourner3 => mourner3   // mourners never leave, often have nothing to say; see also ar0800.bcs, mourner3.dlg, mourner4.dlg
+  mourner4 => mourner4   // mourner3.dlg
+  mugger3  => mugger3    // slvic01.dlg
+  nobl4    => nobl4      // nobl4.dlg
+  rogtro01 => rogtro02   // wrong DV for roger's sea troll (active); if killed instantly (rather than via fire/acid) roger won't know
+  rskel01  => rskel01    // for ar1400.bcs
+  spidgi01 => spidgi01   // trbattle.bcs
+  swsfoll1 => swsfoll1   // swshaman.dlg
+  swsfoll2 => swsfoll2   // swshaman.dlg
+  swsfoll3 => swsfoll3   // swshaman.dlg
+  swsfoll4 => swsfoll4   // swshaman.dlg
+  swsfoll5 => swsfoll5   // swshaman.dlg
+  swsfoll6 => swsfoll6   // swshaman.dlg
+  toady    => toady      // pehllus.dlg
+  tolger2  => tolger2    // added for various fixes - ar1002.bcs, madeen.bcs, mgteos.dlg, tolger.bcs
+  tolmag01 => tolmag01   // tolger2.dlg
+  uddoor02 => uddoor02   // cut44c.bcs
+  vammat01 => vammat01   // ppbodhi4.dlg
+  vamold01 => vamold01   // ppbodhi4.dlg
+  wcust01  => wcust01    //
+  wcust02  => wcust02    // wcust01.dlg
+  wcust03  => wcust03    //
+  wcust04  => wcust04    //
+  wolfdi   => wolfdi     // trbattle.bcs
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_dv AS cre_file => n_dv BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_ASCIIE 0x280 ~%n_dv%~ #32
+    BUT_ONLY IF_EXISTS
+
+END
+
+// kit.ids fixes
+ACTION_CLEAR_ARRAY cd_bulk_cre_changes_kit
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_cre_changes_kit BEGIN
+
+  // when moving to core, remove kit.ids corrections in creature copies for anomen, imoen, mazzy, HD, keldorn, and korgan
+  akae     => 0x40030000 // akae - kensai
+  anomen10 => 0x40000000 // anomen - trueclass
+  anomen12 => 0x40000000 // anomen - trueclass
+  anomen6  => 0x40000000 // anomen - trueclass
+  anomen7  => 0x40000000 // anomen - trueclass
+  anomen8  => 0x40000000 // anomen - trueclass
+  anomen9  => 0x40000000 // anomen - trueclass
+  bhelm    => 0x40140000 // guardian vottnar - priest of helm
+  chalcy02 => 0x400a0000 // favored of cyric - assassin
+  chang01  => 0x40070000 // angelo - archer
+  chang02  => 0x40070000 // angelo - archer
+  disrup01 => 0x40020000 // wizard slayer - wizardslayer
+  dpplay01 => 0x40080000 // used as player1 copy in dream cutscene - stalker
+  dpplay02 => 0x40080000 // used as player1 copy in dream cutscene - stalker
+  gaelan   => 0x400c0000 // gaelan bayle - swashbuckler
+  genth01  => 0x400b0000 // thief - bounty hunter
+  genth02  => 0x400c0000 // thief - swashbuckler
+  gorwom02 => 0x40070000 // the huntress - archer
+  haer10   => 0x400d0000 // haer'dalis - blade
+  haer11   => 0x400d0000 // haer'dalis - blade
+  haer13   => 0x400d0000 // haer'dalis - blade
+  haer15   => 0x400d0000 // haer'dalis - blade
+  haer19   => 0x400d0000 // haer'dalis - blade
+  imoen    => 0x40000000 // imoen - trueclass
+  imoen10  => 0x40000000 // imoen - trueclass
+  imoen15  => 0x40000000 // imoen - trueclass
+  imoen211 => 0x40000000 // imoen - trueclass
+  imoen213 => 0x40000000 // imoen - trueclass
+  imoen6   => 0x40000000 // imoen - trueclass
+  jaga2    => 0x40030000 // kail - kensai
+  jaga4    => 0x400c0000 // iko - swashbuckler
+  keldor10 => 0x40050000 // keldorn - inquisitor
+  keldor12 => 0x40050000 // keldorn - inquisitor
+  keldor14 => 0x40050000 // keldorn - inquisitor
+  keldor8  => 0x40050000 // keldorn - inquisitor
+  keldor9  => 0x40050000 // keldorn - inquisitor
+  korgan11 => 0x40010000 // korgan - berserker
+  korgan12 => 0x40010000 // korgan - berserker
+  korgan15 => 0x40010000 // korgan - berserker
+  korgan8  => 0x40010000 // korgan - berserker
+  korgan9  => 0x40010000 // korgan - berserker
+  mazzy11  => 0x40000000 // mazzy - trueclass
+  mazzy12  => 0x40000000 // mazzy - trueclass
+  mazzy15  => 0x40000000 // mazzy - trueclass
+  mazzy8   => 0x40000000 // mazzy - trueclass
+  mazzy9   => 0x40000000 // mazzy - trueclass
+  meronia  => 0x400d0000 // meronia - blade
+  pace     => 0x400c0000 // pace - swashbuckler
+  parfig16 => 0x40020000 // jalin tix - wizardslayer
+  parthf   => 0x400b0000 // alnarow - bounty hunter
+  sevdru01 => 0x40120000 // alatelo de bonito - beast friend (originally used 0x4019)
+  ysgp02   => 0x40030000 // merlinious - kensai
+  ysgp03   => 0x40070000 // tibbit - archer
+
+END
+
+ACTION_PHP_EACH cd_bulk_cre_changes_kit AS cre_file => n_kit BEGIN
+
+  COPY_EXISTING ~%cre_file%.cre~ ~override~
+    WRITE_LONG 0x244 n_kit
+    BUT_ONLY IF_EXISTS
+
+END

@@ -1,0 +1,210 @@
+/////                                                  \\\\\
+///// effing effs                                      \\\\\
+/////                                                  \\\\\
+
+/* So, items with damage bonuses via opcode 179 have a couple of issues and are addressed in this section.
+Opcode 179 doesn't stack so it interferes with kit bonuses vs. creature type. If applied as a global effect
+it also bleeds over into the second weapon if used on a dual-weilder. Opcode 178 (thac0 bonuses vs type)
+has the same dual-wield exploit but there's no way to fix it.*/
+
+// wrong target, ids for burning earth's troll damage/thac0
+COPY_EXISTING ~trolld1.eff~  ~override~ // will be overwritten later, but needed temporarily to get targeting correct
+              ~trollh1.eff~  ~override~
+//  WRITE_LONG 0x14 2 // preset target
+  WRITE_LONG 0x20 4 // race.ids
+  BUT_ONLY
+
+// thac0 bonuses (global effects): wrong targets and/or odd timings
+COPY_EXISTING ~damaceb.eff~  ~override~ // invalid target (-1)
+              ~equal09.eff~  ~override~ // timing = limited
+              ~equal10.eff~  ~override~ // timing = limited
+              ~equal11.eff~  ~override~ // timing = limited
+              ~equal12.eff~  ~override~ // timing = limited
+              ~equal13.eff~  ~override~ // timing = limited
+              ~equal14.eff~  ~override~ // timing = limited
+              ~equal15.eff~  ~override~ // timing = limited
+              ~equal16.eff~  ~override~ // timing = limited
+              ~evilhit2.eff~ ~override~
+              ~trollh1.eff~  ~override~ // invalid target (-1)
+              ~undhit1.eff~  ~override~
+  WRITE_LONG 0x14 0 // target: none
+  WRITE_LONG 0x24 2 // timing: instant/while equipped
+  BUT_ONLY
+
+// shared effs
+COPY_EXISTING ~dragdam3.eff~ ~override/cdhalb04.eff~ // used by cavalier kit bonus, make new eff for dragon's bane
+COPY_EXISTING ~lycandam.eff~ ~override/cdsw1h03.eff~ // lycandam also used by amul18, so make new one for kondar
+
+// first, move effs from global effects to melee/ranged headers
+COPY_EXISTING ~blun18.itm~   ~override~ // skullcrusher - move skullcr
+              ~blun23.itm~   ~override~ // bone club +2, +3 vs. undead - move unddam1
+              ~carsomyr.itm~ ~override~ // Carsomyr +5, damage applied globally (2h, unused) - move holyaven
+              ~chevil10.itm~ ~override~ // Flame Of The North, damage applied globally (undroppable sarevok weapon) - move flamenor
+              ~dagg09.itm~   ~override~ // silver dagger - move lycndam3
+              ~halb04.itm~   ~override~ // Dragon's Bane +3, damage applied globally (2h) - move dragdam3, rename to cdhalb04
+              ~hamm04.itm~   ~override~ // hammer +1, +4 vs. giantkin - move giantdam
+              ~hsword.itm~   ~override~ // Holy Sword, damage applied globally (unused) - move holyaven
+              ~phanblad.itm~ ~override~ // phantom blade - move phanblad
+              ~sw1h03.itm~   ~override~ // sword +1, +3 vs. shapeshifters - move doppdam, move and rename lycandam to cdsw1h03
+              ~sw1h18.itm~   ~override~ // sword o' balduran - move lycndam4
+              ~sw1h24.itm~   ~override~ // flame tongue - move trolld1, ft1-3dam
+              ~sw1h31.itm~   ~override~ // daystar - move evildam2 (dbldead, daystar1 already here)
+              ~sw1h54.itm~   ~override~ // equalizer - move equal01-8
+              ~sw1h62.itm~   ~override~ // foebane +3 - move sw1h62b-f
+              ~sw1h63.itm~   ~override~ // foebane +5 - move sw1h62b-f
+              ~sw1h64.itm~   ~override~ // purifier +4 - move sw1h64a
+              ~sw1h65.itm~   ~override~ // purifier +5 - move sw1h65a
+              ~sw2h10.itm~   ~override~ // Carsomyr +5, damage applied globally (2h) - move holyaven
+              ~sw2h12.itm~   ~override~ // Flame Of The North, damage applied globally (2h) - move flamenor
+              ~sw2h19.itm~   ~override~ // Carsomyr +6, damage applied globally (2h) - move sw2h19a
+              ~wamace.itm~   ~override~ // jerrod's mace - move damacea
+  READ_LONG   0x64 "abil_off"
+  READ_SHORT  0x68 "abil_num"
+  READ_LONG   0x6a "fx_off"
+  READ_SHORT  0x70 "fx_num"
+  SET delta = 0
+  FOR (index = 0 ; index < fx_num ; ++index) BEGIN
+    READ_SHORT ("%fx_off%" +        ("%index%" * 0x30)) "type"
+    READ_ASCII ("%fx_off%" + 0x14 + ("%index%" * 0x30)) "eff_file"
+    PATCH_IF (("%type%" = 177) AND
+              (("%eff_file%" STRING_COMPARE_CASE "DAMACEA" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "DOPPDAM" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "DRAGDAM3" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "EVILDAM2" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "FLAMENOR" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "GIANTDAM" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "HOLYAVEN" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "LYCANDAM" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM3" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "LYCNDAM4" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "PHANBLAD" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "SKULLCR" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "SW2H19A" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "UNDDAM1" = 0) OR
+               ("%eff_file%" STRING_COMPARE_CASE "TROLLD1" = 0) OR
+               ("%eff_file%" STRING_COMPARE_REGEXP "EQUAL0[1-8]" = 0) OR
+               ("%eff_file%" STRING_COMPARE_REGEXP "FT[1-3]DAM" = 0) OR
+               ("%eff_file%" STRING_COMPARE_REGEXP "SW1H6[45]A" = 0) OR
+               ("%eff_file%" STRING_COMPARE_REGEXP "SW1H62[BCDEF]" = 0))) BEGIN
+      PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "lycandam" = 0) BEGIN SPRINT eff_file "cdsw1h03" END
+      PATCH_IF ("%eff_file%" STRING_COMPARE_CASE "dragdam3" = 0) BEGIN SPRINT eff_file "cdhalb04" END
+      READ_ASCII   ("%fx_off%" +        ("%index%" * 0x30)) "clone" (48)
+      DELETE_BYTES ("%fx_off%" +        ("%index%" * 0x30)) 0x30
+      SET fx_num = (fx_num - 1)
+      SET delta  = (delta - 1)
+      SET index  = (index - 1)
+      INNER_ACTION BEGIN // lazy, just grab ids targeting from eff
+
+        COPY_EXISTING ~%eff_file%.eff~ ~override~
+          READ_ASCII 0x1c "ids" (8)
+          BUT_ONLY
+
+      END
+      FOR (index2 = 0 ; index2 < abil_num ; index2 = index2 + 1) BEGIN
+        READ_BYTE   ("%abil_off%" +        ("%index2%" * 0x38)) "type"
+        READ_SHORT  ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "abil_fx_idx"
+        SET "abil_fx_idx" = "%abil_fx_idx%" + "%delta%"
+        WRITE_SHORT ("%abil_off%" + 0x20 + ("%index2%" * 0x38)) "%abil_fx_idx%"
+        PATCH_IF (("%type%" = 1) OR ("%type%" = 2)) BEGIN
+          INSERT_BYTES (fx_off +        (0x30 * abil_fx_idx)) 0x30
+          WRITE_ASCIIE (fx_off +        (0x30 * abil_fx_idx)) "%clone%"
+          WRITE_SHORT  (fx_off +        (0x30 * abil_fx_idx)) 177     // use eff
+          WRITE_BYTE   (fx_off + 0x02 + (0x30 * abil_fx_idx))   2     // preset target
+          WRITE_ASCIIE (fx_off + 0x04 + (0x30 * abil_fx_idx)) "%ids%" // ids target from eff
+          WRITE_BYTE   (fx_off + 0x0c + (0x30 * abil_fx_idx))   1     // instant/perm
+          WRITE_ASCIIE (fx_off + 0x14 + (0x30 * abil_fx_idx)) "%eff_file%" #8 // for the items with changing effs
+          READ_SHORT  ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) "abil_fx_num"
+          WRITE_SHORT ("%abil_off%" + 0x1e + ("%index2%" * 0x38)) ("%abil_fx_num%" + 1)
+          SET delta = (delta + 1)
+        END
+      END
+    END
+  END
+  WRITE_SHORT  0x70 "%fx_num%"
+  BUT_ONLY IF_EXISTS
+
+// since targeting is changing, patch separately
+COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
+  LPF DELETE_ITEM_EQEFFECT INT_VAR opcode_to_delete = 177 END
+  PATCH_FOR_EACH race IN 142 113 BEGIN // giants and ogres
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 2 STR_VAR resource = "cdhamm06" END // ranged
+    LPF ADD_ITEM_EFFECT INT_VAR opcode = 177 target = 2 timing = 1 parameter1 = race parameter2 = 4 type = 1 STR_VAR resource = "hamm06" END   // melee
+  END
+
+// now patch effs from above to do damage directly instead of damage vs. type (damage matches weapon)
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_effing_effs BEGIN
+  cdhalb04 =>  16 // Dragon's Bane +3
+  cdsw1h03 => 256 // new eff for bastard sword +1, +3 vs. shapeshifters
+  damacea  =>   0 // jerrod's mace
+  doppdam  => 256 // bastard sword +1, +3 vs. shapeshifters
+  equal01  => 256 // equalizer
+  equal02  => 256 // equalizer
+  equal03  => 256 // equalizer
+  equal04  => 256 // equalizer
+  equal05  => 256 // equalizer
+  equal06  => 256 // equalizer
+  equal07  => 256 // equalizer
+  equal08  => 256 // equalizer
+  evildam2 => 256 // daystar
+  flamenor => 256 // flame of the north
+  ft1dam   => 256 // flame tongue
+  ft2dam   => 256 // flame tongue
+  ft3dam   => 256 // flame tongue
+  giantdam =>   0 // hammer +1, +4 vs giantkin
+  hamm06   =>   0 // dwarven thrower
+  holyaven => 256 // carsomyr +5
+  lycndam3 =>  16 // silver dagger
+  lycndam4 => 256 // sword o' balduran
+  phanblad => 256 // phantom blade
+  skullcr  =>   0 // skullcrusher's eff
+  sw1h62b  => 256 // foebane(s)
+  sw1h62c  => 256 // foebane(s)
+  sw1h62d  => 256 // foebane(s)
+  sw1h62e  => 256 // foebane(s)
+  sw1h62f  => 256 // foebane(s)
+  sw1h64a  => 256 // purifier +4
+  sw1h65a  => 256 // purifier +5
+  sw2h19a  => 256 // carsomyr +6
+  trolld1  => 256 // flame tongue
+  unddam1  =>   0 // bone club eff
+END
+
+ACTION_PHP_EACH cd_effing_effs AS eff => damtype BEGIN
+
+  COPY_EXISTING ~%eff%.eff~ ~override~
+    WRITE_LONG  0x10 12      // change to damage
+    WRITE_LONG  0x14 2       // preset target
+    WRITE_SHORT 0x20 0       // normal
+    WRITE_SHORT 0x22 damtype // damage type
+    WRITE_LONG  0x24 1       // timing: instant/permanent
+    READ_LONG   0x60 dam     // read and move
+    WRITE_LONG  0x60 0       // from here
+    WRITE_LONG  0x1c dam     // to there
+    IF_EXISTS
+
+END
+
+// create hamm06 copy for missile damage
+COPY_EXISTING ~hamm06.eff~ ~override/cdhamm06.eff~
+  WRITE_SHORT 0x22 128 // missile damage type
+
+// effs for root of the problem
+COPY_EXISTING ~giandam.eff~  ~override~
+              ~monstdam.eff~ ~override~
+              ~undeddam.eff~ ~override~
+  WRITE_LONG 0x14 2 // preset target
+  WRITE_LONG 0x1c 2 // should be doing two extra damage, not three
+  WRITE_LONG 0x60 0 // param3 should be 0
+  BUT_ONLY
+
+// effs for dragon slayer
+COPY_EXISTING ~sw1h32c.eff~ ~override~
+  WRITE_LONG 0x60 0 // param3 should be 0
+  BUT_ONLY
+
+// wrong target for bone club's +1 thac0 vs undead
+COPY_EXISTING ~undhit1.eff~  ~override~
+//  WRITE_LONG 0x14 2 // preset target
+  WRITE_LONG 0x1c 4 // undead from
+  WRITE_LONG 0x20 3 // general.ids
+  BUT_ONLY

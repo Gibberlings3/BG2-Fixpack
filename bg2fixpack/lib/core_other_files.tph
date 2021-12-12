@@ -1,0 +1,521 @@
+/////                                                  \\\\\
+///// pro fixes                                        \\\\\
+/////                                                  \\\\\
+
+// color spray arc fix
+COPY_EXISTING ~cspray.pro~ ~override~
+  WRITE_SHORT 0x206 426 // now ranges to 30', per descript
+  BUT_ONLY
+
+// power word blind should also affect party/allies
+COPY_EXISTING ~holdsumm.pro~ ~override~
+  WRITE_BYTE 0x200 ((THIS BAND `BIT4) BAND `BIT6) // removes ally/self exemption flags
+  BUT_ONLY
+
+// missing shadow
+COPY_EXISTING ~iceglyp.pro~ ~override~
+  WRITE_BYTE 0x100 (THIS BAND `BIT7) // removes translucent flag
+  BUT_ONLY
+
+// 'trap' projectiles should be more sensitive, go off immediately
+COPY_EXISTING ~iceglyp.pro~  ~override~
+              ~trapglpn.pro~ ~override~
+              ~trapglyp.pro~ ~override~
+              ~trapskul.pro~ ~override~
+              ~tskullnp.pro~ ~override~
+  WRITE_SHORT 0x210 1 // explosion frequency
+  BUT_ONLY
+
+// ice storm lasts four rounds, not three
+COPY_EXISTING ~icestorm.pro~ ~override~
+  WRITE_BYTE 0x216 4 // should last 4 rounds per descript (four repetitions)
+  BUT_ONLY
+
+// meteor swarm should be 4 rounds, per descript
+COPY_EXISTING ~metswarm.pro~ ~override~
+  WRITE_BYTE 0x216 4 // should last 4 rounds per descript (four repetitions)
+  BUT_ONLY
+
+// shadow/bam missing
+COPY_EXISTING ~spattck2.pro~ ~override~
+  WRITE_BYTE  0x100 (THIS BOR BIT5) // add 'light spot enabled' flag
+  WRITE_ASCII 0x10c ~spshadow~ #8   // shadow BAM
+  WRITE_BYTE  0x115 0               // shadow number
+  BUT_ONLY
+
+// another shadow
+COPY_EXISTING ~spgreorb.pro~ ~override~
+  WRITE_BYTE  0x100 (THIS BOR BIT5) // add 'light spot enabled' flag
+  WRITE_ASCII 0x10c ~spchrorb~ #8   // shadow BAM
+  BUT_ONLY
+  
+/////                                                  \\\\\
+///// vvc fixes                                        \\\\\
+/////                                                  \\\\\
+
+// hold undead visuals don't work; see spcl742.spl, spwi324.spl, cdunhvis.eff
+COPY_EXISTING ~spnwchrm.vvc~ ~override/cdunhvis.vvc~
+
+// adds unused sequence
+COPY_EXISTING ~spattck1.vvc~ ~override~
+  WRITE_LONG 0x68 0x02 // glowing ball forms
+  WRITE_LONG 0x6c 0x01 // glowing ball static
+  BUT_ONLY
+
+// wrong sounds for aura o' flamin' death
+COPY_EXISTING ~spauraff.vvc~ ~override~
+  WRITE_ASCII 0x78 ~eff_p114~ #8
+  WRITE_ASCII 0x80 ~aft_p28~ #8
+  BUT_ONLY IF_EXISTS
+
+// play intro, then normal sequence
+COPY_EXISTING ~spbldbtm.vvc~ ~override~
+              ~spbldtop.vvc~ ~override~
+  WRITE_LONG 0x68 0x02 // blades appearing
+  WRITE_LONG 0x6c 0x01 // circling
+  WRITE_LONG 0x90 0x03 // disappearing
+  BUT_ONLY
+
+// should have three variations
+COPY_EXISTING ~spcloud1.vvc~ ~override~
+  WRITE_LONG 0x68 0x03
+  WRITE_LONG 0x6c 0x04
+  BUT_ONLY
+
+// create unique spinny animation for horror (see spin105, spwi205, fear immunity batches)
+COPY_EXISTING ~spmindat.vvc~ ~override/cdhorror.vvc~
+
+// enables outro in place of middle for smoother animation
+COPY_EXISTING ~spwood.vvc~ ~override~
+  WRITE_LONG 0x68 0x01
+  WRITE_LONG 0x6c 0x03
+  BUT_ONLY
+
+/////                                                  \\\\\
+///// eff fixes                                        \\\\\
+/////                                                  \\\\\
+
+// new eff for holy smite; needs to display blind icon for blinded creatures
+COPY_EXISTING ~blind.eff~    ~override/cdblind.eff~
+  WRITE_LONG 0x10 142 // display portrait icon
+  WRITE_LONG 0x20   8 // icon: blinded
+
+// new eff for holy smite; needs to display blinded string for blinded creatures
+COPY_EXISTING ~blind.eff~    ~override/cdblind1.eff~
+  WRITE_LONG 0x10   139 // display string
+  WRITE_LONG 0x1c 14674 // string: blinded
+  WRITE_LONG 0x24     1 // Instant/Permanent
+  WRITE_LONG 0x28     0 // duration
+
+// bolt of glory should do same type of damage to all creatures
+COPY_EXISTING ~boltdem.eff~  ~override~
+              ~boltelem.eff~ ~override~
+              ~boltprim.eff~ ~override~
+              ~boltund.eff~  ~override~
+  WRITE_SHORT 0x22 64 // magic
+  BUT_ONLY
+
+// Good aligned mages should suffer spell failure when affected by Unholy Word
+COPY_EXISTING ~casfailm.eff~ ~override~
+  WRITE_SHORT 0x20 0     // parameter 2
+  BUT_ONLY
+
+// sol's searing orb - see also sorb.itm, cdsorb2.eff, udeadbli.eff
+COPY_EXISTING ~cdelfcm3.eff~ ~override/cdsorb1.eff~ // prevent second blinded string for undead
+  WRITE_LONG 0x1c 14674 // string
+
+COPY_EXISTING ~cdblind1.eff~ ~override/cdheld.eff~
+  WRITE_LONG 0x1c 14102 // 'held'
+  WRITE_LONG 0x24 1     // instant/perm
+  WRITE_LONG 0x28 0     // duration
+
+COPY_EXISTING ~cdblind.eff~ ~override/cdhda30.eff~
+  WRITE_LONG 0x20 13 // held icon
+  WRITE_LONG 0x28 30 // duration
+
+COPY_EXISTING ~dawnvis.eff~ ~override/cdhdb30.eff~
+  WRITE_LONG  0x18 0          // power
+  WRITE_LONG  0x28 30         // duration
+  WRITE_ASCII 0x30 ~spmindat~ // swirly anim
+
+// create extended effs for hold animal; use abil_num from spell patch
+OUTER_FOR (index = 60 ; index < 241 ; index += 12) BEGIN
+
+  COPY_EXISTING ~cdhda30.eff~ ~override/cdhda%index%.eff~
+                ~cdhdb30.eff~ ~override/cdhdb%index%.eff~
+    WRITE_LONG 0x28 index // duration
+
+END
+
+// daystar damage vs. evil undead fixes, pt. 2 (see sw1h31.itm, daystar2.eff)
+COPY_EXISTING ~daystar1.eff~ ~override~
+  WRITE_LONG  0x10        177 // use eff file
+  WRITE_LONG  0x14          2 // preset target
+  WRITE_LONG  0x1c          3 // against mask_evil...
+  WRITE_LONG  0x20          8 // ...from align.ids
+  WRITE_LONG  0x24          1 // timing: permanent
+  WRITE_ASCII 0x30 ~daystar2~ // then actually go to another eff for +2 damage
+  WRITE_LONG  0x38          0 // blank leftover dice num
+  WRITE_LONG  0x3c          0 // blank leftover dice size
+  WRITE_LONG  0x60          0 // blank leftover param3
+
+// changes Flame o' North's damage bonus to CE from all E (gets changed to different op later in effing effs, but still needs this fix first)
+COPY_EXISTING ~flamenor.eff~ ~override~
+  WRITE_LONG 0x1c 51
+  BUT_ONLY
+
+// new eff for (un)holy word to display deaf icon; see sppr710.spl, sppr715.spl
+COPY_EXISTING ~iconslow.eff~ ~override/icondeaf.eff~
+  WRITE_LONG 0x20 112 // deafened
+
+// chill touch shouldn't apply to constructs and/or undead ("This energy attacks the life force of any living creature"); see spwi117a.spl, chillt.itm
+COPY_EXISTING ~immsp710.eff~ ~override/spwi117a.eff~
+  WRITE_ASCII 0x30 ~spwi117a~ #8
+
+// conjure air elemental lacks 24 HD elemental; see also elairsu2-4.cre, spair1-3.eff
+OUTER_FOR (i = 1 ; i < 4 ; ++i) BEGIN
+  
+  OUTER_SET j = i + 1
+
+  COPY_EXISTING ~spair%i%.eff~ ~override~
+    WRITE_ASCIIE 0x30 ~elairsu%j%~
+
+END
+
+// change from damage v type (179) to damage (12); see blun12.itm (revised by Wisp)
+COPY_EXISTING ~macedisr.eff~ ~override/cddisr.eff~
+  WRITE_LONG  0x10 12 // opcode: damage
+  WRITE_LONG  0x1c  2 // fixed damage
+  WRITE_SHORT 0x20  0 // straight butter, baby
+  WRITE_SHORT 0x60  0 // param3 not needed
+  BUT_ONLY
+
+// changes bonus damage to undead for IMoD (blun25.itm) to 1d6 + 1 to bring total to 2d6 +4 (revised by Wisp)
+COPY_EXISTING ~cddisr.eff~ ~override/macedisu.eff~
+  WRITE_LONG 0x1c 1 // fixed damage
+
+// new eff to fix runehammer damage
+COPY_EXISTING ~cddisr.eff~ ~override/hamm10.eff~
+  WRITE_LONG 0x38 2 // 2d
+  WRITE_LONG 0x3c 4 // 4
+  WRITE_LONG 0x1c 4 // +4
+
+// new eff to fix runehammer damage
+COPY_EXISTING ~hamm10.eff~ ~override/hamm11.eff~
+  WRITE_LONG 0x1c 5 // +5
+
+// sol's searing orb - see also sorb.itm, cdsorb1.eff, udeadbli.eff
+COPY_EXISTING ~mesdie.eff~ ~override/cdsorb2.eff~ // show lone blinded string for undead
+  WRITE_LONG 0x1c 14674 // string
+  WRITE_LONG 0x40 0 // no save
+  WRITE_LONG 0x44 0
+
+COPY_EXISTING ~lycnhit2.eff~ ~override~ // unused, but fixed anyway
+  WRITE_LONG 0x1c 122 // change racial target from vampires to lycanthropes, matching rest of series
+  BUT_ONLY
+
+// werebane lacks listed +3 thac0 vs lycanthropes since effect's probability is 0
+COPY_EXISTING ~lycnhit3.eff~ ~override~
+  WRITE_SHORT 0x2c 100 // prob1
+  BUT_ONLY
+
+// Polymorph other was setting victim's attacks per round to zero; adjusted to one. See spwi415.spl for one other fix.
+COPY_EXISTING ~plyrate.eff~ ~override~
+  WRITE_LONG 0x1c 1
+  BUT_ONLY
+
+// assassin poison should be a save v death, not save v everything
+COPY_EXISTING ~spcl422.eff~ ~override~
+  WRITE_LONG 0x40 BIT2 // saving throw vs. death ONLY
+  BUT_ONLY
+
+// add miscast magic icon to wizard slayer hits; see spcl133.spl
+COPY_EXISTING ~spcl132.eff~ ~override/spcl132a.eff~
+  WRITE_LONG 0x10 142 // dsplay icon
+  WRITE_LONG 0x20 105 // miscast magic
+
+// more assassin poison; damage is incorrect (corrected to 2dam/sec)
+COPY_EXISTING ~spcl422a.eff~ ~override~
+  WRITE_LONG 0x1c 2 // +2 damage, not 1
+  WRITE_LONG 0x20 2 // type is incorrect (Nythrun)
+  BUT_ONLY
+
+// deathblow has no save and doesn't affect >10 HD creatures
+COPY_EXISTING ~quivvis.eff~ ~override/spcl902a.eff~
+  WRITE_LONG  0x40  0 // no save
+  WRITE_SHORT 0x58 10 // max HD 10
+
+// holy smite/unholy blight damage fixes, part 1 (CamDawg)
+// see also sppr313.spl, sppr314.spl
+COPY_EXISTING ~sp313l05.eff~ ~override~
+              ~sp313l06.eff~ ~override~
+              ~sp313l07.eff~ ~override~
+              ~sp313l08.eff~ ~override~
+              ~sp313l09.eff~ ~override~
+              ~sp313l10.eff~ ~override~
+  WRITE_LONG 0x3c 4 // dice size 2 > 4
+  BUT_ONLY
+
+// holy smite/unholy blight damage fixes, part 2 (CamDawg)
+// see also sppr313.spl, sppr314.spl
+OUTER_SET "dicethrown" = 2
+COPY_EXISTING ~sp313l05.eff~ ~override/sp313l02.eff~
+              ~sp313l06.eff~ ~override/sp313l03.eff~
+              ~sp313l07.eff~ ~override/sp313l04.eff~
+  WRITE_LONG 0x38 "%dicethrown%" // # dice
+  SET "dicethrown" = ("%dicethrown%" + 1)
+
+// greater deathblow has no save and doesn't affect >10 HD creatures
+COPY_EXISTING ~spcl902a.eff~ ~override/spcl903a.eff~
+  WRITE_SHORT 0x58 12 // max HD 12
+
+// display string effs with incorrect timing
+COPY_EXISTING ~spcl906b.eff~ ~override~
+              ~spin935d.eff~ ~override~
+              ~stunstrg.eff~ ~override~
+  WRITE_LONG 0x24 1 // Instant/Permanent
+  WRITE_LONG 0x28 0 // duration
+  BUT_ONLY IF_EXISTS
+
+// greater earth elem (cleric) is hostile, should match summoner's allegiance
+COPY_EXISTING ~speart3p.eff~ ~override~
+  WRITE_LONG 0x20 0 // set to Match target
+  BUT_ONLY
+
+// removing saves from effs; save chances are already handled by the spell file
+COPY_EXISTING ~udead66.eff~  ~override~  // sol's +6d6 deep-fry
+              ~undchstr.eff~ ~override~  // "controlled" str
+              ~undchvis.eff~ ~override~  // spnwchrm for hold spells? l a z y
+  WRITE_LONG 0x40 0x0
+  BUT_ONLY
+
+// sol's searing orb - see also sorb.itm, cdsorb1.eff, cdsorb2.eff
+COPY_EXISTING ~udeadbli.eff~ ~override~ // fix duration for sol's searing orb blindness vs. undead
+  WRITE_LONG 0x28 36 // duration
+
+// great druid title change should retain 'fighter' part fot multi/dual-classes; see also spin722.spl, spin722a.eff, spin722c.eff
+COPY_EXISTING ~spin722a.eff~ ~override/spin722b.eff~
+  WRITE_LONG 0x1c 2543 // great druid
+  WRITE_LONG 0x20 1    // record screen change
+
+// great druid title change should retain 'fighter' part fot multi/dual-classes; see also spin722.spl, spin722a.eff, spin722b.eff
+COPY_EXISTING ~spin722b.eff~ ~override/spin722c.eff~ // class name
+  SAY 0x1c @259
+
+// conjure lesser fire/earth elemental summoning wrong creature
+COPY_EXISTING ~splesfir.eff~ ~override~
+              ~splesear.eff~ ~override~
+  WRITE_ASCII 0x37 ~1~ // corrected file for conjure lesser earth/fire elemental
+
+// hold undead visuals don't work; see spcl742.spl, spwi324.spl, cdunhvis.vvc
+COPY_EXISTING ~undchvis.eff~ ~override/cdunhvis.eff~
+  WRITE_ASCII 0x30 ~cdunhvis~ // new visual// new eff for target-limited charm spells; creates charm sparklies via eff
+COPY_EXISTING ~dawnvis.eff~ ~override/cdcvis.eff~
+  WRITE_LONG  0x18 0          // power
+  WRITE_LONG  0x28 4          // duration
+  WRITE_ASCII 0x30 ~spnwchrm~ // charm sparklies
+
+// since charm can be targeted via general.ids, related effects need to be routed through EFFs
+ACTION_FOR_EACH dur IN 30 60 100 120 300 7200 BEGIN
+
+  // new eff for target-limited charm spells; creates charm icon via eff
+  COPY_EXISTING ~cdca30.eff~ ~override/cdca%dur%.eff~
+    WRITE_LONG 0x28 dur // duration
+
+END
+  
+ACTION_FOR_EACH dur IN 30 48 60 BEGIN // now clone into several ones for varying durations
+
+  COPY_EXISTING ~cdca30.eff~ ~override/cdcb%dur%.eff~
+    WRITE_LONG 0x20   1 // icon: dire charm
+    WRITE_LONG 0x28 dur // duration
+
+END
+
+// new eff for target-limited charm spells; creates eff_e07 expiry sound via eff
+ACTION_FOR_EACH dur IN 60 120 7200 BEGIN // now clone into several ones for varying durations
+
+  COPY_EXISTING ~coldhit.eff~ ~override/cdcc%dur%.eff~
+    WRITE_ASCII 0x30 ~eff_m22a~ #8 // charm expiry sound
+    WRITE_LONG  0x28 dur           // duration
+
+END
+
+// new eff for target-limited charm spells; creates eff_e07 expiry sound via eff
+ACTION_FOR_EACH dur IN 30 100 BEGIN // now clone into several ones for varying durations
+
+  COPY_EXISTING ~coldhit.eff~ ~override/cdcd%dur%.eff~
+    WRITE_ASCII 0x30 ~eff_e07~ #8 // charm expiry sound
+    WRITE_LONG  0x28 dur          // duration
+
+END
+
+COPY_EXISTING ~undhit2.eff~ ~override~ // unused, but fixed anyway
+  WRITE_LONG 0x60 2 // change bonus to 2 from 3, as the name implies and matching rest of eff series
+  BUT_ONLY
+
+/////                                                  \\\\\
+///// bam fixes                                        \\\\\
+/////                                                  \\\\\
+
+//Correct invalid animation frames & offsets
+COPY_EXISTING ~mtang21.bam~  ~override~ //Tanar'ri (Balor)
+              ~mtang21e.bam~ ~override~
+              ~mtang22.bam~  ~override~
+              ~mtang22e.bam~ ~override~
+              ~mtang23.bam~  ~override~
+              ~mtang23e.bam~ ~override~
+              ~mwyvg21.bam~  ~override~ //Wyvern
+              ~mwyvg22.bam~  ~override~
+              ~mwyvg23.bam~  ~override~
+              ~mwyvg24.bam~  ~override~
+  INNER_PATCH ~%SOURCE_RES%~ BEGIN
+    READ_ASCII 6 bn (1) //Read BAM series (1-4)
+  END
+  READ_ASCII 0x0 sg (4) //Signature
+  PATCH_IF (~%sg%~ STRING_EQUAL_CASE ~BAMC~ = 1) BEGIN //If compressed
+    READ_LONG 0x8 dl //Uncompressed data length
+    DECOMPRESS_REPLACE_FILE 0xc (SOURCE_SIZE - 0xc) dl
+    sz = dl
+  END ELSE BEGIN
+    sz = SOURCE_SIZE
+  END
+  READ_SHORT 0x8 fm //Frame count
+  READ_LONG 0xc ft //Frame entry offset
+  FOR (f1 = 0; f1 < fm; f1 += 1) BEGIN //Frame loop
+    READ_SHORT (ft + (f1 * 0xc)) fw //Frame width
+    READ_SHORT (ft + (f1 * 0xc) + 2) fh //Frame height
+    PATCH_IF ((fw < 1) AND (fh != 0)) OR ((fh < 1) AND (fw != 0)) BEGIN //If invalid dimensions
+      WRITE_SHORT (ft + (f1 * 0xc)) 0 //Correct width
+      WRITE_SHORT (ft + (f1 * 0xc) + 2) 0 //Correct height
+      fw = 0
+      fh = 0
+    END
+    PATCH_IF bn = 1 BEGIN //If upper left frame
+      WRITE_SHORT (ft + (f1 * 0xc) + 4) fw //X coordinate
+      WRITE_SHORT (ft + (f1 * 0xc) + 6) (fh + 40) //Y coordinate
+    END ELSE BEGIN
+      PATCH_IF bn = 2 BEGIN //If upper right frame
+        WRITE_SHORT (ft + (f1 * 0xc) + 4) 0 //X coordinate
+        WRITE_SHORT (ft + (f1 * 0xc) + 6) (fh + 40) //Y coordinate
+      END ELSE BEGIN
+        PATCH_IF bn = 3 BEGIN //If lower left frame
+          WRITE_SHORT (ft + (f1 * 0xc) + 4) fw //X coordinate
+          WRITE_SHORT (ft + (f1 * 0xc) + 6) 40 //Y coordinate
+        END ELSE BEGIN
+          PATCH_IF bn = 4 BEGIN //If lower right frame
+            WRITE_SHORT (ft + (f1 * 0xc) + 4) 0 //X coordinate
+            WRITE_SHORT (ft + (f1 * 0xc) + 6) 40 //Y coordinate
+          END
+        END
+      END
+    END
+  END
+  COMPRESS_REPLACE_FILE 0 sz 9
+  INSERT_BYTES 0x0 0xc
+  WRITE_ASCII 0x0 ~BAMCV1  ~
+  WRITE_LONG 0x8 dl
+  BUT_ONLY
+
+/////                                                  \\\\\
+///// music fixes                                      \\\\\
+/////                                                  \\\\\
+
+// from remix, devsin
+COPY_EXISTING ~music/bc1.mus~ ~music~
+  REPLACE_TEXTUALLY ~J1 +B1 +@TAG +ZJ~ ~J1  BC1   B1        @TAG ZJ~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bc2.mus~ ~music~
+  REPLACE_TEXTUALLY ~K1 +A2 +@TAG +Z~ ~K1  BC2   A2        @TAG Z~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bd1.mus~ ~music~
+  REPLACE_TEXTUALLY ~E2 +B1 +@TAG +ZB~ ~E2  BD1   B1        @TAG ZB~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bd2.mus~ ~music~
+  REPLACE_TEXTUALLY ~F2 +B1 +@TAG +ZF~ ~F2  BD2   B1        @TAG ZF~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bd2/bd2zg2.acm~ ~music/bd3/bd3zg2.acm~
+
+COPY_EXISTING ~music/bd3.mus~ ~music~
+  REPLACE_TEXTUALLY ~G2 +A2 +@TAG +ZG2~ ~G2  BD3   A2        @TAG ZG2~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bf1.mus~ ~music~
+  REPLACE_TEXTUALLY ~H2 +B1 +@TAG +Z~ ~H2  BF1   B1        @TAG Z~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bf2.mus~ ~music~
+  REPLACE_TEXTUALLY ~J3 +B1 +@TAG +ZJ3~ ~J3  BF2   B1        @TAG ZJ3~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bjr.mus~ ~music~
+  REPLACE_TEXTUALLY "H2 +B1" "H2 BJR B1"
+  REPLACE_TEXTUALLY ZA Z
+  SET_2DA_ENTRY 11 2 3 ZB
+  BUT_ONLY  
+
+COPY_EXISTING ~music/bm1.mus~ ~music~
+  INSERT_2DA_ROW 11 3 "J1 @TAG ZA"
+  INSERT_2DA_ROW 12 3 "J2 BM1 B1 @TAG ZB"
+  REPLACE_TEXTUALLY ~H1 +B2~ ~H1~
+  SET_2DA_ENTRY 1 0 1 13
+
+COPY_EXISTING ~music/bm2.mus~ ~music~
+  REPLACE_TEXTUALLY ~N2 +B1 +@TAG +ZA~ ~N1  BM2   B1        @TAG ZA~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bp1.mus~ ~music~
+  REPLACE_TEXTUALLY ~H3 +B1 +@TAG +ZA~ ~H3  BP1   B1        @TAG ZA~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bp2.mus~ ~music~
+  REPLACE_TEXTUALLY ~K1 +B1 +@TAG +Z~ ~K1  BP2   B1        @TAG Z~
+  BUT_ONLY
+
+COPY_EXISTING ~music/brd.mus~ ~music~
+  REPLACE_TEXTUALLY ~B2 +A1 +@TAG +ZB~ ~B2  BRD   A1        @TAG ZB~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bsd.mus~ ~music~
+  REPLACE_TEXTUALLY ~F2A +A2 +@TAG +ZF2~ ~F2A  BSD  A2        @TAG ZF2~
+  BUT_ONLY
+
+COPY_EXISTING ~music/bst.mus~ ~music~
+  REPLACE_TEXTUALLY ~J1 +C1 +@TAG +ZH2~ ~J1  BST   C1        @TAG ZH2~
+  BUT_ONLY
+
+COPY_EXISTING ~music/harp_v2.mus~ ~music~
+  SET_2DA_ENTRY 6 0 1 ~1C~ // the current entry, C (HARP_V2C.ACM), doesn't exist
+  BUT_ONLY
+
+COPY_EXISTING ~music/harp_v6.mus~ ~music~
+  REPLACE_TEXTUALLY ~^5~ ~6~
+  BUT_ONLY
+
+COPY_EXISTING ~music/mx0202.mus~ ~music/mxkalah.mus~
+  REPLACE_TEXTUALLY ~0202~ ~KALAH~
+
+COPY_EXISTING ~music/mx0202.mus~ ~music/mxkhali.mus~
+  REPLACE_TEXTUALLY ~0202~ ~KHALI~
+
+COPY_EXISTING ~music/mx0202.mus~ ~music/mxthief.mus~
+  REPLACE_TEXTUALLY ~0202~ ~THIEF~
+
+ACTION_IF tob_game THEN BEGIN // ToB-only stuff check
+
+  COPY_EXISTING ~music/dream2.mus~ ~music~
+    REPLACE_TEXTUALLY ~DREAM~ ~COMBO~
+
+  COPY_EXISTING ~music/mb.mus~ ~music~
+    REPLACE_TEXTUALLY ~_F3 +_A2 +@TAG +_G1~ ~_F3  MB  _A2    @TAG _G1~
+    BUT_ONLY
+
+  COPY_EXISTING ~music/vb.mus~ ~music~
+    REPLACE_TEXTUALLY ~_H2 +_B2 +@TAG +_I1~ ~_H2  VB    _B2        @TAG _I1~
+    BUT_ONLY
+
+END

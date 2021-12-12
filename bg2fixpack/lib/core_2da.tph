@@ -1,0 +1,480 @@
+/////                                                  \\\\\
+///// misc 2da fixes                                   \\\\\
+/////                                                  \\\\\
+
+// chicken sound fixes
+COPY_EXISTING ~achk.2da~ ~override~
+  SET_2DA_ENTRY 12 1 1 0
+  SET_2DA_ENTRY 14 1 1 0
+  BUT_ONLY
+
+// allows multi-class thieves to be LN and LE
+COPY_EXISTING ~alignmnt.2da~ ~override~
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 13 2 ~1~ // ft
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 13 3 ~1~
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 14 2 ~1~ // fmt
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 14 3 ~1~
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 15 2 ~1~ // mt
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 15 3 ~1~
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 17 2 ~1~ // ct
+  SET_2DA_ENTRY_LATER ~ALIGNMNT~ 17 3 ~1~
+  SET_2DA_ENTRIES_NOW ~ALIGNMNT~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// blade pp fix; see cdblpp1-5.spl
+COPY_EXISTING ~clabba02.2da~ ~override~
+  SET_2DA_ENTRY_LATER ~blade~ 8 1 ~AP_CDBLPP1~
+  FOR (col = 2 ; col < 15 ; col = col + 2) BEGIN
+    SET_2DA_ENTRY_LATER ~blade~ 8 col ~AP_CDBLPP3~
+  END
+  FOR (col = 3 ; col < 16 ; col = col + 2) BEGIN
+    SET_2DA_ENTRY_LATER ~blade~ 8 col ~AP_CDBLPP2~
+  END
+  FOR (col = 16 ; col < 37 ; col = col + 2) BEGIN
+    SET_2DA_ENTRY_LATER ~blade~ 8 col ~AP_CDBLPP4~
+  END
+  FOR (col = 17 ; col < 37 ; col = col + 2) BEGIN
+    SET_2DA_ENTRY_LATER ~blade~ 8 col ~AP_CDBLPP5~
+  END
+  SET_2DA_ENTRIES_NOW ~blade~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// fix skald's lack of thac0 bonus
+COPY_EXISTING ~clabba04.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]AP_SPCL\)5\(41[ %TAB%]\)~ ~\11\2~ // Replaces Skald's +1 damage with Swashbuckler's +1 thac0/damage.
+  UNLESS ~[ %TAB%]AP_SPCL141[ %TAB%]~
+  BUT_ONLY
+
+// avenger druids getting imp. invisibility one level too early
+COPY_EXISTING ~clabdr04.2da~ ~override~
+  REPLACE_TEXTUALLY ~[ %TAB%]GA_SPDR401[ %TAB%]~ ~ ****       ~
+APPEND ~clabdr04.2da~ ~ABILITY7    ****        ****        ****        ****        ****        ****        GA_SPDR401  ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****    ****        ****        ****        ****        ****        ****        ****       ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****        ****~
+
+// the progression of the kensai abilities spcl141 and spcl143 are both irregular; the table is also one cell short in the first row
+COPY_EXISTING ~clabfi04.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]AP_SPCL141[ %TAB%]+\*\*\*\*[ %TAB%]+\)\(AP_SPCL141[ %TAB%]\)~
+                    ~\1 **** \2~            //Fix the broken progression for SPCL141 by adding the missing cell
+  REPLACE_TEXTUALLY ~[ %TAB%]AP_SPCL143[ %TAB%]~ ~ **** ~                             //Remove all instances of SPCL143 and start from scratch
+  COUNT_2DA_COLS cols
+  READ_2DA_ENTRIES_NOW "#rclabfi04" cols
+  FOR (i = 0; i < cols; i += 4) BEGIN                              //Add abilities every 4 levels
+    PATCH_IF i = 0 BEGIN SET i = 1 END
+    FOR (j = 0; j < "#rclabfi04"; ++j) BEGIN
+      READ_2DA_ENTRY_FORMER "#rclabfi04" j i entry
+      PATCH_IF "%entry%" STRING_EQUAL "****" BEGIN
+        SET_2DA_ENTRY_LATER "#sclabfi04" j i AP_SPCL143
+        j = "#rclabfi04"
+      END
+    END
+    PATCH_IF i = 1 BEGIN SET i = 0 END
+  END
+  SET_2DA_ENTRIES_NOW "#sclabfi04" cols
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// fallen paladin/ranger has extra entries in the ABILITY1 line
+COPY_EXISTING ~clabfi05.2da~ ~override~
+  REPLACE_TEXTUALLY ~^\(ABILITY1 +[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+[ %TAB%]+[^ %TAB%]+\).*$~ ~\1~
+  BUT_ONLY
+
+// Fix Inquisitors not getting charm immunity at level 1 (Dakk)
+COPY_EXISTING ~clabpa03.2da~ ~override~ // Inquisitor ability table
+  SET_2DA_ENTRY  3 2 3 ~****~
+  SET_2DA_ENTRY 10 1 3 ~AP_SPCL233b~
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// fallen paladins/rangers should not cast spells via script; see also spcl234d.spl
+COPY_EXISTING ~clabpa05.2da~ ~override~ // fallen paladin kit
+              ~clabrn05.2da~ ~override~ // fallen ranger kit
+  SET_2DA_ENTRY 3 1 41 AP_SPCL234D      // permanently disables divine spellcasting
+  PRETTY_PRINT_2DA
+
+// in SoA, two swashbuckler ability columns run together
+COPY_EXISTING ~clabth04.2da~ ~override~
+  REPLACE_TEXTUALLY ~\(AP_SPCL[14]41\)\(\*+\|GA_SPCL412\)~ ~\1 \2~
+  BUT_ONLY
+
+// in ToB archers and stalkers not allowed to dual-class; adding restriction to SoA games as well
+COPY_EXISTING ~dualclas.2da~ ~override~
+  SET_2DA_ENTRY 32 2 7 ~0~ // archer (feralan)
+  SET_2DA_ENTRY 33 2 7 ~0~ // stalker
+  BUT_ONLY
+
+// Imoen gets her groove back. And her banter file.
+ACTION_IF tob_game THEN BEGIN
+
+  COPY_EXISTING ~interdia.2da~ ~override~
+    SET_2DA_ENTRY 17 1 2 ~BIMOEN2~ // fixes ToB version
+    BUT_ONLY
+
+END ELSE BEGIN
+
+  APPEND ~interdia.2da~ ~IMOEN       BIMOEN2~ UNLESS ~[ %TAB%]BIMOEN2[ %TAB%%LNL%%MNL%%WNL%]~ // fixes SoA version
+
+
+END
+
+// maze not lasting as long as specified in descript; patching intmod.2da for int < 9
+COPY_EXISTING ~intmod.2da~ ~override~
+  SET dice = 20
+  FOR (index = 3 ; index < 12 ; ++index) BEGIN
+    SET_2DA_ENTRY_LATER ~intmod~ index 4 dice
+    PATCH_IF (index = 5) BEGIN SET dice = 10 END ELSE
+    PATCH_IF (index = 8) BEGIN SET dice = 5 END
+  END
+  SET_2DA_ENTRIES_NOW ~intmod~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// Mithral Field Plate Armor +2 and Missile Attraction +2 armors can no longer be worn together with rings and amulets of protection (Wisp)
+APPEND ~itemexcl.2da~ ~bruenpla 1~ UNLESS ~^bruenpla[ %TAB%]~
+APPEND ~itemexcl.2da~ ~leat06   1~ UNLESS ~^leat06[ %TAB%]~
+
+// removes incorrect NWN reference in load hints
+COPY_EXISTING ~loadhint.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)40954\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\134572\2~
+  BUT_ONLY
+
+// Fix the incorrect lore bonus for 15 INT/WIS (Ascension 64 and Hurricane)
+COPY_EXISTING ~lorebon.2da~ ~override~
+  SET_2DA_ENTRY 15 1 2 ~3~
+  BUT_ONLY
+
+// sound fixes for monsters
+COPY_EXISTING ~mcar.2da~ ~override/mcwl.2da~
+  REPLACE_TEXTUALLY ~^Mcar.+$~ ~%DEST_RES% /Carrion Crawler/~
+
+COPY_EXISTING ~mdji.2da~ ~override/mdjl.2da~
+  REPLACE_TEXTUALLY ~^Mdji.+$~ ~%DEST_RES% /djinni w legs/~
+
+COPY_EXISTING ~mgo1.2da~ ~override/mgo3.2da~
+  REPLACE_TEXTUALLY ~^MGO1.+$~ ~%DEST_RES% /goblin elite w axe/~
+
+COPY_EXISTING ~mgo2.2da~ ~override/mgo4.2da~
+  REPLACE_TEXTUALLY ~^MGO2.+$~ ~%DEST_RES% /goblin elite w bow/~
+
+COPY_EXISTING ~mli2.2da~ ~override/mli3.2da~
+  REPLACE_TEXTUALLY ~^MLI2.+$~ ~%DEST_RES% /lizard man caster 3/~
+
+COPY_EXISTING ~mmyc.2da~ ~override/mmy2.2da~
+  REPLACE_TEXTUALLY ~^MMYC.+$~ ~%DEST_RES% /myconid,blue/~
+
+COPY_EXISTING ~mor2.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)orcbw07\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1orcbw07a\2~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)orcbw08\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1orcbw07b\2~
+  BUT_ONLY
+
+COPY_EXISTING ~mor2.2da~ ~override/mor4.2da~
+  REPLACE_TEXTUALLY ~^MOR2.+$~  ~%DEST_RES% /orc ranged 4/~
+
+COPY_EXISTING ~msal.2da~ ~override/msa2.2da~
+  REPLACE_TEXTUALLY ~^MSAL.+$~ ~%DEST_RES% /salamander,frost/~
+
+// sound fix
+COPY_EXISTING ~achk.2da~ ~override/mshr.2da~ // It's easier to just build these from the ground up
+  SET_2DA_ENTRY_LATER ~mshr~  0 0 ~MSHR /shrieker/~
+  SET_2DA_ENTRY_LATER ~mshr~  3 1 ~SHRIE04B NOSOUND NOSOUND~
+  SET_2DA_ENTRY_LATER ~mshr~  4 1 ~2 0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 11 1 ~SHRIE07A SHRIE07B~
+  SET_2DA_ENTRY_LATER ~mshr~ 12 1 ~0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 13 1 ~SHRIE09A SHRIE09B~
+  SET_2DA_ENTRY_LATER ~mshr~ 14 1 ~0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 25 1 ~SHRIE03A NOSOUND NOSOUND~
+  SET_2DA_ENTRY_LATER ~mshr~ 26 1 ~2 0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 27 1 ~SHRIE03B NOSOUND NOSOUND~
+  SET_2DA_ENTRY_LATER ~mshr~ 28 1 ~2 0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 29 1 ~SHRIE04A NOSOUND NOSOUND~
+  SET_2DA_ENTRY_LATER ~mshr~ 30 1 ~2 0 0~
+  SET_2DA_ENTRY_LATER ~mshr~ 39 1 ~***~ // Doesn't really need a battle cry, since it doesn't ever attack
+  SET_2DA_ENTRIES_NOW ~mshr~ 1
+
+COPY_EXISTING ~mska.2da~ ~override/mskt.2da~
+  REPLACE_TEXTUALLY ~^MSKA.+$~ ~%DEST_RES% /skeleton armored no helmet/~
+
+// small spider soundset fixes
+COPY_EXISTING ~msps.2da~ ~override~
+  REPLACE_TEXTUALLY ~^Selection[ %TAB%]+smspid03~ ~Selection                       smspid01~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)smspid03\([ %TAB%]+\)smspid04\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1smspid01\2smspid02\3~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)smspid08\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1smspid06\2~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)smspid09\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1smspid07\2~
+  BUT_ONLY
+
+COPY_EXISTING ~mwfm.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)pseudo0\([0-9][ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1pseud0\2~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)pseudo0\([0-9][ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1pseud0\2~
+  BUT_ONLY
+
+COPY_EXISTING ~mair.2da~ ~override/mwwe.2da~
+  REPLACE_TEXTUALLY ~^Mair.+$~ ~%DEST_RES% /water weird~
+
+COPY_EXISTING ~myu2.2da~ ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)yanel\([78]a[ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1yanel0\2~
+  REPLACE_TEXTUALLY ~\([ %TAB%]\)yanel\([78]b[ %TAB%%LNL%%MNL%%WNL%]\)~ ~\1yanel0\2~ // b's were being missed since the space inbetween was being matched in the a replacements
+  BUT_ONLY
+
+// gives bards a fourth level 6 spell at high levels, SoA-only
+ACTION_IF !tob_game THEN BEGIN
+
+  COPY_EXISTING ~mxsplbrd.2da~ ~override~
+    COUNT_2DA_ROWS ~1~ "rowcount"
+    FOR (row = rowcount ; row > (rowcount - 19) ; row = row - 1) BEGIN
+      SET_2DA_ENTRY_LATER ~MXSPLBRD~ "%row%" 6 ~4~
+    END
+    SET_2DA_ENTRIES_NOW ~MXSPLBRD~ 1
+    BUT_ONLY
+
+END
+
+// NPCs joining level 25+ PCs in SoA would be at their minimum level, not max
+COPY_EXISTING ~npclevel.2da~ ~override~
+  COUNT_2DA_COLS col_num
+  COUNT_2DA_ROWS (col_num - 1) row_num
+  READ_2DA_ENTRY 0 (col_num - 2) (col_num - 1) level    // read last enry of top line as level
+  READ_2DA_ENTRY 0 0 (col_num - 1) val                  // weidu seems to freak out with a top line w/ one less entry
+  SET_2DA_ENTRY  0 0 (col_num - 1) ~CD_DELETE_ME %val%~ // temp
+  FOR (index = level ; index < 40 ; ++index) BEGIN
+    SET new = index + 1
+    FOR (index2 = 1 ; index2 < row_num ; ++index2) BEGIN // extend all other rows with previous column's value
+      READ_2DA_ENTRY index2 (col_num - 1) (col_num) val
+      SET_2DA_ENTRY  index2 (col_num - 1) (col_num) ~%val% %val%~
+    END
+    SET_2DA_ENTRY 0 (col_num - 1) (col_num) ~%index% %new%~ // extend level row
+    SET col_num += 1
+  END
+  REPLACE_TEXTUALLY ~CD_DELETE_ME~ ~~
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// consistent raise dead prices
+COPY_EXISTING ~raisdead.2da~ ~override~
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 31 1 ~12500~ // level 29
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 32 1 ~13000~ // level 30
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 34 1 ~14000~ // level 32
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 36 1 ~15000~ // level 34
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 38 1 ~16000~ // level 36
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 40 1 ~17000~ // level 38
+  SET_2DA_ENTRY_LATER ~RAISDEAD~ 42 1 ~18000~ // level 40
+  SET_2DA_ENTRIES_NOW ~RAISDEAD~ 1
+  BUT_ONLY
+
+// pellan's +2 large shield is unique; leaving lone copy on Chak, see also gorcamb.cre
+COPY_EXISTING ~rndequip.2da~ ~override~
+              ~rndwep.2da~   ~override~
+  REPLACE_TEXTUALLY ~\([ %TAB%]SHLD\)19\([ %TAB%]\)~ ~\130\2~
+
+// fixes to high level rogue saves
+COPY_EXISTING ~saverog.2da~ ~override~
+  FOR (col = 21 ; col < 41 ; ++col) BEGIN
+    SET_2DA_ENTRY_LATER ~SAVEROG~ 3 "%col%" ~8~
+    SET_2DA_ENTRY_LATER ~SAVEROG~ 4 "%col%" ~4~
+    SET_2DA_ENTRY_LATER ~SAVEROG~ 5 "%col%" ~7~
+    SET_2DA_ENTRY_LATER ~SAVEROG~ 6 "%col%" ~11~
+    SET_2DA_ENTRY_LATER ~SAVEROG~ 7 "%col%" ~5~
+  END
+  SET_2DA_ENTRIES_NOW ~SAVEROG~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+// fixes to high level mage saves
+COPY_EXISTING ~savewiz.2da~ ~override~
+  FOR (col = 21 ; col < 41 ; ++col) BEGIN
+    SET_2DA_ENTRY_LATER ~SAVEWIZ~ 3 "%col%" ~8~
+    SET_2DA_ENTRY_LATER ~SAVEWIZ~ 4 "%col%" ~3~
+    SET_2DA_ENTRY_LATER ~SAVEWIZ~ 5 "%col%" ~5~
+    SET_2DA_ENTRY_LATER ~SAVEWIZ~ 6 "%col%" ~7~
+    SET_2DA_ENTRY_LATER ~SAVEWIZ~ 7 "%col%" ~4~
+  END
+  SET_2DA_ENTRIES_NOW ~SAVEWIZ~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+//build skilldex down to 1
+OUTER_FOR (index = 8 ; index > 0 ; --index) BEGIN
+
+  OUTER_SET clone = index + 1
+
+  COPY_EXISTING ~skilldex.2da~ ~override~
+    REPLACE_TEXTUALLY ~^%clone%\([ %TAB%].+$\)~
+~%index%\1
+%clone%\1~
+    UNLESS ~^%index%[ %TAB%]~
+    BUT_ONLY
+
+END
+
+// Fix the incorrect thieving skill racial bonus for elves, half-elves and halflings (Hurricane and aVENGER)
+COPY_EXISTING ~skillrac.2da~ ~override~
+  SET_2DA_ENTRY 2 4 8 ~15~ // Elf Move Silently correction (was 20)
+  SET_2DA_ENTRY 4 4 8 ~10~ // Half-Elf Move Silently correction (was 15)
+  SET_2DA_ENTRY 5 4 8 ~20~ // Halfling Move Silently correction (was 25)
+  BUT_ONLY
+
+// Fix the incorrect Move Silently entry for Ranger level 2 (Ascension 64 and Hurricane)
+COPY_EXISTING ~skillrng.2da~ ~override~
+  SET_2DA_ENTRY 2 1 2 ~21~
+  BUT_ONLY
+
+// echo-y Promenade fix
+COPY_EXISTING ~sndresrf.2da~ ~override~
+  REPLACE_TEXTUALLY ~^AR0700[ %TAB%]+STONE0[ %TAB%%LNL%%MNL%%WNL%]+~ ~~
+  BUT_ONLY
+
+// cure medium wounds lacks a description when offered in temple services
+OUTER_SET string = RESOLVE_STR_REF (@217)
+APPEND ~speldesc.2da~ ~SPPR315     %string%~
+
+// spell shield is hardcoded to display icon #73 which is currently protection from magical energy; need to swap
+// see also states.bam, states2.bam, spwi606.spl
+COPY_EXISTING ~statdesc.2da~ ~override~
+  REPLACE_TEXTUALLY ~^\(73[%TAB% ]+\)[0-9]+~ ~\126228~
+  REPLACE_TEXTUALLY ~^\(123[%TAB% ]+\)[0-9]+~ ~\18286~
+  BUT_ONLY
+
+// thieves, bards, mage-thieves not getting final thac0 bump at level 21
+COPY_EXISTING ~thac0.2da~ ~override~
+  SET_2DA_ENTRY  6 21 1 ~10~
+  SET_2DA_ENTRY  7 21 1 ~10~
+  SET_2DA_ENTRY 15 21 1 ~10~
+  BUT_ONLY
+
+// adds dupe rod of lordly might, book of infinite spells
+COPY_EXISTING ~tooltip.2da~ ~override~
+  REPLACE_TEXTUALLY ~^\(rods02\|misc3a\)\([ %TAB%]+.+\)$~ ~\1\2
+\1a\2~
+  BUT_ONLY
+
+COPY_EXISTING ~weapprof.2da~ ~override~
+  SET_2DA_ENTRY_LATER ~weapprof~ 16 41 ~2~ // 1 > 2 stars for swashbucklers in katanas
+  SET_2DA_ENTRY_LATER ~weapprof~ 16 51 ~1~ // 0 > 1 star for monk in katanas
+  SET_2DA_ENTRY_LATER ~weapprof~ 20 20 ~2~ // 3 > 2 stars for f/m/c in clubs
+  SET_2DA_ENTRY_LATER ~weapprof~ 20 21 ~2~ // 3 > 2 stars for c/r in clubs
+  SET_2DA_ENTRY_LATER ~weapprof~ 26 41 ~1~ // 2 > 1 star for swashbucklers in xbows
+  SET_2DA_ENTRY_LATER ~weapprof~ 28 41 ~1~ // 2 > 1 star for swashbucklers in shortbows
+  SET_2DA_ENTRY_LATER ~weapprof~ 29 32 ~0~ // 5 > 0 stars for kensai in darts
+  SET_2DA_ENTRY_LATER ~weapprof~ 29 33 ~0~ // 2 > 0 stars for cavalier in darts
+  SET_2DA_ENTRY_LATER ~weapprof~ 30 41 ~1~ // 2 > 1 star for swashbucklers in slings
+  SET_2DA_ENTRY_LATER ~weapprof~ 31 19 ~2~ // 1 > 2 stars for f/d in 2 handed
+  SET_2DA_ENTRY_LATER ~weapprof~ 31 20 ~2~ // 1 > 2 stars for f/m/c in 2 handed
+  SET_2DA_ENTRY_LATER ~weapprof~ 31 21 ~2~ // 1 > 2 stars for c/r in 2 handed
+  SET_2DA_ENTRY_LATER ~weapprof~ 31 41 ~1~ // 2 > 1 stars for swashbucklers in 2 handed
+  SET_2DA_ENTRY_LATER ~weapprof~ 32 41 ~1~ // 2 > 1 stars for swashbucklers in sword & shield
+  SET_2DA_ENTRY_LATER ~weapprof~ 33 41 ~1~ // 2 > 1 stars for swashbucklers in 1-handed style
+  SET_2DA_ENTRY_LATER ~weapprof~ 34 19 ~3~ // 1 > 3 stars for f/d in 2 wpn style
+  SET_2DA_ENTRY_LATER ~weapprof~ 34 20 ~3~ // 2 > 3 stars for f/m/c in 2 wpn style
+  SET_2DA_ENTRY_LATER ~weapprof~ 34 21 ~3~ // 2 > 3 stars for c/r in 2 wpn style
+  COUNT_2DA_ROWS ~1~ "rowcount"
+  FOR (row = rowcount ; row > (rowcount - 20) ; row = row - 1) BEGIN // covers last 19 rows (n/a as actual profs)
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%"  5 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%"  8 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%"  9 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 11 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 12 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 14 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 15 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 20 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 21 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 30 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 31 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 32 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 33 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 34 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 35 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 36 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 37 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 38 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 42 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 43 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 44 ~0~
+    SET_2DA_ENTRY_LATER ~weapprof~ "%row%" 52 ~0~
+  END
+  SET_2DA_ENTRIES_NOW ~weapprof~ 1
+  PRETTY_PRINT_2DA
+  BUT_ONLY
+
+ACTION_IF tob_game THEN BEGIN // ToB-only stuff check
+
+  // invalid resource ref used for bard kits
+  COPY_EXISTING ~25stweap.2da~ ~override~
+    REPLACE_TEXTUALLY ~\([ %TAB%]\)LEATH14\([ %TAB%]\)~ ~\1LEAT14 \2~
+    BUT_ONLY
+
+  // part of the multi-holy symbol exploit fix. Also needed: CDHLYSYM.spl, CDHLYSY2.spl, CDHLYSYM.itm, and holysym.baf.
+  COPY_EXISTING ~clabpr01.2da~ ~override~
+                ~clabpr02.2da~ ~override~
+                ~clabpr03.2da~ ~override~
+                ~clabpr04.2da~ ~override~
+    REPLACE_TEXTUALLY ~\([ %TAB%]\)AP_SPCl93[1234]\([ %TAB%]\)~ ~\1AP_CDHLYSYM\2~
+    BUT_ONLY
+
+  APPEND ~loadhint.2da~ ~75          72818~ UNLESS ~^75[ %TAB%]~
+
+  // removes incorrect NWN reference in load hints
+  COPY_EXISTING ~loadh25.2da~ ~override~
+    REPLACE_TEXTUALLY ~\([ %TAB%]\)40954\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~\134572\2~
+    BUT_ONLY
+
+  // gives f/m/c and f/m/t unique HLAs; tables created below
+  COPY_EXISTING ~luabbr.2da~ ~override~
+    SET_2DA_ENTRY 14 1 1 ~FMT~
+    SET_2DA_ENTRY 19 1 1 ~FMC~
+    BUT_ONLY
+
+  // Multiclass Thieves' Multiple Assassination Abilities Fix part 1
+  COPY_EXISTING ~luba1.2da~ ~override~
+                ~luba2.2da~ ~override~
+                ~luba3.2da~ ~override~
+                ~luct0.2da~ ~override~
+                ~lumt0.2da~ ~override~
+                ~luth2.2da~ ~override~
+                ~luth3.2da~ ~override~
+    SET_2DA_ENTRY 9 7 1 ~*~
+    SET_2DA_ENTRY 9 8 1 ~GA_SPCL916~
+    BUT_ONLY
+
+  // Multiclass Thieves' Multiple Assassination Abilities Fix part 2
+  COPY_EXISTING ~luft0.2da~ ~override~
+    SET_2DA_ENTRY 19 7 1 ~*~
+    SET_2DA_ENTRY 19 8 1 ~GA_SPCL916~
+    BUT_ONLY
+
+  // creates f/m/c HLA table
+  COPY_EXISTING ~lufc0.2da~ ~override/lufmc.2da~
+    FOR (ROW = 22; ROW < 25; ROW = ROW + 1) BEGIN
+      SET_2DA_ENTRY_LATER ~LUFMC~ ROW 4 ~1~
+      SET_2DA_ENTRY_LATER ~LUFMC~ ROW 5 ~99~
+      SET_2DA_ENTRY_LATER ~LUFMC~ ROW 6 ~1~
+    END
+    SET_2DA_ENTRY_LATER ~LUFMC~ 22 1 ~AP_SPCL928~
+    SET_2DA_ENTRY_LATER ~LUFMC~ 23 1 ~AP_SPCL929~
+    SET_2DA_ENTRY_LATER ~LUFMC~ 23 7 ~AP_SPCL928~
+    SET_2DA_ENTRY_LATER ~LUFMC~ 24 1 ~AP_SPCL930~
+    SET_2DA_ENTRY_LATER ~LUFMC~ 24 7 ~AP_SPCL929~
+    SET_2DA_ENTRIES_NOW ~LUFMC~ 1
+    PRETTY_PRINT_2DA
+    BUT_ONLY
+
+  // creates f/m/t HLA table
+  COPY_EXISTING ~luft0.2da~ ~override/lufmt.2da~
+    FOR (ROW = 23; ROW < 26; ROW = ROW + 1) BEGIN
+      SET_2DA_ENTRY_LATER ~LUFMT~ ROW 4 ~1~
+      SET_2DA_ENTRY_LATER ~LUFMT~ ROW 5 ~99~
+      SET_2DA_ENTRY_LATER ~LUFMT~ ROW 6 ~1~
+    END
+    SET_2DA_ENTRY_LATER ~LUFMT~ 23 1 ~AP_SPCL928~
+    SET_2DA_ENTRY_LATER ~LUFMT~ 24 1 ~AP_SPCL929~
+    SET_2DA_ENTRY_LATER ~LUFMT~ 24 7 ~AP_SPCL928~
+    SET_2DA_ENTRY_LATER ~LUFMT~ 25 1 ~AP_SPCL930~
+    SET_2DA_ENTRY_LATER ~LUFMT~ 25 7 ~AP_SPCL929~
+    SET_2DA_ENTRIES_NOW ~LUFMT~ 1
+    PRETTY_PRINT_2DA
+    BUT_ONLY
+
+  //fixes Gromnir XP bug
+  COPY_EXISTING ~xplist.2da~ ~override~
+    SET_2DA_ENTRY 67 38 39 ~-1 -1 -1 -1~
+    PRETTY_PRINT_2DA
+    BUT_ONLY
+END

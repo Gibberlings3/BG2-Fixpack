@@ -1,0 +1,268 @@
+/////                                                  \\\\\
+///// mass compile/copy actions actions                \\\\\
+/////                                                  \\\\\
+
+COMPILE ~bg2fixpack/compile/soa-dlg.d~    // all dialogue fixes
+        ~bg2fixpack/compile/ar0512.baf~   // blanks area script for helm temple in bridge ditrict; had been using old durlag tower script
+        ~bg2fixpack/compile/bhcrypt.baf~  // crypt king horror
+        ~bg2fixpack/compile/bystand1.baf~ // ler should approach PC after irenicus/cw carnage; see also bystand1.cre
+        ~bg2fixpack/compile/cdkpdog.baf~  // keep dogs non-hostile, see kpdog1-4.cre
+        ~bg2fixpack/compile/cut41i.baf~   // spellhold cutscene loop; starts dialogue after ending cutscene
+        ~bg2fixpack/compile/cut41j.baf~   // spellhold cutscene loop; starts dialogue after ending cutscene
+        ~bg2fixpack/compile/druidad.baf~  // makes druid messenger destroyself if PC is great druid; see druidad.cre
+        ~bg2fixpack/compile/rdog.baf~     // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rdwarf.baf~   // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/retter.baf~   // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rgibbler.baf~ // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rhalflin.baf~ // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rhobgoba.baf~ // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rhobgobf.baf~ // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rkobold.baf~  // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rogre.baf~    // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rsiren.baf~   // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/rsirine.baf~  // corrupted scrpt; compile new one with uncorrupted bits
+        ~bg2fixpack/compile/sahkng02.baf~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+COPY_EXISTING ~ar0512.bcs~ ~override/ar1700.bcs~ // small teeth pass also using old BG script
+              ~ar0512.bcs~ ~override/ar1800.bcs~ // north forest also using old BG script
+
+// list these individually for reference instead of a bulk copy
+COPY ~bg2fixpack/copy/amb_e09b.wav~ ~override~ // missing ambient sound files from BG
+     ~bg2fixpack/copy/amb_m09a.wav~ ~override~ // missing ambient sound files from BG
+     ~bg2fixpack/copy/amb_m09b.wav~ ~override~ // missing ambient sound files from BG
+     ~bg2fixpack/copy/ar0512.mos~   ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar0512.tis~   ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar0512.wed~   ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar0512ht.bmp~ ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar0512lm.bmp~ ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar0512sr.bmp~ ~override~ // bridge district temple of helm green water fix
+     ~bg2fixpack/copy/ar1404.mos~   ~override~ // temple ruins daytime map
+     ~bg2fixpack/copy/ar1900n.wed~  ~override~ // fixed nighttime wed; see ar1900.are
+     ~bg2fixpack/copy/ar6011sr.bmp~ ~override~ // swampy water produces metallic footsteps
+     ~bg2fixpack/copy/ax1h10a.eff~  ~override~ // 1d6+4 extra damage vs. undead for Azuredge (slashing)
+     ~bg2fixpack/copy/ax1h10b.eff~  ~override~ // 1d6+4 extra damage vs. undead for Azuredge (missile)
+     ~bg2fixpack/copy/cdblpp1.spl~  ~override~ // -12 pickpocket score adjustment spell for blade fix; see clabba02.2da
+     ~bg2fixpack/copy/cdblpp2.spl~  ~override~ // -2 pickpocket score adjustment spell for blade fix; see clabba02.2da
+     ~bg2fixpack/copy/cdblpp3.spl~  ~override~ // -3 pickpocket score adjustment spell for blade fix; see clabba02.2da
+     ~bg2fixpack/copy/cdblpp4.spl~  ~override~ // +2 pickpocket score adjustment spell for blade fix; see clabba02.2da
+     ~bg2fixpack/copy/cdblpp5.spl~  ~override~ // +3 pickpocket score adjustment spell for blade fix; see clabba02.2da
+     ~bg2fixpack/copy/cdca30.eff~   ~override~ // new template eff for target-limited charm spells; creates charm icon via eff
+     ~bg2fixpack/copy/cdcmelem.eff~ ~override~ // ring of foo control charm fix (see ring27-9.itm)
+     ~bg2fixpack/copy/cddetevl.spl~ ~override~ // detect evil 'shell spell' for get proper MR checking; see spcl212.spl, spin120.spl, spin696.spl, sppr104.spl, spwi202.spl for additional changes
+     ~bg2fixpack/copy/cdelfcm0.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm1.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm2.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm3.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm4.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm5.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm6.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfcm7.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfsl0.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfsl1.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfsl2.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdelfsl3.eff~ ~override~ // elf/halfelf sleep/charm resistance
+     ~bg2fixpack/copy/cdfampsd.itm~ ~override~ // SoA pseudo-dragon attack item
+     ~bg2fixpack/copy/cdlv3na.spl~  ~override~ // removes 3rd level holy/unholy cleric spells per alignment
+     ~bg2fixpack/copy/cdlv7na.spl~  ~override~ // removes 7th level holy/unholy cleric spells per alignment
+     ~bg2fixpack/copy/cdrmv313.eff~ ~override~ // removes holy smite
+     ~bg2fixpack/copy/cdrmv314.eff~ ~override~ // removes unholy blight
+     ~bg2fixpack/copy/cdrmv710.eff~ ~override~ // removes holy word
+     ~bg2fixpack/copy/cdrmv715.eff~ ~override~ // removes unholy word
+     ~bg2fixpack/copy/cdspja00.eff~ ~override~ // str attribute penalies for harper's call
+     ~bg2fixpack/copy/cdspja01.eff~ ~override~ // dex attribute penalies for harper's call
+     ~bg2fixpack/copy/cdspja02.eff~ ~override~ // con attribute penalies for harper's call
+     ~bg2fixpack/copy/cdspja03.eff~ ~override~ // int attribute penalies for harper's call
+     ~bg2fixpack/copy/cdspja04.eff~ ~override~ // wis attribute penalies for harper's call
+     ~bg2fixpack/copy/cdspja05.eff~ ~override~ // chr attribute penalies for harper's call
+     ~bg2fixpack/copy/cdwi212.spl~  ~override~ // mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+     ~bg2fixpack/copy/cdwi311.spl~  ~override~ // mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+     ~bg2fixpack/copy/cdwi408.spl~  ~override~ // mage pre-buffs via items should be dispellable; see cdwi212.spl, cdwi311.spl, cdwi408.spl, mage03.itm, magebrac.itm, stonskin.itm
+     ~bg2fixpack/copy/cdwi910.eff~  ~override~ // imprisoned summon fix: see gender.ids, cdwi917a.spl, cdwi917a.eff, spin580.spl, spin626.spl, spin788.spl, spwi910.spl, spwi917.spl
+     ~bg2fixpack/copy/cdwi917a.eff~ ~override~ // imprisoned summon fix: see gender.ids, cdwi910.eff, cdwi917a.spl, spin580.spl, spin626.spl, spin788.spl, spwi910.spl, spwi917.spl
+     ~bg2fixpack/copy/cdwi917a.spl~ ~override~ // imprisoned summon fix: see gender.ids, cdwi910.eff, cdwi917a.eff, spin580.spl, spin626.spl, spin788.spl, spwi910.spl, spwi917.spl
+     ~bg2fixpack/copy/daystar2.eff~ ~override~ // for daystar fixes (see sw1h31.itm, daystar1.eff)
+     ~bg2fixpack/copy/famcat01.wav~ ~override~ // cat familiar sounds from ToB to SoA
+     ~bg2fixpack/copy/flpr717a.spl~ ~override~ // Creeping Doom's panic effect does not work (see also sppr717.spl) panic for 1 round, portrait icon, display string; save vs. spell at -2; power 0
+     ~bg2fixpack/copy/icetr01.wav~  ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr02.wav~  ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr03a.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr03b.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr04a.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr04b.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr07a.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr07b.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr08a.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr08b.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr09a.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/icetr09b.wav~ ~override~ // missing sounds for small trolls, imported from IWD
+     ~bg2fixpack/copy/iscrl5a.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5b.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5c.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5d.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5e.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5f.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5g.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5h.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5i.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5j.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5k.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5l.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5m.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5n.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5o.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5p.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/iscrl5q.bam~  ~override~ // fixed spell scroll bam
+     ~bg2fixpack/copy/mdog_mo.bmp~  ~override~ // fixed moon dog avatar
+     ~bg2fixpack/copy/misc_01b.wav~ ~override~ // missing sound files
+     ~bg2fixpack/copy/misc_01c.wav~ ~override~ // missing sound files
+     ~bg2fixpack/copy/misc_03a.wav~ ~override~ // missing sound files
+     ~bg2fixpack/copy/misc_04a.wav~ ~override~ // missing sound files
+     ~bg2fixpack/copy/misc_06b.wav~ ~override~ // missing sound files
+     ~bg2fixpack/copy/mlizca1.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizca1e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizca2.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizca2e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcca.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizccae.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcgh.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcghe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcgu.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcgue.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsc.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsce.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsd.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsde.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsl.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsle.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcsp.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcspe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcwk.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizcwke.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizha1.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizha1e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizha2.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizha2e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhca.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhcae.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhgh.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhghe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhgu.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhgue.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsc.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsce.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsd.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsde.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsl.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsle.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhsp.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhspe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhwk.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizhwke.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqa1.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqa1e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqa2.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqa2e.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqca.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqcae.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqgh.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqghe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqgu.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqgue.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsc.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsce.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsd.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsde.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsl.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsle.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqsp.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqspe.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqwk.bam~  ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/mlizqwke.bam~ ~override~ // lizardmen weapon anims from IWD
+     ~bg2fixpack/copy/montr10.wav~  ~override~ // restore missing sound from bg; for ilyich
+     ~bg2fixpack/copy/pre_p06.wav~  ~override~ // missing sound files
+     ~bg2fixpack/copy/spcl234d.spl~ ~override~ // fallen paladins/rangers should not cast spells via script; see also clabpa05.2da and clabrn05.2da
+     ~bg2fixpack/copy/spcl415a.spl~ ~override~ // otiluke spell shells; see also spwi413.spl, spwi413a-c.spl, spcl415.spl, spcl415a-c.spl
+     ~bg2fixpack/copy/spin722a.eff~ ~override~ // great druid title change should retain 'fighter' part fot multi/dual-classes; see also spin722.spl, spin722b.eff, spin722c.eff
+     ~bg2fixpack/copy/sppr203d.spl~ ~override~ // shell spell for chant, see sppr203.spl
+     ~bg2fixpack/copy/sppr203e.spl~ ~override~ // shell spell for chant, see sppr203.spl
+     ~bg2fixpack/copy/spwi117a.spl~ ~override~ // for chill touch fixes; see chillt.itm, spwi117a.eff
+     ~bg2fixpack/copy/spwi413a.spl~ ~override/spwi413c.spl~ // otiluke spell shells; see also spwi413.spl, spwi413a-c.spl, spcl415.spl, spcl415a-c.spl
+     ~bg2fixpack/copy/spwi413a.spl~ ~override~ // otiluke spell shells; see also spwi413.spl, spwi413a-c.spl, spcl415.spl, spcl415a-c.spl
+     ~bg2fixpack/copy/spwi413b.spl~ ~override~ // otiluke spell shells; see also spwi413.spl, spwi413a-c.spl, spcl415.spl, spcl415a-c.spl
+     ~bg2fixpack/copy/states.bam~   ~override~ // spell shield is hardcoded to display icon #73 which is currently protection from magical energy; need to swap - see also statdesc.2da, spwi606.spl
+     ~bg2fixpack/copy/states2.bam~  ~override~ // spell shield is hardcoded to display icon #73 which is currently protection from magical energy; need to swap - see also statdesc.2da, spwi606.spl
+     ~bg2fixpack/copy/worldmap.wmp~ ~override~ // fixed soa worldmap (see also ar1700.are, ar1800.are, ar2500.are, ar2600.are)
+     ~bg2fixpack/copy/wphaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wphaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wphflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wphmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wplaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wplaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wplflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wplmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpmaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpmaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpmflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpmmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpnaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpnaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpnflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpnmcinv.bam~ ~override~ // paperdoll mace coloring fix
+     ~bg2fixpack/copy/wpsaxinv.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpsaxoin.bam~ ~override~ // paperdoll axe coloring fix
+     ~bg2fixpack/copy/wpsflinv.bam~ ~override~ // paperdoll flail coloring fix
+     ~bg2fixpack/copy/wpsmcinv.bam~ ~override~ // paperdoll mace coloring fix
+
+// these missing sound files are language-specific (BG demon knight power words, e.g. "Die!"); currently only English available
+COPY ~bg2fixpack/languages/%LANGUAGE%/shael_07.wav~ ~override~ // missing sound files
+     ~bg2fixpack/languages/%LANGUAGE%/shael_08.wav~ ~override~ // missing sound files
+     ~bg2fixpack/languages/%LANGUAGE%/shael_09.wav~ ~override~ // missing sound files
+     ~bg2fixpack/languages/%LANGUAGE%/shael_10.wav~ ~override~ // missing sound files
+  IF_EXISTS
+
+ACTION_IF tob_game THEN BEGIN // additional copy & compile for ToB
+
+  COMPILE ~bg2fixpack/compile-tob/tob-dlg.d~            // all ToB dialogue fixes
+  COMPILE ~bg2fixpack/compile-tob/wk-ntrjex.d~          // add WK interjections to SoA
+  COPY    ~bg2fixpack/copy-tob/cdhlysy2.spl~ ~override~ // dupe holy symbol fixes, Also needed: baldur.bcs, baldur25.bcs, and clabpr02-04 changes.
+          ~bg2fixpack/copy-tob/cdhlysym.spl~ ~override~ // dupe holy symbol fixes, Also needed: baldur.bcs, baldur25.bcs, and clabpr02-04 changes.
+          ~bg2fixpack/copy-tob/cdhlysym.itm~ ~override~ // dupe holy symbol fixes, Also needed: baldur.bcs, baldur25.bcs, and clabpr02-04 changes.
+          ~bg2fixpack/copy-tob/worldmap.wmp~ ~override~ // fixed soa worldmap (see also ar1700.are, ar1800.are, ar2500.are, ar2600.are); tob version is better due to cleaner drizzt fixes
+          ~bg2fixpack/copy-tob/xl3000.2da~   ~override~ // corrected travel links for watcher's keep
+          ~bg2fixpack/copy-tob/xnewarea.2da~ ~override~ // corrected travel links for watcher's keep
+
+  // celestial weapons turn opaque when attacking
+  COPY_EXISTING ~masgg2bw.bam~ ~override/maslg2bw.bam~
+                ~masgg2s1.bam~ ~override/maslg2s1.bam~
+                ~msogg2bw.bam~ ~override/msolg2bw.bam~
+                ~msogg2s1.bam~ ~override/msolg2s1.bam~
+
+  // travel time fix for wk > abazigal (return trip is 9)
+  COPY_EXISTING ~worldm25.wmp~ ~override~
+    LPF DELETE_WORLDMAP_LINKS STR_VAR from_area = ar3000 to_area = ar5500 END
+    READ_LONG 0x0c mos_off
+    READ_LONG (mos_off + 0x20) area_num
+    READ_LONG (mos_off + 0x24) area_off
+    READ_LONG (mos_off + 0x28) link_off
+    FOR (index = 0 ; index < area_num ; ++index) BEGIN
+      READ_ASCII (area_off + 0x08 + (index * 0xf0)) area
+      PATCH_IF ("%area%" STRING_COMPARE_CASE "ar3000" = 0) BEGIN // wk
+        SET wk = index
+      END ELSE
+      PATCH_IF ("%area%" STRING_COMPARE_CASE "ar6000" = 0) BEGIN // abazigal
+        SET abazigal = index
+      END
+    END
+    // read links
+    FOR (index2 = 0 ; index2 < 4 ; ++index2) BEGIN
+      READ_LONG (area_off + 0x50 + (index2 * 0x08) + (wk * 0xf0)) link_idx
+      READ_LONG (area_off + 0x54 + (index2 * 0x08) + (wk * 0xf0)) link_num
+      FOR (index3 = 0 ; index3 < link_num ; ++index3) BEGIN
+        READ_LONG (link_off +        ((link_idx + index3) * 0xd8)) target
+        PATCH_IF (target = abazigal) BEGIN
+          WRITE_LONG (link_off + 0x24 + ((link_idx + index3) * 0xd8)) 9 // travel time
+        END
+      END
+    END
+    BUT_ONLY
+
+END

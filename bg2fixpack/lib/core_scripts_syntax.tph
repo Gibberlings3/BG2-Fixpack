@@ -1,0 +1,573 @@
+/////                                                  \\\\\
+///// script fixes                                     \\\\\
+/////                                                  \\\\\
+
+// actual compile errors first
+// override corrupt biffed scripts with blanks
+EXTEND_BOTTOM ~ar2812.bcs~   ~bg2fixpack/compile/ar0512.baf~
+
+// fix compile error
+COPY_EXISTING ~IDIOT01.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(31)~ ~OR(30)~
+  END
+  BUT_ONLY
+
+// fix compile errors with bad numbers in OR blocks
+COPY_EXISTING ~VICG.BCS~  ~override~
+              ~VICG1.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(4)~ ~OR(2)~
+  END
+  BUT_ONLY
+
+// big, major script patch 0/1456
+COPY_EXISTING ~abazdrag.bcs~ ~override~ // !Dead("astSeenBy())"), !Dead("yself)")
+              ~aeriex.bcs~   ~override~ // !Dead("yself)")
+              ~aesgar.bcs~   ~override~ // !Dead("astSeenBy())"), !Dead("yself)")
+              ~alarm25.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~amlich01.bcs~ ~override~ // !Dead("yself)")
+              ~amlich02.bcs~ ~override~ // !Dead("yself)")
+              ~anomx.bcs~    ~override~ // !Dead("astSeenBy(Myself))")
+              ~apprenti.bcs~ ~override~ // !Dead("yself)"), CreateVisualEffectObject("ANCALL",Myself)
+              ~ar0329.bcs~   ~override~ // Dead("aran02"), ambients not present but left intact
+              ~ar1202.bcs~   ~override~ // Dead("firkraag"), "HOBARC02" fixed in cre file
+              ~ar2500.bcs~   ~override~ // TakeItemReplace("DWDUST","DWCSW1H01",Player1)
+              ~ar3021.bcs~   ~override~ // AddXP2DA("Plot06e")
+              ~ar4000.bcs~   ~override~ // TakeItemReplace("DWDUST","DWCSW1H01",Player1)
+              ~asylum.bcs~   ~override~ // CreateVisualEffectObject("ppireni1","SPDIMNDR")
+              ~balmonk.bcs~  ~override~ // !Dead("astHeardBy(Myself))")
+              ~beheld01.bcs~ ~override~ // !Dead("yself)")
+              ~carch20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~carch30b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cassa20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cassa20c.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cauldron.bcs~ ~override~ // PlaySound("EFF_38")
+              ~cbarb20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cbard12a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cbers20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cespen.bcs~   ~override~ // ApplySpell("runrun",0)
+              ~cfigh20a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cfigh20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cfigh30b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cfmag20b.bcs~ ~override~ // !Dead("yself)")
+              ~chaldie.bcs~  ~override~ // !Dead("yself)")
+              ~chalpc01.bcs~ ~override~ // !Dead("astHeardBy(Myself))")
+              ~ckens20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~ckens30b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~ckmag20a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~ckmag20b.bcs~ ~override~ // !Dead("yself)")
+              ~ckthi20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cmacl20a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cmage20a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cmage20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cmonk20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cthie20a.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cthie20b.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~cut01.bcs~    ~override~ // ActionOverride("Imoen",SetDialog("None"))
+              ~cut215a.bcs~  ~override~ // ActionOverride("gorsuc01",MoveBetweenAreasEffect("AR3015","SPDOOR",[1639.718],14))
+              ~cut216a.bcs~  ~override~ // MoveToObject("ammonk")
+              ~cut35b.bcs~   ~override~ // ActionOverride("Jaheria",Face(4))
+              ~cut49e.bcs~   ~override~ // PlaySound("ISC_03A")
+              ~cut57c.bcs~   ~override~ // CreateVisualEffectObject("SPOWWRD",Player1)
+              ~cutd1.bcs~    ~override~ // ActionOverride("Imoen",SetDialog("None"))
+              ~dadrow5.bcs~  ~override~ // !Dead("yself)")
+              ~daqdrow.bcs~  ~override~ // !Dead("yself)")
+              ~ddguard7.bcs~ ~override~ // CreateVisualEffectObject("yself","SPFLESHS")
+              ~deck622.bcs~  ~override~ // Dead("layer1)") through Dead("layer6)")
+              ~degard.bcs~   ~override~ // !Dead("PC])")
+              ~degard2.bcs~  ~override~ // !Dead("yself)")
+              ~draconis.bcs~ ~override~ // !Dead("yself)")
+              ~dragbrow.bcs~ ~override~ // ApplySpell("runrun",0), !Dead("astSeenBy())")
+              ~draggre2.bcs~ ~override~ // !Dead("astSeenBy())")
+              ~draggree.bcs~ ~override~ // !Dead("astSeenBy())")
+              ~dragsilv.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~druidx.bcs~   ~override~ // AreaCheck("UTDOOR)")
+              ~dwvith.bcs~   ~override~ // !Dead("astSeenBy(Myself))")
+              ~edwin.bcs~    ~override~ // !Dead("PC])")
+              ~eltan.bcs~    ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~enforam.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~finsol04.bcs~ ~override~ // CreateCreatureObjectEffect("DEMOSUM1","SPPLOYMP",Myself), same with DEMSUC01 and TELALU1
+              ~firlch01.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~fswheel.bcs~  ~override~ // AddXP2DA("Plot05B")
+              ~gorcamb2.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~gorcamb3.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~gorcamb4.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~gorcamb5.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~gorcamb6.bcs~ ~override~ // !Dead("astAttackerOf("), !Dead("astSeenBy(Myself))")
+              ~gordeckf.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~gorgoli.bcs~  ~override~ // AddXP2DA("PLOT05C")
+              ~gorlic01.bcs~ ~override~ // !Dead("yself)")
+              ~gorsal.bcs~   ~override~ // !Dead("astSeenBy())")
+              ~gorstam.bcs~  ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~gp115.bcs~    ~override~ // !Dead("astSeenBy(Myself))")
+              ~gp116.bcs~    ~override~ // !Dead("astSeenBy(Myself))")
+              ~gparcher.bcs~ ~override~ // !Dead("astHeardBy(Myself))")
+              ~gphealer.bcs~ ~override~ // !Dead("astHeardBy(Myself))"), !Dead("astHeardBy())")
+              ~gpkensai.bcs~ ~override~ // !Dead("astHeardBy(Myself))")
+              ~gpmage1.bcs~  ~override~ // !Dead("astHeardBy(Myself))")
+              ~gpmage2.bcs~  ~override~ // !Dead("astHeardBy(Myself))")
+              ~gpmerc.bcs~   ~override~ // !Dead("astHeardBy(Myself))")
+              ~gpshout.bcs~  ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~gpthief.bcs~  ~override~ // !Dead("astHeardBy(Myself))")
+              ~grpsht01.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~hellgen.bcs~  ~override~ // !Dead("yself)")
+              ~hellslay.bcs~ ~override~ // !Dead("yself)")
+              ~illasera.bcs~ ~override~ // !Dead("yself)")
+              ~itglobes.bcs~ ~override~ // AddXP2DA("PLOT05C")
+              ~jatermin.bcs~ ~override~ // !Dead("yself)")
+              ~kaysmg03.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~kaysmg04.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~keldornx.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~kpfight.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~kproen02.bcs~ ~override~ // !Dead("yself)")
+              ~kuoarc20.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~kuowar20.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~lehtinan.bcs~ ~override~ // !Dead("yself)")
+              ~mage10a.bcs~  ~override~ // Spell(Myself,WIZARD_LIGHTNING_BOLT)
+              ~mage10d.bcs~  ~override~ // Spell(Myself,WIZARD_LIGHTNING_BOLT)
+              ~mage12b.bcs~  ~override~ // !Dead("yself)")
+              ~mage12d.bcs~  ~override~ // !Dead("yself)")
+              ~mage12e.bcs~  ~override~ // !Dead("yself)")
+              ~mage14a.bcs~  ~override~ // !Dead("yself)")
+              ~mage14b.bcs~  ~override~ // !Dead("yself)")
+              ~mage14c.bcs~  ~override~ // !Dead("yself)")
+              ~mage14d.bcs~  ~override~ // !Dead("yself)")
+              ~mage14m.bcs~  ~override~ // !Dead("yself)")
+              ~mage14t.bcs~  ~override~ // !Dead("yself)")
+              ~mage16a.bcs~  ~override~ // !Dead("yself)")
+              ~mage16b.bcs~  ~override~ // !Dead("yself)")
+              ~mage16c.bcs~  ~override~ // !Dead("yself)")
+              ~mage16m.bcs~  ~override~ // !Dead("yself)")
+              ~mage18a.bcs~  ~override~ // !Dead("yself)")
+              ~mage18b.bcs~  ~override~ // !Dead("yself)")
+              ~mage18c.bcs~  ~override~ // !Dead("yself)")
+              ~mage18d.bcs~  ~override~ // !Dead("yself)")
+              ~mage18e.bcs~  ~override~ // !Dead("yself)")
+              ~mage18y.bcs~  ~override~ // !Dead("yself)")
+              ~mage20a.bcs~  ~override~ // !Dead("yself)")
+              ~mage20b.bcs~  ~override~ // !Dead("yself)")
+              ~mage20c.bcs~  ~override~ // !Dead("yself)")
+              ~magehigh.bcs~ ~override~ // !Dead("astHeardBy(Myself))")
+              ~mazzy.bcs~    ~override~ // Dead("gorf03") fixed elsewhere; See("Player1"), !StateCheck("Player1",STATE_SLEEPING)
+              ~mindal01.bcs~ ~override~ // !Dead("yself)")
+              ~minscx.bcs~   ~override~ // AreaCheck("UTDOOR)")
+              ~minvsed.bcs~  ~override~ // AreaCheck("UTDOOR)")
+              ~movie03a.bcs~ ~override~ // ActionOverride("Player2",Rest()) through ActionOverride("Player6",Rest())
+              ~movie03b.bcs~ ~override~ // ActionOverride("Player2",Rest()) through ActionOverride("Player6",Rest())
+              ~neva.bcs~     ~override~ // Spell(Myself,WIZARD_LIGHTNING_BOLT)
+              ~npcdru1.bcs~  ~override~ // AreaCheck("UTDOOR)")
+              ~ppcrus1.bcs~  ~override~ // Dead("astTrigger)"), !Dead("astTrigger)")
+              ~pwarden.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~sarbul01.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sarbul02.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sarbul03.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sardw01.bcs~  ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sardw02.bcs~  ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sardw03.bcs~  ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sendark.bcs~  ~override~ // !Dead("yself)")
+              ~sengua04.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~sengua05.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~shadel.bcs~   ~override~ // !Dead("yself)")
+              ~spwnrak.bcs~  ~override~ // CreateCreature("dogre01",[-1.-1],0)
+              ~sumtan01.bcs~ ~override~ // !Dead("astSeenBy(Myself))")
+              ~teltief3.bcs~ ~override~ // !Dead("astHeardBy(Myself))")
+              ~telwrai.bcs~  ~override~ // !Dead("yself)")
+              ~tempv01.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~temsup.bcs~   ~override~ // !Dead("PC])")
+              ~tief3.bcs~    ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+              ~udmaster.bcs~ ~override~ // !Dead("yself)")
+              ~udtrain.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~und5509.bcs~  ~override~ // CreateVisualEffect("SPGFLSH",[737.568])
+              ~useitem.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~valvsed.bcs~  ~override~ // AreaCheck("UTDOOR)")
+              ~valygx.bcs~   ~override~ // AreaCheck("UTDOOR)")
+              ~vicx.bcs~     ~override~ // !Dead("astSeenBy(Myself))")
+              ~xeiwin.bcs~   ~override~ // !Dead("astHeardBy(Myself))")
+              ~yagalt.bcs~   ~override~ // CreateVisualEffect("SPMAGICH", x2
+              ~yagart.bcs~   ~override~ // CreateVisualEffect("SPMAGICH", x2
+              ~yochlol.bcs~  ~override~ // !Dead("yself)")
+              ~yscara.bcs~   ~override~ // !Dead("yself)")
+              ~ysgp01.bcs~   ~override~ // !Dead("yself)")
+              ~ysgp02.bcs~   ~override~ // !Dead("yself)")
+              ~ysgp03.bcs~   ~override~ // !Dead("yself)")
+              ~ysgp04.bcs~   ~override~ // !Dead("yself)")
+              ~ysgrunt.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
+              ~zilmag01.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY %Dead("yself)")% %StateCheck(Myself,STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %Dead("astSeenBy(\(Myself\)?))")% %StateCheck(LastSeenBy(Myself),STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %Dead("astHeardBy(\(Myself\)?))")% %StateCheck(LastHeardBy(Myself),STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %Dead("astTrigger)")% %StateCheck(LastTrigger,STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %Dead("PC\])")% %StateCheck([PC],STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %AreaCheck("UTDOOR)")% %AreaType(OUTDOOR)%
+    REPLACE_TEXTUALLY %CreateVisualEffectObject("yself","SPFLESHS")% %CreateVisualEffectObject("SPFLESHS",Myself)%
+    REPLACE_TEXTUALLY %TakeItemReplace("DWDUST","DWCSW1H01"% %TakeItemReplace("DWDUST","DWSW1H01"%
+    REPLACE_TEXTUALLY %"EFF_38"% %"EFF_M38"%
+    REPLACE_TEXTUALLY %"ISC_03A"% %"MISC_03A"%
+    REPLACE_TEXTUALLY %CreateVisualEffectObject("ANCALL",Myself)% %CreateVisualEffectObject("AMCALL",Myself)%
+    REPLACE_TEXTUALLY %CreateVisualEffectObject("SPOWWRD",Player1)% %CreateVisualEffectObject("SPPOWWRD",Player1)%
+    REPLACE_TEXTUALLY %CreateVisualEffectObject("ppireni1","SPDIMNDR")% %CreateVisualEffectObject("SPDIMNDR","ppireni1")%
+    REPLACE_TEXTUALLY %ActionOverride("Imoen",SetDialog\(ue\)?("None"))% %ActionOverride("Imoen",SetDialog(""))%
+    REPLACE_TEXTUALLY %Dead("firkraag")% %Dead("firkra02")%
+    REPLACE_TEXTUALLY %Dead("aran02")% %Dead("aran")%
+    REPLACE_TEXTUALLY %"Jaheria"% %"Jaheira"%
+    REPLACE_TEXTUALLY %See("Player1")% %See(Player1)%
+    REPLACE_TEXTUALLY %ActionOverride("Player\([2-6]\)",Rest())% %ActionOverride(Player\1,Rest())%
+    REPLACE_TEXTUALLY %StateCheck("Player1",STATE_SLEEPING)% %StateCheck(Player1,STATE_SLEEPING)%
+    REPLACE_TEXTUALLY %CreateCreature("dogre01",\[-1\.-1\],0)% %CreateCreature("ogre01",[-1.-1],0)%
+    REPLACE_TEXTUALLY %Spell(Myself,WIZARD_LIGHTNING_BOLT)% %Spell(NearestEnemyOf(Myself),WIZARD_LIGHTNING_BOLT)%
+    REPLACE_TEXTUALLY %Dead("layer\([1-6]\))")% %StateCheck(Player\1,STATE_REALLY_DEAD)%
+    REPLACE_TEXTUALLY %ApplySpell("runrun",0)% %ApplySpellRES("runrun",Myself)%
+    REPLACE_TEXTUALLY %AddXP2DA("PLOT05C")% %AddXP2DA("PLOT5C")%
+    REPLACE_TEXTUALLY %AddXP2DA("PLOT05B")% %AddXP2DA("PLOT5B")%
+    REPLACE_TEXTUALLY %AddXP2DA("PLOT06E")% %AddXP2DA("PLOT6E")%
+    REPLACE_TEXTUALLY %CreateCreatureObjectEffect("DEMOSUM1","SPPLOYMP",Myself)% %CreateCreatureObjectEffect("DEMOSUM1","SPPOLYMP",Myself)%
+    REPLACE_TEXTUALLY %CreateCreatureObjectEffect("DEMSUC01","SPPLOYMP",Myself)% %CreateCreatureObjectEffect("DEMSUC01","SPPOLYMP",Myself)%
+    REPLACE_TEXTUALLY %CreateCreatureObjectEffect("TELALU1","SPPLOYMP",Myself)% %CreateCreatureObjectEffect("TELALU1","SPPOLYMP",Myself)%
+    REPLACE_TEXTUALLY %MoveBetweenAreasEffect("AR3015","SPDOOR"% %MoveBetweenAreasEffect("AR3015","SPDIMNDR"%
+    REPLACE_TEXTUALLY %CreateVisualEffect("SPMAGICH"% %CreateVisualEffect("ICMAGICH"%
+    REPLACE_TEXTUALLY %MoveToObject("ammonk")% %MoveToObject("ammonk01")%
+    REPLACE_TEXTUALLY %CreateVisualEffect("SPGFLSH"% %CreateVisualEffect("SPGFLSH1"%
+  END
+  BUT_ONLY IF_EXISTS
+
+/////                                                  \\\\\
+///// eou romance fixes                                \\\\\
+/////                                                  \\\\\
+
+COPY_EXISTING ~anomen.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(SetGlobal("AnomenIsNotKnight","GLOBAL",1)\)~ ~\1 ChangeAlignment("Anomen",CHAOTIC_NEUTRAL)~
+    REPLACE_TEXTUALLY ~"TALKEDTOCOR","GLOBAL"~ ~"TALKEDCOR","GLOBAL"~
+    APPEND_FILE ~bg2fixpack/baf/anomen.baf~ // was extend_top'd, but no reason to
+  END
+
+COPY_EXISTING ~jaheira.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~IncrementGlobal("LoveTalk","LOCALS",1)[ %TAB%%LNL%%MNL%%WNL%]+\(SetGlobal("DerminSpawn","GLOBAL",5)[ %TAB%%LNL%%MNL%%WNL%]+SetGlobalTimer("DerminAppear","GLOBAL",\)TWO_DAYS)~
+      ~\117280)~ // purge increment global, change timer length
+    REPLACE_TEXTUALLY ~[ %TAB%]SetGlobalTimer("TerminselAppear","GLOBAL",FIVE_DAYS)~
+                      ~ RealSetGlobalTimer("TerminselAppear","GLOBAL",3600)~ // originally 36000 seems to be more than random.
+  END
+
+COPY_EXISTING ~viconia.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("LoveTalk","LOCALS",71)~ ~False()~ // not a regular scheduled talk; only after handmaiden/yochlol encounter
+  END
+
+// If ToB installed, patch ToB BCS files:
+ACTION_IF tob_game THEN BEGIN
+
+  COPY_EXISTING ~anom25.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~\(Global("AnomenSummoned","GLOBAL",1)\)~ ~\1 !Global("AnomenIsKnight","GLOBAL",1)~
+    END
+  EXTEND_TOP ~anom25.bcs~ ~bg2fixpack/baf/anom25.baf~
+
+  COPY_EXISTING ~jahe25.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~OR(2)~ ~!Global("JaheiraRomanceActive","GLOBAL",0) !Global("JaheiraRomanceActive","GLOBAL",3) OR(2)~
+    END
+
+END
+
+/////                                                  \\\\\
+///// missing IDS entries                              \\\\\
+/////                                                  \\\\\
+
+// notes
+// unused in BG2: andris, ch1cut01, ch1cut02, daitel, deathkni, hgwiz01, pheoarch, semaj
+// SpellCast(0) is needed for CW summoning in ar0020, ar0300, ar0400, ar0500, ar0700, ar0900, ar1000
+// SpellCastOnMe([ANYONE],0) is needed for nishru01; nishruus heal themselves when magic is used against them
+// cdtamoko error is from cloning gpkensai
+// specifics errors safe to ignore (?)
+// SpellCast([PC],0) for ttxan is appropriate for tutorial
+
+// alter missing areatype check to match banter trigger
+COPY_EXISTING ~aerie.bcs~   ~override~
+              ~anomen.bcs~  ~override~
+              ~minsc.bcs~   ~override~
+              ~nalia.bcs~   ~override~
+              ~yoshimo.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~AreaType(0)~ ~AreaType(OUTDOOR)~ // for Minsc Umar Hills reminder, Nalia-Edwina banter
+ END
+ BUT_ONLY
+
+// many priest scripts have a failed CLERIC_HEAL call
+COPY_EXISTING ~aeriex.bcs~   ~override~
+              ~anomx.bcs~    ~override~
+              ~anvskel.bcs~  ~override~
+              ~pries18a.bcs~ ~override~
+              ~pries18b.bcs~ ~override~
+              ~pries18c.bcs~ ~override~
+              ~pries18d.bcs~ ~override~
+              ~saerkx.bcs~   ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~ // trigger checks for this spell
+ END
+ BUT_ONLY
+
+// aerie's very straightforward--both missing Spell calls check for a spell in memory in the trigger
+COPY_EXISTING ~aeriex.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)~ ~Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~ // trigger checks for this spell
+ END
+ BUT_ONLY
+
+// recurring issue--going to enemy, but checks that allegiance is either neutral, goodbutblue, or ?
+COPY_EXISTING ~gparcher.bcs~ ~override~
+              ~gpshout.bcs~  ~override~
+              ~trgrd02.bcs~  ~override~
+              ~trgrd03.bcs~  ~override~
+              ~trgrdr01.bcs~ ~override~
+              ~trgrdr02.bcs~ ~override~
+              ~trgrdr03.bcs~ ~override~
+              ~trgrdr04.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,EVILBUTBLUE)~ // third allegiance check?
+ END
+ BUT_ONLY
+
+// anomen's very straightforward--missing Spell calls check for a spell in memory in the trigger
+COPY_EXISTING ~anomx.bcs~   ~override~
+              ~anvskel.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)[%TAB% %LNL%%MNL%%WNL%]+AttackOneRound(LastSeenBy(Myself))~
+                     ~Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING) AttackOneRound(LastSeenBy(Myself))~ // trigger checks for this spell
+   REPLACE_TEXTUALLY ~Spell(LastSeenBy(Myself),0)[%TAB% %LNL%%MNL%%WNL%]+Continue()~ 
+                     ~Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3) Continue()~ // trigger checks for this spell
+ END
+ BUT_ONLY
+
+// pairing MI with trigger
+COPY_EXISTING ~clone1.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY 
+      ~HaveSpell(0)\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+Spell(Myself,WIZARD_MIRROR_IMAGE)\)~
+      ~!StateCheck(Myself,STATE_MIRRORIMAGE) HaveSpell(WIZARD_MIRROR_IMAGE)\1~ // Spell action associated with this block casts WIZARD_MIRROR_IMAGE, also add check to make sure MI isn't active
+  END
+  BUT_ONLY
+
+// end of CI Escape cutscene, everyone leaving
+COPY_EXISTING ~cut01g.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY
+      ~ForceSpell(Myself,0)~
+      ~ForceSpell(Myself,DRYAD_TELEPORT)~   // cast by CSCowl6 and 8
+    REPLACE_TEXTUALLY 
+      ~ForceSpell("CSImoen",DRYAD_TELEPORT)~ 
+      ~ForceSpell("CSImoen",DRYAD_TELEPORT) ForceSpell(Myself,DRYAD_TELEPORT)~   // cast by CSCowl4 on Imoen, added to causes effects for self as well
+    REPLACE_TEXTUALLY
+      ~ForceSpell("CSIren",0)~
+      ~ForceSpell("CSIren",DRYAD_TELEPORT) ForceSpell(Myself,DRYAD_TELEPORT)~ // cast by CSCowl7 on Irenicus, also makes CSCowl7 go away
+  END
+  BUT_ONLY
+
+// should attack Jon's minions until minions dead, then turn on party
+COPY_EXISTING ~ishthf01.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,GOODBUTBLUE)~
+ END
+ BUT_ONLY
+
+// missing spell is preceded by stringhead
+COPY_EXISTING ~jatermin.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,WIZARD_PROTECTION_FROM_NORMAL_MISSILES)~ // preceded by string
+ END
+ BUT_ONLY
+
+// action dictates trigger
+COPY_EXISTING ~jatermin.bcs~ ~override~
+              ~mage20a.bcs~  ~override~
+              ~mage20c.bcs~  ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_MAZE)~ // associated action casts this spell
+ END
+ BUT_ONLY
+
+// should attack Jon's minions until minions dead, then turn on party
+COPY_EXISTING ~jonthief.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,GOODBUTBLUE)~
+ END
+ BUT_ONLY
+
+// mage10d checks for buffing spells; remove fear appears to fit the gap between bless and sanctuary
+COPY_EXISTING ~mage10d.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~SpellCastPriest(\[PC\],0)~ ~SpellCastPriest([PC],CLERIC_REMOVE_FEAR)~ // triggers are for party buffs
+ END
+ BUT_ONLY
+
+// missing spell trigger is followed by casting spell
+COPY_EXISTING ~mage16m.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_STONE_SKIN)~ // associated action casts this spell
+ END
+ BUT_ONLY
+
+// missing spell is preceded by stringhead
+COPY_EXISTING ~mage8d.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~HaveSpell(0)~ ~HaveSpell(WIZARD_CHROMATIC_ORB)~ // associated action casts this spell
+ END
+ BUT_ONLY
+
+// surakw1-4 identical except for surakw2's spell trigger
+COPY_EXISTING ~surakw2.bcs~  ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(IncrementGlobal("Fight","LOCALS",1)[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
+        ~\1 ForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // from surakw4
+    REPLACE_TEXTUALLY ~\(StateCheck(Myself,STATE_SILENCED)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
+        ~\1 ForceSpell(Myself,WIZARD_VOCALIZE)~ // if silenced - vocalize?
+    REPLACE_TEXTUALLY ~\(!See(LastSeenBy(Myself))[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
+        ~\1 ForceSpell(Myself,WIZARD_TRUE_SIGHT)~ // if can detect but not see - true sight?
+    REPLACE_TEXTUALLY
+      ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
+      ~ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \1 ApplySpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // two spell spell trigger
+ END
+ BUT_ONLY
+
+// surakw1-4 identical except for surakw1's spell trigger
+COPY_EXISTING ~surakw3.bcs~  ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
+       ~ApplySpell(Myself,WIZARD_STONE_SKIN) \1 ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \2 ApplySpell(Myself,WIZARD_MISLEAD)~ // from surakw4
+   REPLACE_TEXTUALLY ~\(IncrementGlobal("Fight","LOCALS",1)[%TAB% %LNL%%MNL%%WNL%]+\)ForceSpell(Myself,0)~
+       ~\1 ForceSpell(Myself,WIZARD_PROTECTION_FROM_MAGIC_WEAPONS)~ // from surakw4
+ END
+ BUT_ONLY
+
+// surakw1-4 identical except for surakw1's spell trigger
+COPY_EXISTING ~surakw4.bcs~  ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+DisplayString(Myself,39968)[%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)\([%TAB% %LNL%%MNL%%WNL%]+\)ApplySpell(Myself,0)~
+       ~ApplySpell(Myself,WIZARD_STONE_SKIN) \1 ApplySpell(Myself,WIZARD_GLOBE_OF_INVULNERABILITY) \2 ApplySpell(Myself,WIZARD_MISLEAD)~ // three spell spell trigger
+ END
+ BUT_ONLY
+
+// viccy's combat script for keldorn fight
+COPY_EXISTING ~vicvskel.bcs~  ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~
+   REPLACE_TEXTUALLY ~\(HPGT("Keldorn",20)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
+     ~\1 Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING)~
+   REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_ANIMAL_SUMMONING_3)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
+     ~\1 Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~
+ END
+ BUT_ONLY
+
+// viccy's generic combat script
+COPY_EXISTING ~vicx.bcs~  ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,CLERIC_HEAL)~
+   REPLACE_TEXTUALLY ~\(HPGT(NearestEnemyOf(Myself),20)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
+     ~\1 Spell(LastSeenBy(Myself),CLERIC_SLAY_LIVING)~
+   REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_ANIMAL_SUMMONING_3)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(LastSeenBy(Myself),0)~
+     ~\1 Spell(LastSeenBy(Myself),CLERIC_ANIMAL_SUMMONING_3)~
+ END
+ BUT_ONLY
+
+ACTION_IF tob_game THEN BEGIN // tob crap
+
+  // many dispel magic actions have two missing CheckStatGT triggers in an OR() block
+  COPY_EXISTING ~abazdrag.bcs~ ~override~
+                ~amlich02.bcs~ ~override~
+                ~dragbrow.bcs~ ~override~
+                ~finsol04.bcs~ ~override~
+                ~gorgua02.bcs~ ~override~
+                ~meliss01.bcs~ ~override~
+                ~meliss02.bcs~ ~override~
+                ~meliss03.bcs~ ~override~
+                ~planet.bcs~   ~override~
+                ~senbattl.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~CheckStatGT(LastSeenBy(Myself),0,0)[%TAB% %LNL%%MNL%%WNL%]+CheckStatGT(LastSeenBy(Myself),0,0)~
+                       ~CheckStatGT(LastSeenBy(Myself),0,IMPROVEDHASTE) CheckStatGT(LastSeenBy(Myself),0,STONESKINS)~
+                       // triggers for a dispel magic
+   END
+   BUT_ONLY
+  
+  // recurring issue--going to enemy, but checks that allegiance is either neutral, goodbutblue, or ?
+  COPY_EXISTING ~amduel1.bcs~  ~override~
+                ~amduel2.bcs~  ~override~
+                ~balmonk.bcs~  ~override~
+                ~chalpc01.bcs~ ~override~
+                ~gorbat.bcs~   ~override~
+                ~gorbat1.bcs~  ~override~
+                ~gortan.bcs~   ~override~
+                ~gortan1.bcs~  ~override~
+                ~gphealer.bcs~ ~override~
+                ~gpkensai.bcs~ ~override~
+                ~gpmage1.bcs~  ~override~
+                ~gpmage2.bcs~  ~override~
+                ~grpsht01.bcs~ ~override~
+                ~sarbul01.bcs~ ~override~
+                ~sarbul02.bcs~ ~override~
+                ~sarbul03.bcs~ ~override~
+                ~sardw01.bcs~  ~override~
+                ~sardw02.bcs~  ~override~
+                ~sardw03.bcs~  ~override~
+                ~sarrein.bcs~  ~override~
+                ~teltief3.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~Allegiance(Myself,0)~ ~Allegiance(Myself,EVILBUTBLUE)~ // third allegiance check?
+   END
+   BUT_ONLY
+
+  COPY_EXISTING ~amlich02.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~ForceSpell(Myself,0)~ ~ForceSpell(Myself,WIZARD_STONE_SKIN)~ // trigger, locals checks for stoneskins
+   END
+   BUT_ONLY
+
+  // all other cres are hasted with identical blocks to this one
+  COPY_EXISTING ~cut207c.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,CUTSCENE_HASTE)~ // all other creatures hasted in similar blocks
+   END
+   BUT_ONLY
+
+  // displays 'protection from energy' string without, uh, casting it
+  COPY_EXISTING ~dlich01.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~ApplySpell(Myself,0)~ ~ApplySpell(Myself,WIZARD_PROTECTION_FROM_ENERGY)~ // action immediately above is displaystring 'protection from energy'
+   END
+   BUT_ONLY
+  
+  // saladrex's dispel block is missing a stat check and valid stat.ids refs
+  COPY_EXISTING ~gorsal.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~OR(8)\([%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_INVISIBLE)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_IMPROVEDINVISIBILITY)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_HASTED)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_BLESS)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_DRAWUPONHOLYMIGHT)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_BLUR)[%TAB% %LNL%%MNL%%WNL%]+StateCheck(LastSeenBy(Myself),STATE_MIRRORIMAGE)[%TAB% %LNL%%MNL%%WNL%]+\)CheckStatGT(LastSeenBy(Myself),0,0)\([%TAB% %LNL%%MNL%%WNL%]+THEN\)~
+                       ~OR(9) \1 CheckStatGT(LastSeenBy(Myself),0,IMPROVEDHASTE) CheckStatGT(LastSeenBy(Myself),0,STONESKINS) \2~
+   END
+   BUT_ONLY
+  
+  // gphealer should run away and heal themselves, but missing actual casting; two more unknown issues
+  COPY_EXISTING ~gphealer.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY
+       ~HaveSpell(\([A-Z_]+\))\([%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+RunAwayFrom(NearestEnemyOf(Myself),30)[%TAB% %LNL%%MNL%%WNL%]+\)Spell(Myself,0)~ 
+       ~HaveSpell(\1) \2 Spell(Myself,\1)~ //
+   END
+   BUT_ONLY
+  
+  // missing a priest spell in their resist fear trigger
+  COPY_EXISTING ~gpmage1.bcs~  ~override~
+                ~magehigh.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~SpellCastPriest(\[GOODCUTOFF\],0)~ ~SpellCastPriest([GOODCUTOFF],CLERIC_CLOAK_OF_FEAR)~ // only missing divine 'fear' spell
+   END
+   BUT_ONLY
+
+  // trigger defines spell
+  COPY_EXISTING ~senbattl.bcs~ ~override~
+   DECOMPILE_AND_PATCH BEGIN
+     REPLACE_TEXTUALLY ~Spell(Myself,0)~ ~Spell(Myself,WIZARD_STONE_SKIN)~ // associated trigger checks this spell
+   END
+   BUT_ONLY
+
+END

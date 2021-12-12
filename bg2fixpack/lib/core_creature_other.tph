@@ -1,0 +1,2498 @@
+/////                                                  \\\\\
+///// creature file fixes                              \\\\\
+/////                                                  \\\\\
+
+// pregen daria, lessa hve wrong sex
+COPY_EXISTING ~characters/mage.chr~     ~characters~
+              ~characters/thief.chr~    ~characters~
+              ~characters/tobmage.chr~  ~characters~
+              ~characters/tobthief.chr~ ~characters~
+  WRITE_BYTE 0x29b 2 // sex: female
+  IF_EXISTS
+
+// knows class- or alignment-restricted spell
+COPY_EXISTING ~aerbod01.cre~ ~override~
+  REMOVE_KNOWN_SPELL sppr105 sppr314
+  BUT_ONLY
+
+// aerie spellbook fix, should know flame blade
+COPY_EXISTING ~aerie6.cre~  ~override~
+              ~aerie7.cre~  ~override~
+              ~aerie9.cre~  ~override~
+              ~aerie10.cre~ ~override~
+              ~aerie11.cre~ ~override~
+              ~aerie12.cre~ ~override~
+  ADD_KNOWN_SPELL ~sppr206~ #1 ~priest~
+  BUT_ONLY IF_EXISTS
+
+// aerie missing memorized spells - all aerie versions are short two level 1, two level 2 memorized spells
+COPY_EXISTING ~aerie6.cre~  ~override~
+              ~aerie7.cre~  ~override~
+              ~aerie9.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~ // 10-12 already have bless, sooooo
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // every one gets doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr201~ #1 ~priest~ // every one gets aid
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~ // 10-12 aready have slow poison, too
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  BUT_ONLY
+
+// aerie7 has an extra star; need to remove spurious club prof
+COPY_EXISTING ~aerie7.cre~ ~override~
+  LPF DELETE_EFFECT INT_VAR match_opcode = 233 match_parameter2 = 115 END // nuke club prof
+  BUT_ONLY
+
+COPY_EXISTING ~aerie10.cre~ ~override~
+              ~aerie11.cre~ ~override~
+              ~aerie12.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~sppr106~ #0 ~priest~ // add magic stone
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // every one gets doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr201~ #1 ~priest~ // every one gets aid
+  ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~ // resist fire/cold
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  BUT_ONLY IF_EXISTS
+
+// joinable npcs have already-cast spells
+COPY_EXISTING ~aerie10.cre~  ~override~
+              ~anomen9.cre~  ~override~
+              ~cernd13.cre~  ~override~
+              ~cernd13b.cre~ ~override~
+              ~cernd14.cre~  ~override~
+              ~famcat.cre~   ~override~
+              ~famcat25.cre~ ~override~
+              ~famfer.cre~   ~override~
+              ~famfer25.cre~ ~override~
+              ~famrab.cre~   ~override~
+              ~famrab25.cre~ ~override~
+              ~jahei14.cre~  ~override~
+              ~jaheir12.cre~ ~override~
+  READ_LONG 0x2b0 mem_off
+  READ_LONG 0x2b4 mem_num
+  FOR (index = 0 ; index < mem_num ; ++index) BEGIN
+    WRITE_SHORT (mem_off + 0x08 + (0x0c * index)) 1 // change from spell cast (0) to memorized (1)
+  END
+  BUT_ONLY IF_EXISTS
+  
+// norh paladin from rep trap has wrong DV, script
+COPY_EXISTING ~alex.cre~ ~override~
+  WRITE_ASCII 0x248 ~NOrder~ #8 // override script
+  BUT_ONLY
+
+// has typos in spell resrefs
+COPY_EXISTING ~amcarras.cre~ ~override~
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    READ_LONG (offset       ) spell_off
+    READ_LONG (offset + 0x04) spell_num
+    FOR (index = 0 ; index < spell_num ; ++index) BEGIN
+      READ_ASCII (spell_off +        (0x0c * index)) spell
+      PATCH_IF ("%spell%" STRING_COMPARE_REGEXP "^spw[0-9][0-9][0-9]$" = 0) BEGIN
+        READ_ASCII   (spell_off + 0x03 + (0x0c * index)) code (3) // just grab the three digit number
+        WRITE_ASCIIE (spell_off +        (0x0c * index)) ~spwi%code%~
+      END
+    END
+  END
+  BUT_ONLY IF_EXISTS
+
+// mem & known spell resref typos
+COPY_EXISTING ~amelm01.cre~  ~override~
+              ~jatermin.cre~ ~override~
+  REMOVE_KNOWN_SPELL     sppr112 spwi122 spwi904 spwi906 // don't exist, no map
+  REMOVE_MEMORIZED_SPELL sppr112 spwi122 spwi904 spwi906 // don't exist, no map
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN
+    spwi121 => spwi125 // doesn't exist, map to spook
+    spwi610 => spwi624 // doesn't exist, map to summon nishruu
+    spwi706 => spwi719 // doesn't exist, map to summon hakeashar
+    spwi709 => spwi718 // doesn't exist, map to summon djinni
+    spwi801 => spwi802 // doesn't exist, map to spell deflection
+    spwi806 => spwi816 // doesn't exist, map to symbol stun
+    spwi814 => spwi817 // doesn't exist, map to symbol death
+    spwi901 => spwi917 // doesn't exist, map to freedom
+  END
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY IF_EXISTS
+
+// knows class- or alignment-restricted spell
+COPY_EXISTING ~ammajira.cre~ ~override~
+              ~chgood09.cre~ ~override~
+  REMOVE_KNOWN_SPELL sppr506 sppr517 sppr605 sppr702 sppr717
+  BUT_ONLY IF_EXISTS
+
+// monks get fists added by the engine automatically, so remove items and unset selected weapon slot
+ACTION_FOR_EACH monk IN ammgrd01 ammgrd02 ammgrd03 ammgrd04 ammgrd05 ammlegs ammonk01 ammonk02 ammonk03 ammonk04
+                        ammonk05 ammonk06 balelite balth bazmonk cutamgrd killmonk parmonk senmonk thief7 tobpar03 BEGIN
+
+  COPY_EXISTING ~%monk%.cre~ ~override~
+    REMOVE_CRE_ITEM mfist3 mfist4 mfist5 mfist6 mfist7 mfist8
+    WRITE_BYTE 0x53 1 // apr
+    READ_LONG  0x2b8 slot_off
+    WRITE_SHORT (slot_off + 0x4c) 1000 // equipped weapon
+    BUT_ONLY IF_EXISTS
+
+END
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~ammonk05.cre~ ~override~
+  WRITE_LONG 0xa4 61994 //Do not anger me.
+  WRITE_LONG 0xb8 "-1"
+  WRITE_LONG 0xc8 61995 //You shall pay for this, and pay dearly.
+  WRITE_LONG 0xcc 61996 //Suffer!
+  WRITE_LONG 0xec 61997
+  WRITE_LONG 0xf0 61998
+  WRITE_LONG 0x10c 61993 //As always, the pleasure is mine.
+  BUT_ONLY IF_EXISTS
+
+// eliminates non-STs from using ST soundset
+COPY_EXISTING ~amsi.cre~     ~override~
+              ~gpthief1.cre~ ~override~
+  WRITE_LONG 0xcc 0xffffffff // was "No one crosses the Shadow Thieves... and lives!"
+  BUT_ONLY
+
+// anomen save fix
+COPY_EXISTING ~anomen6.cre~ ~override~
+  WRITE_BYTE 0x57 12 // save v breath
+  BUT_ONLY IF_EXISTS
+
+// anomen spellbook fix, remove fire seeds, profs, specifics, portrait
+COPY_EXISTING ~anomen6.cre~  ~override~
+              ~anomen7.cre~  ~override~
+              ~anomen8.cre~  ~override~
+              ~anomen9.cre~  ~override~
+              ~anomen10.cre~ ~override~
+              ~anomen12.cre~ ~override~
+  READ_BYTE 0x235 level
+  WRITE_BYTE 0x274 0 // anomen specifics fix
+  ADD_KNOWN_SPELL ~sppr206~ #1 ~priest~ // flame blade
+  ADD_KNOWN_SPELL ~sppr314~ #2 ~priest~ // unholy blight
+  ADD_KNOWN_SPELL ~sppr414~ #3 ~priest~ // cause serious wounds
+  PATCH_IF level > 10 BEGIN
+    REMOVE_KNOWN_SPELL sppr606 sppr607 // fire seeds (shouldn't know), heal (memorized twice)
+    ADD_KNOWN_SPELL ~sppr607~ #5 ~priest~ // restore heal
+    CLEAR_ARRAY cd_spell_sub
+    DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+      sppr606 => sppr607 // fire seeds to heal
+    END
+    PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+      LPF cd_spellbook_sub END
+    END
+  END
+  WRITE_ASCII 0x3c ~NANOMENM~  // portrait fix for anomen9 in SoA
+  // anomen short 4 stars from f > c dual (revised by Wisp)
+  SET_BG2_PROFICIENCY 98 2     //spears
+  SET_BG2_PROFICIENCY 102 1    //staffs
+  SET_BG2_PROFICIENCY 112 2    //sword & shield
+  SET_BG2_PROFICIENCY 97 (level < 12) ? 1 : 2 //war hammers (1 at low level two at high)
+  BUT_ONLY IF_EXISTS
+
+// anomen missing memorized spells
+COPY_EXISTING ~anomen6.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~     // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ (2) // 2x cure serious wounds
+  BUT_ONLY
+
+// anomen missing memorized spells
+COPY_EXISTING ~anomen7.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr107~ #0 ~priest~ // protection from evil
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~ // slow poison
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // second cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ // cure critical wounds
+  BUT_ONLY
+
+// anomen missing memorized spells
+COPY_EXISTING ~anomen8.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr107~ #0 ~priest~     // protection from evil
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~     // slow poison
+  ADD_MEMORIZED_SPELL ~sppr413~ #3 ~priest~     // negative plane protection
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ (2) // 2x cure critical wounds
+  BUT_ONLY
+
+// anomen missing memorized spells
+COPY_EXISTING ~anomen9.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr413~ #3 ~priest~ // negative plane protection
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ // cure critical wounds
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  BUT_ONLY
+
+// anomen missing memorized spells
+COPY_EXISTING ~anomen10.cre~ ~override~
+              ~anomen12.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~sppr106~ #0 ~priest~ // magic stone
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~ // duhm
+  ADD_MEMORIZED_SPELL ~sppr310~ #2 ~priest~ // miscast magic
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  ADD_MEMORIZED_SPELL ~sppr609~ #5 ~priest~ // false dawn
+  BUT_ONLY IF_EXISTS
+
+// should defend self if attacked
+COPY_EXISTING ~arenthis.cre~ ~override~
+  WRITE_ASCII 0x268 ~pries10b~ #8
+  BUT_ONLY
+
+// remove invisible flag from visible creatures
+COPY_EXISTING ~arnman11.cre~ ~override~
+              ~arnwar03.cre~ ~override~
+  WRITE_BYTE 0x20 (THIS BAND `BIT4) // remove the STATE_INVISIBILITY flag
+  BUT_ONLY
+
+COPY_EXISTING ~bazpat03.cre~ ~override~ // typo
+  WRITE_ASCII 0x268 ~wtasight~ #8
+  BUT_ONLY IF_EXISTS
+
+// master summons fix: These are all player accessible (inventory patched in previous section)
+COPY_EXISTING ~bearblsu.cre~ ~override~ // Black Bear (sppr501.spl -> spanim2.eff -> anisum02.2da)
+              ~bearbrsu.cre~ ~override~ // Brown Bear (sppr501.spl -> spanim2.eff -> anisum02.2da)
+              ~bearcasu.cre~ ~override~ // Cave Bear (sppr501.spl -> spanim2.eff -> anisum02.2da) (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~bearposu.cre~ ~override~ // Mountain Bear (sppr602.spl -> spanim3.eff -> anisum03.2da) (sppr604.spl -> spanim04.eff -> anisum04.2da)
+              ~catliosu.cre~ ~override~ // Lion (sppr501.spl -> spanim2.eff -> anisum02.2da) (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~catliowp.cre~ ~override~ // Joolon (misc3d.itm -> figlion.eff)
+              ~demglasu.cre~ ~override~ // Glabrezu (spwi807.spl -> spfiend.eff)
+              ~djinnisu.cre~ ~override~ // Djinni (spwi718.spl -> spdj.eff)
+              ~dogwasu.cre~  ~override~ // War Dog (sppr402.spl -> spani01.eff -> anisum01.2da)
+              ~dogwisu.cre~  ~override~ // Rabid Dog (spwi309.spl -> spmon1.eff -> spwi309.spl)
+              ~efreetsu.cre~ ~override~ // Efreeti (spwi717.spl -> spefreet.eff)
+              ~ettercsu.cre~ ~override~ // Ettercap (spwi503.spl -> spmon3.eff -> monsum03.2da)
+              ~ghastsu.cre~  ~override~ // Skeleton (sppr301.spl/spwi501.spl -> spandead.eff)
+              ~gnollsu.cre~  ~override~ // Gnoll Elite (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~haksu.cre~    ~override~ // Hakeashar (spwi719.spl -> sphack.eff)
+              ~hobgobsu.cre~ ~override~ // Hobgoblin Elite (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~koboldsu.cre~ ~override~ // Kobold Commando (spwi309.spl -> spmon1.eff -> spwi309.spl
+              ~nishrusu.cre~ ~override~ // Nishruu (spwi624.spl -> spnish.eff)
+              ~nymphsu.cre~  ~override~ // Nymph (sppr410.spl -> nymphsu.eff)
+              ~ogregrsu.cre~ ~override~ // Ogre Berserker (spwi503.spl -> spmon3.eff -> monsum03.2da)
+              ~rabbitsu.cre~ ~override~ // Rabbit (spwi919 -> wish02.cre -> spin735.spl -> rabbitsu.eff)
+              ~servsu.cre~   ~override~ // Aerial Servant (sppr601.spl -> spserv.eff)
+              ~skelwasu.cre~ ~override~ // Skeleton Warrior (sppr301.spl/spwi501 -> spandl15.eff)
+              ~smoundsu.cre~ ~override~ // Shambling Mound (staf14.itm -> mound.eff)
+              ~spidgisu.cre~ ~override~ // Giant Spider (spwi423.spl -> spidgisu.eff)
+              ~spidphsu.cre~ ~override~ // Phase Spider (spwi423.spl -> spidphsu.eff)
+              ~spidswsu.cre~ ~override~ // Sword Spider (spwi423.spl -> spidswsu.eff)
+              ~stalke.cre~   ~override~ // Invisible Stalker (spwi601.spl -> spstalk.eff)
+              ~sumdjinn.cre~ ~override~ // Djinni (ring26.itm -> sumdjinn.eff)
+              ~sumelair.cre~ ~override~ // Lesser Air Elemental (staf15.itm -> staf15.eff)
+              ~sumefree.cre~ ~override~ // Efreeti (misc3c.itm -> sumefr.eff)
+              ~sumelear.cre~ ~override~ // Lesser Earth Elemental (staf16.itm -> staf16.eff)
+              ~sumelfir.cre~ ~override~ // Lesser Fire Elemental (staf17.itm -> staf17.eff)
+              ~tomegol1.cre~ ~override~ // Flesh Golem (tome01.itm -> tome01.eff)
+              ~tomegol2.cre~ ~override~ // Clay Golem (tome02.itm -> tome02.eff)
+              ~tomegol3.cre~ ~override~ // Stone Golem (tome03.itm -> tome03.eff
+              ~tomegol4.cre~ ~override~ // Juggernaut Golem (tome04.itm -> tome04.eff)
+              ~wish01.cre~   ~override~ // wish djinni - overwritten by wish02, but only in ToB games
+              ~wish02.cre~   ~override~ // Djinni (spwi919.spl)
+              ~wolfdisu.cre~ ~override~ // Dire Wolf (sppr402.spl -> spani01.eff -> anisum01.2da) (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~wolfwwsu.cre~ ~override~ // Winter Wolf (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~worgsu.cre~   ~override~ // Worg (spwi309.spl -> spmon1.eff -> spwi309.spl)
+              ~wyvernsu.cre~ ~override~ // Wyvern (spwi619.spl -> wyvernsu.eff)
+              // and these are enemy only but summoned in a familiar way
+              ~c6guen.cre~   ~override~ // Guenhwyvar (c6drizz.cre -> c6drizz1.dlg)
+              ~sahangu.cre~  ~override~ // Anguiliian (ar2300.are -> sahambo6.cre -> sahambo6.bcs)
+              ~sahlace.cre~  ~override~ // Lacedon (ar2003.are -> sahambo3.cre -> sahambo3.bcs)
+              ~sahskel.cre~  ~override~ // Skeleton Warrior (ar2003.are -> sahambo3.cre -> sahambo3.bcs)
+              ~sahzomb.cre~  ~override~ // Sea Zombie (ar2003.are -> sahambo3.cre -> sahambo3.bcs)
+              ~senstalk.cre~ ~override~ // Invisible Stalker (ar6108.bcs)
+              ~telelfir.cre~ ~override~ // Greater Fire Elemental (ar3010.are -> teltan1.cre -> teltan1.bcs -> spin570.spl -> sutelfir.eff)
+//              ~telicesa.cre~ ~override~ // Ice Salamander (ar3010.are -> teltan2.cre -> teltan2.bcs -> spin569.spl -> sutelice.eff) no changes needed (XP/gold 0, no droppable items)
+              // These are unused but of obvious intent for UB authors - spend the day ironing your doilies and polishing your lawn instead
+              /*
+              ~basilgsu.cre~ ~override~ // Greater Basilisk (spwi8)
+              ~basillsu.cre~ ~override~ // Lesser Basilisk (spwi610.spl)
+              ~beargrsu.cre~ ~override~ // Grizzly Bear
+              ~catjagsu.cre~ ~override~ // Panther
+              ~ghastgsu.cre~ ~override~ // Greater Ghast
+              ~gibbersu.cre~ ~override~ // Gibberling
+              ~hamasu.cre~   ~override~ // Hamadryad
+              ~jaguarsu.cre~ ~override~ // Jaguar
+              ~jellmusu.cre~ ~override~ // Mustard Jelly (spwi610.spl)
+              ~ogremasu.cre~ ~override~ // Ogre Mage (spwi610.spl)
+              ~sumtan01.cre~ ~override~ // Tanar'ri
+              ~sumtan02.cre~ ~override~ // Tanar'ri
+              ~tasloisu.cre~ ~override~ // Tasloi Elite Trooper (spwi706.spl)
+              ~wolfsu.cre~   ~override~ // Wolf
+              ~wolfwisu.cre~ ~override~ // Winter Wolf (spwi610.spl)
+              ~wraithsu.cre~ ~override~ // Wraith
+              ~xvartsu.cre~  ~override~ // Xvart Protector
+              */
+  WRITE_LONG 0x001c 0x00  // gold, just hobgobsu.cre
+  WRITE_BYTE 0x0240 0x00  // "Don't check morale"
+  BUT_ONLY IF_EXISTS
+
+// set 0 xp for player-accessible summons
+COPY_EXISTING ~bearblsu.cre~ ~override~ // Black Bear (sppr501.spl -> spanim2.eff -> anisum02.2da)
+              ~bearbrsu.cre~ ~override~ // Brown Bear (sppr501.spl -> spanim2.eff -> anisum02.2da)
+              ~bearcasu.cre~ ~override~ // Cave Bear (sppr501.spl -> spanim2.eff -> anisum02.2da) (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~bearposu.cre~ ~override~ // Mountain Bear (sppr602.spl -> spanim3.eff -> anisum03.2da) (sppr604.spl -> spanim04.eff -> anisum04.2da)
+              ~catliosu.cre~ ~override~ // Lion (sppr501.spl -> spanim2.eff -> anisum02.2da) (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~catliowp.cre~ ~override~ // Joolon (misc3d.itm -> figlion.eff)
+              ~demglasu.cre~ ~override~ // Glabrezu (spwi807.spl -> spfiend.eff)
+              ~djinnisu.cre~ ~override~ // Djinni (spwi718.spl -> spdj.eff)
+              ~dogwasu.cre~  ~override~ // War Dog (sppr402.spl -> spani01.eff -> anisum01.2da)
+              ~dogwisu.cre~  ~override~ // Rabid Dog (spwi309.spl -> spmon1.eff -> spwi309.spl)
+              ~efreetsu.cre~ ~override~ // Efreeti (spwi717.spl -> spefreet.eff)
+              ~ettercsu.cre~ ~override~ // Ettercap (spwi503.spl -> spmon3.eff -> monsum03.2da)
+              ~ghastsu.cre~  ~override~ // Skeleton (sppr301.spl/spwi501.spl -> spandead.eff)
+              ~gnollsu.cre~  ~override~ // Gnoll Elite (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~haksu.cre~    ~override~ // Hakeashar (spwi719.spl -> sphack.eff)
+              ~hobgobsu.cre~ ~override~ // Hobgoblin Elite (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~koboldsu.cre~ ~override~ // Kobold Commando (spwi309.spl -> spmon1.eff -> spwi309.spl
+              ~nishrusu.cre~ ~override~ // Nishruu (spwi624.spl -> spnish.eff)
+              ~nymphsu.cre~  ~override~ // Nymph (sppr410.spl -> nymphsu.eff)
+              ~ogregrsu.cre~ ~override~ // Ogre Berserker (spwi503.spl -> spmon3.eff -> monsum03.2da)
+              ~rabbitsu.cre~ ~override~ // Rabbit (spwi919 -> wish02.cre -> spin735.spl -> rabbitsu.eff)
+              ~servsu.cre~   ~override~ // Aerial Servant (sppr601.spl -> spserv.eff)
+              ~skelwasu.cre~ ~override~ // Skeleton Warrior (sppr301.spl/spwi501 -> spandl15.eff)
+              ~smoundsu.cre~ ~override~ // Shambling Mound (staf14.itm -> mound.eff)
+              ~spidgisu.cre~ ~override~ // Giant Spider (spwi423.spl -> spidgisu.eff)
+              ~spidphsu.cre~ ~override~ // Phase Spider (spwi423.spl -> spidphsu.eff)
+              ~spidswsu.cre~ ~override~ // Sword Spider (spwi423.spl -> spidswsu.eff)
+              ~stalke.cre~   ~override~ // Invisible Stalker (spwi601.spl -> spstalk.eff)
+              ~sumdjinn.cre~ ~override~ // Djinni (ring26.itm -> sumdjinn.eff)
+              ~sumelair.cre~ ~override~ // Lesser Air Elemental (staf15.itm -> staf15.eff)
+              ~sumefree.cre~ ~override~ // Efreeti (misc3c.itm -> sumefr.eff)
+              ~sumelear.cre~ ~override~ // Lesser Earth Elemental (staf16.itm -> staf16.eff)
+              ~sumelfir.cre~ ~override~ // Lesser Fire Elemental (staf17.itm -> staf17.eff)
+              ~tomegol1.cre~ ~override~ // Flesh Golem (tome01.itm -> tome01.eff)
+              ~tomegol2.cre~ ~override~ // Clay Golem (tome02.itm -> tome02.eff)
+              ~tomegol3.cre~ ~override~ // Stone Golem (tome03.itm -> tome03.eff
+              ~tomegol4.cre~ ~override~ // Juggernaut Golem (tome04.itm -> tome04.eff)
+              ~wish01.cre~   ~override~ // wish djinni - overwritten by wish02, but only in ToB games
+              ~wish02.cre~   ~override~ // Djinni (spwi919.spl)
+              ~wolfdisu.cre~ ~override~ // Dire Wolf (sppr402.spl -> spani01.eff -> anisum01.2da) (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~wolfwwsu.cre~ ~override~ // Winter Wolf (sppr602.spl -> spanim3.eff -> anisum03.2da)
+              ~worgsu.cre~   ~override~ // Worg (spwi309.spl -> spmon1.eff -> spwi309.spl)
+              ~wyvernsu.cre~ ~override~ // Wyvern (spwi619.spl -> wyvernsu.eff)
+  WRITE_LONG 0x0014 0x00  // XP
+  BUT_ONLY IF_EXISTS
+
+// summoned bears lack generic attack script
+COPY_EXISTING ~bearblsu.cre~ override
+              ~beargrsu.cre~ override
+  WRITE_ASCII 0x268 ~wtasight~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~bonebld.cre~ ~override~
+              ~sword01.cre~ ~override~
+  WRITE_BYTE 0x23a 25 // lower int to allowed range
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~boy1.cre~     ~override~ //typo
+              ~vvstand3.cre~ ~override~ //typo
+  WRITE_ASCII 0x258 ~runenemy~ #8
+  BUT_ONLY
+
+// female merchants with a male sound file
+COPY_EXISTING ~bshop02.cre~ ~override~
+              ~shop2.cre~   ~override~
+  WRITE_LONG 0x118 "-1" // blanks common4, "Calimshites!  Tethyrians!  Waterdhavians!  They all make their way here eventually to Amn, they do." [malmer04]
+  BUT_ONLY
+  
+// generic city boys shouldn't use giran's scripting
+COPY_EXISTING ~burch1.cre~ ~override~
+  WRITE_ASCII 0x250 ~~ #8 // blanks boy1, makes him leave after hannah is rescued
+  BUT_ONLY
+
+// ler should approach PC after irenicus/cw carnage; see also bystand1.bcs
+COPY_EXISTING ~bystand1.cre~ ~override~
+  WRITE_ASCII 0x250 ~bystand1~ #8   // free slot: Class script
+  BUT_ONLY
+
+// Lady Beth
+COPY_EXISTING ~bystand2.cre~ ~override~
+  WRITE_ASCII 0x250 ~~ #8 // blanks old bg script
+  BUT_ONLY
+
+// catti should not attack mages randomly
+COPY_EXISTING ~c6catti.cre~ ~override~
+  WRITE_ASCII 0x0250 ~~ #8
+  BUT_ONLY
+
+// added paladiny stats to c6eric; replaces harbinger with party-friendly version (see cdsw2h07.itm)
+// both are also patched to LG alignment in the Oversight alignment section
+COPY_EXISTING ~c6eric.cre~  ~override~
+              ~c6eric3.cre~ ~override~
+  WRITE_BYTE 0x238 15 // str
+  WRITE_BYTE 0x23b 16 // wis
+  WRITE_BYTE 0x23d 12 // con
+  WRITE_BYTE 0x23e 18 // chr
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw2h07" item = "cdsw2h07" END // replaces harbinger with party-friendly version
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Males with female sounds
+COPY_EXISTING ~c6nerit.cre~ ~override~
+  WRITE_LONG 0xa4 61724 //I welcome you with outstretched hand.
+  WRITE_LONG 0xb8 61732 //May the Gods protect me!
+  WRITE_LONG 0xc8 61729 //Justice shall be swift and final!
+  WRITE_LONG 0xec 61730
+  WRITE_LONG 0xf0 61731
+  WRITE_LONG 0x10c 61725 //I trust you are here in good faith.
+  WRITE_LONG 0x110 61726 //May the Gods look upon you kindly.
+  WRITE_LONG 0x114 61724 //I welcome you with outstretched hand.
+  WRITE_LONG 0x118 61727 //All of the faithful are welcome, here.
+  BUT_ONLY
+
+// ruby pendant charm is supposed to be once-per-day; see also regisamu.itm
+COPY_EXISTING ~c6regis.cre~ ~override~
+              ~c6regis2.cre~ ~override~
+  REPLACE_CRE_ITEM ~regisamu~ #1 #0 #0 ~NONE~ ~AMULET~ // add charges
+  BUT_ONLY
+
+// cernd spellbook fixes
+COPY_EXISTING ~cernd10.cre~  ~override~
+              ~cernd12.cre~  ~override~
+              ~cernd13.cre~  ~override~
+              ~cernd13b.cre~ ~override~
+              ~cernd14.cre~  ~override~
+  REMOVE_KNOWN_SPELL sppr318 sppr405 sppr507 // remove ZoSA, mental domination, champion's strength
+  ADD_KNOWN_SPELL ~sppr317~ #2 ~priest~ // add cure disease
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+    sppr507 => sppr506 // iron skins for champion's strength
+    sppr405 => sppr410 // call woodland beings for mental domination
+    sppr318 => sppr317 // cure disease for ZoSA
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY IF_EXISTS
+
+// cernd12 missing star in single weapon style
+COPY_EXISTING ~cernd12.cre~  ~override~
+  SET_BG2_PROFICIENCY 113 1
+  BUT_ONLY
+
+// highest level cernds missing their override script, removing BG profs
+COPY_EXISTING ~cernd13.cre~  ~override~
+              ~cernd13b.cre~ ~override~
+  WRITE_BYTE  0x6e 0
+  WRITE_BYTE  0x6f 0
+  WRITE_BYTE  0x70 0
+  WRITE_BYTE  0x75 0
+  WRITE_ASCII 0x248 ~CERND~ #8
+  BUT_ONLY
+
+// ToB cernd also missing his override script
+COPY_EXISTING ~cernd14.cre~ ~override~
+  WRITE_ASCII 0x248 ~CERN25~ #16 // extra-long write to blank dupe class script
+  WRITE_BYTE  0x6e 0
+  WRITE_BYTE  0x6f 0
+  WRITE_BYTE  0x70 0
+  WRITE_BYTE  0x75 0
+  BUT_ONLY IF_EXISTS
+
+// cernd missing memorized spells - all versions are short two level 1, two level 2, one level 3, one level 4 memorized spells
+COPY_EXISTING ~cernd10.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ // armor of faith
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // every one gets doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr207~ #1 ~priest~ // good berries
+  ADD_MEMORIZED_SPELL ~sppr209~ #1 ~priest~ // know alignment
+  ADD_MEMORIZED_SPELL ~sppr310~ #2 ~priest~ // miscast magic
+  ADD_MEMORIZED_SPELL ~sppr410~ #3 ~priest~ // call woodland beings
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// cernd missing memorized spells - all versions are short two level 1, two level 2, one level 3, one level 4 memorized spells
+COPY_EXISTING ~cernd12.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ // second cure light wounds
+  ADD_MEMORIZED_SPELL ~sppr110~ #0 ~priest~ // shillelagh
+  ADD_MEMORIZED_SPELL ~sppr207~ #1 ~priest~ // good berries
+  ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~ // resist fire/cold
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr410~ #3 ~priest~ // call woodland beings
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// cernd missing memorized spells - all versions are short two level 1, two level 2, one level 3, one level 4 memorized spells
+COPY_EXISTING ~cernd13.cre~  ~override~
+              ~cernd13b.cre~ ~override~
+              ~cernd14.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ // second cure light wounds
+  ADD_MEMORIZED_SPELL ~sppr110~ #0 ~priest~ // shillelagh
+  ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~ // resist fire/cold
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~ // slow poison
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~ // cloak of fear
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY IF_EXISTS
+
+//Sahuagin with a gnoll soundset; strip him of all sounds, as that is how other Sahuagin roll (Wisp)
+COPY_EXISTING ~chevil04.cre~ ~override~
+  PATCH_FOR_EACH offset IN 0xc8 0xcc 0xec 0xf0 0x10c 0x110 BEGIN
+    WRITE_LONG offset "-1"
+  END
+  BUT_ONLY IF_EXISTS
+
+// consistent tazok
+COPY_EXISTING ~chtaz01.cre~ ~override~
+              ~tazok.cre~   ~override~
+  WRITE_LONG  0x28 28672 // animation: half-ogre
+  WRITE_BYTE 0x272   113 // race: ogre
+  WRITE_BYTE 0x27b    35 // alignment: ne
+  BUT_ONLY IF_EXISTS
+
+//Tabitha should be immune to charm (Wisp); extra effects fleshed out in immunity batches
+COPY_EXISTING ~coplion.cre~ ~override~
+  LPF ADD_CRE_EFFECT INT_VAR opcode = 101 parameter2 = 5 timing = 9 END
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Males with female sounds
+COPY_EXISTING ~cowenf1.cre~ ~override~
+  WRITE_LONG 0xa4 61862 //Declare yourself!
+  WRITE_LONG 0xb8 61869 //Retreat!
+  WRITE_LONG 0xc8 61866 //I'll test your mettle with cold steel!
+  WRITE_LONG 0xec 61867
+  WRITE_LONG 0xf0 61868
+  WRITE_LONG 0x10c 61863 //Do not disturb my duties.
+  WRITE_LONG 0x110 61864 //At ease, citizen.
+  WRITE_LONG 0x114 61865 //I trust you have no hostile intentions.
+  WRITE_LONG 0x118 61862 //Declare yourself!
+  BUT_ONLY
+
+COPY_EXISTING ~dadrow9.cre~ ~override~ // typo
+  WRITE_ASCII 0x250 ~mage8a~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~dadrow10.cre~ ~override~ //typo
+  WRITE_ASCII 0x250 ~pries10b~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~dadrow12.cre~ ~override~ //typo
+  WRITE_ASCII 0x250 ~pries14t~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~dadrow15.cre~ ~override~ //typo
+  WRITE_ASCII 0x258 ~mage8a~ #8
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~daelf.cre~ ~override~
+  WRITE_LONG 0xa4 11107 //Yeah?
+  WRITE_LONG 0xec 11167
+  WRITE_LONG 0xf0 11168
+  WRITE_LONG 0x10c 11119 //Hello there.
+  WRITE_LONG 0x110 11070 //Few of the fair folk concern themselves with the affairs of the state.
+  WRITE_LONG 0x114 "-1"
+  BUT_ONLY
+
+COPY_EXISTING ~daghaun1.cre~ ~override~ //typo
+  WRITE_ASCII 0x258 ~pries14t~ #8
+  BUT_ONLY
+
+//Dawnmaster Kreel's amazing wardrobe change (Wisp), part 2/2
+COPY_EXISTING ~dawnmas.cre~ ~override~
+  SET off = 0x2c
+  PATCH_FOR_EACH colour IN 226 238 237 201 228 226 200 BEGIN //Values courtesy of cscleric.cre
+    WRITE_BYTE off colour
+    SET off += 1
+  END
+
+// lots o' bugs in ddguard series, easier to clone a friend
+OUTER_SET num = 15
+COPY_EXISTING ~ddguard1.cre~ ~override/ddguard2.cre~
+              ~ddguard1.cre~ ~override/ddguard3.cre~
+              ~ddguard1.cre~ ~override/ddguard4.cre~
+              ~ddguard1.cre~ ~override/ddguard5.cre~
+              ~ddguard1.cre~ ~override/ddguard6.cre~
+  WRITE_ASCIIE 0x280 ~%DEST_RES%~ #32 // dv
+  WRITE_ASCIIE 0x2cc ~%DEST_RES%~  #8 // dialogue file
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "key14" item = EVAL ~key%num%~ END // key14 to key15 - 19
+  SET num += 1
+  BUT_ONLY
+
+// illegal CON scores
+COPY_EXISTING ~deadb01.cre~  ~override~
+              ~deadb02.cre~  ~override~
+              ~deadb03.cre~  ~override~
+              ~firwlf01.cre~ ~override~
+              ~firwlf02.cre~ ~override~
+              ~rngwlf01.cre~ ~override~
+              ~rngwlf02.cre~ ~override~
+              ~rngwlf03.cre~ ~override~
+              ~rngwlf04.cre~ ~override~
+              ~rngwlf05.cre~ ~override~
+  WRITE_BYTE 0x23d 25 // lower con to allowed range
+  BUT_ONLY
+
+COPY_EXISTING ~demgla01.cre~ ~override~ // has summoned script, so destroys allies in shade lord dungeon
+              ~demnab02.cre~ ~override~ // script reference broken, changed so they'll use actual powers instead of just melee
+  WRITE_ASCII 0x248 ~tanari~ #8
+  BUT_ONLY
+
+// The Glabrezus in the Ranger stronghold quest and inside the Suldanessalar temple don't give any XP when killed (aVENGER)
+COPY_EXISTING ~demgla01.cre~   ~override~ // Ranger stronghold Glabrezu
+              ~demglab2.cre~   ~override~ // Suldanessalar temple Glabrezu
+  WRITE_LONG 0x14 12500 // XP value
+  BUT_ONLY
+
+COPY_EXISTING ~dempit01.cre~ ~override~ //assigned to dempit.cre
+              ~telpit2.cre~  ~override~ //assigned to dempit.cre
+  WRITE_ASCII 0x248 ~dempit~ #8 // typo, was using dempit01
+  BUT_ONLY IF_EXISTS
+
+// ferric runs away since he uses Yoshimo's combat script
+COPY_EXISTING ~deshar.cre~ ~override~
+  WRITE_ASCII 0x258 ~thief14t~ #8
+  BUT_ONLY
+
+// fallen devas using normal deva script
+COPY_EXISTING ~devaevil.cre~ ~override~
+  WRITE_ASCII 0x248 ~devaevil~ // override script
+  BUT_ONLY IF_EXISTS
+
+// fixes good deva's spells
+// sets devas to lev 25 to match fallen devas and planetars
+COPY_EXISTING ~devagood.cre~  ~override~
+  WRITE_BYTE 0x234 25 // level
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ (2) // add two castings of cure critical wounds to make even with devaevil
+  ADD_MEMORIZED_SPELL ~sppr725~ #6 ~priest~ (2) // add two castings of globe of blades to make even with devaevil
+  BUT_ONLY IF_EXISTS
+
+// abazigal's dragon form not immune to time stop due to bad parameter
+COPY_EXISTING ~dragblue.cre~ ~override~ // abazigal, 1 effect(s) altered
+  LPF ALTER_EFFECT INT_VAR match_opcode = 310 match_parameter2 = 0 parameter2 = 1 END // fix broken timestop immunity
+  BUT_ONLY IF_EXISTS
+
+// make dream imoen invincible, just in case
+COPY_EXISTING ~drim02.cre~ ~override~
+  ADD_CRE_ITEM ~minhp1~ #0 #0 #0 ~NONE~ ~AMULET RRING~
+
+COPY_EXISTING ~drow06.cre~   ~override~
+              ~uddrow19.cre~ ~override~
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN
+    spwi801 => spwi811 // doesn't exist, map to Symbol Fear
+  END
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY
+
+// add monhp1 item to trolls to prevent death; assign script to force transformation to dead form at low HP
+COPY_EXISTING ~drshnl01.cre~ ~override~
+              ~eletro01.cre~ ~override~
+              ~kptrol03.cre~ ~override~
+              ~pptroll1.cre~ ~override~
+              ~sutroll.cre~  ~override~
+              ~torgal.cre~   ~override~
+  ADD_CRE_ITEM ~monhp1~ #0 #0 #0 ~NONE~ ~AMULET~
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "kptrol03" = 0) BEGIN
+    WRITE_ASCII 0x248 ~kptrol23~
+  END ELSE
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "drshnl01" = 0) BEGIN
+    WRITE_ASCII 0x248 ~drshnl11~
+    WRITE_ASCII 0x258 ~drshnl01~ // restore Nith's attack script, pt 2: assign script; see drshnl01.bcs
+  END ELSE
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "eletro01" = 0) BEGIN
+    WRITE_ASCII 0x248 ~eletro03~
+  END ELSE
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "pptroll1" = 0) BEGIN
+    WRITE_ASCII 0x248 ~pptroll2~
+  END ELSE
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "sutroll" = 0) BEGIN
+    WRITE_ASCII 0x248 ~sutroll2~
+  END ELSE
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "torgal" = 0) BEGIN
+    WRITE_BYTE  0x234 16 // torgal's HD are exceedingly low, making her vulnerable to cloudkill
+    WRITE_ASCII 0x258 ~torgal2~ #8 // race script
+  END
+
+// one-off change for Nilthiri to prevent repeating dialogue after regenerating
+COPY_EXISTING ~drshnl01.cre~ ~override/drshnl21.cre~
+  WRITE_ASCII 0x250 ~~ #8 // no approach and speak script
+  WRITE_BYTE  0x270 255   // enemy
+  WRITE_ASCII 0x2cc ~~ #8 // no dialogue file
+
+// troll cook gets her own sequence to maintain her name
+COPY_EXISTING ~firtrl01.cre~ ~override~
+  WRITE_ASCII 0x248 ~firtrl02~ // override script
+  BUT_ONLY
+
+// create 'dead' or 'knocked down' versions of 'special' trolls (revised by Nythrun)
+COPY_EXISTING ~drshnl01.cre~ ~override/drshnl11.cre~
+              ~eletro01.cre~ ~override/eletro03.cre~
+              ~firtrl01.cre~ ~override/firtrl02.cre~ // troll cook
+              ~kptrol03.cre~ ~override/kptrol23.cre~
+              ~pptroll1.cre~ ~override/pptroll2.cre~
+              ~sutroll.cre~  ~override/sutroll2.cre~
+              ~torgal.cre~   ~override/torgal2.cre~
+  WRITE_SHORT    0x24    1 // current HP
+  WRITE_SHORT    0x46   10 // natural AC
+  WRITE_SHORT    0x48   10 // effective AC
+  WRITE_BYTE     0x5a  100 // resist cold
+  WRITE_BYTE     0x5b  100 // resist electricity
+  WRITE_BYTE     0x5f  100 // resist magic cold
+  WRITE_BYTE     0x60  100 // resist slashing
+  WRITE_BYTE     0x61  100 // resist crushing
+  WRITE_BYTE     0x62  100 // resist piercing
+  WRITE_BYTE     0x63  100 // resist missile
+  WRITE_BYTE     0x23c   9 // dexterity
+  WRITE_BYTE     0x270 255 // enemy
+  PATCH_IF          "%SOURCE_RES%" STRING_EQUAL_CASE kptrol03 BEGIN
+    WRITE_ASCII  0x248 kptrol13 #40   // override script
+  END ELSE PATCH_IF "%SOURCE_RES%" STRING_EQUAL_CASE drshnl01 BEGIN
+    WRITE_ASCII  0x248 drshnl21 #40
+  END ELSE PATCH_IF "%SOURCE_RES%" STRING_EQUAL_CASE torgal   BEGIN
+    WRITE_ASCII  0x248 torgal3 #40
+  END ELSE BEGIN
+    WRITE_ASCIIE 0x248 ~%SOURCE_RES%~ #40 // new script
+  END
+  WRITE_ASCII    0x2cc ~~ #8          // blanks dialog file
+  REMOVE_CRE_ITEM  minhp1 monhp1 trollreg trollspi
+  REPLACE_CRE_ITEM trolldie #0 #0 #0 ~UNSTEALABLE&UNDROPPABLE~ BELT
+
+// makes druidad DestroySelf() if player is great druid; druidad.baf is compiled in the folder
+COPY_EXISTING ~druidad.cre~ ~override~
+  WRITE_ASCII 0x248 ~druidad~ #8 // override script
+  WRITE_ASCII 0x250 ~initdlg~ #8 // class script
+  BUT_ONLY
+
+// edwin spell slot fix
+// this was long and ugly, now it's just long; thanks ADD_KNOWN/MEMORIZED_SPELL!
+// all of the xp > 120000 checks are basically for ToB edwin, who has a more diverse spellbook
+COPY_EXISTING ~edwin7.cre~  ~override~
+              ~edwin9.cre~  ~override~
+              ~edwin11.cre~ ~override~
+              ~edwin12.cre~ ~override~
+              ~edwin13.cre~ ~override~
+              ~edwin15.cre~ ~override~
+  READ_LONG 0x018 xp
+  READ_BYTE 0x234 level
+  REMOVE_MEMORIZED_SPELLS // nuke all memorized
+  ADD_MEMORIZED_SPELL ~spwi101~ #0 ~wizard~ (1) // grease
+  ADD_MEMORIZED_SPELL ~spwi102~ #0 ~wizard~ (1) // armor
+  ADD_MEMORIZED_SPELL ~spwi104~ #0 ~wizard~ (1) // charm person
+  ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (2) // magic missile
+  ADD_MEMORIZED_SPELL ~spwi119~ #0 ~wizard~ (1) // larloch's minor drain
+  ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (1) // reflected image
+  ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (1) // melf's acide arrow
+  ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (1) // Mirror Image
+  ADD_MEMORIZED_SPELL ~spwi215~ #1 ~wizard~ (1) // Web
+  ADD_MEMORIZED_SPELL ~spwi220~ #1 ~wizard~ (1) // Power Word Sleep
+  ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~ (1) // Remove Magic
+  ADD_MEMORIZED_SPELL ~spwi303~ #2 ~wizard~ (1) // Flame Arrow
+  ADD_MEMORIZED_SPELL ~spwi304~ #2 ~wizard~ (1) // Fireball
+  ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~ (1) // Haste
+  ADD_MEMORIZED_SPELL ~spwi309~ #2 ~wizard~ (1) // Monster Summoning I
+  ADD_MEMORIZED_SPELL ~spwi314~ #2 ~wizard~ (1) // Vampiric Touch
+  ADD_MEMORIZED_SPELL ~spwi403~ #3 ~wizard~ (1) // Fire Shield (Blue)
+  ADD_MEMORIZED_SPELL ~spwi406~ #3 ~wizard~ (1) // Minor Globe of Invulneribility
+  ADD_MEMORIZED_SPELL ~spwi407~ #3 ~wizard~ (1) // Monster Summoning II
+  ADD_MEMORIZED_SPELL ~spwi416~ #3 ~wizard~ (1) // Polymorph Self
+  ADD_MEMORIZED_SPELL ~spwi504~ #4 ~wizard~ (1) // Monster Summoning III
+  ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~ (1) // Shadow Door
+  ADD_MEMORIZED_SPELL ~spwi516~ #4 ~wizard~ (1) // Conjure Lesser Fire Elemental
+  ADD_MEMORIZED_SPELL ~spwi522~ #4 ~wizard~ (1) // Minor Spell Turning
+  PATCH_IF (xp > 1200000) BEGIN
+    ADD_MEMORIZED_SPELL ~spwi120~ #0 ~wizard~ (1) // reflected image
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~ (1) // blur
+    ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (1) // Stoneskin
+  END ELSE BEGIN
+    ADD_MEMORIZED_SPELL ~spwi119~ #0 ~wizard~ (1) // Larloch's Minor Drain
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (1) // melf's acid arrow
+    ADD_MEMORIZED_SPELL ~spwi406~ #3 ~wizard~ (1) // Minor Globe of Invulneribility
+  END
+  PATCH_IF (level > 10) BEGIN
+    ADD_MEMORIZED_SPELL ~spwi520~ #4 ~wizard~ (1) // Conjure Lesser Air Elemental
+    ADD_MEMORIZED_SPELL ~spwi521~ #4 ~wizard~ (1) // Conjure Lesser Earth Elemental
+    PATCH_IF (xp > 1200000) BEGIN
+      ADD_MEMORIZED_SPELL ~spwi217~ #1 ~wizard~ (1) // Agannazar's Scorcher
+      ADD_MEMORIZED_SPELL ~spwi308~ #2 ~wizard~ (1) // Lightning Bolt
+      ADD_MEMORIZED_SPELL ~spwi405~ #3 ~wizard~ (1) // Improved Invisibility
+    END ELSE BEGIN
+      ADD_MEMORIZED_SPELL ~spwi205~ #1 ~wizard~ (1) // Horror
+      ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~ (1) // Haste
+      ADD_MEMORIZED_SPELL ~spwi407~ #3 ~wizard~ (1) // Monster Summoning II
+    END
+    PATCH_IF (level > 11) BEGIN
+      ADD_MEMORIZED_SPELL ~spwi502~ #4 ~wizard~ (1) // Cloudkill
+      ADD_MEMORIZED_SPELL ~spwi601~ #5 ~wizard~ (1) // Invisible Stalker
+      ADD_MEMORIZED_SPELL ~spwi605~ #5 ~wizard~ (1) // Death Spell
+      ADD_MEMORIZED_SPELL ~spwi612~ #5 ~wizard~ (1) // Power Word Silence
+      ADD_MEMORIZED_SPELL ~spwi619~ #5 ~wizard~ (1) // Wyvern Call
+      PATCH_IF (xp > 1200000) BEGIN
+        ADD_MEMORIZED_SPELL ~spwi401~ #3 ~wizard~ (1) // Confusion
+      END ELSE BEGIN
+        ADD_MEMORIZED_SPELL ~spwi403~ #3 ~wizard~ (1) // Fire Shield (Blue)
+      END
+      PATCH_IF (level > 12) BEGIN
+        ADD_MEMORIZED_SPELL ~spwi620~ #5 ~wizard~ (1) // Conjure Fire Elemental
+        PATCH_IF (xp > 1200000) BEGIN
+          ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (1) // armor
+          ADD_MEMORIZED_SPELL ~spwi209~ #1 ~wizard~ (1) // Luck
+          ADD_MEMORIZED_SPELL ~spwi307~ #2 ~wizard~ (1) // Invisibility 10' Radius
+        END ELSE BEGIN
+          ADD_MEMORIZED_SPELL ~spwi102~ #0 ~wizard~ (1) // armor
+          ADD_MEMORIZED_SPELL ~spwi220~ #1 ~wizard~ (1) // Power Word Sleep
+          ADD_MEMORIZED_SPELL ~spwi304~ #2 ~wizard~ (1) // Fireball
+        END
+      END
+    END
+  END
+  // wrap up spells memorizable/currently memorizable
+  READ_LONG 0x2a8 mem_info
+  FOR (index = 7 ; index < 13 ; ++index) BEGIN // levels 1-6, arcane
+    READ_SHORT (mem_info + 0x0c + (index * 0x10)) spells
+    PATCH_IF spells > 1 BEGIN // skip if no spells known at this level
+      WRITE_SHORT (mem_info + 0x02 + (index * 0x10)) (spells - 2) // reduce by two to account for Edwin's amulet
+      WRITE_SHORT (mem_info + 0x04 + (index * 0x10)) (spells - 2)
+    END
+  END
+  BUT_ONLY IF_EXISTS
+
+// 12hd earth elemental via druid summon should be equal to mage-summoned 12hd earth elemental
+COPY_EXISTING ~elearpr.cre~ ~override~
+  WRITE_BYTE 0x238 17 // strength
+  BUT_ONLY
+
+// conjure air elemental lacks 24 HD elemental; see also spair1-3.eff
+// elairsu2 is actually a spot-on match for the 16 hd elem so make it elairsu3; make elairsu4 from old elairsu3
+COPY_EXISTING ~elairsu3.cre~ ~override/elairsu4.cre~
+              ~elairsu2.cre~ ~override/elairsu3.cre~
+
+// conjure air elemental lacks 24 HD elemental; see also spair1-3.eff
+COPY_EXISTING ~elairsu2.cre~ ~override~
+  WRITE_SHORT 0x024    96 // current hp
+  WRITE_SHORT 0x026    96 // max hp
+  WRITE_LONG  0x028 29473 // smaller air elemental anim
+  WRITE_BYTE  0x052     9 // thac0
+  WRITE_BYTE  0x054     7 // save vs death
+  WRITE_BYTE  0x055     9 // save vs wand
+  WRITE_BYTE  0x056     8 // save vs poly
+  WRITE_BYTE  0x057     8 // save vs breath
+  WRITE_BYTE  0x058    10 // save vs spell
+  WRITE_BYTE  0x234    12 // level (hd)
+  WRITE_BYTE  0x238    17 // strength
+
+// conjure air elemental lacks 24 HD elemental; see also spair1-3.eff
+COPY_EXISTING ~elairsu4.cre~ ~override~
+  WRITE_SHORT 0x024   192 // current hp
+  WRITE_SHORT 0x026   192 // max hp
+  WRITE_BYTE  0x052     0 // thac0
+  WRITE_BYTE  0x054     2 // save vs death
+  WRITE_BYTE  0x055     4 // save vs wand
+  WRITE_BYTE  0x056     3 // save vs poly
+  WRITE_BYTE  0x057     3 // save vs breath
+  WRITE_BYTE  0x058     5 // save vs spell
+  WRITE_BYTE  0x234    24 // level (hd)
+  WRITE_BYTE  0x238    22 // strength
+  
+// 16 HD fire elementals have less STR than 12 HD
+COPY_EXISTING ~elfirpr2.cre~ ~override~
+              ~elfirsu3.cre~ ~override~
+  WRITE_BYTE 0x238 18 // strength
+  BUT_ONLY
+
+// standardize conjure (lesser) air/earth/fure elementals; see also elfirsu1.cre, elearsu2.cre, elearsu4.cre
+COPY_EXISTING ~elairsu1.cre~ ~override~
+              ~elearsu1.cre~ ~override~
+  WRITE_BYTE  0x270 128 // neutral
+  WRITE_BYTE  0x238  13 // strength
+
+// standardize conjure (lesser) air/earth/fure elementals; see also elfirsu1.cre, elairsu1.cre, elearsu1.cre, elearsu4.cre
+COPY_EXISTING ~elearsu2.cre~ ~override~
+  WRITE_BYTE 0x241  0 // no racial enemy
+  WRITE_BYTE 0x238 17 // strength
+
+// standardize conjure (lesser) air/earth/fure elementals; see also elfirsu1.cre, elairsu1.cre, elearsu1.cre, elearsu2.cre
+COPY_EXISTING ~elearsu4.cre~ ~override~
+  WRITE_BYTE  0x241  0 // no racial enemy
+  WRITE_BYTE  0x238 22 // strength
+
+// standardize conjure (lesser) air/earth/fure elementals; see also elairsu1.cre, elearsu1.cre, elearsu2.cre, elearsu4.cre
+COPY_EXISTING ~elfirsu1.cre~ ~override~
+  WRITE_BYTE  0x270 128 // neutral
+  WRITE_BYTE  0x238  14 // strength
+
+// 'knocked down' troll can be killed by anything
+COPY_EXISTING ~firamb05.cre~ ~override~
+  WRITE_SHORT           0x24    1            // current HP
+  WRITE_SHORT           0x46   10            // natural AC
+  WRITE_SHORT           0x48   10            // effective AC
+  WRITE_BYTE            0x5a  100            // resist cold
+  WRITE_BYTE            0x5b  100            // resist electricity
+  WRITE_BYTE            0x5f  100            // resist magic cold
+  WRITE_BYTE            0x60  100            // resist slashing
+  WRITE_BYTE            0x61  100            // resist crushing
+  WRITE_BYTE            0x62  100            // resist piercing
+  WRITE_BYTE            0x63  100            // resist missile
+  WRITE_BYTE            0x23c   9            // dexterity
+  WRITE_BYTE            0x270 255            // enemy
+  BUT_ONLY
+
+// lvl 6 trolls should be routed through a different knocked-down version
+COPY_EXISTING ~kptrol01.cre~ ~override~
+              ~kptrol02.cre~ ~override~
+              ~kptrol04.cre~ ~override~
+              ~kptrol05.cre~ ~override~
+  WRITE_ASCII 0x248 ~cdtroll1~ // override script
+  BUT_ONLY
+
+// summoned efreeti/djinni come back from gaseous form as hostile, noble come back as generics
+// see cdgasnd.spl, cdgasnd2.spl, cdgasnd.cre, cdgasnd.bcs, cdgasne.spl, cdgasne2.spl, cdgasne.cre, cdgasne.bcs, djinni01.bcs, djinni04.bcs, efreet01.bcs, efreet04.bcs
+COPY_EXISTING ~gasform1.cre~ ~override/cdgasnd.cre~ // new gaseous forms for noble djinni
+              ~gasform3.cre~ ~override/cdgasne.cre~ // new gaseous forms for noble efreeti
+  WRITE_ASCIIE 0x260 ~%DEST_RES%~ #8 // replaces djinn02/efreet02 script
+
+// pellan's +2 large shield is unique; leaving lone copy on Chak, see also rndequip.2da, rndwep.2da
+COPY_EXISTING ~gorcamb3.cre~ ~override~ // tiefling
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "shld19" item = "shld30" END // swap for generic +2 large shield
+  BUT_ONLY IF_EXISTS
+
+// xp for killing habib
+COPY_EXISTING ~habib.cre~  ~override~
+              ~habib2.cre~ ~override~
+  WRITE_LONG 0x14 15
+  BUT_ONLY
+
+// haer's elemental resistances and kit.ids fixes
+COPY_EXISTING ~haer10.cre~ ~override~
+              ~haer11.cre~ ~override~
+              ~haer13.cre~ ~override~
+              ~haer15.cre~ ~override~
+              ~haer19.cre~ ~override~
+  WRITE_BYTE 0x59 25 // fire (these w_b are fixes for haer's elemental resistances)
+  WRITE_BYTE 0x5a 50 // cold
+  WRITE_BYTE 0x5b 25 // electrcity
+  WRITE_BYTE 0x5c 0  // acid
+  WRITE_BYTE 0x5d 0  // magic
+  WRITE_BYTE 0x5e 25 // magic fire
+  WRITE_BYTE 0x5f 50 // magic cold
+  WRITE_BYTE 0x60 15 // slashing
+  WRITE_BYTE 0x61 15 // crushing
+  WRITE_BYTE 0x62 15 // piercing
+  WRITE_BYTE 0x63 15 // missile
+  WRITE_BYTE 0x6a 90 //pickpocketing, overwritten below for haer10, 11, 13
+  WRITE_LONG 0x244 0x400d0000 // kit value
+  BUT_ONLY IF_EXISTS
+
+// hd pickpocket fixes
+COPY_EXISTING ~haer10.cre~ ~override~
+  WRITE_BYTE 0x6a 65 //pickpocketing
+
+COPY_EXISTING ~haer11.cre~ ~override~
+  WRITE_BYTE 0x6a 70 //pickpocketing
+
+COPY_EXISTING ~haer13.cre~ ~override~
+  WRITE_BYTE 0x6a 80 //pickpocketing
+
+// haer'dalis spell issues
+COPY_EXISTING ~haer15.cre~ ~override~
+  ADD_KNOWN_SPELL ~spwi106~ #0 ~wizard~
+  ADD_KNOWN_SPELL ~spwi112~ #0 ~wizard~
+  ADD_KNOWN_SPELL ~spwi113~ #0 ~wizard~
+  ADD_KNOWN_SPELL ~spwi116~ #0 ~wizard~
+  ADD_KNOWN_SPELL ~spwi201~ #1 ~wizard~
+  ADD_KNOWN_SPELL ~spwi206~ #1 ~wizard~
+  ADD_KNOWN_SPELL ~spwi209~ #1 ~wizard~
+  ADD_KNOWN_SPELL ~spwi212~ #1 ~wizard~
+  ADD_KNOWN_SPELL ~spwi303~ #2 ~wizard~
+  ADD_KNOWN_SPELL ~spwi305~ #2 ~wizard~
+  ADD_KNOWN_SPELL ~spwi312~ #2 ~wizard~
+  ADD_KNOWN_SPELL ~spwi401~ #3 ~wizard~
+  ADD_KNOWN_SPELL ~spwi406~ #3 ~wizard~
+  ADD_KNOWN_SPELL ~spwi408~ #3 ~wizard~
+  ADD_KNOWN_SPELL ~spwi508~ #4 ~wizard~
+  ADD_KNOWN_SPELL ~spwi510~ #4 ~wizard~
+  REMOVE_MEMORIZED_SPELLS // nuke all memorized
+  ADD_MEMORIZED_SPELL ~spwi113~ #0 ~wizard~ (1) // Protection from Evil
+  ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ (1) // Magic Missile
+  ADD_MEMORIZED_SPELL ~spwi106~ #0 ~wizard~ (1) // Blindness
+  ADD_MEMORIZED_SPELL ~spwi209~ #1 ~wizard~ (1) // Luck
+  ADD_MEMORIZED_SPELL ~spwi206~ #1 ~wizard~ (1) // Invisibility
+  ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~ (1) // Blur
+  ADD_MEMORIZED_SPELL ~spwi312~ #2 ~wizard~ (1) // Slow
+  ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~ (1) // Haste
+  ADD_MEMORIZED_SPELL ~spwi303~ #2 ~wizard~ (1) // Flame Arrow
+  ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (1) // Stoneskin
+  ADD_MEMORIZED_SPELL ~spwi406~ #3 ~wizard~ (1) // Minor Globe of Invulneribility
+  ADD_MEMORIZED_SPELL ~spwi401~ #3 ~wizard~ (1) // Confusion
+  ADD_MEMORIZED_SPELL ~spwi510~ #4 ~wizard~ (1) // Spell Immunity
+  ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~ (1) // Chaos
+  BUT_ONLY
+
+// knows class- or alignment-restricted spell
+COPY_EXISTING ~heartg3.cre~ ~override~
+              ~heartg4.cre~ ~override~
+              ~heartg5.cre~ ~override~
+  REMOVE_KNOWN_SPELL sppr105 sppr314 sppr605 sppr606
+  BUT_ONLY
+
+// improved continuity fixes from Oversight; swap ogre sounds for david warner
+COPY_EXISTING ~hellslay.cre~ ~override~
+  SAY BATTLE_CRY1 #60501 // "You cannot hope to defeat me!" for "Me will crush you, crush you to goo!"
+  SAY BATTLE_CRY2 #60502 // "Die! Die!!  All of you, DIE!!" for "Me will smash your face."
+  SAY SELECT_COMMON1 #60500 // "You are but a gnat compared to my power." for "I will crush."
+  SAY DAMAGE #60503 // irenic05 for ogre sound, ogree08
+  SAY DYING #60504 // irenic06 for ogre sound, ogree09
+
+COPY_EXISTING ~helmbyr.cre~  ~override~ // replaces nonexistent initpc
+              ~latlara.cre~  ~override~
+              ~talvilon.cre~ ~override~
+  WRITE_ASCII 0x250 ~initmain~ #8
+  BUT_ONLY
+
+// trolls lacking the correct 1hp items
+COPY_EXISTING ~hgtrl01.cre~  ~override~ // fire troll
+              ~firtrl01.cre~ ~override~ // troll cook
+              ~kptrol01.cre~ ~override~ // kptrol0[1-4] are trolls from de'Arnise keep
+              ~kptrol02.cre~ ~override~
+//              ~kptrol03.cre~ ~override~ handled in special batch above
+              ~kptrol04.cre~ ~override~
+              ~obsice01.cre~ ~override~ // snow troll from planar sphere
+              ~trolgi01.cre~ ~override~ // generic giant troll
+              ~trollens.cre~ ~override~ // giant troll
+  REPLACE_CRE_ITEM ~monhp1~ #0 #0 #0 ~NONE~ ~AMULET~ // either replaces minhp1 or adds it new
+  BUT_ONLY IF_EXISTS
+
+// mage has override script set in ar0711.are actor listing, so override script in cre file isn't used and he does nothing
+COPY_EXISTING ~hlmage.cre~ ~override~
+  WRITE_ASCII 0x268 ~mage12a~ #8 // default script
+  BUT_ONLY
+
+// imoen's thieving, script, prof, and thac0 fixes
+COPY_EXISTING ~imoen10.cre~  ~override~
+              ~imoen15.cre~  ~override~
+              ~imoen211.cre~ ~override~
+              ~imoen213.cre~ ~override~
+  PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "imoen10") BEGIN  // restore battlecry and correct Imoen's bio post-Spellhold
+    SAY 0xd0  #11035 // "You're not gonna keep me here!" to "My blade will cut you down to size!"
+    SAY 0x1cc @102   // removes references to horrors of current location
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "imoen213" = 0) BEGIN
+      WRITE_ASCII 0x248 ~imoen2~ #8 // override script missing from imoen213
+    END
+  END
+  WRITE_BYTE 0x68 15 // move silently +5
+  WRITE_BYTE 0x69 85 // find/disarm traps +10
+  WRITE_BYTE 0x6a 10 // pickpocketing +10
+  PATCH_IF (("%SOURCE_RES%" STRING_COMPARE_CASE "imoen10" = 0) OR
+            ("%SOURCE_RES%" STRING_COMPARE_CASE "imoen211" = 0)) BEGIN // thac0 adjustment for low level versions
+    WRITE_BYTE 0x52 17 // thac0
+  END ELSE BEGIN                                                       // extra prof for high level versions
+    SET_BG2_PROFICIENCY 113 1 // one pip for single weapon
+  END
+  SET_BG2_PROFICIENCY 91 1 // one pip for short sword at all levels
+  BUT_ONLY IF_EXISTS
+
+// two imoen's missing level 1-3 mmorized spells
+COPY_EXISTING ~imoen15.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~ // color spray
+  ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ // melf's acid arrow
+  ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~ // remove magic
+  BUT_ONLY IF_EXISTS
+
+// two imoen's missing level 1-3 mmorized spells
+COPY_EXISTING ~imoen213.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~spwi112~ #0 ~wizard~ // second magic missile (nothing else in spell book)
+  ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ // melf's acid arrow
+  ADD_MEMORIZED_SPELL ~spwi302~ #2 ~wizard~ // remove magic
+  BUT_ONLY
+
+COPY_EXISTING ~jael01.cre~   ~override~
+              ~ppumb01.cre~  ~override~
+              ~pries18b.cre~ ~override~
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN
+    sppr714 => sppr706 // doesn't exist, map to symbol fear
+  END
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY
+
+// dupe rings of wizardry; see ring08.itm, ohringwi.itm, jaga3.cre
+COPY_EXISTING ~jaga3.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "ring08" item = "ohringwi" END // swap for non-charname clone
+
+// assign galvarey a script that won't cause him to stutter (see soa-dlg.d for dialogue trigger change)
+COPY_EXISTING ~jagalvar.cre~ ~override~
+  WRITE_ASCII 0x250 ~initin15~ // class script
+  BUT_ONLY
+
+// jaheira thac0 and spellbook fixes... many
+COPY_EXISTING ~jaheir7.cre~  ~override~
+              ~jaheir8.cre~  ~override~
+              ~jaheir11.cre~ ~override~
+              ~jaheir12.cre~ ~override~
+              ~jahei14.cre~  ~override~
+  READ_BYTE 0x234 level1 // fighter level
+  WRITE_BYTE 0x52 (21 - level1) // thac0
+  REMOVE_KNOWN_SPELL sppr108 sppr405 sppr507 // remove fear, mental domination, champion's strength; cofirmed ZoSA is intended for Jaheira from the devs
+  ADD_KNOWN_SPELL ~sppr105~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr317~ #2 ~priest~
+  ADD_KNOWN_SPELL ~sppr318~ #2 ~priest~ // missing in jahei14
+  ADD_KNOWN_SPELL ~sppr319~ #2 ~priest~
+  ADD_KNOWN_SPELL ~sppr414~ #3 ~priest~
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN
+    sppr108 => sppr105 // entangle for remove fear
+    sppr405 => sppr414 // cause serious wounds for mental domination
+    sppr507 => sppr505 // true seeing for champion's strength
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // mem
+    LPF cd_spellbook_sub END
+  END
+  PATCH_IF (level1 >= 8) BEGIN // jaheir11, jaheir12, jahei14
+    ADD_KNOWN_SPELL ~sppr505~ #4 ~priest~
+    PATCH_IF ((level1 = 8) OR (level1 = 10)) BEGIN // jaheir11, jahei14
+      ADD_KNOWN_SPELL ~sppr501~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr502~ #4 ~priest~
+  //    ADD_KNOWN_SPELL ~sppr505~ #4 ~priest~ added above
+      ADD_KNOWN_SPELL ~sppr506~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr508~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr509~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr510~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr514~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr516~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr517~ #4 ~priest~
+      ADD_KNOWN_SPELL ~sppr602~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr604~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr605~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr606~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr607~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr608~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr610~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr611~ #5 ~priest~
+      ADD_KNOWN_SPELL ~sppr613~ #5 ~priest~
+      PATCH_IF (level1 = 10) BEGIN // jahei14
+        ADD_KNOWN_SPELL ~sppr401~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr402~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr404~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr406~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr407~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr409~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr410~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr411~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr413~ #3 ~priest~
+  //      ADD_KNOWN_SPELL ~sppr414~ #3 ~priest~ added above
+        ADD_KNOWN_SPELL ~sppr415~ #3 ~priest~
+        ADD_KNOWN_SPELL ~sppr416~ #3 ~priest~
+      END
+    END
+  END
+  BUT_ONLY IF_EXISTS
+
+// fixes Jahs' missing prof star and inconsistent dex at higher levels
+COPY_EXISTING ~jaheir12.cre~ ~override~
+              ~jahei14.cre~  ~override~
+  WRITE_BYTE 0x23c 17 // sets dex to 17
+  SET_BG2_PROFICIENCY 95 2 // one > two pips for scimitar/waki/ninja-to
+  BUT_ONLY IF_EXISTS
+
+// jaheira missing memorized spells
+COPY_EXISTING ~jaheir7.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  BUT_ONLY
+
+// jaheira missing memorized spells
+COPY_EXISTING ~jaheir8.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr409~ #3 ~priest~ // death ward
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  BUT_ONLY
+
+// jaheira missing memorized spells
+COPY_EXISTING ~jaheir11.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~sppr110~ #0 ~priest~ // shillelagh
+  ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ // armor of faith
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~ // slow poison
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr409~ #3 ~priest~ // death ward
+  ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~ // cloak of fear
+  ADD_MEMORIZED_SPELL ~sppr506~ #4 ~priest~ // iron skins
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  BUT_ONLY
+
+// jaheira missing memorized spells
+COPY_EXISTING ~jaheir12.cre~ ~override~
+              ~jahei14.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr101~ #0 ~priest~ // bless
+  ADD_MEMORIZED_SPELL ~sppr110~ #0 ~priest~ // shillelagh
+  ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ // armor of faith
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr210~ #1 ~priest~ // resist fire/cold
+  ADD_MEMORIZED_SPELL ~sppr212~ #1 ~priest~ // slow poison
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr319~ #2 ~priest~ // summon insects
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr409~ #3 ~priest~ // death ward
+  ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~ // cloak of fear
+  ADD_MEMORIZED_SPELL ~sppr506~ #4 ~priest~ // iron skins
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  ADD_MEMORIZED_SPELL ~sppr613~ #5 ~priest~ // physical mirror
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  BUT_ONLY IF_EXISTS
+
+// Jan Jansen now properly receives his bonus spell per level for being a specialist mage (Nythrun)
+COPY_EXISTING ~jan8.cre~  ~override~
+              ~jan10.cre~ ~override~
+              ~jan11.cre~ ~override~
+              ~jan12.cre~ ~override~
+              ~jan15.cre~ ~override~
+  ADD_MEMORIZED_SPELL spwi118 #0 WIZARD
+  ADD_MEMORIZED_SPELL spwi201 #1 WIZARD
+  ADD_MEMORIZED_SPELL spwi302 #2 WIZARD
+  PATCH_IF          ~%SOURCE_RES%~ STRING_EQUAL jan8  BEGIN
+    ADD_MEMORIZED_SPELL spwi405 #3 WIZARD
+  END ELSE PATCH_IF ~%SOURCE_RES%~ STRING_EQUAL jan10 BEGIN
+    ADD_MEMORIZED_SPELL spwi405 #3 WIZARD
+    ADD_MEMORIZED_SPELL spwi508 #4 WIZARD
+  END ELSE BEGIN
+    ADD_MEMORIZED_SPELL spwi401 #3 WIZARD
+    ADD_MEMORIZED_SPELL spwi508 #4 WIZARD
+  END
+  BUT_ONLY IF_EXISTS
+
+// jan's thieving skills incorrect
+COPY_EXISTING ~jan10.cre~ ~override~
+   WRITE_BYTE 0x45  0 // Hide in Shadows
+   WRITE_BYTE 0x64 60 // Detect Illusions
+   WRITE_BYTE 0x65 20 // Set Traps +20
+   WRITE_BYTE 0x67 75 // Open Locks
+   WRITE_BYTE 0x68  0 // Move Silently
+   WRITE_BYTE 0x69 65 // Find Traps
+   WRITE_BYTE 0x6a 45 // Pickpockets
+
+COPY_EXISTING ~jan11.cre~ ~override~
+   WRITE_BYTE 0x45  0 // Hide in Shadows
+   WRITE_BYTE 0x64 70 // Detect Illusions +10
+   WRITE_BYTE 0x65 25 // Set Traps +5
+   WRITE_BYTE 0x67 75 // Open Locks
+   WRITE_BYTE 0x68  0 // Move Silently
+   WRITE_BYTE 0x69 75 // Find Traps +10
+   WRITE_BYTE 0x6a 45 // Pickpockets
+
+// jan12 and jan15 shortchanged one prof star, thieving skill fixes
+COPY_EXISTING ~jan12.cre~  ~override~
+              ~jan15.cre~  ~override~
+  WRITE_BYTE 0x45  5 // Hide in Shadows
+  WRITE_BYTE 0x64 76 // Detect Illusions +6
+  WRITE_BYTE 0x65 34 // Set Traps +9
+  WRITE_BYTE 0x67 78 // Open Locks +3
+  WRITE_BYTE 0x68 0  // Move Silently
+  WRITE_BYTE 0x69 77 // Find Traps +2
+  WRITE_BYTE 0x6a 45 // Pickpockets
+  SET_BG2_PROFICIENCY 106 1 // one pip for darts
+  BUT_ONLY IF_EXISTS
+
+// deirex killed during cutscene fix 2/2; see 2207.bcs
+COPY_EXISTING ~jarlich.cre~ ~override~
+  WRITE_BYTE 0x270 128 // make neutral
+  BUT_ONLY
+
+// should defend self if attacked
+COPY_EXISTING ~kamir.cre~ ~override~
+  WRITE_ASCII 0x268 ~wtasight~ #8
+  BUT_ONLY
+
+// keldorn's initial saves are too high
+COPY_EXISTING ~keldor8.cre~  ~override~
+              ~keldor9.cre~  ~override~
+              ~keldor10.cre~ ~override~
+              ~keldor12.cre~ ~override~
+              ~keldor14.cre~ ~override~
+  WRITE_LONG 0x244 0x40050000 // kit.ids correction
+  FOR (index = 0x54 ; index < 0x59 ; ++index) BEGIN
+    WRITE_BYTE  index (THIS - 2)
+  END
+  BUT_ONLY IF_EXISTS
+  
+//Keldorn proficiency fix
+COPY_EXISTING ~keldor9.cre~ ~override~
+  SET_BG2_PROFICIENCY 90 2 // two pips for long swords
+  BUT_ONLY
+
+// hannah xp exploit; see also kftown02.bcs
+COPY_EXISTING ~kftown02.cre~ ~override~
+  WRITE_ASCII 0x250 ~kftown02~ #8
+
+// korgan's kit.ids fixes
+COPY_EXISTING ~korgan8.cre~  ~override~
+              ~korgan9.cre~  ~override~
+              ~korgan11.cre~ ~override~
+              ~korgan12.cre~ ~override~
+              ~korgan15.cre~ ~override~
+  WRITE_LONG 0x244 0x40010000
+  BUT_ONLY IF_EXISTS
+
+// keep dogs don't go hostile when oty attacked; see cdkpdog.bcs in mass compile
+COPY_EXISTING ~kpdog01.cre~ ~override~
+              ~kpdog02.cre~ ~override~
+              ~kpdog03.cre~ ~override~
+              ~kpdog04.cre~ ~override~
+  WRITE_ASCII 0x248 ~cdkpdog~ #8
+  BUT_ONLY
+
+// new method for glacias charm issue; see ar1303.bcs and kpglai01.dlg - make him neutral but under a (very easily) dispellable 'change AI' effect
+COPY_EXISTING ~kpglai01.cre~ ~override~
+  WRITE_BYTE 0x270 128 // allegiance neutral
+  LPF ADD_CRE_EFFECT INT_VAR opcode = 72 target = 1 parameter1 = 255 parameter2 = 0 timing = 0 duration = 360000
+    resist_dispel = 1 casterlvl = 1 power = 1 school = 4 sectype = 11 END
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~kproen05.cre~ ~override~
+  WRITE_LONG 0xa4 61872 //I serve with my blade.
+  WRITE_LONG 0xb8 61877 //Back... I must fall back!
+  WRITE_LONG 0xc8 61874 //Cross blades with me and die!
+  WRITE_LONG 0xec 61875
+  WRITE_LONG 0xf0 61876
+  WRITE_LONG 0x10c 61870 //Speak quickly, citizen, I have little time for this.
+  WRITE_LONG 0x110 61871 //Good day to you.
+  WRITE_LONG 0x114 61872 //I serve with my blade.
+  WRITE_LONG 0x118 61873 //Do nothing stupid and there'll be no problems.
+  BUT_ONLY
+
+// restoring dialog
+COPY_EXISTING ~kpsold03.cre~ ~override~
+  WRITE_ASCII 0x2cc ~kpsold03~ #8
+  BUT_ONLY
+
+// live/dead troll versions have mismatching XP
+COPY_EXISTING ~kptrol01.cre~ ~override~
+              ~kptrol02.cre~ ~override~
+              ~kptrol03.cre~ ~override~
+              ~kptrol04.cre~ ~override~
+              ~rogtro01.cre~ ~override~
+  WRITE_LONG 0x14 1400
+  BUT_ONLY
+
+// create revived version of kptrol03
+COPY_EXISTING ~kptrol03.cre~ ~override/kptrol13.cre~
+
+// Correct a minor issue in Mazzy's soundset (aVENGER)
+COPY_EXISTING ~mazzy8.cre~  ~override~
+              ~mazzy9.cre~  ~override~
+              ~mazzy11.cre~ ~override~
+              ~mazzy12.cre~ ~override~
+              ~mazzy15.cre~ ~override~
+  SAY EXISTANCE2 #29727
+  SAY EXISTANCE3 #-1    // assign the Spell Failed sound to the proper soundslot
+  BUT_ONLY IF_EXISTS
+
+//Mazzy proficiency fix
+COPY_EXISTING ~mazzy9.cre~  ~override~
+  SET_BG2_PROFICIENCY 91 2 // pips for short swords
+  BUT_ONLY
+
+COPY_EXISTING ~mazzy12.cre~ ~override~
+              ~mazzy15.cre~ ~override~
+  SET_BG2_PROFICIENCY 91 3 // pips for short swords
+  BUT_ONLY IF_EXISTS
+
+// eliminates soundsets for these two mindflayers as no other ones have sounds, especially since they're hobgoblin sounds
+COPY_EXISTING ~melsum06.cre~ ~override~
+              ~mindal01.cre~ ~override~
+  WRITE_LONG 0xc8  0xffffffff
+  WRITE_LONG 0xcc  0xffffffff
+  WRITE_LONG 0xec  0xffffffff
+  WRITE_LONG 0xf0  0xffffffff
+  WRITE_LONG 0x10c 0xffffffff
+  WRITE_LONG 0x110 0xffffffff
+  WRITE_LONG 0x1b8 0xffffffff
+  BUT_ONLY IF_EXISTS
+
+//one mephit portal has inconsistent dexterity
+COPY_EXISTING ~mephsp1.cre~ ~override~
+  WRITE_BYTE 0x23c 20 // dex
+  BUT_ONLY
+
+// just grab correct values for mepice02, obsice02
+COPY_EXISTING ~mepice01.cre~ ~override~
+  // rest of these reads are to fix obsice02, mepice02 below
+  READ_ASCII 0x2c  color (7)        // entire coloring block
+  READ_LONG  0x46  ac               // natural and effective AC
+  READ_ASCII 0x59  resistances (11) // entire resistances block
+  READ_BYTE  0x23c dex              // dexterity
+  BUT_ONLY
+
+COPY_EXISTING ~mepice01.cre~ ~override~ // ice mephit should have ice shard memorized, not magma ball
+              ~mepice02.cre~ ~override~ // fixes other two ice mephits
+              ~obsice02.cre~ ~override~
+  // writes in correct values from mepice01
+  WRITE_ASCIIE 0x2c  "%color%" #7        // entire coloring block
+  WRITE_LONG   0x46  "%ac%"              // natural and effective AC
+  WRITE_ASCIIE 0x59  "%resistances%" #11 // entire resistances block
+  WRITE_BYTE   0x23c "%dex%"             // dexterity
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // correct known/memorized spells
+    spin930 => spin936 // magma ball to ice shard
+  END
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    LPF cd_spellbook_sub END
+  END
+  REPLACE_CRE_ITEM mepice #0 #0 #0 NONE ~WEAPON1~ EQUIP // corrects primary weapon for mepice02, obsice02
+  BUT_ONLY
+
+// messenger should initiate dialogue with player1 (should be AO'd into dialogue, but sometimes fails)
+COPY_EXISTING ~mgass01.cre~ ~override~
+  WRITE_ASCII 0x258 ~initmain~ #8
+
+// fixes minsc spells
+COPY_EXISTING ~minsc8.cre~  ~override~
+              ~minsc9.cre~  ~override~
+              ~minsc10.cre~ ~override~
+              ~minsc12.cre~ ~override~
+  READ_BYTE 0x234 level
+  ADD_KNOWN_SPELL ~sppr101~ #0 ~priest~ // normal druid level 1 spells
+  ADD_KNOWN_SPELL ~sppr103~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr104~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr105~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr110~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr111~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr113~ #0 ~priest~
+  REMOVE_MEMORIZED_SPELLS
+  ADD_MEMORIZED_SPELL ~spin117~ #0 ~innate~ (1) // berserk
+  ADD_MEMORIZED_SPELL ~sppr104~ #0 ~priest~ (1) // Detect Evil
+  PATCH_IF (level > 8) BEGIN
+    ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ (1) // Cure Light Wounds
+    PATCH_IF (level > 9) BEGIN
+      ADD_KNOWN_SPELL ~sppr202~ #1 ~priest~ // normal druid level 2 spells
+      ADD_KNOWN_SPELL ~sppr204~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr205~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr206~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr207~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr209~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr210~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr212~ #1 ~priest~
+      ADD_MEMORIZED_SPELL ~sppr202~ #1 ~priest~ (1) // Barkskin
+      PATCH_IF (level > 11) BEGIN
+        ADD_KNOWN_SPELL ~sppr302~ #2 ~priest~ // normal druid level 3 spells
+        ADD_KNOWN_SPELL ~sppr303~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr305~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr306~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr309~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr310~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr311~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr312~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr315~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr317~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr319~ #2 ~priest~
+        ADD_MEMORIZED_SPELL ~sppr204~ #1 ~priest~ (1) // Charm Person or Mammal
+        ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ (1) // Cure Medium Wounds
+      END
+    END
+  END
+  BUT_ONLY
+
+// nalia short one prof star at all levels
+COPY_EXISTING ~nalia8.cre~  ~override~
+              ~nalia10.cre~ ~override~
+              ~nalia11.cre~ ~override~
+              ~nalia13.cre~ ~override~
+              ~nalia15.cre~ ~override~
+              ~nalia18.cre~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 233 match_parameter2 = 106 parameter2 = 107 silent = 1 END // if present, change dart prof to sling (nalia13, 15, 18)
+  SET_BG2_PROFICIENCY 106 1 // add one pip for darts
+  BUT_ONLY IF_EXISTS
+
+// more heinous spell slot fixes; nalia8 and nalia9 have one extra fifth
+// level spell, nalia13 one extra 6th level spell
+COPY_EXISTING ~nalia8.cre~  ~override~
+              ~nalia10.cre~ ~override~
+              ~nalia13.cre~ ~override~
+  READ_BYTE 0x234 level
+  READ_LONG 0x2a8 slot_off
+  REMOVE_MEMORIZED_SPELLS // nuke it from orbit
+  ADD_MEMORIZED_SPELL ~spwi118~ #0 ~wizard~ (1) // Chromatic Orb
+  ADD_MEMORIZED_SPELL ~spwi115~ #0 ~wizard~ (1) // Shocking Grasp
+  ADD_MEMORIZED_SPELL ~spwi110~ #0 ~wizard~ (1) // Identify
+  ADD_MEMORIZED_SPELL ~spwi105~ #0 ~wizard~ (1) // Color Spray
+  ADD_MEMORIZED_SPELL ~spwi215~ #1 ~wizard~ (1) // Web
+  ADD_MEMORIZED_SPELL ~spwi214~ #1 ~wizard~ (1) // Strength
+  ADD_MEMORIZED_SPELL ~spwi212~ #1 ~wizard~ (1) // Mirror Image
+  ADD_MEMORIZED_SPELL ~spwi312~ #2 ~wizard~ (1) // Slow
+  ADD_MEMORIZED_SPELL ~spwi308~ #2 ~wizard~ (1) // Lightning Bolt
+  ADD_MEMORIZED_SPELL ~spwi306~ #2 ~wizard~ (1) // Hold Person
+  ADD_MEMORIZED_SPELL ~spwi416~ #3 ~wizard~ (1) // Polymorph Self
+  ADD_MEMORIZED_SPELL ~spwi408~ #3 ~wizard~ (1) // Stoneskin
+  ADD_MEMORIZED_SPELL ~spwi505~ #4 ~wizard~ (1) // Shadow Door
+  PATCH_IF level > 10 BEGIN
+    ADD_MEMORIZED_SPELL ~spwi211~ #1 ~wizard~ (1) // Melf's Acid Arrow
+    ADD_MEMORIZED_SPELL ~spwi305~ #2 ~wizard~ (1) // Haste
+    ADD_MEMORIZED_SPELL ~spwi403~ #3 ~wizard~ (1) // Fire Shield (Blue)
+    ADD_MEMORIZED_SPELL ~spwi415~ #3 ~wizard~ (1) // Polymorph Other
+    ADD_MEMORIZED_SPELL ~spwi508~ #4 ~wizard~ (1) // Chaos
+    ADD_MEMORIZED_SPELL ~spwi506~ #4 ~wizard~ (1) // Domination
+    ADD_MEMORIZED_SPELL ~spwi502~ #4 ~wizard~ (1) // Cloudkill
+    WRITE_SHORT (slot_off + 0x02 + (12 * 0x10)) 0 // spells memorizable at level 6
+    WRITE_SHORT (slot_off + 0x04 + (12 * 0x10)) 0 // current spells memorized at level 6
+  END ELSE BEGIN
+    WRITE_SHORT (slot_off + 0x02 + (11 * 0x10)) 1 // spells memorizable at level 5
+    WRITE_SHORT (slot_off + 0x04 + (11 * 0x10)) 1 // current spells memorized at level 5
+  END
+
+// Nalia's saves
+COPY_EXISTING ~nalia13.cre~ ~override~
+              ~nalia15.cre~ ~override~
+              ~nalia18.cre~ ~override~
+  WRITE_BYTE 0x54 11 // save vs. death
+  BUT_ONLY IF_EXISTS
+
+// add monhp1 item to trolls to prevent death; assign script to force transformation to dead form at low HP
+COPY_EXISTING ~obsice01.cre~ ~override~
+  REPLACE_CRE_ITEM ~monhp1~ #0 #0 #0 ~NONE~ ~AMULET~
+  WRITE_ASCII 0x260 ~obsice11~
+
+// create 'dead' or 'knocked down' versions of 'special' trolls
+COPY_EXISTING ~obsice01.cre~ ~override/obsice11.cre~
+  WRITE_SHORT           0x24    1            // current HP
+  WRITE_SHORT           0x46   10            // natural AC
+  WRITE_SHORT           0x48   10            // effective AC
+  WRITE_BYTE            0x5a  100            // resist cold
+  WRITE_BYTE            0x5b  100            // resist electricity
+  WRITE_BYTE            0x5f  100            // resist magic cold
+  WRITE_BYTE            0x60  100            // resist slashing
+  WRITE_BYTE            0x61  100            // resist crushing
+  WRITE_BYTE            0x62  100            // resist piercing
+  WRITE_BYTE            0x63  100            // resist missile
+  WRITE_BYTE            0x23c   9            // dexterity
+  WRITE_BYTE            0x270 255            // enemy
+  WRITE_ASCIIE          0x248 ~%SOURCE_RES%~ #40 // new script, blanks other slots
+  WRITE_ASCII           0x2cc ~~ #8          // blanks dialog file
+  // item changes
+  LPF DELETE_CRE_ITEM STR_VAR item_to_delete = trollreg END
+  LPF DELETE_CRE_ITEM STR_VAR item_to_delete = trollspi END // just in case
+  REPLACE_CRE_ITEM ~trolldie~ #0 #0 #0 ~NONE~ ~AMULET~ // either replaces monhp1 or adds it new
+
+// planar-prison guard can not make the actors hostile by shouting (Wisp)
+COPY_EXISTING ~pcapt03.cre~ ~override~
+  WRITE_ASCII 0x248 gensht01 #8
+  BUT_ONLY
+
+// hostile planetars via wish would still cast spells to benefit the party; generic planetar just missing scripts
+COPY_EXISTING ~planet01.cre~ ~override~ // unused?
+              ~planwish.cre~ ~override~ // hostile planetar summoned via wish
+  WRITE_ASCII 0x248 ~planet~   #8 // override script
+  WRITE_ASCII 0x268 ~wtasight~ #8 // default script
+  BUT_ONLY IF_EXISTS
+
+// fixes evil planetar's class and spell list
+COPY_EXISTING ~planevil.cre~ ~override~
+  REMOVE_KNOWN_SPELL sppr307 // has dupe sppr307 entries
+  ADD_KNOWN_SPELL ~sppr303~ #2 ~priest~ // add back plus missing dispel magic
+  ADD_KNOWN_SPELL ~sppr307~ #2 ~priest~
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ (3) // add three memorized dispels to bring even with plangood
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN
+    sppr710 => sppr715 // holy word to unholy word
+  END
+  PATCH_FOR_EACH offset IN 0x2a0 0x2b0 BEGIN // known, mem
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY IF_EXISTS
+
+// fixes regen rate for good planetars
+COPY_EXISTING ~plangood.cre~ ~override~
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 98 parameter1 = 4 END // 4 hp/sec, not 1/sec
+  BUT_ONLY IF_EXISTS
+
+// attacking squatters in paladin-baron quest causes normal townspeople to turn hostile
+COPY_EXISTING ~plfarm04.cre~ ~override~
+              ~plfarm05.cre~ ~override~
+              ~plfarm06.cre~ ~override~
+  WRITE_ASCII 0x248 ~gensht01~ // override script
+  BUT_ONLY
+
+// Tyrianna fix, part 2 (first is ar0415.bcs patch)
+COPY_EXISTING ~plgirl01.cre~ ~override~
+  WRITE_ASCII 0x248 ~~ #8
+  BUT_ONLY
+
+// poly self > ogre palette is random, so colors constantly shift - set to same val as EE
+COPY_EXISTING ~plyogre.cre~ ~override~
+  WRITE_BYTE 0x2d 36 // minor
+  WRITE_BYTE 0x2e 23 // major
+  WRITE_BYTE 0x2f 16 // skin
+  BUT_ONLY
+
+// perth doesn't go hostile if attacked; see also perth.bcs
+COPY_EXISTING ~ppcowled.cre~ ~override~
+  WRITE_ASCII 0x248 perth   #8
+  WRITE_ASCII 0x250 gpshout #8
+  BUT_ONLY
+
+// can't stake dace if killed before he can speak; init script blocks die() scripting
+COPY_EXISTING ~ppjoye.cre~ ~override~
+  WRITE_ASCII 0x248 ~ppjoye~   #8 // die script gets priority
+  WRITE_ASCII 0x250 ~inpanhsg~ #8 // slight change in init script
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~ppmag01.cre~ ~override~
+  WRITE_LONG 0xa4 47345 //A woman on the high seas has t' be tougher than any mate.
+  WRITE_LONG 0xec 51867
+  WRITE_LONG 0xf0 51868
+  WRITE_LONG 0x10c 47345 //A woman on the high seas has t' be tougher than any mate.
+  WRITE_LONG 0x110 47347 //Ahhhh, don't look at me like that, or I'll gut ye where ye stand.
+  WRITE_LONG 0x114 48338 //Grog.  Grog an' a bath.  Aye...
+  WRITE_LONG 0x118 51494 //So I smells like fish.  Begone with ye.
+  WRITE_LONG 0x1b8 47347 //Ahhhh, don't look at me like that, or I'll gut ye where ye stand.
+  BUT_ONLY
+
+// quayle shouldn't know necromancy
+COPY_EXISTING ~quayle.cre~  ~override~
+              ~quaylem.cre~ ~override~
+  READ_BYTE 0x234 level
+  REMOVE_KNOWN_SPELL ~spwi119~ ~spwi205~ // lmd, horror
+  ADD_KNOWN_SPELL ~spwi118~ #0 ~wizard~ // add chromatic orb
+  ADD_KNOWN_SPELL ~spwi223~ #1 ~wizard~ // add deafness
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+    spwi119 => spwi118 // chromatic orb for lmd
+    spwi205 => spwi223 // deafness for horror
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY
+  
+// renfeld's attackers should yield XP
+COPY_EXISTING ~rethug02.cre~ ~override~ // mage
+  WRITE_LONG 0x14 350 // xp
+  BUT_ONLY
+
+COPY_EXISTING ~rethug03.cre~ ~override~ // thug
+  WRITE_LONG 0x14 325 // xp
+  BUT_ONLY
+
+// assigns amalas.bcs to Amalas as his override script
+COPY_EXISTING ~ruffian.cre~ ~override~
+  WRITE_ASCII 0x248 ~AMALAS~ #8
+  BUT_ONLY
+
+COPY_EXISTING ~sahkng02.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+  WRITE_ASCII 0x258 ~sahkng02~ #8
+  BUT_ONLY
+
+// rylock can reward 200 or 300 gold for quests, but only had 125 in his pocket
+COPY_EXISTING ~rylock.cre~ ~override~
+  WRITE_LONG 0x1c 300 // gold
+  BUT_ONLY
+
+// fixes sahzomb flags
+COPY_EXISTING ~sahzomb.cre~ ~override~
+  WRITE_LONG 0x10 0 // every flag set; this clears them
+  BUT_ONLY
+
+// Orcs sound like orcs; blanks human sounds
+COPY_EXISTING ~sarculto.cre~ ~override~
+              ~sarorc01.cre~ ~override~
+              ~saroro01.cre~ ~override~
+              ~sarrein1.cre~ ~override~
+              ~sartro01.cre~ ~override~
+              ~sartro03.cre~ ~override~
+  WRITE_LONG 0xa4 0xffffffff
+  WRITE_LONG 0xc8 0xffffffff
+  WRITE_LONG 0xec 0xffffffff
+  WRITE_LONG 0xf0 0xffffffff
+  WRITE_LONG 0x10c 0xffffffff
+  WRITE_LONG 0x198 0xffffffff
+  BUT_ONLY IF_EXISTS
+
+// fixes to Sarevok's saves
+COPY_EXISTING ~sarevok.cre~ ~override~
+  WRITE_BYTE 0x57 4 // save vs. breath
+  BUT_ONLY IF_EXISTS
+
+// saradush fire giants never fight back, shouldn't give XP
+COPY_EXISTING ~sarfaki2.cre~ ~override~
+              ~sarfakie.cre~ ~override~
+  WRITE_LONG 0x14 0 // xp value
+  BUT_ONLY IF_EXISTS
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~sargrd06.cre~ ~override~
+  WRITE_LONG 0xa4 4901 //Yer a handsome bunch, ain't ya?
+  WRITE_LONG 0xec 12568
+  WRITE_LONG 0xf0 12569
+  WRITE_LONG 0x10c 4901 //Yer a handsome bunch, ain't ya?
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sarpro01.cre~ ~override~ // typo
+  WRITE_ASCII 0x268 ~wtrunsgt~ #8
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sendro05.cre~ ~override~ //typo
+  WRITE_ASCII 0x268 ~cassa20b~ #8
+  BUT_ONLY IF_EXISTS
+
+// Silent Sapper (uses same soundset as sewdue01)
+COPY_EXISTING ~sewdue02.cre~ ~override~
+  SAY 0xa4 #4940
+  SAY 0xec #12584
+  SAY 0xf0 #12585
+  SAY 0x10c #4939
+  SAY 0x110 #4939
+  SAY 0x114 #4940
+  BUT_ONLY IF_EXISTS
+
+// 'glowing pool' creature from lilarcor quest has dispellable invisibility (via mage item); add it directly as creature effect
+COPY_EXISTING ~sewsw.cre~  ~override~
+  LPF ADD_CRE_EFFECT INT_VAR opcode = 20 timing = 1 END // permanent invis
+  BUT_ONLY
+
+// shade lord's first spell is PW: stun; since he lacks the standard undead immunity item he inevitably stuns himself
+COPY_EXISTING ~shadel.cre~ ~override~
+  ADD_CRE_ITEM ~ring95~ #0 #0 #0 ~NONE~ ~LRING~
+  BUT_ONLY
+
+// frennedan the doppleganger can't actually kill you
+COPY_EXISTING ~shape.cre~ ~override~
+  ADD_CRE_ITEM ~dopple~ #0 #0 #0 ~NONE~ ~WEAPON1~ EQUIP
+  BUT_ONLY
+
+// brannel not commenting due to unassigned script, script errors (see brannel.bcs)
+COPY_EXISTING ~shthdr01.cre~ ~override~
+  WRITE_ASCII 0x250 ~BRANNEL~ #8 // class script
+  BUT_ONLY
+
+// add sleeping flag to sleeping creatures
+COPY_EXISTING ~sleepdw.cre~ ~override~   // sleeping dwarf
+              ~sleepfh.cre~ ~override~   // sleeping woman
+              ~sleepmh.cre~ ~override~   // sleeping man
+  WRITE_BYTE 0x20 (THIS BOR BIT0) // add the STATE_SLEEPING flag
+  BUT_ONLY
+
+COPY_EXISTING ~slmage2.cre~   ~override~
+  REMOVE_KNOWN_SPELL spwi422 // doesn't exist
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+    spwi422 => spwi408 // doesn't exist to Stoneskin
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~sppain.cre~  ~override~
+              ~vakola.cre~ ~override~
+  REMOVE_KNOWN_SPELL sppr112 // doesn't exist
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+    sppr112 => sppr106 // doesn't exist to magic stone
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+    LPF cd_spellbook_sub END
+  END
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~suelf8.cre~ ~override~
+  WRITE_LONG 0xa4 61856 //The Tree of Life!  'Tis the Tree that must be saved, before any of us!
+  WRITE_LONG 0xec 61861
+  WRITE_LONG 0xf0 61860
+  WRITE_LONG 0x10c 61854 //This is the Exile's doing!
+  WRITE_LONG 0x110 61855 //So... so many have died!  So many!
+  WRITE_LONG 0x114 61856 //The Tree of Life!  'Tis the Tree that must be saved, before any of us!
+  WRITE_LONG 0x118 61857 //Rillifane!  Rillifane save us, I beg you!
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Males with female sounds
+COPY_EXISTING ~suelfw6.cre~ ~override~
+  WRITE_LONG 0xa4 61850 //Monsters!  There are monsters everywhere in Suldanessellar!
+  WRITE_LONG 0xec 61853
+  WRITE_LONG 0xf0 61852
+  WRITE_LONG 0x10c 61847 //Wh-what has happened to the queen?  She has been taken, hasn't she!
+  WRITE_LONG 0x110 61848 //It is... it is the Exile!  The Exile has returned!
+  WRITE_LONG 0x114 61851 //This cannot be happening!  It cannot!
+  WRITE_LONG 0x118 61850 //Monsters!  There are monsters everywhere in Suldanessellar!
+  BUT_ONLY
+
+// efreeti summoned from bottle should use abilities like efreeti summoned via spell
+COPY_EXISTING ~sumefree.cre~ ~override~
+  WRITE_ASCII 0x260 ~efreet01~ #8 // general script
+
+// druid elemental summons have wrong HD (was 12, should be 16), etc.
+COPY_EXISTING ~swaair01.cre~ ~override~
+              ~swaear01.cre~ ~override~
+              ~swafir01.cre~ ~override~
+  WRITE_SHORT 0x52   5 // thaco
+  WRITE_BYTE  0x54   4 // save v death
+  WRITE_BYTE  0x55   6 // save v wands
+  WRITE_BYTE  0x56   5 // save v poly
+  WRITE_BYTE  0x57   4 // save v breath
+  WRITE_BYTE  0x58   7 // save v spells
+  WRITE_BYTE  0x234 16 // level
+  WRITE_BYTE  0x238 19 // strength
+  WRITE_BYTE  0x23f 18 // morale
+  WRITE_BYTE  0x240  1 // break
+  WRITE_SHORT 0x242 30 // recovery
+  BUT_ONLY IF_EXISTS
+
+// fixed, though appear to be unused
+COPY_EXISTING ~swaair02.cre~ ~override~
+              ~swaear02.cre~ ~override~
+              ~swafir02.cre~ ~override~
+  WRITE_SHORT 0x52   0 // thaco
+  WRITE_BYTE  0x54   2 // save v death
+  WRITE_BYTE  0x55   4 // save v wands
+  WRITE_BYTE  0x56   3 // save v poly
+  WRITE_BYTE  0x57   3 // save v breath
+  WRITE_BYTE  0x58   5 // save v spells
+  WRITE_BYTE  0x234 24 // level
+  WRITE_BYTE  0x238 22 // strength
+  WRITE_BYTE  0x23f 18 // morale
+  WRITE_BYTE  0x240  1 // break
+  WRITE_SHORT 0x242 30 // recovery
+  BUT_ONLY IF_EXISTS
+
+// adds many missing effects to Mordy swords (Baldurdash)
+// extra confusion prots now handled by batch immunities
+COPY_EXISTING ~sword01.cre~ ~override~
+  PATCH_FOR_EACH immunity IN 135 134 128 109 106 80 78 76 74 45 39 24 5 BEGIN // polymorph, petrify, confusion, hold, break morale, deafness, disease, feeblemind, blindness, stun, sleep, panic, charm
+    LPF CLONE_EFFECT INT_VAR silent = 1 match_opcode = 101 match_parameter2 = 19 parameter2 = immunity END // clone existing immunity to intelligence change
+  END
+  PATCH_FOR_EACH spell IN spin975 spin974 spin959 spin912 spin911 spin910 spin909 spin834 spin775 spin774 BEGIN // psionic spells
+    LPF CLONE_EFFECT INT_VAR silent = 1 match_opcode = 101 match_parameter2 = 19 opcode = 206 parameter2 = "-1" STR_VAR resource = EVAL ~%spell%~ END // clone existing immunity to intelligence change
+  END
+  BUT_ONLY
+
+// one-off change for Tor'gal to prevent repeating dialogue after regenerating
+COPY_EXISTING ~torgal.cre~ ~override/torgal3.cre~
+  WRITE_ASCII 0x248 ~~ #8 // no approach and speak script
+  WRITE_BYTE  0x270 255   // enemy
+  WRITE_ASCII 0x2cc ~~ #8 // no dialogue file
+
+// torgal lacks standard troll immunities like confusion
+COPY_EXISTING ~torgal.cre~  ~override~
+              ~torgal2.cre~ ~override~
+              ~torgal3.cre~ ~override~
+  ADD_CRE_ITEM ~trollimm~ #0 #0 #0 ~NONE~ ~LRING RRING~
+  BUT_ONLY
+
+// makes Logan's cre files consistent
+COPY_EXISTING ~celogan.cre~ ~override/trcut07.cre~
+  WRITE_ASCII 0x248 ~~ #40 // dump all scripts
+  WRITE_ASCII 0x280 ~trcut07~ #18
+  WRITE_ASCII 0x2cc ~trcut07~ #8
+
+// knocked-down trolls should match their live counterparts
+COPY_EXISTING ~troll01.cre~ ~override/cdtroll1.cre~
+              ~troll02.cre~ ~override/cdtroll2.cre~
+  WRITE_BYTE   0x234 6 // level
+  WRITE_ASCIIE 0x248 ~%DEST_RES%~ // override script
+
+// knocked-down trolls should match their live counterparts
+COPY_EXISTING ~troll02.cre~ ~override~
+  WRITE_BYTE 0x234 8 // level
+  BUT_ONLY
+
+// Prevent Ice Trolls from losing their coloring upon death (aVENGER)
+COPY_EXISTING ~trolic01.cre~  ~override~ // ice troll
+              ~trolic02.cre~  ~override~ // ice troll
+  LPF ALTER_EFFECT INT_VAR match_opcode = 51 target = 1 timing = 9 END // target self and timing perm after death for color opcode
+  BUT_ONLY
+
+// trollens should require fire/acid to be killed
+COPY_EXISTING ~trollens.cre~ ~override~
+  WRITE_ASCII 0x258 ~troll01~ #8 // transform to fire/acid dead form at low HP
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Males with female sounds
+COPY_EXISTING ~ttser2.cre~ ~override~
+  WRITE_LONG 0xa4 61690 //Care to dance?
+  WRITE_LONG 0xb8 61687 //Another time, another place!
+  WRITE_LONG 0xc8 61779 //Plant a blade in your innards, I will!
+  WRITE_LONG 0xec 61780
+  WRITE_LONG 0xf0 61781
+  WRITE_LONG 0x10c 61774 //Prepare to be eviscerated, fool.
+  WRITE_LONG 0x110 61690 //Care to dance?
+  WRITE_LONG 0x114 61777 //This will be a slow and painful process.
+  WRITE_LONG 0x118 61778 //You will suffer... oh, yes.
+  BUT_ONLY
+  
+// endless ust natha combat music; see also ucounter.bcs
+COPY_EXISTING ~ucounter.cre~ ~override~
+  WRITE_BYTE 0x270 128 // enemy > neutral; enemy prevents saving and other stupidity
+  BUT_ONLY
+
+// females with male sounds
+COPY_EXISTING ~udelf03.cre~ ~override~
+  WRITE_LONG 0x0a4 11063 // Good day and hello to you.
+  WRITE_LONG 0x0ec 11075 // [felff05]
+  WRITE_LONG 0x0f0 11076 // [felff06]
+  WRITE_LONG 0x10c 11070 // Few of the fair folk concern themselves with the affairs of the state.
+  WRITE_LONG 0x110 11065 // I much prefer the wooded regions, but one must be flexible in these times.
+  WRITE_LONG 0x114 11063 // Good day and hello to you.
+  WRITE_LONG 0x118 11070 // Few of the fair folk concern themselves with the affairs of the state.
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~udelf05.cre~ ~override~
+  WRITE_LONG 0xa4 11063 //Good day and hello to you.
+  WRITE_LONG 0xec 11075
+  WRITE_LONG 0xf0 11076
+  WRITE_LONG 0x10c 11070 //Few of the fair folk concern themselves with the affairs of the state.
+  WRITE_LONG 0x110 11065 //I much prefer the wooded regions, but one must be flexible in these times.
+  WRITE_LONG 0x114 11063 //Good day and hello to you.
+  WRITE_LONG 0x118 11070 //Few of the fair folk concern themselves with the affairs of the state.
+  BUT_ONLY
+
+// restoring Adalon's sound set
+COPY_EXISTING ~udsilver.cre~ ~override~
+  SAY 0x0d0 @103 // BATTLE_CRY3 ~You've made a fatal error in judgment!~ [SILVER19]
+  SAY 0x0d4 @104 // BATTLE_CRY4 ~This is your end!~ [SILVER18]
+  SAY 0x110 @109 // SELECT_COMMON2 ~You have come for a reason. Out with it.~ [SILVER14]
+  SAY 0x114 @110 // SELECT_COMMON3 ~I would not have expected the likes of you.~ [SILVER12]
+  SAY 0x118 @111 // SELECT_COMMON4 ~You are welcome in my sight.~ [SILVER11]
+  BUT_ONLY
+
+// valyg11 should be level 10 instead of 11, based off his XP
+COPY_EXISTING ~valyg11.cre~ ~override~
+  WRITE_SHORT 0x24  78 // current hp
+  WRITE_SHORT 0x26  78 // max hp
+  WRITE_BYTE  0x45  78 // hide in shadows
+  WRITE_BYTE  0x52  11 // THAC0
+  WRITE_BYTE  0x54   8 // save v death
+  WRITE_BYTE  0x55  10 // save v wand
+  WRITE_BYTE  0x56   9 // save v polymorph
+  WRITE_BYTE  0x57   9 // save v breath
+  WRITE_BYTE  0x58  11 // save v spell
+  WRITE_BYTE  0x68  78 // move silently
+  WRITE_BYTE  0x234 10 // level
+  BUT_ONLY
+
+// Valygar spell fixes
+COPY_EXISTING ~valyg8.cre~  ~override~
+              ~valyg9.cre~  ~override~
+              ~valyg11.cre~ ~override~
+              ~valyg12.cre~ ~override~
+              ~valyg14.cre~ ~override~
+  READ_BYTE 0x234 level
+  ADD_KNOWN_SPELL ~sppr101~ #0 ~priest~ // normal druid level 1 spells
+  ADD_KNOWN_SPELL ~sppr103~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr104~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr105~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr110~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr111~ #0 ~priest~
+  ADD_KNOWN_SPELL ~sppr113~ #0 ~priest~
+  REMOVE_MEMORIZED_SPELLS
+  ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ (1) // Cure Light Wounds
+  PATCH_IF (level > 8) BEGIN
+    ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ (1) // doooooooooooooom
+    PATCH_IF (level > 9) BEGIN
+      ADD_KNOWN_SPELL ~sppr202~ #1 ~priest~ // normal druid level 2 spells
+      ADD_KNOWN_SPELL ~sppr204~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr205~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr206~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr207~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr209~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr210~ #1 ~priest~
+      ADD_KNOWN_SPELL ~sppr212~ #1 ~priest~
+      ADD_MEMORIZED_SPELL ~sppr204~ #1 ~priest~ (1) // Charm Person or Mammal
+      PATCH_IF (level > 11) BEGIN
+        ADD_KNOWN_SPELL ~sppr302~ #2 ~priest~ // normal druid level 3 spells
+        ADD_KNOWN_SPELL ~sppr303~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr305~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr306~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr309~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr310~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr311~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr312~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr315~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr317~ #2 ~priest~
+        ADD_KNOWN_SPELL ~sppr319~ #2 ~priest~
+        ADD_KNOWN_SPELL ~spra301~ #2 ~priest~ // plus standard stalker spells
+        ADD_KNOWN_SPELL ~spra302~ #2 ~priest~
+        ADD_KNOWN_SPELL ~spra303~ #2 ~priest~
+        ADD_MEMORIZED_SPELL ~sppr202~ #1 ~priest~ (1) // Barkskin
+        ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ (1) // Cure Medium Wounds
+      END
+    END
+  END
+  BUT_ONLY IF_EXISTS
+
+// restore dialog
+COPY_EXISTING ~vicg3.cre~ ~override~
+  WRITE_ASCII 0x2cc ~vicg3~ #8
+  BUT_ONLY
+
+// vic6 has incorrect class script
+COPY_EXISTING ~viconi6.cre~ ~override~
+  WRITE_ASCII 0x250 ~initrg10~ // all other vics use this
+  BUT_ONLY
+
+// Viconia proficiency fix, remove hfire seeds, add flame blade (holy smite confirmed to be included by the devs)
+COPY_EXISTING ~viconi6.cre~  ~override~
+              ~viconi8.cre~  ~override~
+              ~viconi9.cre~  ~override~
+              ~viconi11.cre~ ~override~
+              ~viconi13.cre~ ~override~
+              ~viconi16.cre~ ~override~
+  READ_BYTE 0x234 level
+  ADD_KNOWN_SPELL ~sppr206~ #1 ~priest~ // Flame Blade
+  PATCH_IF level > 10 BEGIN
+    REMOVE_KNOWN_SPELL sppr606 sppr607 // fire seeds (shouldn't know), heal (memorized twice)
+    ADD_KNOWN_SPELL ~sppr607~ #5 ~priest~ // restore heal
+  END
+  CLEAR_ARRAY cd_spell_sub
+  DEFINE_ASSOCIATIVE_ARRAY cd_spell_sub BEGIN // only subbing in memorized spells
+    sppr606 => sppr601 // fire seeds to aerial servant
+  END
+  PATCH_FOR_EACH offset IN 0x2b0 BEGIN // memorized only
+    LPF cd_spellbook_sub END
+  END
+  SET_BG2_PROFICIENCY 112 1 // one pip in sword & shield
+  PATCH_IF (level > 12) BEGIN
+    SET_BG2_PROFICIENCY 100 1 // one pip in flail
+  END
+  BUT_ONLY IF_EXISTS
+
+// viconia missing memorized spells
+COPY_EXISTING ~viconi6.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ // second cure light wounds
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~ // flame blade
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~ // mental domination
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// viconia missing memorized spells
+COPY_EXISTING ~viconi8.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr103~ #0 ~priest~ // second cure light wounds
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr205~ #1 ~priest~ // find traps
+  ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~ // flame blade
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~ // free action
+  ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~ // mental domination
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// viconia missing memorized spells
+COPY_EXISTING ~viconi9.cre~  ~override~
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ (2) // 2x doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~     // flame blade
+  ADD_MEMORIZED_SPELL ~sppr211~ #1 ~priest~     // silence 15' radius
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~     // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~     // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~     // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~     // free action
+  ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~     // mental domination
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~     // cure critical wounds
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// viconia missing memorized spells
+COPY_EXISTING ~viconi11.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ // armor of faith
+  ADD_MEMORIZED_SPELL ~sppr113~ #0 ~priest~ // doooooooooooooom
+  ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~ // flame blade
+  ADD_MEMORIZED_SPELL ~sppr211~ #1 ~priest~ // silence 15' radius
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~ // free action
+  ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~ // mental domination
+  ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~ // cloak of fear
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ // cure critical wounds
+  ADD_MEMORIZED_SPELL ~sppr503~ #4 ~priest~ // flame strike
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY
+
+// viconia missing memorized spells
+COPY_EXISTING ~viconi13.cre~ ~override~
+              ~viconi16.cre~ ~override~
+  ADD_MEMORIZED_SPELL ~sppr111~ #0 ~priest~ // armor of faith
+  ADD_MEMORIZED_SPELL ~sppr106~ #0 ~priest~ // magic stone
+  ADD_MEMORIZED_SPELL ~sppr202~ #1 ~priest~ // barkskin
+  ADD_MEMORIZED_SPELL ~sppr206~ #1 ~priest~ // flame blade
+  ADD_MEMORIZED_SPELL ~sppr211~ #1 ~priest~ // silence 15' radius
+  ADD_MEMORIZED_SPELL ~sppr214~ #1 ~priest~ // duhm
+  ADD_MEMORIZED_SPELL ~sppr303~ #2 ~priest~ // dispel magic
+  ADD_MEMORIZED_SPELL ~sppr306~ #2 ~priest~ // protection from fire
+  ADD_MEMORIZED_SPELL ~sppr311~ #2 ~priest~ // rigid thinking
+  ADD_MEMORIZED_SPELL ~sppr314~ #2 ~priest~ // unholy blight
+  ADD_MEMORIZED_SPELL ~sppr315~ #2 ~priest~ // cure medium wounds
+  ADD_MEMORIZED_SPELL ~sppr401~ #3 ~priest~ // cure serious wounds
+  ADD_MEMORIZED_SPELL ~sppr403~ #3 ~priest~ // free action
+  ADD_MEMORIZED_SPELL ~sppr405~ #3 ~priest~ // mental domination
+  ADD_MEMORIZED_SPELL ~sppr412~ #3 ~priest~ // holy power
+  ADD_MEMORIZED_SPELL ~sppr416~ #3 ~priest~ // cloak of fear
+  ADD_MEMORIZED_SPELL ~sppr502~ #4 ~priest~ // cure critical wounds
+  ADD_MEMORIZED_SPELL ~sppr503~ #4 ~priest~ // flame strike
+  ADD_MEMORIZED_SPELL ~sppr601~ #5 ~priest~ // aerial servant
+  ADD_MEMORIZED_SPELL ~sppr607~ #5 ~priest~ // heal
+  // A_M_S bumps these up, but need to lower again to acocunt for WIS bonuses
+  READ_LONG 0x2a8 slot_off
+  WRITE_SHORT (slot_off + 0x02 + (0 * 0x10)) (THIS - 2) // lev1
+  WRITE_SHORT (slot_off + 0x02 + (1 * 0x10)) (THIS - 2) // lev2
+  WRITE_SHORT (slot_off + 0x02 + (2 * 0x10)) (THIS - 1) // lev3
+  WRITE_SHORT (slot_off + 0x02 + (3 * 0x10)) (THIS - 1) // lev4
+  BUT_ONLY IF_EXISTS
+
+// helpful folks disappear before they can actually help; see also vvhelp.dlg, ar0700.are
+COPY_EXISTING ~vvhelp.cre~   ~override~
+              ~vvpriest.cre~ ~override~
+  WRITE_ASCII 0x248 ~~ #8 // delete vvshaesc from override
+  BUT_ONLY
+
+// fixes to Parisa's soundset, change from male vampire soundset to female
+COPY_EXISTING ~vvparis.cre~ ~override~
+  SAY INITIAL_MEETING  #61743 // Death awaits you... but not I.
+  SAY UNHAPPY_BREAKING #61749 // I shall return, fool!
+  SAY BATTLE_CRY1      #61745 // I shall feast on your heart!
+  SAY BATTLE_CRY2      #61746 // Be honored, for you shall feed me!
+  SAY DAMAGE           #61747
+  SAY DYING            #61748
+  SAY SELECT_COMMON1   #61741 // I am the predator that lives amongst you.
+  SAY SELECT_COMMON2   #61742 // Let me have a taste, come.
+  SAY SELECT_COMMON3   #61743 // Death awaits you... but not I.
+  SAY SELECT_COMMON4   #61744
+  SAY PICKED_POCKET    #61744
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Males with female sounds
+COPY_EXISTING ~vvshad2.cre~ ~override~
+  WRITE_LONG 0xa4 61885 //Explain your intent, and make it good!
+  WRITE_LONG 0xb8 61890 //Must... return to the shadows!
+  WRITE_LONG 0xc8 61886 //Beg for death and I'll make it quick!
+  WRITE_LONG 0xcc 61887 //No one crosses the Shadow Thieves... and lives!
+  WRITE_LONG 0xec 61888
+  WRITE_LONG 0xf0 61889
+  WRITE_LONG 0x10c 61882 //Good to see a like-minded friend-to-be.
+  WRITE_LONG 0x110 61883 //Speak if ye will.
+  WRITE_LONG 0x114 61884 //Is there something you seek?
+  WRITE_LONG 0x118 61885 //Explain your intent, and make it good!
+  BUT_ONLY
+
+// wish01 and wish02 should be the same genie
+COPY_EXISTING ~wish02.cre~ ~override/wish01.cre~
+  WRITE_ASCII 0x280 ~wish01~ #18 // death var
+  WRITE_ASCII 0x2cc ~wish~    #8 // dialogue
+  BUT_ONLY IF_EXISTS
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~yaga02.cre~ ~override~
+  WRITE_LONG 0xa4 61625 //We will be saved in the End.
+  WRITE_LONG 0xb8 61630 //Aiiiieee!!  I have failed him!!
+  WRITE_LONG 0xec 61628
+  WRITE_LONG 0xf0 61629
+  WRITE_LONG 0x10c 61625 //We will be saved in the End.
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~yarmy01.cre~ ~override~ // typo
+  WRITE_ASCII 0x258 ~cfigh20b~ #8
+  BUT_ONLY IF_EXISTS
+  
+// yoshimo has too many thieving points
+COPY_EXISTING ~yoshi7.cre~  ~override~
+              ~yoshi8.cre~  ~override~
+              ~yoshi10.cre~ ~override~
+  WRITE_BYTE 0x45 35 // hide in shadows -5
+  WRITE_BYTE 0x68 40 // move silently -40
+  BUT_ONLY
+  
+// yoshimo has too many thieving points
+COPY_EXISTING ~yoshi11.cre~ ~override~
+  WRITE_BYTE 0x45 40 // hide in shadows -15
+  WRITE_BYTE 0x68 45 // move silently -35
+  BUT_ONLY
+
+// yoshimo has too many thieving points
+COPY_EXISTING ~yoshi12.cre~ ~override~
+  WRITE_BYTE 0x45 45 // hide in shadows -15
+  WRITE_BYTE 0x65 15 // set traps -15
+  WRITE_BYTE 0x68 50 // move silently -30
+  BUT_ONLY
+
+// A fair bunch of people are male with female sounds or vice versa (Wisp): Females with male sounds
+COPY_EXISTING ~yssold16.cre~ ~override~
+  WRITE_LONG 0xa4 61980 //You are welcome in my sight.
+  WRITE_LONG 0xc8 61981 //This is your end!
+  WRITE_LONG 0xcc 61982 //You've made a fatal error in judgement.
+  WRITE_LONG 0xec 61985
+  WRITE_LONG 0xf0 61986
+  WRITE_LONG 0x10c 61981 //This is your end!
+  WRITE_LONG 0x110 61982 //You've made a fatal error in judgement.
+  BUT_ONLY IF_EXISTS
+
+/////                                                  \\\\\
+///// familiar fixes                                   \\\\\
+/////                                                  \\\\\
+
+// see also string fixes
+
+// soa cat
+COPY_EXISTING ~famcat.cre~   ~override~
+  WRITE_BYTE  0x45 89 // hide in shadows
+  WRITE_SHORT 0x46 4  // natural ac
+  WRITE_SHORT 0x48 4  // effective ac
+  WRITE_BYTE  0x68 89 // move silently
+  // sound restorations
+  SAY 0xa4 @126
+  SAY 0xc8 @126
+  SAY 0xec @126
+  SAY 0xf0 @126
+  SAY 0x010c @126
+  SAY 0x0110 @126
+  REMOVE_CRE_ITEM hastring // disables attacking, remove but...
+  LPF ADD_CRE_EFFECT INT_VAR opcode = 16 timing = 1 END // manually restore haste effect from removed hastring (same haste effect as ToB cat)
+  // add mage class so it can use blur
+  READ_BYTE  0x234 level // copy level of first class...
+  WRITE_BYTE 0x235 level // to second class
+  WRITE_BYTE 0x273 13    // change class to m/t
+  REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+  REMOVE_MEMORIZED_SPELL ~spwi201~
+  ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+  ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+  BUT_ONLY
+
+// soa dust mephit
+COPY_EXISTING ~famdust.cre~   ~override~
+  WRITE_SHORT 0x46 10 // natural ac
+  WRITE_SHORT 0x48 10 // effective ac
+  REMOVE_KNOWN_SPELL spwi201
+  BUT_ONLY
+
+// soa fairy dragon
+COPY_EXISTING ~famfair.cre~   ~override~
+  WRITE_SHORT 0x46 8 // natural ac
+  WRITE_SHORT 0x48 8 // effective ac
+  WRITE_BYTE  0x59 0 // resist fire
+  WRITE_BYTE  0x5b 0 // resist electricity
+  WRITE_BYTE  0x5e 0 // resist magic fire
+  REMOVE_KNOWN_SPELL spwi201
+  REPLACE_CRE_ITEM s1-2 #0 #0 #0 none WEAPON1 EQUIP
+  BUT_ONLY
+
+// soa ferret
+COPY_EXISTING ~famfer.cre~ ~override~
+  WRITE_BYTE  0x45 30 // hide in shadows
+  WRITE_SHORT 0x46 4  // natural ac
+  WRITE_SHORT 0x48 4  // effective ac
+  WRITE_BYTE  0x68 30 // move silently
+  WRITE_BYTE  0x69 15 // find/disarm traps
+  WRITE_BYTE  0x6a 65 // pick pockets
+  // add mage class so it can use blur
+  READ_BYTE  0x234 level // copy level of first class...
+  WRITE_BYTE 0x235 level // to second class
+  WRITE_BYTE 0x273 13    // change class to m/t
+  REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+  REMOVE_MEMORIZED_SPELL ~spwi201~
+  ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+  ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+  BUT_ONLY
+
+// soa imp
+COPY_EXISTING ~famimp.cre~ ~override~
+  WRITE_SHORT 0x46 6  // natural ac
+  WRITE_SHORT 0x48 6  // effective ac
+  REMOVE_KNOWN_SPELL spwi201
+  BUT_ONLY
+
+// soa pseudo-dragon
+COPY_EXISTING ~fampsd.cre~   ~override~
+  WRITE_SHORT 0x46  2 // AC
+  WRITE_SHORT 0x48  2 // AC
+  WRITE_BYTE  0x5d 50 // resist magic
+  REPLACE_CRE_ITEM cdfampsd #0 #0 #0 none WEAPON1 EQUIP
+  BUT_ONLY
+
+// soa quasit
+COPY_EXISTING ~famquas.cre~   ~override~
+  WRITE_SHORT 0x46 6  // natural ac
+  WRITE_SHORT 0x48 6  // effective ac
+  REPLACE_CRE_ITEM s1-6 #0 #0 #0 none WEAPON1 EQUIP
+  REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+  REMOVE_MEMORIZED_SPELL ~spwi201~
+  ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+  ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+  BUT_ONLY
+
+// soa rabbit
+COPY_EXISTING ~famrab.cre~   ~override~
+  WRITE_BYTE  0x45 20 // hide in shadows
+  WRITE_SHORT 0x46 5  // natural ac
+  WRITE_SHORT 0x48 5  // effective ac
+  WRITE_BYTE  0x59 75 // resist fire
+  WRITE_BYTE  0x5c 0  // resist acid
+  WRITE_BYTE  0x5d 65 // resist magic
+  WRITE_BYTE  0x5e 75 // resist magic fire
+  WRITE_BYTE  0x68 20 // move silently
+  WRITE_BYTE  0x69 45 // find/disarm traps
+  WRITE_BYTE  0x6a 0  // pick pockets
+  REPLACE_CRE_ITEM s1-2 #0 #0 #0 none WEAPON1 EQUIP
+  REMOVE_CRE_ITEM rabring // disables thieving, remove
+  // add mage class so it can use blur
+  READ_BYTE  0x234 level // copy level of first class...
+  WRITE_BYTE 0x235 level // to second class
+  WRITE_BYTE 0x273 13    // change class to m/t
+  REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+  REMOVE_MEMORIZED_SPELL ~spwi201~
+  ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+  ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+  BUT_ONLY
+
+ACTION_IF tob_game THEN BEGIN // tob familiars
+    
+  // tob cat
+  COPY_EXISTING ~famcat25.cre~   ~override~
+    WRITE_BYTE  0x45 89 // hide in shadows
+    WRITE_SHORT 0x46 0  // natural ac
+    WRITE_SHORT 0x48 0  // effective ac
+    WRITE_BYTE  0x68 89 // move silently
+    WRITE_BYTE  0x69 55 // find/disarm traps
+    WRITE_BYTE  0x6a 50 // pick pockets
+    // hastring deleted elsewhere
+    // add mage class so it can use blur
+    READ_BYTE  0x234 level // copy level of first class...
+    WRITE_BYTE 0x235 level // to second class
+    WRITE_BYTE 0x273 13    // change class to m/t
+    REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+    REMOVE_MEMORIZED_SPELL ~spwi201~
+    ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+    BUT_ONLY
+  
+  // tob dust mephit
+  COPY_EXISTING ~famdus25.cre~ ~override~
+    WRITE_SHORT 0x46 7  // natural ac
+    WRITE_SHORT 0x48 7  // effective ac
+    ADD_MEMORIZED_SPELL ~spwi224~ #1 ~wizard~     // glitterdust
+    ADD_MEMORIZED_SPELL ~spin935~ #0 ~innate~ (2) // 2x glass dust
+    BUT_ONLY
+
+  // tob fairy dragon
+  COPY_EXISTING ~famfai25.cre~   ~override~
+    WRITE_SHORT 0x24 48 // current hp
+    WRITE_SHORT 0x26 48 // max hp
+    WRITE_SHORT 0x46 4  // natural ac
+    WRITE_SHORT 0x48 4  // effective ac
+    REPLACE_CRE_ITEM s1-2 #0 #0 #0 none WEAPON1 EQUIP
+    BUT_ONLY
+
+  // tob ferret
+  COPY_EXISTING ~famfer25.cre~ ~override~
+    WRITE_BYTE  0x45 50 // hide in shadows
+    WRITE_SHORT 0x46 0  // natural ac
+    WRITE_SHORT 0x48 0  // effective ac
+    WRITE_BYTE  0x68 50 // move silently
+    WRITE_BYTE  0x69 55 // find/disarm traps
+    WRITE_BYTE  0x6a 85 // pick pockets
+    WRITE_BYTE 0x238 15 // strength
+    // add mage class so it can use blur
+    READ_BYTE  0x234 level // copy level of first class...
+    WRITE_BYTE 0x235 level // to second class
+    WRITE_BYTE 0x273 13    // change class to m/t
+    REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+    REMOVE_MEMORIZED_SPELL ~spwi201~
+    ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+    BUT_ONLY
+
+  // tob imp
+  COPY_EXISTING ~famimp25.cre~ ~override~
+    WRITE_SHORT 0x46 2  // natural ac
+    WRITE_SHORT 0x48 2  // effective ac
+    REMOVE_KNOWN_SPELL spwi201
+    BUT_ONLY
+
+  // tob pseudo-dragon
+  COPY_EXISTING ~fampsd25.cre~   ~override~
+    WRITE_SHORT 0x46  2 // AC
+    WRITE_SHORT 0x48  2 // AC
+    WRITE_BYTE  0x5d 50 // resist magic
+    WRITE_BYTE 0x238 15 // strength
+    BUT_ONLY
+    
+  // tob quasit
+  COPY_EXISTING ~famqua25.cre~   ~override~
+    WRITE_SHORT 0x46 2  // natural ac
+    WRITE_SHORT 0x48 2  // effective ac
+    ADD_KNOWN_SPELL ~spwi201~ #1 ~wizard~
+    REMOVE_MEMORIZED_SPELL ~spwi201~  // blur set as lev 3 spell in known & memorized table
+    ADD_MEMORIZED_SPELL ~spwi201~ #1 ~wizard~
+    LPF DELETE_EFFECT INT_VAR match_opcode = 51 END // match SoA quasit coloring
+    BUT_ONLY
+
+  // tob rabbit
+  COPY_EXISTING ~famrab25.cre~ ~override~
+    WRITE_BYTE  0x45 50 // hide in shadows
+    WRITE_SHORT 0x46 5  // natural ac
+    WRITE_SHORT 0x48 5  // effective ac
+    WRITE_BYTE  0x59 75 // resist fire
+    WRITE_BYTE  0x5a 75 // resist cold
+    WRITE_BYTE  0x5b 75 // resist electricity
+    WRITE_BYTE  0x5e 75 // resist magic fire
+    WRITE_BYTE  0x5f 75 // resist magic cold
+    WRITE_BYTE  0x68 50 // move silently
+    WRITE_BYTE  0x69 80 // find/disarm traps
+    WRITE_BYTE  0x6a 0  // pick pockets
+    // add mage class so it can use blur
+    READ_BYTE  0x234 level // copy level of first class...
+    WRITE_BYTE 0x235 level // to second class
+    WRITE_BYTE 0x273 13    // change class to m/t
+    REMOVE_KNOWN_SPELL     ~spwi201~ // blur set as lev 3 spell in known & memorized table
+    REMOVE_MEMORIZED_SPELL ~spwi201~
+    ADD_KNOWN_SPELL        ~spwi201~ #1 ~wizard~
+    ADD_MEMORIZED_SPELL    ~spwi201~ #1 ~wizard~
+    BUT_ONLY
+
+END

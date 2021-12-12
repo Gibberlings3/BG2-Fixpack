@@ -1,0 +1,44 @@
+/////                                                  \\\\\
+///// dialogue fixes                                   \\\\\
+/////                                                  \\\\\
+
+// telwyn should not spawn for cleric-rangers; see also ar0900.bcs, ar0901.bcs, ar0904.bcs; only ar0901.bcs actually causes problems, but may as well standardize all these triggers while we're here
+COPY_EXISTING ~bhoisig.dlg~  ~override~
+              ~bhnalla.dlg~  ~override~
+              ~borinall.dlg~ ~override~
+              ~travin.dlg~   ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY
+      ~OR(5)[ %TAB%%LNL%%MNL%%WNL%]+\(Class(Player1,CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,CLERIC_MAGE)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,CLERIC_THIEF)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_MAGE_CLERIC)\)~
+      ~OR(6) \1 Class(Player1,CLERIC_RANGER)~
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~bhoisig.dlg~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY
+      ~\(!Class(Player1,CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,FIGHTER_CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,CLERIC_MAGE)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,CLERIC_THIEF)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,FIGHTER_MAGE_CLERIC)\)~
+      ~\1 !Class(Player1,CLERIC_RANGER)~
+  END
+  BUT_ONLY
+
+// various dead/alive checks on the farmers missing half of them; see also d code in beta_soa-dlg.d
+COPY_EXISTING ~demson.dlg~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY
+      ~OR(3)[ %TAB%%LNL%%MNL%%WNL%]+Dead("plfarm01")[ %TAB%%LNL%%MNL%%WNL%]+Dead("plfarm02")[ %TAB%%LNL%%MNL%%WNL%]+Dead("plfarm03")~ // replies 3 & 5 on state 47
+      ~OR(6) Dead("plfarm01") Dead("plfarm02") Dead("plfarm03") Dead("plfarm04") Dead("plfarm05") Dead("plfarm06")~
+  END
+  BUT_ONLY
+
+// these three show as corrupted by NI if done via d patch... believe it's empty DO ~~ actions. recompile fixes all issues.
+COPY_EXISTING ~glanma.dlg~ ~override~
+              ~ramazi.dlg~ ~override~
+              ~thalan.dlg~ ~override~
+  DECOMPILE_AND_PATCH BEGIN END
+
+COPY_EXISTING ~kpsold01.dlg~ ~override~ // makes Delcia's guard's dialogue pause the game to prevent Delcia's interruption
+              ~murdbegg.dlg~ ~override~ // rampah's dialogue can be interrpted by vamp encounter, borking his info dump and giving you hides
+              ~yochlol.dlg~  ~override~ // vic's yochlol will attack since priestess's dialogue doesn't pause the game
+  WRITE_LONG 0x30 0
+  BUT_ONLY

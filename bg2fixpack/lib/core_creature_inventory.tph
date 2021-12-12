@@ -1,0 +1,1522 @@
+/////                                                  \\\\\
+///// a brazilian inventory fixes                      \\\\\
+/////                                                  \\\\\
+
+// abazigal can be killed in human form
+COPY_EXISTING ~abazigal.cre~ ~override~
+  ADD_CRE_ITEM ~minhp1~ #0 #0 #0 ~NONE~ ~RRING AMULET~
+  IF_EXISTS
+
+COPY_EXISTING ~abydem01.cre~ ~override~ // tanar'ri
+              ~deaddem2.cre~ ~override~ // quasit
+              ~dquas01.cre~  ~override~ // quasit
+              ~gorchr.cre~   ~override~ // chromatic demon
+              ~gortan2.cre~  ~override~ // succubus
+              ~gortan5.cre~  ~override~ // quasit
+              ~sumtan01.cre~ ~override~ // tanar'ri
+              ~sumtan02.cre~ ~override~ // tanar'ri
+              ~teltan1.cre~  ~override~ // glabrezu
+              ~teltan2.cre~  ~override~ // glabrezu
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // ringdemn (demon power ring) shouldn't expire
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~aegnoll.cre~  ~override~ // gnoll
+              ~gnleli01.cre~ ~override~ // gnoll elite
+              ~gnlwar01.cre~ ~override~ // gnoll
+              ~gnoll01.cre~  ~override~ // gnoll
+              ~gnollhp1.cre~ ~override~ // gnoll
+              ~icliz01.cre~  ~override~ // lizard man
+              ~icliz02.cre~  ~override~ // gorkale
+  LPF cd_equip_item STR_VAR item = "rndtre04" slot = "inventory" END // legit random treasure not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~aemess.cre~   ~override~ // messenger
+              ~alex.cre~     ~override~ // sir beverus
+              ~ammajira.cre~ ~override~ // majira
+              ~amtcle01.cre~ ~override~ // cleric of lathander
+              ~amtcler0.cre~ ~override~ // cleric of lathander
+              ~antenos.cre~  ~override~ // antenos
+              ~arled.cre~    ~override~ // arledrian
+              ~bazeye01.cre~ ~override~ // iycanth the mad
+              ~bguard1.cre~  ~override~ // guard
+              ~boo.cre~      ~override~ // boo
+              ~bounha02.cre~ ~override~ // bounty hunter
+              ~bounha03.cre~ ~override~ // bounty hunter
+              ~ch3mag01.cre~ ~override~ // shadow thief
+              ~copamb01.cre~ ~override~ // gladiator
+              ~copamb03.cre~ ~override~ // gladiator
+              ~copamb04.cre~ ~override~ // gladiator
+              ~dadrow11.cre~ ~override~ // drow torturer
+              ~dadrow17.cre~ ~override~ // taso kala
+              ~dadrow20.cre~ ~override~ // drow priestess
+              ~dadrow4.cre~  ~override~ // drow priestess
+              ~daqilue.cre~  ~override~ // qilue
+              ~democler.cre~ ~override~ // cleric
+              ~derrick.cre~  ~override~ // derrick
+              ~drow04.cre~   ~override~ // drow priestess
+              ~eyeegl01.cre~ ~override~ // eagle eye
+              ~firorc02.cre~ ~override~ // derg the orc
+              ~firorc03.cre~ ~override~ // flaylas the orc
+              ~glad2.cre~    ~override~ // gladiator
+              ~gorcamb2.cre~ ~override~ // tiefling
+              ~gorcamb3.cre~ ~override~ // tiefling
+              ~gorpri1.cre~  ~override~ // priest
+              ~hgber01.cre~  ~override~ // berenn
+              ~hgskl01.cre~  ~override~ // skeleton cleric
+              ~hgskl03.cre~  ~override~ // skeleton mage
+              ~hlassa.cre~   ~override~ // assassin
+              ~hlketta.cre~  ~override~ // ketta
+              ~hlketta2.cre~ ~override~ // ketta
+              ~hlmage.cre~   ~override~ // mage
+              ~hprelate.cre~ ~override~ // prelate wessalen
+              ~jolus.cre~    ~override~ // sir jolus
+              ~kendak.cre~   ~override~ // sir laren
+              ~magetest.cre~ ~override~ // mage
+              ~mvpries.cre~  ~override~ // priest of cyric
+              ~pace.cre~     ~override~ // pace
+              ~pettin.cre~   ~override~ // ettin
+              ~pirmur09.cre~ ~override~ // golin
+              ~ppaltk1.cre~  ~override~ // kobold shaman
+              ~ppaltk2.cre~  ~override~ // kobold shaman
+              ~ppguard3.cre~ ~override~ // guard
+              ~ppsuna.cre~   ~override~ // suna seni
+              ~reband05.cre~ ~override~ // bandit
+              ~recler01.cre~ ~override~ // slaver
+              ~recler02.cre~ ~override~ // cleric
+              ~rethie01.cre~ ~override~ // salver
+              ~ryan.cre~     ~override~ // sir paritin
+              ~sahamb03.cre~ ~override~ // rebel
+              ~sahamb06.cre~ ~override~ // sahuagin
+              ~salvanas.cre~ ~override~ // salvanas
+              ~sarcult.cre~  ~override~ // human cultist
+              ~sarcult2.cre~ ~override~ // human cultist
+              ~sarculto.cre~ ~override~ // orc cultist
+              ~sarhal.cre~   ~override~ // halfling cultist
+              ~sartem01.cre~ ~override~ // sister farielle
+              ~sendai8.cre~  ~override~ // sendai
+              ~senorc01.cre~ ~override~ // derro berserker
+              ~senorc03.cre~ ~override~ // derro berserker
+              ~senpri01.cre~ ~override~ // diaytha
+              ~shugpr01.cre~ ~override~ // vigil knight
+              ~snake01.cre~  ~override~ // snake
+              ~snakeg01.cre~ ~override~ // giant snake
+              ~suna.cre~     ~override~ // suna seni
+              ~tobpar05.cre~ ~override~ // delga deepdelver
+              ~trevil01.cre~ ~override~ // lord khellon menold
+              ~trthf02.cre~  ~override~ // kich
+              ~turn.cre~     ~override~ // cleric
+              ~uddear02.cre~ ~override~ // uder mordin
+              ~uddrow14.cre~ ~override~ // drow
+              ~uddrow15.cre~ ~override~ // drow
+              ~uddrow31.cre~ ~override~ // drow
+              ~uddrow35.cre~ ~override~ // priestess of lloth
+              ~udelf05.cre~  ~override~ // war elf
+              ~udgirl.cre~   ~override~ // priestess of lloth
+              ~udtrap05.cre~ ~override~ // gont of riatavin
+              ~uhmer02.cre~  ~override~ // min minling
+              ~vorsquir.cre~ ~override~ // vorpal squirrel
+              ~wauksna.cre~  ~override~ // snake
+              ~yaga02.cre~   ~override~ // lientenant mage
+              ~yaga04.cre~   ~override~ // lientenant cleric
+              ~yssold14.cre~ ~override~ // yaga-shura mage
+              ~yssold16.cre~ ~override~ // cleric of talos
+              ~zilmag01.cre~ ~override~ // black reaver
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~aerbod01.cre~ ~override~ // aerie
+              ~aerie6.cre~   ~override~ // aerie
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = slng01 END // overcharged: sling
+  BUT_ONLY
+
+COPY_EXISTING ~aerie9.cre~   ~override~ // aerie
+  LPF cd_equip_item STR_VAR item = "leat04" slot = "armor" END // legit studded leather armor not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bull01 END // change stack of 0 to stack of 20 bullets
+  BUT_ONLY
+
+COPY_EXISTING ~aerie10.cre~  ~override~ // aerie
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "leat04" slot = "armor" END // legit studded leather armor not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bull01 END // change stack of 0 to stack of 20 bullets
+  BUT_ONLY
+
+COPY_EXISTING ~aerie11.cre~  ~override~ // aerie
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bull01 END // change stack of 0 to stack of 20 bullets
+  BUT_ONLY
+
+COPY_EXISTING ~amarch01.cre~ ~override~ // captain erelon
+  ADD_CRE_ITEM ~arow01~ #20 #0 #0 ~NONE~ ~QUIVER1 QUIVER2 QUIVER3~ // bow but no arrows
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = helm33 END // overcharged: gold horned helmet
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = bow20 END // undecharged: darkfire bow +4
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amarch02.cre~ ~override~ // mercenary
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = helm33 END // overcharged: gold horned helmet
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amcarras.cre~ ~override~ // carras
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 2 STR_VAR match_item = boot12 END // undercharged: gargoyle boots
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amlich01.cre~ ~override~ // vongoethe
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "ring46" slot = "rings" END // move ring of anti-venom from weapon slot to ring
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~ammerc07.cre~ ~override~ // mercenary
+  LPF cd_equip_item STR_VAR item = "rndtre02" slot = "inventory" END // legit random treasure not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~ammerc08.cre~ ~override~ // mercenary
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 30 STR_VAR match_item = arow11 END // stack of 0 > 30 arrows +2
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amwyvern.cre~ ~override~ // lucy
+              ~nwyvbab.cre~  ~override~ // baby wyvern
+              ~plywyvrn.cre~ ~override~ // baby wyvern
+              ~wyvbab01.cre~ ~override~ // baby wyvern
+  REMOVE_CRE_ITEM misc52 // delete unassigned wyvern head
+  BUT_ONLY
+
+COPY_EXISTING ~ankheg01.cre~ ~override~ // ankheg
+  LPF cd_no_pickpocket STR_VAR item = misc12 END // move ankheg shell to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~anomen6.cre~  ~override~ // anomen
+              ~anomen7.cre~  ~override~ // anomen
+              ~anomen8.cre~  ~override~ // anomen
+              ~anomen9.cre~  ~override~ // anomen
+              ~anomen10.cre~ ~override~ // anomen
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "slng01" slot = "weapon" END // move sling from quickslot/inventory to weapon slot
+  BUT_ONLY
+
+COPY_EXISTING ~ar18dwaf.cre~ ~override~ // duergar
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 charge2 = 0 STR_VAR match_item = ax1h04 END // no secondary charges for throwing axes, make a stack of 10
+  BUT_ONLY
+
+COPY_EXISTING ~ar18prie.cre~ ~override~ // has better melee set as offhand
+  REPLACE_CRE_ITEM shld03 #0 #0 #0 ~NONE~ SHIELD // move mace +1 to mainhand
+  REPLACE_CRE_ITEM blun05 #0 #0 #0 ~NONE~ WEAPON1 EQUIP
+  BUT_ONLY
+
+COPY_EXISTING ~aran.cre~     ~override~ // aran linvail
+              ~maevar.cre~   ~override~ // mae'var
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = helmnoan END // no-animation helmet shouldnt have charges
+  BUT_ONLY
+
+COPY_EXISTING ~aran02.cre~  ~override~ // aran linvail
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "ring07" slot = "rings" END // equip ring of protection +2 from inventory
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = misc6w END // stakes don't need charges
+  BUT_ONLY
+
+COPY_EXISTING ~arngol01.cre~ ~override~ // golem
+              ~csgolem.cre~  ~override~ // golem
+              ~golem01.cre~  ~override~ // clay golem
+              ~icbone01.cre~ ~override~ // bone golem
+              ~igolem01.cre~ ~override~ // sewage golem
+              ~igolem02.cre~ ~override~ // jailkeep golem
+  ADD_CRE_ITEM ~golcla~ #0 #0 #0 ~NONE~ ~RRING LRING AMULET~ // add golem immunity items
+  BUT_ONLY
+
+COPY_EXISTING ~arntra01.cre~ ~override~ // trainee
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sh1h04" item = "sw1h04" END // resref typo (sh1h04)
+  BUT_ONLY
+
+COPY_EXISTING ~bamng01.cre~ ~override~ // amnish guard
+              ~bamng02.cre~ ~override~ // amnish guard
+              ~circg1.cre~  ~override~ // amnish soldier
+  LPF cd_equip_weapon_specific STR_VAR item = "sw1h04" END // equip long sword; amnish guards shouldn't be using bows as they have no bow animation
+  BUT_ONLY
+
+COPY_EXISTING ~bazdra01.cre~ ~override~ // draconis
+              ~bazdra02.cre~ ~override~ // draconis
+  LPF cd_no_pickpocket STR_VAR item = bazplo02 END // move draconis' head to unpickpocketable slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bazdra03.cre~ ~override~ // fll'yissetat
+              ~dragyell.cre~ ~override~ // yellow dragon
+  REMOVE_CRE_ITEM dragyell // delete unassigned item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bazliz04.cre~ ~override~ // lizard man captain
+              ~gorsta02.cre~ ~override~ // wk statue
+              ~jarevia.cre~  ~override~ // reviane
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "halb03" item = "halb07" END // Suryris's Blade is unique; replacing all cre references with generic halb +2 - gorsta09.cre is done separately
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bdturm02.cre~ ~override~ // turmish thief
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 expiry = 0 STR_VAR match_item = bolt03 END // stack of 0 > 20 lightning bolts, also shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~bearbr01.cre~ ~override~ // brown bear
+  REMOVE_CRE_ITEM b1-8 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~bearca01.cre~ ~override~ // cave bear
+              ~vbearca.cre~  ~override~ // cave bear
+  REMOVE_CRE_ITEM b1-10 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~bearpo01.cre~ ~override~ // mountain bear
+  REMOVE_CRE_ITEM b1-12 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~beast.cre~    ~override~ // beastmaster
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 0 STR_VAR match_item = arow01 END // no secondary charges for arrows
+  BUT_ONLY
+
+COPY_EXISTING ~bhaal01.cre~  ~override~ // bhaal
+              ~sarevok.cre~  ~override~ // sarevok
+  LPF cd_equip_item STR_VAR item = "bolt06" slot = "quiver" END // move bolt +2 to quiver slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~bhcrypt.cre~  ~override~ // crypt king
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 3 STR_VAR match_item = sw1h36 END // add three secondary charges for namarra's silence ability
+  BUT_ONLY
+
+COPY_EXISTING ~bhelm.cre~    ~override~ // guardian vottnar
+  REMOVE_CRE_ITEM scrl25 // delete nonexistant item
+
+COPY_EXISTING ~bhghoul5.cre~ ~override~ // zombies
+  REMOVE_CRE_ITEM arrw01 bow03 // remove (broken ref) arrows, bow
+  LPF cd_equip_weapon_specific STR_VAR item = b3-12 END  // equip melee generic; zombies shouldn't be using bows as they have no bow animation
+  BUT_ONLY
+
+COPY_EXISTING ~bodhi.cre~    ~override~ // bodhi
+              ~bodhi2.cre~   ~override~ // bodhi
+              ~c6bodhi.cre~  ~override~ // bodhi
+              ~cubodhi.cre~  ~override~ // bodhi
+  REMOVE_CRE_ITEM s2-16 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~bodhiamb.cre~ ~override~ // bodhi
+  REMOVE_CRE_ITEM s2-16 vampreg2 // delete unassigned items
+  BUT_ONLY
+
+COPY_EXISTING ~bonebld.cre~  ~override~ // bone blade
+              ~sword01.cre~  ~override~ // magical sword (mordenkainen)
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 50 STR_VAR match_item = ipsion END // max charges (50) of greenstone amulet copy; can't be dropped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~braiwa2.cre~  ~override~ // blind priest
+              ~pries12c.cre~ ~override~ // zorl
+  REMOVE_CRE_ITEM plat01 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~bshop01.cre~  ~override~ // cutpurse
+              ~ffactor2.cre~ ~override~ // lunisia
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "dagg01" slot = "weapon" END // move dagger into weapon slot from quickslot
+  BUT_ONLY
+
+COPY_EXISTING ~c6bran.cre~   ~override~ // Branet Al-Thon
+              ~c6catti2.cre~ ~override~ // catti-brie
+              ~c6elf1.cre~   ~override~ // Elven Warrior
+              ~c6fake.cre~   ~override~ // Elhan
+              ~c6gener.cre~  ~override~ // General Sovalidaas
+              ~c6kalden.cre~ ~override~ // Kalden
+              ~c6levin.cre~  ~override~ // Levin Rayn
+              ~c6nerit.cre~  ~override~ // Nerit
+              ~c6will.cre~   ~override~ // William Reirrac
+              ~cupris1.cre~  ~override~ // Elven Warrior
+              ~cupris2.cre~  ~override~ // Elven Warrior
+              ~e34.cre~      ~override~ // Coran
+              ~suelf12.cre~  ~override~ // Captain Aduo'on
+              ~suelf13.cre~  ~override~ // Elven Warrior
+              ~suelleg1.cre~ ~override~ // Elven Warrior
+              ~suendel1.cre~ ~override~ // Elven Warrior
+              ~suendel2.cre~ ~override~ // Elven Warrior
+              ~suendel3.cre~ ~override~ // Elf Male
+              ~suendel4.cre~ ~override~ // Elf Female
+              ~suendel5.cre~ ~override~ // Elf
+              ~suendel6.cre~ ~override~ // Elf
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw1h06" item = "sw1h41" END // Varscona is unique; repacing all references except Ribald's with generic +2 sword
+  BUT_ONLY
+
+COPY_EXISTING ~c6catti.cre~  ~override~ // catti-brie
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw1h06" item = "sw1h41" END // Varscona is unique; repacing all references except Ribald's with generic +2 sword
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = ring05 END // ring of invisibility is once/day item
+  BUT_ONLY
+
+COPY_EXISTING ~c6kach2.cre~  ~override~ // Kachiko
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw1h06" item = "sw1h41" END // Varscona is unique; repacing all references except Ribald's with generic +2 sword
+  LPF cd_equip_weapon END // has no weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~c6lanf.cre~   ~override~ // lanfear
+              ~garkid02.cre~ ~override~ // taar
+              ~gibmut01.cre~ ~override~ // mutated gibberling (note: not cam) (also note: why are you reading notes?)
+  LPF cd_equip_item STR_VAR item = "rndtre02" slot = "inventory" END // legit random treasure not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~c6regis.cre~  ~override~ // regis
+              ~chang01.cre~  ~override~ // angelo
+              ~chang02.cre~  ~override~ // angelo
+              ~chgood08.cre~ ~override~ // aran linvail
+              ~deshar.cre~   ~override~ // ferric ironblade
+              ~sevpat05.cre~ ~override~ // brenna risling
+              ~tanthf01.cre~ ~override~ // rune assassin
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = ring05 END // ring of invisibility is once/day item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~c6coran.cre~  ~override~ // coran
+  LPF cd_equip_item STR_VAR item = "bow03" slot = "weapon" END // move long bow into weapons slot
+  BUT_ONLY
+
+COPY_EXISTING ~c6drizz.cre~  ~override~ // drizzt
+              ~c6drizz2.cre~ ~override~ // drizzt
+              ~c6drizz3.cre~ ~override~ // drizzt
+              ~drizzt.cre~   ~override~ // drizzt
+  REMOVE_CRE_ITEM boot01 s1-12 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~c6elven2.cre~ ~override~ // elven war guard
+              ~c6elvenw.cre~ ~override~ // elven war guard
+              ~dacemist.cre~ ~override~ // gaseous form
+              ~delmist.cre~  ~override~ // gaseous form
+              ~tanomist.cre~ ~override~ // vampire
+              ~valemist.cre~ ~override~ // vampire
+              ~warsage.cre~  ~override~ // elven war sage
+  LPF cd_equip_item STR_VAR item = "minhp1" slot = "jewelry" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~c6god.cre~    ~override~ // elven god
+  LPF cd_equip_item STR_VAR item = "plat14" slot = "armor" END // legit item not assigned to slot
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw1h06" item = "sw1h41" END // Varscona is unique; repacing all references except Ribald's with generic +2 sword
+  BUT_ONLY
+
+COPY_EXISTING ~c6guen.cre~   ~override~ // guenhwyvar (summons, but has no droppable items to flag)
+              ~c6guen2.cre~  ~override~ // guenhwyvar
+              ~catjag01.cre~ ~override~ // panther
+              ~catjagsu.cre~ ~override~ // panther
+              ~catjagwp.cre~ ~override~ // panther
+              ~catpan01.cre~ ~override~ // panther
+              ~cefald02.cre~ ~override~ // faldorn
+              ~tranim03.cre~ ~override~ // panther
+              ~trevil05.cre~ ~override~ // panther
+              ~wolfdi01.cre~ ~override~ // dire wolf
+  REMOVE_CRE_ITEM p1-8 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~c6kngt1.cre~  ~override~ // morning knight
+              ~fshorde2.cre~ ~override~ // goblin
+              ~icgob01.cre~  ~override~ // goblin
+              ~icgob02.cre~  ~override~ // goblin
+              ~kobarc01.cre~ ~override~ // kobold
+              ~kobcap01.cre~ ~override~ // kobold captain
+              ~latkni01.cre~ ~override~ // morning knight
+              ~latkni02.cre~ ~override~ // morning knight
+              ~ppguard1.cre~ ~override~ // kobold
+              ~shabod01.cre~ ~override~ // wallag's body
+              ~swsfoll4.cre~ ~override~ // kobold
+              ~swsfoll5.cre~ ~override~ // kobold
+              ~waukni01.cre~ ~override~ // waukeenar knight
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 STR_VAR match_item = bow01 END // composite long bow shouldn't have charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~catlio01.cre~ ~override~ // lion
+              ~catliosu.cre~ ~override~ // lion (summons, but has no droppable items to flag)
+              ~catliowp.cre~ ~override~ // joolon (summons, but has no droppable items to flag)
+              ~hellho01.cre~ ~override~ // hell hound
+              ~hellil01.cre~ ~override~ // hell hound
+  REMOVE_CRE_ITEM p1-10 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~catlis01.cre~ ~override~ // spotted lion
+  REMOVE_CRE_ITEM p1-12 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~chalcy02.cre~ ~override~ // favored of cyric
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 50 STR_VAR match_item = chalcy3 END // max charges (50); can't be dropped
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 =  1 STR_VAR match_item = ring34 END // one charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chalpc01.cre~ ~override~ // <charname>
+              ~chalpc02.cre~ ~override~ // <charname>
+              ~chalpc03.cre~ ~override~ // <charname>
+              ~chalpc04.cre~ ~override~ // <charname>
+              ~chalpc05.cre~ ~override~ // <charname>
+              ~chalpc06.cre~ ~override~ // <charname>
+              ~chalpc07.cre~ ~override~ // <charname>
+              ~chalpc08.cre~ ~override~ // <charname>
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1             STR_VAR match_item = amul22 END // one charge
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 charge2 = 1 STR_VAR match_item = ring29 END // one primary, secondary charge
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1             STR_VAR match_item = ring34 END // one charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chalpc09.cre~ ~override~ // <charname>
+              ~chalpc10.cre~ ~override~ // <charname>
+              ~chalpc11.cre~ ~override~ // <charname>
+              ~chalpc12.cre~ ~override~ // <charname>
+              ~chalpc13.cre~ ~override~ // <charname>
+              ~chalpc14.cre~ ~override~ // <charname>
+              ~chalpc15.cre~ ~override~ // <charname>
+              ~chalpc16.cre~ ~override~ // <charname>
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1             STR_VAR match_item = amul22 END // one charge
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 charge2 = 1 STR_VAR match_item = ring29 END // one primary, secondary charge
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1             STR_VAR match_item = ring34 END // one charge
+  LPF ALTER_CREATURE_ITEM INT_VAR             charge2 = 3 STR_VAR match_item = sw2h10 END // three secondary charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chevil02.cre~ ~override~
+              ~dopgre01.cre~ ~override~
+              ~dopple01.cre~ ~override~
+  REMOVE_CRE_ITEM s1-12 // delete unassigned item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chevil09.cre~ ~override~ // undercharged: ring34 (num 5) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR             charge2 = 3 charge3 = 1 STR_VAR match_item = staf11 END // one secondary, tertiary charge
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1                         STR_VAR match_item = ring34 END // one charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chgood09.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "potn55" slot = "quickslot" END // legit item not assigned to slot
+  LPF cd_equip_weapon END
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chsam01.cre~  ~override~ // undercharged: staf12 (num 4) has assigned 0 to max 10 in header 2
+              ~chsam02.cre~  ~override~ // undercharged: staf12 (num 4) has assigned 0 to max 10 in header 3
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 10 charge3 = 10 STR_VAR match_item = staf12 END // ten secondary, tertiary charges
+  LPF cd_equip_weapon END
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chtaz01.cre~  ~override~ // undercharged: clck20 (num 3) has assigned 0 to stack 1 charges 50 in header 1
+              ~pbhunt03.cre~ ~override~ // undercharged: clck20 (num 2) has assigned 0 to stack 1 charges 50 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 50 STR_VAR match_item = clck20 END // max charges (50)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~cltiva01.cre~ ~override~
+  LPF cd_no_pickpocket STR_VAR item = misc7f END // Ti'Vael's head // move ankheg shell to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~cor.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "2hsw02" item = "sw2h02" END // resref typo
+  BUT_ONLY
+
+COPY_EXISTING ~corneil.cre~  ~override~
+              ~dario.cre~    ~override~
+              ~elders.cre~   ~override~
+              ~jamage1.cre~  ~override~
+              ~jamage2.cre~  ~override~
+              ~vara.cre~     ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "staf01" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~cowled.cre~   ~override~
+  LPF cd_equip_item STR_VAR item = "dart01" slot = "weapon" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "potn08" slot = "quickslot" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "scrl1g" slot = "quickslot" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "scrl1q" slot = "quickslot" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~csiren.cre~   ~override~ // staf01, rndtre04
+              ~lavok01.cre~  ~override~ // staf01, rndtre04
+              ~lavok02.cre~  ~override~ // staf01, rndtre04
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = staf01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = rndtre04 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~cultist1.cre~ ~override~
+              ~excult1.cre~  ~override~
+              ~excult2.cre~  ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "leath04" item = "leat04" END // resref typo (leath04)
+  BUT_ONLY
+
+COPY_EXISTING ~cuphaer.cre~  ~override~
+              ~drow05.cre~   ~override~
+              ~udchal.cre~   ~override~
+              ~udphae02.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "dwcha01" item = "dwchan01" END // resref typo (dwcha01)
+  BUT_ONLY
+
+COPY_EXISTING ~d1ghost.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "ghost3" slot = "jewelry" END // legit item not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~dagnoll.cre~  ~override~
+  REMOVE_CRE_ITEM rndtre04 // legit item not assigned to slot, but since it's a summon...
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = all END // it shouldn't drop anything anyway (halb01, rndtre02)
+  BUT_ONLY
+
+//Dawnmaster Kreel's amazing wardrobe change (Wisp), part 1/2
+COPY_EXISTING ~dawnmas.cre~ ~override~
+  REMOVE_CRE_ITEMS
+  ADD_CRE_ITEM staf01 #0 #0 #0 none weapon1 EQUIP TWOHANDED
+  ADD_CRE_ITEM chan01 #0 #0 #0 none armor
+  ADD_CRE_ITEM rndtre02 #0 #0 #0 none inv7
+
+COPY_EXISTING ~deck622.cre~  ~override~
+  REMOVE_CRE_ITEM s3-8m3 // delete unassigned item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~deckass1.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordeck5.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordeck6.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordeck7.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordeck8.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordeck9.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~gordecka.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~hgskl02.cre~  ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~sargrd05.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~sargrd09.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~sarkis01.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~sarkis02.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~sarkis03.cre~ ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+              ~senani05.cre~ ~override~ // overcharged: leat02 (num 0) has assigned 5 to max 1 in header 1
+              ~sendro05.cre~ ~override~ // overcharged: leat02 (num 0) has assigned 5 to max 1 in header 1
+              ~yaga05.cre~   ~override~ // overcharged: leat02 (num 1) has assigned 5 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = leat02 END // no charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~demosum2.cre~ ~override~ // ringdemn, balor, immune3
+              ~gortan1.cre~  ~override~ // ringdemn, balor, immune3
+              ~melsum04.cre~ ~override~ // ringdemn, balor, immune3
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = balor END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = immune3 END // item shouldn't expire
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~demosum3.cre~ ~override~ // ringdemn, immune2
+              ~dglab01.cre~  ~override~ // ringdemn, immune2
+              ~gortan4.cre~  ~override~ // ringdemn, immune2
+              ~melsum01.cre~ ~override~ // ringdemn, immune2
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = immune2 END // item shouldn't expire
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~demosum4.cre~ ~override~
+              ~gorcamb.cre~  ~override~
+              ~gorcamb6.cre~ ~override~
+              ~gorcamb7.cre~ ~override~
+              ~hgfel01.cre~  ~override~
+              ~telimp1.cre~  ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "rngdemn" item = ~ringdemn~ END // resref typo (rngdemn)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~docsol01.cre~ ~override~ // overcharged: chan01 (num 0) has assigned 20 to max 1 in header 1
+              ~docsol02.cre~ ~override~ // overcharged: chan01 (num 0) has assigned 20 to max 1 in header 1
+              ~pirsea02.cre~ ~override~ // overcharged: chan01 (num 0) has assigned 20 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = chan01 END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~dragblac.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "arow07" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "arow11" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "bolt06" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "bull03" slot = "inventory" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "dart04" slot = "inventory" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~drush.cre~    ~override~ // number of creatures with dupe entries for rndtre05
+              ~ogrema01.cre~ ~override~
+              ~ogrmag01.cre~ ~override~
+              ~plshom01.cre~ ~override~
+  REMOVE_CRE_ITEM rndtre05 // delete offending item, then add back manually
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV6~
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV7~
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV8~
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV9~
+  BUT_ONLY
+
+COPY_EXISTING ~dshop01.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "sw1h07" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~duearc01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "ax1h01" slot = "weapon" END // legit item not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = ax1h01 END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~duegau01.cre~ ~override~ // bull01
+              ~duergar1.cre~ ~override~ // bull01
+              ~shth01.cre~   ~override~ // bull01
+              ~shth011.cre~  ~override~ // bull01
+              ~uddwarf.cre~  ~override~ // bull01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = bull01 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~duegau02.cre~ ~override~ // ax1h01, bull01
+              ~duergar3.cre~ ~override~ // ax1h01, bull01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = bull01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ax1h01 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~duemag01.cre~ ~override~ // staf01, slng01, potn08, bull01
+              ~duemag02.cre~ ~override~ // staf01, slng01, potn08, bull01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = staf01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = slng01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = potn08 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = bull01 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~e32.cre~      ~override~
+  REMOVE_CRE_ITEM leat04 sw2h01// delete unassigned item (already has plate and 2h sword +1)
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "boot01" slot = "boots" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~e33.cre~      ~override~ // overcharged: sw1h10 (num 5) has assigned 10 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw1h10 END // no charges
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 25 STR_VAR match_item = amul01 END // undercharged: amul01 (num 6) has assigned 0 to stack 1 charges 25 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~edwin12.cre~ ~override~
+              ~edwin13.cre~ ~override~
+  ADD_CRE_ITEM ~bull01~ #20 #0 #0 ~NONE~ ~QUIVER1 QUIVER2 QUIVER3~ // sling but no bullets
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "slng01" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~elearb01.cre~ ~override~
+              ~elearb02.cre~ ~override~
+              ~elearb03.cre~ ~override~
+              ~elearb04.cre~ ~override~
+              ~elearb05.cre~ ~override~
+              ~elearb06.cre~ ~override~
+              ~elearb07.cre~ ~override~
+              ~elearb08.cre~ ~override~
+              ~elearb09.cre~ ~override~
+              ~elearb10.cre~ ~override~
+              ~elearb11.cre~ ~override~
+              ~gorsta11.cre~ ~override~
+              ~shupol01.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck16" slot = "armor" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~elekob01.cre~ ~override~
+              ~kobcom01.cre~ ~override~
+              ~swsfoll1.cre~ ~override~
+              ~swsfoll6.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "arow01" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "arow08" slot = "quiver" END // have ammo in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~elemimix.cre~ ~override~ // undercharged: halb10 (num 2) has assigned 0 to max 2 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 2 STR_VAR match_item = halb10 END // two secondary charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~eletro01.cre~ ~override~ // troll
+  LPF cd_no_pickpocket STR_VAR item = misc9d END // move giant troll's head to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~famimp.cre~   ~override~
+              ~famqua25.cre~ ~override~
+              ~famquas.cre~  ~override~
+              ~fsridd.cre~   ~override~
+              ~golsan01.cre~ ~override~
+              ~mumgre01.cre~ ~override~
+              ~riftcr03.cre~ ~override~
+              ~shape.cre~    ~override~
+  REMOVE_CRE_ITEM immune1 // delete unassigned item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~firkra02.cre~ ~override~ // undercharged: sw2h10 (num 4) has assigned 1 to max 3 in header 2
+  REMOVE_CRE_ITEM misc52 // delete unassigned wyvern head
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 3 STR_VAR match_item = sw2h10 END // three secondary charges
+  BUT_ONLY
+
+COPY_EXISTING ~firmag01.cre~ ~override~
+  LPF cd_no_pickpocket STR_VAR item = key09 END // firkraag's prison key from conster
+  BUT_ONLY
+
+COPY_EXISTING ~firmon01.cre~ ~override~ // undercharged: sw1h32 (num 3) has assigned 0 to max 1 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h32 END // one secondary charge
+  BUT_ONLY
+
+COPY_EXISTING ~firmon02.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "bow01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~firwlf01.cre~ ~override~
+              ~firwlf02.cre~ ~override~
+              ~rngwlf01.cre~ ~override~
+              ~rngwlf02.cre~ ~override~
+              ~rngwlf03.cre~ ~override~
+              ~rngwlf04.cre~ ~override~
+              ~rngwlf05.cre~ ~override~
+              ~weregr01.cre~ ~override~
+              ~weregrdr.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "ringloup" item = "ringwolf" END // replaces ringloup as it makes creatures well-nigh invincible as using old BG immunity (unused in BG2)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~flyfgt03.cre~ ~override~ // undercharged: arow01 (num 0) has assigned 0 to stack 40 charges 1 in header 1
+              ~kaysmg01.cre~ ~override~ // undercharged: arow01 (num 4) has assigned 0 to stack 40 charges 1 in header 1
+              ~latkni02.cre~ ~override~ // undercharged: arow01 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+              ~uhogre04.cre~ ~override~ // undercharged: arow01 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = arow01 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~flyfgt04.cre~ ~override~
+              ~gmage14.cre~  ~override~
+              ~jangit02.cre~ ~override~
+              ~rumar01.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck10" slot = "armor" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~firarc01.cre~ ~override~ // Orc Archer
+  REMOVE_CRE_ITEM shld05 // Creatures shouldn't have two-handed items equipped alongside shields (Nythrun and devSin)
+
+COPY_EXISTING ~fsdragon.cre~ ~override~ // undercharged: sw1h70 (num 4) has assigned 0 to max 1 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h70 END // one secondary charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~fshorde6.cre~ ~override~ // overcharged: bow03 (num 3) has assigned 20 to max 1 in header 1
+              ~gororc02.cre~ ~override~ // overcharged: bow03 (num 3) has assigned 20 to max 1 in header 1
+              ~hobarc02.cre~ ~override~ // overcharged: bow03 (num 4) has assigned 20 to max 1 in header 1
+              ~orc02.cre~    ~override~ // overcharged: bow03 (num 3) has assigned 20 to max 1 in header 1
+              ~plshhg01.cre~ ~override~ // overcharged: bow03 (num 4) has assigned 20 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow03 END // no charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~garock.cre~ ~override~
+              ~rock.cre~   ~override~
+  LPF cd_equip_item STR_VAR item = "helm01" slot = "helmet" END // legit item not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~garrick.cre~  ~override~
+              ~jameroni.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "xbow04" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~gemch02.cre~  ~override~
+  LPF cd_no_pickpocket STR_VAR item = misc6z END // beljuril from chicken // move beljuril to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~genie01.cre~  ~override~
+              ~genie02.cre~  ~override~
+              ~genie03.cre~  ~override~
+              ~genie04.cre~  ~override~
+              ~ppdjinn.cre~  ~override~
+              ~trgeni02.cre~ ~override~
+              ~trgeni03.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "b3-18" item = "b3-18m3" END // resref typo (b3-18)
+  BUT_ONLY
+
+COPY_EXISTING ~genie1.cre~   ~override~
+              ~idjinni.cre~  ~override~
+              ~kgenie1.cre~  ~override~
+              ~kgenie2.cre~  ~override~
+              ~trgeni01.cre~ ~override~
+  REMOVE_CRE_ITEM b3-18 // delete unassigned (and nonexistant) item
+  BUT_ONLY
+
+COPY_EXISTING ~gerhardt.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "blun02" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~ghogr01.cre~  ~override~
+              ~imp01.cre~    ~override~
+              ~impqua01.cre~ ~override~
+              ~riftcr01.cre~ ~override~
+              ~rumar03.cre~  ~override~
+              ~sahimp01.cre~ ~override~
+              ~sahimp02.cre~ ~override~
+              ~sahimp03.cre~ ~override~
+              ~sahimp04.cre~ ~override~
+              ~sahimp05.cre~ ~override~
+              ~sahimp06.cre~ ~override~
+              ~sahimp07.cre~ ~override~
+              ~udimp.cre~    ~override~
+  LPF cd_equip_item STR_VAR item = "immune1" slot = "jewelry" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~gibbersu.cre~ ~override~
+  REMOVE_CRE_ITEM rndtre02 // legit item not assigned to slot, but since it's a summon it shouldn't drop anything anyway
+  BUT_ONLY
+
+COPY_EXISTING ~gith04.cre~   ~override~
+  LPF cd_equip_item INT_VAR gpuse = 1 STR_VAR item = "sw2h01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~gnollsu.cre~  ~override~ // helm01.itm, halb01.itm
+              ~hobgobsu.cre~ ~override~ // Hobgoblin Elite (spwi407.spl -> spmon2.eff -> monsum02.2da)
+              ~koboldsu.cre~ ~override~ // Kobold Commando (spwi309.spl -> spmon1.eff -> spwi309.spl
+              ~sahangu.cre~  ~override~ // Anguiliian (ar2300.are -> sahambo6.cre -> sahambo6.bcs)
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = all END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~golice01.cre~   ~override~
+  ADD_CRE_ITEM ~golstone~ #0 #0 #0 ~NONE~ ~AMULET~ // add golem immunity item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorbat1.cre~  ~override~ // ringdemn, immune3, reghp2r
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = reghp2r END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = immune3 END // item shouldn't expire
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorfirg.cre~ ~override~ // has helm in quickslot/inventory
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "helm31" slot = "helmet" END // legit item not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorgith2.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "sw2h01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorje.cre~  ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "cham01" item = "chan01" END // resref typo (cham01)
+  BUT_ONLY
+
+COPY_EXISTING ~gorkuo05.cre~ ~override~
+              ~kuowhi01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "xbow01" slot = "weapon" END // legit item not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = xbow01 END // no charges
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorlic01.cre~ ~override~ // undercharged: slng08 (num 3) has assigned 0 to max 1 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = slng08 END // one secondary charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorsta09.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_stolen = 0 STR_VAR match_item = "halb03" item = "halb07" END // removes stolen flag from item, swap to non-unique
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = arow01 END // stack of 20
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorsta10.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "umber1" item = "umber01" END // resref typo (umber1)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gortan3.cre~  ~override~ // ringdemn, dwplat01, dwsw1h01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = dwplat01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = dwsw1h01 END // item shouldn't expire
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorwom01.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "rdntre03" item = "rndtre03" END // resref typo (rdntre03)
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "rdntre04" item = "rndtre04" END // resref typo (rdntre04)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorwom02.cre~ ~override~ // undercharged: helm16 (num 6) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 charge2 = 1 charge3 = 1 STR_VAR match_item = helm16 END // one charge everywhere
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gorwom03.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "brac21" slot = "gloves" END // has bracers in quickslot/inventory
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~gromg05.cre~  ~override~
+              ~gromg08.cre~  ~override~
+              ~gromg13.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck14" slot = "armor" END // has armor in cloak/quickslots/inventory
+  LPF cd_equip_weapon END // has no weapon selected
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~grvlch01.cre~ ~override~ // overcharged: rods05 (num 6) has assigned 5 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = rods05 END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~habib.cre~    ~override~ // undercharged: sw1h57 (num 1) has assigned 0 to stack 10 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 STR_VAR match_item = sw1h57 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~hamasu.cre~   ~override~
+  LPF cd_equip_item STR_VAR item = "potn08" slot = "quickslot" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "potn20" slot = "quickslot" END // legit item not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = dagg01 END // summons shouldn't drop items
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = potn08 END // summons shouldn't drop items
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = potn20 END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~hellgen.cre~  ~override~
+  LPF cd_no_pickpocket STR_VAR item = miscb7 END // move tears of bhaal to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~hgnya01.cre~  ~override~ // undercharged: ring03 (num 5) has assigned 0 to stack 1 charges 100 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = ring03 END // 20 charges
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~hldemi.cre~   ~override~ // undercharged: ring39 (num 1) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 charge2 = 3 STR_VAR match_item = ring39 END // 1 secondary, 3 tertiary charges
+  BUT_ONLY
+
+COPY_EXISTING ~hlkang.cre~   ~override~
+  LPF cd_no_pickpocket STR_VAR item = ring39 END // ring of gaxx from kangaxx // move ring of gaxx to unpickpocketable slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 charge2 = 3 STR_VAR match_item = ring39 END // 1 secondary, 3 tertiary charges
+  BUT_ONLY
+
+COPY_EXISTING ~hlsion.cre~   ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck14" slot = "armor" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~hobcap01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "chan04" slot = "armor" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "rndtre03" slot = "inventory" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~icgob02.cre~  ~override~ // icgob02 has overlapping refs
+  REMOVE_CRE_ITEM arow01 // delete offending item, then add back manually
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "arow05" slot = "quiver" END // legit item not assigned to slot
+  ADD_CRE_ITEM arow01 #20 #0 #0 NONE ~QUIVER2~
+  ADD_CRE_ITEM arow01 #20 #0 #0 NONE ~QUIVER3~
+  ADD_CRE_ITEM arow01 #20 #0 #0 NONE ~QUIVER4~
+  BUT_ONLY
+
+COPY_EXISTING ~igolfle1.cre~ ~override~
+              ~igolfle2.cre~ ~override~
+              ~igolfle3.cre~ ~override~
+              ~igolfle4.cre~ ~override~
+  ADD_CRE_ITEM ~golcla~ #0 #0 #0 ~NONE~ ~LRING RRING AMULET~ // lesser clay golems not immune to backstab
+  BUT_ONLY
+
+COPY_EXISTING ~imoen.cre~    ~override~
+  REMOVE_CRE_ITEM potn08 // change 3x1 healing potions (only one legitimately assigned) into one stack of 3, place in right slot
+  ADD_CRE_ITEM potn08 #3 #0 #0 NONE ~QITEM1 QITEM2 QITEM3~
+  LPF cd_equip_item STR_VAR item = "potn09" slot = "quickslot" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~impqua01.cre~ ~override~ // both have dupe ring ref in weapon slot instead of weapon
+  REMOVE_CRE_ITEM reghp1 impqua // delete offending item, then add back manually
+  ADD_CRE_ITEM reghp1 #0 #0 #0 NONE ~LRING~
+  ADD_CRE_ITEM impqua #0 #0 #0 NONE ~WEAPON1~ EQUIP
+  BUT_ONLY
+
+COPY_EXISTING ~jaerto1.cre~  ~override~
+              ~jaerto2.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "sw1h01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~jaga4.cre~    ~override~ // overcharged: sw1h08 (num 4) has assigned 2 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = sw1h08 END // no charges
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "xbow04" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~jan15.cre~    ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "xbow12" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~jarlich.cre~  ~override~ // non-helm in helm slot for non-legit critical protection
+  LPF cd_no_pickpocket STR_VAR item = miscbg END // lich's tooth // move ankheg shell to unpickpocketable slot
+  BUT_ONLY
+  
+COPY_EXISTING ~jaylos.cre~   ~override~ // undercharged: dagg05 (num 1) has assigned 0 to stack 10 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 STR_VAR match_item = dagg05 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~jondal.cre~   ~override~
+              ~plfarm06.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "plat01" slot = "armor" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~jugmim01.cre~ ~override~ // killer mimic
+  ADD_CRE_ITEM ~wallpass~ #0 #0 #0 ~NONE~ ~AMULET LRING RRING~ // mimics should actually be inside its chest
+  BUT_ONLY
+
+COPY_EXISTING ~kchild1.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "b1-2" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~keldor8.cre~  ~override~ // overcharged: helm01 (num 1) has assigned 20 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = helm01 END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~kobsla01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "arow01" slot = "quiver" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~korgan8.cre~  ~override~
+              ~korgan9.cre~  ~override~
+              ~korgan11.cre~ ~override~
+              ~korgan12.cre~ ~override~
+  REMOVE_CRE_ITEM ax1h02 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~kproen03.cre~ ~override~ // undercharged: wand07 (num 1) has assigned 0 to stack 1 charges 50 in header 1
+              ~rumar01.cre~  ~override~ // undercharged: wand07 (num 4) has assigned 0 to stack 1 charges 50 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 8 STR_VAR match_item = wand07 END // typical num of charges
+  BUT_ONLY
+
+COPY_EXISTING ~kpsold06.cre~ ~override~ // has shield in armor slot, armor not assigned
+  REMOVE_CRE_ITEM chan04 shld05 // delete offending item, then add back manually
+  ADD_CRE_ITEM chan04 #0 #0 #0 NONE ~ARMOR~
+  ADD_CRE_ITEM shld05 #0 #0 #0 NONE ~SHIELD~
+  BUT_ONLY
+
+COPY_EXISTING ~kuoarc20.cre~ ~override~ // undercharged: kuobolt3 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = kuobolt3 END // stack of 20
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~kuocle20.cre~ ~override~ // both have dupe ring ref in weapon slot instead of weapon
+  REMOVE_CRE_ITEM kuoring blun33 // delete offending item, then add back manually
+  ADD_CRE_ITEM kuoring #0 #0 #0 NONE ~LRING~
+  ADD_CRE_ITEM blun33 #0 #0 #0 NONE ~WEAPON1~ EQUIP
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~lacedo01.cre~ ~override~
+  REMOVE_CRE_ITEM ghoul1 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~lacedo02.cre~ ~override~
+  REMOVE_CRE_ITEM ghast1 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~laune.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "vamp01" item = "vamp1" END // resref typo (vamp01)
+  BUT_ONLY
+
+COPY_EXISTING ~lester.cre~   ~override~
+  LPF cd_equip_item STR_VAR item = "mage06" slot = "jewelry" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~loveone5.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck15" slot = "armor" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~nalia8.cre~   ~override~
+              ~nalia10.cre~  ~override~
+              ~nalia11.cre~  ~override~
+              ~nalia13.cre~  ~override~
+              ~nalia15.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "bow05" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~nalia13.cre~ ~override~ // nalia13 has a stack of 0 arrows and a 20-charge bow
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 =  0 STR_VAR match_item = bow05 END
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = arow01 END
+  BUT_ONLY
+
+COPY_EXISTING ~neb.cre~      ~override~ // non-helm in helm slot for non-legit critical protection
+  LPF cd_no_pickpocket STR_VAR item = misc9h END // move neb's head to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~obsdem01.cre~ ~override~ // s1-10, ringdemn
+              ~pmaster.cre~  ~override~ // s1-10, ringdemn
+              ~ppdemon.cre~  ~override~ // s1-10, ringdemn
+              ~tanari01.cre~ ~override~ // S1-10, ringdemn
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = ringdemn END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = s1-10 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~obsdem04.cre~ ~override~
+  REMOVE_CRE_ITEM rods05 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~ogremasu.cre~ ~override~ // sw1h02.itm
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = sw1h02 END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~pcapt03.cre~  ~override~ // undercharged: bolt03 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bolt01 END // stack of 20
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bolt03 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~pcapt04.cre~  ~override~ // undercharged: wand05 (num 1) has assigned 0 to stack 1 charges 50 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 charge2 = 10 STR_VAR match_item = wand05 END // ten primary, secondary charges
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~pirexe01.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "blunt06" item = "blun06" END // resref typo (blunt06)
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bolt01 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~pirmur02.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "sw1h07" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~pirmur07.cre~ ~override~ // undercharged: dart02 (num 0) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = dart02 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~pirsea01.cre~  ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "leath01" item = "leat01" END // resref typo (leath01)
+  BUT_ONLY
+
+COPY_EXISTING ~plfarm03.cre~ ~override~
+              ~plmetr01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "shld03" slot = "shield" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~plmetg02.cre~ ~override~
+  LPF cd_equip_item STR_VAR "item" = arow07 slot = "quiver" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~pparan2.cre~  ~override~ // overcharged: misc6w (num 7) has assigned 3 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = misc6w END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~ppbhaal.cre~  ~override~
+  REMOVE_CRE_ITEM sw1h01 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~ppcowled.cre~ ~override~ // undercharged: misc3a (num 1) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = misc3a END // one charge
+  BUT_ONLY
+
+COPY_EXISTING ~ppireni1.cre~ ~override~
+              ~ppireni2.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "jonhp1" item = "minhp1" END // changes Asylum Irenicus to use minhp1 instead of jonhp1 (Baldurdash)
+  BUT_ONLY
+
+COPY_EXISTING ~ppjoye2.cre~  ~override~ // non-helm in helm slot for non-legit critical protection
+  LPF cd_no_pickpocket STR_VAR item = ghost3 END // item w/ visual effects
+  BUT_ONLY
+
+COPY_EXISTING ~ppsail03.cre~ ~override~ // has armor in weapon slot, weapon not assigned (fixed later)
+  REMOVE_CRE_ITEM leat01 sw1h20 // delete offending item, then add back manually
+  ADD_CRE_ITEM sw1h20 #0 #0 #0 NONE ~WEAPON1~ EQUIP
+  ADD_CRE_ITEM leat01 #0 #0 #0 NONE ~ARMOR~
+  BUT_ONLY
+
+COPY_EXISTING ~pptroll1.cre~ ~override~ // non-helm in helm slot for non-legit critical protection
+              ~trolsi01.cre~ ~override~ // non-helm in helm slot for non-legit critical protection
+              ~trolsi02.cre~ ~override~ // non-helm in helm slot for non-legit critical protection
+              ~trolsp01.cre~ ~override~ // non-helm in helm slot for non-legit critical protection
+              ~trolsp02.cre~ ~override~ // non-helm in helm slot for non-legit critical protection
+  LPF cd_no_pickpocket STR_VAR item = illblur END // item w/ visual effects, move to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~pries18c.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "blun04" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~prisonk1.cre~ ~override~
+  ADD_CRE_ITEM ~bow01~ #0 #0 #0 ~NONE~ ~WEAPON3 WEAPON4~ // arrows but no bow, don't assign as already has weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~pwarden.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "sw1h35" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~refigh01.cre~ ~override~
+  ADD_CRE_ITEM ~bow01~ #0 #0 #0 ~NONE~ ~WEAPON2 WEAPON3 WEAPON4~ // // arrows but no bow, but don't assign as already has weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~resuna.cre~ ~override~
+  REMOVE_CRE_ITEM sw1h01 // delete unassigned item
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = sw1h27 END // adds a charge to Arbane on Suna Seni
+  BUT_ONLY
+
+COPY_EXISTING ~rethug03.cre~  ~override~ // weapon assigned in two slots
+  REMOVE_CRE_ITEM dagg02 // delete offending item, then add back manually
+  ADD_CRE_ITEM dagg02 #0 #0 #0 NONE ~WEAPON1~ EQUIP
+  BUT_ONLY
+
+COPY_EXISTING ~ribald.cre~   ~override~ // ribald
+//  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "sw1h06" item  = "sw1h41" END // Varscona is unique; repacing all references except Ribald's with generic +2 sword
+  LPF cd_equip_weapon END
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "sw1h41" slot = "weapon" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~rielev.cre~ ~override~ // Rielev
+  REMOVE_CRE_ITEM mage01 // has invis ring in weapon slot, removing
+
+COPY_EXISTING ~rigen02.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck13" slot = "armor" END // has armor in cloak/quickslots/inventory
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~rngsta01.cre~ ~override~
+  REMOVE_CRE_ITEMS // has only one item, a null reference
+  BUT_ONLY
+
+COPY_EXISTING ~rskel01.cre~  ~override~
+              ~skele2.cre~   ~override~
+              ~skelet01.cre~ ~override~
+              ~skelhp1.cre~  ~override~
+  REMOVE_CRE_ITEM misc50 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~rskel03.cre~  ~override~ // rskel03 has dupe entries for throwing axes
+  REMOVE_CRE_ITEM ax1h04 // delete offending item, then add back manually
+  ADD_CRE_ITEM ax1h04 #10 #0 #0 NONE ~WEAPON1~ EQUIP
+  ADD_CRE_ITEM ax1h04 #10 #0 #0 NONE ~WEAPON3~
+  BUT_ONLY
+
+COPY_EXISTING ~rumar01.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "staf02" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~saerk.cre~    ~override~ // overcharged: ring34 (num 8) has assigned 4 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = ring34 END // once/day item
+  BUT_ONLY
+
+COPY_EXISTING ~sahbeh04.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "potn32" slot = "quickslot" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~sahcpt02.cre~ ~override~
+              ~sahramb1.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "sahbolt" slot = "quiver" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~sahextra.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "xbow01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~sahkng02.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+  ADD_CRE_ITEM miscbi #0 #0 #0 NONE ~INV~
+  BUT_ONLY
+
+COPY_EXISTING ~sahlace.cre~  ~override~
+  REMOVE_CRE_ITEM ghoul1 // delete unassigned item
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = all END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~sahoty01.cre~ ~override~
+  REMOVE_CRE_ITEM b2-8 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~sahpr4.cre~ ~override~ // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahtreas.bcs, string sets
+  REMOVE_CRE_ITEM misc8q
+  BUT_ONLY
+
+COPY_EXISTING ~sahpri02.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "bolt01" slot = "quiver" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~sahrnt01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "bolt04" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "sahbolt" slot = "quiver" END // legit item not assigned to slot
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "sper01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~sahskel.cre~  ~override~ // Skeleton Warrior (ar2003.are -> sahambo3.cre -> sahambo3.bcs)
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = helm08 END // summons shouldn't drop items
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = rndtre05 END // summons shouldn't drop items
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = sw2h02 END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~sahspc01.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "ghost01" item = "ghost" END // resref typo (ghost01)
+  BUT_ONLY
+
+COPY_EXISTING ~sahuag01.cre~ ~override~ // overcharged: xbow01 (num 2) has assigned 20 to max 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = xbow01 END // no charges
+  BUT_ONLY
+
+COPY_EXISTING ~sarjai01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "sw1h05" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sarkis04.cre~ ~override~ // undercharged: figure01 (num 4) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = leat02 END // no charges
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = figure01 END // one charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sarmag01.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck15" slot = "armor" END // has armor in cloak/quickslots/inventory
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sarvie01.cre~ ~override~ // undercharged: ring20 (num 4) has assigned 0 to stack 1 charges 50 in header 1
+              ~viekang.cre~  ~override~ // undercharged: ring20 (num 6) has assigned 0 to stack 1 charges 50 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 50 STR_VAR match_item = ring20 END // max charges (50)
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~scyarryl.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "blun20" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~senani03.cre~ ~override~
+              ~sendro03.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "bwbolt01" item = "bolt04" END // resref typo - nearest would would be drow bolts of sleep (dwbolt01), but creature is outdoors
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sendai.cre~   ~override~ // overcharged: wand19 (num 5) has assigned 1 to max 0 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 0 charge3 = 0 STR_VAR match_item = wand19 END // no secondary/tertiary charges
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sendai2.cre~  ~override~
+  REMOVE_CRE_ITEM blun21 // delete unassigned item
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sendai3.cre~  ~override~ // undercharged: arow05 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+              ~shth03.cre~   ~override~ // undercharged: arow05 (num 3) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = arow05 END // stack of 20
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sewdue01.cre~ ~override~ // undercharged: fragsap (num 2) has assigned 0 to stack 1 charges 1 in header 1
+              ~sewyag01.cre~ ~override~ // undercharged: fragsap (num 2) has assigned 0 to stack 1 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = fragsap END // one charge
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~sewyag03.cre~  ~override~ // sewyag03 has dupe treasure reference
+  REMOVE_CRE_ITEM rndtre05 // delete offending item, then add back manually
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV2~
+  ADD_CRE_ITEM rndtre05 #0 #0 #0 NONE ~INV6~
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~shadeld.cre~  ~override~ // overcharged: clck25 (num 0) has assigned 1 to max 0 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 0 charge3 = 0 STR_VAR match_item = clck25 END // no secondary/tertiary charges
+  BUT_ONLY
+
+COPY_EXISTING ~shth01.cre~   ~override~ // undercharged: bull01 (num 2) has assigned 0 to stack 40 charges 1 in header 1
+              ~shth011.cre~  ~override~ // undercharged: bull01 (num 2) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bull01 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~shth03.cre~   ~override~ // arow05
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = arow05 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~shugmg01.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "clck16" slot = "armor" END // has armor in cloak/quickslots/inventory
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~stein.cre~    ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "leat04" slot = "armor" END // has armor in cloak/quickslots/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~surly.cre~    ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "hamm01" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~suziyaad.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "immune2" slot = "jewelry" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~swshaman.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "sw1h08" slot = "weapon" END // legit item not assigned to slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 1 STR_VAR match_item = misc5t END // undercharged: misc5t (num 1) has assigned 0 to max 1 in header 2
+  BUT_ONLY
+
+COPY_EXISTING ~tasloisu.cre~ ~override~
+              ~xvartsu.cre~  ~override~
+  REMOVE_CRE_ITEM rndtre02 // legit item not assigned to slot, but since it's a summon...
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = all END // it shouldn't drop anything anyway
+  BUT_ONLY
+
+COPY_EXISTING ~teltief3.cre~ ~override~ // undercharged: wand18 (num 4) has assigned 0 to max 5 in header 2
+  LPF ALTER_CREATURE_ITEM INT_VAR charge2 = 5 expiry = 0 STR_VAR match_item = wand18 END // item shouldn't expire, lacks secondary charges
+  LPF cd_equip_item STR_VAR item = "potn55" slot = "quickslot" END // legit item not assigned to slot
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~temsup.cre~   ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "blun03" slot = "weapon" END // have weapons in quickslot/inventory
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~tethto.cre~   ~override~
+              ~tethto2.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "chan02" slot = "armor" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "shld04" slot = "shield" END // legit item not assigned to slot
+  LPF cd_equip_item STR_VAR item = "blun05" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~thief5.cre~   ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "dagg01" slot = "weapon" END // have weapons in quickslot/inventory
+  LPF cd_equip_weapon END
+  BUT_ONLY
+
+COPY_EXISTING ~tirthold.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "staff01" item = "staf01" END // resref typo (staff01)
+  BUT_ONLY
+
+COPY_EXISTING ~tolger.cre~  ~override~
+              ~tolger2.cre~ ~override~
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = ring33 END // ring of the ram should have a charge
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = staf01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = rndtre04 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~tomegol4.cre~ ~override~ // juggernaut golem missing weapon and has wrong immunity
+  LPF ALTER_CREATURE_ITEM STR_VAR match_item = "immune1" item = "immune2" END
+  LPF cd_equip_item STR_VAR item = "goltome4" slot = "weapon" END // legit item not assigned to slot
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~trfued05.cre~ ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "shld01" slot = "shield" END // has shield in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~trple01.cre~ ~override~ // Red Willy
+  REMOVE_CRE_ITEM xbow01 bolt01 // Creatures shouldn't have two-handed items equipped alongside shields (Nythrun and devSin)
+
+COPY_EXISTING ~trrak01.cre~  ~override~
+  LPF cd_no_pickpocket STR_VAR item = misc8k END // move ihtafeer's head to unpickpocketable slot
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 1 STR_VAR match_item = amul22 END // undercharged: amul22 (num 1) has assigned 0 to stack 1 charges 1 in header 1
+  BUT_ONLY
+
+COPY_EXISTING ~uddeath2.cre~ ~override~
+  REMOVE_CRE_ITEM sw2h01 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~udduer01.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "leat01" slot = "armor" END // legit item not assigned to slot
+  LPF cd_equip_weapon END // has wrong/no weapon equipped
+  BUT_ONLY
+
+COPY_EXISTING ~udlesa.cre~   ~override~
+  REMOVE_CRE_ITEM dwsw1h02 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~udprince.cre~ ~override~
+  LPF cd_no_pickpocket STR_VAR item = misca7 END // sahuagin prince's blood to unpickpocketable slot
+  BUT_ONLY
+
+COPY_EXISTING ~uhman02.cre~  ~override~ // bolt01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 charge1 = 20 STR_VAR match_item = bolt01 END // stack of 20, shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~uhogre03.cre~ ~override~
+  LPF cd_equip_item STR_VAR item = "chan04" slot = "armor" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~uhogre04.cre~ ~override~ // arow01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = arow01 END // item shouldn't expire
+  BUT_ONLY
+
+COPY_EXISTING ~vakg02.cre~   ~override~ // xbow01
+  LPF ALTER_CREATURE_ITEM INT_VAR expiry = 0 STR_VAR match_item = xbow01 END // item shouldn't expire
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = bolt01 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~valyg9.cre~   ~override~
+              ~valyg11.cre~  ~override~
+              ~valyg12.cre~  ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "bow03" slot = "weapon" END // have weapons in quickslot/inventory
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "sper01" slot = "weapon" END // have weapons in quickslot/inventory
+  BUT_ONLY
+
+COPY_EXISTING ~vulfgt02.cre~ ~override~ // undercharged: dart01 (num 1) has assigned 0 to stack 40 charges 1 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 20 STR_VAR match_item = dart01 END // stack of 20
+  BUT_ONLY
+
+COPY_EXISTING ~vvamn1.cre~   ~override~
+  REMOVE_CRE_ITEM chan01 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~vvshad1.cre~  ~override~
+              ~vvshad4.cre~  ~override~
+  LPF cd_equip_item STR_VAR item = "dagg01" slot = "weapon" END // legit item not assigned to slot
+  BUT_ONLY
+
+COPY_EXISTING ~weregrdr.cre~ ~override~
+  REMOVE_CRE_ITEM s1-12m2 // delete unassigned item
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~wolfwisu.cre~ ~override~ // misc01.itm
+              ~wolfwwsu.cre~ ~override~ // Winter Wolf (sppr602.spl -> spanim3.eff -> anisum03.2da)
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = misc01 END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~wraithsu.cre~ ~override~
+  REMOVE_CRE_ITEM s1-8 // delete unassigned item
+  BUT_ONLY
+
+COPY_EXISTING ~wyvernsu.cre~ ~override~ // Wyvern (spwi619.spl -> wyvernsu.eff)
+  LPF ALTER_CREATURE_ITEM INT_VAR flag_unstealable = 1 flag_undroppable = 1 STR_VAR match_item = misc52 END // summons shouldn't drop items
+  BUT_ONLY
+
+COPY_EXISTING ~xappren1.cre~ ~override~ // undercharged: wand03 (num 0) has assigned 0 to stack 1 charges 100 in header 1
+  LPF ALTER_CREATURE_ITEM INT_VAR charge1 = 10 STR_VAR match_item = wand03 END // ten primary charges
+  BUT_ONLY
+
+COPY_EXISTING ~xgolem.cre~   ~override~
+  ADD_CRE_ITEM ~golfle~ #0 #0 #0 ~NONE~ ~RRING~ // add golem immunity items
+  BUT_ONLY
+
+COPY_EXISTING ~yaga01.cre~   ~override~
+  LPF cd_equip_item INT_VAR move = 1 STR_VAR item = "shld32" slot = "shield" END // has shield in quickslot/inventory
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~yoshi11.cre~ ~override~
+  ADD_CRE_ITEM ~arow01~ #20 #0 #0 ~NONE~ ~QUIVER1~ // bow but no arrows
+  ADD_CRE_ITEM ~arow01~ #20 #0 #0 ~NONE~ ~QUIVER2~
+  ADD_CRE_ITEM ~arow01~ #20 #0 #0 ~NONE~ ~QUIVER3~
+  BUT_ONLY
+
+COPY_EXISTING ~ysfire02.cre~ ~override~
+  REMOVE_CRE_ITEM giafir2 // delete unassigned item
+  BUT_ONLY IF_EXISTS

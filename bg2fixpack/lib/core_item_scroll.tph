@@ -1,0 +1,216 @@
+/////                                                  \\\\\
+///// big batch o' scroll fixes (thanks devSin)        \\\\\
+/////                                                  \\\\\
+
+// this section really abuses the fact that header 0 is the cast header, header 1 is learn on all of these scrolls
+
+// scroll fixes: casting opcode
+COPY_EXISTING ~scrl1o.itm~ ~override~ // slow
+              ~scrl1u.itm~ ~override~ // confusion
+              ~scrl2f.itm~ ~override~ // cone of cold
+              ~scrl5i.itm~ ~override~ // greater malison
+              ~scrl70.itm~ ~override~ // color spray
+              ~scrl7i.itm~ ~override~ // death spell
+              ~scrl8p.itm~ ~override~ // prismatic spray
+              ~scrl94.itm~ ~override~ // resist fear
+              ~scrla1.itm~ ~override~ // wizard eye
+              ~scrla3.itm~ ~override~ // glitterdust
+              ~scrla7.itm~ ~override~ // remove magic
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 header = 0 opcode = 148 END
+  BUT_ONLY
+
+// scroll fixes: casting opcode
+COPY_EXISTING ~scrl5b.itm~ ~override~ // defensive harmony
+              ~scrl5d.itm~ ~override~ // protection from evil 10' radius
+              ~scrlb4.itm~ ~override~ // wish
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 148 header = 0 opcode = 146 END
+  BUT_ONLY IF_EXISTS
+
+// scroll fixes: power
+COPY_EXISTING //~scrl1o.itm~ ~override~ // slow
+              //~scrl1u.itm~ ~override~ // confusion
+              //~scrl2f.itm~ ~override~ // cone of cold
+              ~scrl56.itm~ ~override~ // cure serious wounds
+              ~scrl58.itm~ ~override~ // free action
+              ~scrl59.itm~ ~override~ // neutralize poison
+              //~scrl5i.itm~ ~override~ // greater malison
+              ~scrl61.itm~ ~override~ // cure critical wounds
+              ~scrl62.itm~ ~override~ // flame strike
+              ~scrl63.itm~ ~override~ // raise dead
+              //~scrl70.itm~ ~override~ // color spray
+              //~scrl7i.itm~ ~override~ // death spell
+              //~scrl8p.itm~ ~override~ // prismatic spray
+              //~scrl94.itm~ ~override~ // resist fear
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 power = 0 END
+  BUT_ONLY
+
+// scroll fixes: effects target
+COPY_EXISTING ~scrl1o.itm~ ~override~ // slow
+              ~scrl1u.itm~ ~override~ // confusion
+              ~scrl2f.itm~ ~override~ // cone of cold
+              ~scrl5i.itm~ ~override~ // greater malison
+              ~scrl70.itm~ ~override~ // color spray
+              ~scrl7i.itm~ ~override~ // death spell
+              ~scrl8p.itm~ ~override~ // prismatic spray
+              ~scrl94.itm~ ~override~ // resist fear
+  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 target = 1 END
+  BUT_ONLY
+
+// targeting fixes
+ACTION_CLEAR_ARRAY cd_scroll_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_scroll_fixes BEGIN
+
+  scrl1o => 4 // slow
+  scrl1u => 4 // confusion
+  scrl2f => 4 // cone of cold
+  scrl5i => 4 // greater malison
+  scrl70 => 4 // color spray
+  scrl7i => 4 // death spell
+  scrl7m => 5 // true sight
+  scrl80 => 5 // shocking grasp
+  scrl8p => 4 // prismatic spray
+  scrl8y => 1 // protection from energy
+  scrl94 => 4 // resist fear
+  scrla1 => 4 // wizard eye
+  scrla3 => 4 // glitterdust
+  scrla7 => 4 // remove magic
+//  scrla8 => 1 // contagion
+  scrlaj => 5 // farsight
+
+END
+
+ACTION_PHP_EACH cd_scroll_fixes AS scroll => fix BEGIN
+
+  COPY_EXISTING ~%scroll%.itm~ ~override~
+    LPF ALTER_HEADER INT_VAR header = 0 target = fix END // target on ability header
+    BUT_ONLY
+
+END
+
+// range fixes
+ACTION_CLEAR_ARRAY cd_scroll_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_scroll_fixes BEGIN
+
+  scrl2f => 12 // cone of cold
+  scrl5c =>  1 // protection from lightning
+  scrl5f => 40 // chaotic commands
+  scrl5i => 50 // greater malison
+  scrl5k =>  1 // spirit armor
+  scrl62 => 40 // flame strike
+  scrl63 => 30 // raise dead
+  scrl6j => 25 // spell thrust
+  scrl6v => 40 // lower resistance
+  scrl76 => 30 // infravision
+  scrl7i => 50 // death spell
+  scrl8c => 50 // stone to flesh
+  scrl8h => 20 // warding whip
+  scrl8p => 15 // prismatic spray
+  scrl9h =>  1 // maze
+  scrla1 => 30 // wizard eye
+  scrla6 => 60 // spook
+  scrla7 => 40 // remove magic
+  scrla8 => 30 // contagion
+  scrlai => 40 // ray of enfeeblement
+  scrlak =>  1 // remove curse
+
+END
+
+ACTION_PHP_EACH cd_scroll_fixes AS scroll => fix BEGIN
+
+  COPY_EXISTING ~%scroll%.itm~ ~override~
+    LPF ALTER_HEADER INT_VAR header = 0 range = fix END // range on ability header
+    BUT_ONLY
+
+END
+
+// protection from x scrolls not bypassing MR
+COPY_EXISTING ~scrl03.itm~ ~override~
+              ~scrl04.itm~ ~override~
+              ~scrl05.itm~ ~override~
+              ~scrl06.itm~ ~override~
+              ~scrl08.itm~ ~override~
+              ~scrl09.itm~ ~override~
+              ~scrl15.itm~ ~override~
+  SAY 0x08 #18094 // protection scroll, really just needed for scrl05
+  LPF ALTER_EFFECT INT_VAR silent = 1 resist_dispel = 3 END
+  LPF ALTER_HEADER INT_VAR header = 0 range = 30 END // protection from x scrolls should be visible range
+  BUT_ONLY
+
+// protection from x scrolls should be visible range (all others done immediately above)
+COPY_EXISTING ~scrl07.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR header = 0 range = 30 END // protection from x scrolls should be visible range
+  BUT_ONLY
+
+// add miscast icons
+COPY_EXISTING ~scrl11.itm~ ~override~ // cursed scroll of clumsiness
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 142 target = 1 resist_dispel = 1 duration = 600 parameter2 = 105 power = 4 END // add miscast magic icon
+  BUT_ONLY
+
+// add arcane spell failure (CamDawg)
+COPY_EXISTING ~scrl12.itm~ ~override~ //cursed scroll of foolishness
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 60 match_parameter2 = 1 parameter2 = 0 END // clone divine miscast into arcane miscast
+  BUT_ONLY
+
+// add feeblemind icon (CamDawg)
+COPY_EXISTING ~scrl18.itm~ ~override~ // cursed scroll of stupidity
+  LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 76 opcode = 142 parameter2 = 48 END // clone feeblemind into feeblemind icon
+  BUT_ONLY
+
+// dispel magic scroll uses priest description of spell
+COPY_EXISTING ~scrl1e.itm~ ~override~
+  SAY IDENTIFIED_DESC #45821 // mage dispel magic descript
+  BUT_ONLY
+
+// double projectiles when casting spells from scrolls
+COPY_EXISTING ~scrl1j.itm~ ~override~ // imp invisibility
+              ~scrla3.itm~ ~override~ // glitterdust
+  LPF ALTER_HEADER INT_VAR silent = 1 projectile = 1 END // projectile comes from spell itself
+  BUT_ONLY
+
+// a pair of scrolls should have min int, not min wis
+COPY_EXISTING ~scrl5e.itm~ ~override~ // champion's strength
+              ~scrl5f.itm~ ~override~ // chaotic commands
+  WRITE_BYTE 0x2a 9 // min int
+  WRITE_BYTE 0x2e 0 // min wis  
+  BUT_ONLY
+
+// corrects BAM assignment for Conjure Lesser Fire Elemental scroll
+COPY_EXISTING ~scrl6x.itm~ ~override~
+  WRITE_ASCII 0x3a SPWI516A  // inventory
+  LPF ALTER_HEADER STR_VAR icon = SPWI516A END // icon on ability header
+  BUT_ONLY
+
+// mage's detect evil scroll using priest spell description
+COPY_EXISTING ~scrl86.itm~ ~override~
+  SAY 0x54 #12219
+  BUT_ONLY
+
+// melf's minute meteors' name
+COPY_EXISTING ~scrla5.itm~ ~override~
+  SAY NAME2 #38588 // melf's minute meteor > meteors
+  BUT_ONLY
+
+// misc spellhold scrolls should be category books, only allow 1 in stack
+COPY_EXISTING ~scrla9.itm~  ~override~ // waneev's note
+              ~scrlaa.itm~  ~override~ // waneev's note
+              ~scrlab.itm~  ~override~ // monkey balls
+              ~scrlac.itm~  ~override~ // amnish dragoon soup
+              ~scrlad.itm~  ~override~ // baldur's delight
+              ~scrlaf.itm~  ~override~ // ruby racks
+              ~scrlag.itm~  ~override~ // crom faeyr scroll
+              ~scrlhp.itm~  ~override~ // harper note
+              ~scrlick.itm~ ~override~ // illithid correspndence
+              ~scrlmz.itm~  ~override~ // note from Mazzy Fentan
+  WRITE_BYTE  0x2a  0 // min int
+  WRITE_SHORT 0x38  1 // 1 max stack
+  BUT_ONLY
+
+// more crom faeyr changes: unique icon, make magical
+COPY_EXISTING ~scrlag.itm~ ~override~
+  WRITE_ASCII 0x3a IMISC6F #8
+  WRITE_ASCII 0x58 CMISC6F #8
+
+// ray of enfeeblement lacks casting icon due to typo
+COPY_EXISTING ~scrlai.itm~ ~override~
+  LPF ALTER_HEADER INT_VAR header = 1 STR_VAR icon = spwi221a END // icon on learn spell ability header
+  BUT_ONLY

@@ -1,0 +1,321 @@
+/////                                                  \\\\\
+///// string fixes                                     \\\\\
+/////                                                  \\\\\
+
+// first column is strref to be updated, second column is tra reference (e.g. 150 uses @150 from the tra file)
+// item speed and weight fixes now done as part of the item fixes
+COPY ~bg2fixpack/lib/strings.tpa~ ~weidu_external/bg2fixpack/strings_core.tpa~
+ACTION_CLEAR_ARRAY cd_string_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
+
+   4330 => 150 // [IMOEN20] sound fix
+   4432 => 168 // soa dust mephit familiar item description
+   4433 => 170 // soa fairy dragon familiar item description
+   4434 => 162 // soa ferret familiar item description
+   4435 => 164 // soa imp familiar item description
+   4436 => 174 // soa quasit familiar item description
+   4437 => 160 // soa pseudo-dragon familiar item description
+   4438 => 166 // soa rabbit familiar item description
+   5962 => 152 // mustard jelly sound resref fix
+   6526 => 215 // flame tongue: descript missing thac0 bonuses, +3 bonuses are against cold-using not cold/fire
+   7345 => 214 // kondar: descript not mentioning extra thac0 vs. shapeshifters
+   8064 => 155 // globe of invulnerability descript (remove dispel magic vulnerability)
+   8212 => 227 // NRD has a special casting time equivalent to the selected spell, not a fixed casting time of 5
+   8848 => 223 // Jiscanan is the younger son, not the oldest
+   8857 => 100 // Viconia's non-sequitir line
+   8863 => 101 // Viconia's non-sequitir line
+  11015 => 226 // shield of the archons does not work against dispel magic
+  11848 => 153 // wrong save v. death penalty for claw of kazgaroth
+  12146 => 154 // minor globe of invulnerability descript (remove dispel magic vulnerability)
+  14320 => 141 // symbol fear descript (1 round per 3 levels, not 2 rounds)
+  17709 => 233 // wand of cloudkill forces save vs. poison at -4, not spell; aoe is 15' radius, not 30'
+  17890 => 127 // [VALYGA01] sound restoration
+  20882 => 254 // missing thac0/damage bonuses, wrong speed and min strength for balduran's sword
+  21957 => 210 // strength requirement, bala's axe
+  25201 => 137 // Berserker enrage missing protection list
+  25894 => 156 // teleport field has no saving throw
+  25943 => 234 // contingency duration is essentially permanent
+  26315 => 136 // spellstrike descript (protections removed list)
+  32128 => 231 // arundel's staff: belhifet is a devil, not a demon
+  32145 => 232 // jerrod's mace: belhifet is a devil, not a demon
+  32186 => 211 // enchantment, name of defender of easthaven
+  32187 => 212 // thac0 bonus, damage in descript of defender of easthaven
+  35168 => 132 // [HAERDA95] sound restoration
+  36460 => 139 // flail +2 damage
+  37155 => 133 // [JANJAN67] sound restoration
+  38570 => 230 // false dawn does not last 5 rounds, it's instant with a delayed confusion effect; false dawn aoe is 15' radius, not 30'
+//  39529 => 257 // save vs. poison is at +6 ; revise pixie prick item instead
+  39461 => 213 // damage, blade of roses
+  39536 => 258 // document the save bonus of delver's plate
+  39565 => 255 // ashen scales usable by druids
+  39578 => 256 // shield of the lost usable by druids
+  40634 => 220 // moon dog's healing lick heals 20 HP not 8
+  41385 => 172 // soa cat familiar item description
+  44795 => 225 // option to sacrifice skill is not an option
+  45869 => 138 // Barbarian rage missing protection list
+  45889 => 159 // find familiar spell descript
+  46589 => 157 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
+  46590 => 158 // prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs
+  48015 => 224 // Keldorn spends a day, not a week, with his family
+  48184 => 221 // Neb is a gnome, not a dwarf
+  48202 => 216 // Neb is a gnome, not a dwarf
+  50121 => 222 // Neb is a gnome, not a dwarf
+  58250 => 134 // [ELLESI02] sound restoration
+  60724 => 112 // adalon soundset restoration
+  60741 => 113 // adalon soundset restoration
+
+  // most spell AoE descripts fixed automaticaly below, but a handful also mention their AoE in the descript so we have to do them manually
+   7469 => 239 // mass cure aoe is 15' radius, not 20'
+  12175 => 249 // cloudkill aoe is 15' radius, not 40' x 20' x 20' cloud; has to go here since AoE covers two lines in header
+  12178 => 247 // ice storm aoe is 15' radius, not 30'
+  12193 => 244 // haste aoe is 15' radius, not 40' cube
+  12213 => 236 // strength of one aoe is party members in 15' radius, not 'all party'
+  12216 => 235 // bless aoe is 15' radius, not 50' cube
+  14285 => 241 // sunray aoe is 15' radius, not 20'
+  17647 => 245 // skull trap aoe is 12' radius, not 30', and trigger distance is 8' not 20'
+  17657 => 252 // wand of sleep aoe is 15' radius, not 40' cube/20' radius
+//  17709 => 253 // wand of cloudkill aoe is 15' radius, not 30' - fixed above already  
+  22174 => 248 // emotion aoe is 15' radius, not 30' nor visual sight of caster
+  22830 => 237 // defensive harmony aoe is 15' radius, not 10'
+  25623 => 238 // true seeing aoe is 120' radius, not 70'
+  25764 => 242 // holy word aoe is 15' radius, not 30'
+  25872 => 246 // detect illusion aoe is 15' radius, not 20'
+  25922 => 250 // oracle aoe is 120' radius, not 60'
+  25936 => 251 // true sight aoe is 120' radius, not 70'
+  35658 => 243 // unholy word aoe is 15' radius, not 30'
+  39430 => 253 // true seeing via book of infinite spells aoe is 120' radius, not 70'
+  45007 => 240 // pixie dust aoe is 15' radius, not 30'
+
+END
+
+ACTION_IF tob_game THEN BEGIN // tob strings
+
+  // supplement above array with tob strings
+  ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
+
+    64326 => 228 // improved chaos shield lasts two hours, not two turns
+    66369 => 229 // serpent shaft poison lasts two rounds, not one
+    72757 => 173 // tob cat familiar item description
+    72760 => 169 // tob dust mephit familiar item description
+    72762 => 171 // tob fairy dragon familiar item description
+    72763 => 163 // tob ferret familiar item description
+    72764 => 165 // tob imp familiar item description
+    72765 => 161 // tob pseudo-dragon familiar item description
+    72766 => 175 // tob quasit familiar item description
+    72767 => 167 // tob rabbit familiar item description
+
+  END
+
+END
+
+ACTION_PHP_EACH cd_string_fixes AS string => tra BEGIN
+
+  ACTION_IF FILE_CONTAINS_EVALUATED (~bg2fixpack/languages/%LANGUAGE%/setup.tra~ ~^[ %TAB%]*@%tra%[ %TAB%]*=~) BEGIN // check string is in language's tra file
+
+    APPEND_OUTER ~weidu_external/bg2fixpack/strings_core.tpa~ ~STRING_SET %string% @%tra%~
+
+  END
+
+END
+
+REINCLUDE ~weidu_external/bg2fixpack/strings_core.tpa~ // now execute newly built library
+
+// listed AoE for just about every AoE spell is wrong. These ones can be fixed automatically:
+ACTION_CLEAR_ARRAY cd_aoe_string_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_aoe_string_fixes BEGIN
+
+   3963 =>  15 // holy smite aoe is 15' radius, not 20'
+   4350 =>  15 // unholy blight aoe is 15' radius, not 20'
+   6939 =>  15 // greater command aoe is 15' radius, not 20'
+   7371 =>  15 // necklace of missiles aoe is 15' radius, not 30'
+   7622 =>  15 // death fog aoe is 15' radius, not 30'
+   7664 =>  15 // incendiary cloud aoe is 15' radius, not 30'
+   7680 =>  15 // horrid wilting aoe is 15' radius, not 30' cube
+   7712 =>  15 // wail of the banshee aoe is 15' radius, not 30'
+   7918 =>  15 // death spell aoe is 15' radius, not 30'
+  10985 =>  15 // confusion aoe is 15' radius, not 60' cube
+  12145 =>  15 // remove magic aoe is 15' radius, not 30' cube
+  12151 =>  15 // resist fear aoe is 15' radius, not 30'
+  12154 =>  15 // grease aoe is 15' radius, not 30' x 30' square
+  12163 => 120 // detect invisible aoe is 120' radius, not 70'
+  12177 =>  15 // fireball aoe is 15' radius, not 30' cube
+  12181 =>  15 // stinking cloud aoe is 15' radius, not 30'
+  12188 =>  15 // horror aoe is 15' radius, not 30' cube
+  12196 =>  15 // slow aoe is 15' radius, not 40' cube
+  12199 =>  15 // dispel magic (divine) aoe is 15' radius, not 30' cube
+  12200 =>  12 // glyph of warding aoe is 12' radius, not 30'
+  12204 =>  15 // remove fear aoe is 15' radius, not 30'
+  12205 =>  15 // remove paralysis aoe is 15' radius, not 20'
+  12208 =>  15 // entangle aoe is 15' radius, not 40'
+  12217 =>  15 // chant aoe is 15' radius, not 30'
+  12221 => 120 // invisibility purge aoe is 120' radius, not 30'
+  17287 =>  15 // wand of fear aoe is 15' radius, not 30'
+  17362 =>  12 // symbol, fear (arcane) aoe is 12' radius, not 30'
+  20579 =>  15 // potion of explosions aoe is 15' radius, not 30'
+  22186 =>  15 // greater malison aoe is 15' radius, not 60' cube
+  22611 =>  15 // chaos aoe is 15' radius, not 60' cube
+  25755 =>  15 // fire storm aoe is 15' radius, not 20'
+  25954 =>  15 // sphere of chaos aoe is 15' radius, not 30'
+  25959 =>  12 // delayed blast fireball aoe is 12' radius, not 30' (triggers at 8')
+  26347 =>  15 // meteor swarm aoe is 15' radius, not 30'
+  32428 =>  15 // mass invisibility aoe is 15' radius, not 30'
+  38595 =>  15 // glitterdust aoe is 15' radius, not 20'
+  39427 =>  15 // fireball via book of infinite spells aoe is 15' radius, not 30'
+  39436 =>  15 // stinking cloud via book of infinite spells aoe is 15' radius, not 30'
+  39453 =>  15 // sunray via daystar aoe is 15' radius, not 30'
+  39520 =>  15 // sonic boom via sling of arvoreen aoe is 15' radius, not 60'
+  39567 =>  15 // helm of brilliance fireball, sunray aoe is 15' radius, not 30'
+  39568 =>  15 // death spell via skull of death aoe is 15' radius, not 30'
+  39671 =>  15 // dispel fear via azlaer's harp aoe is 15' radius, not 30'
+  39957 =>  12 // symbol, stun (arcane) aoe is 12' radius, not 30'
+  39965 =>  15 // sunfire aoe is 15' radius, not 30'
+  39967 =>  12 // symbol, death (arcane) aoe is 12' radius, not 30'
+  44946 =>  15 // nature's beauty aoe is 15' radius, not 5'
+  45055 =>  15 // earthquake aoe is 15' radius, not 40'
+  45058 =>  12 // symbol, death (divine) aoe is 12' radius, not 30'
+  45059 =>  12 // symbol, stun (divine) aoe is 12' radius, not 30'
+  45821 =>  15 // dispel magic (arcane) aoe is 15' radius, not 30' cube
+//  14320 =>  12 // symbol, fear (divine) aoe is 12' radius, not 30'; fixed in @141
+//  25894 =>  15 // teleport field aoe is 15' radius, not 30'; fixed in @156
+//  38570 =>  15 // false dawn aoe is 15' radius, not 30' - fixed above
+
+END
+
+ACTION_IF tob_game THEN BEGIN // tob fixes
+
+  ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_aoe_string_fixes BEGIN
+
+    63220 =>  15 // dragon's breath aoe is 15' radius, not 30'
+    63584 =>  15 // comet aoe is 15' radius, not 30'
+    63743 =>  15 // storm of vengeance aoe is 15' radius, not 30'
+
+  END
+
+END
+
+OUTER_SPRINT text_match @34  // regexp for finding AoE info in spell descript header
+OUTER_SPRINT radius_text @35 // outro text for revised AoE info
+
+ACTION_PHP_EACH cd_aoe_string_fixes AS string => radius BEGIN
+
+  ACTION_GET_STRREF string desc
+
+  OUTER_PATCH_SAVE desc ~%desc%~ BEGIN
+    REPLACE_TEXTUALLY ~%text_match%~ ~\1%radius%%radius_text%~
+  END
+  
+  STRING_SET_EVALUATE string ~%desc%~
+
+END
+
+// shove name changes here since it covers items and spells
+ACTION_CLEAR_ARRAY cd_new_names
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_new_names BEGIN
+
+  ~alphonse.cre~ => 35884 // (name/tooltip mismatch, use name) alphonse - servant
+  ~arnboy01.cre~ => 38998 // name from Apprentice Torturer Douglas to Apprentice Torturer Douglas
+  ~b1-10m2.itm~  => 10966 // name from Skull to Attack
+  ~b1-12.itm~    => 10966 // name from Skull to Attack
+  ~b1-12m3.itm~  => 10966 // name from Skull to Attack
+  ~b1-20m3.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~b1-20m4.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~b1-6.itm~     => 10966 // name from Skull to Attack
+  ~b1-8.itm~     => 10966 // name from Skull to Attack
+  ~b1-8m1.itm~   => 10966 // name from Skull to Attack
+  ~b2-16.itm~    => 10966 // name from Skull to Attack
+  ~b3-24.itm~    => 10966 // name from <Invalid Strref -1> to Attack
+  ~b4-32.itm~    => 10966 // name from Skull to Attack
+  ~b4-32m3.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~b4-32m4.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~basilg1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~basilg2.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~basilg3.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~basill1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~basill2.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~behobs01.cre~ => 10726 // (name/tooltip mismatch, use tooltip) beholder - observer
+  ~behspe01.cre~ => 10834 // (name/tooltip mismatch, use tooltip) beholder - spectator
+  ~carrio1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~catjag.itm~   => 10966 // name from Skull to Attack
+  ~catlio.itm~   => 10966 // name from Skull to Attack
+  ~dogwawp.itm~  => 10966 // name from Skull to Attack
+  ~elairl.itm~   => 10966 // name from Skull to Attack
+  ~elesah02.cre~ => 31070 // (name/tooltip mismatch, use name) sahuagin baronial guard - baronial guard
+  ~ensw2h.itm~   =>  6694 // name from Battle Axe to Battle Axe +3
+  ~etterc1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~etterc2.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~figspid.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~fireelel.itm~ => 10966 // name from Skull to Attack
+  ~fireelem.itm~ => 10966 // name from Skull to Attack
+  ~gendjn01.cre~ => 11433 // (name/tooltip mismatch, use tooltip) djinni - noble djinni
+  ~genefn01.cre~ => 11438 // (name/tooltip mismatch, use tooltip) efreeti - noble efreeti
+  ~genscim.itm~  => 10966 // name from Skull to Attack
+  ~ghast1.itm~   => 10966 // name from <Invalid Strref -1> to Attack
+  ~golcla.itm~   => 10966 // name from <Invalid Strref -1> to Attack
+  ~golfle.itm~   => 10966 // name from Skull to Attack
+  ~golsto.itm~   => 10966 // name from <Invalid Strref -1> to Attack
+  ~helmpr.cre~   => 17221 // name from Sir Donalus to Sir Lothtyran (duplicate sir donalus'sss'ss')
+  ~jellmu1.itm~  => 10966 // name from Broken Shield to Attack
+  ~korcrazy.cre~ => 30509 // name from Cleric to Crazyface
+  ~korpimg1.cre~ => 30490 // name from Household Guardsman to Pimlico Guard
+  ~kptrol06.cre~ =>  2149 // (name/tooltip mismatch, use tooltip) troll - ice troll
+  ~kuotoa01.cre~ =>  3093 // (name/tooltip mismatch, use name) kuo-toa warrior - kuo-toa
+  ~lacedo.itm~   => 10966 // name from <Invalid Strref -1> to Attack
+  ~lasmist.cre~  =>  6522 // (name/tooltip mismatch, use tooltip) djinni - gaseous form
+  ~mage16c.cre~  => 15232 // name from Khollynnus Paac to Cowled Wizard (duplicate Paacs)
+  ~mepice02.cre~ => 22553 // name from Radiant Mephit to Ice Mephit
+  ~mistpo.itm~   => 10966 // name from Skull to Attack
+  ~nishruu.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~obsfir01.cre~ => 11438 // (name/tooltip mismatch, use tooltip) efreeti - noble efreeti
+  ~obssah03.cre~ => 31070 // (name/tooltip mismatch, use name) sahuagin baronial guard - baronial guard
+  ~ogre1.itm~    => 10966 // name from <Invalid Strref -1> to Attack
+  ~p1-4.itm~     => 10966 // name from Skull to Attack
+  ~p1-8.itm~     => 10966 // name from Skull to Attack
+  ~p1-8m1.itm~   => 10966 // name from Skull to Attack
+  ~p3-12m4.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~pirpir06.cre~ => 13839 // (name/tooltip mismatch, use name) sailor - stanet
+  ~ppbodbat.cre~ => 18112 // (name/tooltip mismatch, use tooltip) vampire - vampire bat
+  ~ppdjinn2.cre~ => 11433 // (name/tooltip mismatch, use tooltip) djinni - noble djinni
+  ~ppmind01.cre~ => 10983 // (name/tooltip mismatch, use tooltip) mind flayer - ulitharid
+  ~rngbeh01.cre~ => 10653 // (name/tooltip mismatch, use tooltip) beholder - death tyrant
+  ~rodmace.itm~  =>  7413 // name from Mace +2 to Mace +2
+  ~rodspear.itm~ =>  7807 // name from Spear to Spear +3
+  ~s1-10m4.itm~  => 10966 // name from Skull to Attack
+  ~s1-8.itm~     => 10966 // name from Skull to Attack
+  ~sahbar01.cre~ => 31070 // (name/tooltip mismatch, use name) sahuagin baronial guard - baronial guard
+  ~sahextra.cre~ => 31086 // (name/tooltip mismatch, use name) sahuagin royal guard - royal guard
+  ~sahgrd01.cre~ => 31086 // (name/tooltip mismatch, use name) sahuagin royal guard - royal guard
+  ~sahgrd02.cre~ => 31086 // (name/tooltip mismatch, use name) sahuagin royal guard - royal guard
+  ~sahgrd03.cre~ => 31086 // (name/tooltip mismatch, use name) sahuagin royal guard - royal guard
+  ~sarbul04.cre~ => 68792 // name from gromnir soldier to il-khan soldier
+  ~sarbul05.cre~ => 68792 // name from gromnir soldier to il-khan soldier
+  ~shop03.cre~   => 23303 // name from Maheer to Maheer
+  ~spidgi1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~spidph1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~spidsw1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~spin775.spl~  =>  5739 // name from <Invalid Strref -1> to Psionic Blast (using the Psionic Blast ability should display a feedback string in the combat log)
+  ~stalkesu.itm~ => 10966 // name from Fist to Attack
+  ~tanomist.cre~ =>  6522 // (name/tooltip mismatch, use tooltip) vampire - gaseous form
+  ~trolfr01.cre~ => 11605 // (name/tooltip mismatch, use tooltip) troll - freshwater troll
+  ~trolfr02.cre~ => 11605 // (name/tooltip mismatch, use tooltip) troll - freshwater troll
+  ~trolsn01.cre~ => 10981 // (name/tooltip mismatch, use tooltip) troll - snow troll
+  ~trolsn02.cre~ => 10981 // (name/tooltip mismatch, use tooltip) troll - snow troll
+  ~udelder.cre~  => 10901 // (name/tooltip mismatch, use tooltip) beholder - elder orb
+  ~valemist.cre~ =>  6522 // (name/tooltip mismatch, use tooltip) vampire - gaseous form
+  ~valran01.cre~ =>  2190 // name from Ranger to Derrick
+  ~vampbat.cre~  => 18112 // (name/tooltip mismatch, use tooltip) vampire - vampire bat
+  ~wolfwi1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~wolfwi2.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~wraith1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~wyvern1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+  ~wyvern2.itm~  => 10966 // name from <Invalid Strref -1> to Attack
+
+END
+
+ACTION_PHP_EACH cd_new_names AS file => string BEGIN
+
+  COPY_EXISTING ~%file%~ ~override~
+    WRITE_LONG 0x08 string
+    WRITE_LONG 0x0c string
+    IF_EXISTS
+
+END

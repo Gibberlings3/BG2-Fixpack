@@ -1,0 +1,19 @@
+MKDIR ~weidu_external/bg2fixpack~
+
+// disable broken stuff from key file
+ACTION_FOR_EACH file IN iplot01k.itm iplot04g.itm iplot04h.itm iplot04i.itm xr2400.are xr2600.are BEGIN
+  DISABLE_FROM_KEY "%file%"
+END
+
+INCLUDE ~bg2fixpack/lib/functions.tpa~ // miscellaneous patch functions
+INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
+
+// os x "can't save" bug
+ACTION_IF ~%WEIDU_OS%~ STRING_EQUAL_CASE ~osx~ THEN BEGIN
+<<<<<<<< fix-temp
+#!/bin/sh
+test -f temp && (rm -f temp && mkdir temp)
+>>>>>>>>
+  COPY ~fix-temp~ ~fix-temp~
+  AT_NOW ~sh fix-temp~
+END

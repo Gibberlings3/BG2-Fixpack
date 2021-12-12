@@ -1,0 +1,651 @@
+/////                                                  \\\\\
+///// big block of unusability stuff                   \\\\\
+/////                                                  \\\\\
+
+// BMU (sigh), scroll supposed to be completely restriction-free
+COPY_EXISTING ~scrladj.itm~  ~override~ // firkraag's note was copied from mage scroll; clearing flags
+              ~secret01.itm~ ~override~
+              ~secret02.itm~ ~override~
+              ~secret03.itm~ ~override~
+              ~secret04.itm~ ~override~
+  WRITE_LONG 0x1e 0 // removes race/class flags
+  WRITE_BYTE 0x29 0 // removes kit flags, pt 1
+  WRITE_BYTE 0x2b 0 // removes kit flags, pt 2
+  WRITE_BYTE 0x2d 0 // removes kit flags, pt 3
+  WRITE_BYTE 0x2f 0 // removes kit flags, pt 4
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~hamm06.itm~  ~override~ // dwarven thrower
+              ~misc5x.itm~  ~override~ // harper pin
+              ~misca6.itm~  ~override~ // patrol leader helmet
+              ~npbow.itm~   ~override~ // bow of arvoreen
+              ~npsw01.itm~  ~override~ // sword of arvoreen
+              ~ring35.itm~  ~override~ // ring of lock picking
+              ~wa2ring.itm~ ~override~ // mercykiller ring
+  WRITE_BYTE 0x1e (THIS BOR BIT6) // adds bard flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac06.itm~ ~override~ // Gauntlets of Ogre Power
+  WRITE_BYTE 0x1e (THIS BAND `BIT6) // removes bard flag
+  BUT_ONLY
+
+COPY_EXISTING ~npplat.itm~  ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~  ~override~ // hallowed redeemer
+              ~waninja.itm~ ~override~ // scarlet ninja-to
+  WRITE_BYTE 0x1e (THIS BOR BIT5) // adds lc-axis neutral flag
+  BUT_ONLY
+
+COPY_EXISTING ~npchan.itm~ ~override~ // corthala family armor
+              ~npsw04.itm~ ~override~ // Corthala Family Blade
+  WRITE_BYTE 0x1e (THIS BOR BIT4) // adds lawful flag
+  BUT_ONLY
+
+COPY_EXISTING ~npchan.itm~ ~override~ // corthala family armor
+              ~npplat.itm~ ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~ ~override~ // hallowed redeemer
+              ~npsw04.itm~ ~override~ // Corthala Family Blade
+  WRITE_BYTE 0x1e (THIS BOR BIT3) // adds ge-axis neutral flag
+  BUT_ONLY
+
+COPY_EXISTING ~npchan.itm~ ~override~ // corthala family armor
+              ~npplat.itm~ ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~ ~override~ // hallowed redeemer
+              ~npsw04.itm~ ~override~ // Corthala Family Blade
+  WRITE_BYTE 0x1e (THIS BOR BIT1) // adds evil flag
+  BUT_ONLY
+
+COPY_EXISTING ~npchan.itm~  ~override~ // corthala family armor
+              ~npplat.itm~  ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~  ~override~ // hallowed redeemer
+              ~npsw04.itm~  ~override~ // Corthala Family Blade
+              ~waninja.itm~ ~override~ // scarlet ninja-to
+  WRITE_BYTE 0x1e (THIS BOR BIT0) // adds chaotic flag
+  BUT_ONLY
+
+COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
+              ~dagg18.itm~ ~override~ // shadow thief dagger
+              ~misc9q.itm~ ~override~ // scimitar
+              ~npchan.itm~ ~override~ // corthala family armor
+  WRITE_BYTE 0x1f (THIS BOR BIT7) // adds f/m/c flag
+  BUT_ONLY
+
+COPY_EXISTING ~misc9q.itm~ ~override~ // scimitar
+              ~npchan.itm~ ~override~ // corthala family armor
+  WRITE_BYTE 0x1f (THIS BOR BIT6) // adds f/c flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac17.itm~ ~override~ // gloves of pickpocketing
+              ~hamm06.itm~ ~override~ // dwarven thrower
+              ~npbow.itm~  ~override~ // bow of arvoreen
+              ~npchan.itm~ ~override~ // corthala family armor
+              ~npsw01.itm~ ~override~ // sword of arvoreen
+  WRITE_BYTE 0x1f (THIS BOR BIT5) // adds f/m flag
+  BUT_ONLY
+
+COPY_EXISTING ~misc4q.itm~  ~override~ // the ogre's sword
+              ~npchan.itm~  ~override~ // corthala family armor
+              ~rodmace.itm~ ~override~ // mace from rod o' lordly might
+              ~rods01.itm~  ~override~ // rod of absorption
+              ~rods04.itm~  ~override~ // rod of smiting
+              ~sw1h46.itm~  ~override~ // wakizashi
+              ~sw1h47.itm~  ~override~ // wakizashi +1
+              ~sw1h66.itm~  ~override~ // yamato +4
+              ~sw1h99.itm~  ~override~ // sword of chaos
+  WRITE_BYTE 0x1f (THIS BOR BIT4) // adds f/d flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~brac17.itm~ ~override~ // gloves of pickpocketing
+              ~npchan.itm~ ~override~ // corthala family armor
+  WRITE_BYTE 0x1f (THIS BOR BIT3) // adds f flag
+  BUT_ONLY
+
+COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
+              ~misc9q.itm~ ~override~ // scimitar
+              ~npchan.itm~ ~override~ // corthala family armor
+  WRITE_BYTE 0x1f (THIS BOR BIT2) // adds c/r flag
+  BUT_ONLY
+
+COPY_EXISTING ~potn56.itm~ ~override~ // potion of frost giant strength
+  WRITE_BYTE 0x1f (THIS BAND `BIT1) // removes c/t flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
+              ~misc9q.itm~ ~override~ // scimitar
+              ~npchan.itm~ ~override~ // corthala family armor
+  WRITE_BYTE 0x1f (THIS BOR BIT1) // adds c/t flag
+  BUT_ONLY
+
+COPY_EXISTING ~hamm06.itm~  ~override~ // dwarven thrower
+              ~npchan.itm~  ~override~ // corthala family armor
+              ~ring35.itm~  ~override~ // ring of lock picking
+              ~wa2ring.itm~ ~override~ // mercykiller ring
+  WRITE_BYTE 0x1f (THIS BOR BIT0) // adds c/m flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw03.itm~ ~override~ // hallowed redeemer
+  WRITE_BYTE 0x20 (THIS BOR BIT7) // adds elf flag
+  BUT_ONLY
+
+COPY_EXISTING ~dwsw1h01.itm~ ~override~ // drow scimitar +3
+              ~npsw04.itm~   ~override~ // Corthala Family Blade (allows for backstabbing)
+  WRITE_BYTE 0x20 (THIS BAND `BIT6) // removes thief flag
+  BUT_ONLY
+
+
+COPY_EXISTING ~scrl8e.itm~ ~override~ // protection from the elements
+  WRITE_BYTE 0x20 (THIS BOR BIT6) // adds thief flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac17.itm~ ~override~ // gloves of pickpocketing
+              ~hamm06.itm~ ~override~ // dwarven thrower
+              ~npbow.itm~  ~override~ // bow of arvoreen
+              ~npsw01.itm~ ~override~ // sword of arvoreen
+              ~staf14.itm~ ~override~ // staff of woodlands
+  WRITE_BYTE 0x20 (THIS BOR BIT5) // adds ranger flag
+  BUT_ONLY
+
+COPY_EXISTING ~amul21.itm~ ~override~ // Amulet of power
+  WRITE_BYTE 0x20 (THIS BAND `BIT5) // removes ranger flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac17.itm~ ~override~ // gloves of pickpocketing
+              ~hamm06.itm~ ~override~ // dwarven thrower
+              ~misc3m.itm~ ~override~ // Harp of Discord
+              ~misc3o.itm~ ~override~ // Methild's Harp
+              ~npbow.itm~  ~override~ // bow of arvoreen
+              ~npsw01.itm~ ~override~ // sword of arvoreen
+  WRITE_BYTE 0x20 (THIS BOR BIT4) // adds paladin flag
+  BUT_ONLY
+
+COPY_EXISTING ~amul21.itm~ ~override~ // Amulet of power
+  WRITE_BYTE 0x20 (THIS BAND `BIT4) // removes paladin flag
+  BUT_ONLY
+
+COPY_EXISTING ~misca6.itm~ ~override~ // patrol leader helmet
+              ~npbow.itm~  ~override~ // bow of arvoreen
+              ~npsw01.itm~ ~override~ // sword of arvoreen
+  WRITE_BYTE 0x20 (THIS BOR BIT3) // adds m/t flag
+  BUT_ONLY
+
+COPY_EXISTING ~chan20.itm~   ~override~ // white dragon scale
+              ~dwsw1h01.itm~ ~override~ // drow scimitar +3
+              ~potn56.itm~   ~override~ // potion of frost giant strength
+  WRITE_BYTE 0x20 (THIS BAND `BIT3) // removes m/t flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~misca6.itm~ ~override~ // patrol leader helmet
+  WRITE_BYTE 0x20 (THIS BOR BIT2) // adds mage flag
+  BUT_ONLY
+
+COPY_EXISTING ~npchan.itm~ ~override~ // corthala family armor
+              ~rods04.itm~ ~override~ // rod of smiting
+  WRITE_BYTE 0x20 (THIS BOR BIT1) // adds f/t flag
+  BUT_ONLY
+
+COPY_EXISTING ~hamm06.itm~ ~override~ // dwarven thrower
+              ~npbow.itm~  ~override~ // bow of arvoreen
+              ~npchan.itm~ ~override~ // corthala family armor
+              ~npsw01.itm~ ~override~ // sword of arvoreen
+              ~npsw03.itm~ ~override~ // hallowed redeemer
+              ~waninja.itm~ ~override~ // scarlet ninja-to
+  WRITE_BYTE 0x20 (THIS BOR BIT0) // adds f/m/t flag
+  BUT_ONLY
+
+COPY_EXISTING ~hamm06.itm~  ~override~ // dwarven thrower
+              ~hlolth.itm~  ~override~ // handmaiden's mace
+              ~misc5x.itm~  ~override~ // harper pin
+              ~npbow.itm~   ~override~ // bow of arvoreen
+              ~npchan.itm~  ~override~ // corthala family armor
+              ~npmisc1.itm~ ~override~ // Jansen Spectroscopes
+              ~npplat.itm~  ~override~ // Firecam Full-Plate Armor
+              ~npsw01.itm~  ~override~ // sword of arvoreen
+              ~npsw02.itm~  ~override~ // yoshimo's katana
+              ~npsw03.itm~  ~override~ // hallowed redeemer
+              ~npsw04.itm~  ~override~ // Corthala Family Blade
+              ~npsw05.itm~  ~override~ // chaos
+              ~npsw06.itm~  ~override~ // entropy
+              ~waninja.itm~ ~override~ // scarlet ninja-to
+  WRITE_BYTE 0x21 (THIS BOR BIT7) // adds half-orc flag
+  BUT_ONLY
+
+COPY_EXISTING ~npmisc1.itm~ ~override~ // Jansen Spectroscopes
+              ~sw1h46.itm~  ~override~ // wakizashi
+              ~sw1h47.itm~  ~override~ // wakizashi +1
+              ~sw1h66.itm~  ~override~ // yamato +4
+  WRITE_BYTE 0x21 (THIS BOR BIT6) // adds druid flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~brac19.itm~ ~override~ // Gauntlets of crushing
+              ~chan17.itm~ ~override~ // ashen scales
+              ~dagg16.itm~ ~override~ // poisoned throwing daggers
+              ~dagg18.itm~ ~override~ // shadow thief dagger
+              ~dagg19.itm~ ~override~ // dagger of <CHARNAME>
+              ~plat20.itm~ ~override~ // blue dragon plate
+              ~shld26.itm~ ~override~ // shield of the lost +2 (non-metallic)
+  WRITE_BYTE 0x21 (THIS BAND `BIT6) // removes druid flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amul16.itm~   ~override~ // metaspell influence amulet
+              ~amul21.itm~   ~override~ // Amulet of power
+              ~brac17.itm~   ~override~ // gloves of pickpocketing
+              ~brac21.itm~   ~override~ // guantlets of ex specialization
+              ~clck29.itm~   ~override~ // robe of apprenti
+              ~dwshld01.itm~ ~override~ // drow shield +3
+//              ~dwsw1h01.itm~ ~override~ // drow scimitar +3
+              ~misc5t.itm~   ~override~ // shaman's staff
+              ~misc9o.itm~   ~override~ // staff
+              ~misca6.itm~   ~override~ // patrol leader helmet
+              ~npplat.itm~   ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~   ~override~ // hallowed redeemer
+              ~potn36.itm~   ~override~ // potion of master thievery
+              ~ring08.itm~   ~override~ // ring of wizardry
+              ~ring22.itm~   ~override~ // ring o' holiness
+              ~ring35.itm~   ~override~ // ring of lock picking
+              ~ring40.itm~   ~override~ // ring of acuity
+              ~rods01.itm~   ~override~ // rod of absorption
+              ~rods04.itm~   ~override~ // rod of smiting
+              ~rods05.itm~   ~override~ // rod of terror
+              ~rods06.itm~   ~override~ // rod of reversal
+              ~scrl3g.itm~   ~override~ // vocalize
+//              ~scrl56.itm~   ~override~ // cure serious wounds (Monks should be able to use Priest-only scrolls according to Bioware)
+//              ~scrl58.itm~   ~override~ // free action
+//              ~scrl59.itm~   ~override~ // neutralize poison
+//              ~scrl5a.itm~   ~override~ // mental domination
+//              ~scrl5b.itm~   ~override~ // defensive harmony
+//              ~scrl5c.itm~   ~override~ // protection from lightning
+//              ~scrl5d.itm~   ~override~ // protection from evil 10'
+//              ~scrl5e.itm~   ~override~ // champion's strength
+//              ~scrl5f.itm~   ~override~ // chaotic commands
+              ~scrl5g.itm~   ~override~ // remove curse (wizard version)
+//              ~scrl61.itm~   ~override~ // cure critical wounds
+//              ~scrl62.itm~   ~override~ // flame strike
+//              ~scrl63.itm~   ~override~ // raise dead
+              ~scrl8b.itm~   ~override~ // summon nishruu
+              ~scrl8c.itm~   ~override~ // stone to flesh
+              ~sw2h15.itm~   ~override~ // the silver sword
+//              ~wa2amu.itm~   ~override~ // sensate amulet (Monks should be able to use Priest-only items according to Bioware)
+              ~wa2ring.itm~  ~override~ // mercykiller ring
+              ~wand02.itm~   ~override~ // wand of fear
+              ~wand04.itm~   ~override~ // wand of paralyzation
+              ~wand05.itm~   ~override~ // wand of fire
+              ~wand06.itm~   ~override~ // wand of frost
+              ~wand07.itm~   ~override~ // wand of lightning
+              ~wand09.itm~   ~override~ // wand of polymorphing
+              ~wand10.itm~   ~override~ // wand of monster summoning
+//              ~wand11.itm~   ~override~ // wand of the heavens (Monks should be able to use Priest-only items according to Bioware)
+              ~wand13.itm~   ~override~ // wand of cloudkill
+              ~wand14.itm~   ~override~ // web sack
+              ~wand15.itm~   ~override~ // wand of apprenti
+  WRITE_BYTE 0x21 (THIS BOR BIT5) // adds monk flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~boot01.itm~ ~override~ // boots of speed
+  WRITE_BYTE 0x21 (THIS BAND  `BIT5) // removes monk flag
+  BUT_ONLY
+
+COPY_EXISTING ~npplat.itm~ ~override~ // Firecam Full-Plate Armor
+              ~npsw03.itm~ ~override~ // hallowed redeemer
+  WRITE_BYTE 0x21 (THIS BOR BIT4) // adds gnome flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw03.itm~ ~override~ // hallowed redeemer
+  WRITE_BYTE 0x21 (THIS BOR BIT2) // adds halfling flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw03.itm~ ~override~ // hallowed redeemer
+  WRITE_BYTE 0x21 (THIS BOR BIT1) // adds half-elf flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw03.itm~ ~override~ // hallowed redeemer
+  WRITE_BYTE 0x21 (THIS BOR BIT0) // adds dwarf flag
+  BUT_ONLY
+
+COPY_EXISTING ~potn56.itm~ ~override~ // potion of frost giant strength
+  WRITE_BYTE 0x29 (THIS BOR  BIT7) // adds wildmage flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amul21.itm~   ~override~ // Amulet of power
+              ~dwplat01.itm~ ~override~ // drow full plate +5
+              ~misc5x.itm~   ~override~ // harper pin
+  WRITE_BYTE 0x29 (THIS BOR  BIT6) // adds barbarian flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac21.itm~ ~override~ // gauntlet of ex specialization
+  WRITE_BYTE 0x29 (THIS BAND  `BIT6) // removes barbarian flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~misc5x.itm~ ~override~ // harper pin
+              ~chan17.itm~ ~override~ // ashen scales
+              ~plat06.itm~ ~override~ // ankheg plate
+              ~plat18.itm~ ~override~ // red dragon plate
+              ~plat20.itm~ ~override~ // blue dragon plate
+  WRITE_BYTE 0x29 (THIS BOR  BIT5) // add avenger flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~scrl5t.itm~ ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~ ~override~ // pierce shield
+              ~scrl9b.itm~ ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT5) // removes avenger flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~chan20.itm~   ~override~ // white dragon scale
+              ~dwplat01.itm~ ~override~ // drow full plate +5
+              ~leat19.itm~   ~override~ // shadow dragon scale
+              ~misc5x.itm~   ~override~ // harper pin
+  WRITE_BYTE 0x29 (THIS BOR   BIT4) // adds shapeshifter flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~dwshld01.itm~ ~override~ // drow medium shield
+              ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~scrl5t.itm~   ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~   ~override~ // pierce shield
+              ~scrl9b.itm~   ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT4) // removes shapeshifter flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~misc5x.itm~ ~override~ // harper pin
+  WRITE_BYTE 0x29 (THIS BOR  BIT3) // adds totemic druid flag
+  BUT_ONLY
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~scrl5t.itm~   ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~   ~override~ // pierce shield
+              ~scrl9b.itm~   ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT3) // removes totemic druid flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // wong fei ioun stone
+              ~misc7t.itm~ ~override~ // moon dog figurine
+              ~potn56.itm~ ~override~ // rogue potion of power
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+              ~scrl9b.itm~ ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT2) // removes lathander flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // wong fei ioun stone
+              ~misc7t.itm~ ~override~ // moon dog figurine
+              ~potn56.itm~ ~override~ // rogue potion of power
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+              ~scrl9b.itm~ ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT1) // removes helm flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // wong fei ioun stone
+              ~misc7t.itm~ ~override~ // moon dog figurine
+              ~potn56.itm~ ~override~ // rogue potion of power
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+              ~scrl9b.itm~ ~override~ // summon fiend
+  WRITE_BYTE 0x29 (THIS BAND  `BIT0) // removes talos flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~ ~override~ // handmaiden's mace
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl8e.itm~ ~override~ // protection from the elements
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2b (THIS BAND  `BIT4) // remove swashbuckler flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~brac21.itm~ ~override~ // gauntlet of ex specialization
+              ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~ ~override~ // handmaiden's mace
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2b (THIS BAND  `BIT3) // remove bounty hunter flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~brac21.itm~ ~override~ // gauntlet of ex specialization
+              ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~ ~override~ // handmaiden's mace
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2b (THIS BAND  `BIT2) // remove assassin flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~blun14g.itm~  ~override~ // flail of ages +1, cold
+              ~blun14h.itm~  ~override~ // flail of ages +1, fire
+              ~blun14i.itm~  ~override~ // flail of ages +1, acid
+              ~dwblun01.itm~ ~override~ // drow flail +3
+              ~dwchan01.itm~ ~override~ // drow elven chain +3
+              ~dwchan02.itm~ ~override~ // drow adamantine chain +5
+              ~dwhalb01.itm~ ~override~ // drow halberd +3
+              ~dwplat01.itm~ ~override~ // drow full plate +5
+              ~dwsper01.itm~ ~override~ // drow lance +3
+              ~dwsw1h01.itm~ ~override~ // Drow Scimitar +3
+              ~dwsw1h02.itm~ ~override~ // drow long sword +3
+              ~misc4q.itm~   ~override~ // The Ogre's Sword
+              ~misc4u.itm~   ~override~ // Embarl's Dagger
+              ~misc9q.itm~   ~override~ // scimitar
+              ~npchan.itm~   ~override~ // corthala family armor
+              ~sendai.itm~   ~override~ // sendai's flail
+              ~sw1h20.itm~   ~override~ // scimitar
+              ~sw1h22.itm~   ~override~ // Scimitar +1
+              ~sw1h23.itm~   ~override~ // Scimitar +2, Rashad's Talon
+              ~sw1h30.itm~   ~override~ // belm +2
+              ~sw1h50.itm~   ~override~ // Shazzellim +1
+              ~sw1h52.itm~   ~override~ // Scimitar +3
+              ~sw1h56.itm~   ~override~ // Scimitar
+              ~sw2h15.itm~   ~override~ // silver sword
+  WRITE_BYTE 0x2b (THIS BOR BIT1) // adds beastmaster flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~scrl5t.itm~   ~override~ // protection from electricity (mage)
+              ~scrl8e.itm~   ~override~ // protection from the elements
+              ~scrl9a.itm~   ~override~ // pierce shield
+  WRITE_BYTE 0x2b (THIS BAND `BIT1) // removes beastmaster flag
+  BUT_ONLY
+
+COPY_EXISTING ~dwchan01.itm~ ~override~ // drow elven chain +3
+              ~dwchan02.itm~ ~override~ // drow adamantine chain +5
+              ~dwplat01.itm~ ~override~ // drow full plate +5
+              ~plat06.itm~   ~override~ // ankheg plate
+              ~plat18.itm~   ~override~ // red dragon scale
+              ~plat20.itm~   ~override~ // blue dragon plate
+  WRITE_BYTE 0x2b (THIS BOR BIT0) // adds stalker flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~scrl5t.itm~   ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~   ~override~ // pierce shield
+  WRITE_BYTE 0x2b (THIS BAND `BIT0) // removes stalker flag
+  BUT_ONLY
+
+COPY_EXISTING ~dwchan01.itm~ ~override~ // drow elven chain +3
+              ~dwchan02.itm~ ~override~ // drow adamantine chain +5
+              ~dwplat01.itm~ ~override~ // drow full plate +5
+              ~npchan.itm~   ~override~ // corthala family armor
+  WRITE_BYTE 0x2d (THIS BOR BIT7) // adds archer flag
+  BUT_ONLY
+
+COPY_EXISTING ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~scrl5t.itm~   ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~   ~override~ // pierce shield
+//              ~plat06.itm~   ~override~ // ankheg plate
+//              ~plat18.itm~   ~override~ // red dragon scale
+//              ~plat20.itm~   ~override~ // blue dragon plate
+  WRITE_BYTE 0x2d (THIS BAND `BIT7) // removes archer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~scrl3h.itm~ ~override~ // protection from evil
+  WRITE_BYTE 0x2d (THIS BOR BIT5) // adds transmuter flag
+  BUT_ONLY
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2d (THIS BAND `BIT5) // removes transmuter flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2d (THIS BAND `BIT4) // removes necromancer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2d (THIS BAND `BIT3) // removes invoker flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2d (THIS BAND `BIT2) // removes illusionist flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~dwchan01.itm~ ~override~ // drow chain
+              ~dwchan02.itm~ ~override~ // drow chain
+              ~dwplat01.itm~ ~override~ // drow plate
+              ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+              ~shld25.itm~   ~override~ // shield of harmony
+  WRITE_BYTE 0x2d (THIS BAND `BIT1) // removes enchanter flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2d (THIS BAND `BIT0) // removes diviner flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2f (THIS BAND `BIT7) // removes conjurer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~scrla1.itm~   ~override~ // wizard eye
+  WRITE_BYTE 0x2f (THIS BOR   BIT6) // adds abjurer flag
+  BUT_ONLY
+
+COPY_EXISTING ~helm34.itm~   ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~   ~override~ // handmaiden's mace
+              ~potn56.itm~   ~override~ // rogue potion of power
+  WRITE_BYTE 0x2f (THIS BAND `BIT6) // removes abjurer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~npsw04.itm~ ~override~ // Corthala Family Blade
+              ~scrl5t.itm~ ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2f (THIS BAND `BIT5) // removes undead hunter flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw04.itm~ ~override~ // Corthala Family Blade
+              ~scrl5t.itm~ ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~ ~override~ // pierce shield
+              ~ttpot.itm~  ~override~ // potion of extra healing
+  WRITE_BYTE 0x2f (THIS BAND `BIT4) // removes inquisitor flag
+  BUT_ONLY
+
+COPY_EXISTING ~dwxbow01.itm~ ~override~ // Drow Crossbow of Speed
+              ~wasling.itm~  ~override~ // Sling of Everard +5
+  WRITE_BYTE 0x2f (THIS BOR   BIT3) // adds cavalier flag
+  BUT_ONLY
+
+COPY_EXISTING ~npsw04.itm~ ~override~ // Corthala Family Blade
+              ~scrl5t.itm~ ~override~ // protection from electricity (mage)
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2f (THIS BAND `BIT3) // removes cavalier flag
+  BUT_ONLY
+
+COPY_EXISTING ~brac19.itm~   ~override~ // Gauntlets of Crushing
+              ~dart08.itm~   ~override~ // Crimson Dart +3
+              ~dwxbow01.itm~ ~override~ // Drow Crossbow of Speed
+              ~misc5x.itm~   ~override~ // harper pin
+              ~npbow.itm~    ~override~ // bow of arvoreen
+              ~wasling.itm~  ~override~ // Sling of Everard +5
+  WRITE_BYTE 0x2f (THIS BOR BIT2) // adds kensai flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~ ~override~ // handmaiden's mace
+              ~npchan.itm~ ~override~ // corthala family armor
+              ~npsw04.itm~ ~override~ // Corthala Family Blade
+              ~potn56.itm~ ~override~ // rogue potion of power
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2f (THIS BAND `BIT2) // removes kensai flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~amul27.itm~   ~override~ // Amulet of Seldarine
+              ~amul28.itm~   ~override~ // Amulet of the Master Harper
+              ~brac19.itm~   ~override~ // Gauntlets of Crushing
+              ~dwclck01.itm~ ~override~ // Drow Piwafwi Cloak
+              ~misc5x.itm~   ~override~ // harper pin
+              ~misc72.itm~   ~override~ // claw of kazgaroth
+              ~misc73.itm~   ~override~ // horn of kazgaroth
+              ~misc9w.itm~   ~override~ // Drow Piwafwi Cloak
+              ~regisamu.itm~ ~override~ // Ruby Pendant of Beguiling
+              ~ring44.itm~   ~override~ // heartwood ring
+  WRITE_BYTE 0x2f (THIS BOR BIT1) // add wizslayer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~clck09.itm~  ~override~ // mage robe of cold resistance
+              ~clck10.itm~  ~override~ // mage robe of fire resistance
+              ~clck11.itm~  ~override~ // mage robe of electric resistance
+              ~clck12.itm~  ~override~ // knave's robe
+              ~clck13.itm~  ~override~ // traveller's robe
+              ~clck14.itm~  ~override~ // adventurer's robe
+              ~clck15.itm~  ~override~ // robe of the good archmagi
+              ~clck16.itm~  ~override~ // robe of the neutral archmagi
+              ~clck17.itm~  ~override~ // robe of the evil archmagi
+              ~clck18.itm~  ~override~ // knave's robe
+              ~clck19.itm~  ~override~ // robe of the good archmagi
+              ~clck29.itm~  ~override~ // robe of the apprenti
+              ~hgwra02.itm~ ~override~ // robe of the good archmagi
+              ~hlolth.itm~  ~override~ // handmaiden's mace
+              ~ipotn08.itm~ ~override~ // healing potion
+              ~npsw04.itm~  ~override~ // Corthala Family Blade
+              ~potn08.itm~  ~override~ // healing potion
+              ~potn17.itm~  ~override~ // elixir of health
+              ~potn20.itm~  ~override~ // antidote
+              ~potn25.itm~  ~override~ // healing potion (cursed)
+              ~potn32.itm~  ~override~ // antidote (cursed)
+              ~potn52.itm~  ~override~ // extra healing potion
+              ~potn55.itm~  ~override~ // superior healing potion
+              ~ring37.itm~  ~override~ // storm ring (nonmagical)
+              ~ring38.itm~  ~override~ // dawn ring (nonmagical)
+              ~scrl1w.itm~  ~override~ // fireshield (blue)
+              ~scrl2b.itm~  ~override~ // stoneskin
+              ~scrl5t.itm~  ~override~ // protection from electricity
+              ~scrl9a.itm~  ~override~ // pierce shield
+              ~ttpot.itm~   ~override~ // extra healing potion
+              ~wa2robe.itm~ ~override~ // robe of vecna
+  WRITE_BYTE 0x2f (THIS BAND  `BIT1) // removes wizardslayer flag
+  BUT_ONLY IF_EXISTS
+
+COPY_EXISTING ~misc5x.itm~   ~override~ // harper pin
+  WRITE_BYTE 0x2f (THIS BOR BIT0) // adds berserker flag
+  BUT_ONLY
+
+COPY_EXISTING ~helm34.itm~ ~override~ // Wong Fei's Ioun Stone
+              ~hlolth.itm~ ~override~ // handmaiden's mace
+              ~npsw04.itm~ ~override~ // Corthala Family Blade
+              ~potn56.itm~ ~override~ // rogue potion of power
+              ~scrl1w.itm~ ~override~ // fireshield (blue)
+              ~scrl2b.itm~ ~override~ // stoneskin
+              ~scrl5t.itm~ ~override~ // protection from electricity
+              ~scrl7u.itm~ ~override~ // contingency
+              ~scrl9a.itm~ ~override~ // pierce shield
+  WRITE_BYTE 0x2f (THIS BAND `BIT0) // removes berserker flag
+  BUT_ONLY IF_EXISTS

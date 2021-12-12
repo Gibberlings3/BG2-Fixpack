@@ -1,0 +1,72 @@
+/////                                                  \\\\\
+///// player AI script fixes                           \\\\\
+/////                                                  \\\\\
+
+// please don't cast chaotic commands on enemies
+COPY ~scripts/cleric1.bs~ ~scripts/cleric1.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~HaveSpell(CLERIC_CHAOTIC_COMMANDS)~ ~False()~
+  END
+  BUT_ONLY
+
+// targets for the misc heals are poorly defined, can be mistargeted
+COPY ~scripts/cleric2.bs~ ~scripts/cleric2.bs~
+     ~scripts/cleric3.bs~ ~scripts/cleric3.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(HPPercentLT(LastSeenBy(Myself),10)\)~ ~See([PC]) \1~
+    REPLACE_TEXTUALLY ~\(HPPercentLT(Myself,90)[%TAB% %LNL%%MNL%%WNL%]+HaveSpell(CLERIC_CURE_LIGHT_WOUNDS)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100[%TAB% %LNL%%MNL%%WNL%]+\)Spell(MostDamagedOf(Myself),CLERIC_CURE_LIGHT_WOUNDS)~
+    ~\1 Spell(Myself,CLERIC_CURE_LIGHT_WOUNDS)~
+    REPLACE_TEXTUALLY ~MostDamagedOf(Myself)~ ~MostDamagedOf()~
+  END
+  BUT_ONLY
+
+// check to see if outside is broken
+COPY ~scripts/cleric3.bs~ ~scripts/cleric3.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~AreaCheck("UTDOOR)")~ ~AreaType(OUTDOOR)~
+  END
+  BUT_ONLY
+
+// As a single-class fighter the PC should not be able to Hide in Shadows
+COPY_EXISTING   ~scripts/fighter2.bs~ ~scripts~ // ranger ranged
+                ~scripts/thief1.bs~   ~scripts~ // thief aggressive
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!StateCheck(Myself,STATE_INVISIBLE)~ ~!StateCheck(Myself,STATE_INVISIBLE) OR(3) Class(Myself,THIEF_ALL) Class(Myself,RANGER_ALL) Class(Myself,MONK)~
+  END
+  BUT_ONLY
+
+// check if target dead broken
+COPY ~scripts/fighter4.bs~ ~scripts/fighter4.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!Dead("astAttackerOf(LastSeenBy(Myself)))")~ ~!StateCheck(LastAttackerOf(LastSeenBy(Myself)),STATE_REALLY_DEAD)~
+  END
+  BUT_ONLY
+
+// please don't cast ray of enfeeblement on yourself
+COPY ~scripts/mage3.bs~ ~scripts/mage3.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Spell(Myself,WIZARD_RAY_OF_ENFEEBLEMENT)~ ~Spell(LastSeenBy(Myself),WIZARD_RAY_OF_ENFEEBLEMENT)~
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~scripts/thief2.bs~ ~scripts~ // thief defensive
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!StateCheck(Myself,STATE_INVISIBLE)~ ~!StateCheck(Myself,STATE_INVISIBLE) OR(3) Class(Myself,THIEF_ALL) Class(Myself,RANGER_ALL) Class(Myself,MONK)~
+    REPLACE_TEXTUALLY ~HPPercentLT(Myself,50)~ ~HPPercentLT(Myself,50) !StateCheck(Myself,STATE_INVISIBLE) OR(3) Class(Myself,THIEF_ALL) Class(Myself,RANGER_ALL) Class(Myself,MONK)~
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~scripts/thief3.bs~ ~scripts~ // thief adventurer
+              ~scripts/thief4.bs~ ~scripts~ // thief scout
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!ModalState(DETECTTRAPS)~ ~!ModalState(DETECTTRAPS) OR(2) Class(Myself,THIEF_ALL) Class(Myself,MONK)~
+  END
+  BUT_ONLY
+
+// thief scout lacks class checks in hide() block, can also end up attacking friendlies
+COPY ~scripts/thief4.bs~ ~scripts/thief4.bs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Delay(3)~ ~Delay(3) OR(3) Class(Myself,THIEF_ALL)  Class(Myself,RANGER_ALL) Class(Myself,MONK)~
+    REPLACE_TEXTUALLY ~AttackReevaluate(LastSeenBy(Myself),30)~ ~AttackReevaluate(NearestEnemyOf(Myself),30)~
+  END
+  BUT_ONLY

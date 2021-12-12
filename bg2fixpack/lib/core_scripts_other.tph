@@ -1,0 +1,1819 @@
+/////                                                  \\\\\
+///// other scripting fixes                            \\\\\
+/////                                                  \\\\\
+
+// Romance interests can comment on PhaereInnuendo in chapter 6 if they were not in the party during chapter 5 (the bigg) (see aerie.bcs, aeriej.dlg, jaheira.bcs, jaheiraj.dlg viconia.bcs, viconij.dlg)
+COPY_EXISTING ~aerie.bcs~   ~override~
+              ~jaheira.bcs~ ~override~
+              ~viconia.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(!Range("Phaere",6)\)~ ~\1 Global("Chapter","GLOBAL",5)~
+  END
+  BUT_ONLY
+
+// stop (kuo-toan) archers and air elementals from charging across areas to engage party
+EXTEND_TOP ~airele01.bcs~ ~bg2fixpack/baf/gparcher.baf~
+EXTEND_TOP ~gparcher.bcs~ ~bg2fixpack/baf/gparcher.baf~
+
+// norh rep trap uses same name for timer and variable; see fixes to knight.dlg
+COPY_EXISTING ~amntrp01.bcs~ ~override~
+              ~amntrp02.bcs~ ~override~
+              ~amntrp03.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!GlobalTimerNotExpired("MostNobleOrder","GLOBAL")~ ~!GlobalTimerNotExpired("CDMostNobleOrder","GLOBAL")~
+  END
+  BUT_ONLY
+
+// Puts the variable setting in front of the dialogue triggering so that Anomen's complaint about delaying Garren kid's quest gets triggered
+// also add triggers to stop infinite whining if anomen is !good
+COPY_EXISTING ~anomen.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(StartDialogu?e?NoSet(Player1)[%TAB% %LNL%%MNL%%WNL%]+\)\(SetGlobal("ddAnomenWhine","LOCALS",1)\)~
+      ~\2 \1~
+    REPLACE_TEXTUALLY ~Global("ddAnomenWhine","LOCALS",0)~ ~Global("ddAnomenWhine","LOCALS",0) !Dead("garkid01") !Dead("garkid02")~
+    // anomen quest messenger can spawn in random encounter areas and during combat
+    // another double partyrested() trigger; see also banomen.dlg
+    REPLACE_TEXTUALLY ~\(!Exists("Terl")\)~ ~\1 CombatCounter(0) !AreaCheck("AR0041") !AreaCheck("AR0042") !AreaCheck("AR0043") !AreaCheck("AR0044") !AreaCheck("AR0045") !AreaCheck("AR0046") !AreaCheck("AR2601")~
+    REPLACE_TEXTUALLY ~\(Global("BAnomen4","LOCALS",0)[ %TAB%%%LNL%%MNL%%WNL%]+THEN[ %TAB%%%LNL%%MNL%%WNL%]+RESPONSE #100[ %TAB%%%LNL%%MNL%%WNL%]+\)~ ~\1SetGlobal("BAnomen4","LOCALS",1)~
+  END
+  BUT_ONLY
+
+// flydian shouldn't hang around asking folks to save trademeet after it's already been saved
+EXTEND_BOTTOM ~ar0020.bcs~ ~bg2fixpack/baf/ar0020.baf~
+
+// UE not appearing bug
+COPY_EXISTING ~ar0202.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("UnseeingEye","GLOBAL",1)~ ~Global("UnseeingEye","GLOBAL",1) Global("CDSpawnTheEyeOnlyOnce","GLOBAL",0)~
+    REPLACE_TEXTUALLY ~CreateCreature("BHEYE",\[2429\.1914\],0)~ ~CreateCreature("BHEYE",[2429.1914],0) SetGlobal("CDSpawnTheEyeOnlyOnce","GLOBAL",1)~
+  END
+
+// instead of a wait, change to timer for new block
+COPY_EXISTING ~ar0205.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~CreateCreature("BHEYE",\[2528\.1897\],12)~ ~~
+    REPLACE_TEXTUALLY ~Wait(~ ~SetGlobalTimer("CDUnseeingEyeAppears","AR0205",~
+    APPEND_FILE ~bg2fixpack/baf/ar0205.baf~
+  END
+
+// fixing transition calls
+COPY_EXISTING ~ar0300.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(TriggerActivation("Tran0329\)\(",[A-Z]+)\)~ ~\1a\2 \1b\2~
+    REPLACE_TEXTUALLY ~Tran0303a~ ~Tran0303~
+    PATCH_IF tob_game THEN BEGIN // RemoveMapNote is ToB-only
+      REPLACE_TEXTUALLY ~\(AddMapNote(\[3078\.2434\],4636)\)~ ~RemoveMapNote([3078.2434],48359) \1~ // remove old map note instead of laying new one one top of it
+    END
+  END
+  BUT_ONLY
+
+// Arledrian goes hostile but stands there due to area script bug
+COPY_EXISTING ~ar0312.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobal("ArledHostile","GLOBAL",1)~ ~SetGlobal("ArledHostile","AR0312",1)~
+  END
+  BUT_ONLY
+
+// allows resting in thieves guild stronghold
+EXTEND_BOTTOM ~ar0321.bcs~ ~bg2fixpack/baf/ar032x.baf~
+EXTEND_BOTTOM ~ar0322.bcs~ ~bg2fixpack/baf/ar032x.baf~
+EXTEND_BOTTOM ~ar0323.bcs~ ~bg2fixpack/baf/ar032x.baf~
+EXTEND_BOTTOM ~ar0324.bcs~ ~bg2fixpack/baf/ar032x.baf~
+
+// multiple stringheads for thieves return fix; not paying thieves guild quota fix; see also baldur.bcs, joster.bcs, shthlt01.dlg
+COPY_EXISTING ~ar0322.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobal("NotifyThiefHead","GLOBAL",0)~ ~~
+    REPLACE_TEXTUALLY ~CreateCreature("SHTH05",\[691\.292\],2)~
+      ~SetGlobal("CDJoster","AR0322",1) CreateCreature("SHTH05",[691.292],2)~
+  END
+  BUT_ONLY
+
+// kill block from wrong area
+COPY_EXISTING ~ar0327.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN 
+    REPLACE_TEXTUALLY ~Global("PalernSpawn","AR0328",0)~ ~False()~
+  END
+  BUT_ONLY
+
+// welther can spawn infinitely, Shagbag's always-true block disables half the area script
+COPY_EXISTING ~ar0400.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("ElgeaGone","GLOBAL",0)~
+                      ~Global("ElgeaGone","GLOBAL",0)
+                       Global("ElgeaFree","GLOBAL",0)~
+    REPLACE_TEXTUALLY ~\(GlobalTimerExpired("FindShagbag","GLOBAL")[ %TAB%%LNL%%MNL%%WNL%]+\)\(THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+\)\(ActionOverride("korshag",DestroySelf())\)~
+      ~\1 Global("CDShagbagHogsScript","AR0400",0) \2 SetGlobal("CDShagbagHogsScript","AR0400",1) \3~
+  END
+
+// stops Yoshimo's block from interrupting everything else in the area
+COPY_EXISTING ~ar0406.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("WorkingForBodhi","GLOBAL",1)~ ~Global("WorkingForBodhi","GLOBAL",1) Exists("Yoshimo") InMyArea("Yoshimo")~
+    // prevent dupe escorts st the CC
+    // gorf can get lost walking over for mazzy fight; spawn him closer
+    REPLACE_TEXTUALLY ~\(CreateCreature("\)\(escort[123]\)~ ~ActionOverride("\2",DestroySelf()) \1\2~
+    REPLACE_TEXTUALLY ~CreateCreatureOffScreen("gorf",8)~   ~CreateCreature("gorf",[1125.1980],10)~
+
+  END
+  BUT_ONLY
+
+// Teos/Planar Sphere fix
+EXTEND_TOP ~ar0411.bcs~ ~bg2fixpack/baf/ar0411.baf~
+
+// prevent paac from sending knights home offscreen; see also obssol01.bcs
+COPY_EXISTING ~ar0411.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("SpawnPaac","GLOBAL",1)~ ~False()~ // moving this block to a range check in obssol01
+  END
+  BUT_ONLY
+
+// Tyrianna fix, part 1 (second is plgirl01.cre patch)
+COPY_EXISTING ~ar0415.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Wait(5)[ %TAB%%LNL%%MNL%%WNL%]+StartCutSceneMode()~ ~StartCutSceneMode() Wait(3)~ // move wait after cutscene and shorten it
+    REPLACE_TEXTUALLY ~Wait(2)~ ~StartCutSceneMode() Wait(2)~ // wrap wait/spawns in cutscene mode
+    REPLACE_TEXTUALLY ~\(CreateCreature("HURGIS[FR]",\[528\.353\],7)\)~ ~\1 EndCutSceneMode()~ // wrap wait/spawns in cutscene mode
+  END
+  BUT_ONLY
+
+// saerk's doors should lock and unlock together
+COPY_EXISTING ~ar0500.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Unlock("DOOR0504")~ ~Unlock("DOOR0504") Unlock("DOOR0505b")~
+    REPLACE_TEXTUALLY ~\bLock("DOOR0504")~ ~CloseDoor("DOOR0504") CloseDoor("DOOR0505b") Lock("DOOR0504") Lock("DOOR0505b")~
+    // if player starts limited wish quest before visiting bridge district, area not revealed
+    REPLACE_TEXTUALLY ~\(CreateCreature("LOUT",\[1839\.2871\],8)\)~ ~\1 Continue()~
+    // more prophets for the Unseeing Eye; see also ar0700.bcs, csgaal.dlg, prophet.bcs
+    REPLACE_TEXTUALLY ~\(Global("GaalSpoke","GLOBAL",1)\)~ ~\1 !Dead("UnseeingEye")~ // don't spawn if eye already dead
+  END
+  BUT_ONLY
+
+// area objects can't have LOCALS variables
+// bard playhouse issues--transition can be left open
+COPY_EXISTING ~ar0522.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"SamuelAttacks","LOCALS"~ ~"SamuelAttacks","AR0522"~
+    REPLACE_TEXTUALLY ~GlobalTimerExpired("MeetHiggin6a","GLOBAL")~
+                      ~GlobalTimerExpired("MeetHiggin6a","GLOBAL") Global("BardPlot1","GLOBAL",40)~
+  END
+  BUT_ONLY
+
+// bard playhouse issues--jenna not going to proper spot, meck sometimes not appearing upon completion
+COPY_EXISTING ~ar0523.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ActionOverride("bdact03",MoveToPoint(\[1301\.453\]))~
+                      ~ActionOverride("bdact03",MoveToPoint([1301.181]))~
+    REPLACE_TEXTUALLY ~OR(2)[ %TAB%%LNL%%MNL%%WNL%]+\(Global("BardPlot1","GLOBAL",30)\)~ ~OR(3) \1 Global("BardPlot1","GLOBAL",25)~
+  END
+  BUT_ONLY
+
+// can ask dryads for flask even if you've already stolen it from them; add journal entry
+EXTEND_BOTTOM ~ar0602.bcs~ ~bg2fixpack/baf/ar0602.baf~
+
+// if kalah kills quayle in mustard-slime form, also set quayle's normal DV to dead; see BAERIE.dlg 120
+EXTEND_BOTTOM ~ar0607.bcs~ ~bg2fixpack/baf/quaylem.baf~
+
+// Waukeen's Promenade script loop fix (Nythrun)
+COPY_EXISTING ~ar0700.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN 
+    REPLACE_TEXTUALLY ~\([ %TAB%]GlobalTimerExpired("Bystander","GLOBAL")\)~ ~\1 OR(2) Exists("bystand1") Exists("bystand2")~
+    // more prophets for the Unseeing Eye; see also ar0500.bcs, csgaal.dlg, prophet.bcs
+    REPLACE_TEXTUALLY ~\(Global("GaalSpoke","GLOBAL",1)\)~ ~\1 !Dead("UnseeingEye")~ // don't spawn if eye already dead
+    // if player escapes CI solo and/or with Imoen, post-cutscene minsc/jaheira/yoshimo can fire days, weeks, years later
+    REPLACE_TEXTUALLY ~\(Global("PostCutSpeak","AR0700",0)\)~ ~Global("GaelanMove","GLOBAL",0) \1~ // gaelanmove is set when you meet gaelan when you enter the slums
+  END
+  BUT_ONLY
+
+// ar0701 shouldn't be able to trigger in ar0205, but it does
+COPY_EXISTING ~ar0701.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~PartyHasItem("MISC5Z")~ 
+      ~PartyHasItem("MISC5Z") InMyArea(Player1)~
+  END
+  BUT_ONLY
+
+// death of mekrath not clearing journal entries; see mekrat.dlg
+EXTEND_BOTTOM ~ar0705.bcs~ ~bg2fixpack/baf/ar0705.baf~
+
+// random Garrick stuff can prevent Bodhi's appearance
+COPY_EXISTING ~ar0800.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("GarrickSpeak","GLOBAL",1)~
+                      ~False()~
+    APPEND_FILE ~bg2fixpack/baf/ar0800.baf~
+    // mourners never leave, often have nothing to say; see also mourner3.cre, mourner3.dlg, mourner4.dlg
+    APPEND_FILE ~bg2fixpack/baf/mourner3.baf~
+  END
+
+// bodhi broken if saved during her wait()-laden spawn; unstakable vampire fix
+// Unlock the main door to Bodhi's lair if the player sides with her in Chapter 2 (aVENGER)
+COPY_EXISTING ~ar0801.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobal("LassalVampires","GLOBAL",3)~ ~~
+    REPLACE_TEXTUALLY ~CreateCreatureDoor("bodhi2",\[480\.1338\],14)~
+      ~SetGlobal("LassalVampires","GLOBAL",3) CreateCreatureDoor("bodhi2",[480.1338],14)~
+    REPLACE_TEXTUALLY EXACT_MATCH ~SetGlobal("SpawnBodhiFriends","AR0801",1)~ ~SetGlobal("SpawnBodhiFriends","AR0801",1) Unlock("DOOR03")~
+    APPEND_FILE ~bg2fixpack/baf/ar0801.baf~
+  END
+  BUT_ONLY
+
+// allow cleric-rangers to acquire temple stronghold; see bharval.dlg, borinall.dlg, scsain.dlg, travin.dlg
+COPY_EXISTING ~ar0900.bcs~ ~override~
+              ~ar0902.bcs~ ~override~
+              ~arval.bcs~  ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(5)\([%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_CLERIC)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC_MAGE)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,CLERIC_THIEF)[%TAB% %LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_MAGE_CLERIC)[%TAB% %LNL%%MNL%%WNL%]+\)\(Alignment(Player1,MASK_GOOD)\)~
+                      ~OR(6) \1 Class(Player1,CLERIC_RANGER) \2~
+  END
+  BUT_ONLY
+
+// can still rest in lathander temple after stripped due to var scope issue
+// telwyn HoG exploit fix, pt 2/2 (see sctelwyn.d)
+COPY_EXISTING ~ar0901.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"AR0902"~ ~"AR0901"~
+    APPEND_FILE ~bg2fixpack/baf/ar0901.baf~
+  END
+  BUT_ONLY
+
+// allows resting in paladin stronghold
+EXTEND_BOTTOM ~ar0903.bcs~ ~bg2fixpack/baf/ar0903.baf~
+
+// Temple of Talos script can loop interminably if <CHARNAME> murders too wantonly (Nythrun and Wisp)
+COPY_EXISTING ~ar0904.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~[ %TAB%]Dead("talmiss")~  ~  Dead("talmiss")  Exists("talmiss2") !Dead("talmiss2")~
+    REPLACE_TEXTUALLY ~[ %TAB%]Dead("talmiss2")~ ~  Dead("talmiss2") Exists("talmiss")  !Dead("talmiss")~
+  END
+BUT_ONLY
+UNLESS ~16465 0 1 0 0 "talmiss[2]?" "" OB~
+
+// dual-classing to a non-neutral cleric during the Unseeing Eye quest breaks the quest; see also ar0902.bcs, ar0904.bcs, bhoisig.dlg
+EXTEND_BOTTOM ~ar0900.bcs~ ~bg2fixpack/baf/ar0900.baf~
+EXTEND_BOTTOM ~ar0901.bcs~ ~bg2fixpack/baf/ar0901a.baf~
+
+// dual-classing to a non-neutral cleric during the Unseeing Eye quest breaks the quest; see also ar0900.bcs, ar0901.bcs, bhoisig.dlg
+COPY_EXISTING ~ar0902.bcs~ ~override~
+              ~ar0904.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Alignment(Player1,MASK_\(GOOD\|EVIL\))\)~ ~\1 !Global("cd_beholder_dc_shenanigans","GLOBAL",1)~
+  END
+
+// telwyn should not spawn for cleric-rangers; see also bhoisig.dlg, bhnalla.dlg, borinall.dlg, travin.dlg; only ar0901.bcs actually causes problems, but may as well standardize all these triggers while we're here
+COPY_EXISTING ~ar0900.bcs~ ~override~ // main temple district script
+              ~ar0901.bcs~ ~override~ // helm temple
+              ~ar0904.bcs~ ~override~ // talos temple
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(5)[ %TAB%%LNL%%MNL%%WNL%]+\(Class(Player1,CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,CLERIC_MAGE)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,CLERIC_THIEF)[ %TAB%%LNL%%MNL%%WNL%]+Class(Player1,FIGHTER_MAGE_CLERIC)\)~
+      ~OR(6) \1 Class(Player1,CLERIC_RANGER)~
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "ar0901" = 0) BEGIN // one more just for ar0901.bcs
+      REPLACE_TEXTUALLY ~\(!Class(Player1,CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,FIGHTER_CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,CLERIC_MAGE)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,CLERIC_THIEF)[ %TAB%%LNL%%MNL%%WNL%]+!Class(Player1,FIGHTER_MAGE_CLERIC)[ %TAB%%LNL%%MNL%%WNL%]+\)~
+        ~\1 !Class(Player1,CLERIC_RANGER)~
+    END
+  END
+  BUT_ONLY
+
+// terrece should only spawn if you speak to corneil, not just enter his area
+COPY_EXISTING ~ar1000.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("TerreceSpawn","GLOBAL",1)~
+                      ~Global("TerreceSpawn","GLOBAL",1) Global("TalkedToCorneil","GLOBAL",1)~
+  END
+  BUT_ONLY
+
+// ar1002 should check tolgerias' alternate DV; Tolgerias only vanishes once (proposed by Jastey, coded by DavidW)
+// Ketlaar Argrim and his bodyguards go away from the Council building if he's imprisoned (see ar1002.are)
+COPY_EXISTING ~ar1002.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Dead("TOLGER")~
+                      ~OR(2) Dead("TOLGER") Dead("TOLGER2") Exists("tolger")~
+    APPEND_FILE ~bg2fixpack/baf/ar1002.baf~
+  END
+  BUT_ONLY
+
+// no escape from TR
+EXTEND_BOTTOM ~ar1008.bcs~ ~bg2fixpack/baf/ar1008.baf~
+
+// journal entry mentions note AND journal; should wait until party has both
+COPY_EXISTING ~ar1102.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(2)~ ~~
+  END
+  BUT_ONLY
+
+// paladin-firkraag journal entry not being set due to bad variable scope
+COPY_EXISTING ~ar1202.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"AR1200"~ ~"AR1202"~     
+    // samia's party can spawn even if she's dead; see also akae.dlg
+    REPLACE_TEXTUALLY ~\(Global("SpawnSamiaFriends","AR1202",0)[ %TAB%%LNL%%MNL%%WNL%]+\)!Dead("Samia")~ ~\1~
+  END
+  BUT_ONLY
+
+// monster invincible items updated, need to update script to same (see trolgi01.cre)
+COPY_EXISTING ~ar1300.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ActionOverride("trolgi0\([12]\)",DestroyItem("MINHP1"))~
+                      ~ActionOverride("trolgi0\1",DestroyItem("MINHP1")) ActionOverride("trolgi0\1",DestroyItem("MONHP1"))~
+  END
+  BUT_ONLY
+
+// can't lure dead umber hulks; assigned kpumb01 DVs to make this work (see kpumb01.cre)
+COPY_EXISTING ~ar1301.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("UmberHungry","AR1301",0)~ ~Global("UmberHungry","AR1301",0) NumDeadLT("KPUMB01",5)~
+  END
+  BUT_ONLY
+
+// fixes Glacias charm issue; see also kpglai.dlg
+COPY_EXISTING ~ar1303.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~StateCheck("kpglai01",STATE_CHARMED)~ ~!Allegiance("kpglai01",ENEMY)~
+    REPLACE_TEXTUALLY ~[^,]ApplySpell("kpglai01",WIZARD_TRUE_DISPEL_MAGIC)~
+                      ~ClearAllActions() ActionOverride("kpglai01",ApplySpell("kpglai01",FORCE_DISPEL_MAGIC))~
+    REPLACE_TEXTUALLY ~[^,]ChangeEnemyAlly("kpglai01",NEUTRAL)~
+                      ~ActionOverride("kpglai01",ChangeEnemyAlly(Myself,NEUTRAL))~
+  END
+
+// spirit doesn't escape area due to bad DV call
+COPY_EXISTING ~ar1400.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ActionOverride("rspirit1"~ ~ActionOverride("rspirit01"~
+  END
+  BUT_ONLY
+
+// enables container in shade lord dungeon; see shaava01.dlg
+COPY_EXISTING ~ar1401.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY ~SetGlobal("Deactivate","AR1401",1)~
+    ~SetGlobal("Deactivate","AR1401",1)
+     ContainerEnable("CONTAINER2",FALSE)~
+  END
+  BUT_ONLY
+
+// more shadow fiends don't spawn due to DV typo
+COPY_EXISTING ~ar1404.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"shdafi01"~ ~"shadfi01"~
+  END
+  BUT_ONLY
+
+// The Spellhold Asylum door should be unlocked and opened once (aVENGER)
+COPY_EXISTING ~ar1500.bcs~ ~override~
+DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY EXACT_MATCH ~GlobalGT("AsylumPlot","GLOBAL",55)~ ~GlobalGT("AsylumPlot","GLOBAL",55) Global("RR#Door1501","AR1500",0)~
+  REPLACE_TEXTUALLY EXACT_MATCH ~Unlock("Door1501")~ ~SetGlobal("RR#Door1501","AR1500",1) Unlock("Door1501")~
+END
+BUT_ONLY
+
+// asylum script bugs
+COPY_EXISTING ~ar1515.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("ppattackedJon","GLOBAL",1)~
+                      ~Global("ppattackedJon","GLOBAL",1)
+                       Global("WackoArmy","GLOBAL",0)~
+    REPLACE_TEXTUALLY ~Global("PPdeshSend","GLOBAL",0)~
+                      ~OR(2)
+                         Global("PPdeshSend","GLOBAL",0)
+                         Global("PirateRefused","GLOBAL",1)~
+  END
+  UNLESS ~PirateRefused~
+  
+// killing lonk and going downstairs can possibly break sequence here
+EXTEND_BOTTOM ~ar1515.bcs~ ~bg2fixpack/baf/ar1515.baf~
+
+// Brynnlaw initial vamp fight should check for non-existence not dead (revised by Ardanis)
+// saemon brynnlaw -> sahuagin city sequence errors (8 changes)
+// see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
+// add extra trigger so this won't fire twice
+COPY_EXISTING ~ar1600.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY ~Dead("ppvalen")[ %TAB%%LNL%%MNL%%WNL]+Dead("ppparis")[ %TAB%%LNL%%MNL%%WNL]+Dead("ppdel")~
+    ~Global("ThiefGroup","GLOBAL",1) !Exists("ppvalen") !Exists("ppparis") !Exists("ppdel")~ // only trigger if the party has sided with the Shadow Thieves
+    REPLACE_TEXTUALLY ~Dead("ppright")~  ~GlobalLT("AsylumPlot","GLOBAL",78) Dead("ppright")~ // saemon
+  END
+  BUT_ONLY
+
+// multiple rerdes due to bad var scope
+COPY_EXISTING ~ar1613.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"SpawnCaptain","AR1613"~ ~"SpawnCaptain","GLOBAL"~
+  END
+  BUT_ONLY
+
+// Jenia will wait until PC officially hero of trademmet
+COPY_EXISTING ~ar2000.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY ~Global("JeniaSpawn","AR2000",0)~
+    ~Global("JeniaSpawn","AR2000",0)
+     Global("loganjob2","GLOBAL",2)~
+  END
+  BUT_ONLY
+
+// militia wizard breaking up fight
+COPY_EXISTING ~ar2010.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(CreateCreature("trfued11",\[252\.725\],12)\)~ ~\1 SetGlobalTimer("CDtrfued11","AR2010",6)~
+    APPEND_FILE ~bg2fixpack/baf/ar2010.baf~
+  END
+  BUT_ONLY
+
+// aerie's banter meant for player1 as it mentions missing soul
+COPY_EXISTING ~ar2100.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("AerieInUnderdark","AR2100",0)\)~ ~\1 IsValidForPartyDialogue(Player1)~
+    REPLACE_TEXTUALLY ~ActionOverride("Aerie",StartDialog\(ue\)?NoSet(\[PC\]))~ ~ActionOverride("Aerie",StartDialogueNoSet(Player1))~
+  END
+  BUT_ONLY
+
+// deirex killed during cutscene fix 1/2; see jarlich.cre
+EXTEND_BOTTOM ~ar2207.bcs~ ~bg2fixpack/baf/ar2207.baf~
+
+// prevent dupe CoC items; see also sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+EXTEND_BOTTOM ~ar2300.bcs~   ~bg2fixpack/baf/ar2300.baf~
+
+// alignment change if evil path in hell trials; other fixes in teardoor.bcs and spin747.spl, spin749-51.spl, spin753.spl, apin755.spl
+EXTEND_BOTTOM ~ar2900.bcs~ ~bg2fixpack/baf/ar2900.baf~
+
+// script changes to ensure paladins/rangers fall in Hell tests; also closing selfish exploits
+EXTEND_BOTTOM ~ar2901.bcs~ ~bg2fixpack/baf/ar2901.baf~
+EXTEND_BOTTOM ~ar2902.bcs~ ~bg2fixpack/baf/ar2902.baf~
+EXTEND_BOTTOM ~ar2903.bcs~ ~bg2fixpack/baf/ar2903.baf~
+COPY_EXISTING ~ar2904.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("PaladinGone","AR2904"~ ~Global("AbyssPaladinGone","GLOBAL"~ // brings fall block in line with others
+    REPLACE_TEXTUALLY ~Global("RangerGone","AR2904"~  ~Global("AbyssRangerGone","GLOBAL"~
+    REPLACE_TEXTUALLY ~Class(Player1,RANGER_ALL)~  ~Class(Player1,RANGER_ALL) !Class(Player1,CLERIC_RANGER)~
+    REPLACE_TEXTUALLY ~\(OpenState("DOOR03",TRUE)\)~ ~\1 Global("OpenedDoor1","AR2904",1)~ // forces the penalties/bonuses to apply sequentially
+    REPLACE_TEXTUALLY ~\(OpenState("DOOR04",TRUE)\)~ ~\1 Global("OpenedDoor2","AR2904",1)~
+    REPLACE_TEXTUALLY ~\(OpenState("DOOR05",TRUE)\)~ ~\1 Global("OpenedDoor3","AR2904",1)~
+    REPLACE_TEXTUALLY ~\(OpenState("DOOR06",TRUE)\)~ ~\1 Global("OpenedDoor4","AR2904",1)~
+  END
+  BUT_ONLY
+EXTEND_BOTTOM ~ar2905.bcs~ ~bg2fixpack/baf/ar2905.baf~
+
+// if player already has tear, hell demon should go away instead of offering the cloak
+COPY_EXISTING ~ar2901.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\([ %TAB%]Global("Player1Fear","GLOBAL",1)\)~ ~OR(2) Global("HellFearTear","GLOBAL",1) \1~
+  END
+  BUT_ONLY
+
+// orphan-paladin quest in graveyard can be interrupted by actor-active flags; see also ar0800.are
+EXTEND_BOTTOM ~arenthis.bcs~ ~bg2fixpack/baf/kamir.baf~
+EXTEND_BOTTOM ~kamir.bcs~    ~bg2fixpack/baf/kamir.baf~
+EXTEND_BOTTOM ~risa.bcs~     ~bg2fixpack/baf/kamir.baf~
+
+// prevent haz from dying from dead grimwarders; see also arnfgt06.dlg
+COPY_EXISTING ~arnfgt06.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("GrimwarderAttack","AR0801",1)\)~ ~\1 !NumDead("bodfgt01",2)~
+    REPLACE_TEXTUALLY ~Range(LastSeenBy(Myself),6)~ ~Range([PC],12)~ // increase range so that he always gets in his first dialogue
+  END
+  BUT_ONLY
+
+// Viccy can romance half-orcs; multi-brus fixes
+// drow item exploits closed
+// not paying thieves guild quota fix; see also ar0322.bcs, joster.bcs, shthlt01.dlg
+COPY_EXISTING ~baldur.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Race(Player1,0)~ ~Race(Player1,HALFORC)~
+    REPLACE_TEXTUALLY ~Global("SpawnBrus","GLOBAL",1)~ 
+      ~Global("SpawnBrus","GLOBAL",1) Global("CHAPTER","GLOBAL",2) !AreaCheck("AR0800") !AreaCheck("AR2000") CombatCounter(0)~
+    REPLACE_TEXTUALLY ~CreateCreatureObjectOffScreen("BRUS3",Player1,0,0,0)~
+      ~CreateCreatureObjectOffScreen("BRUS3",Player1,0,0,0) SetGlobal("SPAWNBRUS","GLOBAL",2)~
+    REPLACE_TEXTUALLY ~[ %TAB%]Global("JosterLeave","GLOBAL",2)~ ~ !Global("JosterLeave","GLOBAL",1)~
+    APPEND_FILE ~bg2fixpack/baf/baldur.baf~
+  END
+  
+// gauths and neholders will continue to fire eye beams when asleep
+EXTEND_TOP ~behdir01.bcs~ ~bg2fixpack/baf/sleep_no_action.baf~ // director
+EXTEND_TOP ~beheld01.bcs~ ~bg2fixpack/baf/sleep_no_action.baf~ // elder orb
+EXTEND_TOP ~behold01.bcs~ ~bg2fixpack/baf/sleep_no_action.baf~ // observer, bogstandard beholder
+EXTEND_TOP ~behspe01.bcs~ ~bg2fixpack/baf/sleep_no_action.baf~ // spectator
+EXTEND_TOP ~gauth01.bcs~  ~bg2fixpack/baf/sleep_no_action.baf~ // gauth
+
+// brannel not commenting due to unassigned script (see shthdr01.cre), script errors
+COPY_EXISTING ~brannel.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("LathanPlot1","GLOBAL",1)~ ~Global("LathanPlot","GLOBAL",1)~
+    REPLACE_TEXTUALLY ~Global("LathanPlot2","GLOBAL",1)~ ~Global("LathanPlot","GLOBAL",2)~
+    REPLACE_TEXTUALLY ~StartDialog\(ue\)?NoSet(Myself)~  ~StartDialogueNoSet(Player1)~
+  END
+
+// ch 6 allies check wrong drizzt DV
+COPY_EXISTING ~c6arkan.bcs~ ~override~
+              ~c6eric.bcs~  ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~("c6drizz")~ ~("c6drizz2")~
+  END
+  BUT_ONLY
+
+// remove minhp1 for a moment to allow bodhi's str decrease to take effect
+COPY_EXISTING ~c6bweak.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ApplySpell(Myself,C6BODHI_WEAKNESS)~
+                      ~TakeItemReplace("monhp1","minhp1",Myself) ApplySpell(Myself,C6BODHI_WEAKNESS) TakeItemReplace("minhp1","monhp1",Myself)~
+    REPLACE_TEXTUALLY ~DestroyItem("VAMPREG3")~ ~DestroyItem("VAMPREG2")~
+  END
+  BUT_ONLY
+
+// Killing war elves while escaping Underdark lets you kill the surface elves
+COPY_EXISTING ~c6elf.bcs~   ~override~
+              ~c6elhan.bcs~ ~override~
+              ~c6extra.bcs~ ~override~
+              ~c6gener.bcs~ ~override~
+              ~warsage.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("GoodElfKill","GLOBAL",0)~ ~GlobalLT("GoodElfKill","GLOBAL",2)~
+  END
+  BUT_ONLY
+
+// valen's premature death prevents Del changing from bat form and attacking
+COPY_EXISTING ~c6valen.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpellDead(Myself,VALEN_MIST_FORM_CHANGE)~
+      ~SetGlobal("ValenFight","AR0808",1) ReallyForceSpellDead(Myself,VALEN_MIST_FORM_CHANGE)~
+  END
+  BUT_ONLY
+
+// cadril's script using wrong DVs for Cyrando and Irlana
+COPY_EXISTING ~cadril.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~"tcyrando"~ ~"cyrando"~
+    REPLACE_TEXTUALLY ~"tirlana"~ ~"irlana"~
+  END
+  BUT_ONLY
+
+// Cernd goes hostile if Grove poisoned
+EXTEND_BOTTOM ~cernd.bcs~ ~bg2fixpack/baf/cernd.baf~
+
+// ellisme clone will stand around when out of spells dur to some bad vars
+COPY_EXISTING ~clone1.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("DimensionDoor","GLOBAL",12)~ ~~ // prevents attack() at bottom of script
+    REPLACE_TEXTUALLY ~Global("CloneBehavior","LOCALS",3)~ ~False()~ // already have a MI block, this unbounded one could stall script
+    REPLACE_TEXTUALLY ~SetGlobal("DimensionDoor","GLOBAL",3)~ ~SetGlobal("CloneBehavior","LOCALS",3)~ // wrong var
+  END
+  BUT_ONLY
+
+// unseeing eye sacrifice cutscene can be interrupted/broken; change to detect any ally/summons
+COPY_EXISTING ~cltcut01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Detect(\[PC\])~ ~Detect([GOODCUTOFF])~
+  END
+  BUT_ONLY
+
+// death ward actually prevents irenicus' insta-kill at the asylum
+COPY_EXISTING ~cut41k.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY  ~\(ReallyForceSpell(Player1,JON_ALL_DEAD)\)~ ~\1 Kill(Player2) Kill(Player3) Kill(Player4) Kill(Player5) Kill(Player6) Kill(Player1)~
+  END
+  BUT_ONLY
+
+// if aerie is in slot 6, she's too far away to start the dialogue with quayle after kalah's death; moving to 536.555
+COPY_EXISTING ~cut86a.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(ActionOverride(Player6,LeaveAreaLUA("AR0607","",\[\)[0-9]+\.[0-9]+\(\],0))\)~ ~\1536.555\2~
+  END
+  BUT_ONLY
+
+// wrong string over head (20820 - string of Firkraag)
+COPY_EXISTING ~delon.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~DisplayStringHead(Myself,20820)~ ~DisplayStringHead(Myself,20821)~
+  END
+  BUT_ONLY
+
+// trolls giving double XP if slain by instant-death spell
+COPY_EXISTING ~dgtrol01.bcs~ ~override~ // troll, druid grove
+              ~firamb03.bcs~ ~override~ // fire troll
+              ~rogtro01.bcs~ ~override~ // roger's sea troll
+              ~trolde01.bcs~ ~override~ // desert troll
+              ~trolfr01.bcs~ ~override~ // freshwater troll
+              ~trolgi01.bcs~ ~override~ // giant troll
+              ~trolic01.bcs~ ~override~ // ice troll
+              ~troll01.bcs~  ~override~ // generic troll
+              ~trollsm2.bcs~ ~override~ // small troll - lacking timers and such
+              ~trolsi01.bcs~ ~override~ // spirit troll
+              ~trolsn01.bcs~ ~override~ // snow troll
+              ~trolsp01.bcs~ ~override~ // spectral troll
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~HPLT(Myself,\([0-9]+\))~ ~!StateCheck(Myself,STATE_REALLY_DEAD) HPLT(Myself,\1)~
+    PATCH_IF ("%SOURCE_RES%" STRING_COMPARE_CASE "trolfr01" = 0) BEGIN // extra fix for freshwater troll
+      REPLACE_TEXTUALLY ~"TROLGI02"~ ~"trolfr02"~ // freshwater trolls becoming giant trolls when knocked down
+    END
+  END
+  BUT_ONLY
+
+// new troll scripts to transform to dead versions at low HP
+COPY_EXISTING ~troll01.bcs~  ~override/cdtroll1.bcs~
+              ~trolsn01.bcs~ ~override/obsice11.bcs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLSN02")~ ~ChangeAnimationNoEffect("obsice11")~
+    REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLL02")~  ~ChangeAnimationNoEffect("cdtroll2")~
+  END
+
+// new troll scripts to transform from dead to alive after time expires
+COPY_EXISTING ~troll02.bcs~  ~override/cdtroll2.bcs~
+              ~trolsn02.bcs~ ~override/obsice01.bcs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_CHANGE)~      ~ReallyForceSpellRES("cdtroll1",Myself)~
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_SNOW_CHANGE)~ ~ReallyForceSpellRES("obsice01",Myself)~
+  END
+
+// cromwell cutscene; removes multi-forged item bug
+COPY_EXISTING ~cromwell.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~CutSceneId("wsmith01")~ ~CutSceneId("wsmith01") ClearAllActions()~
+  END
+  BUT_ONLY
+
+// removes call to nonexistent cre file
+COPY_EXISTING ~cut31q.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~CreateCreature("bdcoun04",\[592\.825\],10)~ ~~
+  END
+  BUT_ONLY
+
+// rest commands not executed due to DayNight flakiness
+COPY_EXISTING ~cut41c.bcs~ ~override~
+              ~cut41d.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\([ %TAB%]Rest()\)~ ~ Wait(1) \1~
+  END
+  BUT_ONLY
+
+// fix cutscene for departing Amn
+COPY_EXISTING ~cut41d.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ActionOverride("pparan2",DestroySelf())~
+                      ~ActionOverride("aran",DestroySelf())~
+  END
+  BUT_ONLY
+
+// part of desharik's xp exploit fix, see ppdesh in the d file
+COPY_EXISTING ~cut41f.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY ~SetGlobal("EnteredArea1500","GLOBAL",1)~
+    ~SetGlobal("EnteredArea1500","GLOBAL",1)
+     AddXPObject(Player1,38500)
+     AddXPObject(Player2,38500)
+     AddXPObject(Player3,38500)
+     AddXPObject(Player4,38500)
+     AddXPObject(Player5,38500)
+     AddXPObject(Player6,38500)~
+  END
+  BUT_ONLY
+
+// saemon brynnlaw -> sahuagin city sequence errors (8 changes)
+// see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
+// many changes--clear actions, make uniterruptable, reorder textscreen, move saemon dialogue call here from ppsaem2.bcs
+COPY_EXISTING ~cut41q.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~CutSceneId(Player1)~     ~CutSceneId(Player1) ClearAllActions() SetInterrupt(FALSE)~
+    REPLACE_TEXTUALLY ~TextScreen("SCRTXT05")~  ~ActionOverride("ppsaem3",StartDialogueNoSet(Player1))~
+    REPLACE_TEXTUALLY ~MultiPlayerSync()~       ~MultiPlayerSync() TextScreen("SCRTXT05")~
+    REPLACE_TEXTUALLY ~Explore()~               ~Explore() SetInterrupt(TRUE)~
+  END
+  BUT_ONLY
+
+// saemon brynnlaw -> sahuagin city sequence errors (8 changes)
+// see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
+// clear actions, make uninterruptable
+COPY_EXISTING ~cut41zf.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~CutSceneId(Player1)~                  ~CutSceneId(Player1) ClearAllActions() SetInterrupt(FALSE)~
+    REPLACE_TEXTUALLY ~SetGlobal("AttackedGith","GLOBAL",1)~ ~SetGlobal("AttackedGith","GLOBAL",1) SetInterrupt(TRUE)~
+  END
+  BUT_ONLY
+
+// saemon brynnlaw -> sahuagin city sequence errors (8 changes)
+// see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
+// add a bit more time for sahuagin attack
+COPY_EXISTING ~cut41zg.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobalTimer("GithTimer1","GLOBAL",5)~ ~SetGlobalTimer("GithTimer1","GLOBAL",10)~
+  END
+  BUT_ONLY
+
+// familiars and summons should be pushed back when hell door opens, see spin658.spl
+COPY_EXISTING ~cut85a.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ActionOverride("HELLSPY4",ApplySpell(Player[1-6],HELL_BUFFET))~ ~~
+    REPLACE_TEXTUALLY ~ActionOverride("hellspy4",ApplySpell(\[FAMILIAR\],HELL_BUFFET))~ ~ActionOverride("HELLSPY4",ForceSpell(Player1,HELL_BUFFET))~
+  END
+  BUT_ONLY
+
+// ust natha scenery cutscene can occur offscreen, meaning player stands in dark for no apparent reason
+COPY_EXISTING ~dadrow20.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~StartCutSceneMode()~
+      ~StartCutSceneMode() CreateCreature("cutspy",[3864.273],0) MoveViewPoint([3864.273],INSTANT)~
+    REPLACE_TEXTUALLY ~EscapeArea()~
+      ~EscapeArea() ActionOverride("cutspy",DestroySelf()) MoveViewObject(Player1,INSTANT)~
+  END
+  BUT_ONLY
+
+// make mask of king strohm a little more reliable
+COPY_EXISTING ~ddguard7.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!HasItemEquiped("key20",\[PC\])~ ~!HasItemEquiped("key20",LastSeenBy(Myself))~
+  END
+  BUT_ONLY
+
+// delon's script using wrong variable for talking to Lloyd; had EscapeArea() issues
+// if spawned later for ogron/umar events, could spam original stringhead or disappear prematurely
+// prevent 'offer' stringhead if spawned for ogron attack
+COPY_EXISTING ~delon.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Num\(berOf\)?TimesTalkedTo(0)\)~ ~\1 Global("DelonSpawn","GLOBAL",0)~
+    REPLACE_TEXTUALLY ~TalkedToMayor~ ~TalkedToLloyd~
+    REPLACE_TEXTUALLY ~OR(4)[%TAB% %LNL%%MNL%%WNL%]+Global("Acceptance","GLOBAL",1)~ ~OR(3)~
+    REPLACE_TEXTUALLY ~AreaCheck("AR1000")~ ~~
+    REPLACE_TEXTUALLY ~GlobalTimerExpired("MinscDelon","GLOBAL")~ ~False()~
+    APPEND_FILE ~bg2fixpack/baf/delon.baf~
+  END
+  BUT_ONLY
+
+// wound end up doing nothing if it didn't spot a GOODCUTOFF or mage/cleric
+COPY_EXISTING ~demglasu.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~See(\[ANYONE\])[%TAB% %LNL%%MNL%%WNL%]+Global("Prep","LOCALS",1)~  ~See([ANYONE])~
+  END
+  BUT_ONLY
+
+// druids fighting unspawned trolls
+COPY_EXISTING ~dgdru01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Detect(\[PC\])~ ~Range([PC],25)~
+    REPLACE_TEXTUALLY ~See(\[PC\])\([ %TAB%%LNL%%MNL%%WNL%]+Global("SpawnDGTrolls","AR1900",0)\)~ ~Range([PC],25) \1~
+  END
+  BUT_ONLY
+
+// All trolls should have their hit points set to 1 after getting knocked down (aVENGER)
+COPY_EXISTING ~dgtrol02.bcs~ ~override~ // Druid Grove trolls that are fighting some adventurers
+              ~firamb05.bcs~ ~override~ // the troll fighting the werewolf captain in Firkraag's lair
+              ~troll03.bcs~  ~override~ // small trolls which emerge out of a bigger one on the first floor of de'Arnise Keep
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~PlayDead(\([0-9]+\))~ ~ApplySpell(Myself,TROLL_SETHP1) PlayDead(\1)~
+  END
+  BUT_ONLY
+
+// djinnis used 'contingency-stoneskin' string before PFMW; also alter script to be used when summoned as allies
+COPY_EXISTING ~djinni01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~DisplayString(Myself,29736)~ ~DisplayString(Myself,40252)~ // contingency-stoneskin to contingency-PFMW
+    REPLACE_TEXTUALLY ~Allegiance(Myself,ENEMY)~ ~See(NearestEnemyOf(Myself))~    // use same abilities when summoned
+  END
+  BUT_ONLY
+
+// summoned efreeti/djinni come back from gaseous form as hostile, noble come back as generics
+// see cdgasnd.spl, cdgasnd2.spl, cdgasnd.cre, cdgasnd.bcs, cdgasne.spl, cdgasne2.spl, cdgasne.cre, cdgasne.bcs, djinni01.bcs, djinni04.bcs, efreet01.bcs, efreet04.bcs
+COPY_EXISTING ~djinni01.bcs~ ~override~ // summoned efreeti shouldn't go to gas
+              ~efreet01.bcs~ ~override~ // summoned efreeti shouldn't go to gas
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(GlobalLT("\(Djinni\|Efreeti\)GasForm","LOCALS",3)\)~ ~\1 !Gender(Myself,SUMMONED)~
+  END
+  BUT_ONLY
+
+// summoned efreeti/djinni come back from gaseous form as hostile, noble come back as generics
+// see cdgasnd.spl, cdgasnd2.spl, cdgasnd.cre, cdgasnd.bcs, cdgasne.spl, cdgasne2.spl, cdgasne.cre, cdgasne.bcs, djinni01.bcs, djinni04.bcs, efreet01.bcs, efreet04.bcs
+COPY_EXISTING ~djinni02.bcs~ ~override/cdgasnd.bcs~ // new script for gaseous forms, djinni
+              ~efreet02.bcs~ ~override/cdgasne.bcs~ // new script for gaseous forms, efreeti
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,\(DJINNI\|EFREETI\)_PHYSICAL_FORM_CHANGE)~ ~ReallyForceSpellRES("%DEST_RES%2",Myself)~
+  END
+  BUT_ONLY
+
+// summoned efreeti/djinni come back from gaseous form as hostile, noble come back as generics
+// see cdgasnd.spl, cdgasnd2.spl, cdgasnd.cre, cdgasnd.bcs, cdgasne.spl, cdgasne2.spl, cdgasne.cre, cdgasne.bcs, djinni01.bcs, djinni04.bcs, efreet01.bcs, efreet04.bcs
+COPY_EXISTING ~djinni04.bcs~ ~override~ // patch noble efreeti script to use new gaseoous form spell
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,DJINNI_GAS_FORM_CHANGE)~ ~ReallyForceSpellRES("cdgasnd",Myself)~
+  END
+  BUT_ONLY
+  
+// sort out journal entries for attacking firkraag; see also firkra02.bcs
+EXTEND_TOP ~dragred.bcs~ ~bg2fixpack/baf/dragred.baf~
+
+// dragon breath attacks hit multiple times - separate into visual & damage spells a la red/green dragon breath
+// see also cddrblck.pro, cddrsilv.pro, spin595.spl, spin596.spl, spin691.spl, spin832.spl, spin833.spl, spin893.spl
+// update scripts which use these spells to do double-casts instead
+COPY_EXISTING ~dragblac.bcs~ ~override~ // black dragon
+              ~draghell.bcs~ ~override~ // black dragon
+              ~test99.bcs~   ~override~ // black dragon
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),BLACK_DRAGON_BREATH)~ ~ForceSpell(\1,BLACK_DRAGON_BREATH) ReallyForceSpellRES("spin691v",\1)~
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~dragsilv.bcs~ ~override~ // silver dragon
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),SILVER_DRAGON_BREATH_PARALIZATION)~ ~ForceSpell(\1,SILVER_DRAGON_BREATH_PARALIZATION) ReallyForceSpellRES("spin832v",\1)~
+    REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),SILVER_DRAGON_BREATH_COLD)~         ~ForceSpell(\1,SILVER_DRAGON_BREATH_COLD) ReallyForceSpellRES("spin833v",\1)~
+  END
+  BUT_ONLY
+
+COPY_EXISTING ~shadra01.bcs~ ~override~ // shadow dragon
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),SHADOW_DRAGON_BREATH)~ ~ForceSpell(\1,SHADOW_DRAGON_BREATH) ReallyForceSpellRES("spin893v",\1)~
+  END
+  BUT_ONLY
+
+// restore Nith's attack script, pt 1: false() out stuff that'll break; see drshnl01.cre
+COPY_EXISTING ~drshnl01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~HPLT(Myself,10)~ ~False()~ // gets new troll script to handle low HP transform in cre patch
+  END
+  BUT_ONLY
+
+// new troll scripts to transform to dead versions at low HP
+COPY_EXISTING ~troll01.bcs~ ~override/drshnl11.bcs~
+              ~troll01.bcs~ ~override/eletro03.bcs~
+              ~troll01.bcs~ ~override/firtrl02.bcs~
+              ~troll01.bcs~ ~override/kptrol23.bcs~
+              ~troll01.bcs~ ~override/pptroll2.bcs~
+              ~troll01.bcs~ ~override/sutroll2.bcs~
+              ~troll01.bcs~ ~override/torgal2.bcs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ChangeAnimationNoEffect("TROLL02")~ ~ChangeAnimationNoEffect("%DEST_RES%")~
+  END
+
+// duplicates functionality, but needed for ub compatibility
+EXTEND_TOP ~drshnl01.bcs~ ~override/drshnl11.bcs~
+
+// new troll scripts to transform from dead to alive after time expires
+COPY_EXISTING ~troll02.bcs~ ~override/drshnl21.bcs~
+              ~troll02.bcs~ ~override/eletro01.bcs~
+              ~troll02.bcs~ ~override/firtrl01.bcs~
+              ~troll02.bcs~ ~override/kptrol13.bcs~
+              ~troll02.bcs~ ~override/pptroll1.bcs~
+              ~troll02.bcs~ ~override/sutroll.bcs~
+              ~troll02.bcs~ ~override/torgal3.bcs~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,TROLL_CHANGE)~ ~ReallyForceSpellRES("%DEST_RES%",Myself)~
+  END
+
+// duergar mage has inconsistent target/attack blocks
+COPY_EXISTING ~duemag01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~See(NearestEnemyOf(Myself))[ %TAB%%LNL%%MNL%%WNL%]*\(HaveSpell(WIZARD_AGANNAZAR_SCORCHER)\)~
+      ~See(SecondNearestEnemyOf(Myself)) \1~
+  END
+  BUT_ONLY
+
+// Drow etc. guarding the way out of the Underdark start to stutter if they are charmed after you have made an enemy of the Ust Natha (Wisp)
+COPY_EXISTING ~dwgates1.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!Allegiance(Myself,ENEMY)~ ~!Allegiance(Myself,ENEMY) !StateCheck(Myself,STATE_CHARMED)~
+  END
+  BUT_ONLY
+  UNLESS ~16439 8192 1 0 0 "" "" OB~ //UNLESS !StateCheck(Myself,STATE_CHARMED)
+  
+// dead ardulace is required to open the sealed drow city gates, but she disappears once the city is hostile
+COPY_EXISTING ~dwplot.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("ADrowTimerHasExpired","GLOBAL",1)\)~ ~\1 !Name("Ardulace",Myself)~
+  END
+  BUT_ONLY
+
+// edwin soundset issues for transformation
+COPY_EXISTING ~edwin.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30716,SELECT_ACTION4)~ ~SetPlayerSound(Myself,30715,SELECT_ACTION4)~
+    REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30717,SELECT_ACTION5)~ ~SetPlayerSound(Myself,3984,SELECT_ACTION5)~
+    REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30718,SELECT_ACTION6)~ ~SetPlayerSound(Myself,3985,SELECT_ACTION6)~
+    REPLACE_TEXTUALLY ~SetPlayerSound(Myself,30719,SELECT_ACTION7)~ ~SetPlayerSound(Myself,3986,SELECT_ACTION7)~
+    // edwin shouldn't try to use the nether scroll in dead/wild magic areas; edwin's low-hp banter with aerie uses wrong var, hp threshold... see also bedwin.dlg
+    REPLACE_TEXTUALLY ~\(GlobalTimerExpired("EdwinScroll","GLOBAL")\)~ ~\1 !AreaCheck("ar3004") !AreaCheck("ar3005") !AreaCheck("ar3008") !AreaCheck("ar3009")~ // 4, 8 dead; 5, 9 wild
+    REPLACE_TEXTUALLY ~Global("BEdwin10","LOCALS",0)\([ %TAB%%LNL%%MNL%%WNL%]+Global("EdwintalksAerieJames","LOCALS",0)\)~ ~Global("BEdwin1","LOCALS",0)\1~ // correct var
+
+  END
+
+// summoned efreeti/djinni come back from gaseous form as hostile, noble come back as generics
+// see cdgasnd.spl, cdgasnd2.spl, cdgasnd.cre, cdgasnd.bcs, cdgasne.spl, cdgasne2.spl, cdgasne.cre, cdgasne.bcs, djinni01.bcs, djinni04.bcs, efreet01.bcs, efreet04.bcs
+COPY_EXISTING ~efreet04.bcs~ ~override~ // patch noble efreeti script to use new gaseoous form spell
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~ReallyForceSpell(Myself,EFREETI_GAS_FORM_CHANGE)~ ~ReallyForceSpellRES("cdgasne",Myself)~
+  END
+  BUT_ONLY
+
+// containers can summon guards days after they're open
+COPY_EXISTING ~enforam.bcs~ ~override~
+              ~tempv01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(2)[%TAB% %LNL%%MNL%%WNL%]+!See(\[NOTGOOD\])[%TAB% %LNL%%MNL%%WNL%]+Global("warn","LOCALS",1)~
+      ~GlobalTimerExpired("CDGoAway","LOCALS")~
+    REPLACE_TEXTUALLY ~Global("warn","LOCALS",0)~ ~Global("warn","LOCALS",0) GlobalTimerNotExpired("CDGoAway","LOCALS")~
+    REPLACE_TEXTUALLY ~Wait(5)~ ~~
+    REPLACE_TEXTUALLY ~See(\[NEUTRAL\])~ ~See([NEUTRAL.HUMANOID])~
+    APPEND_FILE ~bg2fixpack/baf/enforam.baf~
+  END
+  BUT_ONLY
+
+// give summoned ettercaps and wyverns the ability to use their poison abilities
+EXTEND_TOP ~ettercap.bcs~ ~bg2fixpack/baf/ettercap.baf~
+EXTEND_TOP ~wyvern.bcs~   ~bg2fixpack/baf/wyvern.baf~
+
+// script should check live and dead troll DV
+COPY_EXISTING ~firamb01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\([^!]\)Dead("firamb05")~ ~\1OR(2) Dead("firamb03") Dead("firamb05")~
+  END
+
+// add slight delay so Anomen can comment on dead Windspear knights before Garren
+// double Garren Windspears
+COPY_EXISTING ~garren.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(GlobalLT("DomainPaladinBattle","GLOBAL",4)[%TAB% %LNL%%MNL%%WNL%]+THEN[%TAB% %LNL%%MNL%%WNL%]+RESPONSE #100\)[%TAB% %LNL%%MNL%%WNL%]+\(StartDialogu?e?NoSet(Player1)\)~
+      ~\1 Wait(1) \2~
+    APPEND_FILE ~bg2fixpack/baf/garren.baf~
+  END
+  BUT_ONLY
+
+// animals shold not run away from druids, elves, and rangers
+COPY_EXISTING ~genshy.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(3)~ ~~
+  END
+  BUT_ONLY
+
+//Kruin can spawn again if you killed him before he could talk (Wisp)
+COPY_EXISTING ~githspwn.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~!Exists("Kruin")~ ~!Exists("Kruin") !Dead("Kruin")~
+  END
+  UNLESS ~16465 0 1 0 0 "Kruin" "" OB~
+  BUT_ONLY
+
+// other gladiators should do something when Hendak does
+COPY_EXISTING ~glad2782.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Dead("Hendak")~
+      ~OR(2)
+       Dead("Hendak")
+       Allegiance("Hendak",255)~
+    APPEND_FILE ~bg2fixpack/baf/glad2782.baf~
+  END
+  BUT_ONLY
+
+// gorf the squisher fixes
+COPY_EXISTING ~gorf.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobal("GoKillEm","LOCALS",2)~
+                      ~SetGlobal("GoKillEm","LOCALS",2)
+                      SetGlobal("GorfBystander","GLOBAL",1)~
+  END
+  BUT_ONLY
+
+// various creatures use the gp** scripts to escape, breaking other stuff: gparcher, gpkensai
+COPY_EXISTING ~gparcher.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(!HasItem("POTN55",Myself)\)~ ~\1 !Name("chang01",Myself) !Name("pbhunt02",Myself)~ // angelo, bounty hunter
+  END
+  BUT_ONLY
+
+// move grae's minhp1 destruction to dialogue options where she dies; see soa-dlg.d for rest of changes
+COPY_EXISTING ~grae.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~DestroyItem("minhp1")~ ~~
+  END
+  BUT_ONLY
+
+// script assigned to both container and area-trigger traps, but only working for area triggers
+COPY_EXISTING ~gtspike.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(IsOverMe(\[GOODCUTOFF\])\)~ ~OR(2) \1 Opened([GOODCUTOFF])~
+  END
+  BUT_ONLY
+  UNLESS ~16521 [0-9]+ 0 0 0 "" "" OB~
+
+// don't interrupt lucette when she's kiling xzar
+COPY_EXISTING ~harpass1.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~FaceObject("Lyros")~ ~SetInterrupt(FALSE) DialogInterrupt(FALSE) FaceObject("Lyros")~
+    REPLACE_TEXTUALLY ~StartDialog\(ue\)?NoSet(Player1)~ ~DialogInterrupt(TRUE) SetInterrupt(TRUE) StartDialogueNoSet(Player1)~
+  END
+  BUT_ONLY
+
+// Hendak should not randomly end up in some other part of the Copper Coronet if he performs a jump to arrive at Lehtinan's spot (Wisp)
+COPY_EXISTING ~hendak.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY EXACT_MATCH "SetHomeLocation([32.120])" "SetHomeLocation([526.1193])"
+    REPLACE_TEXTUALLY EXACT_MATCH "JumpToPoint([526.1193])" "SetHomeLocation([526.1193]) JumpToPoint([526.1193])"
+  END
+BUT_ONLY
+UNLESS // True unless there already is a SetHomeLocation before JumpToPoint.
+~AC
+261OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+OB
+0 0 0 0 0 0 0 0 0 0 0 0 ""OB
+0 526 1193 0 0"" "" AC
+AC
+48OB~
+
+// more kangaxx-proofing; see also klkang.dlg
+EXTEND_BOTTOM ~hlkang.bcs~ ~bg2fixpack/baf/hlkang.baf~
+
+// lesser clay golems in CI can be killed twice
+COPY_EXISTING ~igolfle1.bcs~ ~override~
+              ~igolfle2.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("Ellsime","AR0602",1)~ ~Global("Ellsime","AR0602",1) !StateCheck(Myself,STATE_REALLY_DEAD)~
+  END
+  BUT_ONLY
+
+// ilyich actually wears his imported armor
+EXTEND_BOTTOM ~ilyich.bcs~ ~bg2fixpack/baf/ilyich.baf~
+
+// without bounds, ilyich will keep setting these vars and shouting when attacked instead of counter-attacking; see also ilyich.dlg
+COPY_EXISTING ~ilyich.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(IF[ %TAB%%LNL%%MNL%%WNL%]+AttackedBy(\[ANYONE\],DEFAULT)\)\([ %TAB%%LNL%%MNL%%WNL%]+THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+Shout(89)[ %TAB%%LNL%%MNL%%WNL%]+SetGlobal("duergarleader","LOCALS",9)[ %TAB%%LNL%%MNL%%WNL%]+\)\(END\)~
+      ~\1 !Global("duergarleader","LOCALS",9) \2 Continue() \3~
+  END
+  BUT_ONLY
+
+// sahugin spectre should only kill one party member and then escape
+COPY_EXISTING ~impches3.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!Global("ImpRiddle","GLOBAL",3)~ ~!Global("ImpRiddle","GLOBAL",3) Global("CDImpChest","AR2300",0)~
+    REPLACE_TEXTUALLY ~Kill(LastTrigger)~ ~Kill(LastTrigger) SetGlobal("CDImpChest","AR2300",1)~
+  END
+  BUT_ONLY
+
+// jaheira can leave if PC is jerk about dead khalid; imoen's dialogue should check she's not leaving before trying to comfort her; see imoenj.dlg
+COPY_EXISTING ~imoen.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\([ %TAB%]See("Jaheira")\)~ ~InParty("jaheira") \1~
+    REPLACE_TEXTUALLY ~\(!See("Jaheira")\)~ ~OR(2) !InParty("jaheira") \1~
+  END
+  BUT_ONLY
+
+// even if you cure them, jaella and lissa die if you wait too long to speak to jan
+COPY_EXISTING ~jaella.bcs~ ~override~
+              ~lissa.bcs~  ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(OR(2)[ %TAB%%LNL%%MNL%%WNL%]+GlobalTimerExpired("JanDidPlot","GLOBAL")[ %TAB%%LNL%%MNL%%WNL%]+GlobalTimerExpired("JaellaDead","GLOBAL")\)~ ~\1 !GlobalGT("JanLissaPlot","GLOBAL",9)~
+  END
+  BUT_ONLY
+
+// various spawns during jaheira's quest shouldn't happen in graveyard or shade lord areas
+// jaheira also starts a few banters w/o being in party
+// jaheira should start her 'i'm cured' dialogue even if not present when you get her hair; see also jaheiraj.dlg
+COPY_EXISTING ~jaheira.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+SetGlobal("JaheiraBanditPlot","GLOBAL",2)\)~ ~!AreaCheck("ar1404") \1~ // bandit spawn
+    REPLACE_TEXTUALLY ~\(THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+SetGlobal("JaheiraHarperPlot","GLOBAL",1)\)~ ~!AreaCheck("ar0800") !AreaCheck("ar1404") \1~ // Meronia spawn x2
+    REPLACE_TEXTUALLY ~\(THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+SetGlobal("RevianeSpawn","LOCALS",2)\)~ ~!AreaCheck("ar1404") \1~ // reviane
+    REPLACE_TEXTUALLY ~\(!Range(\[NEUTRAL\],10)[ %TAB%%LNL%%MNL%%WNL%]THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+IncrementGlobal("DerminSpawn","GLOBAL",1)\)~
+      ~!AreaCheck("ar0800") !AreaCheck("ar1404") \1~ // dermin x6
+    REPLACE_TEXTUALLY ~\(THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE[ %TAB%]+#100[ %TAB%%LNL%%MNL%%WNL%]+ChangeAIScript("",DEFAULT)\)~ ~!AreaCheck("ar0800") !AreaCheck("ar1404") \1~ // terminsel
+    REPLACE_TEXTUALLY ~\(Global("JaheiraMatch","GLOBAL",0)\)~ ~\1 InParty(Myself)~
+    APPEND_FILE ~bg2fixpack/baf/jaheira.baf~ // jaheira should start her 'i'm cured' dialogue even if not present when you get her hair, see also jaheiraj.dlg; also initiates dialogue when returning from meriona
+  END
+  BUT_ONLY
+
+// not paying thieves guild quota fix; see also ar0322.bcs, baldur.bcs, shthlt01.dlg
+EXTEND_BOTTOM ~joster.bcs~ ~bg2fixpack/baf/joster.baf~
+
+// script fixes for anarg-smuggler battle; see also kaypal03.bcs, kaysmg04.bcs
+COPY_EXISTING ~kaypal02.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~(\[NEUTRAL\.0\.HUMAN\.THIEF\])~ ~([NOTGOOD.0.0.CLERIC])~
+   REPLACE_TEXTUALLY ~(\[ENEMY\.0\.HUMAN\.THIEF\])~   ~([NOTGOOD.0.0.THIEF]) Name("kaysmg",LastSeenBy(Myself))~
+   REPLACE_TEXTUALLY ~AttackReevaluate(NearestEnemyOf(Myself),15)~
+                     ~AttackReevaluate(LastSeenBy(Myself),15)~
+ END
+ BUT_ONLY
+
+// script fixes for anarg-smuggler battle; see also kaypal02.bcs, kaysmg04.bcs
+COPY_EXISTING ~kaypal03.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~AttackReevaluate(NearestEnemyOf(Myself),30)~
+                     ~AttackReevaluate(LastSeenBy(Myself),30)~
+ END
+ BUT_ONLY
+
+// script fixes for anarg-smuggler battle; see also kaypal02.bcs, kaypal03.bcs
+COPY_EXISTING ~kaysmg04.bcs~ ~override~
+ DECOMPILE_AND_PATCH BEGIN
+   REPLACE_TEXTUALLY ~\(HPPercentLT("kaysmgl",50)[%TAB% %LNL%%MNL%%WNL%]+See("kaysmgl")\)~ ~\1 !Dead("kaysmgl")~
+   REPLACE_TEXTUALLY ~HPPercentLT("kaysmg",30)[%TAB% %LNL%%MNL%%WNL%]+See("kaysmg")~ 
+                     ~See([NOTGOOD.0.0.THIEF]) HPPercentLT(LastSeenBy(Myself),30) Name("kaysmg",LastSeenBy(Myself))~
+ END
+ BUT_ONLY
+
+// under very unusual circumstances, keldorn can create multiple zombies to fight; keldorn won't leave after complaining
+COPY_EXISTING ~keldorn.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(GlobalLT("ActiveKeldorn","LOCALS",2)\)~ ~!Exists("KELZOMB") \1~ // add check for zombie
+    REPLACE_TEXTUALLY ~"ActiveKeldorn","LOCALS"~ ~"ActiveKeldorn","AR0701"~ // LOCALS go away on cre-swap
+    // 0>1 = visited ar1000, keldorn mentions home; 1>2 - keldorn complains you haven't visited; 2 - keldorn leaves; 3 - keldorn has visited
+    REPLACE_TEXTUALLY ~GlobalLT("KeldornComplain","LOCALS",2)~ ~GlobalLT("KeldornComplain","LOCALS",3)~
+  END
+  BUT_ONLY
+  
+// hannah xp exploit; see also kftown02.cre
+EXTEND_BOTTOM ~kftown02.bcs~ ~bg2fixpack/baf/kftown02.baf~
+
+// Arkanis Gath should not spawn and kill the PC post-Bynnlaw
+EXTEND_TOP ~killpc.bcs~ ~bg2fixpack/baf/killpc.baf~
+
+// flail of ages forge should still work after acquiring stronghold; wasn't due to bad variable scope
+// Assembling the Flail of Ages piece by piece should grant an XP reward (Wisp)
+COPY_EXISTING ~kpforge.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~,"AR1302",~ ~,"GLOBAL",~
+    REPLACE_TEXTUALLY ~GiveItemCreate("BLUN14",LastTrigger,0,0,0)[ %TAB%%LNL%%MNL%%WNL%]+END~ 
+                      ~GiveItemCreate("BLUN14",LastTrigger,0,0,0) AddexperienceParty(22350) SetGlobal("ForgeUsed","GLOBAL",1) END~
+  END
+  BUT_ONLY
+
+// should be able to steal at Lathander temple if invisible
+COPY_EXISTING ~lathalrm.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(2)~ ~~
+  END
+  BUT_ONLY
+
+// lavok dying too early because of this cheese script
+// False()d rather than unassigned in case someone wants to use this for lavok02-specific scripting
+COPY_EXISTING ~lavok02.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!HasItem("MINHP1",Myself)~ ~False()~
+    APPEND_FILE ~bg2fixpack/baf/lavok02.baf~
+  END
+  BUT_ONLY
+
+// lester and nevin can stop fighting from time to time
+EXTEND_BOTTOM ~lester.bcs~ ~bg2fixpack/baf/lester.baf~
+
+// madeen should go away if Tolgerias dead--check for other DV
+COPY_EXISTING ~madeen.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(2)[ %TAB%%LNL%%MNL%%WNL%]+Dead("TOLGER2")~ ~OR(3) Dead("TOLGER") Dead("TOLGER2")~
+  END
+  BUT_ONLY
+
+// no more infinite stoneskins
+COPY_EXISTING ~mage12c.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(DisplayString(Myself,29736)\)~ ~\1 SetGlobal("Prep","LOCALS",2)~
+  END
+  BUT_ONLY
+
+// mazzy only goes hostile if Valygar is hostile and not charmed
+COPY_EXISTING ~mazzy.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Allegiance("Valygar",ENEMY)~
+                      ~Allegiance("Valygar",ENEMY)
+                      !StateCheck("Valygar",STATE_CHARMED)~
+    REPLACE_TEXTUALLY ~OR(2)[ %LNL%%MNL%%WNL%]+Dead("gorf")[ %LNL%%MNL%%WNL%]+Dead("gorf03")~ ~Dead("gorf")~
+    // can talk constantly due to mismatch trigger for fatigued-Valygar banter
+    REPLACE_TEXTUALLY ~TimeOfDay(DAY)~ ~TimeOfDay(NIGHT)~
+  END
+  BUT_ONLY
+  
+// scripting for restored minsc-mazzy banter; see bminsc.dlg
+// minsc injured dialogues need better triggers, see also minscj.dlg
+COPY_EXISTING ~minsc.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~IncrementGlobal("MinscInjured","LOCALS",1)~ ~~ // dialogues increment this variable already; incrementing potentially skips a dialogue
+    REPLACE_TEXTUALLY ~GlobalLT("MinscInjured","LOCALS",3)~ ~GlobalLT("MinscInjured","LOCALS",2)~ // only three injured dialogues, not four
+    REPLACE_TEXTUALLY ~Global("MinscInjured","LOCALS",3)~   ~Global("MinscInjured","LOCALS",2)~ // only three injured dialogues, not four
+    APPEND_FILE ~bg2fixpack/baf/minsc-mazzy.baf~
+  END
+  BUT_ONLY
+
+// Hostile and out of party Minsc and Valygar shouldn't heal party members (Nythrun)
+COPY_EXISTING ~minscx.bcs~  ~override~
+              ~valvsed.bcs~ ~override~
+              ~valygx.bcs~  ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Spell(MostDamagedOf(Myself),CLERIC_CURE~ ~Spell(Myself,CLERIC_CURE~
+  END
+  BUT_ONLY  
+
+// moon doggie will burn its three mirror images since it doesn't check if it's mirror imaged already
+COPY_EXISTING ~moondog.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(HaveSpell(HASTE_SELF)\)~ ~\1 !StateCheck(Myself,STATE_MIRRORIMAGE)~ // add statecheck
+  END
+  BUT_ONLY
+
+// disables Gath spawn from mvally
+COPY_EXISTING ~mvally.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~OR(2)~
+                      ~False()~
+  END
+  BUT_ONLY
+EXTEND_TOP ~mvally.bcs~ ~bg2fixpack/baf/mvally.baf~
+
+// disables Gath spawn from mvally2
+COPY_EXISTING ~mvally2.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~AttackedBy(\[GOODCUTOFF\],DEFAULT)~
+                      ~False()~
+  END
+  BUT_ONLY
+EXTEND_TOP ~mvally2.bcs~ ~bg2fixpack/baf/mvally.baf~
+  
+// prevent nalia from complaining if you are at her keep
+COPY_EXISTING ~nalia.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(GlobalTimerExpired("ArrivedNaliaKeep","GLOBAL")\)~ ~\1 !AreaCheck("AR1300")~
+  END
+  BUT_ONLY
+
+// prevent paac from sending knights home offscreen; see also ar0411.bcs
+EXTEND_BOTTOM ~obssol01.bcs~ ~bg2fixpack/baf/obssol01.baf~ // move paac spawn to range check on reyna
+
+// perth doesn't go hostile if attacked; see also ppcowled.cre
+COPY_EXISTING ~initrg15.bcs~ ~override/perth.bcs~
+  DECOMPILE_AND_PATCH BEGIN
+    APPEND_FILE ~bg2fixpack/baf/perth.baf~
+  END
+
+// player can miss lilarcor if inventiry is full during cutcene
+COPY_EXISTING ~pipe04.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~GiveItemCreate("SW2H14",LastTrigger,0,0,0)~ ~~ // move from original order...
+    REPLACE_TEXTUALLY ~\(SetGlobal("PipeOrder","AR0404",4)\)~ ~\1 GiveItemCreate("SW2H14",LastTrigger,0,0,0)~ // to below TakePartytItem calls
+  END
+  BUT_ONLY
+
+// tyrianna should disappear after conclusion of her quest
+EXTEND_BOTTOM ~plgirl01.bcs~ ~bg2fixpack/baf/plgirl01.baf~
+
+// move bounding var to dialogue for better reliability; see ppbhaal.dlg
+COPY_EXISTING ~ppbhaal.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~SetGlobal("spoke","LOCALS",1)~ ~~
+  END
+  BUT_ONLY
+
+// asylum crushing trap hitting wrong folks
+COPY_EXISTING ~ppcrus1.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!StateCheck(LastTrigger,STATE_REALLY_DEAD)~ ~False()~
+    REPLACE_TEXTUALLY ~StateCheck(LastTrigger,STATE_REALLY_DEAD)~ ~~
+  END
+  BUT_ONLY
+
+// dace's apparition's body can hang out due to flaky die() trigger
+COPY_EXISTING ~ppjoye2.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Die()~ ~StateCheck(Myself,STATE_REALLY_DEAD)~
+  END
+  BUT_ONLY
+
+// saemon brynnlaw -> sahuagin city sequence errors (8 changes)
+// see ppsaem3.dlg (x2), ppsailor.dlg, ar1600.bcs, cut41q.bcs, cut41zf.bcs, cut41zg.bcs, ppsaem2.bcs
+// false block for saemon initiating dialogue (moved to cut41q.bcs); add block to make saemon hostile if attacked
+COPY_EXISTING ~ppsaem2.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("SaemInit1607","GLOBAL",0)~ ~False()~
+    APPEND_FILE ~bg2fixpack/baf/ppsaem2.baf~
+  END
+  BUT_ONLY
+
+// don't cast buffs on enemies plz
+COPY_EXISTING ~priest5.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Spell(NearestEnemyOf(Myself),CLERIC_DRAW_UPON_HOLY_MIGHT)~ ~Spell(Myself,CLERIC_DRAW_UPON_HOLY_MIGHT)~
+  END
+  BUT_ONLY
+
+// more prophets for the Unseeing Eye; see also ar0500.bcs, ar0700.bcs, csgaal.dlg
+COPY_EXISTING ~prophet.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(GlobalGT("DestroyProphets","GLOBAL",0)\)~ ~OR(2) \1 !AreaCheck("ar0900")~
+  END
+  BUT_ONLY
+
+//reddeath doesn't work because it uses the wrong action (Wisp)
+COPY_EXISTING ~reddeath.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+  REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ReallyForceSpell ReallyForceSpellDead
+  END
+UNLESS 240OB
+BUT_ONLY
+
+// emphatic manifestation can be killed by resting outside
+EXTEND_TOP ~riftcr04.bcs~ ~bg2fixpack/baf/riftcr04.baf~
+
+// fixes breaking bridge in UE quest
+COPY_EXISTING ~riftg01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~!Dead("Riftcr0[23]")~ ~False()~
+    REPLACE_TEXTUALLY ~!Dead("Riftcr01")~ ~Dead("Riftcr01")~
+    REPLACE_TEXTUALLY ~!Exists("Riftcr01")~
+    ~CombatCounter(0)
+    OR(2)
+       !Exists("Riftcr03")
+       Dead("Riftcr03")
+    OR(2)
+       !Exists("Riftcr02")
+       Dead("Riftcr02")
+     OR(2)
+       !Exists("Riftcr01")~
+  END
+  BUT_ONLY
+
+// amalas' buddies should leave together if you kill him
+COPY_EXISTING ~rufpal.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global(\("itFight","R0406P"\|"R0406PitFight",""\),3)~ ~Global("PitFight","AR0406",3)~
+  END
+  BUT_ONLY
+
+// trigger misordering causing folks to flee from party, not enemies
+COPY_EXISTING ~runenemy.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(See(\[ENEMY\])\)[%TAB% %LNL%%MNL%%WNL%]+\(!?Detect(\[PC\])\)~ ~\2 \1~
+  END
+  BUT_ONLY
+
+// prevent dupe CoC items; see also ar2300.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, sahtreas.bcs, string sets
+EXTEND_BOTTOM ~sahkng01.bcs~ ~bg2fixpack/compile/sahkng02.baf~
+
+// prevent dupe CoC items; see also ar2300.bcs, sahkng01.bcs, sahkng01.dlg, sahkng02.bcs, sahkng02.cre, sahpr2.dlg, sahpr4.cre, string sets
+COPY_EXISTING ~sahtreas.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("sahkngjob","GLOBAL",2)\)~ ~\1 OR(2) HasItem("rods02",Myself) HasItem("brac19",Myself)~
+    APPEND_FILE ~bg2fixpack/baf/sahtreas.baf~
+  END
+  BUT_ONLY
+
+// slaver guard outside never goes hostile even if ship cleared out
+EXTEND_BOTTOM ~slaver1.bcs~ ~bg2fixpack/baf/slaver1.baf~
+
+// habib shouldn't spawn if dead
+COPY_EXISTING ~slilmat.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("SpawnHabib","GLOBAL",5)~
+                      ~Global("SpawnHabib","GLOBAL",5) !Dead("Habib")~
+  END
+  BUT_ONLY
+
+// ring of djinni summoning should destroy ring if djinni dies
+COPY_EXISTING ~sumdj01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~HPLT(Myself,5)~ ~OR(2) Die() HPLT(Myself,5)~
+  END
+  BUT_ONLY
+
+// animal summons behaving stupidly due to over-shouting
+COPY_EXISTING ~sumsht01.bcs~ ~override~
+              ~sumsht02.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Allegiance(Myself,ALLY)[ %TAB%%LNL%%MNL%%WNL%]+See(\[ANYONE\])[ %TAB%%LNL%%MNL%%WNL%]+ActionListEmpty()~ ~False()~
+    REPLACE_TEXTUALLY ~\(Allegiance(Myself,ENEMY)[ %TAB%%LNL%%MNL%%WNL%]+\)See(\[ANYONE\])\([ %TAB%%LNL%%MNL%%WNL%]+ActionListEmpty()\)~ ~\1 See([GOODCUTOFF]) \2~
+  END
+  BUT_ONLY
+
+// avatar of rilifane xp exploit fix, see also suavatar.dlg
+COPY_EXISTING ~sustatue.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Contains("MISCB3",Myself)~
+      ~Contains("MISCB3",Myself) Global("CDNoRepeat","AR2803",0)~
+    REPLACE_TEXTUALLY ~TriggerActivation("Tran2800",FALSE)~
+      ~SetGlobal("CDNoRepeat","AR2803",1) TriggerActivation("Tran2800",FALSE)~
+  END
+  BUT_ONLY
+
+// alignment change if evil path in hell trials; other fixes in ar2900.bcs and spin747.spl, spin749-51.spl, spin753.spl, apin755.spl
+COPY_EXISTING ~teardoor.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(ApplySpell(Player1,HELL_[A-Z]+_EVIL)\)~ ~SetGlobal("DisplayAlignmentChange","AR2900",1) \1~
+  END
+
+// player can activate CI exit from furnace room
+COPY_EXISTING ~tele0700.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Range(LastTrigger,25)~ ~Range(LastTrigger,15)~
+  END
+  BUT_ONLY
+
+// stops Terrece from initiating dialogue from outside
+COPY_EXISTING ~terrece.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("TerreceSpawn","GLOBAL",2)~ ~Global("TerreceSpawn","GLOBAL",2) See([PC])~
+  END
+  BUT_ONLY
+
+// multiple ring of the ram exploit fixes, see tolger.dlg
+EXTEND_TOP ~tolger.bcs~ ~bg2fixpack/baf/tolger.baf~
+
+// removes bug of losing rogue stone if reloaded
+// The Twisted Rune entrance trigger in the Bridge District should only consume a single Rogue Stone (aVENGER)
+COPY_EXISTING ~tran1008.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~TakePartyItem("MISC45")~ ~~
+    REPLACE_TEXTUALLY ~ActionOverride(Player1,LeaveAreaLUAPanic("AR1008","",\[495\.755\],10))~
+                      ~ActionOverride(Player1,LeaveAreaLUAPanic("AR1008","",[495.755],10))
+                      TakePartyItemNum("MISC45",1)~
+  END
+  BUT_ONLY
+ 
+// trrakxx should have dialogue when attacked
+COPY_EXISTING ~trrak01.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~AttackedBy(\[ANYONE\],DEFAULT)~ ~Global("attacked","LOCALS",1)~
+  END
+  BUT_ONLY
+EXTEND_TOP ~trrak01.bcs~ ~bg2fixpack/baf/trrak01.baf~
+
+// skin dancer drops skin at fixed point instead of at his death point; see also trskin03.dlg
+COPY_EXISTING ~trskin03.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(DropItem("MISC79",\[\)[0-9]+\.[0-9]+\(\])\)~ ~\1-1.-1\2~ // change coords to -1, -1
+  END
+  BUT_ONLY
+
+// endless Ust Natha tavern combat music; see also ucounter.cre
+COPY_EXISTING ~ucounter.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN 
+    REPLACE_TEXTUALLY ~SetGlobal("HaltMusicWithLesaonar","GLOBAL",0)~ ~SetGlobal("HaltMusicWithLesaonar","GLOBAL",2)~
+    REPLACE_TEXTUALLY ~\(CombatCounterLT(50)[%TAB% %LNL%%MNL%%WNL%]+Global("HaltMusicWithLesaonar","GLOBAL",\)0)~ ~\12)~
+    APPEND_FILE ~bg2fixpack/baf/ucounter.baf~
+  END
+  BUT_ONLY
+
+// prevent journal entry for already-openeed UD illithid doors
+COPY_EXISTING ~uddoor2.bcs~ ~override~
+              ~uddoor3.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("thrallDoorMes","AR2400",0)~  ~Global("thrallDoorMes","AR2400",0)  Global("thrallDoorOpen","AR2400",0)~
+    REPLACE_TEXTUALLY ~Global("thrallDoorMes2","AR2400",0)~ ~Global("thrallDoorMes2","AR2400",0) Global("thrallDoorOpen2","AR2400",0)~
+  END
+  BUT_ONLY
+
+// Ust Natha egg guards no longer see invisible folks
+COPY_EXISTING ~udeggs.BCS~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~GlobalTimerExpired("eggGuardDoesWarn","GLOBAL")~
+                      ~GlobalTimerExpired("eggGuardDoesWarn","GLOBAL")
+                      See([PC])~
+  END
+  BUT_ONLY
+
+//Surface elves by the Underdark exit can bail out prematurely (Wisp)
+COPY_EXISTING ~udelf1.bcs~ ~override~
+              ~udelf2.bcs~ ~override~
+              ~udelf3.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY "\(See(\[PC\])[%LNL%%TAB% ]*CombatCounter(0)\)" "\1 !Detect([ENEMY])"
+  END
+BUT_ONLY
+UNLESS ~16500 0 1 0 0 "" "" OB%LNL%255 0 0 0 0 0 0 0 0 0 0 0 ""OB~ //UNLESS !Detect([ENEMY])
+
+// replace flaky Die() in underdark mind flayer script
+COPY_EXISTING ~udmpswn.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Die()~ ~StateCheck(Myself,STATE_REALLY_DEAD) Global("CDDieReplace","LOCALS",0)~
+    REPLACE_TEXTUALLY ~\(SetGlobal("spawnIll","AR2400",0)\)~ ~\1 SetGlobal("CDDieReplace","LOCALS",1)~
+  END
+  BUT_ONLY
+  
+// dialogue breaks in phaere's recue if Sola is invalid for dialogue
+EXTEND_TOP ~udphae01.bcs~ ~bg2fixpack/baf/udphae01.baf~
+
+// player can break ust natha if (s)he beats phaere to the door post-gettin' it on
+EXTEND_BOTTOM ~udphae01.bcs~ ~bg2fixpack/baf/udphae01_bottom.baf~
+
+// interrupting solaufein while pulling mind flayers out of the astral breaks everything; see also udsola01.bcs
+EXTEND_BOTTOM ~udsola01.bcs~ ~bg2fixpack/baf/udsola01.baf~
+
+// solaufein egg drop trigger can be set off by anyone
+COPY_EXISTING ~udsoltri.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~IsOverMe([^)]+)~ ~IsOverMe([PC])~
+  END
+  BUT_ONLY
+
+// uhleave5 and 6 should be moving between areas, opening doors, etc.
+COPY_EXISTING ~uhleave5.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~MoveToPointNoInterrupt(\[805\.407\])~ ~MoveToPointNoInterrupt([805.407]) Unlock("DOOR02") OpenDoor("DOOR02")~
+  END
+  BUT_ONLY
+EXTEND_TOP ~uhleave5.bcs~ ~bg2fixpack/baf/uhleave5.baf~
+
+COPY_EXISTING ~uhleave6.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~MoveToPointNoInterrupt(\[709\.301\])~ ~MoveToPointNoInterrupt([709.301]) Unlock("DOOR02") OpenDoor("DOOR02")~
+  END
+  BUT_ONLY
+EXTEND_TOP ~uhleave6.bcs~ ~bg2fixpack/baf/uhleave6.baf~
+
+// trap triggers can't check LOCALS variables; display different string if umber hulks already dead
+COPY_EXISTING ~umbpoly.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("UmbPoly","LOCALS",0)~ ~Global("UmbPoly","AR1301",0) NumDeadLT("KPUMB01",5)~
+    REPLACE_TEXTUALLY ~"LOCALS"~ ~"AR1301"~
+    APPEND_FILE ~bg2fixpack/baf/umbpoly.baf~
+  END
+  BUT_ONLY
+
+// Valygar only goes hostile if mazzy is hostile and not charmed
+// valygar goes hostile if something happens to hervo, but should leave the party first
+// valygar drops his body if imprisoned
+COPY_EXISTING ~valygar.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Allegiance("Mazzy",ENEMY)~
+                      ~Allegiance("Mazzy",ENEMY)
+                      !StateCheck("Mazzy",STATE_CHARMED)~
+    REPLACE_TEXTUALLY ~SetGlobal("vgAttackTheParty","LOCALS",1)~ ~SetGlobal("vgAttackTheParty","LOCALS",1) LeaveParty()~
+    REPLACE_TEXTUALLY ~\(Global("DropValygar","GLOBAL",0)\)~ ~Dead("Valygar") \1~
+  END
+  BUT_ONLY
+
+// Valygar leaving party in Slums can cause cutscene hang
+COPY_EXISTING ~valyorb.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~IsOverMe("Valygar")~
+      ~IsOverMe("Valygar") InParty("Valygar") IsValidForPartyDialogue("Valygar") !StateCheck("Valygar",STATE_SLEEPING)~
+  END
+  BUT_ONLY
+
+// turning viconia hostile prevents her death at the stake; see also viconia.bcs vicg1.dlg, victown1.dlg, viconi.dlg
+COPY_EXISTING ~viconia.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(IF[ %TAB%%LNL%%MNL%%WNL%]+!?Allegiance(Myself,\(ENEMY\|NEUTRAL\))\)~ ~\1 Global("ViconiaFree","AR1000",0)~ // intercept her changing to her combat scripting while still bound
+    REPLACE_TEXTUALLY ~\(Kill(Myself)\)~ ~SetInterrupt(FALSE) TriggerActivation("ViconiaStake",FALSE) ReallyForceSpell("viconia",CLERIC_FLAME_STRIKE) Wait(1) \1~ // change her simple kill to also include the visuals and other goodies
+    APPEND_FILE ~bg2fixpack/baf/viconia.baf~ // this prevents her from combat actions while bound
+  END
+
+// prevents viekang's double dialogue
+COPY_EXISTING ~viekang.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Global("Attacked","LOCALS",0)~ ~Global("Attacked","LOCALS",0) !Global("ViekangSeesPC","LOCALS",1)~
+  END
+  BUT_ONLY
+
+// hareishan will intiate dialogue through walls and areas
+COPY_EXISTING ~vvhareis.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("vvhareisspoke","LOCALS",0)\)~ ~\1 InMyArea(Player1)~
+  END
+  BUT_ONLY
+
+// player can watch the ice mephit and thief do nothing
+COPY_EXISTING ~waitpc2.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Range(LastSeenBy(Myself),[0-9]+)~ ~Range(LastSeenBy(Myself),25)~ // vic starts dislaogue so you can't just attack her first
+  END
+  BUT_ONLY
+
+// closes Yoshimo exploit of resurrecting him after Spellhold
+// prevent Yoshimo telling you to see Renal when you already have
+COPY_EXISTING ~yoshimo.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~Kill(Myself)~
+                      ~Kill(Myself)
+                      LeaveParty()~
+    REPLACE_TEXTUALLY ~Global("YoshimoMentionsRenal","LOCALS",0)~ ~Global("YoshimoMentionsRenal","LOCALS",0) Global("TalkedToRenal","GLOBAL",0)~
+  END
+  BUT_ONLY
+  
+// scripting for restored yoshimo-aerie and yoshimo-minsc banters; see byoshim.dlg
+EXTEND_BOTTOM ~yoshimo.bcs~ ~bg2fixpack/baf/yoshimo-aerie.baf~
+
+// Yoshimo should not drop two hearts when slain by a petrification effect (Nythrun)
+COPY_EXISTING ~yoshimox.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\([ %TAB%]Die()\)~ ~\1 !StateCheck(Myself,128)~
+  END
+BUT_ONLY
+
+ACTION_IF !tob_game THEN BEGIN // SoA
+
+  // no-repeat Drizzt, patched differently if ToB installed, thanks to SetEncounterProbability action
+  COPY_EXISTING ~ar0043.bcs~ ~override~
+  EXTEND_BOTTOM ~ar2601.bcs~ ~override/ar0043.bcs~
+  
+END ELSE BEGIN 
+
+  // player1 = mazed means abazigal doesn't deliver his death dialogue, breaking game
+  COPY_EXISTING ~abazdrag.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~StartDialog\(ue\)?NoSet(Player1)~ ~StartDialogueNoSet([PC])~
+    END
+    BUT_ONLY 
+
+  // no-repeat Drizzt - ToB, much easier thanks to new action
+  COPY_EXISTING ~ar2601.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~"DrizztEncounter","AR2601"~ ~"DrizztEncounter","GLOBAL"~
+      REPLACE_TEXTUALLY ~Explore()~ ~Explore()
+        SetEncounterProbability("AR2500","AR0020",0)
+        SetEncounterProbability("AR2500","AR1300",0)
+        SetEncounterProbability("AR2500","AR1304",0)
+        SetEncounterProbability("AR2500","AR1700",0)~
+    END
+    BUT_ONLY
+  
+  // ar3008 spams dead magic every script round due to bad variable scope
+  COPY_EXISTING ~ar3008.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~"AR3004"~ ~"AR3008"~
+    END
+    BUT_ONLY
+
+  // tries to remove override scripts for knights before killing them
+  COPY_EXISTING ~ar3020.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~ChangeAIScript("one",OVERRIDE))~ ~ChangeAIScript("",OVERRIDE))~
+    END
+    BUT_ONLY
+  
+  // removing call to nonexistent trigger
+  COPY_EXISTING ~ar3021.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~TriggerActivation("OilDoor",FALSE)~ ~~
+    END
+    BUT_ONLY
+
+  // part of the multi-holy symbol exploit fix. Also needed: CDHLYSYM.spl, CDHLYSY2.spl, CDHLYSYM.itm, and clabpr02-04 changes.
+  EXTEND_TOP ~baldur.bcs~   ~bg2fixpack/baf/holysym.baf~
+  EXTEND_TOP ~baldur25.bcs~ ~bg2fixpack/baf/holysym.baf~
+
+  // gauths and neholders will continue to fire eye beams when asleep
+  EXTEND_TOP ~behhiv01.bcs~ ~bg2fixpack/baf/sleep_no_action.baf~ // hive mother
+
+  // cespy's handing out undercharged items
+  COPY_EXISTING ~botsmith.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~GiveItemCreate("clck31",Player1,0,0,0)~ ~GiveItemCreate("clck31",Player1,1,1,0)~
+      REPLACE_TEXTUALLY ~GiveItemCreate("sw1h69",Player1,0,0,0)~ ~GiveItemCreate("sw1h69",Player1,0,1,1)~
+    END
+    BUT_ONLY
+  
+  // trolls giving double XP if slain by instant-death spell
+  COPY_EXISTING ~chaltrol.bcs~ ~override~ // giant troll, challenge
+                ~hgtrl01.bcs~  ~override~ // fire troll
+                ~trolic03.bcs~ ~override~ // blizzard troll
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~HPLT(Myself,\([0-9]+\))~ ~!StateCheck(Myself,STATE_REALLY_DEAD) HPLT(Myself,\1)~
+    END
+    BUT_ONLY
+
+  COPY_EXISTING ~ctaltar.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~"PortalOpen","GLOBAL"~ ~"PortalOpen","AR3001"~
+    END
+    BUT_ONLY
+  
+  // saradush prison spirit should open a cell door even if player1 is not in the area; change cutscene to be driven by sarspir instead of player1; see also sarspir.bcs
+  COPY_EXISTING ~cut224a.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~CutSceneId(Player1)~ ~CutSceneId("sarspir")~
+      REPLACE_TEXTUALLY ~[ %TAB%]\(JumpToPoint(\[944\.369\])\)[ %TAB%%LNL%%MNL%%WNL%]~ ~ ActionOverride(Player1,\1) ~
+      REPLACE_TEXTUALLY ~[ %TAB%]\(Face(6)\)[ %TAB%%LNL%%MNL%%WNL%]~                   ~ ActionOverride(Player1,\1) ~
+      REPLACE_TEXTUALLY ~ActionOverride("sarspir",CreateVisualEffectObject("SPDEATH3",Myself))[ %TAB%%LNL%%MNL%%WNL%]+ActionOverride("sarspir",DestroySelf())~ ~~ // remove sarspir desruction (goes to sarspir's script)
+      REPLACE_TEXTUALLY ~ActionOverride("sarspir",\(.+\))$~ ~\1~ // change all other AO sarspir to just action
+    END
+    BUT_ONLY
+
+  // characters killed in soa finale should have their equipment go with them to tob
+  COPY_EXISTING ~cut59a.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~\(ApplySpell(Player2,CLERIC_RESURRECTION)\)~ ~CopyGroundPilesTo("ar4000",[1116.1805]) \1~
+    END
+    BUT_ONLY
+
+  COPY_EXISTING ~demnabsu.bcs~ ~override~
+                ~dempitsu.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~See(\[ANYONE\])~ ~See([ANYONE]) CheckStatLT(LastSeenBy(Myself),1,169)~
+    END
+    BUT_ONLY
+
+  // Hostile Planetars and Devas should not attempt to heal party members (Nythrun and aVENGER)
+  ACTION_FOR_EACH script IN devaevil devagood plangood BEGIN
+
+    COPY_EXISTING ~%script%.bcs~ override
+      DECOMPILE_AND_PATCH BEGIN
+        REPLACE_TEXTUALLY ~HaveSpell(CLERIC_CURE_DISEASE)~ ~HaveSpell(CLERIC_CURE_DISEASE) Allegiance(Myself,GOODCUTOFF)~
+        REPLACE_TEXTUALLY ~HaveSpell(CLERIC_DISPEL_MAGIC)~ ~HaveSpell(CLERIC_DISPEL_MAGIC) Allegiance(Myself,GOODCUTOFF)~
+        REPLACE_TEXTUALLY ~HaveSpell(CLERIC_LESSER_RESTORATION)~ ~HaveSpell(CLERIC_LESSER_RESTORATION) Allegiance(Myself,GOODCUTOFF)~
+        REPLACE_TEXTUALLY ~HaveSpell(CLERIC_NEUTRALIZE_POISON)~ ~HaveSpell(CLERIC_NEUTRALIZE_POISON) Allegiance(Myself,GOODCUTOFF)~
+        REPLACE_TEXTUALLY ~HaveSpell(CLERIC_REMOVE_FEAR)~ ~HaveSpell(CLERIC_REMOVE_FEAR) Allegiance(Myself,GOODCUTOFF)~
+        REPLACE_TEXTUALLY ~HPPercentLT(MostDamagedOf(Myself),25)~ ~HPPercentLT(MostDamagedOf(Myself),25) Allegiance(Myself,GOODCUTOFF)~
+      END
+    BUT_ONLY IF_EXISTS
+
+  END
+  
+  // dragon breath attacks hit multiple times - separate into visual & damage spells a la red/green dragon breath
+  // see also cddrblck.pro, cddrsilv.pro, spin595.spl, spin596.spl, spin691.spl, spin832.spl, spin833.spl, spin893.spl
+  // update scripts which use these spells to do double-casts instead
+  COPY_EXISTING ~dragbrow.bcs~ ~override~ // brown dragon (draconis)
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),BROWN_DRAGON_BREATH)~ ~ForceSpell(\1,BROWN_DRAGON_BREATH) ReallyForceSpellRES("spin596v",\1)~
+    END
+    BUT_ONLY
+
+  COPY_EXISTING ~dragyell.bcs~ ~override~ // yellow dragon (unused, but fix anyway)
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~ForceSpell(\([^,]+\),YELLOW_DRAGON_BREATH)~ ~ForceSpell(\1,YELLOW_DRAGON_BREATH) ReallyForceSpellRES("spin595v",\1)~
+    END
+    BUT_ONLY 
+
+  // generic healer script casting bless long before combat
+  COPY_EXISTING ~gphealer.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~\(HaveSpell(CLERIC_BLESS)\)~ ~\1 See(NearestEnemyOf(Myself))~
+    END
+    BUT_ONLY
+  
+  // various creatures use the gp** scripts to escape, breaking other stuff: gparcher, gpkensai
+  COPY_EXISTING ~gpkensai.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~\(!HasItem("POTN55",Myself)\)~ ~\1 !Name("chtaz01",Myself)~ // tamoko
+    END
+    BUT_ONLY
+
+  // if killed directly via spell, fire trolls should do groovy death animations
+  EXTEND_TOP ~hgtrl01.bcs~ ~bg2fixpack/baf/hgtrl01.baf~
+
+  // illasera's script skips some spellcasting due to bad var counts
+  COPY_EXISTING ~illasera.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~SetGlobal("EasyIllaseraSpell","LOCALS",3)~ ~SetGlobal("EasyIllaseraSpell","LOCALS",4)~ // enables slow, skulltrap blocks
+      REPLACE_TEXTUALLY ~\([ %TAB%]Global("EasyIllaseraSpell","LOCALS",4)\)~
+        ~\1 OR(3) !LevelGT(Player1,18) !NumInPartyGT(1) Global("IllaseraSpell","LOCALS",1)
+            OR(3) !LevelGT(Player1,21) !NumInPartyGT(1) Global("IllaseraSpell","LOCALS",2)~ // but preserve current order, e.g. let symbol stun and ADHW still go first if applicable
+    END
+    BUT_ONLY
+
+  // shouldn't get 'need more str' message in YS lair if you actually are strong enough
+  COPY_EXISTING ~ittempl2.bcs~ ~override~
+                ~ittempl3.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~\(!GlobalTimerNotExpired("SideDoor5204Timer","AR5204")\)~ ~\1 CheckStatLT(LastTrigger,19,STR) !CheckStat(LastTrigger,100,STREXTRA)~
+    END
+    BUT_ONLY
+
+  // moves LOCALS var set to local script instead of ar4500
+  EXTEND_TOP ~keld25.bcs~ ~bg2fixpack/baf/keld25.baf~
+
+  // one of the dwarf insults setting var with wrong scope
+  COPY_EXISTING ~sardw01.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~"SaradushAmbientInsults","GLOBAL"~ ~"SaradushAmbientInsults","AR5000"~
+    END
+    BUT_ONLY
+
+  // sarevok soundset fixes
+  EXTEND_BOTTOM ~sarev25.bcs~ ~bg2fixpack/baf/sarev25.baf~
+  
+  // no dupe shakti figurines
+  EXTEND_BOTTOM ~sarkis01.bcs~ ~bg2fixpack/baf/sarkis01.baf~
+  EXTEND_BOTTOM ~sarkis03.bcs~ ~bg2fixpack/baf/sarkis01.baf~
+
+  // saradush prison spirit should open a cell door even if player1 is not in the area; change cutscene to be driven by sarspir instead of player1; see also cut224a.bcs
+  EXTEND_BOTTOM ~sarspir.bcs~ ~bg2fixpack/baf/sarspir.baf~
+  
+  // viekang not detecting all forms of fear spells, add basic panic statecheck too
+  COPY_EXISTING ~sarvie01.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN 
+      REPLACE_TEXTUALLY ~OR(7)~
+        ~OR(12) StateCheck(Myself,STATE_PANIC) SpellCastOnMe([ANYONE],WIZARD_SPOOK) SpellCastOnMe([ANYONE],CLERIC_INSECT_PLAGUE) SpellCastOnMe([ANYONE],CLERIC_CREEPING_DOOM) SpellCastOnMeRES("spwm123",[ANYONE])~
+    END
+    BUT_ONLY
+  
+  // can get stuck w/o advancement if sendai is silenced when she's supposed to deliver her dying dialogue
+  EXTEND_BOTTOM ~sendai.bcs~ ~bg2fixpack/baf/sendai.baf~ // if silenced, will vocalize and then init dialogue
+
+  // devil shades can sit around and do nothing when below 50% hp
+  COPY_EXISTING ~shadfi02.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~HPPercentGT(Myself,49)~ ~OR(2) !HPPercentLT(Myself,50) !Global("MoreShadows","LOCALS",0) OR(2) !HPPercentLT(Myself,30) !Global("CuredSelf","LOCALS",0)~
+    END
+    BUT_ONLY
+
+  // summoned juggernaut golem shouldn't die instantly if summoned by clone
+  COPY_EXISTING ~tomegol4.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~!CheckStatGT(Player1,0,STONESKINSGOLEM)~ ~!CheckStatGT(LastSummonerOf(Myself),0,STONESKINSGOLEM) !CheckStatGT(Player1,0,STONESKINSGOLEM)~
+    END
+    BUT_ONLY
+
+  EXTEND_TOP ~wish01.bcs~ ~bg2fixpack/baf/wish01.baf~ // asc64 wish fixes; see wish25.dlg
+
+  // Killing unrelated baatezu outside Ka'rashur's room should not turn him and his cohort in Watcher's Keep hostile (see also ar3005.are, ar3006.are, ar3009.are and ar6012.are) (Wisp)
+  COPY_EXISTING ~yssumm2.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY CASE_INSENSITIVE EXACT_MATCH ~"gorbat2"~ ~"deriny01"~
+    END
+
+END

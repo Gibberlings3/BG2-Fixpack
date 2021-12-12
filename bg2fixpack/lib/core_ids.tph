@@ -1,0 +1,79 @@
+/////                                                  \\\\\
+///// ids fixes                                        \\\\\
+/////                                                  \\\\\
+
+// add ToB scripting actions/triggers to SoA; done as a library in case other mods want to nab it
+INCLUDE ~bg2fixpack/lib/tob2soa.tph~
+
+// Fix the BashDoor() entry in ACTION.IDS (Wounded_Lion)
+COPY_EXISTING ~action.ids~ ~override~
+  REPLACE_TEXTUALLY ~BashDoor(0:Object)~ ~BashDoor(O:Object)~
+  BUT_ONLY
+
+// Fix the LeaveAreaLUAPanicEntry() entry in ACTSLEEP.IDS (Lu_ and aVENGER)
+COPY_EXISTING ~actsleep.ids~ ~override~
+  PATCH_IF NOT FILE_CONTAINS_EVALUATED (~%SOURCE_FILE%~ ~LeaveAreaLUAPanicEntry(S\:Area\*\,S\:Entry\*\,P\:Point\*\,I\:Face\*)~) BEGIN
+    REPLACE_TEXTUALLY EXACT_MATCH ~351 LeaveAreaLUAPanicEntry(S:Area*,S:Entry*,P:Point*,~ ~351 LeaveAreaLUAPanicEntry(S:Area*,S:Entry*,P:Point*,I:Face*)~
+  END
+  BUT_ONLY
+
+// imprisoned summon fix: see cdwi917a.spl, cdwi910.eff, cdwi917a.eff, spin580.spl, spin626.spl, spin788.spl, spwi910.spl, spwi917.spl
+APPEND ~gender.ids~ ~66 IMPRISONED_SUMMONED~ UNLESS ~^66[ %TAB%]~
+
+// fix kit.ids; also done as an external library so other mods can grab it
+INCLUDE ~bg2fixpack/lib/kit_ids_fixer.tpa~
+
+// projectl.ids changes; projectiles need to be added early to make variable available for spell/item patching
+// new projectile to correct detect evil range; see spcl212.spl, spin120.spl, sppr104.spl, spwi202.spl for additional changes
+ADD_PROJECTILE ~bg2fixpack/pro/cddetevl.pro~
+
+// clone beholder ray and assign it to beholder lightning bolt spells
+// this allows it to be reflected by cloak of reflection without also reflecting all beholder projectiles
+COPY_EXISTING ~spbehbla.pro~ ~override/cdbehbla.pro~
+ADD_PROJECTILE ~override/cdbehbla.pro~
+
+// dragon breath attacks hit multiple times - separate into visual & damage spells a la red/green dragon breath
+// see also spin595.spl, spin596.spl, spin691.spl, spin832.spl, spin833.spl, spin893.spl, dragyell.bcs, dragbrow.bcs, dragblac.bcs, draghell.bcs, dragsilv.bcs, shadra01.bcs, test99.bcs
+COPY_EXISTING ~dragblck.pro~ ~override/cddrblck.pro~ // create non-repeating, non-animating projectiles (dragred vs redhit)
+              ~dragsilv.pro~ ~override/cddrsilv.pro~
+  WRITE_SHORT 0x00a 60     // speed increase
+  WRITE_ASCII 0x010 ~~  #8 // remove travel sound
+  WRITE_ASCII 0x100 ~~ #12 // remove area flags, animation BAM
+  WRITE_ASCII 0x11c ~~ #23 // remove palette, projectile color 1-7, smoke puff delay, smoke color 1-7
+  WRITE_BYTE  0x133 1      // face target: do not face target
+  WRITE_SHORT 0x134 0      // no smoke animation
+  WRITE_SHORT 0x200 BIT0   // visible flag
+  WRITE_SHORT 0x204 256    // trap size
+  WRITE_SHORT 0x206 256    // explosion size
+  WRITE_SHORT 0x210 100    // explosion frequency
+  WRITE_BYTE  0x216 1      // animation repetitions
+  WRITE_SHORT 0x224 0      // cone width
+ADD_PROJECTILE ~override/cddrblck.pro~
+ADD_PROJECTILE ~override/cddrsilv.pro~
+
+// eliminates duplicate SHADOW entries
+COPY_EXISTING ~race.ids~ ~override~
+  REPLACE_TEXTUALLY ~^149[ %TAB]+SHADOW\([ %TAB%%LNL%%MNL%%WNL%]\)~ ~149 STATUE\1~
+  BUT_ONLY
+
+// add ettin racial entry; needed to give Crom ability to insta-kill ettins
+APPEND ~race.ids~ ~199 ETTIN~ UNLESS ~^199[ %TAB]+ETTIN[ %TAB%%LNL%%MNL%%WNL%]~
+
+// added snares for scripting purposes, fix broken entry
+COPY_EXISTING ~spell.ids~ ~override~
+  REPLACE_TEXTUALLY ~PSIONIC[ %TAB]+_SUPERIOR_INVISIBILITY~ ~PSIONIC_SUPERIOR_INVISIBILITY~ // 3544
+APPEND ~spell.ids~ ~1718 CLERIC_SYMBOL_STUN~      UNLESS ~^1718[ %TAB]+CLERIC_SYMBOL_STUN[ %TAB%%LNL%%MNL%%WNL%]~
+APPEND ~spell.ids~ ~1719 CLERIC_SYMBOL_DEATH~     UNLESS ~^1719[ %TAB]+CLERIC_SYMBOL_DEATH[ %TAB%%LNL%%MNL%%WNL%]~
+APPEND ~spell.ids~ ~4321 BERSERKER_ENRAGE~        UNLESS ~^4321[ %TAB]+BERSERKER_ENRAGE[ %TAB%%LNL%%MNL%%WNL%]~
+APPEND ~spell.ids~ ~4412 THIEF_SET_SNARE~         UNLESS ~^4412[ %TAB]+THIEF_SET_SNARE[ %TAB%%LNL%%MNL%%WNL%]~
+APPEND ~spell.ids~ ~4414 THIEF_SET_SPECIAL_SNARE~ UNLESS ~^4414[ %TAB]+THIEF_SET_SPECIAL_SNARE[ %TAB%%LNL%%MNL%%WNL%]~
+
+// new state needed to fix Dead() triggers that don't use DVs
+// covers STATE_DEAD, STATE_ACID_DEATH, STATE_FLAME_DEATH, STATE_EXPLODING_DEATH, STATE_STONE_DEATH, STATE_FROZEN_DEATH
+APPEND ~state.ids~ ~0x00000FC0 STATE_REALLY_DEAD~ UNLESS ~^0x00000FC0[ %TAB]+STATE_REALLY_DEAD[ %TAB%%LNL%%MNL%%WNL%]~
+// new state as shortcut for unavailable for dialogue; covers STATE_CONFUSED, STATE_FEEBLEMINDED, STATE_SILENCED, STATE_DEAD, STATE_ACID_DEATH, STATE_FLAME_DEATH,
+// STATE_EXPLODING_DEATH, STATE_STONE_DEATH, STATE_FROZEN_DEATH, STATE_HELPLESS, STATE_STUNNED, STATE_PANIC, STATE_BERSERK, STATE_SLEEPING
+APPEND ~state.ids~ ~0x80101FEF CD_STATE_NOTVALID~ UNLESS ~^0x80101FEF[ %TAB]+CD_STATE_NOTVALID[ %TAB%%LNL%%MNL%%WNL%]~
+
+// force WeiDU to reload altered IDS files
+CLEAR_IDS_MAP
