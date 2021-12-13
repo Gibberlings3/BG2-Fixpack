@@ -1,0 +1,43 @@
+INCLUDE ~bg2fixpack/lib/functions.tpa~ // miscellaneous patch functions
+INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
+
+/////                                                  \\\\\
+///// mass compile/copy actions actions                \\\\\
+/////                                                  \\\\\
+
+COMPILE ~bg2fixpack/dlg/beta_soa-dlg.d~ // dialogue fixes
+
+/////                                                  \\\\\
+///// script fixes                                     \\\\\
+/////                                                  \\\\\
+
+// ranger stronghold fails if you're in Umar Hills when Delon spawn timer expires; see also delon.dlg
+COPY_EXISTING ~ar1100.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(NumDeadLT("rogron",6)\)~ ~\1 Global("CDDelonSpoke","GLOBAL",1)~
+  END
+  BUT_ONLY  
+  
+/////                                                  \\\\\
+///// other item file fixes                            \\\\\
+/////                                                  \\\\\
+
+// staves of air/earth/water force saving throws on non-elementals; see also eff_m36b.eff
+COPY_EXISTING ~staf15.itm~ ~override~ // staff of air +2
+              ~staf16.itm~ ~override~ // staff of earth +2
+              ~staf17.itm~ ~override~ // staff of fire +2
+  LPF DELETE_EFFECT INT_VAR check_globals = 0 match_opcode = 174 STR_VAR match_resource = eff_m36b END // delete
+  LPF CLONE_EFFECT  INT_VAR check_globals = 0 match_opcode = 55 opcode = 177 STR_VAR resource = eff_m36b END // clone into play eff (clone 55 instead of alter 174 to keep class targeting)
+
+/////                                                  \\\\\
+///// eff fixes                                        \\\\\
+/////                                                  \\\\\
+
+// staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
+COPY_EXISTING ~coldhit.eff~ ~override/eff_m36b.eff~
+  WRITE_LONG  0x28 0 // duration
+  WRITE_ASCII 0x30 eff_m36b #8
+  WRITE_LONG  0x38 0 // dice num
+  WRITE_LONG  0x3c 0 // dice thrown
+  
+  

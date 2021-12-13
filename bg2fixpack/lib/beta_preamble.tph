@@ -1,2 +1,0 @@
-INCLUDE ~bg2fixpack/lib/functions.tpa~ // miscellaneous patch functions
-INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff

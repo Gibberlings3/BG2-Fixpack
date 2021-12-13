@@ -146,33 +146,9 @@ INCLUDE ~bg2fixpack/lib/modder.tpa~
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 
 BEGIN @20 DESIGNATED 3 // Beta Core Fixes
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
+//REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
 
-// uncomment as needed
-INCLUDE ~bg2fixpack/lib/beta_preamble.tph~           // loads functions, fixes key, preps for other fixes
-//INCLUDE ~bg2fixpack/lib/beta_strings.tph~            // strings which need to be updated
-//INCLUDE ~bg2fixpack/lib/beta_ids.tph~                // ids corrections 
-//INCLUDE ~bg2fixpack/lib/beta_2da.tph~                // 2da corrections 
-//INCLUDE ~bg2fixpack/lib/beta_compile.tph~            // any basic copy/compiles go here
-//INCLUDE ~bg2fixpack/lib/beta_dialogue.tph~           // fixes to dialogue
-//INCLUDE ~bg2fixpack/lib/beta_playerai.tph~           // fixes to player AI scripts
-//INCLUDE ~bg2fixpack/lib/beta_scripts_syntax.tph~     // bulk script fixes
-//INCLUDE ~bg2fixpack/lib/beta_scripts_other.tph~      // bespoke script fixes
-//INCLUDE ~bg2fixpack/lib/beta_area.tph~               // all area fixes
-//INCLUDE ~bg2fixpack/lib/beta_creature_bulk.tph~      // bulk creature fixes (race, class, etc.)
-//INCLUDE ~bg2fixpack/lib/beta_creature_inventory.tph~ // creature inventory fixes
-//INCLUDE ~bg2fixpack/lib/beta_creature_other.tph~     // all other creature fixes
-//INCLUDE ~bg2fixpack/lib/beta_item_bulk.tph~          // bulk item fixes (weight, speed, etc.)
-//INCLUDE ~bg2fixpack/lib/beta_item_usability.tph~     // item usability fixes
-//INCLUDE ~bg2fixpack/lib/beta_item_scroll.tph~        // spell scroll fixes
-//INCLUDE ~bg2fixpack/lib/beta_item_other.tph~         // other item fixes
-//INCLUDE ~bg2fixpack/lib/beta_spell_bulk.tph~         // bulk spell fixes (casting animation, speed. etc.)
-//INCLUDE ~bg2fixpack/lib/beta_spell_other.tph~        // all other spell fixes
-//INCLUDE ~bg2fixpack/lib/beta_store.tph~              // store, bags of holding fixes
-//INCLUDE ~bg2fixpack/lib/beta_other_files.tph~        // fixes for vvc, pro, bam, eff, music
-//INCLUDE ~bg2fixpack/lib/beta_immunity_batches.tph~   // immunity batch fixes for items/creatures/spells
-//INCLUDE ~bg2fixpack/lib/beta_effing_effs.tph~        // fixing effs whichprovide damage and thac0 bonuses vs. X
-//INCLUDE ~bg2fixpack/lib/beta_probability.tph~        // probability fixes for items/creatures/spells
+INCLUDE ~bg2fixpack/lib/beta_core.tph~  
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
