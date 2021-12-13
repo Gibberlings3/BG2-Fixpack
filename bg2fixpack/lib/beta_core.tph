@@ -134,7 +134,7 @@ COPY_EXISTING ~staf15a.eff~ ~override/staf15b.eff~
 // staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
 COPY_EXISTING ~staf15a.eff~ ~override/staf15c.eff~
   WRITE_LONG  0x10 139 // display string
-  SAY 0x1c @260
+  SAY 0x1c @264
 
 // don't play berserk damage warnings on non-party memebers; see also spcl321.spl spcl321d.spl, spin117.spl
 COPY_EXISTING ~mesdie.eff~ ~override/spin117a.eff~

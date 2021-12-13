@@ -1004,10 +1004,38 @@ Not Usable By:
  Mage
  Thief~
 @259 = ~fighter / great druid~
-@260 = ~Elemental destroyed~
+// BG1: #23974
+@260 = ~Plate Mail +3~
+// BG1: #23975
+@261 = ~Plate Mail +3 : 'The Practical Defense'
+The travelling adventurer could ask for no better a suit of armor in all the land. Specially commissioned by Bolhur "Thunderaxe" at GREAT expense, this suit was his most prized, even if not his most ornate. Eminently practical, Bolhur demanded armor that would offer superior protection while hampering him in the least. By "hampering" he did not just mean in movement or weight: his ideal suit should be able to withstand the rigors of his wanderings with little maintenance. This is not to say that Bolhur "Thunderaxe" neglected his armors -to say as such would get your ears boxed- but the regime of spit and polish required for a "gentleman's" suit was beyond his caring. Save the tassels and gilding of Full Plate for kings and heads of state; a working dwarf cares more of utility than looks. 
 
+STATISTICS:
 
+Armor Class: 0
+Weight: 18
+Requires: 12 Strength
+Not Usable By:
+ Bard 
+ Druid
+ Mage
+ Thief~
+// BG1: #23962
+@262 = ~Sling +3~
+// BG1: #23963
+@263 = ~Sling +3 : 'Arla's Dragonbane'
+None know better than Halflings the value of a well-placed stone when confronting a larger foe. This particular weapon was the property of a young woman named Arla Surestep, one of the few small-folk that leave the hearth to seek adventure. Legend speaks of the diminutive Arla using this sling to place a well-sharpened pebble through the skull of a green dragon in mid-flight, though the same tale in another tavern places the stone squarely in the creature's hindquarters for more humorous than lethal effect. It would seem that Halflings prefer entertainment over accuracy when it comes to their history.
 
+STATISTICS:
+
+Damage:  +3 (missile damage)
+THACO:  +3
+Weight: 0
+Speed Factor: 3
+Proficiency Type: Sling
+Type:  1-handed
+Not Usable By:~
+@264 = ~Elemental destroyed~
 
 
 @1000 = ~GTU Light (by Wisp)~

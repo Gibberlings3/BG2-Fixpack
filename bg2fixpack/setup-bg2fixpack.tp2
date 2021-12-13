@@ -146,7 +146,7 @@ INCLUDE ~bg2fixpack/lib/modder.tpa~
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 
 BEGIN @20 DESIGNATED 3 // Beta Core Fixes
-//REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
 
 INCLUDE ~bg2fixpack/lib/beta_core.tph~  
 

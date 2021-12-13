@@ -1247,3 +1247,31 @@ Inutilisable par :
 Druide
 Clerc
 Mage~
+
+@260 = ~Armure de plates +3~
+@261 = ~Armure de plates +3 : " Défense pratique "
+L'aventurier voyageur ne pourrait trouver meilleure armure. Tout spécialement fabriquée à GRANDS frais pour Bolhur " Hachetonnerre ", elle était la plus précieuse de ses armures, bien que n'étant pas la plus ouvragée. Eminemment pratique, Bolhur exigeait d'une armure une protection maximale pour une gêne minimale. Par " gêne ", il n'entendait pas seulement facilité de mouvement ou poids : l'armure idéale devait pouvoir résister aux rigueurs de ses errances sans nécessiter pour autant beaucoup d'entretien. Non pas que Bolhur " Hachetonnerre " négligeât ses armures (une telle insinuation se payait alors d'une bonne claque), mais disons que la pratique du cracher-astiquer que requiert une armure de " gentilhomme " ne faisait pas partie de ses préoccupations. Sans parler des pompons et dorures des armures de plates complètes propres aux rois et aux chefs d'état : un nain actif accorde plus d'importance à l'aspect pratique qu'à l'esthétique. 
+
+PARAMETRES :
+
+Classe d'armure : 0
+Poids : 18
+Non utilisable par :
+ Barde
+ Druide
+ Mage
+ Voleur~
+
+@262 = ~Fronde +3~
+@263 = ~Fronde +3 : " Boute-dragon d'Arla "
+Nul ne connaît aussi bien que les Petites-gens la valeur d'une pierre bien lancée lors d'une confrontation avec un ennemi de taille supérieure. Cette arme-ci appartenait à Arla Aupassûr, une jeune femme du Petit-peuple qui comme d'autres quitta les forges en quête d'aventures. La légende décrit la minuscule Arla lançant avec cette fronde un caillou bien aiguisé dans le crâne d'un dragon vert en plein vol ; mais dans une autre taverne, l'histoire change un peu et le caillou frappe carrément l'arrière-train du dragon, pour donner un effet plus comique que mortel. Les Petites-gens semblent préférer souvent la drôlerie à la précision historique.
+
+PARAMETRES :
+
+Dégâts : +3 (projectiles)
+TAC0 : +3
+Poids : 0
+Facteur de vitesse : 3
+Type de compétence : fronde 
+Type : à une main
+Non utilisable par :~

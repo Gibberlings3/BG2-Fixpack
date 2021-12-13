@@ -1074,5 +1074,38 @@ Kann nicht verwendet werden von:
  Magiern
  Dieben~
 @259 = ~Kämpfer / Großer Druide~
+
+@260 = ~Plattenpanzer +3~
+@261 = ~Die praktische Verteidigung
+
+Im ganzen Land gibt es keine bessere Rüstung für den umherreisenden Abenteurer. Diese Rüstung, eine äußerst teure Sonderanfertigung für Bolhur "Donneraxt", war seine kostbarste und wohl auch die mit den meisten Verzierungen. Sie ist unheimlich praktisch, denn Bolhur verlangte nach Rüstungen, die hochwertigen Schutz boten und ihn dennoch in keiner Weise behinderten. Und "behindern" bezog er dabei nicht nur auf seine Bewegungsfreiheit oder das Gewicht: Die ideale Rüstung sollte den Härten seiner Streifzüge mit möglichst wenig Wartungsaufwand standhalten. Das soll nun aber nicht heißen, dass Bolhur "Donneraxt" seine Rüstungen vernachlässigte - wagtet Ihr, dies zu behaupten, würdet Ihr Euch großen Ärger einhandeln. Aber an der normalen Pflege einer "herrschaftlichen" Rüstung mit Spucke und Politur konnte er keinen richtigen Gefallen finden. Und dann erst die Quasten und Verzierungen eines Prunkharnischs, wie sie von Königen und Staatsoberhäuptern getragen werden - einem arbeitenden Zwerg ist der Nutzen wichtiger als das Aussehen.
+
+EIGENSCHAFTEN:
+
+Rüstungsklasse: 0
+Gewicht: 18
+Mindeststärke: 11
+
+Kann nicht verwendet werden von:
+ Kämpfern
+ Klerikern
+ Paladinen
+ Waldläufern~
+
+@262 = ~Schleuder +3~
+@263 = ~Arlas Drachenbann
+
+Es weiß wohl niemand so gut wie die Halblinge, wie wertvoll ein zielsicher geschleuderter Stein ist, wenn man es mit einem übergroßen Feind zu tun hat. Diese Waffe gehörte einer jungen Frau namens Arla Sichertritt. Sie war eine der wenigen weiblichen Halblinge, die den gemütlichen und sicheren Platz vor dem Herd verließen, um auf Abenteuer auszuziehen. Die Legende besagt, dass die kleine Arla die Schleuder dazu verwendete, um einen fliegenden grünen Drachen damit abzuschießen. Der Stein durchbohrte angeblich den Schädel des Drachen. Allerdings wird die gleiche Geschichte in anderen Schänken so erzählt, dass der Stein den Drachen angeblich in den Hintern getroffen hat. Bei dieser Version der Geschichte stirbt der Drache natürlich nicht und alles nimmt einen ziemlich humoristischen Verlauf. Offenbar legen Halblinge nicht so viel Wert darauf, als große Helden dazustehen, wenn sie von ihrer Vergangenheit erzählen. Es reicht ihnen wohl, wenn sich jeder gut amüsiert.
+
+EIGENSCHAFTEN:
+
+Schadensbonus: +3 (Geschoss)
+ETW0-Bonus: -3
+Gewicht: 0
+Initiativefaktor: 3
+Mindeststärke: 3
+Fertigkeit: Schleuder
+Typ: 1-händig~
+
 @1000 = ~GTU Light (Autor: Wisp)~
 @1001 = ~GTU Classic (von Baldurdash, Autor: Kevin Dorner)~
