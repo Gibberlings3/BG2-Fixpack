@@ -584,3 +584,36 @@ Specjalne zdolnoœci:
  Mo¿e wykonaæ 3 ataki na rundê, ofiara doznaje 1K6 obra¿eñ plus musi wykonaæ rzut obronny przeciw œmierci, jeœli nie chce otrzymaæ modyfikatora -1 do Zrêcznoœci na 6 rund
  Regeneruje 1 P¯/rundê
  Odpornoœæ na zwyk³e bronie~
+
+// BG1: #23974
+@260 = ~Praktyczny obroñca +3~
+// BG1: #23975
+@261 = ~Zbroja p³ytowa +3: 'Praktyczny obroñca'
+
+Nieustannie podró¿uj¹cy poszukiwacz przygód nie móg³by zapewne ¿yczyæ sobie lepszej zbroi. Ten pancerz, specjalnie i za WIELKIE pieni¹dze zamówiony przez Bolhura "Grzmi¹cy topór", by³ jego ulubionym, chocia¿ nie najbardziej ozdobnym. Niezwykle praktyczny Bolhur za¿¹da³ zbroi, która dawa³aby znakomit¹ ochronê, a jednoczeœnie jak najmniej go krêpowa³a. Przez "krêpowanie" rozumia³ nie tylko ograniczenia ruchu czy wagê: jego idealna zbroja mia³a wytrzymywaæ trudy podró¿y nie wymagaj¹c ci¹g³ego czyszczenia i konserwacji. Nie znaczy to wcale, ¿e Bolhur "Grzmi¹cy Topór" zaniedbywa³ swoje zbroje, by³oby to twierdzenie mocno przesadzone, ale surowy re¿im plucia i polerowania, wymagany przy "jaœniepañskich" zbrojach, by³ bardzo odleg³y jego naturze. Poz³oty i ozdóbki pe³nych zbroi p³ytowych niech s³u¿¹ królom i g³owom pañstw - pracujacy krasnolud bardziej ceni praktycznoœæ ni¿ piêkny wygl¹d.
+
+PARAMETRY:
+
+Klasa Pancerza: 0
+Waga: 18
+Wymagana si³a: 12
+Nie mo¿e u¿ywaæ:
+ Bard
+ Druid
+ Mag
+ Z³odziej~
+// BG1: #23962
+@262 = ~Zguba smoków Arli +3~
+// BG1: #23963
+@263 = ~Proca +3: 'Zguba smoków Arli'
+
+Nikt nie zna lepiej od nizio³ków wartoœci dobrze wymierzonego kamienia, gdy przychodzi zmierzyæ siê z wiêkszym przeciwnikiem. Ta proca nale¿a³a do m³odej kobiety o imieniu Arla Pewny Krok, jednej z niewielu nizio³ków, którzy opuœcili domowe ogniska w poszukiwaniu przygód. Legenda opowiada o maleñkiej Arli u¿ywaj¹cej tej procy by pos³aæ na wylot ostry kamieñ przez g³owê lec¹cego zielonego smoka, choæ ta sama legenda opowiadana w innej tawernie mówi o zadniej czêœci smoczego cia³a, by wywo³aæ bardziej humorystyczny ni¿ zabójczy efekt. Wynika z tego, ¿e nizio³ki preferuj¹ rozrywkê ni¿ wiernoœæ historyczn¹.
+
+PARAMETRY:
+
+Obra¿enia: +3
+TraK0: +3
+Waga: 0
+OpóŸnienie: 3
+Rodzaj bieg³oœci: proca
+Typ broni: 1-rêczna~

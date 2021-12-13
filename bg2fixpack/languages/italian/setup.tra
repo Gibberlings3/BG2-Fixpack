@@ -529,3 +529,31 @@ Classe Armatura: -2
 Punti Ferita: 48
 Resistenza alla magia: 35%
 Abilità speciali: 3 attacchi per round per round, che infliggono da 1 a 6 danni, il bersaglio colpito deve salvare contro morte o perdere un punto di destrezza per 36 secondi. Resistenza al fuoco, al freddo e all'elettricità 100%. Può lanciare 'Orrore' e 'Sfocatura' una volta al giorno. Rigenera 1 punto ferita per round. Immune al risucchio di livello, agli effetti di 'Sonno', alla pietrificazione e alle armi normali.~
+
+@260 = ~Corazza di piastre +3~
+@261 = ~Corazza di piastre +3: "Difesa Pratica"
+Un avventuriero non potrebbe trovare un'armatura migliore da nessuna parte. Frutto di una commessa speciale per Bolhur "Martello di Tuono" costata una cifra ENORME, sebbene non fosse la sua corazza più pregiata, era certamente quella a lui più cara. Bolhur guardava infatti all'aspetto pratico delle cose, perciò prediligeva questa corazza, che era robusta ma comoda da indossare, non solo perché leggera e semplice, ma anche perché richiedeva poca cura. Questo non significa che a Bolhur "Martello di Tuono" non importasse nulla delle sue armature, ma semplicemente che dedicava meno tempo alla cura della sua corazza rispetto agli altri "gentiluomini". Gli ornamenti e i fronzoli delle corazze complete possono andar bene per re e capi di stato, ma non per un nano che lavora.
+
+STATISTICHE:
+
+Classe armatura: 0
+Peso: 18
+Non utilizzabile da:
+ Bardo
+ Druido
+ Mago
+ Ladro~
+@262 = ~Fionda +3~
+@263 = ~Fionda +3: Dragonbane di Arla
+Nessuno meglio degli halfling sa quanto sia utile saper tirare bene una sassata a un nemico più grande. Questa particolare arma apparteneva a una giovane di nome Arla Passosicuro, una delle poche donne che osò abbandonare il focolare e partire in cerca di avventura. La leggenda vuole che la piccola Arla abbia usato questa fionda per colpire in fronte un drago verde sollevatosi in volo. Secondo una versione della storia raccontata in un'altra taverna, invece, Arla riuscì a colpire il drago verde nelle parti basse, sortendo effetti più umoristici che letali. Gli halfling antepongono il divertimento alla precisione quando si tratta della loro storia.
+
+STATISTICHE:
+
+Danno: +3 (danno arma da lancio)
+THACO: +3
+Peso: 0
+Fattore-velocità: 3
+Tipo di capacità: Fionda
+Tipo: A una mano
+Non utilizzabile da:~
+ 

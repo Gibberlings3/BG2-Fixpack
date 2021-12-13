@@ -11000,6 +11000,12 @@ COPY_EXISTING ~plat19.itm~ ~override~
   LPF ALTER_EFFECT  INT_VAR silent = 1 check_headers = 0 match_opcode = 142 match_parameter2 = 26 parameter2 = 16 END // for plat22 only, change resist fire/cold icon to pro-fire
   BUT_ONLY IF_EXISTS
 
+// Missing descriptions from BG1
+COPY_EXISTING ~plat08.itm~ ~override~
+  SAY NAME2 @260
+  SAY IDENTIFIED_DESC @261
+  BUT_ONLY IF_EXISTS
+
 // (zero-weight magical items) ogre's morningstar from polymorph self; uses generic morningstar description so not bulk-fixed
 COPY_EXISTING ~plymstar.itm~ ~override~
   WRITE_LONG 0x4c 0 // fixes item weight
@@ -11182,6 +11188,12 @@ COPY_EXISTING ~shld25.itm~ ~override~
 COPY_EXISTING ~slaylive.itm~ ~override~
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 141 power = 0 END
   BUT_ONLY
+
+// Missing descriptions from BG1
+COPY_EXISTING ~slng03.itm~ ~override~
+  SAY NAME2 @262
+  SAY DESC @263
+  BUT_ONLY IF_EXISTS
 
 // sol's searing orb - undead blindness should be 6 rounds, 12 on failed save;
 // non-undead should be blinded for 1d6 rounds, not fixed at 6 rounds
