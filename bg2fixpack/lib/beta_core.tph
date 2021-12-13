@@ -24,7 +24,13 @@ COPY_EXISTING ~ar1100.bcs~ ~override~
     REPLACE_TEXTUALLY ~\(NumDeadLT("rogron",6)\)~ ~\1 Global("CDDelonSpoke","GLOBAL",1)~
   END
   BUT_ONLY  
-  
+
+// love talk sets trigger for jaheira's bandits to spawn, but shouldn't occur if romance ends before timer is up
+COPY_EXISTING ~jaheira.bcs~ ~override~
+  DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY ~\(Global("JaheiraBanditPlot","GLOBAL",1)\)~ ~\1 OR(2) Global("JaheiraRomanceActive","GLOBAL",1) Global("JaheiraRomanceActive","GLOBAL",2)~
+  END
+  BUT_ONLY  
 ACTION_IF tob_game BEGIN
 
   // siege camp reinforcements checking wrong blocks
@@ -40,6 +46,15 @@ END
 /////                                                  \\\\\
 ///// other item file fixes                            \\\\\
 /////                                                  \\\\\
+
+// protection from magic scrolls not dispelling all buffs
+COPY_EXISTING ~scrl07.itm~ ~override~ // protection from magic
+  FOR (index = 0 ; index < 11 ; ++index) BEGIN
+    LPF ADD_ITEM_EFFECT INT_VAR insert_point = 0 opcode = 220 parameter1 = 99 parameter2 = index target = 2 timing = 1 END // remove school protections: index 
+  END  
+  FOR (index = 0 ; index < 14 ; ++index) BEGIN // only 10 spell schools, but 13 secondary types
+    LPF ADD_ITEM_EFFECT INT_VAR insert_point = 0 opcode = 221 parameter1 = 99 parameter2 = index target = 2 timing = 1 END // remove school protections: index 
+  END  
 
 // staves of air/earth/water force saving throws on non-elementals; see also staf15[abc].eff
 COPY_EXISTING ~staf15.itm~ ~override~ // staff of air +2
@@ -90,6 +105,13 @@ COPY_EXISTING ~spin823.spl~ ~override~ // leave 111 (create weapon), 171 (give i
   LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 38 STR_VAR match_resource = spin823a resource = spin823d END
   LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 44 STR_VAR match_resource = spin823a resource = spin823e END
 
+// don't play berserk damage warnings on non-party memebers; see also spin117[ab].eff
+COPY_EXISTING ~spcl321.spl~  ~override~ // berserker enrage
+              ~spcl321d.spl~ ~override~ // berserker enrage (cooldown)
+              ~spin117.spl~  ~override~ // minsc's berserk (also used by, randomly, Gorf)
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 139 match_parameter1 = 20723 opcode = 177 parameter1 = 30 parameter2 = 2 STR_VAR resource = spin117a END // only for GOODCUTOFF
+  LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 139 match_parameter1 = 20726 opcode = 177 parameter1 = 30 parameter2 = 2 STR_VAR resource = spin117b END // only for GOODCUTOFF
+
 /////                                                  \\\\\
 ///// eff fixes                                        \\\\\
 /////                                                  \\\\\
@@ -113,5 +135,16 @@ COPY_EXISTING ~staf15a.eff~ ~override/staf15b.eff~
 COPY_EXISTING ~staf15a.eff~ ~override/staf15c.eff~
   WRITE_LONG  0x10 139 // display string
   SAY 0x1c @260
+
+// don't play berserk damage warnings on non-party memebers; see also spcl321.spl spcl321d.spl, spin117.spl
+COPY_EXISTING ~mesdie.eff~ ~override/spin117a.eff~
+  WRITE_LONG 0x10 139   // display string
+  WRITE_LONG 0x1c 20723 // When the berserk state ends, the character will take 15 damage.
+  WRITE_LONG 0x40 0     // remove save
+  WRITE_LONG 0x44 0     // remove save penalty
+  WRITE_LONG 0x60 0     // param3
+  
+COPY_EXISTING ~spin117a.eff~ ~override/spin117b.eff~
+  WRITE_LONG 0x1c 20726 // The berserk state has ended...
   
   
