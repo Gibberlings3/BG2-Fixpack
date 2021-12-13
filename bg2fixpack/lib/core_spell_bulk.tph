@@ -135,7 +135,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_changes_spl BEGIN
   spwi111, 1, null, null, null, null, null, 30, null, null, null => spwi111 // Infravision (WIZARD_INFRAVISION)
   spwi112, null, null, null, null, null, null, 60, null, null, null => spwi112 // Magic Missile (WIZARD_MAGIC_MISSILE)
   spwi113, 1, null, null, null, null, null, null, null, null, null => spwi113 // Protection From Evil (WIZARD_PROTECTION_FROM_EVIL)
-  spwi114, null, null, null, null, null, null, null, 15, null, null => spwi114 // Shield (WIZARD_SHIELD)
+  spwi114, null, null, 142, null, null, null, null, 15, null, null => spwi114 // Shield (WIZARD_SHIELD)
   spwi116, null, null, null, null, null, null, 90, null, null, null => spwi116 // Sleep (WIZARD_SLEEP)
   spwi118, null, null, null, null, null, null, 90, null, null, null => spwi118 // Chromatic Orb (WIZARD_CHROMATIC_ORB)
   spwi119, null, null, null, null, null, null, 90, null, null, null => spwi119 // Larloch's Minor Drain (WIZARD_LARLOCH_MINOR_DRAIN)

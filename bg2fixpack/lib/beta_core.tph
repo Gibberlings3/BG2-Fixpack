@@ -41,13 +41,14 @@ END
 ///// other item file fixes                            \\\\\
 /////                                                  \\\\\
 
-// staves of air/earth/water force saving throws on non-elementals; see also staf15[ab].eff
+// staves of air/earth/water force saving throws on non-elementals; see also staf15[abc].eff
 COPY_EXISTING ~staf15.itm~ ~override~ // staff of air +2
               ~staf16.itm~ ~override~ // staff of earth +2
               ~staf17.itm~ ~override~ // staff of fire +2
   LPF DELETE_EFFECT INT_VAR check_globals = 0 match_opcode = 174 STR_VAR match_resource = eff_m36b END // delete
   LPF ALTER_EFFECT  INT_VAR check_globals = 0 match_opcode = 55 opcode = 177 savingthrow = 0 STR_VAR resource = staf15a END // change slay into eff call, remove save
   LPF CLONE_EFFECT  INT_VAR check_globals = 0 match_opcode = 177 STR_VAR match_resource = staf15a resource = staf15b insert = above END    // clone slay into second eff for sound
+  LPF CLONE_EFFECT  INT_VAR check_globals = 0 match_opcode = 177 STR_VAR match_resource = staf15a resource = staf15c insert = above END    // clone slay into third eff for message
 
 // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also spin718.spl, spin823.spl, spin823[abcde].spl
 COPY_EXISTING ~slayerwp.itm~ ~override/slayerw3.itm~
@@ -107,5 +108,10 @@ COPY_EXISTING ~slaysum.eff~ ~override/staf15a.eff~
 COPY_EXISTING ~staf15a.eff~ ~override/staf15b.eff~
   WRITE_LONG  0x10 174 // play sound
   WRITE_ASCII 0x30 eff_m36b #8 // sound file
+
+// staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
+COPY_EXISTING ~staf15a.eff~ ~override/staf15c.eff~
+  WRITE_LONG  0x10 139 // display string
+  SAY 0x1c @260
   
   
