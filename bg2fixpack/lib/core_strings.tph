@@ -289,6 +289,7 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_new_names BEGIN
   ~sarbul04.cre~ => 68792 // name from gromnir soldier to il-khan soldier
   ~sarbul05.cre~ => 68792 // name from gromnir soldier to il-khan soldier
   ~shop03.cre~   => 23303 // name from Maheer to Maheer
+  ~slayerwp.itm~ => 10966 // name from <Invalid Strref -1> to Attack
   ~spidgi1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
   ~spidph1.itm~  => 10966 // name from <Invalid Strref -1> to Attack
   ~spidsw1.itm~  => 10966 // name from <Invalid Strref -1> to Attack

@@ -7,6 +7,13 @@ INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immun
 
 COMPILE ~bg2fixpack/dlg/beta_soa-dlg.d~ // dialogue fixes
 
+// list these individually for reference instead of a bulk copy
+COPY ~bg2fixpack/copy/spin823a.spl~ ~override~ // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823.spl
+     ~bg2fixpack/copy/spin823b.spl~ ~override~ // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823.spl
+     ~bg2fixpack/copy/spin823c.spl~ ~override~ // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823.spl
+     ~bg2fixpack/copy/spin823d.spl~ ~override~ // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823.spl
+     ~bg2fixpack/copy/spin823e.spl~ ~override~ // slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823.spl
+
 /////                                                  \\\\\
 ///// script fixes                                     \\\\\
 /////                                                  \\\\\
@@ -18,26 +25,87 @@ COPY_EXISTING ~ar1100.bcs~ ~override~
   END
   BUT_ONLY  
   
+ACTION_IF tob_game BEGIN
+
+  // siege camp reinforcements checking wrong blocks
+  COPY_EXISTING ~ar5203.bcs~ ~override~
+    DECOMPILE_AND_PATCH BEGIN
+      REPLACE_TEXTUALLY ~GlobalLT("EXTRACOUNT2","MYAREA",1)[ %TAB%%LNL%%MNL%%WNL%]+\(ActionListEmpty()[ %TAB%%LNL%%MNL%%WNL%]+InActiveArea(Myself)[ %TAB%%LNL%%MNL%%WNL%]+THEN[ %TAB%%LNL%%MNL%%WNL%]+RESPONSE #30[ %TAB%%LNL%%MNL%%WNL%]+IncrementGlobal("MaxSpawn","AR5203",1)[ %TAB%%LNL%%MNL%%WNL%]+CreateCreatureObjectOffScreen("YSSOLD04",Player1,0,0,0)[ %TAB%%LNL%%MNL%%WNL%]+IncrementGlobal("EXTRACOUNT3","MYAREA",1)\)~
+                        ~GlobalLT("EXTRACOUNT3","MYAREA",1) \1~
+    END
+    BUT_ONLY  
+
+END  
+
 /////                                                  \\\\\
 ///// other item file fixes                            \\\\\
 /////                                                  \\\\\
 
-// staves of air/earth/water force saving throws on non-elementals; see also eff_m36b.eff
+// staves of air/earth/water force saving throws on non-elementals; see also staf15[ab].eff
 COPY_EXISTING ~staf15.itm~ ~override~ // staff of air +2
               ~staf16.itm~ ~override~ // staff of earth +2
               ~staf17.itm~ ~override~ // staff of fire +2
   LPF DELETE_EFFECT INT_VAR check_globals = 0 match_opcode = 174 STR_VAR match_resource = eff_m36b END // delete
-  LPF CLONE_EFFECT  INT_VAR check_globals = 0 match_opcode = 55 opcode = 177 STR_VAR resource = eff_m36b END // clone into play eff (clone 55 instead of alter 174 to keep class targeting)
+  LPF ALTER_EFFECT  INT_VAR check_globals = 0 match_opcode = 55 opcode = 177 savingthrow = 0 STR_VAR resource = staf15a END // change slay into eff call, remove save
+  LPF CLONE_EFFECT  INT_VAR check_globals = 0 match_opcode = 177 STR_VAR match_resource = staf15a resource = staf15b insert = above END    // clone slay into second eff for sound
+
+// slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also spin718.spl, spin823.spl, spin823[abcde].spl
+COPY_EXISTING ~slayerwp.itm~ ~override/slayerw3.itm~
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 135 target = 1 timing = 2 STR_VAR resource = slayer END // atach polymorph to weapon
+  PATCH_FOR_EACH p2 IN 5 128 39 217 24 BEGIN // charm, confusion, sleep, panic 
+    LPF CLONE_EFFECT INT_VAR opcode = 101 match_parameter2 = 45 parameter2 = p2 END // clone stun immunity into new protections
+  END
+  // move this batch to immunity batches when moved to core; remove spin823.spl
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_sleep_arrays END 
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_confusion_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_charm_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_immunity_fear_arrays END
+  LPF cd_apply_batch STR_VAR array_name = cd_fear_removal_arrays END
+  
+/////                                                  \\\\\
+///// other spell fixes                                \\\\\
+/////                                                  \\\\\
+
+// slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin823.spl, spin823[abcde].spl
+COPY_EXISTING ~spin718.spl~ ~override~
+  LPF ALTER_EFFECT  INT_VAR match_opcode = 31 opcode = 206 parameter1 = 0 parameter2 = 0 STR_VAR resource = spin823a END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 206 STR_VAR match_resource = spin823a resource = spin823b END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 206 STR_VAR match_resource = spin823a resource = spin823c END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 206 STR_VAR match_resource = spin823a resource = spin823d END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 206 STR_VAR match_resource = spin823a resource = spin823e END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 112 STR_VAR match_resource = slayerwp resource = slayerw3 END
+  LPF CLONE_EFFECT  INT_VAR match_opcode = 135 STR_VAR insert = last END // copy polymorph to last effect
+  LPF DELETE_EFFECT INT_VAR match_opcode = 135 multi_match = 1 END // delete original polymorph effect
+
+// slayer change issues: unnecessary MDR when shifting back; attach abilities to paw not spell - see also slayerw3.itm, spin718.spl, spin823[abcde].spl
+COPY_EXISTING ~spin823.spl~ ~override~ // leave 111 (create weapon), 171 (give innate ability), 172 (remove spell), 174 (play sound), 215 (visual effects), 206 (protects against further shapeshifting)
+  PATCH_FOR_EACH op IN 12 267 142 101 296 31 106 135 169 161 240 23 BEGIN
+    LPF DELETE_EFFECT INT_VAR match_opcode = op END
+  END  
+  LPF ALTER_EFFECT INT_VAR match_opcode = 111 STR_VAR match_resource = slayerwp resource = slayerw3 END // change to new weapon
+  LPF ALTER_EFFECT INT_VAR match_opcode = 139 opcode = 146 parameter1 = 0 parameter2 = 1 timing = 4 duration = 20 STR_VAR resource = spin823a END // damage now comes in delayed castings
+  LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 26 STR_VAR match_resource = spin823a resource = spin823b END
+  LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 32 STR_VAR match_resource = spin823a resource = spin823c END
+  LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 38 STR_VAR match_resource = spin823a resource = spin823d END
+  LPF CLONE_EFFECT INT_VAR match_opcode = 146 duration = 44 STR_VAR match_resource = spin823a resource = spin823e END
 
 /////                                                  \\\\\
 ///// eff fixes                                        \\\\\
 /////                                                  \\\\\
 
 // staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
-COPY_EXISTING ~coldhit.eff~ ~override/eff_m36b.eff~
+COPY_EXISTING ~slaysum.eff~ ~override/staf15a.eff~
   WRITE_LONG  0x28 0 // duration
-  WRITE_ASCII 0x30 eff_m36b #8
   WRITE_LONG  0x38 0 // dice num
   WRITE_LONG  0x3c 0 // dice thrown
+  WRITE_LONG  0x40 BIT0 // add save vs. spell
+  WRITE_LONG  0x58 0 // min level
+  WRITE_LONG  0x5c 0 // max level
+  WRITE_LONG  0x60 0 // param3
+
+// staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
+COPY_EXISTING ~staf15a.eff~ ~override/staf15b.eff~
+  WRITE_LONG  0x10 174 // play sound
+  WRITE_ASCII 0x30 eff_m36b #8 // sound file
   
   

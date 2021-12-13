@@ -315,7 +315,7 @@ DEFINE_PATCH_MACRO ~cd_immunity_fear_arrays~ BEGIN
     267, 14007, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "panic"
     267, 17427, "-10",     "same", "-10", "-10", "same"  => 1 // protection from string "panic"
     296, "-10", "-10", "cdhorror", "-10", "-10", "same"  => 1 // protection from animation
-    106, "-10",     1,     "same",     1,     0, "first" => 1 // morale break
+    106,     1,     1,     "same",     1,     0, "first" => 1 // morale break
   END
   PATCH_IF cosmetic = 1 BEGIN
     DEFINE_ASSOCIATIVE_ARRAY cd_immunity_batches_extras BEGIN
