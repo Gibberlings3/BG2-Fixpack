@@ -2,650 +2,476 @@
 ///// bulk item file fixes                             \\\\\
 /////                                                  \\\\\
 
-// many items have effects not being applied due to bad timing modes
-COPY_EXISTING ~aegis.itm~    ~override~ // color
-              ~aegis2.itm~   ~override~ // color
-              ~ax1h04.itm~   ~override~ // color
-              ~ax1h05.itm~   ~override~ // color
-              ~ax1h06.itm~   ~override~ // color
-              ~ax1h08.itm~   ~override~ // color
-              ~bazpatrg.itm~ ~override~ // immunity to teleport field
-              ~blun01.itm~   ~override~ // color
-              ~blun04.itm~   ~override~ // color
-              ~blun06.itm~   ~override~ // color
-              ~blun10.itm~   ~override~ // color
-              ~blun23.itm~   ~override~ // color
-              ~blun24.itm~   ~override~ // color
-              ~blun31.itm~   ~override~ // color
-              ~bodhi.itm~    ~override~ // protection from spell: nature's beauty
-              ~bow02.itm~    ~override~ // color
-              ~bow05.itm~    ~override~ // color
-              ~bow08.itm~    ~override~ // color
-              ~bow09.itm~    ~override~ // color
-              ~bow10.itm~    ~override~ // color
-              ~bow11.itm~    ~override~ // color
-              ~bow14.itm~    ~override~ // color
-              ~bow15.itm~    ~override~ // color
-              ~bow16.itm~    ~override~ // color
-              ~bow18.itm~    ~override~ // color
-              ~bow19.itm~    ~override~ // color
-              ~bow20.itm~    ~override~ // color
-              ~bow21.itm~    ~override~ // color
-              ~bow24.itm~    ~override~ // color
-              ~bow26.itm~    ~override~ // color
-              ~bow99.itm~    ~override~ // color
-              ~bownon.itm~   ~override~ // color
-              ~cattac1.itm~  ~override~ // color
-              ~cattibow.itm~ ~override~ // color
-              ~chalslay.itm~ ~override~ // protection from spell: lower resist
-              ~chwraith.itm~ ~override~ // immunities to charm, sleep, hold creature, hold creature type
-              ~clown.itm~    ~override~ // colorglow pulse
-              ~dagg04.itm~   ~override~ // color
-              ~dagg05.itm~   ~override~ // color
-              ~dagg16.itm~   ~override~ // color
-              ~dagg18.itm~   ~override~ // color
-              ~daggshit.itm~ ~override~ // color
-              ~demogorg.itm~ ~override~ // protection from spell: lower resist
-              ~demsuc01.itm~ ~override~ // protection from spell: nature's beauty
-              ~dwhalb01.itm~ ~override~ // color
-              ~enmace.itm~   ~override~ // color
-              ~enmorn.itm~   ~override~ // color
-              ~ensw2h.itm~   ~override~ // color
-              ~frosty.itm~   ~override~ // cold resist bonus
-              ~fsspir.itm~   ~override~ // character color, immunity to teleport field
-              ~ghost.itm~    ~override~ // slow
-              ~ghost2.itm~   ~override~ // slow
-              ~giafir.itm~   ~override~ // color
-              ~giafir2.itm~  ~override~ // color
-              ~giafir3.itm~  ~override~ // color
-              ~giants01.itm~ ~override~ // color
-              ~gorchr.itm~   ~override~ // immunity to teleport field, slay, kill target
-              ~gorfirg.itm~  ~override~ // protection from nature's beauty, immunity to animations spmindat & spflayer
-              ~gorjelfu.itm~ ~override~ // protection from nature's beauty, immunity to animations spmindat & spflayer
-              ~gorjelgr.itm~ ~override~ // protection from nature's beauty, immunity to animations spmindat & spflayer
-              ~gormisti.itm~ ~override~ // protection from nature's beauty, immunity to animations spmindat & spflayer
-              ~gorwom1.itm~  ~override~ // protection from nature's beauty
-              ~halb01.itm~   ~override~ // color
-              ~halbrd01.itm~ ~override~ // color
-              ~hamm01.itm~   ~override~ // color
-//              ~helm14.itm~   ~override~ // remove fear, remove fear 2 effects - remove fear/reset morale should be instant/perm timing
-              ~hgber01.itm~  ~override~ // color
-              ~hgnymph.itm~  ~override~ // protection from nature's beauty
-              ~hgwra01.itm~  ~override~ // protection from nature's beauty
-              ~holdring.itm~ ~override~ // immunity to teleport field
-              ~hslaywpn.itm~ ~override~ // regen
-              ~hspectre.itm~ ~override~ // protection from deathsong, invis detection by script
-              ~iax1h01.itm~  ~override~ // color
-              ~iblun04.itm~  ~override~ // color
-              ~ibow03.itm~   ~override~ // color
-              ~ihamm01.itm~  ~override~ // color
-              ~innoc2.itm~   ~override~ // protection from nature's beauty
-              ~invulner.itm~ ~override~ // immunity to teleport field
-              ~irongol.itm~  ~override~ // immunity to sleep, poison
-              ~kuobow.itm~   ~override~ // color
-              ~lich.itm~     ~override~ // resistance to cold & electricity, immunity to non-magic weapons and spell lev < 6
-              ~mdog1.itm~    ~override~ // immunity to charm
-              ~npbow.itm~    ~override~ // color
-              ~objring.itm~  ~override~ // protection from nature's beauty, immunity to break morale
-              ~plymstar.itm~ ~override~ // color
-              ~reaver.itm~   ~override~ // color
-              ~ring94.itm~   ~override~ // protection from nature's beauty
-              ~ring95.itm~   ~override~ // protection from nature's beauty, immunity to animations spmindat & spflayer
-              ~ring99.itm~   ~override~ // immunity to animations spmindat & spflayer
-              ~ringwolf.itm~ ~override~ // regen
-              ~seltest.itm~  ~override~ // use eff
-              ~shalt01.itm~  ~override~ // protection from nature's beauty, immunity to break morale
-              ~skelclub.itm~ ~override~ // color
-              ~skelwasu.itm~ ~override~ // color
-              ~slayerwp.itm~ ~override~ // current hp bonus
-              ~slaysh01.itm~ ~override~ // protection from nature's beauty
-              ~spectr.itm~   ~override~ // protection from nature's beauty
-              ~stalker.itm~  ~override~ // protection from nature's beauty
-              ~stonring.itm~ ~override~ // set item color
-              ~stonskin.itm~ ~override~ // stoneskin effect
-              ~surehp1.itm~  ~override~ // immunity to teleport field
-              ~sw1h08.itm~   ~override~ // color
-              ~sw1h14.itm~   ~override~ // color
-              ~sw1h57.itm~   ~override~ // color
-              ~sw1h99.itm~   ~override~ // color
-              ~sw2h01.itm~   ~override~ // color
-              ~sw2h01b.itm~  ~override~ // color
-              ~sw2h02.itm~   ~override~ // color
-              ~sw2h05.itm~   ~override~ // color
-              ~sw2h14.itm~   ~override~ // imunity to spconfus animation
-              ~telslav.itm~  ~override~ // protection from nature's beauty
-              ~telslav2.itm~ ~override~ // immunity to charm, sleep
-              ~ttsword2.itm~ ~override~ // color
-              ~vamp.itm~     ~override~ // protection from nature's beauty
-              ~vamp1.itm~    ~override~ // protection from nature's beauty
-              ~vamp2.itm~    ~override~ // protection from nature's beauty
-              ~vamp3.itm~    ~override~ // protection from nature's beauty
-              ~wight.itm~    ~override~ // protection from nature's beauty
-              ~wraith1.itm~  ~override~ // protection from nature's beauty
-              ~xbow01.itm~   ~override~ // color
-              ~xbow02.itm~   ~override~ // modify attacks per round
-              ~xbow03.itm~   ~override~ // color
-              ~xbow07.itm~   ~override~ // modify attacks per round
-              ~xbow08.itm~   ~override~ // modify attacks per round
-              ~xbow17.itm~   ~override~ // modify attacks per round
-  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 timing = 2 duration = 0 END // instant/while equipped for all global effects
-  BUT_ONLY IF_EXISTS
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_changes_itm BEGIN
 
-// adds magical flag to a mess of undroppable items to prevent black dragon from taking them; other items lacking magical flag
-COPY_EXISTING ~aeriebab.itm~ ~override~
-              ~bearspir.itm~ ~override~
-              ~bootdriz.itm~ ~override~
-              ~bonefd.itm~   ~override~ // bone fiend attack
-              ~clck18.itm~   ~override~
-              ~dagg19.itm~   ~override~
-              ~dax1h01.itm~  ~override~
-              ~famcat.itm~   ~override~
-              ~famcat25.itm~ ~override~
-              ~famdus25.itm~ ~override~
-              ~famdust.itm~  ~override~
-              ~famfai25.itm~ ~override~
-              ~famfair.itm~  ~override~
-              ~famfer.itm~   ~override~
-              ~famfer25.itm~ ~override~
-              ~famimp.itm~   ~override~
-              ~famimp25.itm~ ~override~
-              ~fampsd.itm~   ~override~
-              ~fampsd25.itm~ ~override~
-              ~famqua25.itm~ ~override~
-              ~famquas.itm~  ~override~
-              ~famrab.itm~   ~override~
-              ~famrab25.itm~ ~override~
-              ~helmskwa.itm~ ~override~
-              ~kuobow.itm~   ~override~
-              ~kuosper.itm~  ~override~
-              ~lionspir.itm~ ~override~
-              ~misc4g.itm~   ~override~
-              ~misc73.itm~   ~override~ // horn of kazgaroth
-              ~misc84.itm~   ~override~
-              ~plat98.itm~   ~override~
-              ~plybass.itm~  ~override~
-              ~plyfist.itm~  ~override~
-              ~plymstar.itm~ ~override~
-              ~plysala.itm~  ~override~
-              ~plyspid.itm~  ~override~
-              ~plywyvrn.itm~ ~override~
-              ~regisamu.itm~ ~override~  // ruby pendant
-              ~scrlag.itm~   ~override~
-              ~snakspir.itm~  ~override~
-              ~sw1h47.itm~   ~override~
-              ~wolfspir.itm~ ~override~
-  WRITE_BYTE 0x18 (THIS BOR BIT6)
-  BUT_ONLY IF_EXISTS
-
-// fix power levels
-COPY_EXISTING ~arow06.itm~   ~override~ // arrows of detonation - explosion has power 3
-              ~arow08.itm~   ~override~ // arrows of fire - fire damage has power 6
-              ~arow09.itm~   ~override~ // arrows of ice - cold damage has power 6
-              ~aurstaf.itm~  ~override~ // aurumach rilmani's undroppable staff - slow effects have power 6
-              ~ax1h07.itm~   ~override~ // bala's axe - miscast magic effects have power 3
-              ~blun20.itm~   ~override~ // ardulia's flail - slow effects have power 3
-              ~bolt03.itm~   ~override~ // bolt of lightning - electrical damage has power 6
-              ~bolt05.itm~   ~override~ // bolt of polymorphing - polymorph effects are power 6
-              ~bonedag.itm~  ~override~ // bone dagger attack item - slow effects have power 2, all other effects 0
-              ~chalcy2.itm~  ~override~ // undroppable weapon of cyric's chosen - blindness effect has power 1
-              ~dart03.itm~   ~override~ // dart of stunning - stun effects have power 8
-              ~dart04.itm~   ~override~ // dart of wounding - poison damage has power 0, poison portrait icon has power 8
-              ~dart05.itm~   ~override~ // asp's nest - poison damage has power 0, poison portrait icon has power 8
-              ~dartmel.itm~  ~override~ // melissan's bone daggers - slow and disease effects have power 8
-              ~globblu1.itm~ ~override~ // blue globe - cold damage at power 5
-              ~globred1.itm~ ~override~ // red globe - fire damage at power 4
-              ~gorcamb.itm~  ~override~ // aesgearth's undroppable weapon - stun at power 6, str/con drain at power 8
-              ~hamm03.itm~   ~override~ // ashideena - electrical damage has power 8
-              ~hamm05.itm~   ~override~ // borok's fist - electrical damage has power 8
-              ~hgber01.itm~  ~override~ // berren's undroppable weapon - slow and dex penalties at power 4
-              ~hgnya01.itm~  ~override~ // nyalee's undroppable weapon - slow, entangle effects at power 4
-              ~icetrl.itm~   ~override~ // blizzard trolls' undroppable weapon - stun, dex penalty at power 6
-              ~killsw01.itm~ ~override~ // arkanis gath's insta-kill sword for crossing shadow thieves - all elemental damages at power 8
-              ~kuobolt3.itm~ ~override~ // high level kuo-toa bolts - web/entangle effects at power 2
-              ~misc5c.itm~   ~override~ // rift device - fire damage has power 100, all other effects are at 0
-              ~mistcd.itm~   ~override~ // attack of crimson deaths - visual effect has power 1
-              ~mistho.itm~   ~override~ // attack of mist horrors, swamp horrors - horror effects are at power 4
-              ~mistice.itm~  ~override~ // attack of ice mists - horror effects are at power 4
-              ~mistva.itm~   ~override~ // attack of vampiric mists - level drain at power 1
-              ~mistva2.itm~  ~override~ // attack of vampiric wraiths - level drain at power 1
-              ~mistwa.itm~   ~override~ // attack of wandering horrors - stun at power 4
-              ~mound.itm~    ~override~ // attack of shambling mounds - slow, ac penalty, extra damage, entangle at power 1, play sound at power 2
-              ~nebdag.itm~   ~override~ // neb's dagger - slow effect at power 2, poison at 0
-              ~potn26.itm~   ~override~ // potion of explosions
-              ~potn27.itm~   ~override~ // potion of firebreath
-              ~quasclaw.itm~ ~override~ // attack of quasit familiars - dex drain has power 4
-              ~ravag01.itm~  ~override~ // attack of ravager - one effect (visual) has power 3, all others 0
-              ~ravag02.itm~  ~override~ // attack of ravager - stun has power 6, all others 0
-              ~revent1.itm~  ~override~ // attack of revenants - paralyzation effects at power 1
-              ~ring20.itm~   ~override~ // ring of energy
-              ~rods03.itm~   ~override~ // rod of resurrection
-              ~scrl03.itm~   ~override~ // protection from acid
-              ~scrl04.itm~   ~override~ // protection from cold
-              ~scrl05.itm~   ~override~ // protection from electricity
-              ~scrl06.itm~   ~override~ // protection from fire
-              ~scrl08.itm~   ~override~ // protection from poison
-              ~scrl09.itm~   ~override~ // protection from undead
-              ~scrl15.itm~   ~override~ // protection from petrification
-              ~secret02.itm~ ~override~ // pulse ammo - magical damage for easter egg item at power 8
-              ~sendai.itm~   ~override~ // sendai's flail - slow has power 6, other effects such as str drain and poison use 0
-              ~shille.itm~   ~override~ // shillelagh - visual effect has power 1
-              ~spermel.itm~  ~override~ // mellisan's spear - slow and stun at power 8, save penalties at power 6
-              ~staf14.itm~   ~override~ // staff of the woodlands
-              ~sw1h06.itm~   ~override~ // varscona - cold damage at power 8
-              ~sw1h58.itm~   ~override~ // short sword of mask - some entangle effects at power 1, 2
-              ~sw1h59.itm~   ~override~ // short sword of mask - some entangle effects at power 1, 2
-              ~telslav.itm~  ~override~ // attack of slave wraiths - slay and finger of death animation at power 7
-              ~trolltor.itm~ ~override~ // attack of tor'gal - slow and str drain at power 3
-              ~wand12.itm~   ~override~ // wand of wonder - all effects at power 0 except visuals at 8
-              ~wolfwi1.itm~  ~override~ // attack of winter wolves - cold damage at power 1
-              ~wolfwi2.itm~  ~override~ // attack of winter wolves - cold damage at power 1
-              ~xbow15.itm~   ~override~ // firetooth - fire damage at power 6
-              ~xbow16.itm~   ~override~ // firetooth - fire damage at power 6
-  LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = 0 END // should bypass spell protections
-  BUT_ONLY IF_EXISTS
-
-// weapon-speed fixes (fixes descripts and items)
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-  // descript is right, item is wrong
-  aegis    => 1 // aegis fang (descript is correct)
-  aegis2   => 1 // aegis fang (descript is correct)
-  ax1h07   => 7 // bala's axe (descript is correct)
-  dart01   => 2 // dart (descript is correct)
-  misc9q   => 5 // scimitar (descript is correct)
-  sper03   => 6 // spear +3, backbiter (descript is correct)
-  staf04   => 4 // quarterstaff (descript is correct)
-  staf05   => 1 // staff of striking (descript is correct)
-  stardart => 0 // dart +5 (descript doesn't have speed listed w/o GTU/L)
-  sw1h26   => 2 // ilbratha +1 (descript is correct)
-  sw2h03   => 10// cursed berserking sword +3 (descript is correct)
-
-  // both item and descript are wrong
-  blun22   => 1 // blackblood +3 (string #39490 and item need updates)
-  blun23   => 2 // bone club +2, +3 vs. undead (string #39493 and item need updates)
-  blun24   => 2 // gnasher +2 (string #39495 and item need updates)
-  blun25   => 5 // imod (string #60877 and item need updates)
-  blun26   => 1 // club of detonation +3 (string #66375 and item need updates)
-  blun27   => 0 // club of detonation +5 (string #66376 and item need updates)
-  bow25    => 4 // long bow +3 (string #71058 and item need updates) (string #71958 already fixed in strings for separate thac0 issue)
-  dagg11   => 0 // boomerang dagger (string #39527 and item need updates)
-  dagg12   => 0 // fire tooth +3 (string #39528 and item need updates)
-  dwxbow01 => 2 // drow crossbow of speed (string #46706 and item need updates)
-  hamm04   => 3 // hammer +1, +4 vs. giantkin (string #22263 and item need updates)
-  hamm09   => 0 // crom faeyr (string #60863 and item need updates)
-  misc4u   => 2 // embarl's dagger (string #34732 and item need updates)
-  npbow    => 4 // bow of arvoreen (string #50827 and item need updates)
-  slng08   => 2 // erinne sling +4 (string #66393 and item need updates)
-  slng09   => 1 // erinne sling +5 (string #66394 and item need updates)
-  sper12   => 1 // ixil's nail +6 (string #66474 and item need updates) 
-  staf09   => 2 // staff of command (string #39625 and item need updates)
-  staf12   => 2 // staff of power (string #39628 and item need updates)
-  staf13   => 2  //staff of thunder and lightning (string #39629 and item need updates)
-  sw1h24   => 4 // flame tongue (string #6526 and item need updates)
-  sw1h28   => 0 // cutthroat +4 (string #39451 and item need updates)
-  sw1h54   => 2 // equalizer (string #60866 and item need updates)
-  sw2h14   => 7 // lilarcor (string #34090 and item need updates)
-  waflail  => 4 // defender of easthaven (string #32187 and item need updates) (string #32187 already fixed in strings for separate thac0 issue)
-  wasling  => 1 // sling of everard (string #32143 and item need updates)
-  wastaff  => 1 // staff of arundel (string #32128 and item need updates)
-  xbow03   => 5 // heavy crossbow of accuracy (string #7352 and item need updates)
-  xbow06   => 4 // light crossbow of speed (string #7353 and item need updates)
-  xbow13   => 1 // crossbow of afflication (string #39506 and item need updates)
-
-  // item is right, descript is wrong
-  blun14d  => 5 // flail of ages +2 (cold, fire) (strref #41389)
-  blun14e  => 5 // flail of ages +2 (cold, acid) (strref #41620)
-  blun14f  => 5 // flail of ages +2 (acid, fire) (strref #41621)
-  blun35   => 3 // ice star +4 (strref #73912)
-  bow11    => 5 // strong arm (strref #39511)
-  bow17    => 5 // long bow +2 (strref #176)
-  bow18    => 4 // short bow +2 (strref #199)
-  halb04   => 6 // dragon's bane (strref #39531)
-  misc5t   => 4 // shaman's staff of goodberries (strref #47131)
-  npsw05   => 1 // entropy (strref #51947)
-  npsw06   => 1 // chaos blade (strref #51949)
-  sper10   => 2 // spear of withering (strref #2494)
-  sper11   => 2 // ixil's nail +4 (strref #66372)
-  staf10   => 3 // staff of curing (strref #39626)
-  staf11   => 1 // staff of the magi (strref #39627)
-  staf15   => 2 // staff of air (strref #39631)
-  staf16   => 2 // staff of earth (strref #39632)
-  staf17   => 2 // staff of fire (strref #39633)
-  staf18   => 2 // staff +2 (strref #39634)
-  staf23   => 2 // serpent shaft (strref #66369)
-  sw1h52   => 2 // scimitar +3 water's edge (strref #51884)
-  sw1h53   => 4 // sword of flame +1 (strref #4421)
-  sw1h60   => 1 // angurvadal +4 (strref #66203)
-  sw1h69   => 0 // spectral brand +5 (strref #66275)
-  sw1h73   => 2 // long sword +3 (strref #70785)
-  sw2h15   => 7 // silver sword (strref #48658)
-  wa2halb  => 6 // harmonium halberd (strref #61593)
+  //file, timing, magical, power, speed, weight, thac0, lore, type, prof, enchantment, dispellable => file // notes
+  blun27, null, null, null, 0, null, null, null, null, null, null, null => blun27 // Club of Detonation +5
+  dagg11, null, null, null, 0, null, null, null, null, null, null, null => dagg11 // Boomerang Dagger +2
+  dagg12, null, null, null, 0, null, null, null, null, null, null, null => dagg12 // Fire Tooth +3
+  hamm09, null, null, null, 0, null, null, null, null, null, null, null => hamm09 // Crom Faeyr
+  stardart, null, null, null, 0, null, null, null, null, null, null, null => stardart // Dart +5
+  sw1h28, null, null, null, 0, null, null, null, null, null, null, null => sw1h28 // Cutthroat +4
+  sw1h69, null, null, null, 0, null, null, null, null, null, null, null => sw1h69 // Spectral Brand +5
+  staf11, null, null, null, 1, 4, null, null, null, null, null, null => staf11 // Staff of the Magi
+  aegis, 1, null, null, 1, null, null, null, null, 97, 3, null => aegis // Aegis Fang
+  aegis2, 1, null, null, 1, null, null, null, null, 97, 3, null => aegis2 // Aegis Fang
+  blun22, null, null, null, 1, null, null, null, null, null, null, null => blun22 // Club +3, Blackblood
+  blun26, null, null, null, 1, null, null, null, null, null, null, null => blun26 // Club of Detonation +3
+  npsw05, null, null, null, 1, null, null, null, null, null, null, null => npsw05 // Entropy
+  npsw06, null, null, null, 1, null, null, null, null, null, null, null => npsw06 // Chaos Blade
+  slng09, null, null, null, 1, null, null, null, null, null, null, null => slng09 // Erinne Sling +5
+  sper12, null, null, null, 1, null, null, null, null, null, null, null => sper12 // Ixil's Spike +6
+  staf05, null, null, null, 1, null, null, null, null, null, null, null => staf05 // Staff of Striking
+  sw1h60, null, null, null, 1, null, null, null, null, null, null, null => sw1h60 // Angurvadal +4
+  wasling, null, null, null, 1, null, null, null, null, null, null, null => wasling // Sling of Everard +5
+  wastaff, null, null, null, 1, null, null, null, null, null, null, null => wastaff // Staff of Arundel
+  xbow13, null, null, null, 1, null, null, null, null, null, null, null => xbow13 // Crossbow of Affliction +4
+  staf13, null, null, null, 2, 4, null, null, null, null, null, null => staf13 // Staff of Thunder and Lightning
+  dart01, null, null, null, 2, null, null, null, null, null, null, null => dart01 // Dart
+  dwxbow01, null, null, null, 2, null, null, null, null, null, null, null => dwxbow01 // Drow Crossbow of Speed
+  misc4u, null, null, null, 2, null, null, null, null, 96, null, null => misc4u // Embarl's Dagger
+  slng08, null, null, null, 2, null, null, null, null, null, null, null => slng08 // Erinne Sling +4
+  sper10, null, null, null, 2, null, null, null, null, null, null, null => sper10 // Spear of Withering +4
+  sper11, null, null, null, 2, null, null, null, null, null, null, null => sper11 // Ixil's Nail +4
+  staf09, null, null, null, 2, null, null, null, null, null, null, null => staf09 // Staff of Command
+  staf12, null, null, null, 2, null, null, null, null, null, null, null => staf12 // Staff of Power
+  staf15, null, null, null, 2, null, null, null, null, null, null, null => staf15 // Staff of Air +2
+  staf16, null, null, null, 2, null, null, null, null, null, null, null => staf16 // Staff of Earth +2
+  staf17, null, null, null, 2, null, null, null, null, null, null, null => staf17 // Staff of Fire +2
+  staf18, null, null, null, 2, null, null, null, null, null, null, null => staf18 // Quarter Staff +2
+  staf23, null, null, null, 2, null, null, null, null, null, null, null => staf23 // Serpent Shaft
+  sw1h26, null, null, null, 2, null, null, null, null, null, null, null => sw1h26 // Ilbratha +1
+  sw1h52, null, null, null, 2, null, null, null, null, null, null, null => sw1h52 // Scimitar +3
+  sw1h54, null, null, null, 2, null, null, null, null, null, null, null => sw1h54 // The Equalizer
+  sw1h73, null, null, null, 2, null, null, null, null, null, null, null => sw1h73 // Long Sword +3
+  staf10, null, null, null, 3, 4, null, null, null, null, 1, null => staf10 // Staff of Curing
+  blun35, null, null, null, 3, null, null, null, null, null, null, null => blun35 // Ice Star +4
+  hamm04, null, null, null, 3, null, null, null, null, null, null, null => hamm04 // War Hammer +1,+4 vs. Giantkin
+  staf04, null, null, null, 4, 4, null, null, null, null, null, null => staf04 // Quarterstaff
+  bow25, null, null, null, 4, null, null, null, null, null, null, null => bow25 // Long Bow +3
+  misc5t, null, null, null, 4, null, null, null, null, 102, null, null => misc5t // Shaman's Staff
+  npbow, 1, null, null, 4, null, null, null, null, null, null, null => npbow // Bow of Arvoreen
+  sw1h24, null, null, null, 4, null, null, 70, null, null, null, null => sw1h24 // Flame Tongue
+  sw1h53, null, null, null, 4, null, null, null, null, null, null, null => sw1h53 // Sword of Flame +1
+  waflail, null, null, null, 4, null, null, null, null, null, null, null => waflail // Defender of Easthaven +2
+  xbow06, null, null, null, 4, null, null, null, null, null, null, null => xbow06 // Light Crossbow of Speed 
+  blun14d, null, null, null, 5, null, null, null, null, null, null, null => blun14d // Flail of Ages
+  blun14e, null, null, null, 5, null, null, null, null, null, null, null => blun14e // Flail of Ages
+  blun14f, null, null, null, 5, null, null, null, null, null, null, null => blun14f // Flail of Ages
+  blun25, null, null, null, 5, null, null, null, null, null, null, null => blun25 // Mace of Disruption +2
+  bow17, null, null, null, 5, null, null, null, null, null, null, null => bow17 // Long Bow +2
+  misc9q, null, null, null, 5, null, null, null, null, null, null, null => misc9q // Scimitar
+  xbow03, 1, null, null, 5, null, null, null, null, null, null, null => xbow03 // Heavy Crossbow of Accuracy 
+  halb04, null, null, null, 6, null, null, null, null, null, null, null => halb04 // Dragon's Bane +3
+  sper03, null, null, null, 6, null, null, null, null, null, null, null => sper03 // Spear +3, Backbiter
+  wa2halb, null, null, null, 6, null, null, null, null, null, null, null => wa2halb // Harmonium Halberd
+  sw2h15, null, null, null, 7, 15, null, null, null, null, null, null => sw2h15 // Silver Sword
+  ax1h07, null, null, 0, 7, null, null, 65, null, null, null, null => ax1h07 // Bala's Axe
+  sw2h14, 1, null, null, 7, null, null, null, null, null, null, null => sw2h14 // Lilarcor
+  sw2h03, null, null, null, 10, null, null, null, null, null, null, null => sw2h03 // Cursed Berserking Sword +3
+  bolt07, null, null, null, null, 0, null, null, null, 2, 1, null => bolt07 // Flasher Master Bruiser Mate
+  brdflute, null, null, null, null, 0, null, null, null, null, null, null => brdflute // Magic Flute
+  dagg05, 1, null, null, null, 0, null, null, null, null, null, null => dagg05 // Throwing Dagger
+  enmace, 1, null, null, null, 0, null, null, null, null, null, null => enmace // Mace
+  enmorn, 1, null, null, null, 0, null, null, null, null, null, null => enmorn // Morning Star
+  enstaff, null, null, null, null, 0, null, null, null, null, null, null => enstaff // Quarter Staff +3
+  ensw1h01, null, null, null, null, 0, null, null, null, null, null, null => ensw1h01 // Long Sword 
+  ensw1h02, null, null, null, null, 0, null, null, null, null, null, null => ensw1h02 // Short Sword 
+  ensw2h, 1, null, null, null, 0, null, null, null, null, null, null => ensw2h // Battle Axe
+  kuobolt, null, null, null, null, 0, null, null, null, 2, null, null => kuobolt // Kuo-Toa Bolts
+  melfmet, null, null, null, null, 0, null, null, null, null, null, null => melfmet // Melf's Minute Meteor
+  plysala, null, 1, null, null, 0, null, null, null, null, null, null => plysala // Spear
+  sahbolt, null, null, null, null, 0, null, null, null, 2, null, null => sahbolt // Paralytic Bolt
+  shille, null, null, 0, null, 0, null, null, null, null, null, null => shille // Shillelagh
+  sorb, null, null, null, null, 0, null, null, null, null, null, null => sorb // Searing Orb
+  bag06, null, null, null, null, 2, null, null, null, null, null, null => bag06 // Potion Case
+  bow06, null, null, null, null, 2, null, null, null, null, null, null => bow06 // Short Bow +1
+  brac15, null, null, null, null, 2, null, null, null, null, null, null => brac15 // Bracers of Defense AC 3
+  npstaf, null, null, null, null, 3, null, null, null, null, null, null => npstaf // Staff of the High Forest
+  sper06, null, null, null, null, 3, null, null, null, null, null, null => sper06 // Spear +3
+  staf20, null, null, null, null, 3, null, null, null, null, null, null => staf20 // Staff of Rynn +4
+  sw1h32, null, null, null, null, 3, null, null, null, null, null, null => sw1h32 // Dragonslayer
+  clck13, null, null, null, null, 4, null, null, null, null, null, null => clck13 // Traveller's Robe
+  shld27, null, null, null, null, 4, null, null, null, null, null, null => shld27 // Saving Grace +3
+  staf08, null, null, null, null, 4, null, null, null, null, null, null => staf08 // Martial Staff +3
+  sw1h15, null, null, null, null, 4, null, null, null, null, null, null => sw1h15 // Scimitar +3, Frostbrand
+  sw1h16, null, null, null, null, 4, null, null, null, null, null, null => sw1h16 // Scimitar +5, Defender
+  sw1h23, null, null, null, null, 4, null, null, null, null, null, null => sw1h23 // Scimitar +2, Rashad's Talon
+  wa2shiel, null, null, null, null, 4, null, null, null, null, null, null => wa2shiel // Shield of Balduran
+  dwshld01, null, null, null, null, 7, null, null, null, null, null, null => dwshld01 // Drow Shield +3
+  hlolth, null, null, null, null, 7, null, null, null, null, null, null => hlolth // Handmaiden's Mace
+  blun04, 1, null, null, null, 10, null, null, null, null, null, null => blun04 // Mace
+  iblun04, 1, null, null, null, 10, null, null, null, null, null, null => iblun04 // Mace
+  shld23, null, null, null, null, 10, null, null, null, null, null, null => shld23 // Fortress Shield +3
+  sw2h12, null, null, null, null, 10, null, null, null, null, null, null => sw2h12 // Flame Of The North
+  dwchan02, null, null, null, null, 12, null, null, null, null, null, null => dwchan02 // Drow Adamantine Chain +5
+  blun03, null, null, null, null, 13, null, null, null, null, null, null => blun03 // Flail +1
+  plat19, null, null, null, null, 40, null, null, null, null, null, null => plat19 // Full Plate + 2
+  arow08, null, null, 0, null, null, 0, null, null, 2, null, null => arow08 // Arrow of Fire
+  bow13, null, null, null, null, null, 5, null, null, null, null, null => bow13 // Mana Bow +4
+  bow22, null, null, null, null, null, 5, null, null, null, null, null => bow22 // Taralash +4
+  bow23, null, null, null, null, null, 6, null, null, null, null, null => bow23 // Taralash +5
+  aeriebab, null, 1, null, null, null, null, null, null, null, null, null => aeriebab // Aerie's Baby
+  arow01, null, null, null, null, null, null, null, null, 2, null, null => arow01 // Arrows
+  arow02, null, null, null, null, null, null, null, null, 2, null, null => arow02 // Arrows +1
+  arow03, null, null, null, null, null, null, null, null, 2, null, null => arow03 // Arrow of Slaying
+  arow04, null, null, null, null, null, null, null, null, 2, 1, null => arow04 // Acid Arrows
+  arow05, null, null, null, null, null, null, null, null, 2, null, null => arow05 // Arrow of Biting
+  arow06, null, null, 0, null, null, null, null, null, 2, null, null => arow06 // Arrows of Detonation 
+  arow07, null, null, null, null, null, null, null, null, 2, null, null => arow07 // Arrows of Dispelling
+  arow09, null, null, 0, null, null, null, null, null, 2, null, null => arow09 // Arrows of Ice
+  arow10, null, null, null, null, null, null, null, null, 2, null, null => arow10 // Arrows of Piercing
+  arow11, null, null, null, null, null, null, null, null, 2, null, null => arow11 // Arrow +2
+  arow14, null, null, null, null, null, null, null, null, 2, null, null => arow14 // Poisoned Arrow
+  arow15, null, null, null, null, null, null, null, null, 2, null, null => arow15 // Arrow +3
+  arow1a, null, null, null, null, null, null, null, null, 2, null, null => arow1a // Arrow +2
+  aurstaf, null, null, 0, null, null, null, null, null, null, null, null => aurstaf // Staff of the Ram +4
+  ax1h04, 1, null, null, null, null, null, null, null, null, null, null => ax1h04 // Throwing Axe
+  ax1h05, 1, null, null, null, null, null, null, null, null, null, null => ax1h05 // Throwing Axe +2
+  ax1h06, 1, null, null, null, null, null, null, null, null, null, null => ax1h06 // Throwing Axe +2
+  ax1h08, 1, null, null, null, null, null, null, null, null, null, null => ax1h08 // Hangard's Axe +2
+  bazpatrg, 1, null, null, null, null, null, null, null, null, null, null => bazpatrg // Ring
+  bearspir, null, 1, null, null, null, null, null, null, null, 3, null => bearspir // Attack
+  blun01, 1, null, null, null, null, null, null, null, null, null, null => blun01 // Club
+  blun06, 1, null, null, null, null, null, null, null, null, null, null => blun06 // Morning Star
+  blun10, 1, null, null, null, null, null, null, null, null, null, null => blun10 // The Root of the Problem
+  blun20, null, null, 0, null, null, null, null, null, null, null, null => blun20 // Ardulia's Fall +1
+  blun23, 1, null, null, null, null, null, null, null, null, null, null => blun23 // Bone Club +2, +3 vs. Undead
+  blun24, 1, null, null, null, null, null, null, null, null, null, null => blun24 // Club +2, Gnasher
+  blun31, 1, null, null, null, null, null, null, null, null, null, null => blun31 // Club +3
+  bodhi, 1, null, null, null, null, null, null, null, null, null, null => bodhi // <Invalid Strref -1>
+  bolt01, null, null, null, null, null, null, null, null, 2, null, null => bolt01 // Bolt
+  bolt02, null, null, null, null, null, null, null, null, 2, null, null => bolt02 // Bolt +1
+  bolt03, null, null, 0, null, null, null, null, null, 2, null, null => bolt03 // Bolt of Lightning
+  bolt04, null, null, null, null, null, null, null, null, 2, null, null => bolt04 // Bolt of Biting 
+  bolt05, null, null, 0, null, null, null, null, null, 2, null, null => bolt05 // Bolt of Polymorphing
+  bolt06, null, null, null, null, null, null, null, null, 2, null, null => bolt06 // Bolt +2
+  bolt08, null, null, null, null, null, null, null, null, 2, null, null => bolt08 // Blessed Bolt
+  bolt09, null, null, null, null, null, null, null, null, 2, null, null => bolt09 // Bolt +3
+  bonedag, null, null, 0, null, null, null, null, null, null, null, null => bonedag // Mordenkainen's Sword
+  bonefd, null, 1, null, null, null, null, null, null, null, null, null => bonefd // Skull
+  book05, null, null, null, null, null, null, null, 0, null, null, null => book05 // Manual of Quickness of Action 
+  book07, null, null, null, null, null, null, null, 0, null, null, null => book07 // Tome of Leadership and Influence
+  book08, null, null, null, null, null, null, null, 0, null, null, null => book08 // Tome of Understanding
+  book32, null, null, null, null, null, null, null, 37, null, null, null => book32 // History of Tethyr
+  book94, null, null, null, null, null, null, null, 37, null, null, null => book94 // The Vapiricus Omnibus: Unabridged
+  book95, null, null, null, null, null, null, null, 37, null, null, null => book95 // Dea Vampir Becomos
+  book96, null, null, null, null, null, null, null, 37, null, null, null => book96 // Conjur Ota Servanta
+  boot12, null, null, null, null, null, null, 55, null, null, null, null => boot12 // Gargoyle Boots
+  bootdriz, null, 1, null, null, null, null, null, null, null, null, null => bootdriz // Boots of Speed
+  bow02, 1, null, null, null, null, null, null, null, null, null, null => bow02 // Composite Long Bow +1
+  bow05, 1, null, null, null, null, null, null, null, null, null, null => bow05 // Short Bow
+  bow07, null, null, null, null, null, null, null, null, 104, null, null => bow07 // Long Bow of Marksmanship
+  bow08, 1, null, null, null, null, null, null, null, null, null, null => bow08 // Eagle Bow
+  bow09, 1, null, null, null, null, null, null, null, null, null, null => bow09 // Ripper +2
+  bow10, 1, null, null, null, null, null, null, null, null, null, null => bow10 // Heartseeker +3
+  bow11, 1, null, null, null, null, null, null, null, null, null, null => bow11 // Strong Arm +2
+  bow14, 1, null, null, null, null, null, null, null, null, null, null => bow14 // Tuigan Bow +1
+  bow15, 1, null, null, null, null, null, null, null, null, null, null => bow15 // Tansheron's Bow +3
+  bow16, 1, null, null, null, null, null, null, null, null, null, null => bow16 // Composite Long Bow +2
+  bow18, 1, null, null, null, null, null, null, null, null, null, null => bow18 // Short Bow +2
+  bow19, 1, null, null, null, null, null, null, null, null, null, null => bow19 // Short Bow of Gesen
+  bow20, 1, null, null, null, null, null, null, null, null, null, null => bow20 // Darkfire Bow +4
+  bow21, 1, null, null, null, null, null, null, null, null, null, null => bow21 // Darkfire Bow +5
+  bow24, 1, null, null, null, null, null, null, null, null, null, null => bow24 // Composite Long Bow +3
+  bow26, 1, null, null, null, null, null, null, null, null, null, null => bow26 // Short Bow +3
+  bow99, 1, null, null, null, null, null, null, null, null, null, null => bow99 // Eagle Bow
+  bownon, 1, null, null, null, null, null, null, null, null, null, null => bownon // Long Bow
+  bruenaxe, null, null, null, null, null, null, null, null, 92, null, null => bruenaxe // Battle Axe +3
+  bull01, null, null, null, null, null, null, null, null, 2, null, null => bull01 // Bullet
+  bull02, null, null, null, null, null, null, null, null, 2, null, null => bull02 // Bullet +1
+  bull03, null, null, null, null, null, null, null, null, 2, null, null => bull03 // Bullet +2
+  bull04, null, null, null, null, null, null, null, null, 2, null, null => bull04 // Sunstone Bullet +1
+  bull05, null, null, null, null, null, null, null, null, 2, null, null => bull05 // Bullet +3
+  bull06, null, null, null, null, null, null, 35, null, null, null, null => bull06 // Bullet +4
+  cattac1, 1, null, null, null, null, null, null, null, null, null, null => cattac1 // Two Handed Sword
+  cattibow, 1, null, null, null, null, null, null, null, null, null, null => cattibow // Tansheron's Bow +3
+  chalcy2, null, null, 0, null, null, null, null, null, null, null, null => chalcy2 // Short Sword of Backstabbing 
+  chalslay, 1, null, null, null, null, null, null, null, null, null, null => chalslay // Ring
+  chan03, null, null, null, null, null, null, 65, null, null, null, null => chan03 // Mail of the Dead +2
+  chan21, null, null, null, null, null, null, 75, null, null, null, null => chan21 // Chain Mail +3
+  chwraith, 1, null, null, null, null, null, null, null, null, null, null => chwraith // <Invalid Strref -1>
+  clck18, null, 1, null, null, null, null, null, null, null, null, null => clck18 // Knave's Robe
+  clown, 1, null, null, null, null, null, null, null, null, null, null => clown // <Invalid Strref -1>
+  dagg04, 1, null, null, null, null, null, null, null, null, null, null => dagg04 // Dagger +2, Longtooth
+  dagg10, null, null, null, null, null, null, null, 16, null, null, null => dagg10 // Soultaker Dagger
+  dagg16, 1, null, null, null, null, null, null, null, null, null, null => dagg16 // Poisoned Throwing Dagger
+  dagg18, 1, null, null, null, null, null, null, null, null, null, null => dagg18 // Shadow Thief Dagger
+  dagg19, null, 1, null, null, null, null, null, null, null, 1, null => dagg19 // Dagger of <CHARNAME>
+  daggshit, 1, null, null, null, null, null, null, null, null, null, null => daggshit // Dagger
+  dart03, null, null, 0, null, null, null, null, null, null, null, null => dart03 // Dart of Stunning
+  dart04, null, null, 0, null, null, null, null, null, null, null, null => dart04 // Dart of Wounding
+  dart05, null, null, 0, null, null, null, null, null, null, 1, null => dart05 // Asp's Nest
+  dartmel, null, null, 0, null, null, null, null, null, null, null, null => dartmel // Bone Dagger
+  dax1h01, null, 1, null, null, null, null, null, null, null, null, null => dax1h01 // Battle Axe
+  demogorg, 1, null, null, null, null, null, null, null, null, null, null => demogorg // <Invalid Strref -1>
+  demsuc01, 1, null, null, null, null, null, null, null, null, null, null => demsuc01 // <Invalid Strref -1>
+  dragring, null, null, null, null, null, null, null, null, null, null, 1 => dragring // Ring
+  dwbolt01, null, null, null, null, null, null, null, null, 2, null, null => dwbolt01 // Drow Bolt of Sleep
+  dwbolt02, null, null, null, null, null, null, null, null, 2, null, null => dwbolt02 // Drow Bolt of Stunning
+  dwbolt03, null, null, null, null, null, null, null, null, 2, null, null => dwbolt03 // Drow Bolt +1
+  dwchan01, null, null, null, null, null, null, 75, null, null, null, null => dwchan01 // Drow Elven Chain +3
+  dwhalb01, 1, null, null, null, null, null, null, null, null, null, null => dwhalb01 // Drow Halberd +3
+  dwplat01, null, null, null, null, null, null, 75, null, null, null, null => dwplat01 // Drow Full Plate +5
+  elemchan, null, null, null, null, null, null, null, null, null, null, 1 => elemchan // Skull
+  elemyanc, null, null, null, null, null, null, null, null, null, null, 1 => elemyanc // Skull
+  famcat, null, 1, null, null, null, null, null, null, null, null, null => famcat // Familiar
+  famcat25, null, 1, null, null, null, null, null, null, null, null, null => famcat25 // Familiar
+  famdus25, null, 1, null, null, null, null, null, null, null, null, null => famdus25 // Familiar
+  famdust, null, 1, null, null, null, null, null, null, null, null, null => famdust // Familiar
+  famfai25, null, 1, null, null, null, null, null, null, null, null, null => famfai25 // Familiar
+  famfair, null, 1, null, null, null, null, null, null, null, null, null => famfair // Familiar
+  famfer, null, 1, null, null, null, null, null, null, null, null, null => famfer // Familiar
+  famfer25, null, 1, null, null, null, null, null, null, null, null, null => famfer25 // Familiar
+  famimp, null, 1, null, null, null, null, null, null, null, null, null => famimp // Familiar
+  famimp25, null, 1, null, null, null, null, null, null, null, null, null => famimp25 // Familiar
+  fampsd, null, 1, null, null, null, null, null, null, null, null, null => fampsd // Familiar
+  fampsd25, null, 1, null, null, null, null, null, null, null, null, null => fampsd25 // Familiar
+  famqua25, null, 1, null, null, null, null, null, null, null, null, null => famqua25 // Familiar
+  famquas, null, 1, null, null, null, null, null, null, null, null, null => famquas // Familiar
+  famrab, null, 1, null, null, null, null, null, null, null, null, null => famrab // Familiar
+  famrab25, null, 1, null, null, null, null, null, null, null, null, null => famrab25 // Familiar
+  flam01, null, null, null, null, null, null, null, null, 2, null, null => flam01 // Flamethrower
+  frag01, null, null, null, null, null, null, null, null, 2, null, null => frag01 // Frag Grenade
+  frosty, 1, null, null, null, null, null, null, null, 2, null, null => frosty // Dr. Freeze Death Ray
+  fsspir, 1, null, null, null, null, null, null, null, null, null, null => fsspir // Ring
+  ghost, 1, null, null, null, null, null, null, null, null, null, null => ghost // <Invalid Strref -1>
+  ghost2, 1, null, null, null, null, null, null, null, null, null, null => ghost2 // <Invalid Strref -1>
+  giafir, 1, null, null, null, null, null, null, null, null, null, null => giafir // War Hammer +2
+  giafir2, 1, null, null, null, null, null, null, null, null, null, null => giafir2 // Battle Axe +2
+  giafir3, 1, null, null, null, null, null, null, null, null, null, null => giafir3 // <Invalid Strref -1>
+  giants01, 1, null, null, null, null, null, null, null, null, null, null => giants01 // Two Handed Sword
+  globblu1, null, null, 0, null, null, null, null, null, null, null, null => globblu1 // Blue Globe
+  globred1, null, null, 0, null, null, null, null, null, null, null, null => globred1 // Red Globe
+  gorcamb, null, null, 0, null, null, null, null, null, null, null, null => gorcamb // Two Handed Sword +2
+  gorchr, 1, null, null, null, null, null, null, null, null, null, null => gorchr // Ring
+  gorfirg, 1, null, null, null, null, null, null, null, null, null, null => gorfirg // Ring
+  gorjelfu, 1, null, null, null, null, null, null, null, null, null, null => gorjelfu // Ring
+  gorjelgr, 1, null, null, null, null, null, null, null, null, null, null => gorjelgr // Ring
+  gormisti, 1, null, null, null, null, null, null, null, null, null, null => gormisti // Ring
+  gorwom1, 1, null, null, null, null, null, null, null, null, null, null => gorwom1 // <Invalid Strref -1>
+  halb01, 1, null, null, null, null, null, null, null, null, null, null => halb01 // Halberd
+  halb03, null, null, null, null, null, null, 60, null, null, null, null => halb03 // Halberd +2
+  halbrd01, 1, null, null, null, null, null, null, null, null, null, null => halbrd01 // Halberd
+  hamm01, 1, null, null, null, null, null, null, null, null, null, null => hamm01 // War Hammer
+  hamm03, null, null, 0, null, null, null, null, null, null, null, null => hamm03 // War Hammer +2
+  hamm05, null, null, 0, null, null, null, null, null, null, null, null => hamm05 // War Hammer +2
+  helmskwa, null, 1, null, null, null, null, null, null, null, null, null => helmskwa // Helmet
+  hgber01, 1, null, null, null, null, null, null, null, null, null, null => hgber01 // Two Handed Sword +1
+  hgnya01, null, null, 0, null, null, null, null, null, null, null, null => hgnya01 // Quarterstaff
+  hgnymph, 1, null, null, null, null, null, null, null, null, null, null => hgnymph // <Invalid Strref -1>
+  hgwra01, 1, null, null, null, null, null, null, null, null, null, null => hgwra01 // Quarterstaff
+  holdring, 1, null, null, null, null, null, null, null, null, null, null => holdring // Ring
+  hslaywpn, 1, null, null, null, null, null, null, null, null, null, null => hslaywpn // <Invalid Strref -1>
+  hspectre, 1, null, null, null, null, null, null, null, null, null, null => hspectre // Spectral Harpist hand weapon
+  iarow01, null, null, null, null, null, null, null, null, 2, null, null => iarow01 // Arrows
+  iax1h01, 1, null, null, null, null, null, null, null, null, null, null => iax1h01 // Battle Axe
+  ibow03, 1, null, null, null, null, null, null, null, null, null, null => ibow03 // Long Bow
+  icetrl, null, null, 0, null, null, null, null, null, null, null, null => icetrl // Attack
+  ihamm01, 1, null, null, null, null, null, null, null, null, null, null => ihamm01 // War Hammer
+  impinvis, null, null, null, null, null, null, null, null, null, null, 1 => impinvis // Ring of Invisibility 
+  innoc2, 1, null, null, null, null, null, null, null, null, null, null => innoc2 // <Invalid Strref -1>
+  invulner, 1, null, null, null, null, null, null, null, null, null, null => invulner // Ring
+  irongol, 1, null, null, null, null, null, null, null, null, null, null => irongol // <Invalid Strref -1>
+  jonhp1, null, null, null, null, null, null, null, null, null, null, 1 => jonhp1 // <Invalid Strref -1>
+  killsw01, null, null, 0, null, null, null, null, null, null, null, null => killsw01 // Long Sword +2
+  kuobolt2, null, null, null, null, null, null, null, null, 2, 2, null => kuobolt2 // Kuo-Toa Bolts
+  kuobolt3, null, null, 0, null, null, null, null, null, 2, null, null => kuobolt3 // Kuo-Toa Bolts
+  kuobow, 1, 1, null, null, null, null, null, null, null, null, null => kuobow // Heavy Crossbow
+  kuoring, null, null, null, null, null, null, null, null, null, null, 1 => kuoring // <Invalid Strref -1>
+  kuosper, null, 1, null, null, null, null, null, null, null, null, null => kuosper // Spear
+  laser, null, null, null, null, null, null, null, null, 2, null, null => laser // Laser
+  leat03, null, null, null, null, null, null, 60, null, null, null, null => leat03 // Protector of the Second +2
+  leat06, null, null, null, null, null, null, 100, null, null, null, null => leat06 // Missile Attraction +2 
+  lich, 1, null, null, null, null, null, null, null, null, null, 1 => lich // Ring
+  light, null, null, null, null, null, null, null, null, 2, null, null => light // Wand of Magic Missiles
+  lionspir, null, 1, null, null, null, null, null, null, null, 3, null => lionspir // Attack
+  mage05, null, null, null, null, null, null, null, null, null, null, 1 => mage05 // Ring of Free Action
+  mage06, null, null, null, null, null, null, null, null, null, null, 1 => mage06 // Ring
+  mdog1, 1, null, null, null, null, null, null, null, null, null, null => mdog1 // <Invalid Strref -1>
+  misc3a, null, null, null, null, null, null, 80, null, null, null, null => misc3a // Book of Infinite Spells
+  misc3e, null, null, null, null, null, null, 75, null, null, null, null => misc3e // Black Spider Figurine
+  misc3f, null, null, null, null, null, null, 75, null, null, null, null => misc3f // Jade Hound
+  misc3j, null, null, null, null, null, null, 0, null, null, null, null => misc3j // Bronze Horn of Valhalla
+  misc3k, null, null, null, null, null, null, 0, null, null, null, null => misc3k // Iron Horn of Valhalla
+  misc4g, null, 1, null, null, null, null, null, null, null, null, null => misc4g // Portal Key
+  misc4q, null, null, null, null, null, null, null, null, 89, null, null => misc4q // The Ogre's Sword
+  misc5c, null, null, 0, null, null, null, null, null, null, null, null => misc5c // Rift Device
+  misc73, null, 1, null, null, null, null, null, 0, null, null, null => misc73 // The Horn of Kazgaroth
+  misc75, null, null, null, null, null, null, null, null, 96, 2, null => misc75 // Dagger of Venom
+  misc84, null, 1, null, null, null, null, null, null, null, null, null => misc84 // Boo
+  miscan, null, null, null, null, null, null, null, 1, null, null, null => miscan // Galvena's Medallion
+  miscb1, null, null, null, null, null, null, null, 1, null, null, null => miscb1 // Talisman of Rillifane
+  mistcd, null, null, 0, null, null, null, null, null, null, null, null => mistcd // <Invalid Strref -1>
+  mistho, null, null, 0, null, null, null, null, null, null, null, null => mistho // Skull
+  mistice, null, null, 0, null, null, null, null, null, null, null, null => mistice // Skull
+  mistva, null, null, 0, null, null, null, null, null, null, null, null => mistva // Skull
+  mistva2, null, null, 0, null, null, null, null, null, null, null, null => mistva2 // Skull
+  mistwa, null, null, 0, null, null, null, null, null, null, null, null => mistwa // Skull
+  mound, null, null, 0, null, null, null, null, null, null, null, null => mound // <Invalid Strref -1>
+  nebdag, null, null, 0, null, null, null, null, null, null, null, null => nebdag // Neb's Nasty Cutter
+  npsw03, null, null, null, null, null, null, null, null, null, null, 1 => npsw03 // Hallowed Redeemer
+  objring, 1, null, null, null, null, null, null, null, null, null, null => objring // Ring
+  p3-12m4, null, null, null, null, null, null, null, null, null, 4, null => p3-12m4 // <Invalid Strref -1>
+  plat02, null, null, null, null, null, null, 40, null, null, null, null => plat02 // Plate Mail +1
+  plat09, null, null, null, null, null, null, 50, null, null, null, null => plat09 // Mithral Field Plate Armor +2
+  plat23, null, null, null, null, null, null, 75, null, null, null, null => plat23 // Full Plate Mail +2
+  plat98, null, 1, null, null, null, null, null, null, null, null, null => plat98 // Plate Mail Armor
+  plybass, null, 1, null, null, null, null, null, null, null, null, null => plybass // Attack
+  plyfist, null, 1, null, null, null, null, null, null, null, null, null => plyfist // Attack
+  plymstar, 1, 1, null, null, null, null, null, null, null, null, null => plymstar // Morning Star
+  plyspid, null, 1, null, null, null, null, null, null, null, null, null => plyspid // Attack
+  plywyvrn, null, 1, null, null, null, null, null, null, null, null, null => plywyvrn // Attack
+  potn26, null, null, 0, null, null, null, null, null, null, null, null => potn26 // Potion of Explosions
+  potn27, null, null, 0, null, null, null, null, null, null, null, null => potn27 // Potion of Firebreath
+  potn40, null, null, null, null, null, null, 0, null, null, null, null => potn40 // Potion of Invulnerability
+  puls01, null, null, null, null, null, null, null, null, 2, null, null => puls01 // Wand of Magic Missiles
+  puls02, null, null, null, null, null, null, null, null, 2, null, null => puls02 // Wand of Magic Missiles
+  quasclaw, null, null, 0, null, null, null, null, null, null, null, null => quasclaw // Attack
+  quiv01, null, null, null, null, null, null, null, null, 2, null, null => quiv01 // Arrows
+  quiver01, null, null, null, null, null, null, null, null, 2, null, null => quiver01 // Quiver of Plenty +1
+  quiver02, null, null, null, null, null, null, 20, null, null, null, null => quiver02 // Case of Plenty +1
+  quiver03, null, null, null, null, null, null, null, null, 2, null, null => quiver03 // Quiver of Plenty +2
+  quiver04, null, null, null, null, null, null, null, null, 2, null, null => quiver04 // Case of Plenty +2
+  quiver05, null, null, null, null, null, null, null, null, 2, null, null => quiver05 // Bag of Plenty +1
+  quiver06, null, null, null, null, null, null, null, null, 2, null, null => quiver06 // Bag of Plenty +2
+  ravag01, null, null, 0, null, null, null, null, null, null, null, null => ravag01 // Skull
+  ravag02, null, null, 0, null, null, null, null, null, null, null, null => ravag02 // Boneblade +4
+  reaver, 1, null, null, null, null, null, null, null, null, null, null => reaver // Unholy Reaver
+  regisamu, null, 1, null, null, null, null, 65, null, null, null, null => regisamu // Ruby Pendant
+  revent1, null, null, 0, null, null, null, null, null, null, null, null => revent1 // <Invalid Strref -1>
+  ring20, null, null, 0, null, null, null, null, null, null, null, null => ring20 // Ring of Energy
+  ring43, null, null, null, null, null, null, 0, null, null, null, null => ring43 // Oaken Ring
+  ring94, 1, null, null, null, null, null, null, null, null, null, null => ring94 // Ring
+  ring95, 1, null, null, null, null, null, null, null, null, null, null => ring95 // Ring
+  ring99, 1, null, null, null, null, null, null, null, null, null, null => ring99 // Ring
+  ringwolf, 1, null, null, null, null, null, null, null, null, null, null => ringwolf // <Invalid Strref -1>
+  rods02, null, null, null, null, null, null, 70, null, null, null, null => rods02 // Rod of Lordly Might
+  rods03, null, null, 0, null, null, null, null, null, null, null, null => rods03 // Rod of Resurrection
+  rods06, null, null, null, null, null, null, 85, null, null, null, null => rods06 // Rod of Reversal
+  scrl03, null, null, 0, null, null, null, null, null, null, null, null => scrl03 // Protection from Acid
+  scrl04, null, null, 0, null, null, null, null, null, null, null, null => scrl04 // Protection from Cold
+  scrl05, null, null, 0, null, null, null, null, null, null, null, null => scrl05 // Protection from Electricity
+  scrl06, null, null, 0, null, null, null, null, null, null, null, null => scrl06 // Protection from Fire
+  scrl08, null, null, 0, null, null, null, null, null, null, null, null => scrl08 // Protection from Poison
+  scrl09, null, null, 0, null, null, null, null, null, null, null, null => scrl09 // Protection from Undead
+  scrl15, null, null, 0, null, null, null, null, null, null, null, null => scrl15 // Protection from Petrification
+  scrla9, null, null, null, null, null, null, null, 37, null, null, null => scrla9 // Scroll
+  scrlaa, null, null, null, null, null, null, null, 37, null, null, null => scrlaa // Scroll
+  scrlab, null, null, null, null, null, null, null, 37, null, null, null => scrlab // Dradeel's Recipe Page
+  scrlac, null, null, null, null, null, null, null, 37, null, null, null => scrlac // Dradeel's Recipe Page
+  scrlad, null, null, null, null, null, null, null, 37, null, null, null => scrlad // Dradeel's Recipe Page
+  scrlaf, null, null, null, null, null, null, null, 37, null, null, null => scrlaf // Dradeel's Recipe Page
+  scrlag, null, 1, null, null, null, null, null, 37, null, null, null => scrlag // Crom Faeyr Scroll
+  scrlhp, null, null, null, null, null, null, null, 37, null, null, null => scrlhp // Note
+  scrlick, null, null, null, null, null, null, null, 37, null, null, null => scrlick // Illithid Correspondence
+  scrlmz, null, null, null, null, null, null, null, 37, null, null, null => scrlmz // A note from Mazzy Fentan
+  secret02, null, null, 0, null, null, null, null, null, 2, null, null => secret02 // Pulse Ammunition
+  secret03, null, null, null, null, null, null, null, null, 2, null, null => secret03 // Frag Grenade
+  secret04, null, null, null, null, null, null, null, null, 2, null, null => secret04 // Scorcher Ammunition
+  seltest, 1, null, null, null, null, null, null, null, null, null, null => seltest // <Invalid Strref -1>
+  sendai, null, null, 0, null, null, null, null, null, null, null, null => sendai // Drow Flail +3
+  shalt01, 1, null, null, null, null, null, null, null, null, null, null => shalt01 // Ring
+  shld17, null, null, null, null, null, null, 10, null, null, null, null => shld17 // Buckler +1
+  skelclub, 1, null, null, null, null, null, null, null, null, null, null => skelclub // Club
+  skelwasu, 1, null, null, null, null, null, null, null, null, null, null => skelwasu // Two Handed Sword +1
+  slayerwp, 1, null, null, null, null, null, null, null, null, null, 1 => slayerwp // <Invalid Strref -1>
+  slaysh01, 1, null, null, null, null, null, null, null, null, null, null => slaysh01 // <Invalid Strref -1>
+  slng03, null, null, null, null, null, null, 45, null, null, null, null => slng03 // Sling +3
+  snakspir, null, 1, null, null, null, null, null, null, null, 3, null => snakspir // Attack
+  spectr, 1, null, null, null, null, null, null, null, null, null, null => spectr // <Invalid Strref -1>
+  spermel, null, null, 0, null, null, null, null, null, null, null, null => spermel // Spear
+  staf06, null, null, null, null, null, null, 25, null, null, null, null => staf06 // Staff Mace
+  staf07, null, null, null, null, null, null, 65, null, null, null, null => staf07 // Staff Spear +2
+  staf14, null, null, 0, null, null, null, null, null, null, null, null => staf14 // Staff of the Woodlands +4
+  stalker, 1, null, null, null, null, null, null, null, null, null, null => stalker // Ring
+  stonring, 1, null, null, null, null, null, null, null, null, null, null => stonring // Ring
+  stonskin, 1, null, null, null, null, null, null, null, null, null, null => stonskin // <Invalid Strref -1>
+  surehp1, 1, null, null, null, null, null, null, null, null, null, null => surehp1 // Ring
+  sw1h03, null, null, null, null, null, null, null, null, null, 3, null => sw1h03 // Bastard Sword +1,+3 vs. Shapeshifters 
+  sw1h06, null, null, 0, null, null, null, null, null, null, null, null => sw1h06 // Long Sword +2
+  sw1h08, 1, null, null, null, null, null, null, null, null, null, null => sw1h08 // Short Sword +1
+  sw1h14, 1, null, null, null, null, null, null, null, null, null, null => sw1h14 // Short Sword +1
+  sw1h31, null, null, null, null, null, null, null, null, null, 4, null => sw1h31 // Daystar
+  sw1h47, null, 1, null, null, null, null, null, null, null, null, null => sw1h47 // Wakizashi +1
+  sw1h54c, null, null, null, null, null, null, null, 34, null, null, null => sw1h54c // Pommel Jewel of the Equalizer
+  sw1h57, 1, null, null, null, null, null, null, null, null, null, null => sw1h57 // Throwing Dagger
+  sw1h58, null, null, 0, null, null, null, null, null, null, null, null => sw1h58 // Short Sword of Mask +4
+  sw1h59, null, null, 0, null, null, null, null, null, null, null, null => sw1h59 // Short Sword of Mask +5
+  sw1h99, 1, null, null, null, null, null, null, null, null, null, null => sw1h99 // Sword of Chaos
+  sw1hseek, null, null, null, null, null, null, null, null, null, null, 1 => sw1hseek // Seeking Sword
+  sw2h01, 1, null, null, null, null, null, null, null, null, null, null => sw2h01 // Two Handed Sword
+  sw2h01b, 1, null, null, null, null, null, null, null, null, null, null => sw2h01b // Two Handed Sword
+  sw2h02, 1, null, null, null, null, null, null, null, null, null, null => sw2h02 // Two Handed Sword +1
+  sw2h05, 1, null, null, null, null, null, null, null, null, null, null => sw2h05 // Two Handed Sword
+  telslav, 1, null, 1, null, null, null, null, null, null, null, null => telslav // <Invalid Strref -1>
+  telslav2, 1, null, null, null, null, null, null, null, null, null, null => telslav2 // <Invalid Strref -1>
+  trolltor, null, null, 0, null, null, null, null, null, null, null, null => trolltor // Attack
+  ttsword2, 1, null, null, null, null, null, null, null, null, null, null => ttsword2 // Two Handed Sword
+  vamp, 1, null, null, null, null, null, null, null, null, null, null => vamp // <Invalid Strref -1>
+  vamp1, 1, null, null, null, null, null, null, null, null, null, null => vamp1 // <Invalid Strref -1>
+  vamp2, 1, null, null, null, null, null, null, null, null, null, null => vamp2 // <Invalid Strref -1>
+  vamp3, 1, null, null, null, null, null, null, null, null, null, null => vamp3 // <Invalid Strref -1>
+  wamace, null, null, null, null, null, null, null, null, null, 5, null => wamace // Jerrod's Mace
+  wand11, null, null, null, null, null, null, 50, null, null, null, null => wand11 // Wand of the Heavens
+  wand12, null, null, 0, null, null, null, null, null, null, null, null => wand12 // Wand of Wonder
+  wight, 1, null, null, null, null, null, null, null, null, null, null => wight // <Invalid Strref -1>
+  wolfspir, null, 1, null, null, null, null, null, null, null, 3, null => wolfspir // Attack
+  wolfwi1, null, null, 0, null, null, null, null, null, null, null, null => wolfwi1 // <Invalid Strref -1>
+  wolfwi2, null, null, 0, null, null, null, null, null, null, null, null => wolfwi2 // <Invalid Strref -1>
+  wraith1, 1, null, null, null, null, null, null, null, null, null, null => wraith1 // <Invalid Strref -1>
+  xbow01, 1, null, null, null, null, null, null, null, null, null, null => xbow01 // Heavy Crossbow
+  xbow02, 1, null, null, null, null, null, null, null, null, null, null => xbow02 // Heavy Crossbow +1
+  xbow07, 1, null, null, null, null, null, null, null, null, null, null => xbow07 // Heavy Crossbow +2
+  xbow08, 1, null, null, null, null, null, null, null, null, null, null => xbow08 // Giant Hair Crossbow +3
+  xbow15, null, null, 0, null, null, null, null, null, null, null, null => xbow15 // Firetooth +4
+  xbow16, null, null, 0, null, null, null, null, null, null, null, null => xbow16 // Firetooth +5
+  xbow17, 1, null, null, null, null, null, null, null, null, null, null => xbow17 // Heavy Crossbow +3
 
 END
 
-OUTER_SPRINT text_match @30
+OUTER_SPRINT itm_speed_text @30
+OUTER_SPRINT itm_weight_text @31
+OUTER_SPRINT itm_thac0_text @32
 
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
+ACTION_PHP_EACH cd_bulk_changes_itm AS params => file BEGIN
 
-  COPY_EXISTING ~%item%.itm~ ~override~
-    LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 speed = fix END // anything that turns up in weapon slots (e.g. not magical abilities)
-    LAUNCH_PATCH_MACRO cd_bulk_fix_item_strings
+  //file, timing, magical, power, speed, weight, thac0, lore, type, prof, enchantment, dispellable => file // notes
+  //file, timing, magical, power, speed, weight, thac0, lore, type, enchantment, dispellable => file // notes
+  COPY_EXISTING ~%file%.itm~ ~override~
+    PATCH_IF (IS_AN_INT params_1) BEGIN // has equipped effects with bad timing
+      LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 timing = 2 duration = 0 END // instant/while equipped for all global effects
+    END 
+    PATCH_IF (IS_AN_INT params_2) BEGIN // add/remove magical flag
+      PATCH_IF (params_2 = 0)   BEGIN WRITE_BYTE 0x18 THIS & `BIT6 END // remove magical flag
+      PATCH_IF (params_2 = 1)   BEGIN WRITE_BYTE 0x18 THIS | BIT6  END // add magical flag
+    END  
+    PATCH_IF (IS_AN_INT params_3) BEGIN // has equipping effects with wrong power
+      LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 power = params_3 END
+    END 
+    PATCH_IF (IS_AN_INT params_4) BEGIN // wrong weapon speed
+      LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 speed = params_4 END // anything that turns up in weapon slots (e.g. not magical abilities)
+    END 
+    PATCH_IF (IS_AN_INT params_5) BEGIN // wrong weight
+      WRITE_LONG 0x4c params_5
+    END 
+    PATCH_IF (IS_AN_INT params_6) BEGIN // wrong to-hit
+      LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 to_hit = params_6 END 
+    END 
+    PATCH_IF ((IS_AN_INT params_4) OR (IS_AN_INT params_5) OR (IS_AN_INT params_6)) BEGIN // update description for speed/weight/thac0 changes
+      LPM cd_bulk_fix_item_strings_bulk
+    END  
+    PATCH_IF (IS_AN_INT params_7)  BEGIN WRITE_SHORT 0x42 params_7  END // lore
+    PATCH_IF (IS_AN_INT params_8)  BEGIN WRITE_SHORT 0x1c params_8  END // type
+    PATCH_IF (IS_AN_INT params_9)  BEGIN WRITE_BYTE  0x31 params_9  END // prof    
+    PATCH_IF (IS_AN_INT params_10) BEGIN WRITE_LONG  0x60 params_10 END // enchantment
+    PATCH_IF (IS_AN_INT params_11) BEGIN // has equipped effects which should bypass MR
+      LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_resist_dispel = 1 resist_dispel = 2 END
+      LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_resist_dispel = 3 resist_dispel = 2 END
+    END 
     BUT_ONLY IF_EXISTS
 
 END
-
-// Comprehensive batch of item-weight fixes (Wisp)
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-//  chan02   => 20 // chainmail +1 (identified strref is wrong so this would patch wrong string; fixed in individual fixes)
-//  plymstar =>  0 // (zero-weight magical items) ogre's morningstar from polymorph self; uses generic morningstar description so fixed individually
-
-  // weight in item is wrong
-  bolt07   =>  0 // (zero-weight magical items) jan's flashers
-  bow06    =>  2 // short bow +1
-  brac15   =>  2 // bracers of defense ac 3
-  brdflute =>  0 // (zero-weight magical items) bard flute
-  clck13   =>  4 // traveller's robe
-  dagg05   =>  0 // throwing dagger
-  dwchan02 => 12 // drow adamantine chain +5
-  dwshld01 =>  7 // drow shield +3
-  enmace   =>  0 // (zero-weight magical items) enchanted weapon: mace
-  enmorn   =>  0 // (zero-weight magical items) enchanted weapon: morningstar
-  enstaff  =>  0 // (zero-weight magical items) enchanted weapon: staff
-  ensw1h01 =>  0 // (zero-weight magical items) enchanted weapon: long sword
-  ensw1h02 =>  0 // (zero-weight magical items) enchanted weapon: short sword
-  ensw2h   =>  0 // (zero-weight magical items) enchanted weapon: battle axe
-  melfmet  =>  0 // (zero-weight magical items) melf's minute meteors
-  plysala  =>  0 // (zero-weight magical items) salamander's spear from polymorph self
-  shille   =>  0 // (zero-weight magical items) shillegagh
-  shld23   => 10 // fortress shield +3
-  sorb     =>  0 // (zero-weight magical items) sol's searing orb
-  sper06   =>  3 // spear +3
-  staf04   =>  4 // quarterstaff
-  staf08   =>  4 // martial staff +3
-  staf10   =>  4 // staff of curing
-  staf11   =>  4 // staff of the magi
-  staf13   =>  4 // staff of thunder and lightning
-  staf20   =>  3 // staff of rynn +4
-  sw1h15   =>  4 // scimitar +3, frostbrand
-  sw1h16   =>  4 // scimitar +5, defender
-  sw1h23   =>  4 // scimitar +2, rashad's talon
-  sw1h32   =>  3 // dragonslayer
-  sw2h03   => 15 // cursed berserking sword +3
-  sw2h12   => 10 // flame of the north
-  sw2h15   => 15 // silver sword
-
-  // weight in description is wrong
-  bag06    =>  2 // potion case (strref #71131) (also used by other potion cases)
-  blun03   => 13 // flail +1 (strref #19359)
-  blun04   => 10 // generic mace (strref #6709)
-  hlolth   =>  7 // handmaiden's mace (strref #54340)
-  kuobolt  =>  0 // kuo-toa bolt (strref #57897) (also used by kuobolt2, kuobolt3)
-  npstaf   =>  3 // staff of the high forest (strref #8505)
-  plat19   => 40 // full plate mail +2 (strref #1768)
-  shld27   =>  4 // saving grace (strref #39579)
-  wa2shiel =>  4 // shield of balduran (strref #61580)
-  
-  // string and item are wrong
-  sahbolt  => 0 // Paralytic Bolt (strref #57919)
-
-END
-
-OUTER_SPRINT text_match @31
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-  COPY_EXISTING ~%item%.itm~ ~override~
-    WRITE_LONG 0x4c fix // fixes item weight
-    LAUNCH_PATCH_MACRO cd_bulk_fix_item_strings
-    BUT_ONLY IF_EXISTS
-
-END
-
-// thac0 fixes
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-  arow08 => 0 // arrows of fire, only needs an item fix
-  bow09  => 3 // ripper +2, also fixes string #39508
-  bow13  => 5 // mana bow +4, also fixes string #39513
-  bow17  => 3 // long bow +2, also fixes string #176
-  bow22  => 5 // taralash +4, also fixes string #66388
-  bow23  => 6 // taralash +5, also fixes string #66389
-  bow25  => 4 // long bow +2, also fixes string #71058
-END
-
-OUTER_SPRINT text_match @32
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-  COPY_EXISTING ~%item%.itm~ ~override~
-    LPF ALTER_HEADER INT_VAR silent = 1 match_location = 1 to_hit = fix END // anything that turns up in weapon slots (e.g. not magical abilities)
-    LAUNCH_PATCH_MACRO cd_bulk_fix_item_strings
-    BUT_ONLY IF_EXISTS
-
-END
-
-// lore fixes
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-  ax1h06   =>  65 // throwing axe +2, unused
-  ax1h07   =>  65 // bala's axe (bg lore value), unused but restored by UB
-  boot12   =>  55 // available via killing carras; already ID'd in store
-  bull06   =>  35 // bullet +4
-  chan03   =>  65 // mail of the dead
-  chan21   =>  75 // chain mail +3
-  dagg04   =>  60 // dagger +2 longtooth (bg lore value), unused
-  dwchan01 =>  75 // drow elven chain +3
-  dwchan02 =>  75 // drow adamantine chain +5
-  dwplat01 =>  75 // drow full plate +5
-  halb03   =>  60 // suryris' blade
-  leat03   =>  60 // protector of the second +2
-  leat06   => 100 // missile attraction +2
-  misc3a   =>  80 // book of infinite spells
-  misc3e   =>  75 // black spider figurine
-  misc3f   =>  75 // jade hound, unused
-  misc3j   =>   0 // bronze horn of valhalla (upgrades come identified)
-  misc3k   =>   0 // iron horn of valhalla (upgrades come identified)
-  plat02   =>  40 // plate mail +1
-  plat09   =>  50 // mithral field plate armor +2, unused
-  plat23   =>  75 // full plate mail +2
-  potn40   =>   0 // cursed potion of invulnerability shouldn't require ID
-  quiver02 =>  20 // case of plenty +1
-  regisamu =>  65 // ruby pendant
-  ring43   =>   0 // oaken ring
-  rods02   =>  70 // rod of lordly might
-  rods06   =>  85 // rod of reversal
-  shld17   =>  10 // buckler +1
-  slng03   =>  45 // sling +3
-  staf06   =>  25 // staff mace
-  staf07   =>  65 // staff spear +2
-  sw1h06   =>  60 // long sword +2
-  sw1h24   =>  70 // flame tongue (bg lore value)
-  wand11   =>  50 // wand of the heavens
-
-END
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-    COPY_EXISTING ~%item%.itm~ ~override~
-      WRITE_SHORT 0x42 fix
-      BUT_ONLY IF_EXISTS
-
-END
-
-// item type fixes
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-  blun27   => 17 // Club of Detonation +5
-  book05   =>  0 // Manual of Quickness of Action (type 0 allows quickslotting)
-  book07   =>  0 // Tome of Leadership and Influence (type 0 allows quickslotting)
-  book08   =>  0 // Tome of Understanding (type 0 allows quickslotting)
-  book32   => 37 // History of Tethyr
-  book94   => 37 // The Vampiricus Omnibus: Unabridged
-  book95   => 37 // Dea Vampir Becomos
-  book96   => 37 // Conjur Ota Servanta
-  dagg10   => 16 // soultaker dagger
-  misc73   =>  0 // horn of kazgaroth (type 0 allows quickslotting)
-  miscan   =>  1 // galvena's medallion
-  miscb1   =>  1 // Talisman of Rillifane
-  scrla9   => 37 // waneev's note
-  scrlaa   => 37 // waneev's note
-  scrlab   => 37 // monkey balls
-  scrlac   => 37 // amnish dragoon soup
-  scrlad   => 37 // baldur's delight
-  scrlaf   => 37 // ruby racks
-  scrlag   => 37 // crom faeyr scroll
-  scrlhp   => 37 // harper note
-  scrlick  => 37 // illithid correspndence
-  scrlmz   => 37 // note from Mazzy Fentan
-  sw1h54c  => 34 // pommel jewel of the equalizer
-
-END
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-    COPY_EXISTING ~%item%.itm~ ~override~
-      WRITE_SHORT 0x1c fix
-      BUT_ONLY IF_EXISTS
-
-END
-
-// prof fixes
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-  // all of these prof 2 items are ammo; prof 0 lets you use them w/o non-prof penalty. The non-zero value keeps the prof type from the bow/sling/whatever
-  aegis    =>  97 // aegis fang
-  aegis2   =>  97 // aegis fang
-  arow01   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows - arrows w/o shortbow prof
-  arow02   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows +1 - arrows w/o shortbow prof
-  arow03   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow of slaying - arrows w/o shortbow prof
-  arow04   =>   2 // (ammo with 0 prof removes non-prof penalty)  acid arrows - arrows w/o shortbow prof
-  arow05   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow of biting - arrows w/o shortbow prof
-  arow06   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows of detonation  - arrows w/o shortbow prof
-  arow07   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows of dispelling - arrows w/o shortbow prof
-  arow08   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow of fire - arrows w/o shortbow prof
-  arow09   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows of ice - arrows w/o shortbow prof
-  arow10   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows of piercing - arrows w/o shortbow prof
-  arow11   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow +2 - arrows w/o shortbow prof
-  arow14   =>   2 // (ammo with 0 prof removes non-prof penalty)  poisoned arrow - arrows w/o shortbow prof
-  arow15   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow +3 - arrows w/o shortbow prof
-  arow1a   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrow +2 - arrows w/o shortbow prof
-  bolt01   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt - bolts w/o xbow prof
-  bolt02   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt +1 - bolts w/o xbow prof
-  bolt03   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt of lightning - bolts w/o xbow prof
-  bolt04   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt of biting  - bolts w/o xbow prof
-  bolt05   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt of polymorphing - bolts w/o xbow prof
-  bolt06   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt +2 - bolts w/o xbow prof
-  bolt07   =>   2 // (ammo with 0 prof removes non-prof penalty)  flasher master bruiser mate - bolts w/o xbow prof
-  bolt08   =>   2 // (ammo with 0 prof removes non-prof penalty)  blessed bolt - bolts w/o xbow prof
-  bolt09   =>   2 // (ammo with 0 prof removes non-prof penalty)  bolt +3 - bolts w/o xbow prof
-  bow06    => 105 // short bow +1
-  bow07    => 104 // long bow of marksmanship
-  bruenaxe =>  92 // battle axe +3
-  bull01   =>   2 // (ammo with 0 prof removes non-prof penalty)  bullet - bullet w/o sling prof
-  bull02   =>   2 // (ammo with 0 prof removes non-prof penalty)  bullet +1 - bullet w/o sling prof
-  bull03   =>   2 // (ammo with 0 prof removes non-prof penalty)  bullet +2 - bullet w/o sling prof
-  bull04   =>   2 // (ammo with 0 prof removes non-prof penalty)  sunstone bullet +1 - bullet w/o sling prof
-  bull05   =>   2 // (ammo with 0 prof removes non-prof penalty)  bullet +3 - bullet w/o sling prof
-  bull06   =>   2 // (ammo with 0 prof removes non-prof penalty)  bullet +4 - bullet w/o sling prof
-  dwbolt01 =>   2 // (ammo with 0 prof removes non-prof penalty)  drow bolt of sleep - bolts w/o xbow prof
-  dwbolt02 =>   2 // (ammo with 0 prof removes non-prof penalty)  drow bolt of stunning - bolts w/o xbow prof
-  dwbolt03 =>   2 // (ammo with 0 prof removes non-prof penalty)  drow bolt +1 - bolts w/o xbow prof
-  flam01   =>   2 // (ammo with 0 prof removes non-prof penalty)  flamethrower - bolts w/o xbow prof
-  frag01   =>   2 // (ammo with 0 prof removes non-prof penalty)  frag grenade - bolts w/o xbow prof
-  frosty   =>   2 // (ammo with 0 prof removes non-prof penalty)  dr. freeze death ray - bolts w/o xbow prof
-  iarow01  =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows - arrows w/o shortbow prof
-  kuobolt  =>   2 // (ammo with 0 prof removes non-prof penalty)  kuo-toa bolts - bolts w/o xbow prof
-  kuobolt2 =>   2 // (ammo with 0 prof removes non-prof penalty)  kuo-toa bolts - bolts w/o xbow prof
-  kuobolt3 =>   2 // (ammo with 0 prof removes non-prof penalty)  kuo-toa bolts - bolts w/o xbow prof
-  laser    =>   2 // (ammo with 0 prof removes non-prof penalty)  laser - bolts w/o xbow prof
-  light    =>   2 // (ammo with 0 prof removes non-prof penalty)  wand of magic missiles - bolts w/o xbow prof
-  misc4q   =>  89 // ogre's sword
-  misc4u   =>  96 // embarl's dagger
-  misc5t   => 102 // shaman's staff
-  misc75   =>  96 // dagger of venom
-  puls01   =>   2 // (ammo with 0 prof removes non-prof penalty)  wand of magic missiles - bolts w/o xbow prof
-  puls02   =>   2 // (ammo with 0 prof removes non-prof penalty)  wand of magic missiles - bolts w/o xbow prof
-  quiv01   =>   2 // (ammo with 0 prof removes non-prof penalty)  arrows - arrows w/o shortbow prof
-  quiver01 =>   2 // (ammo with 0 prof removes non-prof penalty)  quiver of plenty +1 - arrows w/o shortbow prof
-  quiver02 =>   2 // (ammo with 0 prof removes non-prof penalty)  case of plenty +1 - bolts w/o xbow prof
-  quiver03 =>   2 // (ammo with 0 prof removes non-prof penalty)  quiver of plenty +2 - arrows w/o shortbow prof
-  quiver04 =>   2 // (ammo with 0 prof removes non-prof penalty)  case of plenty +2 - bolts w/o xbow prof
-  quiver05 =>   2 // (ammo with 0 prof removes non-prof penalty)  bag of plenty +1 - bullet w/o sling prof
-  quiver06 =>   2 // (ammo with 0 prof removes non-prof penalty)  bag of plenty +2 - bullet w/o sling prof
-  sahbolt  =>   2 // (ammo with 0 prof removes non-prof penalty)  paralytic bolt - bolts w/o xbow prof
-  secret02 =>   2 // (ammo with 0 prof removes non-prof penalty)  pulse ammunition - bolts w/o xbow prof
-  secret03 =>   2 // (ammo with 0 prof removes non-prof penalty)  frag grenade - bolts w/o xbow prof
-  secret04 =>   2 // (ammo with 0 prof removes non-prof penalty)  scorcher ammunition - bolts w/o xbow prof
-
-END
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-    COPY_EXISTING ~%item%.itm~ ~override~
-      WRITE_BYTE 0x31 fix
-      BUT_ONLY IF_EXISTS
-
-END
-
-// enchantment fixes
-ACTION_CLEAR_ARRAY cd_bulk_item_fixes
-ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_bulk_item_fixes BEGIN
-
-  aegis    => 3 // aegis fang, real
-  aegis2   => 3 // aegis fang, droppable version
-  arow04   => 1 // acid arrows
-  bearspir => 3 // weapon of totemic druid summon
-  bolt07   => 1 // Flasher Master Bruiser Mate
-  bow06    => 1 // short bow +1
-  bruenaxe => 3 // battle axe +3
-  bull04   => 1 // sunstone bullet
-  dagg19   => 1 // dagger of <CHARNAME>
-  dart05   => 1 // asp's nest
-  kuobolt2 => 2 // kuo-toa bolt
-  lionspir => 3 // weapon of totemic druid summon
-  misc75   => 2 // dagger of venom
-  p3-12m4  => 4 // by Bioware naming convention, this item should be 4 enchantment
-  skelwasu => 1 // two-handed sword +1 used by summoned skeleton warriors
-  snakspir => 3 // weapon of totemic druid summon
-  staf10   => 1 // staff of curing
-  sw1h03   => 3 // kondar
-  sw1h31   => 4 // daystar
-  wamace   => 5 // jerrod's mace (+5 vs. demons)
-  wolfspir => 3 // weapon of totemic druid summon
-
-END
-
-ACTION_PHP_EACH cd_bulk_item_fixes AS item => fix BEGIN
-
-    COPY_EXISTING ~%item%.itm~ ~override~
-      WRITE_LONG  0x60 fix
-      BUT_ONLY IF_EXISTS
-
-END
-
-//items with dispellable on-equip effects (Wisp)
-COPY_EXISTING ~aurstaf.itm~  ~override~ // dispellable protection from projectile: bullet
-              ~dragring.itm~ ~override~ // dispellable protection from projectile: arrowhvy, axe, bolt, bullet, dagger, dart
-              ~elemchan.itm~ ~override~ // dispellable opcode 232, renewing globe of blades ability
-              ~elemyanc.itm~ ~override~ // ditto
-              ~impinvis.itm~ ~override~ // dispellable invisibility (creatures should not be visible, ever)
-              ~jonhp1.itm~   ~override~ // dispellable protection from fiends
-              ~kuoring.itm~  ~override~ // dispellable immunity to slow
-              ~lich.itm~     ~override~ // dispellable protection from fiends
-              ~mage05.itm~   ~override~ // free action. dispellable everything
-              ~mage06.itm~   ~override~ // dispellable haste
-              ~npsw03.itm~   ~override~ // dispellable opcode 232, for the 'retribution' type effect on the sword
-              ~slayerwp.itm~ ~override~ // dispellable protection from projectile: arrowhvy, axe, bolt, bullet, dagger, dart
-              ~sw1hseek.itm~ ~override~ // dispellable apr bonus
-  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_resist_dispel = 1 resist_dispel = 2 END
-  LPF ALTER_EFFECT INT_VAR silent = 1 check_headers = 0 match_resist_dispel = 3 resist_dispel = 2 END
-  BUT_ONLY IF_EXISTS
   
 // dispel magic via items can not be blocked; route through spell to allow for op 206 to block if needed - see also cditmdm0.spl, cditmdm1.spl, cd_item_dispel_magic item array
 ACTION_CLEAR_ARRAY cd_item_dispel_magic
