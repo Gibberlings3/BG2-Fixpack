@@ -249,7 +249,7 @@ COPY_EXISTING ~spcl521.spl~ ~override~
   PATCH_IF !tobex_game BEGIN // skip this song and dance if TobEx is present
     LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode =  65 opcode = 146 parameter1 = 0 parameter2 = 1 timing = 1 duration = 0 STR_VAR resource = spcl521d END // clone blur into spell for APR
   END ELSE BEGIN
-    LPF ADD_SPELL_EFFECT INT_VAR opcode =   1 target = 1 parameter1 =    1 duration = 24 resist_dispel = 2 END // +1 apr
+    LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 65 opcode = 1 target = 1 parameter1 = 1 duration = 24 resist_dispel = 2 END
   END
   BUT_ONLY
 

@@ -1,5 +1,29 @@
 INCLUDE ~bg2fixpack/lib/functions.tpa~ // miscellaneous patch functions
-INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
+INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff/////                                                  \\\\\
+///// string fixes                                     \\\\\
+/////                                                  \\\\\
+
+// first column is strref to be updated, second column is tra reference (e.g. 150 uses @150 from the tra file)
+// item speed and weight fixes now done as part of the item fixes
+COPY ~bg2fixpack/lib/strings.tpa~ ~weidu_external/bg2fixpack/strings_beta.tpa~
+ACTION_CLEAR_ARRAY cd_string_fixes
+ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
+
+  12164 => 265 // Know Alignment (arcane) is negated with a save
+
+END
+
+ACTION_PHP_EACH cd_string_fixes AS string => tra BEGIN
+
+  ACTION_IF FILE_CONTAINS_EVALUATED (~bg2fixpack/languages/%LANGUAGE%/setup.tra~ ~^[ %TAB%]*@%tra%[ %TAB%]*=~) BEGIN // check string is in language's tra file
+
+    APPEND_OUTER ~weidu_external/bg2fixpack/strings_beta.tpa~ ~STRING_SET %string% @%tra%~
+
+  END
+
+END
+
+REINCLUDE ~weidu_external/bg2fixpack/strings_beta.tpa~ // now execute newly built library
 
 /////                                                  \\\\\
 ///// mass compile/copy actions actions                \\\\\
@@ -46,6 +70,10 @@ END
 /////                                                  \\\\\
 ///// other item file fixes                            \\\\\
 /////                                                  \\\\\
+
+// boots of lightning speed set speed to something below 400% speed... let's be precise
+COPY_EXISTING ~boot10.itm~ ~override~
+  LPF ALTER_EFFECT INT_VAR match_opcode = 126 parameter1 = 400 parameter2 = 2 END // set to 400% speed, not set a fixed value of 30
 
 // protection from magic scrolls not dispelling all buffs
 COPY_EXISTING ~scrl07.itm~ ~override~ // protection from magic
@@ -111,6 +139,11 @@ COPY_EXISTING ~spcl321.spl~  ~override~ // berserker enrage
               ~spin117.spl~  ~override~ // minsc's berserk (also used by, randomly, Gorf)
   LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 139 match_parameter1 = 20723 opcode = 177 parameter1 = 30 parameter2 = 2 STR_VAR resource = spin117a END // only for GOODCUTOFF
   LPF ALTER_EFFECT INT_VAR silent = 1 match_opcode = 139 match_parameter1 = 20726 opcode = 177 parameter1 = 30 parameter2 = 2 STR_VAR resource = spin117b END // only for GOODCUTOFF
+  
+// know alignment description mentions saving throw, which spell lacks, see all string update for #12164
+COPY_EXISTING ~spwi208.spl~ ~override~ // know alignment (arcane)
+  LPF ALTER_EFFECT INT_VAR match_opcode = 139 savingthrow = BIT0 END // add save to string
+  LPF ALTER_EFFECT INT_VAR match_opcode = 115 savingthrow = BIT0 END // add save to know alignment
 
 /////                                                  \\\\\
 ///// eff fixes                                        \\\\\

@@ -1036,7 +1036,16 @@ Proficiency Type: Sling
 Type:  1-handed
 Not Usable By:~
 @264 = ~Elemental destroyed~
+// bg2: strref 12164 except that "Saving Throw: None" gets changed to "Saving Throw: Neg."
+@265 = ~Know Alignment (Divination) 
+Level: 2
+Range: 10 yards 
+Duration: instant
+Casting Time: 1 round 
+Area of Effect: 1 creature 
+Saving Throw: Neg.
 
+A know alignment spell enables the mage to exactly read the aura of a creature.  If the creature rolls a successful saving throw vs. spell, the caster learns nothing about that particular creature from the casting.  When a character is hit by this spell, he will glow red if he's evil, green if he's good, and white if he's neutral.~
 
 @1000 = ~GTU Light (by Wisp)~
 @1001 = ~GTU Classic (from Baldurdash, by Kevin Dorner)~

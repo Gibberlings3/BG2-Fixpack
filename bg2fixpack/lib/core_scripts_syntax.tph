@@ -195,6 +195,7 @@ COPY_EXISTING ~abazdrag.bcs~ ~override~ // !Dead("astSeenBy())"), !Dead("yself)"
               ~ysgrunt.bcs~  ~override~ // !Dead("astSeenBy(Myself))")
               ~zilmag01.bcs~ ~override~ // !Dead("yself)"), !Dead("astSeenBy(Myself))")
   DECOMPILE_AND_PATCH BEGIN
+    REPLACE_TEXTUALLY %Dead("astAttackerOf(")% %StateCheck(LastAttackerOf("GorCamb"),STATE_REALLY_DEAD)%
     REPLACE_TEXTUALLY %Dead("yself)")% %StateCheck(Myself,STATE_REALLY_DEAD)%
     REPLACE_TEXTUALLY %Dead("astSeenBy(\(Myself\)?))")% %StateCheck(LastSeenBy(Myself),STATE_REALLY_DEAD)%
     REPLACE_TEXTUALLY %Dead("astHeardBy(\(Myself\)?))")% %StateCheck(LastHeardBy(Myself),STATE_REALLY_DEAD)%
