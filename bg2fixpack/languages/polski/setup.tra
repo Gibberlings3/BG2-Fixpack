@@ -86,7 +86,8 @@ Specjalne:
  +1 do Si³y
 Waga: 0
 Mo¿e u¿ywaæ:
- Kap³an o charakterze dobrym~
+ Kap³an
+ Postaæ o charakterze dobrym~
 
 @130 = ~Œwiêty symbol Shar~
 @131 = ~Te niezwykle potê¿ne œwiête symbole mog¹ otrzymaæ tylko najbardziej oddani s³udzy Pani Nocy i Zagubienia.
@@ -99,10 +100,11 @@ Specjalne:
  +1 do Si³y
 Waga: 0
 Mo¿e u¿ywaæ:
- Kap³an o charakterze z³ym~
-@132 = ~(Mê¿czyzna patrzy na ciebie obojêtnie przez chwilê, po czym mówi)
+ Kap³an
+ Postaæ o charakterze z³ym~
+@132 = ~(Mê¿czyzna patrzy na ciebie obojêtnie przez chwilê, po czym mówi.)
 
-S³u¿ê tylko Mistrzowi Mekrathowi.~ [HAERDA95]
+S³u¿ê tylko mistrzowi Mekrathowi.~ [HAERDA95]
 @133 = ~Na brodê ciotki Petunii! Duch z mojej przesz³oœci? Mo¿e pragniesz kupiæ nieco rzepy?~ [JANJAN67]
 @134 = ~Stój! Kto idzie? Tyœ... tyœ jest Dzieciêciem Bhaala, czy¿ nie? Tym, któremu Joneleth... Jon... rzekomo ukrad³ moc? Twierdzi³, ¿e ciê zabi³!~ [ELLESI02]
 @135 = ~Sztylet do rzucania +3: 'Ognisty kie³'
@@ -132,11 +134,11 @@ Czas rzucania: 5
 Obszar dzia³ania: 1 istota
 Rzut obronny: brak
 
-Po rzuceniu tego czaru na wybran¹ istotê, spowoduje on rozproszenie wszelkich magicznych os³on j¹ chroni¹cych, w³¹czaj¹c w to nastêpuj¹ce zaklêcia: ¿elazna skóra, Odpornoœæ na magiê, Tarcza Archonów, Mniejsze odbicie czaru, Klosz niewra¿liwoœci mniejszej, Niepodatnoœæ na czary, Klosz niewra¿liwoœci, Mniejsze odchylenie czaru, Odbicie czaru, Tarcza przeciw czarom, Odchylenie czaru, Niewra¿liwoœæ na czary, oraz Pu³apka na czary. Odpornoœæ celu na magiê nie mo¿e powstrzymaæ tego czaru.~
-@137 = ~BERSERKER: Tego wojownika mo¿e ogarn¹æ w trakcie walki ekstaza umys³owa, dziêki której walczy d³u¿ej, z wiêksz¹ zaciêtoœci¹ i dzikoœci¹ ni¿ jakikolwiek inny cz³owiek. Berserkerzy czêsto bywaj¹ Barbarzyñcami, ale nie jest to regu³¹. Czasami jest to œwiadomy wybór, dokonany w czasie szkolenia wojownika. Niezale¿nie od tego, widok szalej¹cego na polu walki berserkera czêsto dzia³a deprymuj¹co na wroga. Wœród krasnoludów, berserkerzy nazywani s¹ 'Sza³ojownikami'.
+Po rzuceniu tego czaru na wybran¹ istotê, spowoduje on rozproszenie wszelkich magicznych os³on j¹ chroni¹cych, w³¹czaj¹c w to nastêpuj¹ce zaklêcia: ¯elazna skóra, Odpornoœæ na magiê, Tarcza Archonów, Mniejsze odbicie czaru, Klosz niewra¿liwoœci mniejszej, Niepodatnoœæ na czary, Klosz niewra¿liwoœci, Mniejsze odchylenie czaru, Odbicie czaru, Tarcza przeciw czarom, Odchylenie czaru, Niewra¿liwoœæ na czary, oraz Pu³apka na czary. Odpornoœæ celu na magiê nie mo¿e powstrzymaæ tego czaru.~
+@137 = ~BERSERKER: Tego wojownika mo¿e ogarn¹æ w trakcie walki ekstaza umys³owa, dziêki której walczy d³u¿ej, z wiêksz¹ zaciêtoœci¹ i dzikoœci¹ ni¿ jakikolwiek inny cz³owiek. Berserkerzy czêsto bywaj¹ Barbarzyñcami, ale nie jest to regu³¹. Czasami jest to œwiadomy wybór, dokonany w czasie szkolenia wojownika. Niezale¿nie od tego, widok szalej¹cego na polu walki berserkera czêsto dzia³a deprymuj¹co na wroga. Wœród krasnoludów, berserkerzy nazywani s¹ "Sza³ojownikami".
 
 Zalety:
-- Raz dziennie na 4 poziomy mo¿e u¿yæ zdolnoœci 'Rozwœcieczenie'. Po jej u¿yciu wojownik na czas 60 sekund otrzymuje premie +2 do trafienia, obra¿eñ, klasy pancerza, odpornoœæ na wysysanie poziomów, zaklêcia uroków, unieruchomienia, strachu, uwiêzienia, og³uszenia oraz snu. Ponadto otrzymuje on dodatkowe 15 punktów ¿ycia. Po zakoñczeniu 'Rozwœcieczenia', przez kolejne 60 sekund Berserker jest wyczerpany. W tym stanie otrzymuje kary -2 do trafienia, obra¿eñ oraz +2 do KP, wojownik traci dodatkowe punkty ¿ycia i na dodatek otrzymuje 1-15 punktów obra¿eñ. Mo¿e to spowodowaæ œmieræ os³abionego Berserkera.
+- Raz dziennie na 4 poziomy mo¿e u¿yæ zdolnoœci "Rozwœcieczenie". Po jej u¿yciu wojownik na czas 60 sekund otrzymuje premie +2 do trafienia, obra¿eñ, klasy pancerza, odpornoœæ na wysysanie poziomów, zaklêcia uroków, unieruchomienia, strachu, uwiêzienia, og³uszenia oraz snu. Ponadto otrzymuje on dodatkowe 15 punktów ¿ycia. Po zakoñczeniu "Rozwœcieczenia", przez kolejne 60 sekund Berserker jest wyczerpany. W tym stanie otrzymuje kary -2 do trafienia, obra¿eñ oraz +2 do KP, wojownik traci dodatkowe punkty ¿ycia i na dodatek otrzymuje 1-15 punktów obra¿eñ. Mo¿e to spowodowaæ œmieræ os³abionego Berserkera.
 
 Wady:
 - Nie mo¿e specjalizowaæ siê w broniach dystansowych, z wyj¹tkiem tych, których mo¿na u¿ywaæ tak¿e w walce wrêcz (np. toporki).~ []
@@ -146,7 +148,7 @@ Zalety:
 - Punkty ¯ycia Barbarzyñcy okreœla siê rzucaj¹c k12 zamiast k10.
 - Premia +2 do prêdkoœci ruchu
 - Odpornoœæ na sztyletowanie
-- Raz dziennie na 4 poziomy Barbarzyñca mo¿e u¿yæ zdolnoœci 'Sza³ barbarzyñcy.
+- Raz dziennie na 4 poziomy Barbarzyñca mo¿e u¿yæ zdolnoœci "Sza³ barbarzyñcy".
 Po u¿yciu tej zdolnoœci Barbarzyñca na czas 5 rund uzyskuje premie +4 do Kondycji i Si³y, +2 do rzutów obronnych przeciwko magii, karê -2 do KP, odpornoœæ na strach, uroki, unieruchomienia, labirynty, zamêt i czary wysysaj¹ce poziomy. 
 - Na 11 poziomie barbarzyñca zyskuje 10% odpornoœci na bronie sieczne, k³uj¹ce, obuchowe i pociski. PóŸniej odpornoœæ ta zwiêksza siê o +5% co 4 poziomy.
 
@@ -617,3 +619,15 @@ Waga: 0
 OpóŸnienie: 3
 Rodzaj bieg³oœci: proca
 Typ broni: 1-rêczna~
+
+@264 = ~¯ywio³ak zniszczony~
+// bg2: strref 12164 except that "Saving Throw: None" gets changed to "Saving Throw: Neg."
+@265 = ~Poznanie charakteru (Poznanie)
+Poziom: 2
+Zasiêg: 10 metrów
+Czas dzia³ania: natychmiastowy
+Czas rzucania: 1 runda
+Obszar dzia³ania: 1 istota
+Rzut obronny: neguje
+
+Ten czar pozwala magowi odczytaæ aurê istoty. Jeœli istota wykona udany rzut obronny przeciw czarom, to mag niczego siê nie dowie. Istniej¹ magiczne przedmioty, które neguj¹ dzia³anie tego zaklêcia. Kiedy czar zdzia³a, ofiara zaœwieci czerwieni¹, je¿eli jest z³a, b³êkitem - jeœli jest dobra, a biel¹ - w przypadku, gdy jest neutralna.~
