@@ -824,7 +824,7 @@ Not Usable By:
 @1004428 = ~Right to the point, eh? That's fine with me. You are a very capable person, and I wish to propose a trade of services.~ [ARAN07]
 @1004449 = ~ I am Death come for thee. Surrender, and thy passage shall be... quicker.~ [NIMBL01]
 @1004453 = ~ Why Nimbul has been hired to deal with the likes of you, I'll never know.~ [NIMBL06]
-@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~
+@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~ [GORIN11]
 @1004567 = ~ The evidence we have about Entar's murder does resemble the work of the Shadow Thieves, but...~ [LIIAJ04]
 @1004589 = ~Uhhhh... yeah.~ [KRUMM01]
 @1004591 = ~ Duhhhhhhh....~ [KRUMM02]
@@ -5359,6 +5359,12 @@ The High Priestess seems to think that I am the one her prophecy has spoken of, 
 @1017088 = ~Wadda you want here? Ain't nothing here for public to see. We just take care of cleanin' the sewers and such.~ []
 @1017092 = ~Never what? You are clouded by personal feelings. He may not think like us at all. Can you understand an illithid? Or a beholder? He is akin to these.~ []
 @1017101 = ~Hmm... finds that violence is unavoidable. Certainly to be expected in a creature such as you.~ []
+@1017169 = ~Wallag
+  We travel this day to search out the wolf lair.  My own scouting of the region has confirmed Merella's suspicions that there is a large pack of wolves acting in this area.  On the map included I have indicated where I believe the wolf den to be located.  Follow us if you can, but be cautious. We can ill-afford another mysterious disappearance.  Until we meet again. 
+
+Mazzy
+
+(on the same sheet is drawn a crude but effective map which indicates the path to a forested area several hours west of the Imnesvale region.)~
 @1017172 = ~You... who have so much power... would raise no hand to aid us? Damn you! May the abyss swallow your soul for what you do!~ []
 @1017192 = ~~ []
 @1017230 = ~The cursed girdle of gender, a rare yet oft-discussed magical item, is wrought with a most powerful magic. Anyone unfortunate enough to secure it around their waist instantly finds their gender to be transformed. It is said that, not fifty years past, a nameless court jester was beheaded for presenting the girdle as a gift to Duke Lobelahn's lover.
@@ -6857,6 +6863,11 @@ Well, the jailkeep has been paid the fine to get Jan Jansen out of prison... and
 @1019693 = ~Gnoll Chieftain~ []
 @1019699 = ~I... I don't know.~ []
 @1019703 = ~Hmm. I see. If you are doubting then perhaps ye are not as much in the right as ye thought. I leave ye with that thought. I'm sure it will serve as penance enough.~ []
+@1019723 = ~This is half of a page of parchment, yellowed with age, the ink faded but still legible, and reads:
+
+"This land near the Umar Hills is rich with mithril deposits, but unfortunately too many scoundrels and bandits have noted this and are preying upon the prospectors in the area with a vengeance.  I have found an excellent hiding place for my mithril cache, one that those thieves are sure not to find.  It is far to the west of Imnesvale village, in a forest --"
+
+Below this section, the page is torn and jagged, as if it has been ripped from its other half.~
 @1019724 = ~This class of decorative helmet, made of reinforced leather or metal, covers the face and head. Eye slits and breathing holes come highly recommended.
 
 STATISTICS:
@@ -7156,6 +7167,7 @@ Not Usable By:
 
 We have arrived at the Order's headquarters for Anomen's trial. I am to go inside with him and observe the judgement as it takes place.~ []
 @1020949 = ~I don't have that much money... how am I supposed to raise such a fare?~ []
+@1020969 = ~You cannot control more than 5 monsters at any given time.~
 @1020981 = ~Ah! Ye be havin' it, already, does ye? A great an' good thing it is. I will tell ye of the man who can be helpin' ye.~ [GAELEN31]
 @1020984 = ~Leather Armor +3: Karajah's Life and Death
 Karajah was Calimshan's champion of pit fighting for a full decade, and seemingly unbeatable. His success, or so he claimed, was due to the mobility that his light armor afforded him. He may well have been unaware of the suit's other qualities, but his peers ignored his claims of ignorance when the enchantments were discovered. The armor survived the subsequent beating, whereas Karajah did not.

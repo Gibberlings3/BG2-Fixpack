@@ -513,6 +513,7 @@ STRING_SET
 16841 @1016841 //"Some say its creatures made by magic"->"Some say it's creatures made by magic"
 17061 @1017061 //asnwer->answer
 17073 @1017073 //woudn't->wouldn't
+17169 @1017169 // ruins are west of Imnesvale, not north
 17251 @1017251 //thaco
 17283 @1017283 //funtion
 17287 @1017287 //rangers and paladins can not use wands of fear; AoE correction
@@ -612,6 +613,7 @@ STRING_SET
 19655 @1019655 //"Yer plain gold"->"Ye're plain gold"
 19656 @1019656 // Matching VO, AKA Elminster doesn't follow his lines. "Ye have done what ye have done, the reasons for which are thine.  I trust they are valid...  This is my question, Jaheira: did ye do the right thing?" -> "Ye have done what ye have done, there is no denying, the reasons for which are thine and I trust they are valid, if ye believe them to be...  This is my question, Jaheira: did you do the right thing?"
 19688 @1019688 //garrolous->garrulous
+19723 @1019723 //ruins are west of Imnesvale, not east
 19766 @1019766 //end sentence with a period
 19914 @1019914 //"yer in fer a world o' trouble"->"ye're in fer a world o' trouble"
 19927 @1019927 //"yer a kind soul"->"ye're a kind soul"
@@ -647,6 +649,7 @@ STRING_SET
 20863 @1020863 //matching VO, "They can also affect the rescue of your lass, or the capture of the mage, to boot."->"They can also affect the rescue of your lass, to boot."
 20876 @1020876 //matching VO, "Maybe ye wants to find 'im?"->"Maybe ye's have a question or two. Maybe ye wants to find 'im?"
 20943 @1020943 //order's headquarters->Order's headquarters
+20969 @1020969 //"more that 5 monsters" > "more than 5 monsters" 
 21003 @1021003 //Arledian->Arledrian
 21008 @1021008 //Arledian->Arledrian
 21029 @1021029 //"I see yer almost there"->"I see ye're almost there"

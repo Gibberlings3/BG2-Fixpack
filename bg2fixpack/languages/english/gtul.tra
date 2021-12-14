@@ -358,7 +358,7 @@ Armor Class: -4
 Hit Points:  16
 Resistance to fire, cold, electricity: 75%
 Special abilities:  Has a 50% Detect Traps ability.  30% stealth ability.~
-@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~
+@1004446 = ~ Let's hurry child!  The night can only get worse so we must find shelter soon.  Don't worry, I will explain everything as soon as there is time.~ [GORIN11]
 @1004453 = ~ Why Nimbul has been hired to deal with the likes of you, I'll never know.~ [NIMBL06]
 @1004602 = ~This magical dart was created using the Cloak of Stars. The darts will only last for twenty four hours.
 
@@ -1977,6 +1977,12 @@ The High Priestess seems to think that I am the one her prophecy has spoken of, 
 @1016841 = ~People have been saying lots of things. Some say it's creatures made by magic... others say it's just a big wolf pack huntin' in the hills.~
 @1017061 = ~No coaching, my dear, he will answer as he must. On to the next question then.~
 @1017073 = ~I'm having several right now. Really good ones too. You'd laugh if you could see them. Well, no, maybe YOU wouldn't.~
+@1017169 = ~Wallag
+  We travel this day to search out the wolf lair.  My own scouting of the region has confirmed Merella's suspicions that there is a large pack of wolves acting in this area.  On the map included I have indicated where I believe the wolf den to be located.  Follow us if you can, but be cautious. We can ill-afford another mysterious disappearance.  Until we meet again. 
+
+Mazzy
+
+(on the same sheet is drawn a crude but effective map which indicates the path to a forested area several hours west of the Imnesvale region.)~
 @1017251 = ~The fabled helm of Balduran, legendary founder of Baldur's Gate, has long been rumored to wield powerful protective magic. The exact nature of this magic, however, has not yet been determined.
 
 STATISTICS:
@@ -2594,6 +2600,11 @@ Not Usable By:
 @1019688 = ~Free Jan Jansen from prison.
 
 Well, the jailkeep has been paid the fine to get Jan Jansen out of prison... and he's more than eager to see the garrulous gnome go. Only thing to do now is tell Jan he's free.~
+@1019723 = ~This is half of a page of parchment, yellowed with age, the ink faded but still legible, and reads:
+
+"This land near the Umar Hills is rich with mithril deposits, but unfortunately too many scoundrels and bandits have noted this and are preying upon the prospectors in the area with a vengeance.  I have found an excellent hiding place for my mithril cache, one that those thieves are sure not to find.  It is far to the west of Imnesvale village, in a forest --"
+
+Below this section, the page is torn and jagged, as if it has been ripped from its other half.~
 @1019766 = ~You ain't seen nothin'.
 
 (A sack of coin is handed to the guard.)~
@@ -2644,6 +2655,7 @@ Not usable by:~
 @1020943 = ~Anomen's Judgement.
 
 We have arrived at the Order's headquarters for Anomen's trial. I am to go inside with him and observe the judgement as it takes place.~
+@1020969 = ~You cannot control more than 5 monsters at any given time.~
 @1021003 = ~Coo! There be many places to sell as well as buy.  Arledrian upstairs is as good as any.  He may have a few items you need as well, I think.~
 @1021008 = ~There be no aid elsewhere. Raise the coin or nay, ye'll come back, and I'll be waitin'. Ye may want to speak to Arledrian upstairs, to help ye out.  Good luck.~
 @1021029 = ~Coo!  I see ye're almost there, but not quite, aye?  Is there somethin' that ye needed from me?~
