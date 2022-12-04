@@ -145,6 +145,10 @@ COPY_EXISTING ~spwi208.spl~ ~override~ // know alignment (arcane)
   LPF ALTER_EFFECT INT_VAR match_opcode = 139 savingthrow = BIT0 END // add save to string
   LPF ALTER_EFFECT INT_VAR match_opcode = 115 savingthrow = BIT0 END // add save to know alignment
 
+// stinking cloud description doesn't mention a saving throw modificator, but spell provides a bonus of 2
+COPY_EXISTING ~spwi213.spl~ ~override~ // stinking cloud
+  LPF ALTER_EFFECT INT_VAR savebonus = 0 END // no save bonus
+
 /////                                                  \\\\\
 ///// eff fixes                                        \\\\\
 /////                                                  \\\\\
