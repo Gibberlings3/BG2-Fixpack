@@ -839,8 +839,6 @@ COPY_EXISTING ~amcst02.cre~  ~override~ // mercenary, 5 new effects from cd_immu
               ~spcl818.spl~  ~override~ // <invalid strref -1>, 6 new effects from cd_immunity_poison_arrays
               ~spcl924.spl~  ~override~ // <invalid strref -1>, 6 new effects from cd_immunity_poison_arrays
               ~spin853.spl~  ~override~ // otiluke's resilient sphere, 7 new effects from cd_immunity_poison_arrays
-              ~spwi413a.spl~ ~override~ // <invalid strref -1>, 8 new effects from cd_immunity_poison_arrays
-              ~spwi413c.spl~ ~override~ // <invalid strref -1>, 8 new effects from cd_immunity_poison_arrays
               ~spwi853.spl~  ~override~ // otiluke's resilient sphere, 7 new effects from cd_immunity_poison_arrays
               ~stalker.itm~  ~override~ // ring, 5 new effects from cd_immunity_poison_arrays
               ~surehp1.itm~  ~override~ // ring, 5 new effects from cd_immunity_poison_arrays
@@ -859,6 +857,12 @@ COPY_EXISTING ~amcst02.cre~  ~override~ // mercenary, 5 new effects from cd_immu
               ~vampreg1.itm~ ~override~ // ring, 5 new effects from cd_immunity_poison_arrays
               ~vampreg2.itm~ ~override~ // ring, 5 new effects from cd_immunity_poison_arrays
   LPF cd_apply_batch STR_VAR array_name = cd_immunity_poison_arrays END
+  BUT_ONLY IF_EXISTS
+
+// doing otiluke's separate so it doesn't get 'protection from poison' icon since it already gets an otiluke icon  
+COPY_EXISTING ~spwi413a.spl~ ~override~ // <invalid strref -1>, 8 new effects from cd_immunity_poison_arrays
+              ~spwi413c.spl~ ~override~ // <invalid strref -1>, 8 new effects from cd_immunity_poison_arrays
+  LPF cd_apply_batch INT_VAR force_cosmetic = 0 STR_VAR array_name = cd_immunity_poison_arrays END
   BUT_ONLY IF_EXISTS
 
 // immune to poison AND disease, gets 100% poison damage reduction
