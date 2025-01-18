@@ -2,6 +2,28 @@
 ///// kit.ids fixer                                    \\\\\
 /////                                                  \\\\\
 
+/*
+
+source: bg2 fixpack, but there were many variations prior
+basically fixes the broken kit.ids in obg2, and written in a way that it can
+be installed multiple times w/o issue
+
+used:
+  amber, as amber/lib/kit_ids_fixer.tpa [symbolic link]
+  bg2 fixpack, as bg2fixpack/lib/kit_ids_fixer.tpa [symbolic link]
+  gavin, as gavin/lib/kit_ids_fixer.tpa [symbolic link]
+  gavin bg2, as gavin_bg2/lib/kit_ids_fixer.tpa [symbolic link]
+  Haldamir, as haldamir/lib/kit_ids_fixer.tpa [local symlink]
+  Totemic Cernd, as totemiccernd/lib/kit_ids_fixer.tpa [local symlink]
+
+platform:
+  obg2, though it should be harmless on other bg2-based engines
+ 
+version history: 
+  unknown
+
+*/
+
 COPY_EXISTING ~kit.ids~ ~override~
   REPLACE_TEXTUALLY ~^.+[ %TAB%]\(TRUECLASS[ %TAB%%LNL%%MNL%%WNL%]+\)~              ~0x4000 \1~
   REPLACE_TEXTUALLY ~^.+[ %TAB%]\(BERSERKER[ %TAB%%LNL%%MNL%%WNL%]+\)~              ~0x4001 \1~

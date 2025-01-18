@@ -1,4 +1,4 @@
-BACKUP ~bg2fixpack/backup~ // location to store files for uninstall purposes
+BACKUP ~weidu_external/bg2fixpack/backup~ // location to store files for uninstall purposes
 SUPPORT ~https://www.gibberlings3.net/forum/74-bg2-fixpack-general-discussion/~
 
 ALWAYS

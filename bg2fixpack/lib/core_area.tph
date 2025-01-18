@@ -319,9 +319,9 @@ COPY_EXISTING ~ar0307.are~ ~override~ // Aran Linvail's Hideout
   LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran300a END // transition can not be used by npcs
   LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Tran300b END // transition can not be used by npcs
   // animation glitches due to bad layering/flags
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xff7e flag_background = 1 STR_VAR match_name = am307tt1 END // spiky wheel in torturer's room
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0                          STR_VAR match_name = am307ur1 END // spiky wheel you run across
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffcc                     STR_VAR match_name = am307ur3 END // another spiky wheel you run across
+  LPF alter_area_animation INT_VAR height = 0xff7e flag_background = 1 STR_VAR match_name = am307tt1 END // spiky wheel in torturer's room
+  LPF alter_area_animation INT_VAR height = 0                          STR_VAR match_name = am307ur1 END // spiky wheel you run across
+  LPF alter_area_animation INT_VAR height = 0xffcc                     STR_VAR match_name = am307ur3 END // another spiky wheel you run across
   BUT_ONLY
 
 COPY_EXISTING ~ar0308.are~ ~override~ // Harper's 1st Floor
@@ -339,18 +339,18 @@ COPY_EXISTING ~ar0312.are~ ~override~ // sleeping room
   LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0311 END // fix orientation: gaelan downstairs to upstairs, northeast
   LPF ALTER_AREA_CONTAINER INT_VAR container_type = 2 STR_VAR container_name = "Container 2" END // correct container icon to chest
   // animation glitches due to bad layering
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
   BUT_ONLY
 
 COPY_EXISTING ~ar0313.are~ ~override~ // Sea Bounty Tavern 1st Floor
-  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // // animation glitches due to bad flags: oven
+  LPF alter_area_animation INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // // animation glitches due to bad flags: oven
   LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = Exit0314 END // fix orientation: from second floor, NE
   BUT_ONLY
 
@@ -421,19 +421,19 @@ COPY_EXISTING ~ar0333.are~ ~override~ // Barracks in the Docks
 COPY_EXISTING ~ar0334.are~ ~override~ // Cromwell's Shop
   LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow01 END // overcharged: composite long bow
   LPF ALTER_AREA_ITEM INT_VAR charge1 = 0 charge2 = 0 charge3 = 0 STR_VAR match_item = bow03 END // overcharged: long bow
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF alter_area_animation INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
   BUT_ONLY
 
 // animation glitches due to bad layering
 COPY_EXISTING ~ar0335.are~ ~override~ // Sleeping Room
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
-  LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 170 match_y_coord = 310 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 180 match_y_coord = 304 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 426 match_y_coord = 129 height = 0x3a END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 438 match_y_coord = 121 height = 0x34 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 552 match_y_coord = 107 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 573 match_y_coord = 114 height = 0x31 END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 670 match_y_coord = 188 height = 0x2e END // wall sconce
+  LPF alter_area_animation INT_VAR match_x_coord = 680 match_y_coord = 194 height = 0x38 END // wall sconce
   BUT_ONLY
 
 COPY_EXISTING ~ar0400.are~ ~override~ // slums
@@ -466,7 +466,7 @@ COPY_EXISTING ~ar0406.are~ ~override~ // copper coronet
   LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exit0400 END // fix orientation: slums to CC, northeast
   LPF ALTER_AREA_ENTRANCE INT_VAR orient = 10 STR_VAR entrance_name = exi0400b END // fix orientation: slums to CC, northeast
   LPF ALTER_AREA_CONTAINER INT_VAR container_type = 2 STR_VAR container_name = "Crate 1" END // correct container icon to chest
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF alter_area_animation INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
   BUT_ONLY
 
 COPY_EXISTING ~ar0407.are~ ~override~ // Prebek's House
@@ -499,7 +499,7 @@ COPY_EXISTING ~ar0413.are~ ~override~ // Sphere: Enginge Room
 
 COPY_EXISTING ~ar0414.are~ ~override~ // Sphere: Demon Plane
   LPF ALTER_AREA_REGION INT_VAR flag_impassable_npc = 1 STR_VAR region_name = Exit0414 END // transition can not be used by npcs (goes to ar0411)
-  LPF ALTER_AREA_ANIMATION INT_VAR y_coord = 2794 STR_VAR match_name = am414ey2 END // fixes demon eye animation
+  LPF alter_area_animation INT_VAR y_coord = 2794 STR_VAR match_name = am414ey2 END // fixes demon eye animation
   BUT_ONLY
 
 COPY_EXISTING ~ar0415.are~ ~override~ // Living Room 1st Floor
@@ -637,7 +637,7 @@ COPY_EXISTING ~ar0509.are~ ~override~ // first floor five flagons
   BUT_ONLY
 
 COPY_EXISTING ~ar0510.are~ ~override~ // Five Flagons Inn Theater
-  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 839 STR_VAR match_name = AM0510A END // adjusts x coordinate to fix portal animation
+  LPF alter_area_animation INT_VAR x_coord = 839 STR_VAR match_name = AM0510A END // adjusts x coordinate to fix portal animation
   BUT_ONLY
 
 COPY_EXISTING ~ar0513.are~ ~override~ // calbor's inn
@@ -659,7 +659,7 @@ COPY_EXISTING ~ar0527.are~ ~override~ // House 1st Floor
 
 COPY_EXISTING ~ar0529.are~ ~override~ // Neb's Hideout
   LPF ALTER_AREA_CONTAINER INT_VAR container_type = 8 trap_detect = 50 trap_remove = 90 STR_VAR container_name = "Container 6" END // correct container icon to nonvisible, make disarmable, not auto-detected
-  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
+  LPF alter_area_animation INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
   BUT_ONLY
 
 COPY_EXISTING ~ar0530.are~ ~override~ // Storehouse
@@ -758,7 +758,7 @@ COPY_EXISTING ~ar0705.are~ ~override~ // Mekrath's Hideout in the Sewers (Haer'D
   BUT_ONLY
 
 COPY_EXISTING ~ar0706.are~ ~override~ // Armourer/Fletcher
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF alter_area_animation INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
   LPF ALTER_AREA_ITEM INT_VAR charge1 = 10 STR_VAR match_item = ax1h04 END // zero-charge item: ax1h04 (num 1) has assigned 0 to stack 10 charges 1 in header 1
   BUT_ONLY
 
@@ -772,7 +772,7 @@ COPY_EXISTING ~ar0709.are~ ~override~ // Den of the Seven Vales 1st Floor
 
 COPY_EXISTING ~ar0713.are~ ~override~ // Store or Inn at Promenade
   LPF ALTER_AREA_ACTOR STR_VAR actor_name = "Peasant" script_override = "runenemy" END // indoor actor has outdoor script
-  LPF ALTER_AREA_ANIMATION INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
+  LPF alter_area_animation INT_VAR x_coord = 334 y_coord = 377 flag_background = 1 flag_not_covered_wall = 1 STR_VAR match_name = am003xa END // oven
   BUT_ONLY
 
 COPY_EXISTING ~ar0800.are~ ~override~ // Graveyard
@@ -1143,12 +1143,12 @@ COPY_EXISTING ~ar1600.are~ ~override~ // Brynnlaw
   BUT_ONLY
 
 COPY_EXISTING ~ar1601.are~ ~override~ // Desharik's Estate
-  LPF ALTER_AREA_ANIMATION INT_VAR flag_static = 0 STR_VAR match_name = smoke END // oven smoke plume, remove show in fog of war flag
+  LPF alter_area_animation INT_VAR flag_static = 0 STR_VAR match_name = smoke END // oven smoke plume, remove show in fog of war flag
   LPF ALTER_AREA_ENTRANCE INT_VAR orient =  6 STR_VAR entrance_name = Exit1600 END // fix orientation: from outside, NW
   BUT_ONLY
 
 COPY_EXISTING ~ar1603.are~ ~override~ // Brynnlaw's Shop
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF alter_area_animation INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
   READ_LONG  0x70 cont_off
   READ_SHORT 0x74 cont_num
   READ_LONG  0x7c vert_off
@@ -1236,7 +1236,7 @@ COPY_EXISTING ~ar2000.are~ ~override~ // Trademeet
   BUT_ONLY
 
 COPY_EXISTING ~ar2001.are~ ~override~ // The Smithy
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
+  LPF alter_area_animation INT_VAR height = 0 STR_VAR match_name = fpit1s END // height of forges
   BUT_ONLY
 
 // removes spurious trap flag
@@ -1298,8 +1298,8 @@ COPY_EXISTING ~ar2210.are~ ~override~ // Deirex's Cave
   BUT_ONLY
 
 COPY_EXISTING ~ar2300.are~ ~override~ // Sahuagin City
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffef match_x_coord = 3590 match_y_coord = 2171 END // water spout
-  LPF ALTER_AREA_ANIMATION INT_VAR height = 0xffd3 match_x_coord = 4116 match_y_coord = 1641 END // water spout
+  LPF alter_area_animation INT_VAR height = 0xffef match_x_coord = 3590 match_y_coord = 2171 END // water spout
+  LPF alter_area_animation INT_VAR height = 0xffd3 match_x_coord = 4116 match_y_coord = 1641 END // water spout
   BUT_ONLY
 
 COPY_EXISTING ~ar2400.are~ ~override~ // Mind Flayers in Underdark
@@ -1465,7 +1465,7 @@ ACTION_IF tob_game THEN BEGIN // ToB
   
   // corrects ambients, animation glitches due to bad flag
   COPY_EXISTING ~ar3001.are~ ~override~ // Watcher's Keep -- Altar level
-    LPF ALTER_AREA_ANIMATION INT_VAR flag_static = 1 STR_VAR match_name = am3001f END // glowing globes, add show in fog of war flag
+    LPF alter_area_animation INT_VAR flag_static = 1 STR_VAR match_name = am3001f END // glowing globes, add show in fog of war flag
     READ_SHORT 0x82 amb_num
     READ_LONG  0x84 amb_off
     FOR (index = 0 ; index < amb_num ; ++index) BEGIN
@@ -1545,7 +1545,7 @@ ACTION_IF tob_game THEN BEGIN // ToB
     BUT_ONLY
 
   COPY_EXISTING ~ar5010.are~ ~override~
-    LPF ALTER_AREA_ANIMATION INT_VAR match_x_coord = 1110 x_coord = 108 y_coord = 367 END // one candle had coords outside the area
+    LPF alter_area_animation INT_VAR match_x_coord = 1110 x_coord = 108 y_coord = 367 END // one candle had coords outside the area
     BUT_ONLY
   
   COPY_EXISTING ~ar5012.are~ ~override~
@@ -1617,7 +1617,7 @@ ACTION_IF tob_game THEN BEGIN // ToB
   
   // dimension door at Sendai's enclave has funky lighting
   COPY_EXISTING ~ar6108.are~ ~override~ // sendai's enclave
-    LPF ALTER_AREA_ANIMATION INT_VAR flag_not_light_source = 1 STR_VAR match_name = spdimndr END
+    LPF alter_area_animation INT_VAR flag_not_light_source = 1 STR_VAR match_name = spdimndr END
     BUT_ONLY
 
   COPY_EXISTING ~ar6111.are~ ~override~ // Woodcutter's House -- Sendai's Area

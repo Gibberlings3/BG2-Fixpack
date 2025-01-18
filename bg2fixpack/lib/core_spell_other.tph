@@ -122,7 +122,7 @@ COPY_EXISTING ~spcl133.spl~ ~override~
 
 // kensai weapon speed
 COPY_EXISTING ~spcl143.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 4 last_missing = 4 END // makes header at level 4
+  LPF cd_missing_spell_headers INT_VAR first_missing = 4 last_missing = 4 END // makes header at level 4
   LPF CD_EXTEND-O-MATIC INT_VAR step_dur = 0 level_cap = 36 step_size = 4 END // now extend to headers 8, 12, ... 36 (at level 36, speed drop makes even the slowest weapon 0--no need to go beyond)
   READ_SHORT 0x68 abil_num
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
@@ -164,7 +164,7 @@ COPY_EXISTING ~spcl222.spl~ ~override~
 
 // inquisitor dispel magic missing headers
 COPY_EXISTING ~spcl231.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 6 END // adds headers 2-6
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 6 END // adds headers 2-6
   READ_SHORT 0x68 abil_num
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 58 parameter1 = (2 * (index + 1)) END // dispel at level x2
@@ -279,7 +279,7 @@ COPY_EXISTING ~spcl522.spl~ ~override~
     LPF DELETE_SPELL_HEADER INT_VAR min_level = hdr header_type = 1 END // delete all headers past level 10
   END
   PATCH_FOR_EACH hdr IN 2 3 5 7 9 BEGIN
-    LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = hdr last_missing = hdr END // adds missing headers
+    LPF cd_missing_spell_headers INT_VAR first_missing = hdr last_missing = hdr END // adds missing headers
   END
   READ_SHORT 0x68 abil_num
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
@@ -299,9 +299,9 @@ COPY_EXISTING ~spcl641.spl~ ~override~
 
 // storm shield missing headers
 COPY_EXISTING ~spcl721.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 9 END // adds headers 2-9
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 9 END // adds headers 2-9
   FOR (index = 11 ; index < 20 ; index += 2) BEGIN
-    LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = index last_missing = index END // adds headers 11, 13, 15, 17, 19
+    LPF cd_missing_spell_headers INT_VAR first_missing = index last_missing = index END // adds headers 11, 13, 15, 17, 19
   END
   READ_SHORT 0x68 abil_num
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
@@ -311,7 +311,7 @@ COPY_EXISTING ~spcl721.spl~ ~override~
 
 // talos lightning bolt missing headers
 COPY_EXISTING ~spcl722.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 5 END // adds headers 2-5
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 5 END // adds headers 2-5
   READ_SHORT 0x68 abil_num
   // level 1 is funky no matter what
   LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 header = 0 match_savingthrow = BIT0 END // delete 0d6 save damage
@@ -323,7 +323,7 @@ COPY_EXISTING ~spcl722.spl~ ~override~
 
 // seeking sword missing headers
 COPY_EXISTING ~spcl731.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 10 END // adds headers 2-10
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 10 END // adds headers 2-10
   READ_SHORT 0x68 abil_num
   FOR (index = 1 ; index < (abil_num + 1) ; ++index) BEGIN
     LPF ALTER_SPELL_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 header = index duration_high = (index * 6) END // one round/level, ignore 3-second visual
@@ -356,7 +356,7 @@ END
 // boon of lathander missing headers; spcl741d will be missing if TobEx installed
 COPY_EXISTING ~spcl741.spl~  ~override~
               ~spcl741d.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 10 END // adds headers 2-10
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 10 END // adds headers 2-10
   READ_SHORT 0x68 abil_num
   FOR (index = 1 ; index < (abil_num + 1) ; ++index) BEGIN
     LPF ALTER_SPELL_EFFECT INT_VAR silent = 1 check_globals = 0 header_type = 1 header = index duration_high = (index * 6) END // one round/level
@@ -368,7 +368,7 @@ COPY_EXISTING ~spcl741.spl~  ~override~
 // swap to vvc clone; see spwi324.spl, cdunhvis.eff, cdunhvis.vvc
 COPY_EXISTING ~spcl742.spl~ ~override~
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 STR_VAR match_resource = "undchvis" resource = ~cdunhvis~ END // change visual via new eff
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 2 last_missing = 5 END // adds headers 2-5
+  LPF cd_missing_spell_headers INT_VAR first_missing = 2 last_missing = 5 END // adds headers 2-5
   READ_SHORT 0x68 abil_num
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 185 duration = ((index + 1) * 12) END // adjust hold length
@@ -378,7 +378,7 @@ COPY_EXISTING ~spcl742.spl~ ~override~
 
 // monk weapon speed
 COPY_EXISTING ~spcl816.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 12 last_missing = 12 END // add level 12 header
+  LPF cd_missing_spell_headers INT_VAR first_missing = 12 last_missing = 12 END // add level 12 header
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 190 parameter1 = (index + 1) END // set speed bonuses
   END
@@ -403,7 +403,7 @@ COPY_EXISTING ~spcl907.spl~  ~override~ // hardiness hla
   LPF CD_EXTEND-O-MATIC INT_VAR base_dur = 0 step_dur = 3 step_size = 2 level_cap = 30 min_dur = 5 END // extends headers to level 30
   // hardiness, low level headers
   FOR (index = 4 ; index < 20 ; index += 2) BEGIN // adds level 4, 6, ... 18 headers
-    LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = index last_missing = index END
+    LPF cd_missing_spell_headers INT_VAR first_missing = index last_missing = index END
   END
   READ_SHORT 0x68 abil_num
   FOR (index = 1 ; index < (abil_num + 1) ; ++index) BEGIN
@@ -1047,7 +1047,7 @@ COPY_EXISTING ~sppr210.spl~ ~override~
 // animate dead has several minor errors in effect headers and is missing headers for levels 6-9
 COPY_EXISTING ~sppr301.spl~ ~override~
   LPF ALTER_HEADER STR_VAR icon = sppr301b END // spell was copied from arcane animate dead, still uses arcane icon on most headers
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 6 last_missing = 9 END // clones ability 1 and associated effects into missing headers
+  LPF cd_missing_spell_headers INT_VAR first_missing = 6 last_missing = 9 END // clones ability 1 and associated effects into missing headers
   READ_SHORT 0x68 abil_num // get updated abil_num
   FOR (index = 0 ; index < (abil_num - 1) ; ++index) BEGIN // now fix percentages (skip last header)
     LPF ALTER_EFFECT INT_VAR silent = 1 header = index check_globals = 0                 match_opcode = 177 power = 0 probability1 = 100                probability2 = ((75 - (index * 5)) + 1) END // x+1 to 100 for two
@@ -1338,7 +1338,7 @@ COPY_EXISTING ~spwi107.spl~ ~override~
   // it's missing every even-numbered header. For real. And it has a level 21 header for good measure.
   LPF DELETE_SPELL_HEADER INT_VAR min_level = 21 header_type = 1 END
   FOR (index = 2 ; index < 21 ; index += 2) BEGIN
-    LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = index last_missing = index END // clones ability 1 and associated effects into missing headers
+    LPF cd_missing_spell_headers INT_VAR first_missing = index last_missing = index END // clones ability 1 and associated effects into missing headers
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = (index - 1) match_duration = (18 + (6 * index)) duration = (24 + (6 * index)) END // corrects duration for newly created headers
   END
   BUT_ONLY
@@ -1466,7 +1466,7 @@ COPY_EXISTING ~spwi424.spl~ ~override~
 
 // cone of cold missing level 10 ability header, wrong range at level 9, inconsistent save v non-save damage split
 COPY_EXISTING ~spwi503.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 10 last_missing = 10 END // insert lev 10 header
+  LPF cd_missing_spell_headers INT_VAR first_missing = 10 last_missing = 10 END // insert lev 10 header
   READ_SHORT 0x68 abil_num ELSE 0
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 12 match_savingthrow = BIT0 dicenumber = (((index + 9) + 1) / 2) parameter1 = (((index + 9)    ) / 2) END // ex lev9: 5d4+4, lev10: 5d4+5
@@ -1542,7 +1542,7 @@ COPY_EXISTING ~spwi620.spl~ ~override~
 // conjure air/earth elemental missing level 12-14 ability headers
 COPY_EXISTING ~spwi621.spl~ ~override~
               ~spwi622.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 12 last_missing = 14 END // insert lev 12-14 headers
+  LPF cd_missing_spell_headers INT_VAR first_missing = 12 last_missing = 14 END // insert lev 12-14 headers
   READ_SHORT 0x68 abil_num ELSE 0
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 177 duration = (660 + (60 * index)) END // 60/level
@@ -1578,7 +1578,7 @@ COPY_EXISTING ~spwi716.spl~ ~override~
 
 // summon hakeshar missing lev 14, 15 headers
 COPY_EXISTING ~spwi719.spl~ ~override~
-  LPF CD_MISSING_SPELL_HEADERS INT_VAR first_missing = 14 last_missing = 15 END // insert lev 14, 15 headers
+  LPF cd_missing_spell_headers INT_VAR first_missing = 14 last_missing = 15 END // insert lev 14, 15 headers
   READ_SHORT 0x68 abil_num ELSE 0
   FOR (index = 0 ; index < abil_num ; ++index) BEGIN
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 header = index match_opcode = 177 duration = (126 + (6 * index)) END // 48 + 6/level

@@ -1,3 +1,31 @@
+/////                                                  \\\\\
+///// tob2soa                                          \\\\\
+/////                                                  \\\\\
+
+/*
+
+soa has many working triggers and actions that just need
+ids entries to work. written so that it can be installed
+multiple times w/o incident.
+
+used:
+  amber, as amber/lib/tob2soa.tph [symbolic link]
+  bg2 fixpack, as bg2fixpack/lib/tob2soa.tph [symbolic link]
+  g3 anniversary, as g3anniversary/lib/tob2soa.tph [symbolic link]
+  gavin, as gavin/lib/tob2soa.tph [symbolic link]
+  gavin bg2, as gavin_bg2/lib/tob2soa.tph [symbolic link]
+  Haldamir, as haldamir/lib/tob2soa.tph [symbolic link]
+  SP Collection, as spstuff/lib/tob2soa.tph [symbolic link]
+  Tweaks Anthology, as cdtweaks/lib/tob2soa.tph [symbolic link]
+
+platform:
+  obg2, specifically SoA--though it should be harmless on other bg2-based engines
+ 
+version history: 
+  unknown
+
+*/
+
 // adding all ToB actions to action.ids unless already present
 APPEND ~ACTION.IDS~ ~31 SpellRES(S:RES*,O:Target*)~
              UNLESS ~31 SpellRES(S:RES\*,O:Target\*)~
@@ -49,13 +77,13 @@ COPY_EXISTING ~trigger.ids~ ~override~
 
 ACTION_IF NOT FILE_EXISTS_IN_GAME ~shoutids.ids~ THEN BEGIN
   
-<<<<<<<<shoutids.ids
+<<<<<<<<./inline/shoutids.ids
 90
 123 HEALME
 124 ASSIST
 125 ALERT
 126 SOLAR_STANCE
 >>>>>>>>
-COPY ~shoutids.ids~ ~override~
+COPY ~./inline/shoutids.ids~ ~override~
 
 END
