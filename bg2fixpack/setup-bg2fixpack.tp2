@@ -252,18 +252,18 @@ COPY_EXISTING ~bhaal4b.spl~ ~override~
 
 // make burning hands AoE instead of single target
 COPY_EXISTING ~cspray.pro~   ~override/burnhand.pro~
-  WRITE_SHORT 0x206 64 // range (5')
-  WRITE_BYTE  0x217  0 // no explosion
+  WRITE_SHORT 0x206 75 // range (5')
+  WRITE_BYTE  0x217  0 // slice o' fireball
 
 ADD_PROJECTILE ~override/burnhand.pro~
 
 COPY_EXISTING ~spwi103.spl~  ~override~
-  LPF ALTER_SPELL_HEADER INT_VAR target = 4 projectile = burnhand END // use new projectile, target any point
+  LPF ALTER_SPELL_HEADER INT_VAR target = 4 range = 4 projectile = burnhand END // use new projectile, target any point
   BUT_ONLY
-
+  
 // update scroll with AoE targeting
 COPY_EXISTING ~scrl68.itm~ ~override~ // burning hands
-  LPF ALTER_ITEM_HEADER INT_VAR header = 1 target = 4 range = 5 END // ability header
+  LPF ALTER_ITEM_HEADER INT_VAR header = 1 target = 4 range = 4 END // ability header
   LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 146 opcode = 148 target = 1 END // spell cast itself
   BUT_ONLY
 
