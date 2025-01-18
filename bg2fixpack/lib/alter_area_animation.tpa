@@ -1,0 +1,180 @@
+/////                                                  \\\\\
+///// ALTER_AREA_ANIMATION                             \\\\\
+/////                                                  \\\\\
+
+/*
+
+used by bg2 fixpack to correct a number of animation errors in areas
+
+used:
+  bg2fixpack, as bg2fixpack/lib/alter_area_animation.tpa [symbolic link]
+
+platform:
+  tested on bg2, but should work on everything except iwd2
+ 
+version history: 
+  unknown
+
+*/
+
+DEFINE_PATCH_FUNCTION alter_area_animation
+  INT_VAR match_x_coord    = "-1"
+          match_y_coord    = "-1"
+          x_coord          = "-1" // new x coordinate at 0x20 and 0x24; negative values mean no change
+          y_coord          = "-1" // new y coordinate at 0x22 and 0x26; negative values mean no change
+          height           = "-1" // aka z-index, 0x38
+          translucency     = "-1" // 0x3a
+          start_frame      = "-1" // 0x3c
+          loop_probability = "-1" // 0x3e
+          start_delay      = "-1" // 0x3f
+          bam_sequence     = "-1" // sequence at 0x30
+          bam_frame        = "-1" // frame at 0x32
+          flag_time_0         = "-1" // time flags at 0x24
+          flag_time_1         = "-1"
+          flag_time_2         = "-1"
+          flag_time_3         = "-1"
+          flag_time_4         = "-1"
+          flag_time_5         = "-1"
+          flag_time_6         = "-1"
+          flag_time_7         = "-1"
+          flag_time_8         = "-1"
+          flag_time_9         = "-1"
+          flag_time_10        = "-1"
+          flag_time_11        = "-1"
+          flag_time_12        = "-1"
+          flag_time_13        = "-1"
+          flag_time_14        = "-1"
+          flag_time_15        = "-1"
+          flag_time_16        = "-1"
+          flag_time_17        = "-1"
+          flag_time_18        = "-1"
+          flag_time_19        = "-1"
+          flag_time_20        = "-1"
+          flag_time_21        = "-1"
+          flag_time_22        = "-1"
+          flag_time_23        = "-1"
+          flag_enabled           = "-1" // animation flags at 0x34
+          flag_no_shadow         = "-1"
+          flag_not_light_source  = "-1"
+          flag_partial_animation = "-1"
+          flag_synchronized      = "-1"
+          flag_random            = "-1"
+          flag_not_covered_wall  = "-1"
+          flag_static            = "-1"
+          flag_background        = "-1"
+          flag_all_frames        = "-1"
+          flag_palette_recolor   = "-1"
+          flag_mirror_y          = "-1"
+          flag_remain_combat     = "-1"
+
+  STR_VAR match_name     = "same"
+          match_bam_file = "same"
+          name           = "same" // required, at 0x00, used to match animation
+          bam_file       = "same" // changes bam file at 0x28; "same" means no change
+          palette        = "same" // changes bam file at 0x28; "same" means no change
+BEGIN
+
+  READ_LONG 0xac anim_num
+  READ_LONG 0xb0 anim_off
+  FOR (index = 0 ; index < anim_num ; ++index) BEGIN
+    SET base = (anim_off + (index * 0x4c))
+    READ_SHORT (base + 0x20) o_x_coord
+    READ_SHORT (base + 0x22) o_y_coord
+    READ_ASCII (base       ) o_name     (32) NULL
+    READ_ASCII (base + 0x28) o_bam_file (8)  NULL
+    PATCH_IF (((match_x_coord = o_x_coord) OR (match_x_coord < 0)) AND
+              ((match_y_coord = o_y_coord) OR (match_y_coord < 0)) AND
+              (("%match_name%"     STRING_COMPARE_CASE "%o_name%"     = 0) OR ("%match_name%"     STRING_COMPARE_CASE "same" = 0)) AND
+              (("%match_bam_file%" STRING_COMPARE_CASE "%o_bam_file%" = 0) OR ("%match_bam_file%" STRING_COMPARE_CASE "same" = 0))) BEGIN
+      PATCH_IF (x_coord >= 0)          BEGIN WRITE_SHORT (base + 0x20) x_coord END
+      PATCH_IF (y_coord >= 0)          BEGIN WRITE_SHORT (base + 0x22) y_coord END
+      PATCH_IF (bam_sequence >= 0)     BEGIN WRITE_SHORT (base + 0x30) bam_sequence END
+      PATCH_IF (bam_frame >= 0)        BEGIN WRITE_SHORT (base + 0x32) bam_frame END
+      PATCH_IF (height >= 0)           BEGIN WRITE_SHORT (base + 0x38) height END
+      PATCH_IF (translucency >= 0)     BEGIN WRITE_SHORT (base + 0x3a) translucency END
+      PATCH_IF (start_frame >= 0)      BEGIN WRITE_SHORT (base + 0x3c) start_frame END
+      PATCH_IF (loop_probability >= 0) BEGIN WRITE_BYTE  (base + 0x3e) loop_probability END
+      PATCH_IF (start_delay >= 0)      BEGIN WRITE_BYTE  (base + 0x3f) start_delay END
+      PATCH_IF ("%name%"     STRING_COMPARE_CASE "SAME" != 0) BEGIN WRITE_ASCIIE (base       ) "%name%" #32 END
+      PATCH_IF ("%bam_file%" STRING_COMPARE_CASE "SAME" != 0) BEGIN WRITE_ASCIIE (base + 0x28) "%bam_file%" #8 END
+      PATCH_IF ("%palette%"  STRING_COMPARE_CASE "SAME" != 0) BEGIN WRITE_ASCIIE (base + 0x40) "%palette%"  #8 END
+      // time flags
+      PATCH_IF (flag_time_0 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT0) END
+      PATCH_IF (flag_time_0 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT0) END
+      PATCH_IF (flag_time_1 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT1) END
+      PATCH_IF (flag_time_1 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT1) END
+      PATCH_IF (flag_time_2 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT2) END
+      PATCH_IF (flag_time_2 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT2) END
+      PATCH_IF (flag_time_3 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT3) END
+      PATCH_IF (flag_time_3 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT3) END
+      PATCH_IF (flag_time_4 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT4) END
+      PATCH_IF (flag_time_4 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT4) END
+      PATCH_IF (flag_time_5 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT5) END
+      PATCH_IF (flag_time_5 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT5) END
+      PATCH_IF (flag_time_6 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT6) END
+      PATCH_IF (flag_time_6 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT6) END
+      PATCH_IF (flag_time_7 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT7) END
+      PATCH_IF (flag_time_7 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT7) END
+      PATCH_IF (flag_time_8 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT8) END
+      PATCH_IF (flag_time_8 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT8) END
+      PATCH_IF (flag_time_9 = 0)  BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT9) END
+      PATCH_IF (flag_time_9 = 1)  BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT9) END
+      PATCH_IF (flag_time_10 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT10) END
+      PATCH_IF (flag_time_10 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT10) END
+      PATCH_IF (flag_time_11 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT11) END
+      PATCH_IF (flag_time_11 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT11) END
+      PATCH_IF (flag_time_12 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT12) END
+      PATCH_IF (flag_time_12 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT12) END
+      PATCH_IF (flag_time_13 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT13) END
+      PATCH_IF (flag_time_13 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT13) END
+      PATCH_IF (flag_time_14 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT14) END
+      PATCH_IF (flag_time_14 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT14) END
+      PATCH_IF (flag_time_15 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT15) END
+      PATCH_IF (flag_time_15 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT15) END
+      PATCH_IF (flag_time_16 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT16) END
+      PATCH_IF (flag_time_16 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT16) END
+      PATCH_IF (flag_time_17 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT17) END
+      PATCH_IF (flag_time_17 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT17) END
+      PATCH_IF (flag_time_18 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT18) END
+      PATCH_IF (flag_time_18 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT18) END
+      PATCH_IF (flag_time_19 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT19) END
+      PATCH_IF (flag_time_19 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT19) END
+      PATCH_IF (flag_time_20 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT20) END
+      PATCH_IF (flag_time_20 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT20) END
+      PATCH_IF (flag_time_21 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT21) END
+      PATCH_IF (flag_time_21 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT21) END
+      PATCH_IF (flag_time_22 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT22) END
+      PATCH_IF (flag_time_22 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT22) END
+      PATCH_IF (flag_time_23 = 0) BEGIN WRITE_LONG  (base + 0x24) (THIS & `BIT23) END
+      PATCH_IF (flag_time_23 = 1) BEGIN WRITE_LONG  (base + 0x24) (THIS BOR BIT23) END
+      // other flags
+      PATCH_IF (flag_enabled = 0)           BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT0) END
+      PATCH_IF (flag_enabled = 1)           BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT0) END
+      PATCH_IF (flag_no_shadow = 0)         BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT1) END
+      PATCH_IF (flag_no_shadow = 1)         BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT1) END
+      PATCH_IF (flag_not_light_source = 0)  BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT2) END
+      PATCH_IF (flag_not_light_source = 1)  BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT2) END
+      PATCH_IF (flag_partial_animation = 0) BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT3) END
+      PATCH_IF (flag_partial_animation = 1) BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT3) END
+      PATCH_IF (flag_synchronized = 0)      BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT4) END
+      PATCH_IF (flag_synchronized = 1)      BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT4) END
+      PATCH_IF (flag_random = 0)            BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT5) END
+      PATCH_IF (flag_random = 1)            BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT5) END
+      PATCH_IF (flag_not_covered_wall = 0)  BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT6) END
+      PATCH_IF (flag_not_covered_wall = 1)  BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT6) END
+      PATCH_IF (flag_static = 0)            BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT7) END
+      PATCH_IF (flag_static = 1)            BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT7) END
+      PATCH_IF (flag_background = 0)        BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT8) END
+      PATCH_IF (flag_background = 1)        BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT8) END
+      PATCH_IF (flag_all_frames = 0)        BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT9) END
+      PATCH_IF (flag_all_frames = 1)        BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT9) END
+      PATCH_IF (flag_palette_recolor = 0)   BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT10) END
+      PATCH_IF (flag_palette_recolor = 1)   BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT10) END
+      PATCH_IF (flag_mirror_y = 0)          BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT11) END
+      PATCH_IF (flag_mirror_y = 1)          BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT11) END
+      PATCH_IF (flag_remain_combat = 0)     BEGIN WRITE_LONG  (base + 0x34) (THIS & `BIT12) END
+      PATCH_IF (flag_remain_combat = 1)     BEGIN WRITE_LONG  (base + 0x34) (THIS BOR BIT12) END
+    END
+  END
+
+END

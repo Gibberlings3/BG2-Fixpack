@@ -1,0 +1,77 @@
+/////                                                  \\\\\
+///// CD_MISSING_SPELL_HEADERS                         \\\\\
+/////                                                  \\\\\
+
+/*
+
+this function is useful for filling in missing spell headers between existing headers
+you'll pretty much have to run a series of ALTER_EFFECTs to fix the inserted effects, though
+
+used:
+  bg2fixpack, as bg2fixpack/lib/cd_missing_spell_headers.tpa [symbolic link]
+
+platform:
+  tested on bg2, but should work on everything except iwd2
+ 
+version history: 
+  unknown
+
+*/
+
+DEFINE_PATCH_FUNCTION cd_missing_spell_headers
+  INT_VAR first_missing =  0 // first missing level
+          last_missing  =  0 // last missing level
+BEGIN
+
+  // sanity check
+  PATCH_IF ((first_missing != 0) AND (last_missing != 0) AND (first_missing <= last_missing)) BEGIN
+    // create headers first, then fix effects
+    READ_LONG  0x64 abil_off
+    READ_SHORT 0x68 abil_num
+    READ_LONG  0x6a fx_off
+    CLEAR_ARRAY cd_levels
+    FOR (index = first_missing ; index < (last_missing + 1) ; ++index) BEGIN
+      DEFINE_ASSOCIATIVE_ARRAY cd_levels BEGIN ~%index%~ => 0 END
+    END
+    SET new_abil = 0
+    FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+      READ_SHORT  (abil_off + 0x10 + (0x28 * index)) min_lev
+      PATCH_IF (min_lev < first_missing) BEGIN // last header before gap, keep overwriting as needed
+        READ_SHORT (abil_off + 0x1e + (0x28 * index)) abil_fx_num
+        READ_SHORT (abil_off + 0x20 + (0x28 * index)) abil_fx_idx
+        READ_ASCII (abil_off + (0x28 * index))       abil_clone (0x28)
+        READ_ASCII (fx_off + (0x30 * (abil_fx_idx))) fx_clone (0x30 * abil_fx_num)
+        SET new_fx = abil_fx_num
+        SET start_fx = (abil_fx_idx + abil_fx_num)
+        SET insert = (abil_off + (0x28 * (index + 1)))
+      END ELSE
+      PATCH_IF (min_lev >= first_missing) AND (min_lev <= last_missing) BEGIN
+        DEFINE_ASSOCIATIVE_ARRAY cd_levels BEGIN "%min_lev%" => 1 END
+      END
+    END
+    PATCH_PHP_EACH cd_levels AS level => exist BEGIN
+      PATCH_IF (exist = 0) BEGIN
+        INSERT_BYTES   ((fx_off + (0x28 * new_abil)) + (0x30 * (start_fx * (new_abil + 1)))) (0x30 * new_fx)
+          WRITE_ASCIIE ((fx_off + (0x28 * new_abil)) + (0x30 * (start_fx * (new_abil + 1)))) "%fx_clone%"
+        INSERT_BYTES (insert + (0x28 * new_abil)) 0x28
+          WRITE_ASCIIE (insert +        (0x28 * new_abil)) "%abil_clone%"
+          WRITE_SHORT  (insert + 0x10 + (0x28 * new_abil)) level
+          WRITE_SHORT  (insert + 0x1e + (0x28 * new_abil)) new_fx
+          WRITE_SHORT  (insert + 0x20 + (0x28 * new_abil)) (start_fx * (new_abil + 1))
+        SET new_abil += 1
+      END
+    END
+    PATCH_IF (new_abil > 0) BEGIN
+      SET abil_num += new_abil
+      WRITE_SHORT 0x68 abil_num
+      WRITE_LONG  0x6a (fx_off + (0x28 * new_abil))
+      FOR (index = 0 ; index < abil_num ; ++index) BEGIN
+        READ_SHORT  (abil_off + 0x10 + (0x28 * index)) min_lev
+        PATCH_IF (min_lev > last_missing) BEGIN // if after new inserted effects
+          WRITE_SHORT (abil_off + 0x20 + (0x28 * index)) (THIS + (new_abil * new_fx))
+        END
+      END
+    END
+  END
+  
+END
