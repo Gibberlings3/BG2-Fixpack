@@ -157,7 +157,7 @@ COPY_EXISTING ~spin940.spl~ ~override~ // stinking cloud [mephit]
 /////                                                  \\\\\
 
 // staves of air/earth/water force saving throws on non-elementals; see also staf15-17.itm~
-COPY_EXISTING ~slaysum.eff~ ~override/staf15a.eff~
+COPY_EXISTING ~spcl820.eff~ ~override/staf15a.eff~
   WRITE_LONG  0x28 0 // duration
   WRITE_LONG  0x38 0 // dice num
   WRITE_LONG  0x3c 0 // dice thrown
