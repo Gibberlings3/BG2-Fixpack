@@ -64,6 +64,7 @@ LANGUAGE ~Simplified Chinese (by good0593)~      ~schinese~ ~bg2fixpack/language
 BEGIN @0 DESIGNATED 0 // Core Fixes
 REQUIRE_PREDICATE NOT FILE_EXISTS_IN_GAME ~druidab.bcs~ @26 // in case BD or Fixpack already installed
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_core~
 
 INCLUDE ~bg2fixpack/lib/core_preamble.tph~           // loads functions, fixes key, preps for other fixes
 INCLUDE ~bg2fixpack/lib/core_strings.tph~            // strings which need to be updated
@@ -107,6 +108,7 @@ SUBCOMPONENT @1  // Game text update
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
 REQUIRE_PREDICATE ((FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/gtul.tra~) AND
                    (FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/gtul.tpa~)) @5
+LABEL ~cd_bg2fp_gtul~
 
 LOAD_TRA ~bg2fixpack/languages/%LANGUAGE%/gtul.tra~
 INCLUDE  ~bg2fixpack/languages/%LANGUAGE%/gtul.tpa~
@@ -120,6 +122,7 @@ SUBCOMPONENT @1  // Game text update
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
 REQUIRE_PREDICATE ((FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/gtu.tra~) AND
                    (FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/gtu.tpa~)) @5
+LABEL ~cd_bg2fp_gtu~
 
 LOAD_TRA ~bg2fixpack/languages/%LANGUAGE%/gtu.tra~
 INCLUDE  ~bg2fixpack/languages/%LANGUAGE%/gtu.tpa~
@@ -134,6 +137,7 @@ INCLUDE  ~bg2fixpack/languages/%LANGUAGE%/gtu.tpa~
 
 BEGIN @3 DESIGNATED 2 // modder pack
 DEPRECATED @22 //Remove this line if you want the component back
+LABEL ~cd_bg2fp_modder~
 
 INCLUDE ~bg2fixpack/lib/modder.tpa~
 
@@ -147,6 +151,7 @@ INCLUDE ~bg2fixpack/lib/modder.tpa~
 
 BEGIN @20 DESIGNATED 3 // Beta Core Fixes
 REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
+LABEL ~cd_bg2fp_core_beta~
 
 INCLUDE ~bg2fixpack/lib/beta_core.tph~  
 
@@ -165,6 +170,7 @@ INCLUDE ~bg2fixpack/lib/beta_core.tph~
 BEGIN @6 DESIGNATED 100
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_keldorn~
 
 // get xp for keldorn's reconciliation if keldorn is released from the party
 COMPILE ~bg2fixpack/dlg/keldorn.d~
@@ -176,6 +182,7 @@ COMPILE ~bg2fixpack/dlg/keldorn.d~
 BEGIN @7 DESIGNATED 101
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_animations~
 
 // maze animation, part 1
 COPY_EXISTING ~spcl415.spl~ ~override~ // maze (special snare)
@@ -279,6 +286,7 @@ COPY_EXISTING ~spin541.spl~ ~override~ // divination
 BEGIN @36 DESIGNATED 102 DEPRECATED @22
 SUBCOMPONENT @8
 GROUP @2
+LABEL ~cd_bg2fp_obc_forge_24~
 
 /////                                                  \\\\\
 ///// Mixed-use dagger fixes                           \\\\\
@@ -286,6 +294,7 @@ GROUP @2
 
 BEGIN @9 DESIGNATED 103
 GROUP @2
+LABEL ~cd_bg2fp_obc_dagger~
 
 // removes melee abilities from Fire Tooth and Boomerang dagger; change APR to be consistent
 // with other throwing daggers; alters base Fire Tooth damage to 1d4 (again for consistency); damage change now rescinded (Wisp)
@@ -307,6 +316,7 @@ BEGIN @10 DESIGNATED 104
 GROUP @2
 REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~mel01.cre~ @11 // ToB required
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~) OR (GAME_IS ~bg2ee eet~)) @33 // requires the holy symbol exploit removed
+LABEL ~cd_bg2fp_obc_holysymbol~
 
 // disable holy symbols for Aerie, Anomen, and Viconia in main game scripts
 COPY_EXISTING ~baldur.bcs~   ~override~
@@ -357,6 +367,7 @@ END
 
 BEGIN @12 DESIGNATED 105
 DEPRECATED @22
+LABEL ~cd_bg2fp_obc_jenia~
 
 // moved into core fixes per Gaider
 
@@ -367,6 +378,7 @@ DEPRECATED @22
 BEGIN @13 DESIGNATED 106
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_giant_penalties~
 
 // giant weapons get THAC0 penalties vs. small people (revised by aVENGER)
 COPY_EXISTING ~giafir.itm~   ~override~
@@ -385,6 +397,7 @@ COPY_EXISTING ~giafir.itm~   ~override~
 BEGIN @14 DESIGNATED 107
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_ranger_dual~
 
 COPY_EXISTING ~dualclas.2da~ ~override~
   SET_2DA_ENTRY 32 2 7 ~1~ // archer (feralan)
@@ -398,6 +411,7 @@ COPY_EXISTING ~dualclas.2da~ ~override~
 BEGIN @15 DESIGNATED 108
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_wrath_bonus~
 
 // remove bonuses here as the player is already rewarded at the door
 COPY_EXISTING ~ar2905.bcs~ ~override~
@@ -412,6 +426,7 @@ COPY_EXISTING ~ar2905.bcs~ ~override~
 
 BEGIN @16 DESIGNATED 109
 GROUP @2
+LABEL ~cd_bg2fp_obc_demon_behavior~
 
 COMPILE ~bg2fixpack/baf/demglasu.baf~
         ~bg2fixpack/baf/demnabsu.baf~
@@ -424,6 +439,7 @@ COMPILE ~bg2fixpack/baf/demglasu.baf~
 BEGIN @17 DESIGNATED 110
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_script_fixes~
 
 // commoners missing scripts to turn hostile if attacked
 COPY_EXISTING ~aewimer1.cre~ ~override~
@@ -751,6 +767,7 @@ COPY_EXISTING ~uddeath.bcs~  ~override~
 BEGIN @18 DESIGNATED 111
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_bardsong~
 
 COPY ~bg2fixpack/spl/fjbard.spl~   ~override~
      ~bg2fixpack/spl/fjbarda.spl~  ~override~
@@ -778,6 +795,7 @@ COPY_EXISTING ~clabba02.2da~ ~override~
 BEGIN @19 DESIGNATED 112
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_wizslayer~
 
 COPY_EXISTING ~spcl133.spl~ ~override~
   LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 248 opcode = 249 END
@@ -801,6 +819,7 @@ END
 BEGIN @21 DESIGNATED 113
 GROUP @2
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_alignment~
 
 // alignment fixes
 // read in array of changes from external file to make it easier for players to make their own changes here
@@ -820,6 +839,7 @@ END
 
 BEGIN @23 DESIGNATED 114
 GROUP @2
+LABEL ~cd_bg2fp_obc_fa_stun~
 
 INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
 
@@ -840,6 +860,7 @@ BEGIN @24 DESIGNATED 115
 GROUP @2
 REQUIRE_PREDICATE FILE_EXISTS ~tobex_ini/tobexcore.ini~ @29 // This component requires TobEx
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+LABEL ~cd_bg2fp_obc_shapeshifter_paw~
 
 // Add the non-dispellable flag to shapechange weapons if TobEx is detected
 // This will prevent the natural weapons of the shapechange forms (i.e. claws and such) from being removed by Dispel Magic and Dead Magic Zones
@@ -873,6 +894,7 @@ COPY_EXISTING ~brblp.itm~    ~override~ // Shapeshifts Black Bear
 
 BEGIN @28 DESIGNATED 116
 GROUP @2
+LABEL ~cd_bg2fp_obc_thief_ranger_bard~
 
 // remove thief base HiS/MS bonii
 COPY_EXISTING ~skillrng.2da~ ~override~
@@ -932,6 +954,7 @@ END
 BEGIN @37 DESIGNATED 117 DEPRECATED @22
 SUBCOMPONENT @8
 GROUP @2
+LABEL ~cd_bg2fp_obc_forge_8~
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -944,6 +967,7 @@ GROUP @2
 // need to uncomment the following line to get this component at install time
 BEGIN ~SUPER SECRET COMPONENT~ DESIGNATED 10000
 DEPRECATED ~delete this line to make this component active~
+LABEL ~cd_bg2fp_SECRET_TUNNEL~
 
 INCLUDE ~bg2fixpack/lib/functions.tpa~ // miscellaneous patch functions
 
