@@ -312,33 +312,44 @@ REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~) OR (
 COPY_EXISTING ~baldur.bcs~   ~override~
               ~baldur25.bcs~ ~override~
   DECOMPILE_AND_PATCH BEGIN
-    REPLACE_TEXTUALLY ~HasItem("CDHLYSYM",\(Player[1-6]\))~ ~HasItem("CDHLYSYM",\1) !Name("Aerie",\1) !Name("Anomen",\1) !Name("Viconia",\1)~
+    PATCH_IF GAME_IS ~bg2ee eet~ BEGIN
+      REPLACE_TEXTUALLY ~HasItem("CDHLYSYM",\(Player[1-6]\))~ ~HasItem("CDHLYSYM",\1) !Name("Anomen",\1)~
+    END ELSE BEGIN
+      REPLACE_TEXTUALLY ~HasItem("CDHLYSYM",\(Player[1-6]\))~ ~HasItem("CDHLYSYM",\1) !Name("Aerie",\1) !Name("Anomen",\1) !Name("Viconia",\1)~
+    END  
   END
   BUT_ONLY
 
 // now grant their holy symbols via their own override scripts
-EXTEND_BOTTOM ~aerie.bcs~   ~bg2fixpack/baf/et_aerie.baf~
-EXTEND_BOTTOM ~aeri25.bcs~  ~bg2fixpack/baf/et_aerie.baf~
 EXTEND_BOTTOM ~anomen.bcs~  ~bg2fixpack/baf/et_anom.baf~
 EXTEND_BOTTOM ~anom25.bcs~  ~bg2fixpack/baf/et_anom.baf~
-EXTEND_BOTTOM ~viconia.bcs~ ~bg2fixpack/baf/et_vicon.baf~
-EXTEND_BOTTOM ~vico25.bcs~  ~bg2fixpack/baf/et_vicon.baf~
 
-COPY ~bg2fixpack/bam/d0baer.bam~ ~override~
-     ~bg2fixpack/bam/d0shar.bam~ ~override~
+ACTION_IF GAME_IS ~bg2ee eet~ BEGIN
 
-// Holy Symbol of Helm Usable by Good Aligned. Poo, but necessary to let Anomen use it.
-COPY_EXISTING ~belt13.itm~ ~override~
-  WRITE_BYTE 0x1e (THIS BAND `BIT2) // removes good flag
-  BUT_ONLY
+  // now grant their holy symbols via their own override scripts
+  EXTEND_BOTTOM ~aerie.bcs~   ~bg2fixpack/baf/et_aerie.baf~
+  EXTEND_BOTTOM ~aeri25.bcs~  ~bg2fixpack/baf/et_aerie.baf~
+  EXTEND_BOTTOM ~viconia.bcs~ ~bg2fixpack/baf/et_vicon.baf~
+  EXTEND_BOTTOM ~vico25.bcs~  ~bg2fixpack/baf/et_vicon.baf~
 
-COPY ~bg2fixpack/itm/j#belt12.itm~ ~override~
-  SAY NAME2 @128
-  SAY IDENTIFIED_DESC @129
+  // Holy Symbol of Helm Usable by Good Aligned. Poo, but necessary to let Anomen use it.
+  COPY_EXISTING ~belt13.itm~ ~override~
+    WRITE_BYTE 0x1e (THIS BAND `BIT2) // removes good flag
+    BUT_ONLY
 
-COPY ~bg2fixpack/itm/j#belt14.itm~ ~override~
-  SAY NAME2 @130
-  SAY IDENTIFIED_DESC @131
+  // create holy symbols
+  COPY ~bg2fixpack/bam/d0baer.bam~ ~override~
+       ~bg2fixpack/bam/d0shar.bam~ ~override~
+
+  COPY ~bg2fixpack/itm/j#belt12.itm~ ~override~
+    SAY NAME2 @128
+    SAY IDENTIFIED_DESC @129
+
+  COPY ~bg2fixpack/itm/j#belt14.itm~ ~override~
+    SAY NAME2 @130
+    SAY IDENTIFIED_DESC @131
+
+END
 
 /////                                                  \\\\\
 ///// Jenia will wait until PC hero of trademeet       \\\\\
@@ -766,6 +777,7 @@ COPY_EXISTING ~clabba02.2da~ ~override~
 
 BEGIN @19 DESIGNATED 112
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
 
 COPY_EXISTING ~spcl133.spl~ ~override~
   LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 248 opcode = 249 END
