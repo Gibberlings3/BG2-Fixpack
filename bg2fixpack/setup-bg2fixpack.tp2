@@ -27,7 +27,7 @@ ALWAYS
 
 END
 
-VERSION ~v13~
+VERSION ~v14~
 
 README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 
@@ -322,7 +322,7 @@ LABEL ~cd_bg2fp_obc_holysymbol~
 COPY_EXISTING ~baldur.bcs~   ~override~
               ~baldur25.bcs~ ~override~
   DECOMPILE_AND_PATCH BEGIN
-    PATCH_IF GAME_IS ~bg2ee eet~ BEGIN
+    PATCH_IF ee_game BEGIN
       REPLACE_TEXTUALLY ~HasItem("CDHLYSYM",\(Player[1-6]\))~ ~HasItem("CDHLYSYM",\1) !Name("Anomen",\1)~
     END ELSE BEGIN
       REPLACE_TEXTUALLY ~HasItem("CDHLYSYM",\(Player[1-6]\))~ ~HasItem("CDHLYSYM",\1) !Name("Aerie",\1) !Name("Anomen",\1) !Name("Viconia",\1)~
@@ -334,7 +334,7 @@ COPY_EXISTING ~baldur.bcs~   ~override~
 EXTEND_BOTTOM ~anomen.bcs~  ~bg2fixpack/baf/et_anom.baf~
 EXTEND_BOTTOM ~anom25.bcs~  ~bg2fixpack/baf/et_anom.baf~
 
-ACTION_IF GAME_IS ~bg2ee eet~ BEGIN
+ACTION_IF !ee_game BEGIN
 
   // now grant their holy symbols via their own override scripts
   EXTEND_BOTTOM ~aerie.bcs~   ~bg2fixpack/baf/et_aerie.baf~
