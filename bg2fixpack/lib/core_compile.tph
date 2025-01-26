@@ -213,11 +213,9 @@ COPY ~bg2fixpack/copy/amb_e09b.wav~ ~override~ // missing ambient sound files fr
      ~bg2fixpack/copy/wpsmcinv.bam~ ~override~ // paperdoll mace coloring fix
 
 // these missing sound files are language-specific (BG demon knight power words, e.g. "Die!"); currently only English available
-COPY ~bg2fixpack/languages/%LANGUAGE%/shael_07.wav~ ~override~ // missing sound files
-     ~bg2fixpack/languages/%LANGUAGE%/shael_08.wav~ ~override~ // missing sound files
-     ~bg2fixpack/languages/%LANGUAGE%/shael_09.wav~ ~override~ // missing sound files
-     ~bg2fixpack/languages/%LANGUAGE%/shael_10.wav~ ~override~ // missing sound files
-  IF_EXISTS
+ACTION_IF FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/core/shael_07.ogg~ BEGIN
+  LAF HANDLE_AUDIO STR_VAR audio_path = ~bg2fixpack/languages/%LANGUAGE%/core~ oggdec_path = ~bg2fixpack/audio~ sox_path = ~bg2fixpack/audio~ END
+END
 
 ACTION_IF tob_game THEN BEGIN // additional copy & compile for ToB
 

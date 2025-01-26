@@ -127,6 +127,32 @@ LABEL ~cd_bg2fp_gtu~
 LOAD_TRA ~bg2fixpack/languages/%LANGUAGE%/gtu.tra~
 INCLUDE  ~bg2fixpack/languages/%LANGUAGE%/gtu.tpa~
 
+/////                                                  \\\\\
+///// EE-style (Salk)                                  \\\\\
+/////                                                  \\\\\
+
+BEGIN @1002 DESIGNATED 1002 // GTU Classic (from Baldurdash, by Kevin Dorner)
+SUBCOMPONENT @1  // Game text update
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+REQUIRE_PREDICATE (FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/ee_style.tra~) @5
+LABEL ~cd_bg2fp_gtu_ee_without_sound~
+
+STRING_SET_RANGE #0 #74106 USING ~bg2fixpack/languages/%LANGUAGE%/ee_style.tra~
+
+/////                                                  \\\\\
+///// EE-style (Salk)                                  \\\\\
+/////                                                  \\\\\
+
+BEGIN @1003 DESIGNATED 1003 // GTU Classic (from Baldurdash, by Kevin Dorner)
+SUBCOMPONENT @1  // Game text update
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2~ @27 // not needed for EE
+REQUIRE_PREDICATE ((FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/ee_style.tra~) AND 
+                   (FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/ee/anomen81.ogg~)) @5
+LABEL ~cd_bg2fp_gtu_ee_with_sound~
+
+STRING_SET_RANGE #0 #74106 USING ~bg2fixpack/languages/%LANGUAGE%/ee_style.tra~
+LAF HANDLE_AUDIO STR_VAR audio_path = ~bg2fixpack/languages/%LANGUAGE%/ee~ oggdec_path = ~bg2fixpack/audio~ sox_path = ~bg2fixpack/audio~ END
+
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////                                                  \\\\\
