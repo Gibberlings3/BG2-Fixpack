@@ -412,12 +412,12 @@ COPY_EXISTING ~clck04.itm~ ~override~
   LPF DELETE_ITEM_EFFECT INT_VAR opcode_to_delete = "-1" END // delete all effects
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 3 STR_VAR resource = sppolymp END
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 3 STR_VAR resource = polyback END
-  LPF ADD_ITEM_EFFECT INT_VAR opcode = 111 target = 1 duration = 120 STR_VAR resource = cdwolfm END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 111 target = 1 duration = 3600000 STR_VAR resource = cdwolfm END
   PATCH_FOR_EACH spell IN spin124 spin123 spin122 spwi491 spinhum spin160 spin160 spin160 BEGIN
     LPF ADD_ITEM_EFFECT INT_VAR opcode = 172 target = 1 timing = 1 STR_VAR resource = EVAL "%spell%" END
   END
   LPF ADD_ITEM_EFFECT INT_VAR opcode = 171 target = 1 timing = 1 STR_VAR resource = spin122 END
-  LPF ADD_ITEM_EFFECT INT_VAR opcode = 172 target = 1 timing = 4 duration = 120 STR_VAR resource = EVAL spin122 END
+  LPF ADD_ITEM_EFFECT INT_VAR opcode = 172 target = 1 timing = 4 duration = 3600000 STR_VAR resource = EVAL spin122 END
 
 // algernon's cloak
 COPY_EXISTING ~clck08.itm~ ~override~
@@ -1809,13 +1809,12 @@ COPY_EXISTING ~wasling.itm~  ~override~ // sling of everard +5
 // allow arbitrary return-to-human form from clock of the wuff
 // see also clck04.itm, shapeshifting spell batch
 COPY_EXISTING ~wolfm.itm~ ~override/cdwolfm.itm~
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 60 target = 1 timing = 2 parameter1 = 100 END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 60 target = 1 timing = 2 parameter1 = 100 parameter2 = 1 END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 53 target = 1 timing = 2 parameter1 = 31488 END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 44 target = 1 timing = 2 parameter1 = 18 parameter2 = 1 END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 15 target = 1 timing = 2 parameter1 = 17 parameter2 = 1 END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 117 timing = 3 STR_VAR resource = sppolymp END
-  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 215 target = 1 parameter2 = 1 duration = 117 timing = 3 STR_VAR resource = polyback END
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode =  60 target = 1 timing = 2 parameter1 = 100 END                // 100% divine spell failure
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode =  60 target = 1 timing = 2 parameter1 = 100 parameter2 = 1 END // 100% arcane spell failure
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode =  53 target = 1 timing = 2 parameter1 = 31488 END              // animation change: wolf 
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode =  44 target = 1 timing = 2 parameter1 = 18 parameter2 = 1 END  // set STR to 18
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode =  15 target = 1 timing = 2 parameter1 = 17 parameter2 = 1 END  // set DEX to 17
+  LPF ADD_ITEM_EQEFFECT INT_VAR opcode = 144 target = 1 timing = 2                 parameter2 = 7 END  // disable talk button
 
 // heavy crossbow of searing only doing fire damage on half its hits
 COPY_EXISTING ~xbow14.itm~   ~override~ // heavy crossbow of searing +1 needs 1 probabilities adjusted
