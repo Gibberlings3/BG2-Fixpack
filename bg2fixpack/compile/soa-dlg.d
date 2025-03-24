@@ -2124,7 +2124,7 @@ END
 ADD_STATE_TRIGGER ~SBWENCH~ 6 ~Gender("Edwin",MALE)~
 
 // shouldn't be able to ask jerlia about ore if you've already given sarles real/fake ore
-ADD_STATE_TRIGGER SCJERLIA 38 ~OR(2) Global("SarlesPissed","GLOBAL",1) GlobalGT("SculptorPlot","GLOBAL",3)~
+ADD_STATE_TRIGGER SCJERLIA 38 ~Global("SarlesPissed","GLOBAL",0) GlobalLT("SculptorPlot","GLOBAL",4)~
 
 // allow cleric-rangers to acquire temple stronghold; see ar0900.bcs, ar0902.bcs, arval.bcs, bharval.dlg, borinall.dlg, travin.dlg
 REPLACE_STATE_TRIGGER SCSAIN 31
