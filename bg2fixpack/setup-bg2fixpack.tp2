@@ -27,7 +27,7 @@ ALWAYS
 
 END
 
-VERSION ~v14~
+VERSION ~v15~
 
 README ~bg2fixpack/languages/%LANGUAGE%/readme-bg2fixpack.html~ ~bg2fixpack/readme-bg2fixpack.html~
 
