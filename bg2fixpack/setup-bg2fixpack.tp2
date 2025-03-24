@@ -94,6 +94,34 @@ INCLUDE ~bg2fixpack/lib/core_probability.tph~        // probability fixes for it
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////                                                  \\\\\
+///// BETA Core Fixes                                  \\\\\
+/////                                                  \\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+
+BEGIN @20 DESIGNATED 3 // Beta Core Fixes
+REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
+LABEL ~cd_bg2fp_core_beta~
+
+INCLUDE ~bg2fixpack/lib/beta_core.tph~  
+
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////                                                  \\\\\
+///// modder pack                                      \\\\\
+/////                                                  \\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+
+BEGIN @3 DESIGNATED 2 // modder pack
+DEPRECATED @22 //Remove this line if you want the component back
+LABEL ~cd_bg2fp_modder~
+
+INCLUDE ~bg2fixpack/lib/modder.tpa~
+
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
+/////                                                  \\\\\
 ///// Game text update                                 \\\\\
 /////                                                  \\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
@@ -161,35 +189,6 @@ ACTION_IF tob_game BEGIN
 END ELSE BEGIN   
   STRING_SET_RANGE #0 #62168 USING ~bg2fixpack/languages/%LANGUAGE%/ee_style.tra~
 END 
-
-
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////                                                  \\\\\
-///// modder pack                                      \\\\\
-/////                                                  \\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-
-BEGIN @3 DESIGNATED 2 // modder pack
-DEPRECATED @22 //Remove this line if you want the component back
-LABEL ~cd_bg2fp_modder~
-
-INCLUDE ~bg2fixpack/lib/modder.tpa~
-
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////                                                  \\\\\
-///// BETA Core Fixes                                  \\\\\
-/////                                                  \\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
-
-BEGIN @20 DESIGNATED 3 // Beta Core Fixes
-REQUIRE_PREDICATE MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~ @33 // skip if core isn't installed
-LABEL ~cd_bg2fp_core_beta~
-
-INCLUDE ~bg2fixpack/lib/beta_core.tph~  
 
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
 /////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\/////\\\\\
