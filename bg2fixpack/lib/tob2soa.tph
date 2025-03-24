@@ -15,8 +15,10 @@ used:
   gavin, as gavin/lib/tob2soa.tph [symbolic link]
   gavin bg2, as gavin_bg2/lib/tob2soa.tph [symbolic link]
   Haldamir, as haldamir/lib/tob2soa.tph [symbolic link]
+  Sarah, as sarahtob/lib/tob2soa.tph [symbolic link]
   SP Collection, as spstuff/lib/tob2soa.tph [symbolic link]
   Tweaks Anthology, as cdtweaks/lib/tob2soa.tph [symbolic link]
+  The Divine Remix, as divine_remix/lib/tob2soa.tph [symbolic link]
 
 platform:
   obg2, specifically SoA--though it should be harmless on other bg2-based engines
