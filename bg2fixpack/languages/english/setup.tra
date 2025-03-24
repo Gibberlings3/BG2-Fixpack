@@ -1046,6 +1046,15 @@ Area of Effect: 1 creature
 Saving Throw: Neg.
 
 A know alignment spell enables the mage to exactly read the aura of a creature.  If the creature rolls a successful saving throw vs. spell, the caster learns nothing about that particular creature from the casting.  When a character is hit by this spell, he will glow red if he's evil, green if he's good, and white if he's neutral.~
+@266 = ~My Test is coming very soon, my lady.  I will need to go to the headquarters of the Order and speak to Ryan Trawl.  I...I am not looking forward to the judgement I shall receive there.~ [anomen81] // unchanged text from #35558, just adding sound reference
+@267  = ~I would offer an alternative. I would help you find your friend for... oh... 15,000 gold? It is a sizable amount less than the Shadow Thieves have asked for and, coincidentally, it is what you have now.~ [bodhix15] // unchanged text from #21512, just adding sound reference
+@268  = ~I will take the gold now, of course. It is secondary to my concerns, but that was the deal. Now to my tasks.~ [bodhix17] // text from #49061 with "15000" removed, just adding sound reference
+@269   = ~Aha! I understand it! Sorry to bother your petty concerns, but I have translated some of the Nether Scroll.~ [edwin84] // unchanged text from #6879, just adding sound reference
+@270  = ~Now, here you go: a key so that ye might be finding the Shadowmaster. Look for the secret door on the first level of the Shadow Thieves' guild in the docks, an orange brick building west of the area entrance.~ [gaelen33] // unchanged text from #36461, just adding sound reference
+@271  = ~Soooo... changes your mind, haves you? Knowing, perhaps, that only Nyalee can helps you, yes?~ [hgnya12] // unchanged text from #66130, just adding sound reference
+
 
 @1000 = ~GTU Light (by Wisp)~
 @1001 = ~GTU Classic (from Baldurdash, by Kevin Dorner)~
+@1002 = ~EE-Style Game Text Update, Without Audio (by Salk)~
+@1003 = ~EE-Style Game Text Update, With Audio (by Salk)~

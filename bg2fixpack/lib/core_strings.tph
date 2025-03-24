@@ -88,6 +88,28 @@ ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
 
 END
 
+ACTION_IF FILE_EXISTS ~bg2fixpack/languages/%LANGUAGE%/core/anomen81.ogg~ THEN BEGIN // sound restorations
+
+  // originally from EE GTU - basically these sound files were cut because the original text changed, 
+  // e.g. bodhix15.wav refers to 30k gold while the text is 15k. The audio has been cut down so that the 
+  // incorrect bit of the sound file is removed so we have at least a partial VO. 
+  ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
+    35558 => 266 // adding [anomen81] - text refers to NORH contact as Ryan Trawl, audio 'Kale'
+    21512 => 267 // adding [bodhix15] - text refers to 15k gold, audio 30k
+    49061 => 268 // adding [bodhix17] - text refers to 15k gold, audio 30k - removed 15k from text, 30k from audio to get them to match
+     6879 => 269 // adding [edwin84] - audio, but not text, refers to learning spells and is cut from the audio
+    36461 => 270 // adding [gaelen33] - audio implies ST guild is in the same area, but is not; wrong portion of directions removed
+    //27405 => x // already has jaheirb2 sound assigned, but audio continues after text; audio replaced in copy section
+  END
+  
+  ACTION_IF tob_game THEN BEGIN // tob strings
+    ACTION_DEFINE_ASSOCIATIVE_ARRAY cd_string_fixes BEGIN
+      66130 => 271 // adding [hgnya12] - original audio offered helping with 'coldstone' instead of generic 'help'
+    END 
+  END  
+
+END
+  
 ACTION_IF tob_game THEN BEGIN // tob strings
 
   // supplement above array with tob strings
