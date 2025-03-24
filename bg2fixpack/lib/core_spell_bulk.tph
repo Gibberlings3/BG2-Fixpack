@@ -322,7 +322,7 @@ END
 
 ACTION_PHP_EACH cd_imp_invis AS spell => subspell BEGIN
 
-  COPY_EXISTING ~%spell%.spl~ ~override/%subspell%.spl~ // first make shell spells containing just the saves
+  COPY_EXISTING ~%spell%.spl~ ~override/%subspell%.spl~ // make subspell - applies saves and blocks other save spells
     WRITE_LONG 0x08 "-1" // blank name
     WRITE_LONG 0x0c "-1" // blank name
     PATCH_FOR_EACH op IN 139 215 0 141 174 236 33 34 35 36 37 69 BEGIN // delete all non-invisibility effects, including saves if present
@@ -330,12 +330,19 @@ ACTION_PHP_EACH cd_imp_invis AS spell => subspell BEGIN
     END
     LPF DELETE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 match_parameter2 = 0 END // delete regular invis if present
     LPF ALTER_HEADER INT_VAR projectile = 1 END // remove projectile
+    // next, add protections against ALL *a.spl spells to prevent cross-stacking
+    LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 match_parameter2 = 1 // clone imp. invisibility effect into...
+      opcode = 206 parameter1 = 0 STR_VAR resource = EVAL ~%subspell%~ insert = last END // turn invis into the related block of a spell
+    PATCH_PHP_EACH cd_imp_invis AS spell2 => subspell2 BEGIN
+      PATCH_IF ("%spell%" STRING_COMPARE_CASE "%spell2%") BEGIN // exclude self
+        LPF CLONE_EFFECT INT_VAR match_opcode = 206 multi_match = 1 STR_VAR resource = EVAL ~%subspell2%~ insert = ~above~ END // clone existing 206 into other 206s
+      END  
+    END
     LPF ALTER_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 opcode = 33 parameter1 = 4 parameter2 = 0 END // change invis into save vs. death
     FOR (index = 34 ; index < 38 ; ++index) BEGIN
       LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 33 opcode = index END // clone save vs. death into four other saves
     END
     BUT_ONLY
-    
 
   COPY_EXISTING ~%spell%.spl~ ~override~ // improved invisibility is missing +4 save bonuses and should not be able to stack with itself
     // first delete saves if present (moved/added to subspell)
@@ -345,11 +352,6 @@ ACTION_PHP_EACH cd_imp_invis AS spell => subspell BEGIN
     // next cast the *a.spl as first effect to get the saves active
     LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 power = 0 match_parameter2 = 1 // clone imp. invisibility effect into...
       opcode = 146 parameter1 = 0 parameter2 = 1 timing = 1 duration = 0 STR_VAR resource = EVAL ~%subspell%~ insert = ~first~ END // instant cast of save subspell
-    // next, add protections against ALL *a.spl spells to prevent cross-stacking
-    PATCH_PHP_EACH cd_imp_invis AS spell2 => subspell2 BEGIN
-      LPF CLONE_EFFECT INT_VAR silent = 1 check_globals = 0 match_opcode = 20 match_parameter2 = 1 // clone imp. invisibility effect into...
-        opcode = 206 parameter1 = 0 STR_VAR resource = EVAL ~%subspell2%~ insert = ~last~ END // prevents all save spells from applying at end of effect stack
-    END
     BUT_ONLY
 
 END
