@@ -328,6 +328,7 @@ LABEL ~cd_bg2fp_obc_forge_24~
 /////                                                  \\\\\
 
 BEGIN @9 DESIGNATED 103
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ ~Hey silly goose! You need to install this component on BG2 or BGT/EET.~
 GROUP @2
 LABEL ~cd_bg2fp_obc_dagger~
 
