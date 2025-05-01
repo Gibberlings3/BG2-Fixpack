@@ -349,6 +349,7 @@ COPY_EXISTING ~tooltip.2da~ ~override~
 /////                                                  \\\\\
 
 BEGIN @10 DESIGNATED 104
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ ~Hey silly goose! You need to install this component on BG2 or BGT/EET.~
 GROUP @2
 REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~mel01.cre~ @11 // ToB required
 REQUIRE_PREDICATE ((MOD_IS_INSTALLED ~BG2FIXPACK/SETUP-BG2FIXPACK.TP2~ ~0~) OR (GAME_IS ~bg2ee eet~)) @33 // requires the holy symbol exploit removed
@@ -402,6 +403,7 @@ END
 /////                                                  \\\\\
 
 BEGIN @12 DESIGNATED 105
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ ~Hey silly goose! You need to install this component on BG2 or BGT/EET.~
 DEPRECATED @22
 LABEL ~cd_bg2fp_obc_jenia~
 
