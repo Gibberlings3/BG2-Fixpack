@@ -38,11 +38,12 @@
  @30 = ~^\( *Speed Factor:? *\)[0-9]+~
  @31 = ~^\( *Weight:? *\)[0-9]+~
  @32 = ~^\( *THAC[0O]:? *\+? *\)[0-9]+\( *[Bb]onus\)?~
- @33 = ~The core component is required for the additionl fixes in this component.~
+ @33 = ~The core component is required for the additional fixes in this component.~
  @34 = ~^\( *[Aa]rea\( +[Oo]f +[Ee]ffect\)? *:? *\).+$~
  @35 = ~-foot radius~
  @36 = ~A day lasts 24 hours~
  @37 = ~A day is a work day, 8 hours~
+ @38 = ~This component does not work on your game.~
 
 
 @100 = ~Well, I was barely listening, anyway, so don't worry about it. Let's just concentrate on killing the next orc we see.~ []
