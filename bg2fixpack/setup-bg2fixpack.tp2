@@ -3,8 +3,9 @@ SUPPORT ~https://www.gibberlings3.net/forum/74-bg2-fixpack-general-discussion/~
 
 ALWAYS
 
-  ACTION_IF !VARIABLE_IS_SET tob_game THEN BEGIN
+  ACTION_IF !VARIABLE_IS_SET bg2fixpack_always THEN BEGIN
 
+    OUTER_SET bg2fixpack_always = 1
     OUTER_SET ee_game = 1
     OUTER_SET tob_game = 1
     OUTER_SET tobex_game = 0
@@ -330,6 +331,7 @@ LABEL ~cd_bg2fp_obc_forge_24~
 BEGIN @9 DESIGNATED 103
 REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ ~Hey silly goose! You need to install this component on BG2 or BGT/EET.~
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ @38
 LABEL ~cd_bg2fp_obc_dagger~
 
 // removes melee abilities from Fire Tooth and Boomerang dagger; change APR to be consistent
@@ -464,6 +466,7 @@ COPY_EXISTING ~ar2905.bcs~ ~override~
 
 BEGIN @16 DESIGNATED 109
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bg2ee eet~ @38
 LABEL ~cd_bg2fp_obc_demon_behavior~
 
 COMPILE ~bg2fixpack/baf/demglasu.baf~
@@ -877,6 +880,7 @@ END
 
 BEGIN @23 DESIGNATED 114
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bgee bg2ee eet~ @38
 LABEL ~cd_bg2fp_obc_fa_stun~
 
 INCLUDE ~bg2fixpack/lib/bg2fp_effect_batches.tpa~ // batch patches, mainly immunity stuff
@@ -932,6 +936,7 @@ COPY_EXISTING ~brblp.itm~    ~override~ // Shapeshifts Black Bear
 
 BEGIN @28 DESIGNATED 116
 GROUP @2
+REQUIRE_PREDICATE GAME_IS ~soa tob bgt ca tutu tutu_totsc iwd_in_bg2 bgee bg2ee eet iwdee~ @38
 LABEL ~cd_bg2fp_obc_thief_ranger_bard~
 
 // remove thief base HiS/MS bonii
