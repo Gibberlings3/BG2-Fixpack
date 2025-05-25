@@ -23710,7 +23710,7 @@ Within one round of casting this spell, the wizard magically conjures one to fou
 @16239 = ~I require assistance with my wounds.~ [MALE005E]
 @16240 = ~Yes?~ [MALE005F]
 @16241 = ~What is my task?~ [MALE005G]
-@16242 = ~On my honour.~ [MALE005H]
+@16242 = ~On my honor.~ [MALE005H]
 @16243 = ~It shall be.~ [MALE005I]
 @16244 = ~Consider it done.~ [MALE005J]
 @16245 = ~I will do my best.~ [MALE005K]
@@ -82742,7 +82742,7 @@ STATISTICS:
 
 Weight: 7~
 @61367  = ~I shall not yield to you!~ [MALE0058]
-@61368  = ~By my honour you shall not see another day!~ [MALE0059]
+@61368  = ~By my honor you shall not see another day!~ [MALE0059]
 @61369  = ~What do you require?~ [MALE0050]
 @61370  = ~With all speed.~ [MALE005_]
 @61371  = ~A solid hit!~ [MALE005Z]
